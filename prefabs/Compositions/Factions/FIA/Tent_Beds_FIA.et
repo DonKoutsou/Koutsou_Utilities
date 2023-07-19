@@ -1,0 +1,44 @@
+GenericEntity : "{6212FEC7A3E08995}prefabs/Compositions/Factions/FIA/TentBase_FIA.et" {
+ ID "5CFD42CE87B6FA0D"
+ coords 107.43 1.001 181.55
+ {
+  $grp GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+   {
+    ID "5CFD42CC926B4071"
+    coords -1.279 0.096 -1.449
+   }
+   {
+    ID "5CFD42CC926B679D"
+    coords 0.485 0.096 1.662
+   }
+  }
+  $grp GenericEntity : "{96C0A7DFEAFAF534}prefabs/Beds/Fia_BedSpawn.et" {
+   {
+    ID "5CFD42CC926B4072"
+    coords -0.898 -0.118 -1.103
+    angleY 90
+   }
+   {
+    ID "5CFD42CC926B4073"
+    coords 0.817 -0.118 0.425
+    angleY -166.374
+   }
+   {
+    ID "5CFD42CC926B6793"
+    components {
+     ActionsManagerComponent "{5D4D351C0D356923}" {
+      additionalActions {
+       SP_SleepAction "{5D4D351C3AFC86BF}" {
+        UIInfo UIInfo "{5D4D351C3E57EB36}" {
+         Name "Sleep for 2 hours"
+        }
+       }
+      }
+     }
+    }
+    coords -0.872 -0.118 0.642
+    angleY 90
+   }
+  }
+ }
+}

@@ -1,0 +1,52 @@
+FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
+ ID "74D3E7415542DA9C"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "Dried meat"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     SizeSetupStrategy Manual
+     ItemDimensions 5 5 5
+     ItemVolume 125
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5D8707719AADB04E}" {
+     AnimationInstance "{4FCBEA45CAEBC9C0}anims/workspaces/player/player_main_1h.asi"
+     AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5D87077187D7449E}" {
+       AnimGraph "{883777E45A6C4DA1}Assets/Items/Medicine/Workspaces/Gauze_01.agr"
+       AnimInstance "{79BD98038DD60F88}Assets/Items/Medicine/Workspaces/Gauze_01_player.asi"
+       BindingName "Gadget"
+      }
+     }
+    }
+    m_SlotType SLOT_VEST
+   }
+  }
+  MeshObject "{74D3E741994A4A00}" {
+   Object "{6073CC0058821B73}Assets/Items/Food/Meat_01_Dry.xob"
+  }
+  Hierarchy "{5D88A7E74959BDEE}" {
+  }
+  RigidBody "{74D3E7414740ED9A}" {
+   Mass 5
+   LinearDamping 0.5
+   AngularDamping 0.5
+   ModelGeometry 1
+  }
+  SCR_ConsumableItemComponent "{5D870771E94BAADD}" {
+   m_eAnimVariable ADRIANOV
+   m_ConsumableEffect SP_ConsumableEffectEat "{5D870771E8E9C803}" {
+   }
+   m_bIsEatable 1
+   m_fInitContainerCapacity 30
+   m_fUseAmount 10
+  }
+  SP_UnretrievableComponent "{5D870771FE9BFCE6}" {
+  }
+  ActionsManagerComponent "{508AB5952B584B2E}" {
+  }
+ }
+}

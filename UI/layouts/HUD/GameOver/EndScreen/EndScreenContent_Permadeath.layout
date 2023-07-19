@@ -1,0 +1,58 @@
+SizeLayoutWidgetClass {
+ Name "GameOver_Default_Layout"
+ Slot OverlayWidgetSlot "{5892C1323FD3A33B}" {
+ }
+ components {
+  SCR_GameOverScreenCombatControlPatrolUIComponent "{59ECAB720C16F0BB}" {
+  }
+ }
+ AllowMaxDesiredWidth 1
+ MaxDesiredWidth 800
+ {
+  VerticalLayoutWidgetClass "{5D4E70383C1ED8BE}" {
+   Name "Layout"
+   Slot OverlayWidgetSlot "{57288BB3A90377FF}" {
+   }
+   {
+    RichTextWidgetClass "{5D4E70383C1ED883}" : "{9D643D214767D616}UI/layouts/WidgetLibrary/TextWidgets/Text_Heading2.layout" {
+     Name "GameOver_State"
+     Slot LayoutSlot "{57288BB6F7330ACF}" {
+      HorizontalAlign 1
+      VerticalAlign 1
+      Padding 0 0 0 12
+     }
+     Color 0.292 0.007 0.001 1
+     Text "MISSION ACCOMPLISHED!"
+     "Font Size" 55
+     "Min Font Size" 55
+     "Horizontal Alignment" Center
+     Wrap 1
+     FontProperties FontProperties "{546AF489DFD25402}" {
+      ShadowSize 2
+      ShadowOffset 3 3
+     }
+    }
+    RichTextWidgetClass "{5D4E70383C1ED881}" : "{3132F64DB8B4CB44}UI/layouts/WidgetLibrary/TextWidgets/Text_Body.layout" {
+     Name "GameOver_Condition"
+     Slot LayoutSlot "{57288BB613502588}" {
+      Padding 0 0 0 24
+     }
+     Text "Outstanding! Not only did you secure the intel needed, but you took out the target and caused chaos behind the enemy's lines.<br /> Thanks to you and your team, we just recovered the initiative.  "
+     "Font Size" 22
+     "Min Font Size" 22
+     "Horizontal Alignment" Center
+    }
+    RichTextWidgetClass "{5D4E70383C1ED887}" : "{3132F64DB8B4CB44}UI/layouts/WidgetLibrary/TextWidgets/Text_Body.layout" {
+     Name "GameOver_Time"
+     Slot LayoutSlot "{57288BB613502588}" {
+      Padding 0 0 0 12
+     }
+     Text "Total operation time: 30 minutes"
+     "Font Size" 22
+     "Min Font Size" 22
+     "Horizontal Alignment" Center
+    }
+   }
+  }
+ }
+}

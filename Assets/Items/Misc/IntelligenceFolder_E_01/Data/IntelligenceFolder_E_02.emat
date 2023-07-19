@@ -1,0 +1,5 @@
+MatPBRBasic {
+ MetalnessScale 0
+ BCRMap "{1E9AA978D00EB4B1}Assets/Items/Misc/IntelligenceFolder_E_01/Data/IntelligenceFolder_E_02_BCR.edds"
+ NMOMap "{66B233CFBF656468}Assets/Items/Misc/IntelligenceFolder_E_01/Data/IntelligenceFolder_E_01_NMO.edds"
+}

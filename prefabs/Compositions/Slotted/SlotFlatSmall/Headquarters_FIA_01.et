@@ -1,0 +1,366 @@
+GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Medium_A_Soviet.et" {
+ ID "52F0B4ADDCC2C24E"
+ coords 103.102 1.001 133.899
+ {
+  $grp GenericEntity {
+   {
+    ID "5C7315DAF455545A"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.42 0.095 0.15
+   }
+   {
+    ID "5C7315DAF45584DC"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.56 0.124 -0.036
+    angleY 15.267
+    angleZ 90
+   }
+   {
+    ID "5C7315DAF45584DD"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.354 0.095 0.248
+   }
+   {
+    ID "5C7315DAF455BD8D"
+    components {
+     Hierarchy "{5B248C394F98BF78}" {
+     }
+     ActionsManagerComponent "{5B248C39E8D76353}" {
+      ActionContexts {
+       UserActionContext "{5B248C39EC5DE202}" {
+        ContextName "default"
+        Position PointInfo "{5B248C39907CB86A}" {
+        }
+        Radius 1.087
+       }
+      }
+      additionalActions {
+       KLM_ConverseAction "{5B248C3996B5B470}" {
+        ParentContextList {
+         "default"
+        }
+        UIInfo UIInfo "{5C5943219D2F61A2}" {
+         Name "Deliver Soviet operations Intel for 30 watches"
+        }
+        Duration 2
+        m_WantedPay "{0102CA31599E00AA}prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_02.et"
+        m_WantedAmount 1
+        m_PrefabToSell "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+        m_SellingAmount 30
+       }
+      }
+     }
+     RplComponent "{5B248C394AE0F125}" {
+     }
+    }
+    coords 0.817 1.013 1.355
+   }
+   {
+    ID "5C7315DAF45A0D99"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.346 0.095 0.065
+   }
+   {
+    ID "5C7315DAF45A0D9D"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.48 0.095 0.255
+   }
+   {
+    ID "5C7315DAF45A6740"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.543 0.095 0.155
+   }
+   {
+    ID "5C7315DAF45A6743"
+    components {
+     MeshObject "{5B22A231824DEE3B}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.495 0.095 0.012
+   }
+  }
+  GenericEntity : "{0133284E3BDEAEC4}Prefabs/Props/Civilian/Ashtray_01_Full_yellow.et" {
+   ID "5C7315DAF4555463"
+   coords 0.578 0.995 1.468
+   angleY 0
+  }
+  GenericEntity : "{03B44EA7652D0D17}Prefabs/Props/Military/Radios/RadioStation_R123M_01.et" {
+   ID "5C7315DAF455546F"
+   coords 1.383 0.995 1.591
+   angleY -165.115
+  }
+  GenericEntity : "{04EEB10214E177B3}Prefabs/Props/Civilian/Notebook_01_Single_MarbleBlack.et" {
+   ID "5C7315DAF4555468"
+   coords 1.381 0.855 1.446
+   angleY 10.079
+  }
+  GenericEntity : "{0692BB439764BB1E}Prefabs/Props/Civilian/Notebook_01_base.et" {
+   ID "5C7315DAF4555475"
+   coords 1.788 1.032 1.493
+   angleY 20.707
+  }
+  GenericEntity : "{11B99AAA62B2AC4A}prefabs/Props/Furniture/Chest_Storage.et" {
+   ID "5C7315DAF4555477"
+   coords -0.548 0.084 -1.357
+   angleY -180
+  }
+  GenericEntity : "{13891AA1F5833C4A}Prefabs/Props/Civilian/Notebook_01_Double.et" {
+   ID "5C7315DAF4555471"
+   coords 1.835 0.995 1.467
+   angleY -34.853
+  }
+  GenericEntity : "{160E4E4110803F26}Prefabs/Structures/Military/Flags/FlagPole_02/FlagPole_02_V1_FIA.et" {
+   ID "5C7315DAF4555473"
+   coords -3.554 -0.001 -1.588
+  }
+  $grp GenericEntity : "{261F10BDC068BB35}prefabs/Props/Furniture/ChairOld_01.et" {
+   {
+    ID "5C7315DAF45513FC"
+    coords -2.035 0 -3.265
+    angleY 149.946
+   }
+   {
+    ID "5C7315DAF455547C"
+    coords -2.589 0 -5.461
+    angleY 60.856
+   }
+  }
+  GenericEntity : "{2F2BBFDA3A2C73D4}prefabs/Props/Civilian/RadioSmall_01_black.et" {
+   ID "5C7315DAF45513FE"
+   coords 2.276 0.424 0.652
+   angleY -124.557
+  }
+  GenericEntity : "{3800AA04761AE0EC}Prefabs/Props/Civilian/Notebook_01_Single_Blue.et" {
+   ID "5C7315DAF45513FB"
+   coords 1.409 0.837 1.411
+   angleY -11.543
+  }
+  GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+   ID "5C7315DAF4551381"
+   components {
+    SCR_BaseInteractiveLightComponent "{5876E7CF88610C12}" {
+    }
+   }
+   coords 0.24 0.098 -1.623
+  }
+  $grp GenericEntity : "{894A1AFDCB71CD0D}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_02.et" {
+   {
+    ID "5C7315DAF455138C"
+    coords 1.753 0 -3.145
+   }
+   {
+    ID "5C7315DAF455138E"
+    coords -2.063 0 -3.014
+   }
+  }
+  $grp GenericEntity : "{8E431002132E51BD}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_01.et" {
+   {
+    ID "5C7315DAF455138A"
+    coords -2.406 0 -3.501
+    angleY -122.015
+   }
+   {
+    ID "5C7315DAF4551395"
+    coords 1.395 0 -4.021
+    angleY 25.592
+   }
+  }
+  GenericEntity : "{96C0A7DFEAFAF534}prefabs/Beds/Fia_BedSpawn.et" {
+   ID "5C7315DAF4551397"
+   components {
+    ActionsManagerComponent "{5B22A239E459334E}" {
+     Enabled 0
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+    }
+   }
+   coords -2.101 -0.139 -0.587
+   angleY -179.403
+  }
+  $grp GenericEntity : "{97CB57E67481F871}Prefabs/Props/Civilian/Notebook_01_Single_Orange.et" {
+   {
+    ID "5C7315DAF454C586"
+    coords 1.103 0.855 1.456
+    angleY -20.065
+   }
+   {
+    ID "5C7315DAF4551391"
+    coords 1.101 0.837 1.461
+    angleY 32.13
+   }
+  }
+  GenericEntity : "{AD31622B73944B43}Prefabs/Props/Furniture/DeskSchool_01.et" {
+   ID "5C7315DAF454C58A"
+   coords 1.234 0.095 1.455
+  }
+  $grp StaticModelEntity : "{B03F9691E961C4CA}Prefabs/Structures/Military/Fortifications/DirtCover_01/DirtCover_01_long_v3.et" {
+   {
+    ID "5C7315DAF45427B1"
+    coords 1.861 -0.475 1.854
+    angleY -178.994
+   }
+   {
+    ID "5C7315DAF45427B2"
+    coords 1.778 -0.465 -1.608
+    angleY 180
+   }
+   {
+    ID "5C7315DAF4548804"
+    coords -3.211 -0.465 0.242
+    angleY -90
+   }
+   {
+    ID "5C7315DAF454C58B"
+    coords -1.739 -0.465 -1.655
+    angleY 180
+   }
+   {
+    ID "5C7315DAF456FE46"
+    coords 3.445 -0.465 0.494
+    angleY 90
+   }
+   {
+    ID "5C7315DAF457202B"
+    coords -1.14 -0.588 0.233
+    angleX 45
+    angleY -90
+   }
+   {
+    ID "5C7315DAF4577FCE"
+    coords 2.849 -0.782 0.233
+    angleX -45
+    angleY 90
+   }
+   {
+    ID "5C7315DAF4577FCF"
+    coords -1.283 -0.465 1.939
+   }
+   {
+    ID "5C7315DAF457CC71"
+    coords 1.102 -0.557 0.233
+    angleX -45
+    angleY 90
+   }
+  }
+  GenericEntity : "{B3C782D689A52412}Prefabs/Props/Civilian/FileOffice_01_Open.et" {
+   ID "5C7315DAF456FE43"
+   components {
+    MeshObject "{5872F0EB7FA40561}" {
+     Object "{60ADAC7826430AC5}Assets/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_01.xob"
+     Materials {
+      MaterialAssignClass "{5C50AAFE443AEDB3}" {
+       SourceMaterial "IntelligenceFolder_E_01"
+       AssignedMaterial "{C6122B0A5B2C16E8}Assets/Items/Misc/IntelligenceFolder_E_01/Data/IntelligenceFolder_E_02.emat"
+      }
+     }
+    }
+   }
+   coords 0.844 0.995 1.368
+   angleY 33.371
+  }
+  GenericEntity : "{B5F4EDE258B8D946}Prefabs/Props/Civilian/FileOffice_01_Single.et" {
+   ID "5C7315DAF456FE42"
+   coords 0.881 0.859 1.404
+   angleY 19.779
+   angleZ -90
+  }
+  $grp GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+   {
+    ID "5C7315DAF456BF55"
+    coords 0.105 0 0.094
+    angleY -2.052
+   }
+   {
+    ID "5C7315DAF456C6E1"
+    coords 1.528 0 0.094
+    angleY 2.26
+   }
+   {
+    ID "5C7315DAF456C6E2"
+    coords -2.638 0 0.094
+    angleY 2.673
+   }
+   {
+    ID "5C7315DAF456F26D"
+    coords -1.291 0 0.094
+    angleY -1.725
+   }
+   {
+    ID "5C7315DAF456FE7C"
+    coords 2.931 0 0.094
+    angleY -1.304
+   }
+  }
+  GenericEntity : "{D1D258E682DFC5E2}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/FIA/EquipmentBoxStack_FIA_01_V2_covered.et" {
+   ID "5C7315DAF456BF52"
+   coords 2.564 0.096 0.614
+   angleY 90
+  }
+  GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
+   ID "5C7315DAF456BF5F"
+   coords -1.453 -0.002 -4.478
+  }
+  GenericEntity "FIA_TradingStation.et2" : "{DA4353EEE7006DD8}prefabs/Trading_Items/FIA_TradingStation.et" {
+   ID "5C7315DAF456BF5C"
+   coords -0.547 0.092 0.509
+   angleY -90
+  }
+  GenericEntity : "{E56F1B739B9792C4}Prefabs/Props/Civilian/Ashtray_01_Full_green.et" {
+   ID "5C7315DAF456BF44"
+   coords 1.029 0.096 -1.503
+   angleY 0
+  }
+  $grp GenericEntity : "{F0DCB55B7FDB746B}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_02.et" {
+   {
+    ID "5C7315DAF45648DD"
+    coords 2.177 0 -4.309
+    angleY -50.938
+   }
+   {
+    ID "5C7315DAF456BF40"
+    coords 2.459 0 -2.838
+    angleY -172.777
+   }
+   {
+    ID "5C7315DAF456BF41"
+    coords -0.827 0 -2.957
+    angleY 97.438
+   }
+   {
+    ID "5C7315DAF456BF4F"
+    coords 0.705 0 -2.884
+    angleY 33.621
+   }
+  }
+  GenericEntity : "{FCBEDECB2A39B6BC}Prefabs/Props/Military/Generators/GeneratorPortable_USSR_01.et" {
+   ID "5C7315DAF45648DE"
+   coords 1.454 0.086 1.501
+   angleY -90
+  }
+ }
+}

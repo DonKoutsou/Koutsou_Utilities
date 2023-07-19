@@ -1,0 +1,38 @@
+FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "Raw meat"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     SizeSetupStrategy Manual
+     ItemDimensions 3 3 3
+     ItemVolume 30
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5D86A05B0851250C}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 0 0
+      CameraDistanceToItem 0.4
+      CameraOffset 0.03 0 0
+      FOV 45
+     }
+    }
+    m_Size SLOT_2x1
+    m_SlotType SLOT_VEST
+   }
+  }
+  MeshObject "{50E6A0E7D5C64E40}" {
+   Object "{4C5DB4BC63F4D4F0}Assets/Items/Food/MeatLeg_01.xob"
+  }
+  Hierarchy "{5D88A7E74150F546}" {
+  }
+  RigidBody "{50E6A0E7D5C64E4B}" {
+   ModelGeometry 1
+  }
+  ActionsManagerComponent "{508AB5952B584B2E}" {
+  }
+ }
+}

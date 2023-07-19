@@ -1,0 +1,30 @@
+GenericEntity : "{FCCB91AC2A242FE5}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Large_Soviet.et" {
+ ID "52F0B4ADDCC2C24E"
+ components {
+  AIPathfindingComponent "{5B3EA3F564F3D795}" {
+   NavmeshProject "Soldiers"
+  }
+ }
+ {
+  GenericEntity {
+   ID "5706BA970658E494"
+   components {
+   }
+  }
+  GenericEntity {
+   ID "5706BA970658E496"
+   components {
+   }
+  }
+  GenericEntity {
+   ID "5706BA970658E4E9"
+   components {
+   }
+  }
+  GenericEntity {
+   ID "5706BA970658E4EB"
+   components {
+   }
+  }
+ }
+}

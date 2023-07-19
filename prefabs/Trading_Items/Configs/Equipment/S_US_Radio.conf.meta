@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{94D28DEDDDB9ED87}Prefabs/Trading_Items/Configs/Equipment/S_US_Radio.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

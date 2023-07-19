@@ -1,0 +1,8 @@
+SP_CharacterTriggerEntity : "{E3DF6B07A1162BF1}prefabs/AI/Spawners/Commander_Trigger.et" {
+ ID "5D3ADC799F601062"
+ coords 3741.24 2.889 2682.048
+ SphereRadius 80
+ m_sOwnerFactionKey "US"
+ m_fActivationCountdownTimer 1800
+ m_Commanders "{33EDF8CC81F4483F}prefabs/Groups/Campaign/Group_US_CommandGroup.et"
+}

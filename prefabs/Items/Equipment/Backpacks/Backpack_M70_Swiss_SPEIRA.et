@@ -1,0 +1,34 @@
+GenericEntity : "{FDA7B6630DB87991}prefabs/Items/Equipment/Backpacks/Backpack_M70_Swiss.et" {
+ ID "511E9C6ADE70F798"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB039E9715D1}" {
+    ItemDisplayName UIInfo "{5222CB03904B414C}" {
+     Name "Dusk backpack"
+     Description "The dusk uniform is bestowed on the members of SPEIRA foundation, its patern signifies the afiliation to the local FIA and the color will take its original color only after getting covered in blood, a sign of respect to the local FIA warriors."
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52BCBDD2B54658EC}" {
+      PreviewWornModel 1
+      PreviewModel ""
+     }
+    }
+   }
+   MaxCumulativeVolume 5000
+   MaxItemSize 30 30 30
+  }
+  BaseLoadoutClothComponent "{511E9C6ADE70F7BB}" {
+   Slots {
+    LoadoutSlotInfo "{511E9C6A327EA2E2}" {
+    }
+   }
+   WornMaterialsOverride {
+    "{5695EECD6A063DFC}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Data/Backpack_M70_Swiss_SPEIRA.emat"
+   }
+   ItemMaterialsOverride {
+    "{5695EECD6A063DFC}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Data/Backpack_M70_Swiss_SPEIRA.emat"
+   }
+  }
+ }
+ coords 125.681 1.001 125.965
+}

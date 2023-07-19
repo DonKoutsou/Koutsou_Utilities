@@ -1,0 +1,24 @@
+SP_AIDirector : "{B14AC474A6E7BB8A}prefabs/AI/Spawners/SP_AIDirector_Base.et" {
+ ID "5D42AA2A8C40E9C7"
+ components {
+  AIPathfindingComponent "{5D78885F0C2E2ED1}" {
+   NavmeshProject "Soldiers"
+  }
+  SCR_MapDescriptorComponent "{5D42AA2A86C39135}" {
+   Enabled 0
+  }
+ }
+ coords 116.628 1.001 248.992
+ DangerEventRange 300
+ m_eEntityCatalogType GROUP
+ m_aIncludedEditableEntityLabels {
+  70 71
+ }
+ m_aExcludedEditableEntityLabels {
+  72
+ }
+ m_FactionsToApear {
+  "BANDITS" "RENEGADE"
+ }
+ m_bAllowCloseSpawning 0
+}

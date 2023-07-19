@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{3D7A9C97331C3F0B}prefabs/Compositions/Misc/CombatOps/FIA_S_HQ.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,29 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  TextWidgetClass "{5CE4810E8D640F77}" {
+   Name "m_sDialogueText"
+   Slot FrameWidgetSlot "{5965486C4D9C809B}" {
+    Anchor 0.5 1 0.5 1
+    PositionX -92.8
+    OffsetLeft -92.8
+    PositionY -57.6
+    OffsetTop -57.6
+    SizeX 356.8
+    OffsetRight -264
+    SizeY 49.6
+    OffsetBottom 8
+    Alignment 0 0
+   }
+   Color 1 0.402 0 1
+   style default
+   Text "Text"
+   Wrap 1
+   "No Localization" 1
+   FontProperties FontProperties "{5CE4810EDF39FF96}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+    Bold 1
+   }
+  }
+ }
+}

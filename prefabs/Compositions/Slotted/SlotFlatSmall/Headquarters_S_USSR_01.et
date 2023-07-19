@@ -1,0 +1,26 @@
+GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ ID "5282DCB5DFC8538F"
+ {
+  StaticModelEntity {
+   ID "5704A249D8D4CAA3"
+   {
+    GameEntity {
+     ID "5704A243B6F68F15"
+     components {
+      SCR_BaseInteractiveLightComponent "{58C4C3C542898CFB}" {
+       m_eInitialLightState LIT
+      }
+     }
+    }
+    GameEntity {
+     ID "5704A246891E600A"
+     components {
+      SCR_BaseInteractiveLightComponent "{58C4C3C542898CFB}" {
+       m_eInitialLightState LIT
+      }
+     }
+    }
+   }
+  }
+ }
+}

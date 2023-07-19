@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{29CBF8329F380F47}Assets/Structures/Military/CamoNets/Data/Sleeping_Bag.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

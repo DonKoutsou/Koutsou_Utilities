@@ -1,0 +1,50 @@
+MatPBRMulti {
+ UVSrcGlobalMaps "UV set 2"
+ MaskMap "{48DD9F72210376C6}Assets/Props/Furniture/BunkBed_01/Data/BunkBed_01_GLOBAL_MASK.edds"
+ GlobalNMOMap "{7A84C8D0E48CC5F9}Assets/Props/Furniture/BunkBed_01/Data/BunkBed_01_NMO.edds"
+ Enabled_4 1
+ Color_4 0.016 0.005 0.006 1
+ NMO_4 "{900DB3B70137FAEB}Assets/_SharedData/Fabric/ST_Fabric_01_N.edds"
+ MaskSharpness_4 0.243
+ MaskOffset_4 0.057
+ Mask_4 "{2563D86FF583B1EF}Assets/_SharedData/DetailMask/ST_Metal_Rust_01_Mask1.edds"
+ MaskUVScale_4 0.1
+ UVTransform_4 MatUVTransform "{5122654D890672EF}" {
+  TilingU 80
+  TilingV 80
+ }
+ DetNormal_4 0.75
+ Enabled_3 1
+ Color_3 0.162 0.122 0.093 1
+ NMO_3 "{900DB3B70137FAEB}Assets/_SharedData/Fabric/ST_Fabric_01_N.edds"
+ UVTransform_3 MatUVTransform "{5122654D8CB1C6E2}" {
+  TilingU 80
+  TilingV 80
+ }
+ Roughness_3 0.75
+ Enabled_2 1
+ Color_2 0.162 0.123 0.096 1
+ BCR_2 "{FA742FE6A11B2766}Assets/_SharedData/Metal/ST_Steel_Base_01_BCR.edds"
+ MaskSharpness_2 3.807
+ MaskOffset_2 0.111
+ Mask_2 "{AF3EED70E19D46AB}Assets/_SharedData/DetailMask/ST_Scratches_02_MASK1.edds"
+ MaskUVScale_2 1.2
+ UVTransform_2 MatUVTransform "{5122654DC20898C3}" {
+  TilingU 4
+  TilingV 4
+  OffsetU -0.062
+  OffsetV -0.191
+  Rotation 5.732
+ }
+ Roughness_2 0.8
+ Metalness_2 0.447
+ Color_1 0.107 0.058 0.03 1
+ BCR_1 "{AAEB42112BD58A64}Assets/_SharedData/Metal/ST_metal_painted_brushstrokes_01_BCR.edds"
+ UVTransform_1 MatUVTransform "{5122654DCA905A6F}" {
+  TilingU 4
+  TilingV 4
+  Rotation 90
+ }
+ Roughness_1 0.8
+ Metalness_1 0.07
+}

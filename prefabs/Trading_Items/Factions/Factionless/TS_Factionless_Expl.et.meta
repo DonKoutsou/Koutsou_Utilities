@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{99DCCFC762D1B1D6}Prefabs/Trading_Items/Factions/Factionless/TS_Factionless_Expl.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

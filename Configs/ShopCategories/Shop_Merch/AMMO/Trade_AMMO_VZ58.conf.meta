@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{90B05BA358BA89AC}Configs/ShopCategories/Shop_Merch/AMMO/Trade_AMMO_VZ58.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

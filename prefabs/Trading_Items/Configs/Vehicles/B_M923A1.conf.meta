@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{DC4B09AF854DBE92}Prefabs/Trading_Items/Configs/Vehicles/B_M923A1.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

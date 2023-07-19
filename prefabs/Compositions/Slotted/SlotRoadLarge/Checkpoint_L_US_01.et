@@ -1,0 +1,41 @@
+GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  SCR_AISmartActionSentinelComponent "{5D78D1F70B2EA8BB}" : "{A6EB3E0793DF2F7D}Configs/ObservationPost_Sentinel.ct" {
+   ActionOffset 1.291 0 -5.275
+   m_vLookPosition 0.071 0 -14.915
+  }
+  SCR_AISmartActionSentinelComponent "{5D78D1F70F9FA8E1}" : "{A6EB3E0793DF2F7D}Configs/ObservationPost_Sentinel.ct" {
+   ActionOffset 4.307 0 3.751
+   m_vLookPosition 1.988 0 23.657
+  }
+ }
+ {
+  GenericEntity {
+   ID "58B8B0A735C86850"
+   components {
+    SignalsManagerComponent "{59EA96E291B2F54A}" {
+     Enabled 0
+    }
+    SoundComponent "{59DE92110F45B81E}" {
+     Enabled 0
+    }
+    SCR_ArsenalComponent "{589F01C9C8D4A475}" {
+     Enabled 0
+    }
+    SCR_FactionAffiliationComponent "{5A50E7650A1AE9EC}" {
+     Enabled 0
+    }
+    UniversalInventoryStorageComponent "{58A17A341AB8F069}" {
+     Enabled 0
+    }
+    SCR_ArsenalInventoryStorageManagerComponent "{58A0B19B1E191CC1}" {
+     Enabled 0
+    }
+    ActionsManagerComponent "{5476B36C403D4CC0}" {
+     Enabled 0
+    }
+   }
+  }
+ }
+}

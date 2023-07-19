@@ -1,0 +1,5 @@
+SCR_SmartActionWaypoint : "{97FB527ECC7CA49E}Prefabs/AI/Waypoints/AIWaypoint_ObservationPost.et" {
+ ID "54D0A211FA7693B5"
+ coords 2231.177 53.394 2868.33
+ m_sSmartActionTag "Loiter"
+}

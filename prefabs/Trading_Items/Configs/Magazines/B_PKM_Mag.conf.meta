@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{8AF5FA4E2A47DECB}Prefabs/Trading_Items/Configs/B_PKM_Mag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

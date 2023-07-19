@@ -1,0 +1,81 @@
+BehaviorTree "{431061879A1F5324}AI/BehaviorTrees/Chimera/Soldier/klamaczTest.bt" {
+ Name "AI/BehaviorTrees/klamaczTest.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -61 -249
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -72 -66
+     Nodes {
+      SCR_AIGetConverseParameters "SCR_AI Get Converse Parameters" {
+       Name "SCR_AI Get Converse Parameters"
+       EditorPos -594 135
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 0
+         PortName "Position"
+        }
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "Duration"
+        }
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "Radius"
+        }
+       }
+      }
+      SCR_AILookAtPosition "SCR_AI Look At Position" {
+       Name "SCR_AI Look At Position"
+       EditorPos -75 137
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 0
+         PortName "PositionIn"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "PriorityIn"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "PositionOut"
+        }
+       }
+       m_fPriority 80
+      }
+      AITaskMove Move {
+       Name "Move"
+       EditorPos 185 132
+       InTargetLocation 0
+       PrecisionXZ 2
+      }
+      AITaskIdle Idle {
+       Name "Idle"
+       EditorPos 527 143
+       Period 500
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable posToLook {
+   VariableName "posToLook"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference posToLook {
+   VariableType 0
+   EditorPos -280 170
+  }
+ }
+}

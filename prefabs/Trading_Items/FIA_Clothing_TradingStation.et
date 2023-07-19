@@ -1,0 +1,36 @@
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
+ ID "5B11113704C2B0B4"
+ components {
+  MeshObject "{58C4C15098F109F6}" {
+   Object "{8C8D2EF181A72B14}Assets/Props/Civilian/Suitcase_01/Suitcase_01.xob"
+  }
+  ActionsManagerComponent "{5B1111371149AC02}" {
+   ActionContexts {
+    UserActionContext "{5B22D08B509A32BC}" {
+     ContextName "default"
+     Position PointInfo "{5B22D08B579B9237}" {
+      Offset 0 0.4233 0
+     }
+     Radius 2.906
+    }
+   }
+   additionalActions {
+    KLM_ConverseAction "{5B22D08B429F1F07}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5B22D08B4BBAF2EE}" {
+      Name "Buy M70 uniform set for 2 watches"
+     }
+     Duration 0.5
+     m_WantedPay "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     m_WantedAmount 2
+     m_PrefabToSell "{74644454E073B9DF}prefabs/Uniform_Sets/M70_UniformSet.et"
+     m_SpawnOffset 0 0 0.471
+    }
+   }
+  }
+ }
+ coords 133.697 1.001 130.334
+ angleY 0
+}

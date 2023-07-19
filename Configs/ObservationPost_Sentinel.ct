@@ -1,0 +1,8 @@
+SCR_AISmartActionSentinelComponent {
+ AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+ Tags {
+  "ObservationPost"
+  "ChillPost"
+ }
+ m_bUseBinoculars 1
+}

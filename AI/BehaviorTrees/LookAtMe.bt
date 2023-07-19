@@ -1,0 +1,84 @@
+BehaviorTree "{1EAC901CA44DEB54}AI/BehaviorTrees/LookAtMe.bt" {
+ Name "AI/BehaviorTrees/LookAtMe.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -132.857 -119.286
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -123 10.893
+     Nodes {
+      AITaskIdle Idle {
+       Name "Idle"
+       EditorPos -606.643 265.571
+       Period 10
+       PeriodRandom 5
+      }
+      SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+       Name "SCR_AI Get Entity Position"
+       EditorPos -190 274.286
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 0
+         PortName "Entity"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 1
+         PortName "Position"
+        }
+       }
+      }
+      SCR_AILookAtPosition "SCR_AI Look At Position" {
+       Name "SCR_AI Look At Position"
+       EditorPos 295.643 271.857
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 1
+         PortName "PositionIn"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "PriorityIn"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "PositionOut"
+        }
+       }
+       m_fPriority 1
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable Me {
+   VariableName "Me"
+   VariableTypeName "IEntity"
+   VariableExposedInput 1
+   VariableExposedOutput 0
+  }
+  Variable lookAtPosition {
+   VariableName "lookAtPosition"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference Me {
+   VariableType 0
+   EditorPos -420.536 412.321
+  }
+  VariableReference lookAtPosition {
+   VariableType 1
+   EditorPos 56.286 308.179
+  }
+ }
+}

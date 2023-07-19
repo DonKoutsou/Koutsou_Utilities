@@ -1,0 +1,46 @@
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
+ ID "5B11113704C2B0B4"
+ components {
+  ADM_ShopComponent "{5D98A89D36ECE335}" {
+   m_ShopConfig "{AF1C4F245463ADA4}Configs/Shops/Medicals_USSR.conf"
+   m_Categories {
+    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
+   }
+  }
+  MeshObject "{58C4C15098F109F6}" {
+   Object "{FE31750973EA92C7}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Medical_01.xob"
+   Materials {
+    MaterialAssignClass "{5C88A2DCD4C8AAE4}" {
+     SourceMaterial "EquipmentBoxWooden_Medical_01"
+     AssignedMaterial "{F040F802F02B0D96}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Medical_01_USSR.emat"
+    }
+    MaterialAssignClass "{5C88A2DCD4C8AA89}" {
+     SourceMaterial "EquipmentBoxWooden_decal"
+     AssignedMaterial "{17332645A86C9BA6}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_decal_USSR.emat"
+    }
+   }
+  }
+  ActionsManagerComponent "{5B1111371149AC02}" {
+   ActionContexts {
+    UserActionContext "{5C88A2D5FDE110BD}" {
+     ContextName "default"
+     Position PointInfo "{5C88A2D5F3CD84C3}" {
+      Offset 0 0.4708 0
+     }
+    }
+   }
+   additionalActions {
+    ADM_ShopAction "{5D98A89D0E9DF664}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D98A89D3235E9AF}" {
+      Name "Trade"
+     }
+    }
+   }
+  }
+ }
+ coords 145.4 1.001 125.875
+ angleY 0
+}

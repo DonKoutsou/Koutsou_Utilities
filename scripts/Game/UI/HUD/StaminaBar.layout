@@ -1,0 +1,93 @@
+FrameWidgetClass {
+ Opacity 0.5
+ Color 0 0.502 0.125 1
+ "Inherit Color" 1
+ {
+  TextWidgetClass "{5D82A413A9DA2AB8}" {
+   Name "m_sTempnumber"
+   Slot FrameWidgetSlot "{5D82A413A9DA2AA3}" {
+    PositionX 310.647
+    OffsetLeft 310.647
+    PositionY 1013.91
+    OffsetTop 1013.91
+    SizeX 21.812
+    OffsetRight -332.459
+    SizeY 6.98
+    OffsetBottom -1020.89
+   }
+   Text "36,6 C"
+   "Font Size" 8
+   "Min Font Size" 8
+  }
+  ProgressBarWidgetClass "{5D82A412743DA7BB}" {
+   Name "m_wTemp"
+   Slot FrameWidgetSlot "{5D82A412743DA7AF}" {
+    Anchor 0.5 1 0.5 1
+    PositionX -950.625
+    OffsetLeft -950.6
+    PositionY -65.053
+    OffsetTop -65.1
+    SizeX 300
+    OffsetRight 650.6
+    SizeY 5.4
+    OffsetBottom 59.7
+   }
+   Opacity 0.5
+   style SimpleWithBackground
+   Minimum 29
+   Maximum 40
+   Current 36.6
+  }
+  ProgressBarWidgetClass "{5D7D3108350D1D65}" {
+   Name "m_wThirstBar"
+   Slot FrameWidgetSlot "{5D7D3108350D1D01}" {
+    Anchor 0.5 1 0.5 1
+    PositionX -950.625
+    OffsetLeft -950.625
+    PositionY -34.853
+    OffsetTop -34.853
+    SizeX 300
+    OffsetRight 650.625
+    SizeY 5.4
+    OffsetBottom 29.453
+   }
+   Opacity 0.5
+   Color 0.42 0.623 1 1
+   style SimpleWithBackground
+   Current 100
+  }
+  ProgressBarWidgetClass "{5D7D3108F65FD931}" {
+   Name "m_wHungerBar"
+   Slot FrameWidgetSlot "{5D7D3108F65FD927}" {
+    Anchor 0.5 1 0.5 1
+    PositionX -950.625
+    OffsetLeft -950.625
+    PositionY -51.053
+    OffsetTop -51.053
+    SizeX 300
+    OffsetRight 650.625
+    SizeY 5.3
+    OffsetBottom 45.753
+   }
+   Opacity 0.5
+   Color 1 0.691 0.216 1
+   style SimpleWithBackground
+   Current 100
+  }
+  ProgressBarWidgetClass "{5965486C4D9C8173}" {
+   Prefab "{5965486C4D9C8173}"
+   Slot FrameWidgetSlot "{5965486C4D9C809B}" {
+    PositionX -950.625
+    OffsetLeft -950.625
+    PositionY -17.909
+    OffsetTop -17.909
+    SizeX 300
+    OffsetRight 650.625
+    SizeY 5.356
+    OffsetBottom 12.553
+   }
+   Opacity 0.517
+   Color 0.261 0.337 0.264 1
+  }
+ }
+}

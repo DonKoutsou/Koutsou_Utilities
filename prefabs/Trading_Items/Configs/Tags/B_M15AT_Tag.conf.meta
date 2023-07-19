@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{07891D3BB3AB95EA}Prefabs/Trading_Items/Configs/Tags/B_M15AT_Tag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

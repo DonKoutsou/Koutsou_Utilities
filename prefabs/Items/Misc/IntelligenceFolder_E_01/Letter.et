@@ -1,0 +1,26 @@
+GenericEntity : "{0102CA31599E00AA}prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_02.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "Unknown letter"
+     Description "This letter is the reason i came to Arland. It doesent seem to have a sender. The letter writes. \"Greetings. These are the hardest news to give but you of all people should know. You brother, part of a local faction in Arland while fighting back was lost on the field while fighting the soviet army. We have still to recover a body but 2 weeks have passed and the probabilities of him being alive are few. I'm greatly sorry this is how you had to find out. We will make sure to send any of his personal belingings your way. Kind regards, a friend.\""
+    }
+   }
+  }
+  MeshObject "{5AB0B9C3C3E4A143}" {
+   Object "{BDB7E0B5CEA16D85}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_title.xob"
+   Materials {
+    MaterialAssignClass "{5D509DA134438626}" {
+     SourceMaterial "01__Default"
+     AssignedMaterial "{1017672F5890B96D}Assets/Items/Equipment/Maps/Map_Paper_01/Data/Paper_01_Item.emat"
+    }
+   }
+  }
+  SP_UnretrievableComponent "{5D4EC118478765E6}" {
+   Enabled 0
+  }
+ }
+ coords 1082.676 37.845 2892.196
+}

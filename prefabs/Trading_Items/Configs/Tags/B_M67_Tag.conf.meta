@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{43A4BE3218C1FA1F}Prefabs/Trading_Items/Configs/Tags/B_M67_Tag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

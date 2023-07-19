@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E065E2A52BE01989}Prefabs/Trading_Items/Configs/S_USSR_Turn.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

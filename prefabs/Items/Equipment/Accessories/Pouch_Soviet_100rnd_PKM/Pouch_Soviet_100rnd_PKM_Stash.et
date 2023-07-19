@@ -1,0 +1,39 @@
+GenericEntity : "{FDC0074A9D46125F}Prefabs/Items/Equipment/Accessories/Pouch_Soviet_100rnd_PKM/Pouch_Soviet_100rnd_PKM_base.et" {
+ ID "51EAE4EBB3FF9591"
+ components {
+  SignalsManagerComponent "{5D3CDC3BE09C309B}" {
+  }
+  SCR_UniversalInventoryStorageComponent "{5C50AAFCFED3F172}" {
+   Attributes SCR_ItemAttributeCollection "{5C50AAFCFED3F17D}" {
+    ItemDisplayName UIInfo "{5C50AAFCFED3F160}" {
+     Name "#AR-LBSComponent_AmmoPouch_PKM_Name"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5C50AAFCFED3F162}" {
+     Weight 0.4
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 2000
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C50AAFCFED3F166}" {
+      CameraOrbitAngles -25 25 0
+      CameraDistanceToItem 1.5
+      FOV 10
+     }
+    }
+   }
+   UseCapacityCoefficient 0
+   MaxCumulativeVolume 2000
+   MaxItemSize 15 15 15
+   MultiSlots {
+    MultiSlotConfiguration "{5C50AAFC026AAFC9}" {
+     SlotTemplate InventoryStorageSlot Ammo {
+      Prefab "{A6737DA00653A39C}Prefabs/Weapons/Magazines/Box_762x54_PK_100rnd_Ball.et"
+     }
+     NumSlots 2
+    }
+   }
+   m_fMaxWeight 5
+  }
+ }
+}

@@ -1,0 +1,55 @@
+GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "FIA bedroll"
+     Description "Once dropped on the floot allows to sleep"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     SizeSetupStrategy Manual
+     ItemDimensions 50 50 100
+    }
+   }
+  }
+  MeshObject "{5D4D351F6314B2DF}" {
+   Object "{CF7BC644B0B84580}Assets/Structures/Military/CamoNets/CamoNet_Folded.xob"
+   Materials {
+    MaterialAssignClass "{5D4D351F69721054}" {
+     SourceMaterial "CamoNet_01_Double"
+     AssignedMaterial "{6B6FFB9F82385D28}Assets/Structures/Military/Camps/TentSmallFIA_01/Data/TentSmallFIA_01.emat"
+    }
+    MaterialAssignClass "{5D4D351F697211B2}" {
+     SourceMaterial "CamoNet_01_Fabric"
+     AssignedMaterial "{6B6FFB9F82385D28}Assets/Structures/Military/Camps/TentSmallFIA_01/Data/TentSmallFIA_01.emat"
+    }
+   }
+  }
+  ActionsManagerComponent "{508AB5952B584B2E}" {
+   additionalActions {
+    SP_SleepAction "{5D4D351F34162474}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D4D351F3669B32D}" {
+      Name "Sleep for 2 hours"
+     }
+     Duration 0.5
+     m_Sleepamount 2
+    }
+    SP_SleepAction "{5D4D351F211566A8}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D4D351F22FCAF54}" {
+      Name "Sleep for 8 hours"
+     }
+     Duration 0.5
+     m_Sleepamount 8
+    }
+   }
+  }
+ }
+ coords 1267.914 37.818 2838.244
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{2BC1606244F9F491}Prefabs/Compositions/Misc/SubCompositions/SandbagCover_US_05.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

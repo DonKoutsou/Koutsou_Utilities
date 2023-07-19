@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{309175DACD35DAB2}Configs/Dilaogue_Configs/Generic/Location question.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

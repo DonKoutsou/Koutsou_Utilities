@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{3782D34EFAC95F19}Configs/Dilaogue_Configs/DialogueConf_SPEIRA_Private.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

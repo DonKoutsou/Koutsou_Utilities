@@ -1,0 +1,85 @@
+FrameWidgetClass {
+ {
+  FrameWidgetClass "{567A868A7C2AFDFE}" {
+   Prefab "{567A868A7C2AFDFE}"
+   {
+    SizeLayoutWidgetClass "{567A941671F37BCA}" {
+     Prefab "{567A941671F37BCA}"
+     {
+      FrameWidgetClass "{567A7CC1DC5CADBF}" {
+       Prefab "{567A7CC1DC5CADBF}"
+       {
+        OverlayWidgetClass "{567A7CC0657FFE31}" {
+         Prefab "{567A7CC0657FFE31}"
+         {
+          VerticalLayoutWidgetClass "{000000008568C576}" {
+           Prefab "{000000008568C576}"
+           {
+            HorizontalLayoutWidgetClass "{5D8ED749A127E526}" {
+             Name "HorizontalLayout-1"
+             Slot LayoutSlot "{5D8ED749CEEDAE21}" {
+             }
+             {
+              TextWidgetClass "{5D8ED749BCA21140}" : "{C8E239DBD1B1E1BA}Configs/ItemInfo_OptDesc.layout" {
+               Name "ItemInfo_OptDesc0"
+               Slot LayoutSlot "{5D8ED7481E7ACD23}" {
+                SizeMode Fill
+               }
+              }
+             }
+            }
+            HorizontalLayoutWidgetClass "{00000000A09F13EE}" {
+             Prefab "{00000000A09F13EE}"
+             {
+              TextWidgetClass "{5D885C3B1CA56424}" {
+               Name "ItemInfo_insulationUnit"
+               Slot LayoutSlot "{5D885C3B1CA56415}" {
+                HorizontalAlign 0
+                Padding 0 0 0.1 0
+                SizeMode Fill
+                FillWeight 1
+               }
+               Color 0.651 0.651 0.651 1
+               Text "Insulation:"
+               "Font Size" 15
+               "Min Font Size" 15
+               Wrap 1
+               "No Localization" 1
+               FontProperties FontProperties "{5D885C38D4DBEAF1}" {
+                Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+               }
+              }
+              TextWidgetClass "{5D8ED74F8515105B}" {
+               Prefab "{5D887E26CFF5D185}"
+               Slot LayoutSlot "{5D8ED74FEA59CEAE}" {
+                HorizontalAlign 0
+                SizeMode Fill
+               }
+               Text "OptDesc"
+               "Font Size" 15
+               "Min Font Size" 15
+               Wrap 1
+               FontProperties FontProperties "{5D968C308159BDEE}" {
+                Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+               }
+              }
+              TextWidgetClass "{5D8ED7482FF1E6EB}" {
+               Prefab "{0000000087778265}"
+               Slot LayoutSlot "{5D8ED7481E7ACD23}" {
+                SizeMode Fill
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

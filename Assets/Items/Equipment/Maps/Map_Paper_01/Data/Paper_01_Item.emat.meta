@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{1017672F5890B96D}Assets/Items/Equipment/Maps/Map_Paper_01/Data/Paper_01_Item.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

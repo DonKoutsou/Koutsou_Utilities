@@ -1,0 +1,66 @@
+GenericEntity {
+ ID "5D65018528624788"
+ components {
+  MeshObject "{5D650185143A47DB}" {
+   Object "{9F3EBDC04E344A36}Assets/Props/Military/AmmoBox/AmmoBox_556x45_1680rnd/AmmoBox_556x45_1680rnd.xob"
+   LODFactors {
+   }
+  }
+  RigidBody "{5D650185143A47A6}" {
+   Mass 10
+   ResponseIndex "TinyDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_SoundDataComponent "{5D650185143A78BB}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5D650185143A7889}" {
+     m_sSoundProject "{2285D7ED0CE3463E}Sounds/Props/Military/AmmoBoxes/AmmoBox_Small_Wooden/Props_AmmoBox_Small_Wooden.acp"
+     m_sSoundEventName "SOUND_CONTAINER_OPEN"
+    }
+    SCR_AudioSourceConfiguration "{5D650185143A7884}" {
+     m_sSoundProject "{2285D7ED0CE3463E}Sounds/Props/Military/AmmoBoxes/AmmoBox_Small_Wooden/Props_AmmoBox_Small_Wooden.acp"
+     m_sSoundEventName "SOUND_CONTAINER_CLOSE"
+    }
+   }
+  }
+  SCR_UniversalInventoryStorageComponent "{5D650185143A790F}" {
+   Attributes SCR_ItemAttributeCollection "{5D650185143A796F}" {
+    ItemDisplayName UIInfo "{5D650185143A797D}" {
+     Name "Package"
+     Description "you were given this package with a name to who you should deliver it to. Drop it to the floor to check the destrionation."
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5D6501852E9DCF0C}" {
+     Weight 4
+     SizeSetupStrategy Manual
+     ItemVolume 8
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5D968E01A926EB1C}" {
+      CameraOrbitAngles -25 25 0
+      CameraDistanceToItem 0.75
+      CameraOffset 0.015 -0.025 0
+      FOV 35
+     }
+    }
+    m_Size SLOT_2x2
+   }
+   CapacityCoefficient 0
+  }
+  SP_PackageComponent "{5D650185225CE159}" {
+  }
+  ActionsManagerComponent "{5D650185538C0F90}" : "{366E157111FAB76C}Prefabs/Characters/Core/Actions/ActionsManager_PickUp.ct" {
+   additionalActions {
+    SCR_PickUpItemAction "{52A690747B542687}" {
+     ParentContextList {
+      "default"
+     }
+    }
+   }
+  }
+  RplComponent "{5D650185143A79B6}" {
+  }
+ }
+ coords 1363.992 39.011 2172.479
+ Flags 1027
+}

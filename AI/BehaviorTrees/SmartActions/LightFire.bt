@@ -1,0 +1,156 @@
+BehaviorTree "{F719FAF7D4C883D9}AI/BehaviorTrees/SmartActions/LightFire.bt" {
+ Name "AI/BehaviorTrees/SmartActions/LightFire.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos 954.286 -69.286
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos 936.732 141.083
+     Nodes {
+      AITaskGetControlledEntity "Get Controlled Entity" {
+       Name "Get Controlled Entity"
+       EditorPos -703.518 488.333
+       CharacterOnly 1
+       OutControlledEntity 1
+      }
+      AITaskCreatePosition "Create Position" {
+       Name "Create Position"
+       EditorPos -357.268 489.583
+       InEntity 1
+       OutPosition 5
+      }
+      AITaskGetCurrentSmartAction "Get Current Smart Action" {
+       Name "Get Current Smart Action"
+       EditorPos 88.732 516.416
+       OutSmartAction 6
+      }
+      AITaskGetSmartActionParams "Get Smart Action Params" {
+       Name "Get Smart Action Params"
+       EditorPos 420.118 504.628
+       InSmartAction 6
+       OutBehavior -1
+       OutPos 3
+       OutSmartActionEntity 2
+      }
+      AITaskMove Move {
+       Name "Move"
+       EditorPos 832.732 504.166
+       InTargetLocation 3
+       PrecisionY 1
+      }
+      AITaskSetVariable "Set Variable" {
+       Name "Set Variable"
+       EditorPos 1166.288 497.074
+       SetValue "SCR_LightFireplaceUserAction"
+       OutVariable 4
+      }
+      DecoratorEntity Entity {
+       Name "Entity"
+       EditorPos 1688.181 442.004
+       Nodes {
+        SCR_AIPerformSmartUserAction "SCR_AI Perform Smart User Action" {
+         Name "SCR_AI Perform Smart User Action"
+         EditorPos 1655.785 639.689
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 4
+           PortName "UserAction"
+          }
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 0
+           PortName "TargetEntity"
+          }
+         }
+        }
+       }
+       NegativeCondition 1
+       UseChildResult 1
+       ForceNodeResult Success
+       InEntity 0
+       TEST {
+        SCR_AIDecoTestFireIsLit "{5D68C508FA79AAE0}" {
+        }
+       }
+      }
+      AITaskIdle Idle {
+       Name "Idle"
+       EditorPos 2044.113 492.369
+       Period 2
+       PeriodRandom 2
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable gateEntity {
+   VariableName "gateEntity"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable FinPos {
+   VariableName "FinPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable myEntity {
+   VariableName "myEntity"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable SAPos {
+   VariableName "SAPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable UserAction {
+   VariableName "UserAction"
+   VariableTypeName "string"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable SmartActionComp {
+   VariableName "SmartActionComp"
+   VariableTypeName "AISmartActionComponent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference gateEntity {
+   VariableType 0
+   EditorPos 1405.982 720.404
+  }
+  VariableReference myEntity {
+   VariableType 2
+   EditorPos -523.518 644.583
+  }
+  VariableReference gateEntity {
+   VariableType 0
+   EditorPos 717.618 763.56
+  }
+  VariableReference SAPos {
+   VariableType 3
+   EditorPos 727.732 663.333
+  }
+  VariableReference UserAction {
+   VariableType 4
+   EditorPos 1417.995 630.242
+  }
+  VariableReference FinPos {
+   VariableType 1
+   EditorPos -84.768 528.333
+  }
+  VariableReference SmartActionComp {
+   VariableType 5
+   EditorPos -8.268 621.083
+  }
+ }
+}

@@ -1,0 +1,127 @@
+GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  Hierarchy "{5D42C14445AF3252}" {
+  }
+  SCR_AISmartActionComponent "{5D68C508AA42C672}" {
+   AIBehaviorTree ""
+  }
+  SCR_AISmartActionSentinelComponent "{5B1EF58065C69B1E}" {
+   Enabled 1
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ChillPost"
+   }
+   ActionOffset -1.085 0 -2.028
+   m_fLookDirectionRange 180
+   m_iCharacterStance CROUCH
+  }
+  SCR_AISmartActionSentinelComponent "{5B1EF59F9C8CE0B9}" {
+   Enabled 1
+   ActionOffset 0.516 0 -2.218
+   m_fLookDirectionRange 180
+   m_iCharacterStance CROUCH
+  }
+  SCR_AISmartActionSentinelComponent "{5D68B95625C1144A}" {
+   ActionOffset -0.499 0 4.113
+   m_iCharacterStance STAND
+  }
+ }
+ coords 1393.892 37.022 2680.135
+ angleY 75.507
+ {
+  $grp GenericEntity {
+   {
+    ID "5D42C1444C1C2140"
+    components {
+     MeshObject "{5C872632B43D5E40}" {
+      Object "{74A0A675F1DD4092}Assets/Props/Civilian/Ashtray_01/Ashtray_01_Full.xob"
+     }
+    }
+    coords 2.044 0.057 1.039
+   }
+   {
+    ID "5D42C1444C1C214E"
+    components {
+     MeshObject "{5C872632C8445465}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.332 0.054 1.378
+   }
+   {
+    ID "5D42C1444C1C214F"
+    components {
+     MeshObject "{5C872632C900E8DC}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords 2.262 0.055 0.933
+   }
+   {
+    ID "5D42C1444C1CB21B"
+    components {
+     MeshObject "{5C872632CD3E8618}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords -1.708 0.057 -1.299
+   }
+   {
+    ID "5D42C1444C1CC5E5"
+    components {
+     MeshObject "{5C872632CBEEF54F}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords -0.32 0.056 2.499
+   }
+   {
+    ID "5D42C1444C1CE8B0"
+    components {
+     MeshObject "{5C872632CECE4A1D}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords -1.437 0.058 -1.113
+   }
+   {
+    ID "5D42C1444C1CE8B3"
+    components {
+     MeshObject "{5C872632CA107AE5}" {
+      Object "{93805DF1EFA4F212}Assets/Props/Civilian/BeerBottle_01/BeerBottle_01_Empty.xob"
+     }
+    }
+    coords -0.168 0.047 2.973
+   }
+  }
+  $grp GenericEntity : "{96C0A7DFEAFAF534}prefabs/Beds/Fia_BedSpawn.et" {
+   {
+    ID "5D42C1444C1C6AD4"
+    coords 2.403 -0.214 -0.408
+    angleY -6.667
+   }
+   {
+    ID "5D42C1444C1DF9FA"
+    coords -1.264 -0.214 1.918
+    angleY 48.096
+   }
+  }
+  $grp GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+   {
+    ID "5D42C1444C1CB21E"
+    coords -0.763 -0.04 2.479
+    angleY 67.938
+   }
+   {
+    ID "5D42C1444C1D2266"
+    coords 1.854 -0.04 -0.133
+   }
+   {
+    ID "5D42C1444C1D2299"
+    coords -1.531 -0.04 -1.577
+    angleY -45
+   }
+  }
+ }
+}

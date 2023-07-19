@@ -1,0 +1,172 @@
+$grp SCR_ChimeraCharacter : "{37578B1666981FCE}prefabs/Characters/Core/Character_Base.et" {
+ {
+  coords 2767.855 81.975 2179.688
+ }
+ {
+  coords 2704.688 97.972 2205.59
+ }
+}
+$grp GenericEntity : "{F0BDB1800BC7B4AA}Prefabs/World/Locations/Arland/Aquatic/Arland_Pond_01.et" {
+ Bandits_Rest {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Bandit's Rest"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Bandit's Rest"
+   }
+  }
+  coords 3080.448 38.501 2026.091
+ }
+ Southern_Lighthouse {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Southern Lighthouse"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Southern Lighthouse"
+   }
+  }
+  coords 1462.933 34.808 1155.656
+ }
+ Southern_Lighthouse2 {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Northern Lighthouse"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Northern Lighthouse"
+   }
+  }
+  coords 3554.721 45.168 2640.417
+ }
+ Beuregard_Industrial {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Beuregard Industrial"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Beuregard Industrial"
+   }
+  }
+  coords 3121.042 3.921 3010.581
+ }
+ Farm {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Farm"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Farm"
+   }
+  }
+  coords 2233.42 53.23 2884.357
+ }
+ NewField_Stable {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Newfield Stable"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Newfield Stable"
+   }
+  }
+  coords 2016.595 53.657 3035.003
+ }
+ Arleville_Church {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Arleville Church"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Arleville Church"
+   }
+  }
+  coords 3057.51 72.945 1580.236
+ }
+ Fox_Nest {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Fox Nest"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Fox Nest"
+   }
+  }
+  coords 2739.732 4.157 919.815
+ }
+ Maidens_Fall {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "Maiden's Fall"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "Maiden's Fall"
+   }
+  }
+  coords 3282.859 33.195 2388.241
+ }
+ USSR_Base {
+  components {
+   SCR_EditableCommentComponent "{529AB059519FE609}" {
+    m_UIInfo SCR_EditableCommentUIInfo "{5298E609432D192D}" {
+     Name "USSR HQ"
+    }
+   }
+   SCR_MapDescriptorComponent "{527892B6ED748CEB}" {
+    DisplayName "USSR HQ"
+   }
+  }
+  coords 1061.09 37.938 2905.976
+ }
+}
+$grp GenericEntity : "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et" {
+ {
+  coords 2127.111 62.308 1041.091
+ }
+ {
+  coords 2291.94 91.092 1237.203
+ }
+ {
+  coords 2462.31 89.112 1475.669
+ }
+ {
+  coords 2685.783 77.742 1715.739
+ }
+ {
+  coords 2721.093 79.151 1655.431
+ }
+ {
+  coords 2735.635 79.028 1640.47
+ }
+ {
+  coords 2738.091 77.679 1604.912
+ }
+ {
+  coords 3075.57 39.079 2025.234
+ }
+ {
+  coords 3063.283 24.858 2631.835
+ }
+ {
+  coords 3118.926 17.618 2665.742
+ }
+}

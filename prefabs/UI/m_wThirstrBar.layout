@@ -1,0 +1,18 @@
+ProgressBarWidgetClass "{5D7D3108350D1D65}" {
+ Name "m_wThirstrBar"
+ Slot FrameWidgetSlot "{5D7D3108350D1D01}" {
+  Anchor 0.5 1 0.5 1
+  PositionX -946.604
+  OffsetLeft -946.604
+  PositionY -38.82
+  OffsetTop -38.82
+  SizeX 300
+  OffsetRight 646.604
+  SizeY 5.4
+  OffsetBottom 33.42
+ }
+ Opacity 0.5
+ Color 0.42 0.623 1 1
+ style SimpleWithBackground
+ Current 100
+}

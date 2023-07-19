@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{6007988540C96191}Configs/ShopCategories/Shop_Merch/Weapons/Trade_WPN_M16A2.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

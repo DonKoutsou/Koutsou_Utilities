@@ -1,0 +1,55 @@
+GenericEntity {
+ ID "5D3C792197608C3C"
+ components {
+  BaseSlotComponent "{5D3D577B16308F11}" {
+   AttachType EntitySlotInfo Particle {
+    Offset 0 8.7995 1.9652
+   }
+   EntityPrefab "{651D6E9E9BFA8B0E}Particles/Editor/Photo/Meteor_Particle.et"
+  }
+  MeshObject "{5D3C7921ECB768BC}" {
+   Object "{EFF7EEDA722D6326}Assets/Rocks/Granite/GraniteCliff_02.xob"
+   Materials {
+    MaterialAssignClass "{5D3C7921ECB7768F}" {
+     SourceMaterial "GraniteCliff_02"
+     AssignedMaterial "{B04D794D8E4C7DC4}Assets/Rocks/Granite/Data/GraniteCliff_Meteor.emat"
+    }
+   }
+   LODFactors {
+    100 40 20 10 5 2 1
+   }
+  }
+  RigidBody "{5D3C7921ECB768AC}" {
+   ModelGeometry 1
+   Static 1
+  }
+  ActionsManagerComponent "{5D3C7921ECB7684B}" {
+   ActionContexts {
+    UserActionContext "{5D3C7921ECB7687D}" {
+     ContextName "default"
+     Position PointInfo "{5D3C7921ECB76879}" {
+      Offset 0 5.5692 0
+     }
+     Radius 9.764
+    }
+   }
+   additionalActions {
+    KLM_ConverseActionSpawnOnMe "{5D551481AB85EE5F}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D551481AD0B8ED0}" {
+      Name "Gather sample"
+     }
+     Duration 2
+     m_WantedPay "{3C42B2CBFC50A312}prefabs/Toolkits/Mining_Toolkit.et"
+     m_PrefabToSell "{9DF239BE88931B81}prefabs/Items/Other/Meteor_Sample.et"
+    }
+   }
+  }
+  RplComponent "{5D551011D606C569}" {
+  }
+ }
+ coords 0 8.228 2.603
+ scale 0.832
+}

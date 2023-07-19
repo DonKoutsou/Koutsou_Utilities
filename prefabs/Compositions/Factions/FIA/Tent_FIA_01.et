@@ -1,0 +1,55 @@
+GenericEntity : "{6212FEC7A3E08995}prefabs/Compositions/Factions/FIA/TentBase_FIA.et" {
+ ID "5CFD42CE87B6FA0D"
+ coords 102.355 1.001 171.871
+ {
+  GenericEntity {
+   ID "5CFD42CE87B72AFB"
+   coords -0.028 0.086 1.482
+   angleY -90
+  }
+  $grp GenericEntity : "{453433739A2A5851}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/FIA/EquipmentBoxStack_FIA_01_V3_covered.et" {
+   {
+    ID "5CFD42CE1E2960A2"
+    coords -1.355 0.097 -1.127
+    angleY 90
+   }
+   {
+    ID "5CFD42CE1E2AB5DA"
+    coords -1.271 0.097 1.49
+    angleY -180
+   }
+   {
+    ID "5CFD42CE1E2AB5DB"
+    coords -1.355 0.097 0.277
+    angleY -90
+   }
+  }
+  GenericEntity : "{AD31622B73944B43}Prefabs/Props/Furniture/DeskSchool_01.et" {
+   ID "5CFD42CE1E2960A0"
+   coords 0.345 0.096 0.494
+   angleY 1.461
+  }
+  GenericEntity : "{B17411929589C43C}prefabs/MP/Campaign/Assets/CampaignHQRadioEast.et" {
+   ID "5CFD42CE1E2960AD"
+   coords -0.109 0.996 0.514
+   angleY 144.963
+  }
+  GenericEntity : "{B68D3829D4442F80}Prefabs/Props/Civilian/RadioSmall_01_Base.et" {
+   ID "5CFD42CE1E2960A8"
+   coords -0.478 0.975 -1.436
+   angleY 80.249
+  }
+  $grp GenericEntity : "{F870683132294E4E}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/FIA/EquipmentBoxStack_FIA_01_V5_covered.et" {
+   {
+    ID "5CFD42CE1E2960A7"
+    coords 1.033 0.097 1.343
+    angleY 175.547
+   }
+   {
+    ID "5CFD42CE1E2AB5E6"
+    coords -0.19 0.097 -1.098
+    angleY 90
+   }
+  }
+ }
+}

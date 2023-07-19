@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D91994A4A1BAC09C}Configs/ShopCategories/Shop_Merch/Trade_Grande_HEVOG25.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

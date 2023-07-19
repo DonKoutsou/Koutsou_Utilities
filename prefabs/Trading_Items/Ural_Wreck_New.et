@@ -1,0 +1,22 @@
+GenericEntity : "{AE300E34EA8FF40C}Prefabs/Props/Wrecks/Ural4320_wreck_static.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Materials {
+    MaterialAssignClass "{5B3CA16D3D227DD6}" {
+     SourceMaterial "Ural_4320_Body_wreck"
+     AssignedMaterial "{0C8289287F937461}Assets/Vehicles/Wheeled/Ural4320/Data/Ural_4320_Body.emat"
+    }
+    MaterialAssignClass "{5B3CA16D3D227DFD}" {
+     SourceMaterial "Ural_4320_Interior_wreck"
+     AssignedMaterial "{8B37891242375C9C}Assets/Vehicles/Wheeled/Ural4320/Data/Ural_4320_Interior.emat"
+    }
+    MaterialAssignClass "{5B3CA16D3D227DF6}" {
+     SourceMaterial "Ural_4320_Wheels_wreck"
+     AssignedMaterial "{995B1559E994273F}Assets/Vehicles/Wheeled/Ural4320/Data/Ural_4320_Wheels.emat"
+    }
+   }
+  }
+ }
+ coords 175.417 1.001 121.979
+}

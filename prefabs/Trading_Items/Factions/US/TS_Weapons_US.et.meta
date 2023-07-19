@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{AF936870D3322D56}Prefabs/Trading_Items/Factions/US/TS_Weapons_US.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

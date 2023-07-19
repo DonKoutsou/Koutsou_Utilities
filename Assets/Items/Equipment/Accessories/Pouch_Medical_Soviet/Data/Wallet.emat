@@ -1,0 +1,6 @@
+MatPBRBasic {
+ Color 0.301 0.248 0.209 1
+ CavityFromAO 0.838
+ BCRMap "{DA97037F2A949674}Assets/Items/Equipment/Accessories/Pouch_Medical_Soviet/Data/Pouch_Medical_Soviet_BCR.edds"
+ NMOMap "{E24FB8EDF3E3C4EA}Assets/Items/Equipment/Accessories/Pouch_Medical_Soviet/Data/Pouch_Medical_Soviet_NMO.edds"
+}

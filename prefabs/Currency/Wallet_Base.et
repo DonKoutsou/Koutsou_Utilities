@@ -1,0 +1,86 @@
+GenericEntity {
+ ID "5C78C422199A1092"
+ components {
+  SignalsManagerComponent "{5C78C42204C939E3}" {
+  }
+  SoundComponent "{5C78C42204C9398F}" {
+   Filenames {
+    "{12A94705DF2BFD25}Sounds/Items/_SharedData/PickUp/Items_PickUp_Generic.acp" "{CC0E5A1324E761C1}Sounds/Items/_SharedData/Drop/Items_Drop_Generic.acp"
+   }
+   DistanceManagement 0
+  }
+  MeshObject "{5C78C42204C939A4}" {
+   Object "{C93586479590F3C6}Assets/Items/Equipment/Accessories/Pouch_Medical_Soviet/Pouch_Medical_Soviet_item.xob"
+   Materials {
+    MaterialAssignClass "{5C78C42204C939A2}" {
+     SourceMaterial "Pouch_Medical_Soviet"
+     AssignedMaterial "{40C1E017102522B1}Assets/Items/Equipment/Accessories/Pouch_Medical_Soviet/Data/Wallet.emat"
+    }
+   }
+  }
+  RigidBody "{5C78C42204C93A50}" {
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {
+   Attributes SCR_ItemAttributeCollection "{5C78C42204C93A04}" {
+    ItemDisplayName UIInfo "{5C78C42204C93A1A}" {
+     Name "Wallet"
+     Description "Storage for watches found"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5C78C42204C93A14}" {
+     Weight 0.1
+     SizeSetupStrategy Manual
+     ItemDimensions 3 3 3
+     ItemVolume 27
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C78C42204C93A02}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 25 0
+      FOV 45
+     }
+    }
+    CommonItemType "WALLET"
+    m_Size SLOT_1x1
+    m_SlotType SLOT_LOOT_CURRENCY
+   }
+   Priority 9
+   StoragePurpose 9
+   MaxCumulativeVolume 1000
+   MaxItemSize 10 10 10
+   m_fMaxWeight 1
+  }
+  ActionsManagerComponent "{5C78C42204C93AEF}" {
+   ActionContexts {
+    UserActionContext "{5C78C42204C93ADE}" {
+     ContextName "default"
+     Position PointInfo "{5C78C42204C93ADD}" {
+      Offset 0 0.0732 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5C78C42204C93AFC}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C78C42204C93AFB}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+    SCR_OpenStorageAction "{5C78C42204C93AEA}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C78C42204C93AE8}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+    }
+   }
+  }
+  RplComponent "{5C78C42204C93AE2}" {
+  }
+ }
+ coords 81.731 1.001 116.013
+}

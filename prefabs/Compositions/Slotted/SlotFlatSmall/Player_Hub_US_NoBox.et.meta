@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A8B754D032D7600D}prefabs/Compositions/Slotted/SlotFlatSmall/Player_Hub_US_NoBox.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

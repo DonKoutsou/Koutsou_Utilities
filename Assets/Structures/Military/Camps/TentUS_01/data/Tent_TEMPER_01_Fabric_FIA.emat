@@ -1,0 +1,46 @@
+MatPBRMulti {
+ Color 1 1 1 1
+ Cull none
+ RoughnessScale 1.738
+ MetalnessScale 0
+ DielectricReflectance 0.02
+ GlobalMCRMap "{01AF91AB2492735B}Assets/Structures/Military/Camps/TentUS_01/data/TemperTent_MCR.edds"
+ OverlayBlackPower 0.329
+ OverlayWhitePower 0
+ UVSrcGlobalMaps "UV set 2"
+ VFXMap "{B25A0A30C6403F89}Assets/Structures/Military/Camps/TentUS_01/data/TemperTent_Fabric_VFX.edds"
+ NormalPower 1.5
+ GlobalNMOMap "{1E2C3FF8EFB725B7}Assets/Structures/Military/Camps/TentUS_01/data/Tent_TEMPER_01_Fabric_NMO.edds"
+ GlobalNMOUVTransform MatUVTransform "{51F8B775027C0E4D}" {
+ }
+ UVSrcDetail "UV set 2"
+ MudOpacity 0.915
+ MudColor 0.071 0.068 0.058 1
+ MudRoughness 1.81
+ MudMetalness 0
+ MudBCRMap "{AE37874A11911124}Assets/_SharedData/Dirt/ST_Mud_01_BCR.edds"
+ MudNMOMap "{96EF3CD8C8E643BA}Assets/_SharedData/Dirt/ST_Mud_01_NMO.edds"
+ MudMaskMap "{816ABEBED1A52FF3}Assets/_SharedData/DetailMask/ST_Mud_01_Mask.edds"
+ MudUVTransform MatUVTransform "{5252E0700E03C13B}" {
+  TilingU 5
+  TilingV 5
+ }
+ DirtOpacity 0.484
+ DirtLayerSharpness 1.572
+ DirtColor 0.038 0.038 0.038 1
+ DirtRoughness 1
+ DirtMaskMap "{8A50472D717443E4}Assets/_SharedData/DetailMask/ST_Dirt_02_Mask1.edds"
+ DirtUVTransform MatUVTransform "{5252E071DD633916}" {
+  TilingU 2
+  TilingV 2
+ }
+ Color_1 0.095 0.093 0.058 1
+ BCR_1 "{5F54C1714DAA5E23}Assets/_SharedData/Plastic/ST_Plastic_Fine01_1m_BCR.edds"
+ NMO_1 "{678C7AE394DD0CBD}Assets/_SharedData/Plastic/ST_Plastic_Fine01_1m_NMO.edds"
+ UVTransform_1 MatUVTransform "{51FA9254E8D701CC}" {
+  TilingU 10
+  TilingV 10
+ }
+ DetNormal_1 3
+ Metalness_1 0
+}

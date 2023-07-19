@@ -1,0 +1,35 @@
+GenericEntity : "{0D39750E5695B9D8}prefabs/Items/Equipment/Backpacks/Backpack_RPG_Gunner.et" {
+ ID "511E9C6ADE70F798"
+ components {
+  SignalsManagerComponent "{5D3CDC3BF6175DC5}" {
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB039E9715D1}" {
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     ItemVolume 4500
+    }
+   }
+   MaxCumulativeVolume 5000
+   MaxItemSize 30 30 30
+   InitialStorageSlots {
+    InventoryStorageSlot RPG {
+     Prefab "{7A82FE978603F137}Prefabs/Weapons/Launchers/RPG7/Launcher_RPG7.et"
+    }
+   }
+   MultiSlots {
+    MultiSlotConfiguration "{5B248C12480C8154}" {
+     SlotTemplate InventoryStorageSlot Rockets {
+      Prefab "{32E12D322E107F1C}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM.et"
+     }
+     NumSlots 1
+    }
+    MultiSlotConfiguration "{5B248C13F0C40D72}" {
+     SlotTemplate InventoryStorageSlot currency {
+      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     }
+     NumSlots 3
+    }
+   }
+  }
+ }
+}

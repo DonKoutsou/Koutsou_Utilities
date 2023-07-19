@@ -1,0 +1,20 @@
+GameProject {
+ ID "SPEIRAEXP"
+ GUID "5DD6C05282B7AD55"
+ TITLE "SPEIRA_EXP"
+ Dependencies {
+  "58D0FB3206B6F859" "5CEB3355D6F27906"
+ }
+ Configurations {
+  GameProjectConfig PC {
+  }
+  GameProjectConfig HEADLESS {
+  }
+  GameProjectConfig XBOX_ONE {
+  }
+  GameProjectConfig XBOX_SERIES {
+  }
+  GameProjectConfig PS4 {
+  }
+ }
+}

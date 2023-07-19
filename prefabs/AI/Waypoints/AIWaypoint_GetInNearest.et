@@ -1,0 +1,4 @@
+SCR_BoardingWaypoint {
+ ID "568C71ECE1AF6020"
+ CompletionRadius 10
+}

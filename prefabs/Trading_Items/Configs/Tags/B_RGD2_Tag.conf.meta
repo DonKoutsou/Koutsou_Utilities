@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C5C08B71177ACD27}Prefabs/Trading_Items/Configs/Grenades/B_RGD2_2.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

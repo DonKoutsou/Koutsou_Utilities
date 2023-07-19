@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B309152B92729564}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_decal_Factionless.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

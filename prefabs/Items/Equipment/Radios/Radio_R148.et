@@ -1,0 +1,18 @@
+GenericEntity : "{5879D8E9C56E358D}Prefabs/Items/Core/Radio_base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  RadioBroadcastSoundComponent "{5C776435425E1949}" {
+   Filenames {
+    "{0373401D5C6607B1}Sounds/RadioBroadcast/RadioBroadcast.acp"
+   }
+  }
+  RadioBroadcastComponent "{5C776435450E4992}" {
+   TurnOnAction SCR_TurnOnAction "{5C77643547DC9EEB}" {
+    ParentContextList {
+     "knob_channel"
+    }
+    "Sort Priority" 100
+   }
+  }
+ }
+}

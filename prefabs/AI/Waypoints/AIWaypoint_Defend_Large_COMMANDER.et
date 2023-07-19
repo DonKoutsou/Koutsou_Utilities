@@ -1,0 +1,12 @@
+SCR_DefendWaypoint : "{A33AF7FC5004F294}prefabs/AI/Waypoints/AIWaypoint_Defend_Large_CO.et" {
+ ID "5CA07E9823A76129"
+ coords 3565.27 0.953 1511.162
+ AIBehaviorTreeMoveTo "{62D36413D46F02A6}AI/BehaviorTrees/Waypoints/WP_Patrol.bt"
+ CompletionRadius 50
+ m_holdingTime 5000
+ m_bFastInit 0
+ m_DefendPresets {
+  SCR_DefendWaypointPreset "{5CA07E9823A76159}" {
+  }
+ }
+}

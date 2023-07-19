@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7479BADE146541A8}prefabs/Items/Equipment/Accessories/Dogtags/Dog_Tags_Renegade.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

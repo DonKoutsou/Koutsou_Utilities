@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{9663EE0A0180F869}Configs/Dilaogue_Configs/Generic/QuestionCollection.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

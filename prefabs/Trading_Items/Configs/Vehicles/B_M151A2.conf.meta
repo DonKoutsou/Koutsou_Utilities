@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{39D0515F9E50DD85}Prefabs/Trading_Items/Configs/Vehicles/B_M151A2.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

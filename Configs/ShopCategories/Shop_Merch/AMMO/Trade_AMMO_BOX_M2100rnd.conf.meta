@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{24D8F3CCFDB235FA}Configs/ShopCategories/Shop_Merch/AMMO/Trade_AMMO_BOX_M2100rnd.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

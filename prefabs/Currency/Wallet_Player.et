@@ -1,0 +1,21 @@
+GenericEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
+ ID "5C78C422199A1092"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {
+   InitialStorageSlots {
+    InventoryStorageSlot photo {
+     Prefab "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et"
+    }
+   }
+   MultiSlots {
+    MultiSlotConfiguration "{5C7D11CB9B2C6A4E}" {
+     SlotTemplate InventoryStorageSlot watches {
+      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     }
+     NumSlots 16
+    }
+   }
+  }
+ }
+ coords 108.513 1.001 148.428
+}

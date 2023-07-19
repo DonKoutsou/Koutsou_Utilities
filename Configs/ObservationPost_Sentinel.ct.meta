@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A6EB3E0793DF2F7D}Configs/ObservationPost_Sentinel.ct"
+ Configurations {
+  ComponentTemplateResourceClass PC {
+  }
+  ComponentTemplateResourceClass XBOX_ONE : PC {
+  }
+  ComponentTemplateResourceClass XBOX_SERIES : PC {
+  }
+  ComponentTemplateResourceClass PS4 : PC {
+  }
+  ComponentTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

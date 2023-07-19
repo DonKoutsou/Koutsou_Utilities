@@ -1,0 +1,29 @@
+GenericEntity : "{FDA7B6630DB87991}prefabs/Items/Equipment/Backpacks/Backpack_M70_Swiss.et" {
+ ID "511E9C6ADE70F798"
+ components {
+  SignalsManagerComponent "{5D3CDC3BF273570E}" {
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
+   MaxItemSize 30 30 30
+   InitialStorageSlots {
+    InventoryStorageSlot Weapon {
+     Prefab "{F8208539AD3E19EC}prefabs/Weapons/Rifles/VZ58/Civilian_Rifle_VZ58V.et"
+    }
+   }
+   MultiSlots {
+    MultiSlotConfiguration "{5B248C122A202897}" {
+     SlotTemplate InventoryStorageSlot Ammo {
+      Prefab "{A827B610B7CD4158}Prefabs/Weapons/Magazines/Vz58/Magazine_762x39_Vz58_30rnd_Last_5Tracer.et"
+     }
+     NumSlots 2
+    }
+    MultiSlotConfiguration "{5B248C13C1B13BEB}" {
+     SlotTemplate InventoryStorageSlot currency {
+      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     }
+     NumSlots 4
+    }
+   }
+  }
+ }
+}

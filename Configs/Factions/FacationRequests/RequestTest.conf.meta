@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{68E836C3FEDD7D08}Configs/Factions/FacationRequests/RequestTest.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

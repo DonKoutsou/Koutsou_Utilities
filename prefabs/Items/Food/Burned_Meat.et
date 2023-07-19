@@ -1,0 +1,21 @@
+FoodEntity : "{C22A2F123CD609FC}Prefabs/Items/Food/Meat_01_Dry.et" {
+ ID "74D3E7415542DA9C"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "BurnedMeat"
+    }
+   }
+  }
+  MeshObject "{74D3E741994A4A00}" {
+   Materials {
+    MaterialAssignClass "{5D86A05A4BD97D4B}" {
+     SourceMaterial "Common/Materials/Physics/flesh"
+     AssignedMaterial "{D5A7F470EB6795E1}Assets/Items/Food/Data/Meat_01_Dry_Burned.emat"
+    }
+   }
+  }
+ }
+ coords 122.104 0.873 130.046
+}

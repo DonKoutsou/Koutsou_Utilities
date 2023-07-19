@@ -1,0 +1,20 @@
+GenericEntity : "{F401D58CD490C872}Prefabs/Props/Civilian/BeerBottle_01_slava.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  InventoryItemComponent "{58A733519D629E2E}" : "{C656F7A7CAFCA59E}Prefabs/ComponentPrefabs/InventoryItem.ct" {
+   Attributes SCR_ItemAttributeCollection "{589173C7CBB7866C}" {
+    ItemDisplayName UIInfo "{589173C7CBB78665}" {
+     Name "Beer Slava"
+    }
+   }
+  }
+  SCR_ConsumableComponent "{58AF67B0BFD485B0}" : "{B6368569A40F956C}Prefabs/ComponentPrefabs/ConsumableWater.ct" {
+  }
+  ActionsManagerComponent "{58A733519EB05E5D}" : "{85D7D4C78B24078B}Prefabs/ComponentPrefabs/ItemActionsManager.ct" {
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+ coords 130.478 1.901 122.447
+}

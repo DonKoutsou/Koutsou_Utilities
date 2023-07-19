@@ -1,0 +1,46 @@
+FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
+ ID "0000000000000001"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "MRE"
+     Description "restores hunger"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 50
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5D34DC8F4828780D}" {
+     AnimationInstance "{4FCBEA45CAEBC9C0}anims/workspaces/player/player_main_1h.asi"
+     AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5D34DC8F7D0D7C80}" {
+       AnimGraph "{883777E45A6C4DA1}Assets/Items/Medicine/Workspaces/Gauze_01.agr"
+       AnimInstance "{79BD98038DD60F88}Assets/Items/Medicine/Workspaces/Gauze_01_player.asi"
+       BindingName "Gadget"
+      }
+     }
+    }
+    CustomAttributes {
+     SCR_ItemOfInterestAttribute "{5D84D824CEEEAB77}" {
+      m_InterestType FOOD
+     }
+    }
+    CommonItemType "FOOD"
+    m_SlotType SLOT_VEST
+   }
+  }
+  Hierarchy "{5D88A7E771D1777A}" {
+  }
+  SCR_ConsumableItemComponent "{5D3307D08E595F1C}" {
+   m_eAnimVariable ADRIANOV
+   m_ConsumableEffect SP_ConsumableEffectEat "{5D830E0F81411835}" {
+   }
+   m_bIsEatable 1
+   m_fInitContainerCapacity 10
+   m_fUseAmount 10
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{5695EECD6A063DFC}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Data/Backpack_M70_Swiss_SPEIRA.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

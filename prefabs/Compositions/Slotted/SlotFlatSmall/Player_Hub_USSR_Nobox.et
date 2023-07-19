@@ -1,0 +1,302 @@
+GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  FactionAffiliationComponent "{56E0D915F82EB4E8}" {
+   "faction affiliation" "USSR"
+  }
+ }
+ coords 1142.354 1.157 3335.07
+ {
+  $grp GenericEntity : "{013297BA01640EB9}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_02.et" {
+   {
+    ID "5D78E07A6B21FB51"
+    components {
+     Hierarchy "{56A6E94FD1A1AB69}" {
+      Enabled 1
+     }
+    }
+    coords 2.08 0 4.583
+    angleY -50.718
+   }
+   {
+    ID "5D78E07A6B21FB52"
+    components {
+     Hierarchy "{56A6E94E6F2DE813}" {
+      Enabled 1
+     }
+    }
+    coords 1.07 0 5.08
+    angleY -114.358
+   }
+  }
+  $grp GenericEntity : "{1EC801E208CB16C6}Prefabs/Vegetation/Cuttings/Rubus_idaeus_small_01.et" {
+   {
+    ID "5D78E07A6B21594C"
+    coords 3.918 0.1 -4.713
+    angleX 46.508
+    angleY -179.758
+   }
+   {
+    ID "5D78E07A6B21594D"
+    coords -5.146 0.1 1.938
+    angleX 39.262
+    angleY -5.487
+   }
+  }
+  $grp GenericEntity : "{4A09EF1D855AF2C4}Prefabs/Vegetation/Cuttings/Rosa_canina_small_01.et" {
+   {
+    ID "5D78E07A6B2117AE"
+    coords -5.4 0 1.786
+    angleX 38.194
+   }
+   {
+    ID "5D78E07A6B2156B3"
+    coords 3.246 0 -4.564
+    angleX 44.745
+    angleY -145.257
+   }
+  }
+  $grp GenericEntity : "{6CD65604C7945A66}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_03.et" {
+   {
+    ID "5D78E07A6B2117A0"
+    coords 3.038 0.1 -1.258
+   }
+   {
+    ID "5D78E07A6B2117A7"
+    coords -4.478 0.1 -0.833
+    angleY 130.678
+   }
+  }
+  $grp GenericEntity : "{6D66A35ABDA08197}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_01.et" {
+   {
+    ID "5D78E07A6B2117A2"
+    components {
+     Hierarchy "{56A6E94FD1A580C6}" {
+      Enabled 1
+     }
+    }
+    coords 1.645 0 4.934
+    angleY -48.013
+   }
+   {
+    ID "5D78E07A6B2117BD"
+    components {
+     Hierarchy "{56A6E94FD1A44B96}" {
+      Enabled 1
+     }
+    }
+    coords 1.035 0 5.747
+    angleY -48.013
+   }
+  }
+  $grp GenericEntity : "{74843BB0BF08A845}Prefabs/Vegetation/Cuttings/Corylus_avellana_small_01.et" {
+   {
+    ID "5D78E07A6B20CDA7"
+    coords 2.946 0 5.758
+    angleY 104.457
+   }
+   {
+    ID "5D78E07A6B2117BF"
+    coords 4.151 0.1 1.004
+    angleX 33.925
+    angleY -142.643
+   }
+  }
+  $grp StaticModelEntity : "{75A7C06222E6218B}Prefabs/Structures/Military/Camps/TentSmallUSSR_01/TentSmallUSSR_01.et" {
+   {
+    ID "5D78E07A6B205DE2"
+    components {
+     Hierarchy "{56A6E94FD1A4A2CE}" {
+      Enabled 1
+     }
+    }
+    coords 4.671 0 2.094
+    angleY -98.914
+   }
+   {
+    ID "5D78E07A6B205DE3"
+    components {
+     Hierarchy "{56A6E94FD1AB1538}" {
+      Enabled 1
+     }
+    }
+    coords -4.328 0 -1.91
+    angleY 72.538
+   }
+   {
+    ID "5D78E07A6B20CDA0"
+    components {
+     Hierarchy "{56A6E94FD1A432E2}" {
+      Enabled 1
+     }
+    }
+    coords 4.023 0 -3.502
+    angleY -57.983
+   }
+   {
+    ID "5D78E07A6B20CDA3"
+    components {
+     Hierarchy "{56A6E94FD1A4FAEB}" {
+      Enabled 1
+     }
+    }
+    coords 4.927 0 -0.773
+    angleY -72.885
+   }
+   {
+    ID "5D78E07A6B23E46E"
+    components {
+     Hierarchy "{56A6E94FD1ABDDB2}" {
+      Enabled 1
+     }
+    }
+    coords -4.948 0 0.635
+    angleY 93.73
+   }
+  }
+  GenericEntity : "{894A1AFDCB71CD0D}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_02.et" {
+   ID "5D78E07A6B23E461"
+   coords 1.683 0.1 4.84
+   {
+    DecalEntity {
+     ID "56DEFDB4A9499F9B"
+     coords -0.074 0 -0.284
+     angleX -90
+     angleY 101.662
+     angleZ -180
+    }
+   }
+  }
+  GenericEntity : "{8B97C14F4617AC07}Prefabs/Compositions/Misc/SubCompositions/EquipmentBoxStacked_Cluttered_USSR_03.et" {
+   ID "5D78E07A6B23E465"
+   coords -4.083 0 2.151
+   angleY -150
+  }
+  $grp GenericEntity : "{8E431002132E51BD}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_01.et" {
+   {
+    ID "5D78E07A6B23E459"
+    coords 2.599 0.1 4.576
+   }
+   {
+    ID "5D78E07A6B23E466"
+    coords 1.134 0.1 6.461
+   }
+  }
+  GenericEntity : "{A85E67003277D049}Prefabs/Vegetation/Cuttings/Malus_domestica_large_01.et" {
+   ID "5D78E07A6B23E45B"
+   coords -6.106 0 -0.955
+   angleY 177.145
+  }
+  $grp GenericEntity : "{B898D2A1F45058F6}Prefabs/Props/Garbage/Military/Food/GarbageFoodMilitaryUSSR_01.et" {
+   {
+    ID "5D78E07A6B23A2DF"
+    components {
+     Hierarchy "{56A6E94FD1AAAE34}" {
+      Enabled 1
+     }
+    }
+    coords 0.632 0 -1.434
+    angleY -91.81
+   }
+   {
+    ID "5D78E07A6B23E45A"
+    components {
+     Hierarchy "{56A6E94FD1AA4FD3}" {
+      Enabled 1
+     }
+    }
+    coords -3.929 0 -0.558
+    angleY -132.406
+   }
+   {
+    ID "5D78E07A6B23E6B9"
+    components {
+     Hierarchy "{56A6E94FD1AAFAF5}" {
+      Enabled 1
+     }
+    }
+    coords 1.687 0 1.003
+    angleY -59.682
+   }
+   {
+    ID "5D78E07A6B23E6BE"
+    components {
+     Hierarchy "{56A6E94FD1AA30B8}" {
+      Enabled 1
+     }
+    }
+    coords 0.272 0 1.728
+    angleY -15.095
+   }
+  }
+  GenericEntity : "{C11CE4B95EA336C3}Prefabs/Vegetation/Cuttings/Sambucus_Nigra_medium_01.et" {
+   ID "5D78E07A6B23A2DE"
+   coords 5.233 0 -3.34
+   angleX 35.742
+   angleY 66.667
+   angleZ -14.143
+  }
+  GenericEntity : "{C258AD45887AA8CA}Prefabs/Vegetation/Cuttings/Picea_abies_medium_01.et" {
+   ID "5D78E07A6B23A2DD"
+   coords 5.799 0 0.917
+   angleY -16.115
+  }
+  $grp GenericEntity : "{C599195C442D7125}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_CigarButts_01.et" {
+   {
+    ID "5D78E07A6B23A2D3"
+    coords 0.756 0.1 1.364
+   }
+   {
+    ID "5D78E07A6B23A2DC"
+    coords -0.05 0.1 -0.263
+    angleY -87.869
+   }
+  }
+  GenericEntity : "{D16F58EC1C0027D7}Prefabs/Vegetation/Cuttings/Salix_cinerea_medium_01.et" {
+   ID "5D78E07A6B23A2D1"
+   coords -4.4 0 -3.217
+   angleX 39.684
+   angleY 165.318
+   angleZ -9.498
+  }
+  GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
+   ID "5D78E07A6B2117AA"
+   components {
+    Hierarchy "{58C896CB4CBE238B}" {
+    }
+   }
+   coords 0 0.001 0
+  }
+  GenericEntity : "{E51E2E1D77B54223}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_01.et" {
+   ID "5D78E07A6B23A2D7"
+   coords -1.254 0.1 1.467
+  }
+  $grp GenericEntity : "{F0DCB55B7FDB746B}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_02.et" {
+   {
+    ID "5D78E07A6B23A2D4"
+    coords -0.412 0.1 5.24
+    angleY 33.184
+   }
+   {
+    ID "5D78E07A6B23A2D5"
+    coords -1.105 0.1 2.004
+    angleY 109.191
+   }
+   {
+    ID "5D78E07A6B23A2D6"
+    coords -1.92 0.1 -3.548
+    angleY 107.357
+   }
+  }
+  GenericEntity : "{F401D58CD490C872}Prefabs/Props/Civilian/BeerBottle_01_slava.et" {
+   ID "5D78E07A6B23A2CE"
+   components {
+    Hierarchy "{5706F8D1898B733F}" {
+     Enabled 1
+    }
+   }
+   coords 5.292 0 0.591
+   angleY -176.094
+  }
+ }
+}

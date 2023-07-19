@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{9015F6FE5FF4E9BB}Prefabs/Trading_Items/Configs/Weapons/B_M16A2_2.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

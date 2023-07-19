@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D20A20501BCF0318}Configs/ShopCategories/Shop_Merch/Weapons/Trade_WPN_AN94.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

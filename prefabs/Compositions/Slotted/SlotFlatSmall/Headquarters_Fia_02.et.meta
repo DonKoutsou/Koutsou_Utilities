@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D3049174EF7497C4}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_Fia_02.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

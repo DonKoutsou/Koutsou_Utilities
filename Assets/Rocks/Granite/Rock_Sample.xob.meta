@@ -1,0 +1,35 @@
+MetaFileClass {
+ Name "{170773CC36C71B7D}Assets/Rocks/Granite/Rock_Sample.xob"
+ Configurations {
+  FBXResourceClass PC {
+   MaterialAssigns {
+    MaterialAssignClass "{5D328BEE631EC328}" {
+     SourceMaterial "lambert1"
+     AssignedMaterial "{B04D794D8E4C7DC4}Assets/Rocks/Granite/Data/GraniteCliff_Meteor.emat"
+    }
+   }
+   MeshParams {
+    MeshParam Rock_Sample {
+    }
+   }
+   Common TXOCommonClass "{5D328BEE6316092F}" : "{0877E7C4BB2B2C9A}Configs/System/ResourceTypes/PC/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_ONE : PC {
+   Common TXOCommonClass "{5D328BEE63162740}" : "{9D5B6207F7628CE2}Configs/System/ResourceTypes/XBOX_ONE/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_SERIES : PC {
+   Common TXOCommonClass "{5D328BEE63163FCA}" : "{DD9F02115C764647}Configs/System/ResourceTypes/XBOX_SERIES/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass PS4 : PC {
+   Common TXOCommonClass "{5D328BEE63163BFB}" : "{53EC476BC921D99A}Configs/System/ResourceTypes/PS4/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass HEADLESS : PC {
+   Common TXOCommonClass "{5D328BEE631634A4}" : "{3A5B3356978039E8}Configs/System/ResourceTypes/HEADLESS/MeshObjectCommon.conf" {
+   }
+  }
+ }
+}

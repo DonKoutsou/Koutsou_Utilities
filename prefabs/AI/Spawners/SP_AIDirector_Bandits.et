@@ -1,0 +1,12 @@
+SP_AIDirector : "{73FAFC92CCA8F296}prefabs/AI/Spawners/SP_AIDirector_FIA.et" {
+ ID "5D42AA2A8C40E9C7"
+ components {
+ }
+ coords 1679.214 3.531 873.805
+ m_eEntityCatalogType GROUP
+ m_FactionsToApear {
+  "BANDITS"
+ }
+ m_Radius 100
+ m_CommanderRespawn 0
+}

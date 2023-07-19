@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{1DB35AF4297FCF67}Assets/Items/Food/Data/Water_Bottle_BCR.edds"
+ NMOMap "{256BE166F0089DF9}Assets/Items/Food/Data/Water_Bottle_NMO.edds"
+}

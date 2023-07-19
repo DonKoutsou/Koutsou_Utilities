@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C6122B0A5B2C16E8}Assets/Items/Misc/IntelligenceFolder_E_01/Data/IntelligenceFolder_E_02.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

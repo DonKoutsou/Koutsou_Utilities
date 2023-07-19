@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{5338C0CC0FD1BF7A}Configs/ShopCategories/Shop_Merch/Trade_SmokeGR_USSR.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

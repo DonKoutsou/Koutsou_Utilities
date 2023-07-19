@@ -1,0 +1,20 @@
+GenericEntity : "{88FAE04EF7115814}Prefabs/Props/Civilian/BeerBottle_01_green.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  InventoryItemComponent "{58A7335193625E22}" : "{C656F7A7CAFCA59E}Prefabs/ComponentPrefabs/InventoryItem.ct" {
+   Attributes SCR_ItemAttributeCollection "{589173C7CBB7866C}" {
+    ItemDisplayName UIInfo "{589173C7CBB78665}" {
+     Name "Beer"
+    }
+   }
+  }
+  SCR_ConsumableComponent "{58AF67B0B79BC7F0}" : "{B6368569A40F956C}Prefabs/ComponentPrefabs/ConsumableWater.ct" {
+  }
+  ActionsManagerComponent "{58A73351922565B0}" : "{85D7D4C78B24078B}Prefabs/ComponentPrefabs/ItemActionsManager.ct" {
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+ coords 130.639 1.9 122.441
+}

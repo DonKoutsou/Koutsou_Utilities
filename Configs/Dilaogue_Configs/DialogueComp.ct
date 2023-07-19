@@ -1,0 +1,50 @@
+SP_DialogueComponent {
+ m_CharacterArchetypeList {
+  SP_DialogueArchetype "{5D751D2947B6938D}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {
+  }
+  SP_DialogueArchetype "{5D685A5DD5DC418E}" : "{81B9C2CC73B3921A}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Medic.conf" {
+  }
+  SP_DialogueArchetype "{5D685A5B3D75C81B}" : "{82C09756E1DA6B26}Configs/Dilaogue_Configs/BANDIT_Units/DialogueConf_BANDIT_Private.conf" {
+  }
+  SP_DialogueArchetype "{5D685A5DD72AEEAA}" : "{E681EC3A2837A310}Configs/Dilaogue_Configs/BANDIT_Units/DialogueConf_BANDIT_Commander.conf" {
+  }
+  SP_DialogueArchetype "{5D687B28A35A9086}" : "{EBDA2467806C6197}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Private.conf" {
+  }
+  SP_DialogueArchetype "{5D687B28A2A1B119}" : "{308425433B957AB2}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Medic.conf" {
+  }
+  SP_DialogueArchetype "{5D687B2824154DA8}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
+  }
+  SP_DialogueArchetype "{5D687B2825594970}" : "{034F9F5363B2F5DA}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Medic.conf" {
+  }
+ }
+ m_ChatChannelFIA FIAChatChannel "{5D685A535B29BDDA}" {
+  "Channel name" "FIA"
+  Style BaseChatChannelStyle "{5D685A535B29BDD9}" {
+  }
+ }
+ m_ChatChannelUSSR USSRChatChannel "{5D685A535B29BDC8}" {
+  "Channel name" "USSR"
+  Style BaseChatChannelStyle "{5D685A535B29BDD7}" {
+  }
+ }
+ m_ChatChannelUS USChatChannel "{5D72F115C7F0476D}" {
+  "Channel name" "US"
+  Style BaseChatChannelStyle "{5D72F115D9030191}" {
+  }
+ }
+ m_ChatChannelBANDITS BANDITSChatChannel "{5D685A535B29BDC3}" {
+  "Channel name" "BANDITS"
+  Style BaseChatChannelStyle "{5D685A535B29BDC2}" {
+  }
+ }
+ m_ChatChannelSPEIRA SPEIRAChatChannel "{5D685A535B29A20D}" {
+  "Channel name" "SPEIRA"
+  Style BaseChatChannelStyle "{5D685A535B29BDF0}" {
+  }
+ }
+ m_ChatChannelANOUNCER LocalChatChannel "{5D685A535B29A210}" {
+  "Channel name" "Local"
+  Style BaseChatChannelStyle "{5D685A535B29A211}" {
+  }
+ }
+}

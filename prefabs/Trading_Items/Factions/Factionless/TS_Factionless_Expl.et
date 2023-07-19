@@ -1,0 +1,46 @@
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
+ ID "5B11113704C2B0B4"
+ components {
+  ADM_ShopComponent "{5D98880BAA237AF8}" {
+   m_ShopConfig "{7D781A669772321D}Configs/Shops/Explosives_Factionless.conf"
+   m_Categories {
+    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
+   }
+  }
+  MeshObject "{58C4C15098F109F6}" {
+   Object "{26602B855125635D}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Explosives_01.xob"
+   Materials {
+    MaterialAssignClass "{5C9AF12A7683D8E6}" {
+     SourceMaterial "EquipmentBoxWooden_Explosives_01"
+     AssignedMaterial "{0A0A9C1C7B189A8B}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Explosives_01_FIA.emat"
+    }
+    MaterialAssignClass "{5C9AF12A7683D88E}" {
+     SourceMaterial "EquipmentBoxWooden_decal"
+     AssignedMaterial "{B309152B92729564}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_decal_Factionless.emat"
+    }
+   }
+  }
+  ActionsManagerComponent "{5B1111371149AC02}" {
+   ActionContexts {
+    UserActionContext "{5C96D63DB5D68D86}" {
+     ContextName "default"
+     Position PointInfo "{5C96D63DC862DFF7}" {
+      Offset 0 0.3529 0
+     }
+    }
+   }
+   additionalActions {
+    ADM_ShopAction "{5D98880BA276AC9C}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D98880BA4AEAD31}" {
+      Name "Trade"
+     }
+    }
+   }
+  }
+ }
+ coords 123.291 1.001 120.74
+ angleY 0
+}

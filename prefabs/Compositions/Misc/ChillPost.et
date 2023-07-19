@@ -1,0 +1,91 @@
+GenericEntity {
+ ID "5D88A7E1D7BE7077"
+ components {
+  FactionAffiliationComponent "{5D88A7E2692F60BD}" {
+   "faction affiliation" "USSR"
+  }
+  Hierarchy "{5D88A7E2692F609D}" {
+   Enabled 1
+  }
+  SCR_AISmartActionSentinelComponent "{5D88A7E2692F60DE}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ObservationPost"
+   }
+   ActionOffset 2.538 0 0.027
+   m_vLookPosition 0 0 11.723
+   m_fLookDirectionRange 180
+   m_bUseBinoculars 1
+   m_eLeaningType LEFT
+  }
+  SCR_AISmartActionSentinelComponent "{5D88A7E2692F60FF}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ObservationPost"
+   }
+   ActionOffset -1.556 0 2.451
+   m_vLookPosition 0 0 13.668
+   m_fLookDirectionRange 180
+   m_bUseBinoculars 1
+  }
+  SCR_AISmartActionSentinelComponent "{5D88A7E2692F6106}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ObservationPost"
+   }
+   ActionOffset 0.204 0 2.195
+   m_vLookPosition 0 0 10.589
+   m_fLookDirectionRange 180
+  }
+  SCR_CampaignBuildingCompositionComponent "{5D88A7E2692F6128}" {
+  }
+  SCR_SlotCompositionComponent "{5D88A7E2692F6126}" {
+  }
+  RplComponent "{5D88A7E2692F6101}" {
+   Streamable Disabled
+  }
+ }
+ coords 121.379 1.509 168.992
+ Flags 1027
+ {
+  SCR_DestructibleEntity : "{15B364C10D53C789}Prefabs/Props/Furniture/TableRecreation_01_redyellow.et" {
+   ID "5D88A7E1D7BE705A"
+   coords 0.079 0 0.588
+   angleY 37.79
+  }
+  GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+   ID "5D88A7E1D7BE54FE"
+   coords 0.253 0.899 0.933
+  }
+  GenericEntity : "{5D91308C543D1376}prefabs/Props/Fire_Barrel.et" {
+   ID "5D88A7E1D7BE7043"
+   coords 1.366 0 2.737
+   angleY 0
+  }
+  GenericEntity : "{9B7F08BF4C938AD2}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Medium_Soviet.et" {
+   ID "5D88A7E1D7BE704E"
+   coords 0 0 0
+  }
+  $grp GenericEntity : "{C606F9422D9C3778}prefabs/Props/Furniture/ChairOld_01_2.et" {
+   {
+    ID "5D88A7E1D7BE54FD"
+    coords 1.199 0 -0.499
+    angleX 0
+    angleY 0
+    angleZ 0
+   }
+   {
+    ID "5D88A7E1D7BE705C"
+    coords -0.626 0 -0.668
+    angleX 0
+    angleY 0
+    angleZ 0
+   }
+  }
+  GenericEntity : "{E56F1B739B9792C4}Prefabs/Props/Civilian/Ashtray_01_Full_green.et" {
+   ID "5D88A7E1D7BE54F2"
+   coords -0.115 0.899 0.492
+   angleY 0
+  }
+ }
+}

@@ -1,0 +1,8 @@
+MatPBRMulti {
+ DirtOpacity 3
+ DirtLayerSharpness 1.387
+ MaskSharpness_4 5.725
+ MaskOffset_4 0.526
+ Color_2 0.048 0.022 0.022 1
+ Color_1 0.056 0.018 0.019 1
+}

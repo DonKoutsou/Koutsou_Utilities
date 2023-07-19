@@ -1,0 +1,24 @@
+GenericEntity : "{E9F1761D9F579F0B}prefabs/Items/Equipment/Backpacks/Backpack_M70_Swiss_SPEIRA.et" {
+ ID "511E9C6ADE70F798"
+ components {
+  SignalsManagerComponent "{5D3CDC3BFBF2CBFB}" {
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
+   MultiSlots {
+    MultiSlotConfiguration "{5C71148FA7F7CB5D}" {
+     SlotTemplate InventoryStorageSlot Ammo {
+      Prefab "{4B0D5960ECE64D82}Prefabs/Weapons/Magazines/Vz52/Magazine_762x39_Vz52_10rnd.et"
+     }
+     NumSlots 2
+    }
+    MultiSlotConfiguration "{5C71148FA7EF84EE}" {
+     SlotTemplate InventoryStorageSlot currency {
+      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     }
+     NumSlots 2
+    }
+   }
+  }
+ }
+ coords 106.519 1.001 116.923
+}

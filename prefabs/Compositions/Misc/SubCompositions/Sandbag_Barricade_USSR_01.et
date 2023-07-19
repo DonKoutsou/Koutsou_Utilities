@@ -1,0 +1,17 @@
+GenericEntity {
+ ID "58ECA7C4B7DD1C62"
+ components {
+  Hierarchy "{5B1EF58E03658B89}" {
+  }
+  SCR_AISmartActionSentinelComponent "{5B1EF58E1F46CB60}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ChillPost" "ObservationPoint"
+   }
+   ActionOffset 0.532 0 -0.685
+   m_vLookPosition -8.217 1 22.861
+  }
+  RplComponent "{5B1EF58E1841081E}" {
+  }
+ }
+}

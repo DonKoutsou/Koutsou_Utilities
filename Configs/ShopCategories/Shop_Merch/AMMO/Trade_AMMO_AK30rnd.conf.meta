@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{BC89BE5C287B8BAE}Configs/ShopCategories/Shop_Merch/AMMO/Trade_AMMO_AK30rnd.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{08B78738625F4FBF}Prefabs/Trading_Items/Configs/B_SVD.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

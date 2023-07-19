@@ -1,0 +1,48 @@
+FrameWidgetClass "{5CFEFE90C4F9955B}" {
+ Name "rootFrame"
+ components {
+  SCR_SelectionEntryWidgetComponent "{55F707DAC6574850}" {
+   m_sDefaultLabel "Text"
+  }
+ }
+ {
+  ItemPreviewWidgetClass "{5CFEFE90C4F9955D}" {
+   Name "PreviewItem"
+   Slot FrameWidgetSlot "{55EB11888A9322EA}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 200
+    OffsetRight -200
+    SizeY 80
+    OffsetBottom -80
+    Alignment 0.5 0.5
+   }
+   "Use clear color" 1
+   "Clear Color" 0 0 0 0
+   "Blend mode" Blend
+  }
+  TextWidgetClass "{5CFEFE90C4F996AB}" : "{3132F64DB8B4CB44}UI/layouts/WidgetLibrary/TextWidgets/Text_Body.layout" {
+   Name "TxtLabel"
+   Slot FrameWidgetSlot "{55EB1188DB40506C}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 100
+    OffsetRight -100
+    SizeY 100
+    OffsetBottom -100
+    Alignment 0.5 0.5
+   }
+   Text "Label"
+   "Font Size" 30
+   "Min Font Size" 30
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+  }
+ }
+}

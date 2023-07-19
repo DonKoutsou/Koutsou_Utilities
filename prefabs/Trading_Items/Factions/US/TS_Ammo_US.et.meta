@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{BECF5363018B1B46}Prefabs/Trading_Items/Factions/US/TS_Ammo_US.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

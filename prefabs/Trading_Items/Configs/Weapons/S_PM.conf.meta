@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CD65E2D33044045F}Prefabs/Trading_Items/Configs/S_PM.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

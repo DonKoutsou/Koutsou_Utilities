@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A0BE50F1B663D6C6}Prefabs/Trading_Items/Configs/S_M14.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,93 @@
+GenericEntity {
+ ID "5C7D11CA6B910144"
+ components {
+  SignalsManagerComponent "{5C7D11CAD4E6F2AE}" {
+  }
+  SoundComponent "{5C7D11CAD4E6F368}" {
+   Filenames {
+    "{D7CE99AA2FB40C31}Sounds/Items/_SharedData/PickUp/Items_PickUp_Canteen.acp" "{C9A9B77442AA824A}Sounds/Items/_SharedData/Drop/Items_Drop_Canteen.acp"
+   }
+   DistanceManagement 0
+  }
+  InventoryItemComponent "{5C7D11CAD4E6F3EE}" {
+   Attributes SCR_ItemAttributeCollection "{5C7D11CAD4E6F3EB}" {
+    ItemDisplayName UIInfo "{5C7D11CAD4E6F332}" {
+     Name "Photo of loved one"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5C7D11CAD4E6F3DD}" {
+     Weight 0.001
+     SizeSetupStrategy Manual
+     ItemDimensions 1 1 1
+     ItemVolume 10
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5C7D32C1ADF84B8F}" {
+     AnimationInstance ""
+     AnimationIKPose ""
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5C7D32C1B0F3A4D5}" {
+       AnimGraph "{83675D0B0AB1B2C3}Assets/Items/Equipment/workspaces/paper_map.agr"
+       AnimInstance "{56794534F6B8C3D7}Assets/Items/Equipment/workspaces/player_map.asi"
+       BindingName "Gadget"
+      }
+     }
+     HandAdditiveRotation 0 180 0
+     HandAdditiveTranslation -0.04 0.01 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C7D11CAD4E6F3CB}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 25 0
+      CameraDistanceToItem 1
+      FOV 10
+     }
+     CharacterModifierAttributes "{5C7D32C1F9AAE8E7}" {
+      SpeedLimitItemPrimaryAction 0
+      Supress1hShooting 0
+     }
+    }
+    m_Size SLOT_1x1
+    m_SlotType SLOT_LOOT_CURRENCY
+   }
+  }
+  MeshObject "{5C7D11CAD4E6F39C}" {
+   Object "{3A1BADCAE99125E4}Assets/Items/Misc/Photo/Loved_Photo.xob"
+  }
+  Hierarchy "{5C7D32C1484807D2}" {
+  }
+  RigidBody "{5C7D11CAD4E6F38F}" {
+   Mass 1
+   LinearDamping 0.5
+   AngularDamping 0.5
+   AngularSleepingThreashold 1
+   SimState Simulation
+   ModelGeometry 1
+  }
+  SCR_WristwatchComponent "{5C7D32C0A2E8759B}" {
+   m_iWristwatchType VOSTOK
+   m_eAnimVariable MAP
+  }
+  ActionsManagerComponent "{5C7D11CAD4E6F427}" {
+   ActionContexts {
+    UserActionContext "{5C7D11CAD4E6F47C}" {
+     ContextName "default"
+     Position PointInfo "{5C7D11CAD4E6F443}" {
+      Offset 0 0.1 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5C7D11CAD4E6F460}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C7D11CAD4E6F46E}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  RplComponent "{5C7D11CAD4E6F4DC}" {
+  }
+ }
+ coords 118.242 1.404 150.867
+}

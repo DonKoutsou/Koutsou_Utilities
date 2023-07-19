@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{4C6DD574D6C7B5EC}Prefabs/Trading_Items/Factions/FIA/TS_Equipment_FIA_2.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

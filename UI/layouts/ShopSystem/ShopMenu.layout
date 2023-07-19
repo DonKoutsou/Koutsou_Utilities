@@ -1,0 +1,73 @@
+FrameWidgetClass {
+ {
+  OverlayWidgetClass "{5D594E3BC64D6A67}" {
+   Prefab "{5D594E3BC64D6A67}"
+   {
+    ImageWidgetClass "{5D98A11DC40C1DB9}" {
+     Name "Image0"
+     Slot OverlayWidgetSlot "{5D98A6185B330794}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Opacity 0.774
+     Texture "{307B3AFD133C1121}UI/Textures/LoadingScreen/MenuBackground.edds"
+     "Blend Mode" Opaque
+    }
+    VerticalLayoutWidgetClass "{5D594E3BC64D6A64}" {
+     Prefab "{5D594E3BC64D6A64}"
+     {
+      HorizontalLayoutWidgetClass "{5D594E3BC64E3562}" {
+       Prefab "{5D594E3BC64E3562}"
+       {
+        HorizontalLayoutWidgetClass "{5D594E3BC64E356D}" {
+         Prefab "{5D594E3BC64E356D}"
+         {
+          VerticalLayoutWidgetClass "{5D594E3BC64E385B}" {
+           Prefab "{5D594E3BC64E385B}"
+           {
+            ScrollLayoutWidgetClass "{5D594E3BC64F7A56}" {
+             Prefab "{5D594E3BC64F7A56}"
+             {
+              VerticalLayoutWidgetClass "{5D594E3BC64F7A57}" {
+               Prefab "{5D594E3BC64F7A57}"
+               {
+                OverlayWidgetClass "{5D594E3BC64F7A58}" {
+                 Prefab "{5D594E3BC64F7A58}"
+                 {
+                  SizeLayoutWidgetClass "{5D594E3BC64F7A59}" {
+                   Prefab "{5D594E3BC64F7A59}"
+                   {
+                    HorizontalLayoutWidgetClass "{5C9E2A9FE3F49657}" {
+                     Prefab "{5C9E2A9FE3F49657}"
+                     {
+                      OverlayWidgetClass "{5C9E2A9FE3F49654}" {
+                       Prefab "{5C9E2A9FE3F49654}"
+                       {
+                        ImageWidgetClass "{5C9E2A9FE3F49652}" {
+                         Prefab "{5C9E2A9FE3F49652}"
+                         Color 0 0 0 0.792
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

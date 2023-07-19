@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{EE1854CB697E2A33}Configs/ShopCategories/Shop_Merch/Weapons/Trade_WPN_RPK.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

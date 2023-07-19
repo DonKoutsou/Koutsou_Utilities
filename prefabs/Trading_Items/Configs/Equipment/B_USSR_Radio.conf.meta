@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{0B31559D92443319}Prefabs/Trading_Items/Configs/Equipment/B_USSR_Radio.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

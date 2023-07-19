@@ -1,0 +1,54 @@
+GenericEntity : "{2149560A9BEFBAC2}Prefabs/Items/Core/Equip_Accessory_base.et" {
+ ID "521AC0491712FB3A"
+ components {
+  SignalsManagerComponent "{5D3CDC3BE4C6A338}" {
+  }
+  SoundComponent "{5A7C7000CBC39F3E}" {
+   Filenames {
+    "{12A94705DF2BFD25}Sounds/Items/_SharedData/PickUp/Items_PickUp_Generic.acp" "{CC0E5A1324E761C1}Sounds/Items/_SharedData/Drop/Items_Drop_Generic.acp"
+   }
+  }
+  MeshObject "{521AC04910AB9941}" {
+   Object "{17AE05B2F324E70F}Assets/Items/Equipment/Accessories/Pouch_Soviet_10rnd_SVD/Pouch_Soviet_10rnd_SVD_item.xob"
+  }
+  SCR_UniversalInventoryStorageComponent "{5C50AAFCF3171B31}" {
+   Attributes SCR_ItemAttributeCollection "{5C50AAFCF3171B37}" {
+    ItemDisplayName UIInfo "{5C50AAFCF3171B3A}" {
+     Name " #AR-LBSComponent_AmmoPouch_SVD_Name"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5C50AAFCF3171B3D}" {
+     Weight 0.35
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 600
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C50AAFCF3171B20}" {
+      CameraPreset Top
+      CameraOrbitAngles -25 25 0
+      CameraDistanceToItem 1.5
+      FOV 10
+     }
+    }
+   }
+   UseCapacityCoefficient 0
+   CapacityCoefficient 1
+   MaxCumulativeVolume 600
+   MaxItemSize 10 10 10
+   MultiSlots {
+    MultiSlotConfiguration "{5C50AAFC3C0BE708}" {
+     SlotTemplate InventoryStorageSlot Ammo {
+      Prefab "{9CCB46C6EE632C1A}Prefabs/Weapons/Magazines/Magazine_762x54_SVD_10rnd_Sniper.et"
+     }
+     NumSlots 3
+    }
+   }
+   m_fMaxWeight 5
+  }
+  BaseLoadoutClothComponent "{521AC04910AB9954}" {
+   WornModel "{DD8EB167EA277983}Assets/Items/Equipment/Accessories/Pouch_Soviet_10rnd_SVD/Pouch_Soviet_10rnd_SVD.xob"
+   ItemModel "{17AE05B2F324E70F}Assets/Items/Equipment/Accessories/Pouch_Soviet_10rnd_SVD/Pouch_Soviet_10rnd_SVD_item.xob"
+  }
+ }
+ coords -11.744 15.763 21.094
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{EC1023932E8CBCBA}prefabs/UI/m_wThirstrBar.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

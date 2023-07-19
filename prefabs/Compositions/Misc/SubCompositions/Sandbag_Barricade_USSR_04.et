@@ -1,0 +1,13 @@
+GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  SCR_AISmartActionSentinelComponent "{5B1EF58ECABD882E}" {
+   AIBehaviorTree "{12B4838160EDE026}AI/BehaviorTrees/SmartActions/SA_CoverPost.bt"
+   Tags {
+    "CoverPost"
+   }
+   ActionOffset -0.088 0 -1.107
+   m_vLookPosition 1.622 1 58.4
+  }
+ }
+}

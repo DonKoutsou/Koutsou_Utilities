@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A2E88B7E5555F4C2}Prefabs/Trading_Items/Configs/S_SVD_Mag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

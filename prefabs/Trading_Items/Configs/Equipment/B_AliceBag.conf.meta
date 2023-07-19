@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{5A426ACD07D129B0}Prefabs/Trading_Items/Configs/Equipment/B_AliceBac.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

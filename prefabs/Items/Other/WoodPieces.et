@@ -1,0 +1,52 @@
+GenericEntity : "{9CC48F0DD34D92A8}prefabs/Items/Other/SovietManual.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  InventoryItemComponent "{589173C71A0697EC}" {
+   Attributes SCR_ItemAttributeCollection "{589173C7CBB7866C}" {
+    ItemDisplayName UIInfo "{589173C7CBB78665}" {
+     Name "Wood Bundle"
+     Description "Can be sold to most traders"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{58920495C2E456E4}" {
+     Weight 10
+     ItemDimensions 20 10 5
+     ItemVolume 1000
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5AF1061A2A97803B}" {
+      CameraOrbitAngles 45 20 0
+      CameraDistanceToItem 0.75
+      FOV 60
+      PreviewModel "{4FBF5B87205EAE8A}Assets/Props/Civilian/WoodKindling_01/WoodKindling_Crate_01.xob"
+     }
+    }
+    m_Size SLOT_2x2
+   }
+  }
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{4FBF5B87205EAE8A}Assets/Props/Civilian/WoodKindling_01/WoodKindling_Crate_01.xob"
+  }
+  ActionsManagerComponent "{589173C71AD26C1A}" {
+   ActionContexts {
+    UserActionContext "{5AF1061AF8405A32}" {
+     ContextName "default"
+     Position PointInfo "{5AF1061AF7262709}" {
+      Offset 0 0.0762 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5890A83705CAF9EB}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5AF10619C13C1F09}" {
+      Name " Wood Bundle"
+     }
+     "Sort Priority" 100
+    }
+   }
+  }
+ }
+ coords 688.439 1.477 2261.452
+}

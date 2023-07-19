@@ -1,0 +1,6 @@
+SCR_AIWaypoint {
+ ID "552E90658B56FB63"
+ AIBehaviorTreeMoveTo "{E8BEA8A4D828C7D0}AI/BehaviorTrees/TESTGRENADE.bt"
+ CompletionRadius 50
+ Autocomplete 0
+}

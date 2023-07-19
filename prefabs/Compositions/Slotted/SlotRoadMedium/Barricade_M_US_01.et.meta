@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{172D03072FE6ECAA}Prefabs/Compositions/Slotted/SlotRoadMedium/Barricade_M_US_01.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

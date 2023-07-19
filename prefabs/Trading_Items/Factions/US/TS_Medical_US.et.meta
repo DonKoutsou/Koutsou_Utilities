@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{11F329D3DDD2AB1D}Prefabs/Trading_Items/Factions/US/TS_Medical_US.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

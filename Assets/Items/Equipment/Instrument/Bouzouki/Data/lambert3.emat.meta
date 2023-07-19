@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7E0EF4FBCAC16908}Assets/Items/Equipment/Instrument/Bouzouki/Data/lambert3.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

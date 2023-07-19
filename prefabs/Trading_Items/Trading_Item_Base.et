@@ -1,0 +1,23 @@
+GenericEntity {
+ ID "5B11113704C2B0B4"
+ components {
+  FactionAffiliationComponent "{5D62594118C3B71C}" {
+   "faction affiliation" "BANDITS"
+  }
+  MeshObject "{58C4C15098F109F6}" {
+   Object ""
+  }
+  Hierarchy "{58C4C1517B819CF1}" {
+  }
+  RigidBody "{5B11113AE9F696A6}" {
+   ModelGeometry 1
+   Static 1
+  }
+  ActionsManagerComponent "{5B1111371149AC02}" {
+  }
+  RplComponent "{5B11113B0FCA391F}" {
+  }
+ }
+ coords -0.151 0.885 -0.199
+ angleY 136.519
+}

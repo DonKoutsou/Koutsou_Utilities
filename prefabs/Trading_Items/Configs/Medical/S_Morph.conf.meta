@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{17BA19BB09016810}Prefabs/Trading_Items/Configs/S_Morph.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

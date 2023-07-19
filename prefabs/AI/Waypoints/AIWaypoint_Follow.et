@@ -1,0 +1,10 @@
+SCR_EntityWaypoint {
+ ID "566A809A4D2F89BD"
+ components {
+  Hierarchy "{5DCCE2477701BB59}" {
+  }
+ }
+ AIBehaviorTreeMoveTo ""
+ CompletionRadius 5
+ m_fPriorityLevel 80
+}

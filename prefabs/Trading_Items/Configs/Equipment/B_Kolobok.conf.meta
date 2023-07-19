@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{594F77CEA9424E52}Prefabs/Trading_Items/Configs/Equipment/B_Kolobok.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

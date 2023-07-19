@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{BEA8D42A5D86C441}scripts/Game/UI/HUD/Dialogue.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

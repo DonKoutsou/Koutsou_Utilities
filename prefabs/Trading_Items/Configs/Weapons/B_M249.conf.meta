@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{DDD71DE9DD23AFD9}Prefabs/Trading_Items/Configs/B_M249.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

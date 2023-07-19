@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{601D4464DB0A483F}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Navigator.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

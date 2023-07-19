@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B51B1F790BDF84AF}prefabs/AI/Spawners/SP_AIDirector_SPEIRA.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

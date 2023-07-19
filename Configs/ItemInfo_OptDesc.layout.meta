@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C8E239DBD1B1E1BA}Configs/ItemInfo_OptDesc.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

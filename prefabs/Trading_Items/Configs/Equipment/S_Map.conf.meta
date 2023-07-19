@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{83372782EEE62664}Prefabs/Trading_Items/Configs/Equipment/S_Map.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{02C457473AFE8967}Prefabs/Trading_Items/Configs/Equipment/S_US_Binoc.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

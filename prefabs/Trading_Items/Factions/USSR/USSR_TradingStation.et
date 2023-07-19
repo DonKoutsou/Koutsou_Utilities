@@ -1,0 +1,180 @@
+GenericEntity {
+ ID "5C96A2673B6D0D8B"
+ components {
+  MeshObject "{5C96A2673B6D0C40}" {
+   Object "{5172A6E151032216}Assets/Props/Military/AmmoBox/EquipmentBoxStack/EquipmentBoxStack_01_V1.xob"
+   Materials {
+    MaterialAssignClass "{5C96A2673B6D0C72}" {
+     SourceMaterial "EquipmentBoxWooden_Ammunition_01"
+     AssignedMaterial "{01344AC5F9E023E4}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Ammunition_01_FIA.emat"
+    }
+    MaterialAssignClass "{5C96A2673B6D0C70}" {
+     SourceMaterial "EquipmentBoxWooden_Launcher_01"
+     AssignedMaterial "{261351A506C17475}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Launcher_01_FIA.emat"
+    }
+   }
+   LODFactors {
+   }
+  }
+  Hierarchy "{5C96A2673B6D0C6B}" {
+   Enabled 1
+  }
+  RigidBody "{5C96A2673B6D0C68}" {
+   Mass 10
+   ModelGeometry 1
+   Static 1
+  }
+  RplComponent "{5C96A2673B6D0C64}" {
+   Enabled 1
+  }
+ }
+ coords 2033.467 52.308 3059.979
+ Flags 1027
+ {
+  GenericEntity : "{0011A3CBD1B1212A}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_01.et" {
+   ID "5C96A2673B6D0DBD"
+   components {
+    Hierarchy "{5C96A2673B6D0C1C}" {
+    }
+   }
+   coords -0.748 0 -1.615
+   angleY -32.767
+  }
+  GenericEntity : "{013297BA01640EB9}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_02.et" {
+   ID "5C96A2673B6D0DB7"
+   components {
+    Hierarchy "{5C96A2673B6D0C13}" {
+    }
+   }
+   coords -0.732 -0.002 -1.599
+   angleY -43.2
+  }
+  GenericEntity : "{34C189DD4094A08A}prefabs/Trading_Items/Factions/USSR/TS_Equipment_USSR.et" {
+   ID "5C96A2673B6D0C52"
+   components {
+    FactionAffiliationComponent "{5D62594118C3B71C}" {
+     "faction affiliation" "USSR"
+    }
+   }
+   coords -1.018 0 -0.949
+   angleY -180
+  }
+  GenericEntity : "{52D7749A35F86AFB}prefabs/Trading_Items/Factions/USSR/TS_Medical_USSR.et" {
+   ID "5C96A2673B6D0C4B"
+   components {
+    FactionAffiliationComponent "{5D62594118C3B71C}" {
+     "faction affiliation" "USSR"
+    }
+   }
+   coords 0.032 0.59 -0.809
+   angleY 180
+  }
+  GenericEntity : "{54A1C6EBC68CF49E}prefabs/Trading_Items/Wood_TradingStation.et" {
+   ID "5C96A2673B6D0DB2"
+   coords -1.409 0.335 0.075
+   angleY -89.417
+  }
+  GenericEntity : "{5A886252FA5D9F67}prefabs/Props/Furniture/Chest_Storage_USSR.et" {
+   ID "5C9920B774B67971"
+   coords -1.868 0 -0.029
+   angleY -90
+  }
+  GenericEntity : "{5F76887813B86AD4}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V6_covered.et" {
+   ID "5C96A2673B6D0DAA"
+   components {
+    MeshObject "{5872F0EB7FA40561}" {
+     Materials {
+      MaterialAssignClass "{56F22672DE2350DB}" {
+       SourceMaterial "Color_Palette"
+       AssignedMaterial "{900FD941337C7B0B}Common/Materials/ColorPalette/Color_palette_02_YELLOW_10_S2_R2.emat"
+      }
+      MaterialAssignClass "{56F22672DE2350E1}" {
+       SourceMaterial "EquipmentBoxWooden_Explosives_01"
+       AssignedMaterial "{0A0A9C1C7B189A8B}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Explosives_01_FIA.emat"
+      }
+      MaterialAssignClass "{56F22672DE235014}" {
+       SourceMaterial "EquipmentBoxWooden_Medical_01"
+       AssignedMaterial "{D3A76235D6723F0B}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Medical_01_FIA.emat"
+      }
+     }
+    }
+   }
+   coords 0.024 0 -1.046
+  }
+  GenericEntity : "{6D66A35ABDA08197}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_01.et" {
+   ID "5C96A2673B6D0DA4"
+   components {
+    Hierarchy "{5C96A2673B6D0C3E}" {
+    }
+   }
+   coords -1.679 0 -0.765
+   angleY -20.222
+  }
+  GenericEntity : "{6F011B58D6D2DBE7}prefabs/Trading_Items/Factions/USSR/TS_Ammunition_USSR.et" {
+   ID "5C96A2673B6D0C4E"
+   components {
+    FactionAffiliationComponent "{5D62594118C3B71C}" {
+     "faction affiliation" "USSR"
+    }
+   }
+   coords -0.881 0.82 -0.106
+   angleY -92.067
+  }
+  GenericEntity : "{890EE5FB23BA713E}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V2_covered.et" {
+   ID "5C96A2673B6D0DA0"
+   components {
+    MeshObject "{5872F0EB7FA40561}" {
+     Materials {
+      MaterialAssignClass "{56F226721F5EC8F8}" {
+       SourceMaterial "Color_Palette"
+       AssignedMaterial "{900FD941337C7B0B}Common/Materials/ColorPalette/Color_palette_02_YELLOW_10_S2_R2.emat"
+      }
+      MaterialAssignClass "{56F226721F5EC818}" {
+       SourceMaterial "EquipmentBoxWooden_Ammunition_01"
+       AssignedMaterial "{01344AC5F9E023E4}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Ammunition_01_FIA.emat"
+      }
+      MaterialAssignClass "{56F226721F5EC80D}" {
+       SourceMaterial "EquipmentBoxWooden_Launcher_01"
+       AssignedMaterial "{261351A506C17475}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Launcher_01_FIA.emat"
+      }
+      MaterialAssignClass "{56F226721F5EC833}" {
+       SourceMaterial "EquipmentBoxWooden_Weapon_01"
+       AssignedMaterial "{6864083D30F4F63D}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_Weapon_01_FIA.emat"
+      }
+     }
+    }
+   }
+   coords -1.12 0 -0.094
+   angleY 90.2
+  }
+  GenericEntity : "{89EF92CA286A962C}prefabs/Trading_Items/Factions/USSR/TS_Weapons_USSR.et" {
+   ID "5C96A2673B6D0C4A"
+   components {
+    FactionAffiliationComponent "{5D62594118C3B71C}" {
+     "faction affiliation" "USSR"
+    }
+   }
+   coords -0.019 0.884 0.115
+   angleY -141.117
+  }
+  $grp GenericEntity : "{A04DC55EB7C367F8}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_02.et" {
+   {
+    ID "5C96A2673B6D0C57"
+    components {
+     Hierarchy "{5C96A2673B6D0CD5}" {
+     }
+    }
+    coords -1.81 0 -0.741
+   }
+   {
+    ID "5C96A2673B6D0C58"
+    components {
+     Hierarchy "{5C96A2673B6D0CDB}" {
+     }
+    }
+    coords 1.007 0 0.478
+    angleY -18.235
+   }
+  }
+ }
+}

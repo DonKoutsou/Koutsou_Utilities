@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E9B2A1ACFDAE24DF}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Navigator.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

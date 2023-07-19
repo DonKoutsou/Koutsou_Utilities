@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{60A4E8796B1EA39F}Prefabs/Trading_Items/Configs/Grenades/B_USSR_Flashlight.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,9 @@
+TextWidgetClass {
+ Prefab "{0000000087778265}"
+ Name "ItemInfo_OptDesc"
+ Slot LayoutSlot "{5D8ED7481E7ACD23}" {
+ }
+ Text "OptDesc"
+ "Font Size" 15
+ "Min Font Size" 15
+}

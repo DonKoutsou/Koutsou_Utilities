@@ -1,0 +1,30 @@
+GenericEntity : "{6D56FED1E55A8F84}prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_01.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "Forged permit"
+     Description "To get in Arland a permit is required by the Soviet army. These papers will be enough to fool random soldiers but should avoid having to use it on more experienced members. Better keep them on me when i plan to interact with any soviet units."
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5ABE850F29600D4D}" {
+      CameraOrbitAngles 0 180 0
+      ItemRenderRotation 90 0 0
+     }
+    }
+   }
+  }
+  MeshObject "{5AB0B9C3C3E4A143}" {
+   Materials {
+    MaterialAssignClass "{5C430DA6DA7CBF51}" {
+     SourceMaterial "IntelligenceFolder_E_01"
+     AssignedMaterial "{C6122B0A5B2C16E8}Assets/Items/Misc/IntelligenceFolder_E_01/Data/IntelligenceFolder_E_02.emat"
+    }
+   }
+  }
+  RigidBody "{5AB0B9C3C3E4A158}" {
+  }
+ }
+ coords 2691.683 77.412 1674.572
+}

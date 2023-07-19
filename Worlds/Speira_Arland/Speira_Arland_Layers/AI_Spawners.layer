@@ -1,0 +1,220 @@
+$grp SP_AIDirector : "{14C79BD8B083D642}prefabs/AI/Spawners/SP_AIDirector_HostileArea.et" {
+ SP_AIDirector_Beuregard {
+  coords 2990.511 16.001 3032.627
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_aExcludedEditableEntityLabels + {
+   71
+  }
+  m_FactionsToApear {
+   "US" "FIA"
+  }
+  m_iMaxAgentsToSpawn 5
+  m_fRadius 480
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B296509D3A}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_Harbour {
+  coords 1219.929 1.723 3302.619
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_FactionsToApear {
+   "USSR"
+  }
+  m_fRadius 80
+  m_bAllowRescue 0
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B28661807F}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+  m_bAllowCloseSpawning 1
+ }
+ SP_AIDirector_Mil {
+  coords 1380.796 56.818 2280.273
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_aExcludedEditableEntityLabels + {
+   71
+  }
+  m_FactionsToApear {
+   "USSR"
+  }
+  m_fRadius 600
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B28E050942}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_SignalHill {
+  coords 2487.591 86.847 2408.686
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_FactionsToApear {
+   "US" "USSR" "FIA"
+  }
+  m_iMaxAgentsToSpawn 5
+  m_fRadius 400
+  m_fRespawnTimer 10
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2BC3974BE}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_NewField {
+  coords 1985.584 53.611 3144.072
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_FactionsToApear {
+   "US" "USSR"
+  }
+  m_fRadius 500
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2A3E9D829}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_FIAInf {
+  coords 830.858 1.176 1563.757
+  DangerEventRange 20
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_aExcludedEditableEntityLabels + {
+   71
+  }
+  m_FactionsToApear {
+   "FIA"
+  }
+  m_iMaxAgentsToSpawn 1
+  m_fRadius 20
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2844C1FB3}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_Prison {
+  coords 1169.032 38.415 2505.437
+  DangerEventRange 50
+  m_aIncludedEditableEntityLabels {
+   72
+  }
+  m_aExcludedEditableEntityLabels {
+   70 71
+  }
+  m_FactionsToApear {
+   "USSR"
+  }
+  m_iMaxAgentsToSpawn 1
+  m_iMaxVehiclesToSpawn 0
+  m_fRadius 50
+  m_fRespawnTimer 300
+  m_iDirectorUpdatePeriod 60
+  m_bAllowRescue 0
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2B93D2EB5}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+  m_bAllowCloseSpawning 1
+ }
+ SP_AIDirector_Lighthouse {
+  coords 1478.179 7.881 1098.298
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_aExcludedEditableEntityLabels + {
+   71
+  }
+  m_FactionsToApear {
+   "FIA"
+  }
+  m_iMaxAgentsToSpawn 1
+  m_fRadius 150
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B28CC71090}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_BaldRidge {
+  coords 2455.8 92.031 1381.48
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_aExcludedEditableEntityLabels + {
+   71
+  }
+  m_FactionsToApear {
+   "FIA"
+  }
+  m_iMaxAgentsToSpawn 15
+  m_fRadius 781.2
+  m_fRespawnTimer 6
+  m_iDirectorUpdatePeriod 3
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2FF522C50}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ SP_AIDirector_ArlevileOutskirts {
+  coords 3247.606 10.426 2245.951
+  DangerEventRange 200
+  m_aIncludedEditableEntityLabels {
+   70
+  }
+  m_aExcludedEditableEntityLabels + {
+   71
+  }
+  m_FactionsToApear {
+   "FIA" "US"
+  }
+  m_fRadius 400
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2F8A1848C}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+}
+SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
+ coords 1250.603 0.14 1117.477
+}
+SCR_ChimeraCharacter : "{37578B1666981FCE}Prefabs/Characters/Core/Character_Base.et" {
+ coords 2531.115 18.929 786.839
+}
+SP_AIDirector : "{506D4A7631A2884F}prefabs/AI/Spawners/SP_AIDirector_US.et" {
+ coords 3619.879 35.318 2708.554
+ m_fRadius 200
+ m_WorldDirections SCR_MapLocationQuadHint "{5D7AF081DB19A37A}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+ }
+}
+$grp SP_AIDirector : "{73FAFC92CCA8F296}prefabs/AI/Spawners/SP_AIDirector_FIA.et" {
+ SP_AIDirector_FIA {
+  coords 3428.994 4.84 1607.081
+  m_aIncludedEditableEntityLabels {
+   71 72
+  }
+  m_aExcludedEditableEntityLabels {
+   70
+  }
+  m_fRadius 250
+  m_WorldDirections SCR_MapLocationQuadHint "{5D6671B280C0F1AD}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+ {
+  coords 693.637 1.501 2258.245
+  m_aIncludedEditableEntityLabels {
+   70 71
+  }
+  m_WorldDirections SCR_MapLocationQuadHint "{5D86C8A7F3399414}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  }
+ }
+}
+SP_AIDirector SP_AIDirector_Bandits : "{84AB28CB09B4C89B}prefabs/AI/Spawners/SP_AIDirector_Bandits.et" {
+ coords 1684.993 23.77 874.057
+ m_aIncludedEditableEntityLabels {
+  70 71
+ }
+ m_aExcludedEditableEntityLabels {
+ }
+ m_FactionsToApear {
+  "FIA"
+ }
+ m_fRadius 120
+ m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2924E0541}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+ }
+}
+SP_AIDirector SP_AIDirector_USSR : "{8C10F3C317719089}prefabs/AI/Spawners/SP_AIDirector_USSR.et" {
+ coords 1172.914 38.922 2917.563
+ DangerEventRange 400
+ m_aIncludedEditableEntityLabels {
+  70 71
+ }
+ m_fRadius 250
+ m_WorldDirections SCR_MapLocationQuadHint "{5D6671B2F5F45F15}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+ }
+}

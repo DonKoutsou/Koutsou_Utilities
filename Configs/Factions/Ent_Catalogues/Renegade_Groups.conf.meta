@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{5FEB8786F97C2A40}Configs/Factions/Ent_Catalogues/Renegade_Groups.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

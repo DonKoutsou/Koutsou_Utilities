@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{DC1F9FB9AB8D1E24}prefabs/Items/Equipment/Accessories/Pouch_Soviet_10rnd_SVD/Pouch_Soviet_10rnd_SVD_Stash.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

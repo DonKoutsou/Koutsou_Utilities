@@ -1,0 +1,8 @@
+GenericEntity : "{FA9066DE33E8E67D}Prefabs/Structures/Military/Camps/Canvas_Covers/US/CanvasCover_Large_US.et" {
+ ID "52F0B4ADDCC2C24E"
+ components {
+  AIPathfindingComponent "{5B3EA83E8DAC54A3}" {
+   NavmeshProject "Soldiers"
+  }
+ }
+}

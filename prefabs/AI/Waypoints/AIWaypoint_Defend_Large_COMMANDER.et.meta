@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{73FFE351E7A88777}prefabs/AI/Waypoints/AIWaypoint_Defend_Large_COMMANDER.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

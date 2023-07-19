@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{10189788C290F613}Assets/Props/Industrial/CargoContainer_01/Data/CargoContainer_01_10ft_Blue.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

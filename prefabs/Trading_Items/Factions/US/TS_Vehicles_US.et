@@ -1,0 +1,126 @@
+GenericEntity : "{95D947E744336F78}Prefabs/Props/Industrial/Workbench_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  Hierarchy "{54C6A32AEBF92D84}" {
+   Enabled 1
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "HugeDestructible"
+  }
+  SCR_SlotCompositionComponent "{552CDCC5A1B6DC18}" {
+   m_bOrientChildrenToTerrain 0
+  }
+  ActionsManagerComponent "{5C97162FA46225F0}" {
+   ActionContexts {
+    UserActionContext "{5C97162FA62F5AF5}" {
+     ContextName "default"
+     Position PointInfo "{5C97162FBBB1DDE8}" {
+      Offset 0 1.0554 0.2783
+     }
+    }
+   }
+   additionalActions {
+    KLM_ConverseAction "{5C9721C55AC6604C}" : "{39D0515F9E50DD85}Prefabs/Trading_Items/Configs/Vehicles/B_M151A2.conf" {
+    }
+    KLM_ConverseAction "{5C9721C5789D63B9}" : "{B36B58741C086D60}Prefabs/Trading_Items/Configs/Vehicles/B_M151A2_MG.conf" {
+    }
+    KLM_ConverseAction "{5C9721C5782BB67C}" : "{DC4B09AF854DBE92}Prefabs/Trading_Items/Configs/Vehicles/B_M923A1.conf" {
+    }
+    KLM_ConverseAction "{5C9721C5791BFA49}" : "{B4B202A25292FDEC}Prefabs/Trading_Items/Configs/Vehicles/B_M923A1_Transport.conf" {
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+ coords 1074.692 39.151 2967.943
+ angleY -105
+ {
+  GenericEntity : "{0133284E3BDEAEC4}Prefabs/Props/Civilian/Ashtray_01_Full_yellow.et" {
+   ID "5C97162F19D977BD"
+   components {
+    Hierarchy "{551CADF2FFA3F173}" {
+     Enabled 1
+    }
+   }
+   coords 0.251 1.02 -0.229
+   angleY 107.134
+  }
+  GenericEntity : "{03DE957D8161212B}Prefabs/Props/Civilian/Notebook_01_Open.et" {
+   ID "5C97162F19D977B1"
+   components {
+    Hierarchy "{54C6A927E8C88D2E}" {
+     Enabled 1
+    }
+   }
+   coords -0.242 1.02 0.297
+   angleY -176.825
+  }
+  GenericEntity : "{2B0BD0720F8FB3A7}Prefabs/Props/Industrial/Workbench_Vice_01.et" {
+   ID "5C97162F19D977B3"
+   components {
+    Hierarchy "{54C6A32AEBFE6C5F}" {
+     Enabled 1
+    }
+   }
+   coords -0.899 1.027 0.479
+   angleY 0
+  }
+  GenericEntity : "{2F2BBFDA3A2C73D4}Prefabs/Props/Civilian/RadioSmall_01_black.et" {
+   ID "5C97162F19D977B4"
+   components {
+    Hierarchy "{55B8827254294C60}" {
+     Enabled 1
+    }
+   }
+   coords -0.306 1.014 -0.255
+   angleY 9.959
+  }
+  GenericEntity : "{342E852E9A1847EA}Prefabs/Props/Industrial/Repair/VehicleGarbage_01_pile_medium.et" {
+   ID "5C97162F19D977A8"
+   components {
+    Hierarchy "{54D2EAC337CC0272}" {
+     Enabled 1
+    }
+   }
+   coords 0.931 1.006 0.078
+   angleY -141.982
+   scale 0.4
+  }
+  GenericEntity : "{3800AA04761AE0EC}Prefabs/Props/Civilian/Notebook_01_Single_Blue.et" {
+   ID "5C97162F19D977AA"
+   components {
+    Hierarchy "{54C6AB3A18E863F1}" {
+     Enabled 1
+    }
+   }
+   coords 0.14 1.014 0.263
+   angleY 152.742
+  }
+  GameEntity : "{50E6A3845C9F20FD}Prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+   ID "5C97162F19D977AE"
+   components {
+    Hierarchy "{5706F8D06AEE953A}" {
+    }
+   }
+   coords 0.485 1.017 -0.272
+   angleY -60.807
+  }
+  GenericEntity : "{88FAE04EF7115814}Prefabs/Props/Civilian/BeerBottle_01_green.et" {
+   ID "5C97162F19D977A4"
+   components {
+    Hierarchy "{54C6A32AEBF8094C}" {
+     Enabled 1
+    }
+   }
+   coords -0.954 1.037 -0.117
+   angleY 85.906
+  }
+  GenericEntity : "{B44BBBE082275ACD}Prefabs/Compositions/Misc/SubCompositions/WoodenBoxCluttered_04.et" {
+   ID "5C97162F19D96858"
+   coords -0.791 1.023 -0.116
+   angleY 27.73
+  }
+ }
+}

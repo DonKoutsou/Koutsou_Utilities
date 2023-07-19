@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{175905F0BE424246}Assets/Props/Furniture/BunkBed_01/Data/BunkBed_01_02.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

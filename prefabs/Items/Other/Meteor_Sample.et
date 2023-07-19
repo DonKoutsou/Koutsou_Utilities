@@ -1,0 +1,31 @@
+GenericEntity {
+ ID "5D32D3A8A19A281D"
+ components {
+  InventoryItemComponent "{5D328BE943F22CED}" {
+   Attributes SCR_ItemAttributeCollection "{5D328BE970D7037C}" {
+    ItemDisplayName UIInfo "{5D328BE973E89DFF}" {
+     Name "Unrefined Arland gem"
+     Description "A piece of unrefined gem. This gems origin is the Island of Arland. The island is known for using these gems in various ways from jewlery to tools."
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5D328BE96331F812}" {
+     Weight 2
+     SizeSetupStrategy Manual
+     ItemDimensions 7 7 7
+     ItemVolume 70
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5D328BE933D3E952}" {
+      CameraDistanceToItem 0.1
+     }
+    }
+    m_Size SLOT_1x1
+   }
+  }
+  MeshObject "{5D328BE9A28EB400}" {
+   Object "{170773CC36C71B7D}Assets/Rocks/Granite/Rock_Sample.xob"
+  }
+  RplComponent "{5D328BE945224533}" {
+  }
+ }
+ coords 99.81 1.047 158.973
+}

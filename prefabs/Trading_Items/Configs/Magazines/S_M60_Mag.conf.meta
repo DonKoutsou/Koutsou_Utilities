@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{6F294A8A395719E4}Prefabs/Trading_Items/Configs/S_M60_Mag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

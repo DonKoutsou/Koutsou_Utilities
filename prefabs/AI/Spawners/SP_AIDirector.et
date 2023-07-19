@@ -1,0 +1,29 @@
+SP_AIDirector {
+ ID "5D3AE1C46DB8E548"
+ components {
+  SCR_EditableCommentComponent "{5D3D4C14530572B1}" {
+   m_EntityType COMMENT
+   m_UIInfo SCR_BlockUIInfo "{5D3D4C145CE44991}" {
+    Name "US Main Base Director"
+   }
+   m_bAutoRegister NEVER
+   m_vIconPos 0 50 0
+   m_fSizeCoef 0.911
+   m_bBold 1
+  }
+  SCR_MapDescriptorComponent "{5D42AA23646297F1}" {
+   ImagesetQuadElement "1"
+   MainType "Name Settlement"
+   Scale 0
+  }
+  RplComponent "{5D42902F42C75668}" {
+  }
+ }
+ coords 692.935 1.501 2258.046
+ DangerEventRange 50
+ m_FactionsToApear {
+  "FIA" "USSR" "US"
+ }
+ m_fRadius 500
+ m_pDefaultWaypoint "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et"
+}

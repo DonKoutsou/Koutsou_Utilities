@@ -1,0 +1,50 @@
+GenericEntity : "{0845FCD5D1E53541}Prefabs/Items/Core/FieldDressing_Base.et" {
+ ID "51F66EC33748B84D"
+ components {
+  SignalsManagerComponent "{5C891449C5D20CDE}" {
+  }
+  SoundComponent "{5A7C70054E8FBE18}" {
+  }
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
+     Name "Cloth bandage"
+     Description "Gauze created from scrap cloth. Reduces bleeding."
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 0.05
+     SizeSetupStrategy Manual
+     ItemDimensions 5 5 5
+     ItemVolume 150
+    }
+    CustomAttributes {
+     ItemActionAnimAttributes "{551CA1C31648EE8D}" {
+     }
+     PreviewRenderAttributes "{5C690D11FB2CA13F}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 45 45
+      CameraDistanceToItem 0.6
+      FOV 12
+     }
+    }
+   }
+  }
+  MeshObject "{51F66EC3C5BC700D}" {
+   Object "{A85D414EF4DCC2AC}Assets/Items/Medicine/Gauze_02/Gauze_02_bandage.xob"
+  }
+  Hierarchy "{5C690D11FB2CA136}" {
+  }
+  SCR_ConsumableItemComponent "{5943631460899505}" {
+   m_ConsumableEffect SCR_ConsumableBandage "{594363147CC4C6BE}" {
+    m_fApplyToSelfDuration 4
+    m_fApplyToOtherDuration 4
+   }
+   m_bAlternativeModelOnAction 0
+  }
+  ActionsManagerComponent "{508AB5952B584B2E}" {
+   additionalActions {
+   }
+  }
+ }
+ coords 127.242 1.001 128.592
+}

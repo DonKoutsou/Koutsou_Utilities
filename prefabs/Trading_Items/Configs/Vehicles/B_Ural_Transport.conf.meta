@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{0003C461380C780E}Prefabs/Trading_Items/Configs/Vehicles/B_Ural_Transport.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

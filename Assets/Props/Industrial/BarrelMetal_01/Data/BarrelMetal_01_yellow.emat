@@ -1,0 +1,55 @@
+MatPBRMulti {
+ MaskMap "{ADBB97570CDDB659}Assets/Props/Industrial/BarrelMetal_01/Data/BarrelMetal_01_Mask.edds"
+ MaskRedScale 0.444
+ MaskGreenScale 0.153
+ NormalPower 1.414
+ GlobalNMOMap "{5E9B5A9AF633BD94}Assets/_SharedData/Metal/ST_Steel_Battered_NMO.edds"
+ Enabled_4 1
+ Color_4 0.231 0.194 0.157 1
+ BCR_4 "{16DE4E86EFB365EA}Assets/_SharedData/Metal/ST_Lighthouse_PaintedMetal_Rusted_BCR.edds"
+ NMO_4 "{FD3614E7F90495C2}Assets/_SharedData/Metal/ST_Metal_Rust_Coarse01_1m_NMO.edds"
+ MaskSharpness_4 1.15
+ MaskOffset_4 0.303
+ Mask_4 "{8A50472D717443E4}Assets/_SharedData/DetailMask/ST_Dirt_02_Mask1.edds"
+ MaskUVScale_4 0.5
+ UVTransform_4 MatUVTransform "{525CA227C011680E}" {
+  TilingU 4
+  TilingV 4
+  Rotation 270
+ }
+ DetNormal_4 0.5
+ Metalness_4 0
+ Enabled_3 1
+ Color_3 0.309 0.264 0.235 1
+ BCR_3 "{FA742FE6A11B2766}Assets/_SharedData/Metal/ST_Steel_Base_01_BCR.edds"
+ NMO_3 "{C2AC9474786C75F8}Assets/_SharedData/Metal/ST_Steel_Base_01_NMO.edds"
+ MaskSharpness_3 7
+ MaskOffset_3 0.108
+ Mask_3 "{1B7EB2580B7412F0}Assets/_SharedData/DetailMask/ST_Smudge_01_Mask1.edds"
+ MaskUVScale_3 1.1
+ UVTransform_3 MatUVTransform "{525CA226AA7A90F4}" {
+  TilingU 4
+  TilingV 4
+ }
+ Roughness_3 2.59
+ Metalness_3 0.213
+ Enabled_2 1
+ BCR_2 "{C5EEAF752073C75C}Assets/_SharedData/Metal/ST_Metal_Rust_Coarse01_1m_BCR.edds"
+ NMO_2 "{FD3614E7F90495C2}Assets/_SharedData/Metal/ST_Metal_Rust_Coarse01_1m_NMO.edds"
+ MaskSharpness_2 2
+ MaskOffset_2 0.385
+ Mask_2 "{2563D86FF583B1EF}Assets/_SharedData/DetailMask/ST_Metal_Rust_01_Mask1.edds"
+ UVTransform_2 MatUVTransform "{525CA22597137FD3}" {
+  TilingU 4
+  TilingV 4
+ }
+ DetNormal_2 0.35
+ Color_1 0.309 0.286 0.028 1
+ NMO_1 "{C2AC9474786C75F8}Assets/_SharedData/Metal/ST_Steel_Base_01_NMO.edds"
+ UVTransform_1 MatUVTransform "{525AEB2B2B31A0AE}" {
+  TilingU 3
+  TilingV 3
+ }
+ Roughness_1 0.4
+ Metalness_1 0
+}

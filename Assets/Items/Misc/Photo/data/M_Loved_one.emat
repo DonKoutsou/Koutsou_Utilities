@@ -1,0 +1,7 @@
+MatPBRBasic {
+ AlphaTest 0.266
+ RoughnessScale 0.807
+ MetalnessScale 0
+ BCRMap "{02A0B27E8E6FCE23}Assets/Items/Misc/Photo/data/Loved_one_BC.edds"
+ OpacityMap "{ECA0BD5EBE12BF61}Assets/Items/Misc/Photo/data/Loved_one_mask.edds"
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7E735BBD3BBCA9CE}Configs/ShopCategories/Shop_Merch/Trade_Backpack_Kolobok.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

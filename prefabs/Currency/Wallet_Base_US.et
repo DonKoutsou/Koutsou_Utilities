@@ -1,0 +1,9 @@
+GenericEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
+ ID "5C78C422199A1092"
+ components {
+  MeshObject "{5C78C42204C939A4}" {
+   Object "{2637BE3512AF25A5}Assets/Items/Equipment/Accessories/Pouch_ALICE_20rnd_M14/Pouch_ALICE_20rnd_M14_item.xob"
+  }
+ }
+ coords 126.943 1.001 108.577
+}

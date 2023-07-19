@@ -1,0 +1,245 @@
+GenericEntity {
+ ID "5C8B3B2C4F492E7E"
+ components {
+  Hierarchy "{5C8B3B2C31FD8DB9}" {
+  }
+  RplComponent "{5C8B3B2C336FA126}" {
+  }
+ }
+ coords 9591.201 10.876 5205.72
+ angleY 8.037
+ {
+  GenericEntity : "{0E43D5546330841F}Prefabs/Structures/BuildingParts/Industrial/ToolRack_01_tool_01.et" {
+   ID "5C8B3B2C4F492E65"
+   coords -3.314 1.049 0.875
+   angleY -1.81
+  }
+  GenericEntity : "{10C5A45290A9EEED}Prefabs/Props/Industrial/GasTank_01_blue.et" {
+   ID "5C8B3B2C4F492E16"
+   coords -5.337 0 -2.664
+   angleY 95.557
+  }
+  GenericEntity : "{344ABEB98BB96721}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V4_covered.et" {
+   ID "5C8B3B2C4F492E39"
+   coords -2.732 0 -1.021
+   angleY 81.64
+   {
+    GenericEntity {
+     ID "56E09476DAAACB36"
+     coords 0.001 0 0
+    }
+   }
+  }
+  GenericEntity : "{34AD2F398FDFE5B3}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V5.et" {
+   ID "5C8B3B2C4F492E38"
+   coords -2.686 0 0.394
+   angleY 87.795
+  }
+  GenericEntity : "{47E258BBC8968F11}Prefabs/Props/Industrial/GasTank_01_rusty.et" {
+   ID "5C8B3B2C4F492E15"
+   coords -5.692 0 -2.483
+   angleY 45.238
+  }
+  GenericEntity : "{64A37FE9287F1A77}Prefabs/Props/Industrial/Workbench_02.et" {
+   ID "5C8B3B2C4F492E61"
+   coords -4.542 0.089 0.618
+   angleY 179.221
+  }
+  GenericEntity : "{75D125481E2E0663}Prefabs/Compositions/Misc/SubCompositions/Barrel_ToolRack_01.et" {
+   ID "5C8B3B2C4F492E1A"
+   coords -4.338 0 -1.608
+   angleY -88.595
+   {
+    GenericEntity {
+     ID "5A5AB048B2511906"
+     coords -0.095 0.032 0.753
+     {
+      GenericEntity {
+       ID "5704FEB43BFECAC1"
+       coords -0.003 0.608 -0.05
+      }
+      GenericEntity {
+       ID "5704FEB43BFECAC2"
+       coords 0.002 0.632 -0.002
+      }
+      GenericEntity {
+       ID "5704FEB43BFECACD"
+       coords -0.018 0.608 0.01
+      }
+      GenericEntity {
+       ID "5704FEB43BFECACF"
+       coords -0.002 0.608 0.045
+      }
+     }
+    }
+    GenericEntity {
+     ID "5A5AB048B251190A"
+     coords -0.083 0.032 -0.174
+    }
+    GenericEntity {
+     ID "5A5AB048B251190B"
+     coords -0.363 1.617 0.035
+     {
+      GenericEntity {
+       ID "59DA9337D0AF5942"
+       coords 1.235 0.397 0.027
+      }
+     }
+    }
+    GenericEntity {
+     ID "5A5AB048B251190E"
+     coords -0.002 0.032 -0.716
+    }
+    GenericEntity {
+     ID "5A5AB048B2511938"
+     coords -0.021 0.032 0.111
+    }
+    GenericEntity {
+     ID "5A5AB048B251193A"
+     coords -0.145 0.319 -0.039
+    }
+   }
+  }
+  $grp GenericEntity : "{792A2C359A0728C8}Prefabs/Compositions/Misc/SubCompositions/CrateWooden_Stacked_01.et" {
+   {
+    ID "5C8B3B2C4F492E0A"
+    coords -7.629 -0.022 -3.604
+    angleY 91.777
+    {
+     GenericEntity {
+      ID "5702D339EBF3C680"
+      coords -0.05 0.807 -0.007
+     }
+    }
+   }
+   {
+    ID "5C8B3B2C4F492E0B"
+    coords -5.988 -0.022 -3.437
+    angleY 91.814
+    {
+     GenericEntity {
+      ID "5702D339EBF3C680"
+      coords -0.048 0.807 -0.011
+     }
+    }
+   }
+  }
+  GenericEntity : "{7E5A4578657283E6}Prefabs/Props/Industrial/GasTank_02_red.et" {
+   ID "5C8B3B2C4F492E12"
+   coords -5.699 0 -2.834
+   angleY -8.037
+  }
+  $grp GenericEntity : "{7F59A8D992FBF5CA}Prefabs/Props/Military/MilitaryCrates/CrateStack_01/CrateStack_01_base.et" {
+   {
+    ID "5C8B3B2C4F492E0E"
+    coords -3.229 0.002 -2.551
+    angleY -174.521
+   }
+   {
+    ID "5C8B3B2C4F492E0F"
+    coords -4.503 0.002 -2.578
+    angleY -1.283
+   }
+  }
+  $grp SCR_DestructibleBuildingEntity : "{8597237EA3C59701}Prefabs/Structures/Houses/Shed/Shed_03/Shed_03.et" {
+   {
+    ID "5C8B3B2C4F492E32"
+    coords 3.677 0.777 1.825
+    angleY 171.963
+   }
+   {
+    ID "5C8B3B2C4F49797A"
+    coords 4.206 0.777 -1.942
+    angleY -8.037
+   }
+  }
+  GenericEntity : "{9F49087B42507C90}Prefabs/Compositions/Misc/SubCompositions/EquipmentBoxStacked_Combined_USSR_01.et" {
+   ID "5C8B3B2C4F492E03"
+   coords -1.699 -0.021 -2.207
+   angleY 93.596
+   {
+    GenericEntity {
+     ID "56B6871A5FA89BE4"
+     coords 0 0 0
+    }
+    GenericEntity {
+     ID "5704FEB0BA56A42B"
+     coords -0.727 0 0.176
+    }
+    GenericEntity {
+     ID "5704FEB0BA56A42D"
+     coords 0.44 0 -0.065
+    }
+   }
+  }
+  GenericEntity : "{AD31622B73944B43}Prefabs/Props/Furniture/DeskSchool_01.et" {
+   ID "5C8B3B2C4F492E6A"
+   coords -2.949 0 1.864
+   angleY 88.323
+  }
+  GenericEntity : "{BC2FDA7C84AB753B}Prefabs/Compositions/Misc/SubCompositions/Workbench_Cluttered_US_01.et" {
+   ID "5C8B3B2C4F49797C"
+   coords 1.645 0.08 -0.502
+   angleY 81.963
+   {
+    GameEntity {
+     ID "5704FEB564619B6D"
+     coords 0.485 1.017 -0.273
+    }
+    GenericEntity {
+     ID "552C7391D9C75090"
+     coords 0.141 1.014 0.262
+    }
+    GenericEntity {
+     ID "552C7391D9C75091"
+     coords 0.251 1.02 -0.229
+    }
+    GenericEntity {
+     ID "552C7391D9C75092"
+     coords 0.932 1.006 0.077
+    }
+    GenericEntity {
+     ID "552C7391D9C75093"
+     coords -0.791 1.023 -0.117
+     {
+      GenericEntity {
+       ID "552C739232DD995D"
+       coords 0.06 0.014 0.037
+      }
+     }
+    }
+    GenericEntity {
+     ID "552C7391D9C7509C"
+     coords -0.898 1.027 0.478
+    }
+    GenericEntity {
+     ID "552C7391D9C7509E"
+     coords -0.954 1.037 -0.118
+    }
+    GenericEntity {
+     ID "552C7391D9C750E9"
+     coords -0.242 1.02 0.296
+    }
+    GenericEntity {
+     ID "55B877F99ED03AFF"
+     coords -0.306 1.014 -0.256
+    }
+   }
+  }
+  GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+   ID "5C8B3B2C4F492E6F"
+   coords -5.125 -0.001 0.421
+   angleY 86.824
+  }
+  GenericEntity : "{D023942ECEA592ED}Prefabs/Props/Furniture/Stool_02.et" {
+   ID "5C8B3B2C4F492E3A"
+   coords -4.098 0 -0.539
+   angleY -8.037
+  }
+  GenericEntity : "{FCCB91AC2A242FE5}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Large_Soviet.et" {
+   ID "5C8B3B2C4F492E77"
+   coords -4.149 0 -0.523
+   angleY -94.398
+  }
+ }
+}

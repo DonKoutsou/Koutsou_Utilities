@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C1ED51527717C161}Prefabs/Trading_Items/Configs/S_M16A2.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

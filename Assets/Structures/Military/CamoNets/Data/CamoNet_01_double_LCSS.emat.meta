@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{39E50CC4EB858D22}Assets/Structures/Military/CamoNets/Data/CamoNet_01_double_LCSS.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F43E26135446BA6E}Configs/Dilaogue_Configs/Faction_Info/US_Faction_Info.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

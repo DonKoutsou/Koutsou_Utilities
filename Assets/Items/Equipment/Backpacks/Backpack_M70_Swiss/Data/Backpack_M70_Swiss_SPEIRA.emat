@@ -1,0 +1,5 @@
+MatPBRBasic {
+ CavityFromAO 0.802
+ BCRMap "{318E6C5F62785839}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Data/Backpack_M70_Swiss_BCR2.edds"
+ NMOMap "{16135ACB38F60750}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Data/Backpack_M70_Swiss_NMO.edds"
+}

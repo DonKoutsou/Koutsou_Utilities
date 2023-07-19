@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CF71A13B474AAAD8}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_02.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

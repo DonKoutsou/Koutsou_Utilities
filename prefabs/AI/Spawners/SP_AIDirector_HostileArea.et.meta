@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{14C79BD8B083D642}prefabs/AI/Spawners/SP_AIDirector_HostileArea.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

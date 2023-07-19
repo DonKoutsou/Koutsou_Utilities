@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B4B202A25292FDEC}Prefabs/Trading_Items/Configs/Vehicles/B_M923A1_Transport.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

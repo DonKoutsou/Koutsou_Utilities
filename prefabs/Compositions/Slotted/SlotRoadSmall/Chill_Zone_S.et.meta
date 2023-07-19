@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{4604B1E65929F633}prefabs/Compositions/Slotted/SlotRoadSmall/Chill_Zone_S.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

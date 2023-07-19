@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

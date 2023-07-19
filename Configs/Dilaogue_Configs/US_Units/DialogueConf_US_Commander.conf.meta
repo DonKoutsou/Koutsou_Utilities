@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{2DF93317F73B9A7C}Configs/Dilaogue_Configs/BANDIT_Units/DialogueConf_US_Commander.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

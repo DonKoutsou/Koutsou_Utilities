@@ -1,0 +1,51 @@
+GenericEntity {
+ ID "5D867CC3E5E42930"
+ components {
+  MeshObject "{5D867CC73525351C}" {
+   Object "{E6F9E95BCFF8613D}Assets/Props/Industrial/PotIndustrialSet_01/PotIndustrialSet_01_Small_pot.xob"
+  }
+  Hierarchy "{5D868960EF926191}" {
+  }
+  RigidBody "{5D867CC4C2BF4A47}" {
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_UniversalInventoryStorageComponent "{5D867CC4BC4F256E}" {
+   Attributes SCR_ItemAttributeCollection "{5D867CC4A3D99E12}" {
+    ItemDisplayName UIInfo "{5D867CC4A2A0F9B6}" {
+     Name "Cooking pot"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5D867CC4A9BA2602}" {
+     Weight 0.2
+     SizeSetupStrategy Manual
+     ItemDimensions 20 20 20
+     ItemVolume 200
+    }
+   }
+   MaxItemSize 10 10 10
+   m_fMaxWeight 20
+  }
+  SCR_InventoryStorageManagerComponent "{5D8698C207933EA7}" {
+  }
+  ActionsManagerComponent "{5D867CC4E2EBAE76}" {
+   ActionContexts {
+    UserActionContext "{5D867CC4E5E5C5A8}" {
+     ContextName "default"
+     Position PointInfo "{5D867CC4E9A20757}" {
+      Offset 0 0.1922 0
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5D868960B7E5933E}" : "{F39A4E9B190C1846}Prefabs/Characters/Core/Actions/PickUpItemAction.conf" {
+    }
+    SCR_OpenStorageAction "{5D86A46346C80ACC}" : "{E9B4646CB9AA14B4}Prefabs/Characters/Core/OpenStorageAction.conf" {
+    }
+   }
+  }
+  RplComponent "{5D867CC4CBA9103E}" {
+  }
+ }
+ coords 119.893 0.839 132.573
+}

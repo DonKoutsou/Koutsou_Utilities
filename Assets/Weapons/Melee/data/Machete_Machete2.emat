@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{0808D799BD5C47B9}Assets/Weapons/Melee/data/BCR.edds"
+ NMOMap "{30D06C0B642B1527}Assets/Weapons/Melee/data/NMO.edds"
+}

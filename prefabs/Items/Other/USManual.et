@@ -1,0 +1,25 @@
+GenericEntity : "{C84DF17F96616C76}Prefabs/Props/Military/Manuals/Manual_US_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  InventoryItemComponent "{589173C7181382A9}" : "{C656F7A7CAFCA59E}Prefabs/ComponentPrefabs/InventoryItem.ct" {
+   Attributes SCR_ItemAttributeCollection "{589173C7CBB7866C}" {
+    ItemDisplayName UIInfo "{589173C7CBB78665}" {
+     Name "US Manual"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{58920495D391D943}" {
+     Weight 0.3
+     SizeSetupStrategy Volume
+    }
+    m_Size SLOT_1x1
+   }
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   LayerPreset "Interaction"
+  }
+  ActionsManagerComponent "{589173C71F2A971F}" : "{85D7D4C78B24078B}Prefabs/ComponentPrefabs/ItemActionsManager.ct" {
+  }
+  RplComponent "{589173C7680E4A33}" {
+  }
+ }
+ coords 116.091 1.001 115.002
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B0E6C40B1B095B02}Configs/Ranks/CORPORAL.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

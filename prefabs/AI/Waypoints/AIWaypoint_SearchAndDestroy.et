@@ -1,0 +1,7 @@
+SCR_TimedWaypoint {
+ ID "50D6942848C89DA4"
+ coords 6996.125 154.232 2331.9
+ AIBehaviorTree "{730E239133C66A2A}AI/BehaviorTrees/Waypoints/WP_Attack.bt"
+ CompletionRadius 2
+ m_holdingTime 5
+}

@@ -1,0 +1,20 @@
+SCR_DefendWaypoint {
+ ID "5CA07E9823A76129"
+ coords 3565.27 0.953 1511.162
+ CompletionRadius 300
+ CompletionType Any
+ m_holdingTime 5000
+ m_bFastInit 0
+ m_DefendPresets {
+  SCR_DefendWaypointPreset "{5CA07E9823A76151}" {
+   m_aTagsForSearch {
+    "ObservationPost" "ChillPost"
+   }
+  }
+  SCR_DefendWaypointPreset "{5CA07E9823A76159}" {
+   m_aTagsForSearch {
+    "ObservationPost" "CoverPost" "ChillPost"
+   }
+  }
+ }
+}

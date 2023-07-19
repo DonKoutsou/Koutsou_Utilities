@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C091D56A01F8F062}prefabs/AI/Waypoints/AIWaipoint_Defend_2km.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

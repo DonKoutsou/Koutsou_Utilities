@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E3FC78E6D94EAB5E}Prefabs/Trading_Items/Configs/Magazines/B_RPG_Mag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

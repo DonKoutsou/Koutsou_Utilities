@@ -1,0 +1,82 @@
+GenericEntity {
+ ID "5AE8A89E8769CFBA"
+ components {
+  SignalsManagerComponent "{5AE8A8999D0F3D2B}" {
+  }
+  SoundComponent "{5AE8A8999D0F3DD1}" {
+   Filenames {
+    "{12A94705DF2BFD25}Sounds/Items/_SharedData/PickUp/Items_PickUp_Generic.acp" "{CC0E5A1324E761C1}Sounds/Items/_SharedData/Drop/Items_Drop_Generic.acp"
+   }
+   DistanceManagement 0
+  }
+  InventoryItemComponent "{5AE8A8999D0F3E50}" {
+   Attributes SCR_ItemAttributeCollection "{5AE8A8999D0F3E5E}" {
+    ItemDisplayName UIInfo "{5AE8A8999D0F3DE7}" {
+     Name "Broken watch"
+     Description "Broken watch, still holds value as trade item"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5AE8A8999D0F3D90}" {
+     Weight 0.005
+     SizeSetupStrategy Manual
+     ItemDimensions 0.05 0.05 0.05
+     ItemVolume 0.05
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5AE8A8999D0F3E5C}" {
+      CameraPreset Top
+      CameraOrbitAngles 10 20 45
+      CameraDistanceToItem 0.1
+      CameraOffset 0.003 -0.003 0
+      FOV 45
+     }
+    }
+    CommonItemType "CURRENCY"
+    m_Size SLOT_1x1
+    m_SlotType SLOT_LOOT_CURRENCY
+   }
+  }
+  MeshObject "{5AE8A8999D0F3E4F}" {
+   Object "{593528B35FDDDB4A}Assets/Items/Equipment/Watches/Watch_Vostok/Watch_Vostok.xob"
+   Materials {
+    MaterialAssignClass "{5C954B31450A3C19}" {
+     SourceMaterial "16__Default"
+     AssignedMaterial "{9BCB9AA9CC2B7BA0}Assets/Items/Equipment/Watches/Watch_Vostok/Data/Watch_Vostok_01.emat"
+    }
+   }
+   LODFactors {
+    1
+   }
+  }
+  Hierarchy "{5C954B303B21A979}" {
+  }
+  RigidBody "{5AE8A8999D0F3E79}" {
+   ModelGeometry 1
+   Static 1
+  }
+  SP_UnretrievableComponent "{5D631118ED48986D}" {
+  }
+  ActionsManagerComponent "{5AE8A8999D0F3EFB}" {
+   ActionContexts {
+    UserActionContext "{5AE8A8999D0F3ED1}" {
+     ContextName "default"
+     Position PointInfo "{5AE8A8999D0F3EDE}" {
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5AE8A8999D0F3EF9}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5AE8A8999D0F3EC3}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  RplComponent "{5AE8A8999D0F3EF5}" {
+  }
+ }
+ coords 2079.541 52.506 2995.593
+}

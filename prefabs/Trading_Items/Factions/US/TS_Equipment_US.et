@@ -1,0 +1,36 @@
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
+ ID "5B11113704C2B0B4"
+ components {
+  ADM_ShopComponent "{5D98A89DA977D5D1}" {
+   m_ShopConfig "{9EF1428761A804D2}Configs/Shops/Equipment_US.conf"
+   m_Categories {
+    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
+   }
+  }
+  MeshObject "{58C4C15098F109F6}" {
+   Object "{62A30D148D0D93B0}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Equipment_01.xob"
+  }
+  ActionsManagerComponent "{5B1111371149AC02}" {
+   ActionContexts {
+    UserActionContext "{5C96A262728C3C24}" {
+     ContextName "default"
+     Position PointInfo "{5C96A262757549D0}" {
+      Offset 0 0.46 0
+     }
+    }
+   }
+   additionalActions {
+    ADM_ShopAction "{5D98A89DA36EDA79}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D98A89DA5BB470C}" {
+      Name "Trade"
+     }
+    }
+   }
+  }
+ }
+ coords 145.688 1.001 119.617
+ angleY 0
+}

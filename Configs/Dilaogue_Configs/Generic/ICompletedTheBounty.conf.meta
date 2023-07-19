@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E77F5C6A1323B3F0}Configs/Dilaogue_Configs/Generic/ICompletedTheBounty.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

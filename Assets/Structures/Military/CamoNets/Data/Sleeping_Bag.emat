@@ -1,0 +1,10 @@
+MatPBRCamo {
+ BCRMap "{1589EFA3BD71AA36}Assets/Structures/Military/CamoNets/Data/CamoNet_01_fabric_BCR.edds"
+ NMOMap "{2D5154316406F8A8}Assets/Structures/Military/CamoNets/Data/CamoNet_01_fabric_NMO.edds"
+ CamoAlbedoMap "{0C0E9819E3B1BF32}Common/Textures/Camouflage/T_CamoNet_MKT_01_BC.edds"
+ UVSrcCamoAlbedoMap "UV set 2"
+ CamoNormalPower 0
+ CamoOpacity 0.99
+ CammNormalOpacity 0
+ CamoRoughnessOpacity 0
+}

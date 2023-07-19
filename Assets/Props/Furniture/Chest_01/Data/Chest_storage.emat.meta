@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{722F0DF7DE4B4EF9}Assets/Props/Furniture/Chest_01/Data/Chest_storage.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

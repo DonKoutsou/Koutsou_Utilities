@@ -1,0 +1,12 @@
+SCR_AIWaypoint {
+ ID "5D4E87E40C585334"
+ coords 567.266 32.635 2477.327
+ Type "Patrol"
+ Title "Like simple move only different move type"
+ AIBehaviorTree "{1EAC901CA44DEB54}AI/BehaviorTrees/LookAtMe.bt"
+ AIBehaviorTreeMoveTo "{C8508A9BBD1D8F65}AI/BehaviorTrees/Waypoints/WP_Follow.bt"
+ CompletionRadius 4
+ Autocomplete 0
+ CompletionType Any
+ m_fPriorityLevel 2000
+}

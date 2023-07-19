@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{1256243A1D8E042A}Prefabs/Trading_Items/Configs/Equipment/B_US_MedBag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

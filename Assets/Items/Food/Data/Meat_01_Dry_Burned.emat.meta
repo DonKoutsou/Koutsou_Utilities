@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D5A7F470EB6795E1}Assets/Items/Food/Data/Meat_01_Dry_Burned.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B0F9762BD9433F2A}prefabs/Compositions/Slotted/SlotFlatSmall/Perelle_FIA_Area.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

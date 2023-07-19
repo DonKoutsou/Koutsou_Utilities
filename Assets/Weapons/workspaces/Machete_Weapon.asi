@@ -1,0 +1,6 @@
+AnimSetInstanceSource {
+ Template "{18F60A9C02AA456B}Assets/Weapons/Handguns/workspaces/PM.ast"
+ ParentTemplates {
+  "{0F070F540CA6B706}Assets/Weapons/workspaces/Knife_weapon.asi"
+ }
+}

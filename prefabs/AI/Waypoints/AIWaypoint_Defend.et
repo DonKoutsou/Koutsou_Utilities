@@ -1,0 +1,16 @@
+SCR_DefendWaypoint {
+ ID "50EECB8790B5A515"
+ AIBehaviorTree "{E8BEA8A4D828C7D0}AI/BehaviorTrees/TESTGRENADE.bt"
+ AIBehaviorTreeMoveTo "{E8BEA8A4D828C7D0}AI/BehaviorTrees/TESTGRENADE.bt"
+ CompletionType Any
+ m_holdingTime 5000
+ m_DefendPresets {
+  SCR_DefendWaypointPreset "{58D6884489389713}" {
+   m_aTagsForSearch {
+    "ChillPost" "ObservationPost" "GatePost"
+   }
+  }
+  SCR_DefendWaypointPreset "{58D688448899BCA0}" {
+  }
+ }
+}

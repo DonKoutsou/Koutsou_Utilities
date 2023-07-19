@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{72856A7D23C09B7B}Configs/Navmeshconfig_Arland.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

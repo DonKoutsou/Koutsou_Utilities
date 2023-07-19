@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{97995D59C5B2F5AD}Assets/Items/Misc/Photo/data/M_Loved_one.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

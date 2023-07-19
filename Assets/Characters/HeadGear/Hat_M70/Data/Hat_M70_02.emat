@@ -1,0 +1,8 @@
+MatPBRBasic {
+ AllowUserAlphaBias 1
+ DisableUserAphaInShadow 1
+ CavityFromAO 0.949
+ BCRMap "{1F7709E78B0F41D1}Assets/Data/Hat_M70_02_BCR.edds"
+ OpacityMap "{70A53F4EA373F142}Assets/Characters/Basebody/Data/HeadClipping_A.edds"
+ NMOMap "{9F1122E7FD72035E}Assets/Characters/HeadGear/Hat_M70/Data/Hat_M70_01_NMO.edds"
+}

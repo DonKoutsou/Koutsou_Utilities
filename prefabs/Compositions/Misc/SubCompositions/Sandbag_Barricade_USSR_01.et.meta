@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B51CE80A9EEF7E00}Prefabs/Compositions/Misc/SubCompositions/Sandbag_Barricade_USSR_01.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

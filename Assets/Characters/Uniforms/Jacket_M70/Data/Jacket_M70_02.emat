@@ -1,0 +1,10 @@
+MatPBRMulti {
+ CavityFromAO 0.471
+ VFXMap "{43D74140AA50FE58}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_01_VFX.edds"
+ DirtUserOpacity 1
+ DirtOpacity 3
+ DirtRoughness 1.2
+ DirtBCRMap "{45FAFA6E5A3CBEBB}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_01_wound_BCR.edds"
+ BCR_1 "{989E9A7895B076DB}Assets/Data/Jacket_M70_02_BCR.edds"
+ NMO_1 "{33A544E8F6344F34}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_01_NMO.edds"
+}

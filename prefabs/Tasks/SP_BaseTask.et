@@ -1,0 +1,9 @@
+SP_BaseTask {
+ ID "5DD2817F151B4084"
+ components {
+  SCR_MapDescriptorComponent "{5DD2817F6C05399C}" {
+  }
+ }
+ coords 6634.118 45.612 1787.868
+ m_faction "SPEIRA"
+}

@@ -1,0 +1,10 @@
+MatPBRMulti {
+ CavityFromAO 0.882
+ VFXMap "{9444EB45E1FFD248}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_01_VFX.edds"
+ DirtUserOpacity 1
+ DirtOpacity 3
+ DirtRoughness 1.2
+ DirtBCRMap "{3FD67D255F2F3DE4}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_01_wound_BCR.edds"
+ BCR_1 "{C262DEC82804BE6E}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_02_BCR.edds"
+ NMO_1 "{E436EEEDBD9B6324}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_01_NMO.edds"
+}

@@ -1,0 +1,18 @@
+ProgressBarWidgetClass "{5D7D3108F65FD931}" {
+ Name "m_wHungerBar"
+ Slot FrameWidgetSlot "{5D7D3108F65FD927}" {
+  Anchor 0.5 1 0.5 1
+  PositionX -945.863
+  OffsetLeft -945.9
+  PositionY -55.006
+  OffsetTop -55
+  SizeX 300
+  OffsetRight 645.9
+  SizeY 5.356
+  OffsetBottom 49.7
+ }
+ Opacity 0.5
+ Color 1 0.691 0.216 1
+ style SimpleWithBackground
+ Current 100
+}

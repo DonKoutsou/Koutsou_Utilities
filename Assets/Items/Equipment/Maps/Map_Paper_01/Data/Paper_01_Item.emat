@@ -1,0 +1,4 @@
+MatPBRBasic {
+ Color 0.153 0.144 0.115 1
+ NMOMap "{0D45C5B7D6084F15}Assets/Items/Equipment/Maps/Map_Paper_01/Data/PaperMap_US_01_Item_NMO.edds"
+}

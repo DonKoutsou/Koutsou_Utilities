@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{10E583D9FDAA5EEC}Prefabs/Trading_Items/Configs/S_AK.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

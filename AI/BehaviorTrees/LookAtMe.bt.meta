@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{1EAC901CA44DEB56}AI/BehaviorTrees/LookAtMe.bt"
+ Configurations {
+  BehaviorTreeResourceClass PC {
+  }
+  BehaviorTreeResourceClass XBOX_ONE : PC {
+  }
+  BehaviorTreeResourceClass XBOX_SERIES : PC {
+  }
+  BehaviorTreeResourceClass PS4 : PC {
+  }
+  BehaviorTreeResourceClass HEADLESS : PC {
+  }
+ }
+}

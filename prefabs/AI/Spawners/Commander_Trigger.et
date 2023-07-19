@@ -1,0 +1,14 @@
+SP_CharacterTriggerEntity {
+ ID "5D3ADC799F601062"
+ coords 3741.24 2.889 2682.048
+ TriggerShapeType Sphere
+ SphereRadius 30
+ TriggerActivationType "Every query"
+ PeriodicQueries 1
+ UpdatePeriod 5
+ m_sOwnerFactionKey ""
+ m_eActivationPresence ANY_CHARACTER
+ m_bOnce 0
+ m_fActivationCountdownTimer 30
+ m_Commanders ""
+}

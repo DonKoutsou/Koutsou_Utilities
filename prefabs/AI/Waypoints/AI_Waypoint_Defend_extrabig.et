@@ -1,0 +1,13 @@
+SCR_DefendWaypoint : "{9468A0EEBC5A74B9}prefabs/AI/Waypoints/AIWaypoint_Defend_Huge.et" {
+ ID "5CA07E9823A76129"
+ coords 5482.431 468.938 7831.117
+ CompletionRadius 2000
+ m_holdingTime 1000
+ m_DefendPresets {
+  SCR_DefendWaypointPreset "{5CA07E9823A76151}" {
+   m_aTagsForSearch {
+    "ChillPost" "ObservationPost"
+   }
+  }
+ }
+}

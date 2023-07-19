@@ -1,0 +1,180 @@
+SP_GameMode {
+ ID "5DC8E7DF1BAF44A7"
+ components {
+  SignalsManagerComponent "{5DC8E7D926128AA3}" {
+  }
+  SCR_CallsignManagerComponent "{5DC8E7D93C51DF7F}" {
+  }
+  SCR_CompositionSlotManagerComponent "{5DC8E7D930E053A9}" {
+  }
+  SCR_DestructionManagerComponent "{5DC8E7D934590542}" {
+  }
+  SCR_EntityCatalogManagerComponent "{5DC8E7D94849D925}" {
+   m_aEntityCatalogs {
+    SCR_EntityCatalog "{5DC8E7D94F822388}" : "{C8568AE52B2C8E1F}Configs/Dilaogue_Configs/Requests/Requests.conf" {
+    }
+    SCR_EntityCatalog "{5DC8E7D94F7C2B82}" : "{251BB14ECEF73562}Configs/Dilaogue_Configs/Requests/Rewards.conf" {
+    }
+    SCR_EntityCatalog "{5DD0FCA5935CA2DD}" : "{B219EC028EC342D8}Configs/Dilaogue_Configs/Requests/Stashes.conf" {
+    }
+   }
+  }
+  SCR_GameModeHealthSettings "{5DC8E7D95C0C2D67}" {
+   m_bPermitUnconsciousness 1
+  }
+  SCR_GameModeSFManager "{5DC8E7D953E0EEA5}" {
+   m_aTaskTypesAvailable {
+    SCR_ScenarioFrameworkTaskType "{5DD522B1D72441B1}" {
+     m_eTypeOfTask DEFAULT
+    }
+   }
+   m_iMaxNumberOfTasks 1
+  }
+  SCR_GameOverScreenManagerComponent "{5DC8E7D96AC61234}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{5DC8E7DE92B37D05}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
+    m_aGameOverScreens {
+     SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
+      m_GameOverScreenId BROTHERFOUND
+     }
+     SCR_BaseGameOverScreenInfo "{5DC8E7DE9CEB2F9B}" {
+      m_GameOverScreenId DEATH
+     }
+    }
+   }
+  }
+  SCR_GroupsManagerComponent "{5DC8E7DE972D4980}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
+  }
+  SCR_HintManagerComponent "{5DC8E7DEA50D6698}" {
+  }
+  SCR_InitWeatherComponent "{5DC8E7DED1B7B435}" {
+   m_sInitialStartingWeatherId "Cloudy"
+  }
+  SCR_MapConfigComponent "{5DC8E7DEE1884961}" {
+  }
+  SCR_NametagConfigComponent "{5DC8E7DEE754AF48}" {
+   m_sConfigPath "{09F7AAA14A642683}Configs/NameTags/NametagFriendlies.conf"
+  }
+  SCR_PlayersRestrictionZoneManagerComponent "{5DC8E7DE01ACC98C}" {
+  }
+  SCR_PossessingManagerComponent "{5DC8E7DE046CF19F}" {
+  }
+  SCR_RadialMenuGameModeComponent "{5DC8E7DE57A4F5D5}" {
+   m_Menu SCR_RadialMenu "{5DC8E7DE60BB4E7B}" : "{D9448EF097CB0ACB}Configs/HUD/RadialMenu/GlobalRadialMenu.conf" {
+   }
+  }
+  SCR_RadialMenuItemsComponent "{5DC8E7DE63782FCD}" {
+   m_MenuController SCR_RadialMenuController "{5DC8E7DE7D1EF9AA}" {
+    m_RMControls SCR_RadialMenuControllerInputs "{5DC8E7DE7459FA62}" {
+     m_sControllerContext "WeaponSelectionContext"
+     m_sOpenAction "Inventory_WeaponSwitchingRadial"
+    }
+   }
+  }
+  SCR_RespawnSystemComponent "{5DC8E7DC1AEF9B87}" {
+   components {
+    SCR_FreeSpawnHandlerComponent "{5DD6DD6E00EC3A45}" {
+    }
+    SCR_PossessSpawnHandlerComponent "{5DD6DD6E1846D414}" {
+    }
+    SCR_SpawnPointSpawnHandlerComponent "{5DD6DD6E1DEC1E56}" {
+    }
+   }
+   m_SpawnLogic SCR_AutoSpawnLogic "{5DD6E5249CE50C2A}" {
+    m_sForcedFaction "FIA"
+    m_sForcedLoadout "Default"
+   }
+  }
+  SCR_TimeAndWeatherHandlerComponent "{5DC8E7DF962CC37D}" {
+   m_iStartingHours 5
+   m_iStartingMinutes 30
+   m_bRandomStartingDaytime 1
+   m_bRandomStartingWeather 1
+  }
+  SP_DialogueComponent "{5DC8E7DFCC439B26}" : "{52ABE9A0F38181F2}Configs/Dilaogue_Configs/DialogueComp.ct" {
+  }
+  SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
+   m_fTaskGenTime 300
+   m_iMinTaskAmount 200
+   m_fTaskOfSameTypePerCharacter 1
+   TasksToSawn {
+    SP_BountyTask "{5DCC99CF04345A9C}" {
+    }
+    SP_DeliverTask "{5DCC99CF0758E224}" {
+    }
+    SP_NavigateTask "{5DCC99CF07807699}" {
+    }
+    SP_RescueTask "{5DCC99CF06362CF3}" {
+     m_iMaxamount 6
+    }
+    SP_RetrieveTask "{5DCC99CF097FEE75}" {
+    }
+   }
+  }
+  RplComponent "{5DC8E7DFE3D28994}" {
+   Streamable Disabled
+  }
+ }
+ coords 2786.687 74.752 1583.354
+ PlayerControllerPrefab "{A1AE127F16DD352E}Prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
+ m_fAutoReloadTime 30
+ m_bOverrideGameOverType 1
+ m_eOverriddenGameOverType DEATH
+ {
+  SP_FactionManager "5DD0FCA5EFCD0A3F" {
+   ID "5DC8E7DF1BAF44A6"
+   components {
+    SCR_DelegateFactionManagerComponent "{5D5705392CA1FA82}" {
+     m_FactionDelegatePrefab "{94D481BAEC3B8573}PrefabsEditable/System/E_FactionDelegate.et"
+    }
+   }
+   coords -41.458 -9.728 24.066
+   Flags 0
+   Factions {
+    SCR_Faction "{5DCF2DEC154078E9}" : "{5EB46557DF2AA24F}Configs/Factions/US.conf" {
+     m_bIsPlayable 0
+    }
+    SCR_Faction "{5DCF2DEC1F25C352}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
+     m_bIsPlayable 0
+    }
+    SCR_Faction "{5DCF2DEC29F393ED}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
+    }
+   }
+   m_bCanChangeFactionsPlayable 0
+  }
+  TagManager {
+   ID "5DC8E7DF1BAF4559"
+   coords -6.034 -10.774 92.922
+  }
+  SCR_EditorSettingsEntity {
+   ID "5DC8E7DF1BAF4558"
+   coords 494.886 -100.712 -531.978
+   m_bIsUnlimitedEditorLegal 1
+  }
+  SCR_GarbageManager {
+   ID "5DC8E7DF1BAF39E0"
+   coords 493.03 -101.072 -532.048
+   CharacterLifetime 985.071
+   VehicleLifetime 1040.252
+   ItemLifetime 599.863
+   m_bOnlyDestroyed 1
+  }
+  SCR_LoadoutManager {
+   ID "5DC8E7DF1BA0C1B0"
+   coords -44.306 -9.377 17.714
+   m_aPlayerLoadouts {
+    SCR_FactionPlayerLoadout "{5CA7060267058AD7}" {
+     m_sLoadoutName "Default"
+     m_sLoadoutResource "{B1CE5CA5A0628961}prefabs/Characters/Factions/SPEIRA/Character_Speira_Gogland.et"
+     m_sAffiliatedFaction "SPEIRA"
+    }
+    SCR_FactionPlayerLoadout "{5D4EC11BB20DC322}" {
+     m_sLoadoutName "Respawn"
+     m_sLoadoutResource "{D68719F6FED9853A}prefabs/Characters/Factions/SPEIRA/Character_SPEIRA_RespawnGogland.et"
+     m_sAffiliatedFaction "SPEIRA"
+    }
+   }
+  }
+ }
+}

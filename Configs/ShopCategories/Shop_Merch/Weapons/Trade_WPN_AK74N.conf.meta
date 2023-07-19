@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F690C64FA9B90572}Configs/ShopCategories/Shop_Merch/Weapons/Trade_WPN_AK74N.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

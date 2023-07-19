@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{52ABE9A0F38181F2}Configs/Dilaogue_Configs/DialogueComp.ct"
+ Configurations {
+  ComponentTemplateResourceClass PC {
+  }
+  ComponentTemplateResourceClass XBOX_ONE : PC {
+  }
+  ComponentTemplateResourceClass XBOX_SERIES : PC {
+  }
+  ComponentTemplateResourceClass PS4 : PC {
+  }
+  ComponentTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

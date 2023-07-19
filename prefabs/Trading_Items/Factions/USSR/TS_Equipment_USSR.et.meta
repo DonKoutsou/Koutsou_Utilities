@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{34C189DD4094A08A}Prefabs/Trading_Items/Factions/USSR/TS_Equipment_USSR.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

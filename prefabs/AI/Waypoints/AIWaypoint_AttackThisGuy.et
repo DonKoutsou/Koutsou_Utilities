@@ -1,0 +1,12 @@
+SCR_EntityWaypoint {
+ ID "5D8ED75E31079600"
+ coords 2687.019 389.014 5186.562
+ Type "Attack"
+ Title "AttackWaypoint"
+ AIBehaviorTree "{730E239133C66A2A}AI/BehaviorTrees/Waypoints/WP_Attack.bt"
+ AIBehaviorTreeMoveTo "{A3755C1F88DED8D6}AI/BehaviorTrees/Waypoints/WP_Move.bt"
+ CompletionRadius 2
+ Autocomplete 0
+ CompletionType Any
+ m_fPriorityLevel 70
+}

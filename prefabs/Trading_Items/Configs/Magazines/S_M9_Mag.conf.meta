@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CA3DF9E9C2527462}Prefabs/Trading_Items/Configs/S_M9_Mag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

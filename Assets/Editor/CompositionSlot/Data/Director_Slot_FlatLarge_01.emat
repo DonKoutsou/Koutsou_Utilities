@@ -1,0 +1,12 @@
+MatPBRDecal {
+ Color 0.048 0.14 0.558 1
+ Emissive 0.198 0.198 0.198 0
+ EmissiveLV -3
+ SortBias 5
+ CastShadow 0
+ AlphaMul 0.85
+ BlendMode AlphaBlend
+ MetalnessScale 0
+ EmissiveMap "{A308DD06E922FC39}Assets/Editor/CompositionSlot/Data/Composition_Slot_FlatLarge_01_BCR.edds"
+ OpacityMap "{A308DD06E922FC39}Assets/Editor/CompositionSlot/Data/Composition_Slot_FlatLarge_01_BCR.edds"
+}

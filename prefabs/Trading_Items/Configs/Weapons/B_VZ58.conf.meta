@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{8B7E7B0A1BC6036A}prefabs/Trading_Items/Configs/Weapons/B_VZ58.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{550F8A0B84782A6C}prefabs/Trading_Items/Configs/Magazines/B_VZ52_Mag.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

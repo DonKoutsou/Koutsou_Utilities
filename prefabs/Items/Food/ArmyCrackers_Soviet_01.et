@@ -1,0 +1,44 @@
+FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
+ ID "2829E729DF7DE6D1"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "Army Crackers"
+     Description "restores hunger"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     SizeSetupStrategy Manual
+     ItemDimensions 4 4 4
+     ItemVolume 64
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5D34DC898E5D87CF}" {
+     AnimationInstance "{4FCBEA45CAEBC9C0}anims/workspaces/player/player_main_1h.asi"
+     AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5D34DC89A8FE3D85}" {
+       AnimGraph "{883777E45A6C4DA1}Assets/Items/Medicine/Workspaces/Gauze_01.agr"
+       AnimInstance "{79BD98038DD60F88}Assets/Items/Medicine/Workspaces/Gauze_01_player.asi"
+       BindingName "Gadget"
+      }
+     }
+    }
+    CustomAttributes {
+     SCR_ItemOfInterestAttribute "{5D84D824DE0CAD76}" {
+      m_InterestType FOOD
+     }
+    }
+    CommonItemType "FOOD"
+    m_SlotType SLOT_VEST
+   }
+  }
+  SCR_ConsumableItemComponent "{5D34DC8996C9F340}" {
+   m_eAnimVariable ADRIANOV
+   m_ConsumableEffect SP_ConsumableEffectEat "{5D830DED833B3236}" {
+   }
+   m_bIsEatable 1
+   m_fInitContainerCapacity 10
+   m_fUseAmount 10
+  }
+ }
+}

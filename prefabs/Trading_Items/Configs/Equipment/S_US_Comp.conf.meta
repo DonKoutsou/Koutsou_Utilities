@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{5E49C0CD2490D8A5}Prefabs/Trading_Items/Configs/Equipment/S_US_Comp.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

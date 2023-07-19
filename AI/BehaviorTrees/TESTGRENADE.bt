@@ -1,0 +1,28 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/TESTGRENADE.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -50 -45
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -74.286 177.143
+     Nodes {
+      SCR_AISwitchWeaponSpec "SCR_AI Switch Weapon Spec" {
+       Name "SCR_AI Switch Weapon Spec"
+       EditorPos -112.222 417.777
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "SciptedOrderValue"
+        }
+       }
+       m_eWeaponType WT_FRAGGRENADE
+      }
+     }
+    }
+   }
+  }
+ }
+}

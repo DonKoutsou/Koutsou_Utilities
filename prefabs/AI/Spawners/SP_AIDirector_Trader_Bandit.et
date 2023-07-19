@@ -1,0 +1,12 @@
+SP_AIDirector : "{B14AC474A6E7BB8A}prefabs/AI/Spawners/SP_AIDirector_Base.et" {
+ ID "5D42AA2A8C40E9C7"
+ coords 7196.424 32.436 1292.248
+ DangerEventRange 50
+ m_eEntityCatalogType GROUP
+ m_FactionsToApear {
+  "BANDITS"
+ }
+ m_bAllowRescue 0
+ m_WorldDirections SCR_MapLocationQuadHint "{5D6A802F64DFDAE1}" : "{1A46B132B519FD7B}Configs/Map/MapLocatorHints/LocationHintsGogland.conf" {
+ }
+}

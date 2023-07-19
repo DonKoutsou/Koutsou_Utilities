@@ -1,0 +1,81 @@
+GenericEntity {
+ ID "5D8ED74C6041CC4A"
+ components {
+  MeshObject "{5D8ED74C6D4BF683}" {
+   Object "{E443663E5241622A}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_folded.xob"
+   Materials {
+    MaterialAssignClass "{5D8ED74C7F4DBED4}" {
+     SourceMaterial "01__Default"
+     AssignedMaterial "{1017672F5890B96D}Assets/Items/Equipment/Maps/Map_Paper_01/Data/Paper_01_Item.emat"
+    }
+   }
+   LODFactors {
+   }
+  }
+  RigidBody "{5D8ED74C6D4BF6B6}" {
+   Mass 10
+   ResponseIndex "TinyDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_SoundDataComponent "{5D8ED74C6D4BF744}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5D8ED74C6D4BF74F}" {
+     m_sSoundProject "{2285D7ED0CE3463E}Sounds/Props/Military/AmmoBoxes/AmmoBox_Small_Wooden/Props_AmmoBox_Small_Wooden.acp"
+     m_sSoundEventName "SOUND_CONTAINER_OPEN"
+    }
+    SCR_AudioSourceConfiguration "{5D8ED74C6D4BF742}" {
+     m_sSoundProject "{2285D7ED0CE3463E}Sounds/Props/Military/AmmoBoxes/AmmoBox_Small_Wooden/Props_AmmoBox_Small_Wooden.acp"
+     m_sSoundEventName "SOUND_CONTAINER_CLOSE"
+    }
+   }
+  }
+  SCR_UniversalInventoryStorageComponent "{5D8ED74C6D4BF703}" {
+   Attributes SCR_ItemAttributeCollection "{5D8ED74C6D4BF701}" {
+    ItemDisplayName UIInfo "{5D8ED74C6D4BF71B}" {
+     Name "Bounty"
+     Description "Bounty paper, containing info about your target and its location."
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5D8ED74C6D4BF70F}" {
+     Weight 0.05
+     SizeSetupStrategy Manual
+     ItemDimensions 1 1 1
+     ItemVolume 1
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5D968E00D3456842}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 10 0
+     }
+    }
+    m_Size SLOT_1x1
+   }
+   CapacityCoefficient 0
+  }
+  SP_BountyComponent "{5D8ED74C736D7665}" {
+  }
+  ActionsManagerComponent "{5D8ED74C6D4BF7E7}" {
+   ActionContexts {
+    UserActionContext "{5D8ED74C6D4BF7DB}" {
+     ContextName "default"
+     Position PointInfo "{5D8ED74C6D4BF7D9}" {
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5D8ED74C6D4BF7F1}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D8ED74C6D4BF7C1}" {
+      Name "Pick Up"
+     }
+    }
+   }
+  }
+  RplComponent "{5D8ED74C6D4BF79D}" {
+  }
+ }
+ coords 125.27 1.001 246.307
+ Flags 1027
+}

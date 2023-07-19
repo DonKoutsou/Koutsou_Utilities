@@ -1,0 +1,65 @@
+GenericEntity {
+ ID "5B3CC24C5D438CB2"
+ components {
+  InventoryItemComponent "{5B3CC24C580151C2}" {
+   Attributes SCR_ItemAttributeCollection "{5B3CC24C580151CD}" {
+    ItemDisplayName UIInfo "{5B3CC24C580150B4}" {
+     Name "Metal Scrap"
+     Description "Can be sold to most traders"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5B3CC24C58015179}" {
+     Weight 10
+     SizeSetupStrategy Volume
+     ItemDimensions 20 10 5
+     ItemVolume 1000
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5B3CC24C580151DC}" {
+      CameraOrbitAngles 45 20 0
+      CameraDistanceToItem 0.75
+      FOV 60
+      PreviewModel "{407938CF48D8B657}Assets/Props/Debris/Metal/FragmentMetal_dbr_01.xob"
+     }
+    }
+    m_Size SLOT_2x2
+    m_SlotType SLOT_BACKPACK
+   }
+  }
+  MeshObject "{5B3CC24C58015251}" {
+   Object "{407938CF48D8B657}Assets/Props/Debris/Metal/FragmentMetal_dbr_01.xob"
+   LODFactors {
+    1 1 1
+   }
+  }
+  RigidBody "{5B3CC24C58015276}" {
+   LayerPreset "Interaction"
+   ModelGeometry 1
+   Static 1
+  }
+  ActionsManagerComponent "{5B3CC24C580152CF}" {
+   ActionContexts {
+    UserActionContext "{5B3CC24C5801520E}" {
+     ContextName "default"
+     Position PointInfo "{5B3CC24C5801520C}" {
+      Offset 0 0.0762 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5B3CC24C580152C8}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5B3CC24C58015237}" {
+      Name "Scrap Metal"
+     }
+     "Sort Priority" 100
+    }
+   }
+  }
+  RplComponent "{5B3CC24C580152C5}" {
+  }
+ }
+ coords 124.882 2.016 134.414
+ Flags 1027
+}

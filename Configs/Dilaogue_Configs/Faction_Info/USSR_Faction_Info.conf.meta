@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{04E5F313158EF31A}Configs/Dilaogue_Configs/Faction_Info/USSR_Faction_Info.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

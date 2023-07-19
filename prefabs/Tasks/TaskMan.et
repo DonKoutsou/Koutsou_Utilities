@@ -1,0 +1,19 @@
+SCR_BaseTaskManager {
+ ID "5DD2D4778EFE7F5A"
+ components {
+  SCR_TextsTaskManagerComponent "{58F09D2393A7D715}" : "{6F59CB11B5383430}Prefabs/MP/Managers/Tasks/TaskManagerComponent.ct" {
+  }
+  SCR_UITaskManagerComponent "{523EEBD95FFA676F}" {
+   m_bOpenTaskListOnMapOpen 0
+  }
+  RplComponent "{523EEBD95FFA6799}" {
+   Streamable Disabled
+  }
+ }
+ coords 6568.288 0 1000.224
+ {
+  SCR_BaseTaskSupportEntity : "{F927E136363469D2}Prefabs/Tasks/SupportEntities/BaseTaskSupportEntity.et" {
+   ID "5DD2D4778EFE78A2"
+  }
+ }
+}

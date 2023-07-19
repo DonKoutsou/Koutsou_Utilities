@@ -1,0 +1,15 @@
+MatPBRCamo {
+ Cull none
+ AlphaTest 0.482
+ AlphaMul 1.268
+ BCRMap "{1589EFA3BD71AA36}Assets/Structures/Military/CamoNets/Data/CamoNet_01_fabric_BCR.edds" 
+ OpacityMap "{2C11C7B968871527}Assets/Structures/Military/CamoNets/Data/CamoNet_01_double_mips_A.edds" 
+ NMOMap "{2D5154316406F8A8}Assets/Structures/Military/CamoNets/Data/CamoNet_01_fabric_NMO.edds" 
+ CamoAlbedoMap "{2D03A75005B567C3}Common/Textures/Camouflage/T_CamoNet_LCSS_01_BC.edds" 
+ UVSrcCamoAlbedoMap "UV set 2"
+ CamoNormalPower 0
+ CamoCRMMap "{92829D2FA2474E3A}Assets/Structures/Military/CamoNets/Data/CamoNet_01_CRM_mips_A.edds" 
+ CamoOpacity 0.99
+ CammNormalOpacity 0
+ CamoRoughnessOpacity 0
+}

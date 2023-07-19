@@ -1,0 +1,134 @@
+GenericEntity {
+ ID "5CFD42CE87B6FA0D"
+ components {
+  MeshObject "{5CFD42CEDF763627}" {
+   Object "{B10A3F7FED2395AB}Assets/Structures/Military/Camps/Canvas_Cover/CanvasCover_Medium_A.xob"
+   Materials {
+    MaterialAssignClass "{5CFD42CEDF763537}" {
+     SourceMaterial "CanvasCover_Medium_A"
+     AssignedMaterial "{513A4C7198D0C16D}Assets/Structures/Military/Camps/Canvas_Cover/Data/CanvasCover_Medium_A_USSR.emat"
+    }
+    MaterialAssignClass "{5CFD42CEDF76353E}" {
+     SourceMaterial "CanvasCover_Medium_A"
+     AssignedMaterial "{513A4C7198D0C16D}Assets/Structures/Military/Camps/Canvas_Cover/Data/CanvasCover_Medium_A_USSR.emat"
+    }
+   }
+   LODFactors {
+    5 2 1.5 1 1 1
+   }
+  }
+  RigidBody "{5CFD42CEDF763673}" {
+   ResponseIndex "HugeDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_DestructionMultiPhaseComponent "{5CFD42CEDF7637D3}" {
+   Enabled 0
+   "Additional hit zones" {
+    ScriptedHitZone Default {
+     HZDefault 1
+     "Melee multiplier" 1
+     "Kinetic multiplier" 1
+     "Explosive multiplier" 90
+     "Incendiary multiplier" 1
+    }
+   }
+   m_fBaseHealth 800
+   m_fForceToDamageScale 350
+   m_DestroySpawnObjects {
+    SCR_ParticleSpawnable "{5CFD42CEDF7637A5}" {
+     m_Particle "{CEE298DA573A1161}Particles/Props/Dest_WoodenWall.ptc"
+    }
+    SCR_DebrisSpawnable "{5CFD42CEDF7637B6}" {
+     m_ModelPrefabs {
+      "{EADBBD6C57803A61}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_01.xob" "{73C504F54A670BF1}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_02.xob" "{04CF6C7DBEC5E481}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_03.xob" "{0308962CD8435E42}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_04.xob" "{7402FEA42CE1B132}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_05.xob" "{ED1C473D310680A2}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_06.xob" "{9A162FB5C5A46FD2}Assets/Structures/Military/Camps/Canvas_Cover/Dst/CanvasCover_Medium_A_dst/CanvasCover_Medium_A_dst_07.xob"
+     }
+     m_eMaterialSoundType WOOD_PLANK_SMALL
+    }
+   }
+  }
+  RplComponent "{5CFD42CEDF763728}" {
+   Enabled 0
+  }
+ }
+ coords 104.074 1.001 171.696
+ Flags 1027
+ {
+  $grp StaticModelEntity : "{B03F9691E961C4CA}Prefabs/Structures/Military/Fortifications/DirtCover_01/DirtCover_01_long_v3.et" {
+   {
+    ID "5CFD42CE87B604A6"
+    coords 3.445 -0.465 0.494
+    angleY 90
+   }
+   {
+    ID "5CFD42CE87B64E4C"
+    coords -1.14 -0.588 0.233
+    angleX 45
+    angleY -90
+   }
+   {
+    ID "5CFD42CE87B64E4D"
+    coords -1.283 -0.465 1.939
+   }
+   {
+    ID "5CFD42CE87B6A583"
+    coords 2.849 -0.782 0.233
+    angleX -45
+    angleY 90
+   }
+   {
+    ID "5CFD42CE87B6A58C"
+    coords 1.102 -0.557 0.233
+    angleX -45
+    angleY 90
+   }
+   {
+    ID "5CFD42CE87B6A58D"
+    coords 1.861 -0.475 1.854
+    angleY -178.994
+   }
+   {
+    ID "5CFD42CE87B6FA15"
+    coords 1.778 -0.465 -1.608
+    angleY 180
+   }
+   {
+    ID "5CFD42CE87B6FA16"
+    coords -3.211 -0.465 0.242
+    angleY -90
+   }
+   {
+    ID "5CFD42CE87B6FA17"
+    coords -1.739 -0.465 -1.655
+    angleY 180
+   }
+  }
+  $grp GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+   {
+    ID "5CFD42CE87B604A2"
+    coords -1.291 0 0.094
+    angleY -1.725
+   }
+   {
+    ID "5CFD42CE87B604A3"
+    coords 2.931 0 0.094
+    angleY -1.304
+   }
+   {
+    ID "5CFD42CE87B72A85"
+    coords 0.105 0 0.094
+    angleY -2.052
+   }
+   {
+    ID "5CFD42CE87B79FD8"
+    coords -2.638 0 0.094
+    angleY 2.673
+   }
+   {
+    ID "5CFD42CE87B79FDB"
+    coords 1.528 0 0.094
+    angleY 2.26
+   }
+  }
+ }
+}
