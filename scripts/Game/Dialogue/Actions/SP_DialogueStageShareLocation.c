@@ -20,10 +20,8 @@ class DialogueStageShareLocation : DialogueStage
 	}
 	override string GetStageDialogueText(IEntity Character, IEntity Player)
 	{
-		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector OrDirector = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
-	 	return DialogueText + " " + OrDirector.GetCharacterLocation(Player);
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+	 	return DialogueText + " " + Diag.GetCharacterLocation(Player);
 	};
 };
 [BaseContainerProps(configRoot: true)]

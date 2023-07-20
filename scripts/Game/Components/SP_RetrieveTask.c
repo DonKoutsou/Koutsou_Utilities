@@ -43,7 +43,7 @@ class SP_RetrieveTask: SP_Task
 		if (CharHolder)
 			CharHolder.GetRandomUnit(Char);
 		if (Char)
-			Owner = IEntity.Cast(Char);
+			Owner = Char;
 		if(Owner)
 		{
 			return true;
@@ -353,12 +353,9 @@ class SP_RetrieveTask: SP_Task
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		AIControlComponent comp = AIControlComponent.Cast(TaskOwner.FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector Director = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		OLoc = Director.GetCharacterLocation(TaskOwner);
+		OLoc = Diag.GetCharacterLocation(TaskOwner);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};

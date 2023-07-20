@@ -70,8 +70,9 @@ class DialogueStageRumor : DialogueStage
 		if(SP_AIDirector.AllDirectors.Count() <= usedindex.Count())
 		{
 			usedindex.Clear();
-		}		
-		string TextToSend = string.Format(DialogueText, FactioReadble, RandomDirector.GetCharacterLocation(RandomDirector));
+		}
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));		
+		string TextToSend = string.Format(DialogueText, FactioReadble, Diag.GetCharacterLocation(RandomDirector));
 		return TextToSend;
 	}
 

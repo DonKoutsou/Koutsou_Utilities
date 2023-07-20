@@ -17,7 +17,7 @@ class SP_DeliverTask: SP_Task
 		if (CharHolder)
 			CharHolder.GetRandomUnit(Char);
 		if (Char)
-			Owner = IEntity.Cast(Char);
+			Owner = Char;
 		if(Owner)
 		{
 			return true;
@@ -46,7 +46,7 @@ class SP_DeliverTask: SP_Task
 			return false;
 		
 		if (Char)
-			Target = IEntity.Cast(Char);
+			Target = Char;
 		
 		if (Target == GetOwner())
 			return false;
@@ -231,14 +231,11 @@ class SP_DeliverTask: SP_Task
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		AIControlComponent comp = AIControlComponent.Cast(TaskTarget.FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector Director = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
 		DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-		OLoc = Director.GetCharacterLocation(TaskOwner);
-		DLoc = Director.GetCharacterLocation(TaskTarget);
+		OLoc = Diag.GetCharacterLocation(TaskOwner);
+		DLoc = Diag.GetCharacterLocation(TaskTarget);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//delivery fails if targer is killed

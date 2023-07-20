@@ -51,8 +51,7 @@ class SP_AIDirector : AIGroup
 	[Attribute("1", category: "Tasks")]
 	bool m_bAllowRescue;
 	
-	[Attribute()]
-	protected ref SCR_MapLocationQuadHint m_WorldDirections;
+	
 	
 	[Attribute("1", category: "Debug")]
 	protected bool m_bVisualize;
@@ -68,10 +67,7 @@ class SP_AIDirector : AIGroup
 	ref array<IEntity> m_aQueriedSentinels;
 	ref array<IEntity> m_aQueriedPrefabSpawnP;
 	
-	protected int m_iGridSizeX;
-	protected int m_iGridSizeY;
-	protected const float angleA = 0.775;
-	protected const float angleB = 0.325;
+
 	
 	
 	ref array<SCR_AIGroup> m_aGroups = new array<SCR_AIGroup>();
@@ -402,11 +398,8 @@ class SP_AIDirector : AIGroup
 		if(m_aGroups)
 			m_aGroups.Clear();
 	}	
-	protected int GetGridIndex(int x, int y)
-	{
-		return 3*y + x;
-	}
-	string GetCharacterLocation(IEntity Character)
+	
+	/*string GetCharacterLocation(IEntity Character)
 	{
 		vector mins,maxs;
 		GetGame().GetWorldEntity().GetWorldBounds(mins, maxs);
@@ -465,7 +458,7 @@ class SP_AIDirector : AIGroup
 		int playerGridID = GetGridIndex(playerGridPositionX,playerGridPositionY);
 	 	string m_sLocationName = m_WorldDirections.GetQuadHint(playerGridID) + ", " + closestLocationName;
 		return m_sLocationName;
-	}
+	}*/
 	override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);

@@ -73,17 +73,14 @@ class SP_RescueTask: SP_Task
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		AIControlComponent comp = AIControlComponent.Cast(TaskTarget.FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector Director = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskTarget.FindComponent(SCR_CharacterRankComponent));
 		if(TaskOwner)
 		{
 			OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-			OLoc = Director.GetCharacterLocation(TaskOwner);
+			OLoc = Diag.GetCharacterLocation(TaskOwner);
 		}
 		DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-		DLoc = Director.GetCharacterLocation(TaskTarget);
+		DLoc = Diag.GetCharacterLocation(TaskTarget);
 	};
 	override bool FindTarget(out IEntity Target)
 	{
