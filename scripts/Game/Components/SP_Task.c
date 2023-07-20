@@ -27,9 +27,12 @@ class SP_Task
 	IEntity m_Copletionist;
 	//-------------------------------------------------//
 	SP_BaseTask m_TaskMarker;
+	//-------------------------------------------------//
+	SP_RequestManagerComponent m_RequestManager;
 	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{
+		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
 		if (!FindOwner(TaskOwner))

@@ -16,7 +16,6 @@ class SP_FactionManager : SCR_FactionManager
 	int m_CharacterTaskCompleteRepBonus;
 	
 	private SP_GameMode m_GameMode;
-	
 
 	EFactionRelationState GetFactionRelationState(SCR_Faction Faction1, SCR_Faction Faction2)
 	{
@@ -121,7 +120,8 @@ class SP_FactionManager : SCR_FactionManager
 		if (!m_GameMode)
 			return;
 		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		requestman.OnTaskComplete().Insert(OnTaskCompleted);
+		if (requestman)
+			requestman.OnTaskComplete().Insert(OnTaskCompleted);
 		m_GameMode.GetOnControllableDestroyed().Insert(HandleDeath);
 		if(m_SortedFactions)
 		{
@@ -138,12 +138,38 @@ class SP_FactionManager : SCR_FactionManager
 	override void SetFactionsFriendly(notnull SCR_Faction factionA, notnull SCR_Faction factionB, int playerChanged = -1)
 	{
 		super.SetFactionsFriendly(factionA, factionB, playerChanged);
-		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Factions %1 and %2 have called a ceasefire", factionA.GetFactionKey(), factionB.GetFactionKey()));
+		if (factionA != factionB)
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Factions %1 and %2 have called a ceasefire", factionA.GetFactionKey(), factionB.GetFactionKey()));
 	}
 	override void SetFactionsHostile(notnull SCR_Faction factionA, notnull SCR_Faction factionB, int playerChanged = -1)
 	{
 		super.SetFactionsHostile(factionA, factionB, playerChanged);
-		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Factions %1 and %2 declared war on each other", factionA.GetFactionKey(), factionB.GetFactionKey()));
+		if (factionA != factionB)
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Factions %1 and %2 declared war on each other", factionA.GetFactionKey(), factionB.GetFactionKey()));
+	}
+	void GetEnemyFactions(Faction fact, out array <Faction> enemies)
+	{
+		array <Faction> factions = new array <Faction>();
+		GetFactionsList(factions);
+		foreach (Faction faction : factions)
+		{
+			if (fact.IsFactionEnemy(faction))
+				enemies.Insert(faction);
+		}
+			
+	
+	}
+	void GetFriendlyFactions(Faction fact, out array <Faction> friends)
+	{
+		array <Faction> factions = new array <Faction>();
+		GetFactionsList(factions);
+		foreach (Faction faction : factions)
+		{
+			if (fact.IsFactionFriendly(faction))
+				friends.Insert(faction);
+		}
+			
+	
 	}
 };
 //------------------------------------------------------------------------------------------------------------//

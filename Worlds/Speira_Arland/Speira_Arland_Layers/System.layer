@@ -59,11 +59,21 @@ PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/Per
 }
 SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
  components {
+  SCR_GameModeSFManager "{5DC8E7D953E0EEA5}" {
+   m_fFactionsToAppear {
+    "US" "USSR" "FIA"
+   }
+  }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
+   m_iMinTaskAmount 100
    TasksToSawn {
     SP_RescueTask "{5DCC99CF06362CF3}" {
      m_iMaxamount 0
     }
+   }
+  }
+  SP_RespawnSystemComponent "{5DC8E7DC1AEF9B87}" {
+   m_SpawnLogic Sp_SpawnLogic "{5DE8F103B5221DEA}" {
    }
   }
  }
@@ -98,6 +108,10 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
     SCR_FactionPlayerLoadout "{5D4EC11BB20DC322}" {
      m_sLoadoutResource "{84B40583F4D1B7A3}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Rifleman.et"
      m_sAffiliatedFaction "FIA"
+    }
+    SCR_FactionPlayerLoadout "{5DE8FA8EF8146AA4}" : "{C71228DC46A2C723}Configs/Loadouts/US/Loadout_US_AR.conf" {
+    }
+    SCR_FactionPlayerLoadout "{5DE8FA8EFD09A5AA}" : "{743C07B33B63F854}Configs/Loadouts/USSR/Loadout_USSR_AR.conf" {
     }
    }
   }

@@ -12,6 +12,7 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool Init()
 	{
+		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		if (!FindOwner(TaskOwner))
 		{
 			return false;
@@ -37,15 +38,12 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		SP_AIDirector MyDirector = SP_AIDirector.AllDirectors.GetRandomElement();
-		if (!MyDirector)
-		{
-			return false;
-		}
-		if (!MyDirector.GetRandomUnit(Owner))
-		{
-			return false;
-		}
+		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
+		ChimeraCharacter Char;
+		if (CharHolder)
+			CharHolder.GetRandomUnit(Char);
+		if (Char)
+			Owner = IEntity.Cast(Char);
 		if(Owner)
 		{
 			return true;

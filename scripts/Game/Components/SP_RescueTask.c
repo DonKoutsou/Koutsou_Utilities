@@ -28,10 +28,10 @@ class SP_RescueTask: SP_Task
 	override bool Init()
 	{
 		CharsToRescue = new ref array <IEntity>();
-		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		array <ref SP_Task> tasks = new array <ref SP_Task>();
-		reqman.GetTasksOfSameType(tasks, SP_RescueTask);
-		SP_RescueTask tasksample = SP_RescueTask.Cast(reqman.GetTaskSample(SP_RescueTask));
+		m_RequestManager.GetTasksOfSameType(tasks, SP_RescueTask);
+		SP_RescueTask tasksample = SP_RescueTask.Cast(m_RequestManager.GetTaskSample(SP_RescueTask));
 		if(!tasksample)
 		{
 			return false;

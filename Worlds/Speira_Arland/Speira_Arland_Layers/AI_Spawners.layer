@@ -1,3 +1,6 @@
+SCR_PlayerController DefaultPlayerControllerMP1 : "{225E51284CC95CFA}Prefabs/Characters/Core/DefaultPlayerControllerMP.et" {
+ coords 3397.84 -90.157 481.128
+}
 $grp SP_AIDirector : "{14C79BD8B083D642}prefabs/AI/Spawners/SP_AIDirector_HostileArea.et" {
  SP_AIDirector_Beuregard {
   coords 2990.511 16.001 3032.627
@@ -161,7 +164,7 @@ $grp SP_AIDirector : "{14C79BD8B083D642}prefabs/AI/Spawners/SP_AIDirector_Hostil
  }
 }
 SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
- coords 1250.603 0.14 1117.477
+ coords 3319.565 0.631 1225.705
 }
 SCR_ChimeraCharacter : "{37578B1666981FCE}Prefabs/Characters/Core/Character_Base.et" {
  coords 2531.115 18.929 786.839

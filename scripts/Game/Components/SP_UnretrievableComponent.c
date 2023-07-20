@@ -96,5 +96,6 @@ modded enum EEntityCatalogType
 {
 	REQUEST 						= 1000,
 	REWARD							= 1200,
-	STASH								= 1400
+	STASH							= 1400,
+	SPAWNPOINT						= 1500,
 }

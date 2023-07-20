@@ -12,11 +12,12 @@ class SP_DeliverTask: SP_Task
 	//Delivery mission is looking for a random owner.
 	override bool FindOwner(out IEntity Owner)
 	{
-		SP_AIDirector MyDirector = SP_AIDirector.AllDirectors.GetRandomElement();
-		if (!MyDirector.GetRandomUnit(Owner))
-		{
-			return false;
-		}
+		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
+		ChimeraCharacter Char;
+		if (CharHolder)
+			CharHolder.GetRandomUnit(Char);
+		if (Char)
+			Owner = IEntity.Cast(Char);
 		if(Owner)
 		{
 			return true;
@@ -27,38 +28,32 @@ class SP_DeliverTask: SP_Task
 	//then look for a target with same faction
 	override bool FindTarget(out IEntity Target)
 	{
-		AIControlComponent comp = AIControlComponent.Cast(GetOwner().FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector MyDirector = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
-		SP_AIDirector NewDirector;
-		//-----------------------------------------------------------------//
-		FactionManager factionManager = FactionManager.Cast(GetGame().GetFactionManager());
-		string keyunused;
-		Faction directorFaction = MyDirector.GetMajorityHolder(keyunused);
-		if (!directorFaction)
+		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
+		ChimeraCharacter Char;
+		
+		FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
+		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+		Faction Fact = AffiliationComp.GetAffiliatedFaction();
+		if (!Fact)
 			return false;
-		FactionKey key = directorFaction.GetFactionKey();
-		SCR_Faction myFaction = SCR_Faction.Cast(factionManager.GetFactionByKey(key));
-		if (!MyDirector.GetDirectorOccupiedByFriendly(myFaction, NewDirector))
-		{
+
+		array <Faction> enemies = new array <Faction>();
+		FactionMan.GetFriendlyFactions(Fact, enemies);
+		if (enemies.IsEmpty())
 			return false;
-		}
-		if(MyDirector == NewDirector)
-		{
+		
+		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
 			return false;
-		}
-		if (!NewDirector.GetRandomUnitByFKey(key, Target))
-		{
-			return false;
-		}
+		
+		if (Char)
+			Target = IEntity.Cast(Char);
+		
 		if (Target == GetOwner())
-		{
 			return false;
-		}
+		
 		if(Target)
-		{
 			return true;
-		}
+		
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//

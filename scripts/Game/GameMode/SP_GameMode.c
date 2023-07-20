@@ -18,7 +18,16 @@ class SP_GameMode : SCR_BaseGameMode
 	protected SP_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
 	protected SP_FactionManager m_factionManager;
-	
+	protected ref ScriptInvoker s_OnPlayerFactionSet = new ref ScriptInvoker();
+	Faction plfact;
+	Faction GetPlFaction()
+	{
+		return plfact;
+	}
+	ScriptInvoker GetOnPlayerFactionSet()
+	{
+		return s_OnPlayerFactionSet;
+	}
 	//------------------------------------------------------------------//
 	SP_DialogueComponent GetDialogueComponent()
 	{
@@ -71,6 +80,10 @@ class SP_GameMode : SCR_BaseGameMode
 	{
 		super.OnPlayerKilled(playerId, player, killer);
 		
+	}
+	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
+	{
+		plfact = faction;
 	}
 	//------------------------------------------------------------------//
 	//------------------------------------------------------------------------------------------------

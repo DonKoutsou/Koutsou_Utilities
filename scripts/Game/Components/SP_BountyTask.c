@@ -10,8 +10,13 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		FactionManager factionsMan = FactionManager.Cast(GetGame().GetFactionManager());
-		string keyunused;
+		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
+		ChimeraCharacter Char;
+		if (CharHolder)
+			if(!CharHolder.GetRandomUnit(Char))
+				return false;
+		if (Char)
+			Owner = IEntity.Cast(Char);
 		if(Owner)
 		{
 			return true;
@@ -21,28 +26,25 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindTarget(out IEntity Target)
 	{
-		AIControlComponent comp = AIControlComponent.Cast(GetOwner().FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector MyDirector = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
-		if(!MyDirector)
-			return false;
+		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
+		ChimeraCharacter Char;
 		
-		FactionManager factionsMan = FactionManager.Cast(GetGame().GetFactionManager());
-		string keyunused;
-		Faction Fact = MyDirector.GetMajorityHolder(keyunused);
+		FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
+		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+		Faction Fact = AffiliationComp.GetAffiliatedFaction();
 		if (!Fact)
 			return false;
-		
-		SP_AIDirector NewDir;
-		if (!MyDirector.GetDirectorOccupiedByEnemy(Fact, NewDir))
+
+		array <Faction> enemies = new array <Faction>();
+		FactionMan.GetEnemyFactions(Fact, enemies);
+		if (enemies.IsEmpty())
 			return false;
 		
-		Faction EnFact = NewDir.GetMajorityHolder(keyunused);
-		if (!EnFact)
+		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
 			return false;
 		
-		if (!NewDir.GetRandomUnitByFKey(EnFact.GetFactionKey(), Target))
-			return false;
+		if (Char)
+			Target = IEntity.Cast(Char);
 		
 		if (Target == GetOwner())
 			return false;

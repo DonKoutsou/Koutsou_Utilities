@@ -1,22 +1,14 @@
 $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Area.et" {
  USSR_Area {
-  components {
-   SCR_ScenarioFrameworkArea "{59E8CDC50969206E}" {
-   }
-  }
   coords 1069.121 39.402 2862.637
   {
-   GenericEntity USSR_AreaPool : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
-    components {
-     SCR_ScenarioFrameworkLayerBase "{5A2283EA2A0B4B14}" {
-     }
-    }
+   GenericEntity USSR_AreaPool : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
-     GenericEntity USSR_Area1 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+     GenericEntity USSR_Area1 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
       coords 0 0 0
       {
-       $grp GenericEntity : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+       $grp GenericEntity : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
         USSR_Vehicles {
          coords 0 0 0
          {
@@ -411,7 +403,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
            {
             components {
              SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-              m_sObjectToSpawn "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et"
+              m_sObjectToSpawn "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et"
              }
             }
             coords 9.432 -1.506 26.02
@@ -564,7 +556,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
            {
             components {
              SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-              m_sObjectToSpawn "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
+              m_sObjectToSpawn "{1CE762D0A53A395A}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
              }
             }
             coords -6.024 -0.569 0.261
@@ -634,7 +626,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
            {
             components {
              SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-              m_sObjectToSpawn "{B17411929589C43C}prefabs/MP/Campaign/Assets/CampaignHQRadioEast.et"
+              m_sObjectToSpawn "{B17411929589C43C}Prefabs/MP/Campaign/Assets/CampaignHQRadioEast.et"
              }
             }
             coords -6.468 -0.454 -8.282
@@ -643,7 +635,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
            {
             components {
              SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-              m_sObjectToSpawn "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
+              m_sObjectToSpawn "{1CE762D0A53A395A}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
              }
             }
             coords -5.364 -0.086 -2.836
@@ -1111,7 +1103,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  Area_4 {
   coords 1658.013 4.531 880.005
   {
-   GenericEntity Layer_6 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_6 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      GenericEntity SlotAI_5 : "{8D43830F02C3F114}Prefabs/ScenarioFramework/Components/SlotAI.et" {
@@ -1187,6 +1179,18 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 747.648 49.677 2164.995
        angleY -40.779
       }
+      Slot1 {
+       components {
+        SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
+         m_bUsePlayerFaction 1
+         m_eActivationType ON_INIT
+         m_bRandomizePerFaction 1
+         m_eEntityCatalogType SPAWNPOINT
+        }
+       }
+       coords 226.61 -3.586 -76.385
+       angleY 180
+      }
      }
     }
    }
@@ -1195,7 +1199,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  FIA_Area {
   coords 3454.734 5.215 1487.304
   {
-   GenericEntity FIA_Compositions : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity FIA_Compositions : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -1385,7 +1389,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sFactionKey "FIA"
-         m_sObjectToSpawn "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
+         m_sObjectToSpawn "{50E6A3845C9F20FD}Prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
          m_aIncludedEditableEntityLabels {
          }
         }
@@ -1419,7 +1423,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  Bandit_Area {
   coords 1656.521 3.226 870.228
   {
-   GenericEntity Bandit_Compositions : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Bandit_Compositions : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -1523,7 +1527,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  US_Area {
   coords 3735.918 3.991 2680.359
   {
-   GenericEntity Layer_9 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_9 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -1566,7 +1570,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{0E94F28FD722B1D8}prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
+         m_sObjectToSpawn "{0E94F28FD722B1D8}Prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
         }
        }
        coords 11.549 -1.115 7.597
@@ -1575,7 +1579,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{0E94F28FD722B1D8}prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
+         m_sObjectToSpawn "{0E94F28FD722B1D8}Prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
         }
        }
        coords -7.034 -0.805 15.298
@@ -1620,7 +1624,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
+         m_sObjectToSpawn "{50E6A3845C9F20FD}Prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
         }
        }
        coords -4.115 -0.389 -16.448
@@ -1652,7 +1656,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  Arleville_Area {
   coords 2766.46 74.349 1699.922
   {
-   GenericEntity Layer_10 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_10 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -1792,7 +1796,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  BaldRidge_Area {
   coords 1850.733 50.535 1123.105
   {
-   GenericEntity Layer_11 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_11 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -1943,7 +1947,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
+         m_sObjectToSpawn "{50E6A3845C9F20FD}Prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
         }
        }
        coords 598.551 38.817 347.449
@@ -2008,7 +2012,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
+         m_sObjectToSpawn "{50E6A3845C9F20FD}Prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
         }
        }
        coords -384.094 -14.426 29.936
@@ -2026,7 +2030,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{48A04E0A139BB167}prefabs/Structures/Military/Camps/TentSmallFIA_01/TentSmallFIA_01.et"
+         m_sObjectToSpawn "{48A04E0A139BB167}Prefabs/Structures/Military/Camps/TentSmallFIA_01/TentSmallFIA_01.et"
         }
        }
        coords -562.42 -46.195 6.722
@@ -2037,7 +2041,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{48A04E0A139BB167}prefabs/Structures/Military/Camps/TentSmallFIA_01/TentSmallFIA_01.et"
+         m_sObjectToSpawn "{48A04E0A139BB167}Prefabs/Structures/Military/Camps/TentSmallFIA_01/TentSmallFIA_01.et"
         }
        }
        coords -563.343 -46.21 13.189
@@ -2047,7 +2051,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et"
+         m_sObjectToSpawn "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et"
         }
        }
        coords -560.171 -46.229 10.032
@@ -2058,7 +2062,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et"
+         m_sObjectToSpawn "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et"
         }
        }
        coords 295.739 -14.854 549.047
@@ -2082,7 +2086,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  Farm_Area {
   coords 2015.562 53.657 3043.301
   {
-   GenericEntity Layer_12 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_12 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -2234,7 +2238,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  SignalHill_Area {
   coords 2506.041 149.866 2276.233
   {
-   GenericEntity Layer_13 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_13 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -2360,7 +2364,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
+         m_sObjectToSpawn "{50E6A3845C9F20FD}Prefabs/Props/Military/Camps/LanternMilitary_US_01.et"
         }
        }
        coords 109.117 -52.503 406.57
@@ -2494,7 +2498,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
+         m_sObjectToSpawn "{1CE762D0A53A395A}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
         }
        }
        coords -195.154 -50.378 61.372
@@ -2510,7 +2514,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  MilTr_Area {
   coords 1340.933 8.313 1840.787
   {
-   GenericEntity Layer_14 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_14 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -2666,7 +2670,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{616F4E93658E5A3A}prefabs/Props/Military/Generators/GeneratorFloodlight_USSR_01.et"
+         m_sObjectToSpawn "{616F4E93658E5A3A}Prefabs/Props/Military/Generators/GeneratorFloodlight_USSR_01.et"
         }
        }
        coords 49.897 1.382 17.603
@@ -2677,7 +2681,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
       {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{616F4E93658E5A3A}prefabs/Props/Military/Generators/GeneratorFloodlight_USSR_01.et"
+         m_sObjectToSpawn "{616F4E93658E5A3A}Prefabs/Props/Military/Generators/GeneratorFloodlight_USSR_01.et"
         }
        }
        coords 62.801 2.519 28.102
@@ -2826,7 +2830,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sFactionKey "FIA"
-         m_sObjectToSpawn "{EC645B2E2123131F}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_blue.et"
+         m_sObjectToSpawn "{EC645B2E2123131F}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_blue.et"
          m_aIncludedEditableEntityLabels {
          }
         }
@@ -2876,7 +2880,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  Beuregard_Area {
   coords 3117.561 17.001 2741.263
   {
-   GenericEntity Layer_15 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_15 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -3060,7 +3064,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
  SmartArea {
   coords 3109.607 36.321 2515.591
   {
-   GenericEntity Layer_16 : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+   GenericEntity Layer_16 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {

@@ -1,0 +1,79 @@
+SCR_AIWorld : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {
+ coords 2025.107 51.93 3053.842
+}
+SP_FactionManager "5DD0FCA5EFCD0A3F" {
+ components {
+  SCR_DelegateFactionManagerComponent "{5D5705392CA1FA82}" {
+   m_FactionDelegatePrefab "{94D481BAEC3B8573}PrefabsEditable/System/E_FactionDelegate.et"
+  }
+ }
+ coords 1253.662 -8.451 1118.805
+ Flags 0
+ Factions {
+  SCR_Faction "{5DCF2DEC154078E9}" : "{5EB46557DF2AA24F}Configs/Factions/US.conf" {
+   m_aFriendlyFactionsIds {
+    "FIA"
+   }
+  }
+  SCR_Faction "{5DCF2DEC1F25C352}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
+   m_aFriendlyFactionsIds {
+   }
+  }
+  SCR_Faction "{5DCF2DEC29F393ED}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
+   m_aFriendlyFactionsIds {
+    "US"
+   }
+  }
+ }
+ m_bCanChangeFactionsPlayable 0
+}
+TagManager {
+ coords 1289.086 -9.497 1187.661
+}
+SP_GameMode SP_GameModeSF1 : "{CACD2D8486AC2B5A}prefabs/ScenarioFramework/SP_GameModeSF.et" {
+ components {
+  SCR_GameModeSFManager "{5DE8E2D6BEA4DF44}" {
+   m_aTaskTypesAvailable {
+    SCR_ScenarioFrameworkTaskType "{5DE8E2D63498E3FB}" {
+     m_eTypeOfTask KILL
+    }
+    SCR_ScenarioFrameworkTaskType "{5DE8E2D634C9673D}" {
+     m_eTypeOfTask DESTROY
+    }
+    SCR_ScenarioFrameworkTaskType "{5DE8E2D634E39BE1}" {
+     m_eTypeOfTask DELIVER
+    }
+   }
+   m_fFactionsToAppear {
+    "FIA" "USSR" "US"
+   }
+  }
+ }
+ coords 1320.88 0 1255.906
+}
+SCR_EditorSettingsEntity {
+ coords 1790.006 -99.435 562.761
+ m_bIsUnlimitedEditorLegal 1
+}
+SCR_GarbageManager {
+ coords 1788.15 -99.795 562.691
+ CharacterLifetime 985.071
+ VehicleLifetime 1040.252
+ ItemLifetime 599.863
+ m_bOnlyDestroyed 1
+}
+SCR_LoadoutManager {
+ coords 1250.814 -8.1 1112.453
+ m_aPlayerLoadouts {
+  SCR_FactionPlayerLoadout "{5CA7060267058AD7}" {
+   m_sLoadoutName "Default"
+   m_sLoadoutResource "{B1CE5CA5A0628961}prefabs/Characters/Factions/SPEIRA/Character_Speira_Gogland.et"
+   m_sAffiliatedFaction "SPEIRA"
+  }
+  SCR_FactionPlayerLoadout "{5D4EC11BB20DC322}" {
+   m_sLoadoutName "Respawn"
+   m_sLoadoutResource "{D68719F6FED9853A}prefabs/Characters/Factions/SPEIRA/Character_SPEIRA_RespawnGogland.et"
+   m_sAffiliatedFaction "SPEIRA"
+  }
+ }
+}

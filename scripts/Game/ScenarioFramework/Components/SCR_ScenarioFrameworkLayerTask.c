@@ -262,7 +262,9 @@ class SCR_ScenarioFrameworkLayerTask : SCR_ScenarioFrameworkLayerBase
 		{
 			if (!SCR_Faction.Cast(faction))
 				continue;
+			
 			if(m_sFactionKey)
+											  
 			{
 				if (faction.GetFactionKey() == m_sFactionKey)
 				{
@@ -278,7 +280,6 @@ class SCR_ScenarioFrameworkLayerTask : SCR_ScenarioFrameworkLayerBase
 					break;
 				}
 			}
-			
 		}
 		
 		if (!factionSelected)

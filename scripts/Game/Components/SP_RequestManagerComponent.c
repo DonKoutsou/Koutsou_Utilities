@@ -27,7 +27,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	protected float m_fTaskClearTimer;
 	
 	SP_GameMode m_GameMode;
-	protected CharacterHolder Chars;
+	protected ref CharacterHolder m_CharacterHolder = new CharacterHolder();
 	//------------------------------------------------------------------------------------------------------------//
 	static ref array<ref SP_Task> TaskMap = null;
 	static ref array<ref SP_Task> CompletedTaskMap = null;
@@ -47,11 +47,15 @@ class SP_RequestManagerComponent : ScriptComponent
 	}
 	void OnNewChar(IEntity Char)
 	{
-		Chars.InserCharacter(ChimeraCharacter.Cast(Char));
+		m_CharacterHolder.InserCharacter(ChimeraCharacter.Cast(Char));
 	}
 	void OnCharDeath(IEntity Char)
 	{
-		Chars.CharIsDead(ChimeraCharacter.Cast(Char));
+		m_CharacterHolder.CharIsDead(ChimeraCharacter.Cast(Char));
+	}
+	CharacterHolder GetCharacterHolder()
+	{
+		return m_CharacterHolder;
 	}
 	override void EOnInit(IEntity owner)
 	{
@@ -301,7 +305,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (Chars.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
+		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)
 		{
@@ -380,22 +384,80 @@ class CharacterHolder : ScriptAndConfig
 	{
 		return AliveCharacters.Count();
 	}
-	bool GetUnitOfFaction(Faction fact, ChimeraCharacter mychar)
+	bool GetUnitOfFaction(Faction fact, out ChimeraCharacter mychar)
 	{
 		for (int i = 0; i < 10; i++)
 		{
 			mychar = AliveCharacters.GetRandomElement();
+			if (!mychar)
+				continue;
 			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
+			if (!Aff)
+				continue;
 			if(Aff.GetAffiliatedFaction() == fact)
 			{
 				return true;
 			}
-				
 		}
+		mychar = null;
 		return false;
 	}
-	bool GetRandomUnit()
+	bool GetFarUnit(ChimeraCharacter mychar, float mindistance, out ChimeraCharacter FarChar)
 	{
+		for (int i = 0; i < 10; i++)
+		{
+			FarChar = AliveCharacters.GetRandomElement();
+			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
+			if (mindistance > dist)
+				return true;
+		}
+		FarChar = null;
+		return false;
+	}
+	bool GetFarUnit(vector pos, float mindistance, out ChimeraCharacter FarChar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			FarChar = AliveCharacters.GetRandomElement();
+			float dist = vector.Distance(FarChar.GetOrigin(), pos);
+			if (mindistance > dist)
+				return true;
+		}
+		FarChar = null;
+		return false;
+	}
+	bool GetFarUnitOfFaction(ChimeraCharacter mychar, float mindistance, Faction fact, out ChimeraCharacter FarChar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			GetUnitOfFaction(fact, FarChar);
+			if (!FarChar)
+				continue;
+			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
+			if (mindistance > dist)
+				return true;
+		}
+		FarChar = null;
+		return false;
+	}
+	bool GetRandomUnit(out ChimeraCharacter mychar)
+	{
+		mychar = AliveCharacters.GetRandomElement();
+		if (mychar)
+			return true;
+		return false;
+	}
+	void CharacterHolder()
+	{
+		if (!AliveCharacters)
+			AliveCharacters = new ref array <ChimeraCharacter>();
+		if (!DeadCharacters)
+			DeadCharacters = new ref array <ChimeraCharacter>();
+	}
 	
+	void ~CharacterHolder()
+	{
+		AliveCharacters.Clear();
+		DeadCharacters.Clear();
 	}
 }
