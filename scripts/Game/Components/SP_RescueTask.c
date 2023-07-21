@@ -18,11 +18,19 @@ class SP_RescueTask: SP_Task
 	{
 		return CharsToRescue;
 	}
-	void OnCharacterRescued(IEntity character)
+	void OnCharacterRescued(EDamageType dType, HitZone hz)
 	{
-		if(CharsToRescue.Contains(character))
+		if (dType != EDamageType.BLEEDING)
+			return;
+		foreach (IEntity Character : CharsToRescue)
 		{
-			CharsToRescue.RemoveItem(character);
+			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Character.FindComponent(SCR_CharacterDamageManagerComponent));
+			if(dmg.GetDOTScale() == 0)
+			{
+				dmg.SetResilienceRegenScale(0.3);
+				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
+				CharsToRescue.RemoveItem(Character);
+			}
 		}
 	}
 	override bool Init()
@@ -84,8 +92,9 @@ class SP_RescueTask: SP_Task
 	};
 	override bool FindTarget(out IEntity Target)
 	{
-		SP_AIDirector MyDirector = SP_AIDirector.AllDirectors.GetRandomElement();
-		if (!MyDirector.CreateVictim(Target))
+		SP_RequestManagerComponent RequestMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		
+		if (!CreateVictim(Target))
 		{
 			return false;
 		}
@@ -107,37 +116,23 @@ class SP_RescueTask: SP_Task
 	};
 	override bool FindOwner(out IEntity Owner)
 	{
+		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
+		if (!CharHolder)
+			return false;
+		ChimeraCharacter FarChar;
 		SCR_AIGroup group = SCR_AIGroup.Cast(TaskTarget);
-		AIControlComponent comp = AIControlComponent.Cast(GetTarget().FindComponent(AIControlComponent));
-		AIAgent agent = comp.GetAIAgent();
-		SP_AIDirector MyDirector = SP_AIDirector.Cast(agent.GetParentGroup().GetParentGroup());
-		SP_AIDirector NewDir;
 		//-----------------------------------------------------------------//
-		FactionManager factionsMan = FactionManager.Cast(GetGame().GetFactionManager());
-		string keyunused;
-		Faction Fact = MyDirector.GetMajorityHolder(keyunused);
+		SCR_Faction Fact = SCR_Faction.Cast(group.GetFaction());
 		if (!Fact)
-		{
 			return false;
-		}
-		FactionKey key = Fact.GetFactionKey();
-		SCR_Faction myfact = SCR_Faction.Cast(factionsMan.GetFactionByKey(key));
-		if (!MyDirector.GetDirectorOccupiedByFriendly(myfact, NewDir))
-		{
+		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(TaskTarget), 300, Fact, FarChar))
 			return false;
-		}
-		if (!NewDir.GetRandomUnitByFKey(key, Owner))
-		{
-			return false;
-		}
+		if (FarChar)
+			Owner = FarChar;
 		if (Owner == GetTarget())
-		{
 			return false;
-		}
 		if(Owner)
-		{
 			return true;
-		}
 		return false;
 	};
 	override bool AssignReward()
@@ -204,4 +199,62 @@ class SP_RescueTask: SP_Task
 		return false;
 	};
 	override typename GetClassName(){return SP_RescueTask;};
+	private bool QueryEntitiesForCharacter(IEntity e)
+	{
+		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
+		if (!char)
+			return true;
+		foreach (IEntity Character : CharsToRescue)
+		{
+			if (e != Character)
+				return false;
+		}
+		return true;
+	}
+	private bool CheckForCharacters(float radius, vector origin)
+	{
+		BaseWorld world = GetGame().GetWorld();
+		bool found = GetGame().GetWorld().QueryEntitiesByAABB(origin + vector.One * -128, origin + vector.One * 128, QueryEntitiesForCharacter);
+		return found;
+	}
+	bool CreateVictim(out IEntity Victim)
+	{
+		CharacterHolder Chars = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent)).GetCharacterHolder();
+		array<AIAgent> outAgents = new array<AIAgent>();
+		ChimeraCharacter luckyguy;
+		Chars.GetRandomUnit(luckyguy);
+		SCR_AIGroup luckygroup = SCR_AIGroup.Cast(luckyguy.GetParent());
+		if(!luckygroup)
+		{
+			return false;
+		}
+		luckygroup.GetAgents(outAgents);
+		if(outAgents.Count() <= 0)
+		{
+			return false;
+		}
+		
+		Victim = luckygroup.GetLeaderEntity();
+		if(!Victim)
+		{
+			return false;
+		}
+		foreach(AIAgent agent : outAgents)
+		{
+			IEntity Char = agent.GetControlledEntity();
+			if(Char)
+			{
+				SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Char.FindComponent(SCR_CharacterDamageManagerComponent));
+				if(dmg.GetIsUnconscious())
+				{
+					return false;
+				}
+				dmg.ForceUnconsciousness();
+				dmg.SetResilienceRegenScale(0);
+				dmg.AddRandomBleeding();
+				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
+			}
+		}
+		return true;
+	};
 }

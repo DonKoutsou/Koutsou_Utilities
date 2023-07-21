@@ -21,7 +21,7 @@ class SCR_ScenarioFrameworkLayerBase : ScriptComponent
  	protected FactionKey 		m_sFactionKey;
 	
 	[Attribute("0", desc: "Weather randomisation should use faction key from area or get players.", category: "Asset")]
-	protected bool						m_bUsePlayerFaction;
+	bool						m_bUsePlayerFaction;
 	
 	[Attribute(defvalue: "100", desc: "If the RANDOM_MULTIPLE option is selected, what's the percentage? ", UIWidgets.Graph, "0 100 1", category: "Children")];
 	protected int 							m_iRandomPercent;

@@ -468,7 +468,7 @@ class SCR_GameModeSFManager : SCR_BaseGameModeComponent
 		LoadHeaderSettings();
 		
 		SP_GameMode Gamemod = SP_GameMode.Cast(GetGame().GetGameMode());
-		if (!Gamemod.GetPlFaction())
+		if (!Gamemod.GetPlFaction().GetFactionKey())
 			Gamemod.GetOnPlayerFactionSet().Insert(InitAreas);
 		else
 			InitAreas();
@@ -477,16 +477,28 @@ class SCR_GameModeSFManager : SCR_BaseGameModeComponent
 	}
 	protected bool InitAreas()
 	{
+		SP_GameMode Gamemod = SP_GameMode.Cast(GetGame().GetGameMode());
  		// Spawn everything inside the Area except the task layers
 		SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-		m_fFactionsToAppear.RemoveItem(factman.GetLocalPlayerFaction().GetFactionKey());
+		m_fFactionsToAppear.RemoveItem(Gamemod.GetPlFaction().GetFactionKey());
  		foreach(SCR_ScenarioFrameworkArea area : m_aAreas)
  		{
  			if (m_sForcedArea.IsEmpty())		//for debug purposes
  			{
-				if (!m_FactionToAppear)
-					m_FactionToAppear = m_fFactionsToAppear.GetRandomElement();
-				area.SetFactionKey(m_FactionToAppear);
+				if (!area.GetFactionKey())
+				{
+					if (area.m_bUsePlayerFaction)
+					{
+						area.SetFactionKey(Gamemod.GetPlFaction().GetFactionKey());
+						
+					}
+					else
+					{
+						m_FactionToAppear = m_fFactionsToAppear.GetRandomElement();
+						area.SetFactionKey(m_FactionToAppear);
+					}
+						
+				}
  				area.Init();	
  			}
 		// Spawn everything inside the Area except the task layers

@@ -1,0 +1,14 @@
+SCR_PlayerController {
+ ID "1A9BA6BEFA06E3B1"
+ components {
+  SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
+   InfoDisplays {
+    WJ_StaminaBarUI "{5DEB12A0DFB47EAA}" {
+     m_LayoutPath "{8C65180B05811316}scripts/Game/UI/HUD/StaminaBar.layout"
+     m_eLayer HIGH
+    }
+   }
+  }
+ }
+ coords 1088.801 38.111 2622.36
+}

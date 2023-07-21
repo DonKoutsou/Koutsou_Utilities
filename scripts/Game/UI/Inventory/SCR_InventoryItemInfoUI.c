@@ -142,7 +142,7 @@ class SCR_InventoryItemInfoUI : ScriptedWidgetComponent
 			m_wTextCharName.SetVisible( true );
 			m_wTextCharName.SetText( name );
 		}
-		else
+		else if (m_wTextCharName)
 		{
 			m_wTextCharName.SetEnabled( false );
 			m_wTextCharName.SetVisible( false );

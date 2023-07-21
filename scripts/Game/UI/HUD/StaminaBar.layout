@@ -76,18 +76,23 @@ FrameWidgetClass {
   }
   ProgressBarWidgetClass "{5965486C4D9C8173}" {
    Prefab "{5965486C4D9C8173}"
+   Name "m_wStaminaBar"
    Slot FrameWidgetSlot "{5965486C4D9C809B}" {
+    Anchor 0.5 1 0.5 1
     PositionX -950.625
-    OffsetLeft -950.625
-    PositionY -17.909
-    OffsetTop -17.909
+    OffsetLeft -950.6
+    PositionY -19.653
+    OffsetTop -19.7
     SizeX 300
-    OffsetRight 650.625
+    OffsetRight 650.6
     SizeY 5.356
-    OffsetBottom 12.553
+    OffsetBottom 14.3
    }
-   Opacity 0.517
+   Opacity 0.597
    Color 0.261 0.337 0.264 1
+   style SimpleWithBackground
+   Maximum 1
+   Current 1
   }
  }
 }

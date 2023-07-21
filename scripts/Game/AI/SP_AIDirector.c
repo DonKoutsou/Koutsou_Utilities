@@ -7,16 +7,16 @@ class SP_AIDirector : AIGroup
 	//--------------------------------------------------------------------------//
 	/////////////////////////AI spawn settings///////////////////////////////////
 	[Attribute("40", UIWidgets.ComboBox, "Select Entity Catalog type for random spawn", "", ParamEnumArray.FromEnum(EEntityCatalogType), category: "Randomization")]
-	protected EEntityCatalogType	m_eEntityCatalogType;
+	EEntityCatalogType	m_eEntityCatalogType;
 	
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Labels which you want to optionally include to random spawn. If you want to spawn everything, you can leave it out empty and also leave Include Only Selected Labels attribute to false.", "", ParamEnumArray.FromEnum(EEditableEntityLabel), category: "Randomization")]
-	protected ref array<EEditableEntityLabel> 		m_aIncludedEditableEntityLabels;
+	ref array<EEditableEntityLabel> 		m_aIncludedEditableEntityLabels;
 	
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Labels which you want to exclude from random spawn", "", ParamEnumArray.FromEnum(EEditableEntityLabel), category: "Randomization")]
-	protected ref array<EEditableEntityLabel> 		m_aExcludedEditableEntityLabels;
+	ref array<EEditableEntityLabel> 		m_aExcludedEditableEntityLabels;
 	
 	[Attribute(desc: "If true, it will spawn only the entities that are from Included Editable Entity Labels and also do not contain Label to be Excluded.", category: "Randomization")]
-	protected bool				m_bIncludeOnlySelectedLabels;
+	bool				m_bIncludeOnlySelectedLabels;
 	
 	[Attribute("", category: "Randomization")]
 	ref array<FactionKey> m_FactionsToApear;
@@ -46,15 +46,14 @@ class SP_AIDirector : AIGroup
 	int m_iDirectorUpdatePeriod;
 	
 	[Attribute("{93291E72AC23930F}prefabs/AI/Waypoints/AIWaypoint_Defend.et", category: "Spawning settings")]
-	private ResourceName m_pDefaultWaypoint;
+	ResourceName m_pDefaultWaypoint;
 	
 	[Attribute("1", category: "Tasks")]
 	bool m_bAllowRescue;
 	
 	
-	
 	[Attribute("1", category: "Debug")]
-	protected bool m_bVisualize;
+	bool m_bVisualize;
 	
 	[Attribute("1")]
 	bool m_bAllowCloseSpawning
@@ -68,12 +67,12 @@ class SP_AIDirector : AIGroup
 	ref array<IEntity> m_aQueriedPrefabSpawnP;
 	
 
-	
+	bool Initialised;
 	
 	ref array<SCR_AIGroup> m_aGroups = new array<SCR_AIGroup>();
 	AIWaypoint DefWaypoint;
-
-	bool GetDirectorOccupiedByFriendly(Faction faction, out SP_AIDirector Director)
+	SCR_ScenarioFrameworkSlotBase slot;
+	/*bool GetDirectorOccupiedByFriendly(Faction faction, out SP_AIDirector Director)
 	{
 		if (m_aGroups.Count() == 0)
 		{
@@ -375,13 +374,19 @@ class SP_AIDirector : AIGroup
 	    }
 	
 	    return MajorFaction;
+	}*/
+	void ClearEmptyGroups()
+	{
+		foreach (SCR_AIGroup group : m_aGroups)
+		{
+			if (group.GetTotalAgentCount() == 0)
+			m_aGroups.RemoveItem(group);
+			delete group;
+		}	
 	}
 	void SP_AIDirector(IEntitySource src, IEntity parent)
 	{
 		SetFlags(EntityFlags.ACTIVE, false);	
-		SetEventMask(EntityEvent.INIT);
-
-		
 		// allow AI spawning only on the server
 		if (RplSession.Mode() != RplMode.Client)
 			SetEventMask(EntityEvent.FRAME);
@@ -459,9 +464,8 @@ class SP_AIDirector : AIGroup
 	 	string m_sLocationName = m_WorldDirections.GetQuadHint(playerGridID) + ", " + closestLocationName;
 		return m_sLocationName;
 	}*/
-	override void EOnInit(IEntity owner)
+	void Init()
 	{
-		super.EOnInit(owner);
 		if(!GetGame().GetWorldEntity())
 		{
 			return;
@@ -486,24 +490,13 @@ class SP_AIDirector : AIGroup
 		DefWaypoint = AIWaypoint.Cast(GetGame().SpawnEntityPrefab(WP, null, WPspawnParams));
 		DefWaypoint.SetCompletionRadius(m_fRadius);
 		GetGame().GetCallqueue().CallLater(SpawnPrefab, 2, false);
-	}
-	bool CheckForCombat()
-	{
-		array<AIAgent> agents = new array<AIAgent>();
-		m_aGroups.GetRandomElement().GetAgents(agents);
-		for (int i = agents.Count() - 1; i >= 0; i--)
-		{
-			int count = agents[i].GetDangerEventsCount();
-			if(count > 0)
-			{
-				return true;
-			}
-		}
-		return false;
+		Initialised = true;
 	}
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		super.EOnFrame(owner, timeSlice);
+		if (!Initialised)
+			return;
 		if (m_fUpdateTimer > 0)
 		{
 			m_fUpdateTimer = m_fUpdateTimer -timeSlice;
@@ -528,11 +521,11 @@ class SP_AIDirector : AIGroup
 			{
 				if (m_fRespawnPeriod <= 0.0)
 				{
-					if (Spawn())
-					{
-						m_fRespawnPeriod = m_fRespawnTimer + Math.RandomInt(m_fRespawnTimer*0.5, m_fRespawnTimer + m_fRespawnTimer*0.5);
-					}
-					
+					IEntity entity = slot.GetOwner();
+					slot.m_eEntityCatalogType = m_eEntityCatalogType;
+					slot.m_aIncludedEditableEntityLabels = m_aIncludedEditableEntityLabels;
+					slot.m_aExcludedEditableEntityLabels = m_aExcludedEditableEntityLabels;
+					OnSpawn(slot.SpawnAsset());
 				}
 				else
 				{
@@ -547,15 +540,14 @@ class SP_AIDirector : AIGroup
 		{
 			return false;
 		}
-		
+		if (m_aQueriedSentinels.IsEmpty())
+			_CaptureSentinels();
 		foreach (IEntity sentinel : m_aQueriedSentinels)
 			{
-				if (CheckForCharacters(2, sentinel.GetOrigin()))
-				{
-					SCR_AISmartActionSentinelComponent sent = SCR_AISmartActionSentinelComponent.Cast(sentinel.FindComponent(SCR_AISmartActionSentinelComponent));
-					m_vPositiontoSpawn = sentinel.GetOrigin() + sent.GetActionOffset();
-					break;
-				}
+				SCR_AISmartActionSentinelComponent sent = SCR_AISmartActionSentinelComponent.Cast(sentinel.FindComponent(SCR_AISmartActionSentinelComponent));
+				m_vPositiontoSpawn = sentinel.GetOrigin() + sent.GetActionOffset();
+				m_aQueriedSentinels.RemoveItem(sentinel);
+				break;
 			}
 		if (m_vPositiontoSpawn == vector.Zero)
 			return false;
@@ -571,21 +563,7 @@ class SP_AIDirector : AIGroup
 			return false;
 		if (newEnt.GetPhysics())
 			newEnt.GetPhysics().SetActive(ActiveState.ACTIVE);
-		OnSpawn(newEnt);
-		SCR_AIGroup group = SCR_AIGroup.Cast(newEnt);
-		AIAgent agent = AIAgent.Cast(newEnt);
-		if (agent)
-		{
-			AddAgent(agent);
-		}
-		else
-		{
-			AIControlComponent comp = AIControlComponent.Cast(newEnt.FindComponent(AIControlComponent));
-			if (comp && comp.GetControlAIAgent())
-			{
-				AddAgent(comp.GetControlAIAgent());
-			}
-		}
+		
 		m_vPositiontoSpawn = vector.Zero;
 		m_pCharToSpawn = STRING_EMPTY;
 		return true;
@@ -723,6 +701,19 @@ class SP_AIDirector : AIGroup
 		SCR_AIGroup group = SCR_AIGroup.Cast(spawned);
 		if (group)
 		{
+			AIAgent agent = AIAgent.Cast(group);
+			if (agent)
+			{
+				AddAgent(agent);
+			}
+			else
+			{
+				AIControlComponent comp = AIControlComponent.Cast(agent.FindComponent(AIControlComponent));
+				if (comp && comp.GetControlAIAgent())
+				{
+					AddAgent(comp.GetControlAIAgent());
+				}
+			}
 			m_aGroups.Insert(group);
 			if (DefWaypoint)
 				group.AddWaypoint(DefWaypoint);
@@ -753,14 +744,7 @@ class SP_AIDirector : AIGroup
 			}
 		return true;
 	}
-	private bool QueryEntitiesForCharacter(IEntity e)
-	{
-		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
-		if (char)
-			return false;
-		
-		return true;
-	}
+
 	private bool QueryEntitiesForPrefabSpawner(IEntity e)
 	{
 		SCR_PrefabSpawnPoint PSpawnP = SCR_PrefabSpawnPoint.Cast(e);
@@ -771,11 +755,7 @@ class SP_AIDirector : AIGroup
 		
 		return true;
 	}
-	private bool CheckForCharacters(float radius, vector origin)
-	{
-		BaseWorld world = GetWorld();
-		return world.QueryEntitiesBySphere(origin, radius, QueryEntitiesForCharacter);
-	}
+
 	private void GetSentinels(float radius)
 	{
 		BaseWorld world = GetWorld();
@@ -932,5 +912,19 @@ class SP_AIDirector : AIGroup
 		//}
 		
 		super._WB_AfterWorldUpdate(timeSlice);
+	}
+	private bool QueryEntitiesForCharacter(IEntity e)
+	{
+		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
+		if (char)
+			return false;
+
+		return true;
+	}
+	private bool CheckForCharacters(float radius, vector origin)
+	{
+		BaseWorld world = GetGame().GetWorld();
+		bool found = GetGame().GetWorld().QueryEntitiesByAABB(origin + vector.One * -128, origin + vector.One * 128, QueryEntitiesForCharacter);
+		return found;
 	}
 };

@@ -86,6 +86,8 @@ SP_GameMode {
     m_sForcedLoadout "Default"
    }
   }
+  SCR_SpawnerAIGroupManagerComponent "{5DEAF6D7C9F77D88}" {
+  }
   SCR_TimeAndWeatherHandlerComponent "{5DC8E7DF962CC37D}" {
    m_iStartingHours 5
    m_iStartingMinutes 30
@@ -117,7 +119,7 @@ SP_GameMode {
   }
  }
  coords 2786.687 74.752 1583.354
- PlayerControllerPrefab "{A1AE127F16DD352E}Prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
+ PlayerControllerPrefab "{A1AE127F16DD352E}prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
  m_fAutoReloadTime 30
  m_bOverrideGameOverType 1
  m_eOverriddenGameOverType DEATH

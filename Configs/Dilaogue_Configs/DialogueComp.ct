@@ -13,6 +13,15 @@ SP_DialogueComponent {
   SP_DialogueArchetype "{5D687B28A2A1B119}" : "{308425433B957AB2}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Medic.conf" {
   }
   SP_DialogueArchetype "{5D687B2824154DA8}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
+   DialogueBranch {
+    SP_DialogueBranch "{5D687B287855C7D3}" {
+     m_BranchStages {
+      DialogueStage "{5DEAF6DFF84C97C0}" {
+       ActionText "Trade"
+      }
+     }
+    }
+   }
   }
   SP_DialogueArchetype "{5D687B2825594970}" : "{034F9F5363B2F5DA}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Medic.conf" {
   }

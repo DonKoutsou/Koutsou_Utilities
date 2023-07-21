@@ -1,4 +1,4 @@
-class SP_RescueAction : ScriptedUserAction
+/*class SP_RescueAction : ScriptedUserAction
 {
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{

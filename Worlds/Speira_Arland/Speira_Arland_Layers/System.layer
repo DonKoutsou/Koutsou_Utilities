@@ -64,6 +64,10 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
     "US" "USSR" "FIA"
    }
   }
+  SP_DialogueComponent "{5DC8E7DFCC439B26}" {
+   m_WorldDirections SCR_MapLocationQuadHint "{5DEB139477B7E638}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+   }
+  }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_iMinTaskAmount 100
    TasksToSawn {
@@ -83,11 +87,13 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
    ID "5DC8E7DF1BAF44A6"
    Factions {
     SCR_Faction "{5DCF2DEC154078E9}" {
+     m_bIsPlayable 1
      m_aFriendlyFactionsIds {
       "FIA"
      }
     }
     SCR_Faction "{5DCF2DEC1F25C352}" {
+     m_bIsPlayable 1
      m_aFriendlyFactionsIds {
      }
     }

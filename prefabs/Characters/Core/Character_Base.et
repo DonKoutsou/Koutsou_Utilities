@@ -1,0 +1,15 @@
+SCR_ChimeraCharacter {
+ ID "520EC961A090B1EE"
+ components {
+  SCR_CharacterStaminaComponent "{520EA1D2F659C824}" {
+   Enabled 0
+  }
+  SP_CharacterStaminaComponent "{5DEAE91671BBFAFD}" {
+   StaminaDrainRun -0.008
+   StaminaDrainSprint -0.016
+   EncumbranceDrainMax -0.1
+   BreathNormalFrequency 0.45
+   BreathExhaustedFrequency 1.1
+  }
+ }
+}

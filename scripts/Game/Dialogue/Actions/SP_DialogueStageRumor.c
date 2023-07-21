@@ -12,11 +12,13 @@ class DialogueStageRumor : DialogueStage
 	};
 	override string GetStageDialogueText(IEntity Character, IEntity Player)
 	{
-			FactionAffiliationComponent FC = FactionAffiliationComponent.Cast(Character.FindComponent(FactionAffiliationComponent));
-			Faction key = FC.GetAffiliatedFaction();
-			return GetRandomLocationPopulation(key, Player);
+			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+			string TextToSend;
+			while (TextToSend.IsEmpty())
+				TextToSend = Diag.GenerateRummor(Character, Player);
+			return TextToSend;
 	};
-	string GetRandomLocationPopulation(Faction key, IEntity Player)
+	/*string GetRandomLocationPopulation(Faction key, IEntity Player)
 	{
 		int random;
 		random = Math.RandomInt(0, 10);
@@ -74,6 +76,6 @@ class DialogueStageRumor : DialogueStage
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));		
 		string TextToSend = string.Format(DialogueText, FactioReadble, Diag.GetCharacterLocation(RandomDirector));
 		return TextToSend;
-	}
+	}*/
 
 };

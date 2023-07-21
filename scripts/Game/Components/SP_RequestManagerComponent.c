@@ -53,6 +53,10 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		m_CharacterHolder.CharIsDead(ChimeraCharacter.Cast(Char));
 	}
+	void OnCharDel(IEntity Char)
+	{
+		m_CharacterHolder.CharIsDel(ChimeraCharacter.Cast(Char));
+	}
 	CharacterHolder GetCharacterHolder()
 	{
 		return m_CharacterHolder;
@@ -82,6 +86,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				m_GameMode.GetOnControllableDestroyed().Insert(UpdateCharacterTasks);
 				m_GameMode.GetOnControllableSpawned().Insert(OnNewChar);
 				m_GameMode.GetOnControllableDestroyed().Insert(OnCharDeath);
+				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
 			}
 		}
 	}
@@ -380,6 +385,13 @@ class CharacterHolder : ScriptAndConfig
 		AliveCharacters.RemoveItem(Char);
 		DeadCharacters.Insert(Char);
 	}
+	void CharIsDel(ChimeraCharacter Char)
+	{
+		if (AliveCharacters.Contains(Char))
+			AliveCharacters.RemoveItem(Char);
+		if (DeadCharacters.Contains(Char))
+			DeadCharacters.RemoveItem(Char);
+	}
 	int GetAliveCount()
 	{
 		return AliveCharacters.Count();
@@ -447,6 +459,21 @@ class CharacterHolder : ScriptAndConfig
 			return true;
 		return false;
 	}
+	/*bool GetStrandedGroup(out SCR_AIGroup group)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			group = SCR_AIGroup.Cast(AliveCharacters.GetRandomElement().GetParent());
+			if (!group)
+				continue;
+		
+			if (CheckForCharacters(200, group.GetOrigin()))
+				group = null;
+			if (group)
+				return true;
+		}
+		return false;
+	}*/
 	void CharacterHolder()
 	{
 		if (!AliveCharacters)
@@ -460,4 +487,5 @@ class CharacterHolder : ScriptAndConfig
 		AliveCharacters.Clear();
 		DeadCharacters.Clear();
 	}
+	
 }

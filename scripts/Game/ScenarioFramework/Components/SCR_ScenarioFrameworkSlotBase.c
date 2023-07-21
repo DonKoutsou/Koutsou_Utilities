@@ -8,7 +8,7 @@ class SCR_ScenarioFrameworkSlotBaseClass : SCR_ScenarioFrameworkLayerBaseClass
 class SCR_ScenarioFrameworkSlotBase : SCR_ScenarioFrameworkLayerBase
 {
 	[Attribute(desc: "Resource name of the object to be spawned", category: "Asset")]
-	protected ResourceName 		m_sObjectToSpawn;
+	ResourceName 		m_sObjectToSpawn;
 	
 	[Attribute(desc: "Name of the entity used for identification", category: "Asset")];
 	protected string					m_sID;
@@ -23,13 +23,13 @@ class SCR_ScenarioFrameworkSlotBase : SCR_ScenarioFrameworkLayerBase
 	protected bool						m_bRandomizePerFaction;
 	
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Catalog type for random spawn", "", ParamEnumArray.FromEnum(EEntityCatalogType), category: "Randomization")]
-	protected EEntityCatalogType	m_eEntityCatalogType;
+	EEntityCatalogType	m_eEntityCatalogType;
 	
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Labels which you want to optionally include to random spawn. If you want to spawn everything, you can leave it out empty and also leave Include Only Selected Labels attribute to false.", "", ParamEnumArray.FromEnum(EEditableEntityLabel), category: "Randomization")]
-	protected ref array<EEditableEntityLabel> 		m_aIncludedEditableEntityLabels;
+	ref array<EEditableEntityLabel> 		m_aIncludedEditableEntityLabels;
 	
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Labels which you want to exclude from random spawn", "", ParamEnumArray.FromEnum(EEditableEntityLabel), category: "Randomization")]
-	protected ref array<EEditableEntityLabel> 		m_aExcludedEditableEntityLabels;
+	ref array<EEditableEntityLabel> 		m_aExcludedEditableEntityLabels;
 	
 	[Attribute(desc: "If true, it will spawn only the entities that are from Included Editable Entity Labels and also do not contain Label to be Excluded.", category: "Randomization")]
 	protected bool										m_bIncludeOnlySelectedLabels;
