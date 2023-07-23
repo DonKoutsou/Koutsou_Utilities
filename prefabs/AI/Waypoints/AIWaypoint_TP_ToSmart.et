@@ -1,0 +1,15 @@
+SP_TPWaypoint {
+ ID "5DEE693217E90560"
+ coords 2750.558 72.32 1555.398
+ Type "TP"
+ Title "TP waypoint"
+ AIBehaviorTree "{7AA5A74960E414B7}AI/BehaviorTrees/TP_Tosmart.bt"
+ AIBehaviorTreeMoveTo "{62D36413D46F02A6}AI/BehaviorTrees/Waypoints/WP_Patrol.bt"
+ CompletionRadius 250
+ Autocomplete 0
+ m_fPriorityLevel 1000
+ m_bFastInit 1
+ m_aTagsForSearch {
+  "ChillPost" "CustomSpot" "ObservationPost" "GetPost"
+ }
+}

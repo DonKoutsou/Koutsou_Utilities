@@ -3,7 +3,7 @@
 class SP_RetrieveTask: SP_Task
 {
 	//----------------------------------------//
-	IEntity	ItemBounty;
+	//IEntity	ItemBounty;
 	//----------------------------------------//
 	int	m_iRequestedAmount;
 	//----------------------------------------//
@@ -21,11 +21,11 @@ class SP_RetrieveTask: SP_Task
 		{
 			return false;
 		}
-		if (!SetupTaskEntity())
-		{
-			DeleteLeftovers();
-			return false;
-		}
+		//if (!SetupTaskEntity())
+		//{
+		//	DeleteLeftovers();
+		//	return false;
+		//}
 		if (!AssignReward())
 		{
 			DeleteLeftovers();
@@ -51,7 +51,7 @@ class SP_RetrieveTask: SP_Task
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override bool SetupTaskEntity()
+	/*override bool SetupTaskEntity()
 	{
 		if (TaskOwner)
 		{
@@ -85,7 +85,7 @@ class SP_RetrieveTask: SP_Task
 			return true;
 		}
 		return false;
-	};
+	};*/
 	override void CreateDescritions()
 	{
 		string OName;
@@ -99,7 +99,7 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool SetupRequestTypenMode()
 	{
-		int index = Math.RandomInt(0, 10);
+		int index = Math.RandomInt(0, 11);
 		if (index == 0)
 			{
 				m_requestitemtype = SCR_EArsenalItemType.HEAL;
@@ -154,7 +154,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.HEADWEAR;
 				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
-				m_iRewardAmount = 10;
+				m_iRewardAmount = 15;
 				return true;
 			}
 		if (index == 5)
@@ -206,6 +206,31 @@ class SP_RetrieveTask: SP_Task
 				m_iRewardAmount = 10;
 				return true;
 			}
+		if (index == 10)
+			{
+				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(TaskOwner.FindComponent(EquipedLoadoutStorageComponent));
+				if (!loadoutStorage)
+					return false;
+
+				IEntity Vest = loadoutStorage.GetClothFromArea(LoadoutArmoredVestSlotArea);
+				if (Vest)
+				{
+					EntityPrefabData prefabData = Vest.GetPrefabData();
+					ResourceName prefabName = prefabData.GetPrefabName();
+					SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
+					SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+					SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefabName);
+					if(entry)
+					{
+						return false;
+					}
+				}
+				m_requestitemtype = SCR_EArsenalItemType.ARMOR;
+				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
+				m_iRequestedAmount = 1;
+				m_iRewardAmount = 20;
+				return true;
+			}
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -231,15 +256,17 @@ class SP_RetrieveTask: SP_Task
 		reward = entry.GetPrefab();
 		return true;
 	};
-	override void SpawnTaskMarker()
+	override void SpawnTaskMarker(IEntity Assignee)
 	{
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
 		TaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 		m_TaskMarker.SetTitle(TaskTitle);
 		m_TaskMarker.SetDescription(TaskDesc);
 		m_TaskMarker.SetTarget(TaskOwner);
+		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
 		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
@@ -313,8 +340,8 @@ class SP_RetrieveTask: SP_Task
 						{
 							Ownerinv.TryInsertItem(item);
 						}
-
-						delete ItemBounty;
+						//if (ItemBounty)
+							//delete ItemBounty;
 					}
 				}
 				if (m_TaskMarker)
@@ -334,6 +361,8 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override void UpdateState()
 	{
+		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
+			return;
 		SCR_CharacterDamageManagerComponent OwnerDmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (OwnerDmgComp.IsDestroyed())
 		{
@@ -360,9 +389,9 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};
 	//------------------------------------------------------------------------------------------------------------//
-	IEntity GetItemBountyEnt(){return ItemBounty;};
+	//IEntity GetItemBountyEnt(){return ItemBounty;};
 	//------------------------------------------------------------------------------------------------------------//
-	override void DeleteLeftovers()
+	/*override void DeleteLeftovers()
 	{
 		if(ItemBounty)
 		{
@@ -382,7 +411,7 @@ class SP_RetrieveTask: SP_Task
 		{
 			delete ItemBounty;
 		}
-	};
+	};*/
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_RequestPredicate : InventorySearchPredicate

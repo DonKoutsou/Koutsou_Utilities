@@ -158,11 +158,11 @@ class SCR_GameModeSFManager : SCR_BaseGameModeComponent
 		if (!task) 
 			return;
 
-		if (task.GetTaskState() == SCR_TaskState.FINISHED)
-		{
-			m_LastFinishedTaskLayer = SCR_ScenarioFrameworkTask.Cast(task).GetTaskLayer(); 
-			m_LastFinishedTask = task;
-		}
+		//if (task.GetTaskState() == SCR_TaskState.FINISHED)
+		//{
+		//	m_LastFinishedTaskLayer = SCR_ScenarioFrameworkTask.Cast(task).GetTaskLayer(); 
+		//	m_LastFinishedTask = task;
+		//}
 		
 		if (mask & SCR_ETaskEventMask.TASK_PROPERTY_CHANGED && !(mask & SCR_ETaskEventMask.TASK_CREATED) && !(mask & SCR_ETaskEventMask.TASK_FINISHED) && !(mask & SCR_ETaskEventMask.TASK_ASSIGNEE_CHANGED))
 		{

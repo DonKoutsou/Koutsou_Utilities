@@ -1,0 +1,67 @@
+GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  BaseSlotComponent "{5876E7F5E53CC9CC}" {
+   AttachType EntitySlotInfo fireplace {
+   }
+  }
+  PotSlotComponent "{5D8B00B487A6FB96}" {
+   AttachType EntitySlotInfo Pot {
+    Offset 0 0.2196 0
+   }
+  }
+  SCR_AISmartActionComponent "{5D68C508AA42C672}" {
+   AIBehaviorTree "{F719FAF7D4C883D9}AI/BehaviorTrees/SmartActions/LightFire.bt"
+   Tags {
+    "LightFire"
+   }
+  }
+  SCR_AISmartActionSentinelComponent "{5B1EF59F9C8CE0B9}" {
+   Enabled 1
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ChillPost"
+   }
+   ActionOffset 3.62 0 0.037
+   m_fLookDirectionRange 360
+   m_iCharacterStance STAND
+  }
+  SCR_AISmartActionSentinelComponent "{5D68B95625C1144A}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ChillPost"
+   }
+   ActionOffset -2.665 0 -0.128
+   m_fLookDirectionRange 180
+   m_iCharacterStance CROUCH
+  }
+  SCR_FireplaceComponent "{5876E7F288BF5C8E}" {
+   m_aLightData {
+    SCR_BaseLightData "{58D0938270686D72}" {
+     m_fRadius 10
+     m_fIntensityClipEV -10
+    }
+   }
+   m_eInitialLightState OFF
+   m_fShouldBeAliveFor 20000
+   m_RawMeatPrefab "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et"
+   m_CookedMeatPrefab "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et"
+   m_BurnedMeatPrefab "{5AC9346AB70F4959}prefabs/Items/Food/Burned_Meat.et"
+  }
+  ActionsManagerComponent "{5876E7F5CCE95371}" {
+   additionalActions {
+    SP_PlaceEntityToSlot "{5D868960DFA7657F}" {
+     ParentContextList {
+      "fireplace"
+     }
+     UIInfo UIInfo "{5D868960C299F967}" {
+      Name "Place cooking pot"
+     }
+     "Sort Priority" 100
+     m_CompatiblePrefab "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et"
+    }
+   }
+  }
+ }
+ coords -1.453 -0.08 -4.478
+}

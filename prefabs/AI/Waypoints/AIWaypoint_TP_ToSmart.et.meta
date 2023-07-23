@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{47C4627F527A28E2}prefabs/AI/Waypoints/AIWaypoint_TP_ToSmart.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

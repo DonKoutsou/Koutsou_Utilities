@@ -1,0 +1,342 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/TP_Tosmart.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -618.667 -763.5
+   Nodes {
+    Selector Selector {
+     Name "Selector"
+     EditorPos -565.75 -577.417
+     Nodes {
+      Sequence Sequence {
+       Name "Sequence"
+       EditorPos -668.5 -395
+       Nodes {
+        SCR_AIGetPriorityFromWaypoint "SCR_AI Get Priority From Waypoint" {
+         Name "SCR_AI Get Priority From Waypoint"
+         EditorPos -2073.81 -161.19
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 16
+           PortName "PriorityLevel"
+          }
+         }
+        }
+        AITaskGetWaypoint "Get Waypoint" {
+         Name "Get Waypoint"
+         EditorPos -1715.5 -161.857
+         OutWaypoint 10
+        }
+        AITaskCreatePosition "Create Position" {
+         Name "Create Position"
+         EditorPos -1129.356 -171.954
+         InEntity 10
+         OutPosition 8
+        }
+        SCR_AIGetTPWaypoint "SCR_AI GetTP Waypoint" {
+         Name "SCR_AI GetTP Waypoint"
+         EditorPos -746 -172
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 7
+           PortName "WaypointIn"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 3
+           PortName "RadiusOut"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 18
+           PortName "AllowCloseSpawn"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 2
+           PortName "SearchTags"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 1
+           PortName "FastInit"
+          }
+         }
+        }
+        ForEachChild "For Each Child" {
+         Name "For Each Child"
+         EditorPos -77.333 -104.167
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos -56 102
+           Nodes {
+            SCR_AIGetSmartAction "SCR_AI Get Smart Action" {
+             Name "SCR_AI Get Smart Action"
+             EditorPos -288.096 341.786
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 9
+               PortName "Possition"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 12
+               PortName "Radius"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 11
+               PortName "InTags"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 19
+               PortName "AllowCloseSpawn"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 4
+               PortName "OutSmartAction"
+              }
+             }
+            }
+            DecoTestVariable "Test Variable" {
+             Name "Test Variable"
+             EditorPos 418.334 344.167
+             Nodes {
+              Sequence Sequence {
+               Name "Sequence"
+               EditorPos 720 550
+               Nodes {
+                AITaskGetSmartActionParams "Get Smart Action Params" {
+                 Name "Get Smart Action Params"
+                 EditorPos -213.333 705
+                 InSmartAction 20
+                 OutPos 0
+                 OutSmartActionEntity -1
+                }
+                SCR_AISetPosition "SCR_AI Set Position" {
+                 Name "SCR_AI Set Position"
+                 EditorPos 390.333 702.833
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port -1
+                   PortName "EntitytIn"
+                  }
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 6
+                   PortName "AgentIn"
+                  }
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 0
+                   PortName "DestinationIn"
+                  }
+                 }
+                }
+                SCR_AISetSmartActionReserved "SCR_AI Set Smart Action Reserved" {
+                 Name "SCR_AI Set Smart Action Reserved"
+                 EditorPos 666.294 704.461
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 13
+                   PortName "OwnerAgentIn"
+                  }
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 15
+                   PortName "SmartActionIn"
+                  }
+                 }
+                }
+               }
+              }
+             }
+             ForceNodeResult Success
+             AbortType AbortChildrenBranch
+             InVariable 4
+            }
+           }
+          }
+         }
+         OutEntity 5
+         ReturnControlledEntity 0
+        }
+        SCR_AICompleteWaypoint "SCR_AI Complete Waypoint" {
+         Name "SCR_AI Complete Waypoint"
+         EditorPos 423.333 -86.667
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 17
+           PortName "WaypointIn"
+          }
+         }
+        }
+        AITaskReturnState "Return  State" {
+         Name "Return  State"
+         EditorPos 678.5 -95.5
+         Result SUCCESS
+        }
+       }
+      }
+      AITaskReturnState "Return  State" {
+       Name "Return  State"
+       EditorPos -267.25 -369.584
+       Result RUNNING
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable SmartPos {
+   VariableName "SmartPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable waypoint {
+   VariableName "waypoint"
+   VariableTypeName "AIWaypoint"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable fastInit {
+   VariableName "fastInit"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable searchTags {
+   VariableName "searchTags"
+   VariableTypeName "array<string>"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable radiusOfSearch {
+   VariableName "radiusOfSearch"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable smartActionComponent {
+   VariableName "smartActionComponent"
+   VariableTypeName "SCR_AISmartActionComponent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable groupMember {
+   VariableName "groupMember"
+   VariableTypeName "AIAgent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable originOfSearch {
+   VariableName "originOfSearch"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable priorityLevel {
+   VariableName "priorityLevel"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable waypointRelated {
+   VariableName "waypointRelated"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable allwoclosespawn {
+   VariableName "allwoclosespawn"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference SmartPos {
+   VariableType 0
+   EditorPos 202.501 986.059
+  }
+  VariableReference fastInit {
+   VariableType 2
+   EditorPos -489.867 217.31
+  }
+  VariableReference searchTags {
+   VariableType 3
+   EditorPos -482.668 132.892
+  }
+  VariableReference radiusOfSearch {
+   VariableType 4
+   EditorPos -481.377 -40.857
+  }
+  VariableReference smartActionComponent {
+   VariableType 5
+   EditorPos -44.48 555.139
+  }
+  VariableReference groupMember {
+   VariableType 6
+   EditorPos 168.834 -28.584
+  }
+  VariableReference groupMember {
+   VariableType 6
+   EditorPos 151.985 871.866
+  }
+  VariableReference waypoint {
+   VariableType 1
+   EditorPos -960.689 153.342
+  }
+  VariableReference originOfSearch {
+   VariableType 7
+   EditorPos -989.311 84.704
+  }
+  VariableReference originOfSearch {
+   VariableType 7
+   EditorPos -565.5 335.5
+  }
+  VariableReference waypoint {
+   VariableType 1
+   EditorPos -1421.559 -8.637
+  }
+  VariableReference searchTags {
+   VariableType 3
+   EditorPos -612.5 524.839
+  }
+  VariableReference radiusOfSearch {
+   VariableType 4
+   EditorPos -576.923 448.233
+  }
+  VariableReference groupMember {
+   VariableType 6
+   EditorPos 502.921 860.526
+  }
+  VariableReference priorityLevel {
+   VariableType 8
+   EditorPos 613.662 952.32
+  }
+  VariableReference smartActionComponent {
+   VariableType 5
+   EditorPos 217.583 1088.706
+  }
+  VariableReference priorityLevel {
+   VariableType 8
+   EditorPos -1791.667 20
+  }
+  VariableReference waypoint {
+   VariableType 1
+   EditorPos 267 71.75
+  }
+  VariableReference allwoclosespawn {
+   VariableType 10
+   EditorPos -485.714 47.143
+  }
+  VariableReference allwoclosespawn {
+   VariableType 10
+   EditorPos -558.5 612.583
+  }
+  VariableReference smartActionComponent {
+   VariableType 5
+   EditorPos -824.5 832.559
+  }
+ }
+}

@@ -1,6 +1,8 @@
 SCR_PlayerController {
  ID "1A9BA6BEFA06E3B1"
  components {
+  ADM_PlayerShopManagerComponent "{5DECA2593597AC0C}" {
+  }
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
     WJ_StaminaBarUI "{5DEB12A0DFB47EAA}" {

@@ -94,7 +94,21 @@ SP_GameMode {
    m_bRandomStartingDaytime 1
    m_bRandomStartingWeather 1
   }
-  SP_DialogueComponent "{5DC8E7DFCC439B26}" : "{52ABE9A0F38181F2}Configs/Dilaogue_Configs/DialogueComp.ct" {
+  SP_DialogueComponent "{5DEC870D3A2360AC}" {
+   m_WorldDirections SCR_MapLocationQuadHint "{5DEC870D225EE3A6}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+   }
+   m_ChatChannelFIA FIAChatChannel "{5DEC870D24A9390E}" {
+    Style BaseChatChannelStyle "{5DEC870D2DC8FF78}" {
+    }
+   }
+   m_ChatChannelUSSR USSRChatChannel "{5DEC870D286061F6}" {
+    Style BaseChatChannelStyle "{5DEC870D2C522E1C}" {
+    }
+   }
+   m_ChatChannelUS USChatChannel "{5DEC870D2BB64921}" {
+    Style BaseChatChannelStyle "{5DEC870D2C2847BA}" {
+    }
+   }
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 300
@@ -136,11 +150,53 @@ SP_GameMode {
    Factions {
     SCR_Faction "{5DCF2DEC154078E9}" : "{5EB46557DF2AA24F}Configs/Factions/US.conf" {
      m_bIsPlayable 0
+     m_aEntityCatalogs {
+      SCR_EntityCatalogMultiList "{5C68A0EE8B97CA50}" {
+       m_aEntityEntryList {
+        SCR_EntityCatalogEntry "{5CCEA181AD29F55C}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181ADF83294}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181ACAFE503}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181AB034B38}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181ABCF2648}" {
+         m_bEnabled 0
+        }
+       }
+      }
+     }
     }
     SCR_Faction "{5DCF2DEC1F25C352}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
      m_bIsPlayable 0
     }
     SCR_Faction "{5DCF2DEC29F393ED}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
+     m_aEntityCatalogs {
+      SCR_EntityCatalogMultiList "{5C68A0EAB887A0C4}" {
+       m_aEntityEntryList {
+        SCR_EntityCatalogEntry "{5CCEA181947C4060}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181928A4CA5}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181914326A2}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA181901D0475}" {
+         m_bEnabled 0
+        }
+        SCR_EntityCatalogEntry "{5CCEA18190D50A71}" {
+         m_bEnabled 0
+        }
+       }
+      }
+     }
     }
    }
    m_bCanChangeFactionsPlayable 0

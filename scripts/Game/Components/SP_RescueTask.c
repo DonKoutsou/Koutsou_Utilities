@@ -5,7 +5,7 @@ class SP_RescueTask: SP_Task
 	[Attribute(defvalue: "20")]
 	int m_iRewardAverageAmount;
 	
-	[Attribute(defvalue: "2")]
+	[Attribute(defvalue: "2", desc: "Max amount of rescue tasks that can exist")]
 	int m_iMaxamount;
 	
 	ref array <IEntity> CharsToRescue = ;
@@ -22,16 +22,28 @@ class SP_RescueTask: SP_Task
 	{
 		if (dType != EDamageType.BLEEDING)
 			return;
+		IEntity Instigator;
 		foreach (IEntity Character : CharsToRescue)
 		{
 			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Character.FindComponent(SCR_CharacterDamageManagerComponent));
-			if(dmg.GetDOTScale() == 0)
+			array<HitZone> blhitZones = new array<HitZone>();
+			dmg.GetBleedingHitZones(blhitZones);
+			if(blhitZones.IsEmpty())
 			{
 				dmg.SetResilienceRegenScale(0.3);
 				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
 				CharsToRescue.RemoveItem(Character);
+				Instigator = dmg.GetInstigator();
 			}
 		}
+		if (CharsToRescue.IsEmpty())
+		{
+			if (Instigator)
+				CompleteTask(Instigator);
+			else
+				CompleteTask(null);
+		}
+			
 	}
 	override bool Init()
 	{
@@ -53,7 +65,7 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
-		FindOwner(TaskOwner);
+		//FindOwner(TaskOwner);
 		if (!AssignReward())
 		{
 			DeleteLeftovers();
@@ -105,16 +117,16 @@ class SP_RescueTask: SP_Task
 			AIAgent disagent = comp.GetAIAgent();
 			SCR_AIGroup luckygroup = SCR_AIGroup.Cast(disagent.GetParentGroup());
 			luckygroup.GetAgents(outAgents);
-			foreach(AIAgent agent : outAgents)
-			{
-				CharsToRescue.Insert(agent.GetControlledEntity());
-			}
+			//foreach(AIAgent agent : outAgents)
+			//{
+			//	CharsToRescue.Insert(agent.GetControlledEntity());
+			//}
 			Target = luckygroup.GetLeaderEntity();
 			return true;
 		}
 		return false;
 	};
-	override bool FindOwner(out IEntity Owner)
+	/*override bool FindOwner(out IEntity Owner)
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		if (!CharHolder)
@@ -134,7 +146,7 @@ class SP_RescueTask: SP_Task
 		if(Owner)
 			return true;
 		return false;
-	};
+	};*/
 	override bool AssignReward()
 	{
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
@@ -164,14 +176,34 @@ class SP_RescueTask: SP_Task
 	};
 	override void UpdateState()
 	{
+		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
+			return;
+		bool anyuncon;
+		bool anyalive;
 		foreach(IEntity char : CharsToRescue)
 		{
 			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(char.FindComponent(SCR_CharacterDamageManagerComponent));
+			if(dmg.GetIsUnconscious())
+			{
+				anyuncon = true;
+			}
 			if(!dmg.IsDestroyed())
 			{
-				return;
+				anyalive = true;
 			}
 		}
+		if (!anyuncon)
+		{
+			if (m_TaskMarker)
+			{
+				m_TaskMarker.Finish(false);
+			}
+			e_State = ETaskState.COMPLETED;
+			CompleteTask(null);
+				return;
+		}
+		if (anyalive)
+			return;
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
@@ -184,18 +216,17 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
-		if (GiveReward(Assignee))
+		if (Assignee && GiveReward(Assignee))
 		{
-				if (m_TaskMarker)
-				{
-					m_TaskMarker.Finish(true);
-				}
-				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
-				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-				reqman.OnTaskCompleted(this);
-				return true;
 		}
+		if (m_TaskMarker)
+		{
+				m_TaskMarker.Finish(true);
+		}
+		e_State = ETaskState.COMPLETED;
+		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		reqman.OnTaskCompleted(this);
 		return false;
 	};
 	override typename GetClassName(){return SP_RescueTask;};
@@ -204,26 +235,29 @@ class SP_RescueTask: SP_Task
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
 		if (!char)
 			return true;
-		foreach (IEntity Character : CharsToRescue)
-		{
-			if (e != Character)
-				return false;
-		}
+		if (!CharsToRescue.Contains(e))
+			return false;
 		return true;
 	}
 	private bool CheckForCharacters(float radius, vector origin)
 	{
 		BaseWorld world = GetGame().GetWorld();
-		bool found = GetGame().GetWorld().QueryEntitiesByAABB(origin + vector.One * -128, origin + vector.One * 128, QueryEntitiesForCharacter);
+		bool found = GetGame().GetWorld().QueryEntitiesBySphere(origin, radius, QueryEntitiesForCharacter);
 		return found;
 	}
+	
 	bool CreateVictim(out IEntity Victim)
 	{
 		CharacterHolder Chars = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent)).GetCharacterHolder();
 		array<AIAgent> outAgents = new array<AIAgent>();
 		ChimeraCharacter luckyguy;
-		Chars.GetRandomUnit(luckyguy);
-		SCR_AIGroup luckygroup = SCR_AIGroup.Cast(luckyguy.GetParent());
+		if (!Chars.GetRandomUnit(luckyguy))
+			return false;
+		AIControlComponent ContComp = AIControlComponent.Cast(luckyguy.FindComponent(AIControlComponent));
+		AIAgent Agent = ContComp.GetAIAgent();
+		if (!Agent)
+			return false;
+		SCR_AIGroup luckygroup = SCR_AIGroup.Cast(Agent.GetParentGroup());
 		if(!luckygroup)
 		{
 			return false;
@@ -241,6 +275,12 @@ class SP_RescueTask: SP_Task
 		}
 		foreach(AIAgent agent : outAgents)
 		{
+			CharsToRescue.Insert(agent.GetControlledEntity());
+		}
+		if (!CheckForCharacters(200, Victim.GetOrigin()))
+			return false;
+		foreach(AIAgent agent : outAgents)
+		{
 			IEntity Char = agent.GetControlledEntity();
 			if(Char)
 			{
@@ -251,8 +291,9 @@ class SP_RescueTask: SP_Task
 				}
 				dmg.ForceUnconsciousness();
 				dmg.SetResilienceRegenScale(0);
-				dmg.AddRandomBleeding();
+				dmg.AddParticularBleeding();
 				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
+				dmg.GetOnDamageStateChanged().Insert(UpdateState);
 			}
 		}
 		return true;

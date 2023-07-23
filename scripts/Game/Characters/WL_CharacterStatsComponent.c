@@ -430,7 +430,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_fTime += timeSlice;
 		
 		float timeBtwEachTick = GetCharacterStatsPrefabData().m_fTimeBetweenEachTick;
-		if (m_fTime >= timeBtwEachTick)
+		if (m_fTime >= timeBtwEachTick && m_pLoadout)
 		{
 			clothesFactor = 0;
 				// jacket

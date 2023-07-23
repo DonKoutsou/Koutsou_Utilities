@@ -1,4 +1,4 @@
-/*class ADM_PlayerShopManagerComponentClass: ScriptComponentClass {}
+class ADM_PlayerShopManagerComponentClass: ScriptComponentClass {}
 
 class ADM_PlayerShopManagerComponent: ScriptComponent {
 	protected string m_sPurchaseMessage;

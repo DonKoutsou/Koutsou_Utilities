@@ -22,7 +22,7 @@ class SP_BaseTask : SCR_BaseTask
 			return;
 		FactionManager factionManager = GetGame().GetFactionManager();
 		if (IsAssignedToLocalPlayer() || SCR_EditorManagerEntity.IsOpenedInstance(false))
-			GetTaskIconkWidget().SetColor(factionManager.GetFactionByKey(m_faction).GetFactionColor());
+			GetTaskIconkWidget().SetColor(GetTargetFaction().GetFactionColor());
 		else
 			GetTaskIconkWidget().SetColor(Color.White);
 	}

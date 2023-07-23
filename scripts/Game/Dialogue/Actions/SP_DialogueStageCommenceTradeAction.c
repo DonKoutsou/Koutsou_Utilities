@@ -1,4 +1,4 @@
-/*[BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
+[BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
 class DialogueStageCommenceTradeAction : DialogueStage
 {
 	protected ADM_ShopComponent m_Shop;

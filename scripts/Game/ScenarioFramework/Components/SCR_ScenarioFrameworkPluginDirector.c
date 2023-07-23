@@ -10,8 +10,8 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Labels which you want to exclude from random spawn", "", ParamEnumArray.FromEnum(EEditableEntityLabel), category: "Randomization")]
 	protected ref array<EEditableEntityLabel> 		m_aExcludedEditableEntityLabels;
 	
-	[Attribute(desc: "If true, it will spawn only the entities that are from Included Editable Entity Labels and also do not contain Label to be Excluded.", category: "Randomization")]
-	protected bool				m_bIncludeOnlySelectedLabels;
+	[Attribute("", category: "Randomization", desc: "If this has entries faction will be randomised on spawn. If no entries faction from slot will be taken")]
+	ref array<FactionKey> m_FactionsToApear;
 
 	//--------------------------------------------------------------------------//
 	// parameters
@@ -36,9 +36,6 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 	[Attribute("6", category: "Spawning settings")]
 	int m_iDirectorUpdatePeriod;
 	
-	[Attribute("{93291E72AC23930F}prefabs/AI/Waypoints/AIWaypoint_Defend.et", category: "Spawning settings")]
-	private ResourceName m_pDefaultWaypoint;
-	
 	[Attribute("1", category: "Debug")]
 	protected bool m_bVisualize;
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
@@ -50,16 +47,15 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 		SP_AIDirector director;
 		IEntity entity = object.GetSpawnedEntity();
 		
-		SCR_ScenarioFrameworkSlotBase slot = SCR_ScenarioFrameworkSlotBase.Cast(object);
+		SCR_ScenarioFrameworkSlotAI slot = SCR_ScenarioFrameworkSlotAI.Cast(object);
 		
 		director = SP_AIDirector.Cast(entity);
 		
 		if (director)
 		{
 			director.m_eEntityCatalogType = m_eEntityCatalogType;
-			director.m_aIncludedEditableEntityLabels = m_aIncludedEditableEntityLabels;
-			director.m_aExcludedEditableEntityLabels = m_aExcludedEditableEntityLabels;
-			director.m_bIncludeOnlySelectedLabels = m_bIncludeOnlySelectedLabels;
+			director.m_aIncludedEditableEntityLabels.Copy(m_aIncludedEditableEntityLabels);
+			director.m_aExcludedEditableEntityLabels.Copy(m_aExcludedEditableEntityLabels);
 			director.m_bSpawnAI = m_bSpawnAI;
 			director.m_bRespawn = m_bRespawn;
 			director.m_iMaxAgentsToSpawn = m_iMaxAgentsToSpawn;
@@ -67,10 +63,17 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 			director.m_fRadius = m_fRadius;
 			director.m_fRespawnTimer = m_fRespawnTimer;
 			director.m_iDirectorUpdatePeriod = m_iDirectorUpdatePeriod;
-			director.m_pDefaultWaypoint = m_pDefaultWaypoint;
 			director.m_bVisualize = m_bVisualize;
-			director.m_FactionsToApear.Clear();
-			director.m_FactionsToApear.Insert(slot.GetFactionKey());
+			if (!m_FactionsToApear.IsEmpty())
+			{
+				director.m_FactionsToApear = m_FactionsToApear;
+			}
+			else
+			{
+				director.m_FactionsToApear.Clear();
+				director.m_FactionsToApear.Insert(slot.GetFactionKey());
+			}
+			
 			director.slot = slot;
 			director.Init();
 		}

@@ -51,7 +51,7 @@ class SCR_ScenarioFrameworkSlotBase : SCR_ScenarioFrameworkLayerBase
 	protected bool							m_bShowDebugShapesInWorkbench;
 	
 	protected WorldEditorAPI	m_API;
-	protected IEntity			m_PreviewEntity;
+	IEntity			m_PreviewEntity;
 #endif
 
 	//------------------------------------------------------------------------------------------------
@@ -349,13 +349,13 @@ class SCR_ScenarioFrameworkSlotBase : SCR_ScenarioFrameworkLayerBase
 		}
 		
 		string resourceName = resourceObject.GetResourceName();
-		IEntity entity = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), m_SpawnParams);
+		m_Entity = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), m_SpawnParams);
 		SCR_AIWorld aiWorld = SCR_AIWorld.Cast(GetGame().GetAIWorld());
 		if(aiWorld)
-			aiWorld.RequestNavmeshRebuildEntity(entity);
+			aiWorld.RequestNavmeshRebuildEntity(m_Entity);
 		
 	
-		return entity;
+		return m_Entity;
 	}
 		
 	//------------------------------------------------------------------------------------------------

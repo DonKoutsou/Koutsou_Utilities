@@ -10,7 +10,8 @@ FrameWidgetClass {
       VerticalAlign 3
      }
      Opacity 0.774
-     Texture "{307B3AFD133C1121}UI/Textures/LoadingScreen/MenuBackground.edds"
+     Texture "{B98FB2CD75200E57}UI/Textures/MainMenu/MenuBackgroundBlank_UI.edds"
+     Size 3840 2160
      "Blend Mode" Opaque
     }
     VerticalLayoutWidgetClass "{5D594E3BC64D6A64}" {

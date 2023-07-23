@@ -12,20 +12,6 @@ class DialogueStageTask : DialogueStage
 		SP_NavigateTask t_Navigate = SP_NavigateTask.Cast(t_Task);
 		if(t_Bounty)
 		{
-			IEntity BountyPaper = t_Bounty.GetBountyEnt();
-			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Player.FindComponent(InventoryStorageManagerComponent));
-			InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(Character.FindComponent(InventoryStorageManagerComponent));
-			InventoryItemComponent pInvComp = InventoryItemComponent.Cast(BountyPaper.FindComponent(InventoryItemComponent));
-			InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-			invChar.TryRemoveItemFromStorage(BountyPaper, parentSlot.GetStorage());
-			if(inv.TryInsertItem(BountyPaper))
-			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom("The bounty has been added to your inventory");
-			}
-			else
-			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, bounty left on the floor");
-			}
 			t_Bounty.AssignCharacter(Player);
 		}
 		if (t_Deliver)
@@ -48,20 +34,6 @@ class DialogueStageTask : DialogueStage
 		}
 		if (t_Retrieve)
 		{
-			IEntity ItemBountyPaper = t_Retrieve.GetItemBountyEnt();
-			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Player.FindComponent(InventoryStorageManagerComponent));
-			InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(Character.FindComponent(InventoryStorageManagerComponent));
-			InventoryItemComponent pInvComp = InventoryItemComponent.Cast(ItemBountyPaper.FindComponent(InventoryItemComponent));
-			InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-			invChar.TryRemoveItemFromStorage(ItemBountyPaper, parentSlot.GetStorage());
-			if(inv.TryInsertItem(ItemBountyPaper))
-			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom("The item bounty has been added to your inventory");
-			}
-			else
-			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, item bounty left on the floor");
-			}
 			t_Retrieve.AssignCharacter(Player);
 		}
 		if(t_Navigate)

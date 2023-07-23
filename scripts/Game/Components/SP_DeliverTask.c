@@ -108,10 +108,10 @@ class SP_DeliverTask: SP_Task
 		{
 			return false;
 		}
-		if (!CharacterAssigned(Assignee))
-		{
-			return false;
-		}
+		//if (!CharacterAssigned(Assignee))
+		//{
+		//	return false;
+		//}
 		if (e_State == ETaskState.COMPLETED)
 		{
 			return false;
@@ -232,8 +232,8 @@ class SP_DeliverTask: SP_Task
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
+		OName = Diag.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
+		DName = Diag.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
 		OLoc = Diag.GetCharacterLocation(TaskOwner);
 		DLoc = Diag.GetCharacterLocation(TaskTarget);
 	};
@@ -241,6 +241,8 @@ class SP_DeliverTask: SP_Task
 	//delivery fails if targer is killed
 	override void UpdateState()
 	{
+		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
+			return;
 		SCR_CharacterDamageManagerComponent DmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (DmgComp.IsDestroyed())
 		{
@@ -287,6 +289,44 @@ class SP_DeliverTask: SP_Task
 			return m_iRewardAverageAmount;
 		}
 		return null;
+	};
+	override bool Init()
+	{
+		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		//-------------------------------------------------//
+		//first look for owner cause targer is usually derived from owner faction/location etc...
+		if (!FindOwner(TaskOwner))
+		{
+			return false;
+		}
+		//-------------------------------------------------//
+		//function to fill to check ckaracter
+		if(!CheckCharacter(TaskOwner))
+		{
+			return false;
+		}
+		//-------------------------------------------------//
+		if (!FindTarget(TaskTarget))
+		{
+			return false;
+		}
+		//-------------------------------------------------//
+		//function to fill if task needs an entity, eg package for delivery
+		if (!SetupTaskEntity())
+		{
+			DeleteLeftovers();
+			return false;
+		}
+		//-------------------------------------------------//
+		if (!AssignReward())
+		{
+			DeleteLeftovers();
+			return false;
+		}
+		//-------------------------------------------------//
+		CreateDescritions();
+		e_State = ETaskState.UNASSIGNED;
+		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 };

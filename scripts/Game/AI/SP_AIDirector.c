@@ -1,7 +1,7 @@
-class SP_AIDirectorClass: AIGroupClass
+class SP_AIDirectorClass: GenericEntityClass
 {
 };
-class SP_AIDirector : AIGroup
+class SP_AIDirector : GenericEntity
 {
 	static ref array<SP_AIDirector> AllDirectors = null;
 	//--------------------------------------------------------------------------//
@@ -14,9 +14,6 @@ class SP_AIDirector : AIGroup
 	
 	[Attribute("0", UIWidgets.ComboBox, "Select Entity Labels which you want to exclude from random spawn", "", ParamEnumArray.FromEnum(EEditableEntityLabel), category: "Randomization")]
 	ref array<EEditableEntityLabel> 		m_aExcludedEditableEntityLabels;
-	
-	[Attribute(desc: "If true, it will spawn only the entities that are from Included Editable Entity Labels and also do not contain Label to be Excluded.", category: "Randomization")]
-	bool				m_bIncludeOnlySelectedLabels;
 	
 	[Attribute("", category: "Randomization")]
 	ref array<FactionKey> m_FactionsToApear;
@@ -44,9 +41,7 @@ class SP_AIDirector : AIGroup
 	
 	[Attribute("6", category: "Spawning settings")]
 	int m_iDirectorUpdatePeriod;
-	
-	[Attribute("{93291E72AC23930F}prefabs/AI/Waypoints/AIWaypoint_Defend.et", category: "Spawning settings")]
-	ResourceName m_pDefaultWaypoint;
+
 	
 	[Attribute("1", category: "Tasks")]
 	bool m_bAllowRescue;
@@ -71,7 +66,7 @@ class SP_AIDirector : AIGroup
 	
 	ref array<SCR_AIGroup> m_aGroups = new array<SCR_AIGroup>();
 	AIWaypoint DefWaypoint;
-	SCR_ScenarioFrameworkSlotBase slot;
+	SCR_ScenarioFrameworkSlotAI slot;
 	/*bool GetDirectorOccupiedByFriendly(Faction faction, out SP_AIDirector Director)
 	{
 		if (m_aGroups.Count() == 0)
@@ -377,12 +372,18 @@ class SP_AIDirector : AIGroup
 	}*/
 	void ClearEmptyGroups()
 	{
-		foreach (SCR_AIGroup group : m_aGroups)
+		array <int> toremove = new array <int>();
+		for (int i = m_aGroups.Count() - 1; i >= 0; i--)
 		{
-			if (group.GetTotalAgentCount() == 0)
-			m_aGroups.RemoveItem(group);
-			delete group;
-		}	
+				if (m_aGroups[i] == null)
+				{
+					toremove.Insert(i);
+				}
+		}
+		foreach(int index : toremove)
+		{
+			m_aGroups.Remove(index);
+		}
 	}
 	void SP_AIDirector(IEntitySource src, IEntity parent)
 	{
@@ -480,21 +481,21 @@ class SP_AIDirector : AIGroup
 		
 		m_fRespawnPeriod = Math.RandomFloat(1, 20);
 		// get first children, it should be WP
-		vector position = GetOrigin();
-		vector spawnMatrix[4] = { "1 0 0 0", "0 1 0 0", "0 0 1 0", "0 0 0 0" };
-		spawnMatrix[3] = position;
-		EntitySpawnParams WPspawnParams = EntitySpawnParams();
-		WPspawnParams.TransformMode = ETransformMode.WORLD;
-		WPspawnParams.Transform = spawnMatrix;
-		Resource WP = Resource.Load(m_pDefaultWaypoint);
-		DefWaypoint = AIWaypoint.Cast(GetGame().SpawnEntityPrefab(WP, null, WPspawnParams));
-		DefWaypoint.SetCompletionRadius(m_fRadius);
+		//vector position = GetOrigin();
+		//vector spawnMatrix[4] = { "1 0 0 0", "0 1 0 0", "0 0 1 0", "0 0 0 0" };
+		//spawnMatrix[3] = position;
+		//EntitySpawnParams WPspawnParams = EntitySpawnParams();
+		//WPspawnParams.TransformMode = ETransformMode.WORLD;
+		//WPspawnParams.Transform = spawnMatrix;
+		//Resource WP = Resource.Load(m_pDefaultWaypoint);
+		//DefWaypoint = AIWaypoint.Cast(GetGame().SpawnEntityPrefab(WP, null, WPspawnParams));
+		//DefWaypoint.SetCompletionRadius(m_fRadius);
 		GetGame().GetCallqueue().CallLater(SpawnPrefab, 2, false);
 		Initialised = true;
 	}
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		super.EOnFrame(owner, timeSlice);
+		
 		if (!Initialised)
 			return;
 		if (m_fUpdateTimer > 0)
@@ -517,15 +518,25 @@ class SP_AIDirector : AIGroup
 		//}
 		if (m_bRespawn)
 		{
-			if (GetAgentsCount() < m_iMaxAgentsToSpawn)
+			if (m_aGroups.Count() < m_iMaxAgentsToSpawn)
 			{
 				if (m_fRespawnPeriod <= 0.0)
 				{
 					IEntity entity = slot.GetOwner();
+					if (!m_FactionsToApear.IsEmpty())
+						slot.SetFactionKey(m_FactionsToApear.GetRandomElement());
 					slot.m_eEntityCatalogType = m_eEntityCatalogType;
-					slot.m_aIncludedEditableEntityLabels = m_aIncludedEditableEntityLabels;
-					slot.m_aExcludedEditableEntityLabels = m_aExcludedEditableEntityLabels;
-					OnSpawn(slot.SpawnAsset());
+					slot.m_aIncludedEditableEntityLabels.Clear();
+					slot.m_aIncludedEditableEntityLabels.Copy(m_aIncludedEditableEntityLabels);
+					slot.m_aExcludedEditableEntityLabels.Clear();
+					slot.m_aExcludedEditableEntityLabels.Copy(m_aExcludedEditableEntityLabels);
+					if (!m_aQueriedSentinels.IsEmpty())
+						entity.SetOrigin(m_aQueriedSentinels.GetRandomElement().GetOrigin());
+					slot.SelectRandomSlot();
+					slot.SpawnAsset();
+					slot.InitEnt();
+					slot.SetWPGroup();
+					OnSpawn(slot.GetSpawnedEntity());
 				}
 				else
 				{
@@ -533,6 +544,7 @@ class SP_AIDirector : AIGroup
 				}	
 			}
 		}
+		super.EOnFrame(owner, timeSlice);
 	}
 	bool Spawn()
 	{	
@@ -593,7 +605,7 @@ class SP_AIDirector : AIGroup
 		SCR_Faction randfaction = SCR_Faction.Cast(factionManager.GetFactionByKey(m_FactionsToApear.GetRandomElement()));
 		SCR_EntityCatalog entityCatalog = randfaction.GetFactionEntityCatalogOfType(m_eEntityCatalogType);
 		array<SCR_EntityCatalogEntry> aFactionEntityEntry = new array<SCR_EntityCatalogEntry>();
-		entityCatalog.GetFullFilteredEntityListWithLabels(aFactionEntityEntry, m_aIncludedEditableEntityLabels, m_aExcludedEditableEntityLabels, m_bIncludeOnlySelectedLabels);
+		entityCatalog.GetFullFilteredEntityListWithLabels(aFactionEntityEntry, m_aIncludedEditableEntityLabels, m_aExcludedEditableEntityLabels, false);
 		m_pCharToSpawn = aFactionEntityEntry.GetRandomElement().GetPrefab();
 	}
 	void SetSpawnPos()
@@ -699,24 +711,19 @@ class SP_AIDirector : AIGroup
 	event void OnSpawn(IEntity spawned)
 	{
 		SCR_AIGroup group = SCR_AIGroup.Cast(spawned);
-		if (group)
+		if (!group)
 		{
-			AIAgent agent = AIAgent.Cast(group);
+			AIControlComponent contcomp = AIControlComponent.Cast(spawned.FindComponent(AIControlComponent));
+			AIAgent agent = contcomp.GetAIAgent();
 			if (agent)
 			{
-				AddAgent(agent);
+				group = SCR_AIGroup.Cast(agent.GetParentGroup());
 			}
-			else
-			{
-				AIControlComponent comp = AIControlComponent.Cast(agent.FindComponent(AIControlComponent));
-				if (comp && comp.GetControlAIAgent())
-				{
-					AddAgent(comp.GetControlAIAgent());
-				}
-			}
+		}
+		if (group)
+		{
 			m_aGroups.Insert(group);
-			if (DefWaypoint)
-				group.AddWaypoint(DefWaypoint);
+			group.GetOnEmpty().Insert(ClearEmptyGroups);
 		}
 	}
 	/*override void _WB_SetExtraVisualiser(EntityVisualizerType type, IEntitySource src)
@@ -779,7 +786,7 @@ class SP_AIDirector : AIGroup
 	private void SpawnPrefab()
 	{
 		_CapturePrefabSpawns();
-		if(m_aQueriedPrefabSpawnP.Count() == 0)
+		if(m_aQueriedPrefabSpawnP.IsEmpty())
 		{
 			return;
 		}
@@ -788,41 +795,38 @@ class SP_AIDirector : AIGroup
 		{
 			return;
 		}
-		array <int> randomindexes = new array <int>();
-		for (int i = 0; i < m_aQueriedPrefabSpawnP.Count()/10; i++)
-		{
-			randomindexes.Insert(m_aQueriedPrefabSpawnP.GetRandomIndex());
-		}
 		foreach(IEntity prefabspawner : m_aQueriedPrefabSpawnP)
 		{
-			int index = randomindexes.Find(m_aQueriedPrefabSpawnP.Find(prefabspawner));
-			if (index != -1)
+			SCR_PrefabSpawnPoint Pspawn = SCR_PrefabSpawnPoint.Cast(prefabspawner);
+			ResourceName prefab;
+			if(Pspawn.GetType() == EPrefabSpawnType.MilitaryVehicles)
 			{
-				SCR_PrefabSpawnPoint Pspawn = SCR_PrefabSpawnPoint.Cast(prefabspawner);
-				ResourceName prefab;
-				if(Pspawn.GetType() == EPrefabSpawnType.MilitaryVehicles)
-				{
-					SCR_Faction randfaction = SCR_Faction.Cast(factionManager.GetFactionByKey(m_FactionsToApear.GetRandomElement()));
-					SCR_EntityCatalog entityCatalog = randfaction.GetFactionEntityCatalogOfType(EEntityCatalogType.VEHICLE);
-					array<SCR_EntityCatalogEntry> aFactionEntityEntry = new array<SCR_EntityCatalogEntry>();
-					entityCatalog.GetEntityList(aFactionEntityEntry);
-					prefab = aFactionEntityEntry.GetRandomElement().GetPrefab();
-				}
-				if(Pspawn.GetType() == EPrefabSpawnType.Generic)
-				{
-					SCR_EntityCatalogManagerComponent CatalogM = SCR_EntityCatalogManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_EntityCatalogManagerComponent));
-					SCR_EntityCatalog entityCatalog = CatalogM.GetEntityCatalogOfType(EEntityCatalogType.STASH);
-					array<SCR_EntityCatalogEntry> aEntityEntry = new array<SCR_EntityCatalogEntry>();
-					entityCatalog.GetEntityList(aEntityEntry);
-					prefab = aEntityEntry.GetRandomElement().GetPrefab();
-				}
-				EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-				Pspawn.GetWorldTransform(PrefabspawnParams.Transform);
-				Resource prefabtospawn = Resource.Load(prefab);
-				GetGame().SpawnEntityPrefab(prefabtospawn, null, PrefabspawnParams);
+				SCR_Faction randfaction = SCR_Faction.Cast(factionManager.GetFactionByKey(m_FactionsToApear.GetRandomElement()));
+				SCR_EntityCatalog entityCatalog = randfaction.GetFactionEntityCatalogOfType(EEntityCatalogType.VEHICLE);
+				array<SCR_EntityCatalogEntry> aFactionEntityEntry = new array<SCR_EntityCatalogEntry>();
+				entityCatalog.GetEntityList(aFactionEntityEntry);
+				prefab = aFactionEntityEntry.GetRandomElement().GetPrefab();
 			}
+			if(Pspawn.GetType() == EPrefabSpawnType.Generic)
+			{
+				SCR_EntityCatalogManagerComponent CatalogM = SCR_EntityCatalogManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_EntityCatalogManagerComponent));
+				SCR_EntityCatalog entityCatalog = CatalogM.GetEntityCatalogOfType(EEntityCatalogType.STASH);
+				array<SCR_EntityCatalogEntry> aEntityEntry = new array<SCR_EntityCatalogEntry>();
+				entityCatalog.GetEntityList(aEntityEntry);
+				prefab = aEntityEntry.GetRandomElement().GetPrefab();
+			}
+			EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+			vector spawnpos[4];
+			Pspawn.GetWorldTransform(spawnpos);
+			Resource prefabtospawn = Resource.Load(prefab);
+			SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetWorld());
+			PrefabspawnParams.Transform = spawnpos;
+			IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, null, PrefabspawnParams);
+		
+			
 			delete prefabspawner;
 		}
+		
 		m_aQueriedPrefabSpawnP.Clear();
 	}
 	override bool _WB_OnKeyChanged(BaseContainer src, string key, BaseContainerList ownerContainers, IEntity parent) 

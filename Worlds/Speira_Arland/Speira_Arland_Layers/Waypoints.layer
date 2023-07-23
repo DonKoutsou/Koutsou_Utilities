@@ -1,7 +1,7 @@
 GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Area.et" {
  coords 1141.283 38.029 2778.54
  {
-  GenericEntity ChillWP : "{5F9FFF4BF027B3A3}prefabs/ScenarioFramework/Components/Layer.et" {
+  GenericEntity ChillWP : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
    coords 0 0 0
    {
     $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
@@ -11,7 +11,7 @@ GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Component
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
        }
       }
-      coords 451.238 4.356 -396.38
+      coords 768.531 2.558 -73.841
      }
      {
       components {
@@ -19,7 +19,8 @@ GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Component
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
        }
       }
-      coords 767.788 1.442 -26.311
+      coords 1081.765 15.999 137.278
+      angleY -89.89
      }
      {
       components {
@@ -27,7 +28,7 @@ GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Component
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
        }
       }
-      coords 1068.986 17.405 93.76
+      coords 859.443 13.65 262.004
      }
      {
       components {
@@ -35,7 +36,8 @@ GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Component
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
        }
       }
-      coords 851.879 15.628 279.406
+      coords 1272.453 -35.369 469.466
+      angleY -165
      }
      {
       components {
@@ -43,25 +45,10 @@ GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Component
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
        }
       }
-      coords 1237.265 -28.757 447.759
+      coords 1972.187 -22.06 -35.423
+      angleY 39.518
      }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 1977.935 -33.096 240.316
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 1973.131 -22.06 -33.65
-     }
-     {
+     Slot42 {
       components {
        SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
@@ -75,55 +62,8 @@ GenericEntity Waypoints : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Component
         m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
        }
       }
-      coords 1614.001 36.733 -1064.091
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 1921.373 35.732 -1203.588
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 1163.556 52.156 -1521.051
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 1208.138 30.107 -1071.445
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 879.54 -27.455 -920.636
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 1368.603 110.81 -518.229
-     }
-     {
-      components {
-       SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-        m_sObjectToSpawn "{96312FE6CE3F634D}prefabs/AI/Waypoints/AIWaypoint_Chill.et"
-       }
-      }
-      coords 233.948 -0.505 -398.516
+      coords 1381.499 109.199 -522.345
+      angleY 105
      }
      {
       components {

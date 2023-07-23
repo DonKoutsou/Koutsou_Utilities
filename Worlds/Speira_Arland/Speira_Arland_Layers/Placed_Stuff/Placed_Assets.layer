@@ -492,6 +492,29 @@ $grp GenericEntity {
   angleX 86.842
   angleY 90
  }
+ {
+  components {
+   SCR_UniversalInventoryStorageComponent "{5C789066287F1AC0}" {
+    Attributes SCR_ItemAttributeCollection "{5C78906652DD37E3}" {
+     CustomAttributes {
+      PreviewRenderAttributes "{5C789066695CB8F3}" {
+       PreviewPrefab "{48A4DDEC58BCE45C}prefabs/Graves/Grave_Stash_FIA.et"
+      }
+     }
+    }
+   }
+  }
+  coords 2027.191 2.365 782.905
+  angleY -175.377
+ }
+ {
+  coords 1174.418 38.152 2503.916
+  angleY 66.046
+ }
+ {
+  coords 1171.964 38.152 2507.857
+  angleY -131.678
+ }
 }
 SCR_DestructibleBuildingEntity : "{008ECFE8693C0A1D}Prefabs/Structures/Infrastructure/Naval/Piers/Pier_Stairs02.et" {
  coords 904.222 0.934 1325.046
@@ -548,7 +571,7 @@ GenericEntity : "{1A1CE09F7BCA6650}Prefabs/Props/Wrecks/S105_wreck_static.et" {
  angleX 3.639
  angleZ 1.414
 }
-GameEntity : "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et" {
+GameEntity : "{1CE762D0A53A395A}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et" {
  coords 1181.252 2.026 3291.802
 }
 GenericEntity : "{20902DC3C035E9F2}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/US/EquipmentBoxStack_US_01_V3_covered.et" {
@@ -579,7 +602,7 @@ $grp GenericEntity : "{261F10BDC068BB35}Prefabs/Props/Furniture/ChairOld_01.et" 
   angleY 73.242
  }
 }
-GenericEntity : "{29063844DEEAC10B}prefabs/Props/Garbage/Generic/Junk_01/Junk_01_pile_large.et" {
+GenericEntity : "{29063844DEEAC10B}Prefabs/Props/Garbage/Generic/Junk_01/Junk_01_pile_large.et" {
  coords 2522.012 72.376 1194.977
  angleX 3.825
 }
@@ -653,28 +676,13 @@ GenericEntity : "{46B71B9E370BE7C0}Prefabs/Props/Forest/WoodPile/WoodPile_01_End
  coords 1046.762 38.001 2870.706
  angleY -105.762
 }
-StaticModelEntity : "{48A04E0A139BB167}prefabs/Structures/Military/Camps/TentSmallFIA_01/TentSmallFIA_01.et" {
+StaticModelEntity : "{48A04E0A139BB167}Prefabs/Structures/Military/Camps/TentSmallFIA_01/TentSmallFIA_01.et" {
  coords 836.936 1.185 1559.35
  angleX -7.422
  angleY 0.122
  angleZ -4.066
 }
-GenericEntity : "{48A4DDEC58BCE45C}prefabs/Graves/Grave_Stash_FIA.et" {
- components {
-  SCR_UniversalInventoryStorageComponent "{5C789066287F1AC0}" {
-   Attributes SCR_ItemAttributeCollection "{5C78906652DD37E3}" {
-    CustomAttributes {
-     PreviewRenderAttributes "{5C789066695CB8F3}" {
-      PreviewPrefab "{48A4DDEC58BCE45C}prefabs/Graves/Grave_Stash_FIA.et"
-     }
-    }
-   }
-  }
- }
- coords 2027.191 2.365 782.905
- angleY -175.377
-}
-$grp GenericEntity : "{4923E218F59644B9}prefabs/Props/Wrecks/BoatWreck_01.et" {
+$grp GenericEntity : "{4923E218F59644B9}Prefabs/Props/Wrecks/BoatWreck_01.et" {
  {
   coords 1254.597 0.807 1125.539
   angleX -2.81
@@ -763,7 +771,7 @@ $grp GenericEntity : "{5D91308C543D1376}prefabs/Props/Fire_Barrel.et" {
   angleY 0
  }
  {
-  coords 3064.96 72.861 1577.99
+  coords 3064.449 72.861 1577.32
   angleX 0.892
   angleY 0.056
   angleZ 0.893
@@ -865,16 +873,6 @@ $grp GenericEntity : "{8E0A5198519C41DD}Prefabs/Props/Military/AmmoBoxes/Equipme
 GenericEntity : "{9633134198F3AB1A}Prefabs/Rocks/Granite/GraniteRock_01.et" {
  coords 2527.563 4.581 3217.535
 }
-$grp GenericEntity : "{96C0A7DFEAFAF534}prefabs/Beds/Fia_BedSpawn.et" {
- {
-  coords 1174.418 38.152 2503.916
-  angleY 66.046
- }
- {
-  coords 1171.964 38.152 2507.857
-  angleY -131.678
- }
-}
 $grp GenericEntity : "{9B7F08BF4C938AD2}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Medium_Soviet.et" {
  {
   coords 2319.6 90.177 1257.856
@@ -948,7 +946,7 @@ $grp SCR_DestructibleBuildingEntity : "{ADDA5472F867C249}Prefabs/Structures/Cult
   angleY -47.631
  }
 }
-GenericEntity : "{B728C4AE0E6EB1E8}prefabs/Systems/Arsenal/AmmoBoxes/USSR/AmmoBoxArsenal_Equipment_USSR.et" {
+GenericEntity : "{B728C4AE0E6EB1E8}Prefabs/Systems/Arsenal/AmmoBoxes/USSR/AmmoBoxArsenal_Equipment_USSR.et" {
  components {
   SCR_ArsenalComponent "{589F01C9C8D4A475}" {
    Enabled 1
@@ -1163,7 +1161,7 @@ $grp GenericEntity : "{E639E7FAF33DC166}Prefabs/Props/Furniture/BedDouble_02.et"
   angleY 75.507
  }
 }
-GameEntity : "{EC645B2E2123131F}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_blue.et" {
+GameEntity : "{EC645B2E2123131F}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_blue.et" {
  coords 1455.2 2.025 1814.029
 }
 GenericEntity : "{F6FCE24216D243D1}Prefabs/Props/Forest/WoodPile/WoodPile_02_base.et" {

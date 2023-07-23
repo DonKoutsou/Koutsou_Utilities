@@ -52,11 +52,11 @@ class SP_Task
 		}
 		//-------------------------------------------------//
 		//function to fill if task needs an entity, eg package for delivery
-		if (!SetupTaskEntity())
-		{
-			DeleteLeftovers();
-			return false;
-		}
+		//if (!SetupTaskEntity())
+		//{
+		//	DeleteLeftovers();
+		//	return false;
+		//}
 		//-------------------------------------------------//
 		if (!AssignReward())
 		{
@@ -73,6 +73,8 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool CheckCharacter(IEntity Owner)
 	{
+		if (Owner == SCR_EntityHelper.GetPlayer())
+			return false;
 		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Owner.FindComponent(SCR_CharacterDamageManagerComponent));
 		if(dmg.GetIsUnconscious())
 		{
@@ -208,23 +210,27 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void AssignCharacter(IEntity Character)
 	{
+		if (a_TaskAssigned.Contains(Character))
+			return;
 		a_TaskAssigned.Insert(Character);
 		if(a_TaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
 		{
 			e_State = ETaskState.ASSIGNED;
 		}
-		SpawnTaskMarker();
+		SpawnTaskMarker(Character);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	void SpawnTaskMarker()
+	void SpawnTaskMarker(IEntity Assignee)
 	{
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		TaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 		m_TaskMarker.SetTitle(TaskTitle);
 		m_TaskMarker.SetDescription(TaskDesc);
 		m_TaskMarker.SetTarget(TaskTarget);
+		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
 		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);

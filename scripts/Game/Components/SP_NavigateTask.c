@@ -57,6 +57,8 @@ class SP_NavigateTask: SP_Task
 	{
 		if (TalkingChar == TaskTarget)
 			return false;
+		if (!a_TaskAssigned.Contains(Assignee))
+			return false;
 		float dis = vector.Distance(TaskTarget.GetOrigin(), TalkingChar.GetOrigin());
 		if(!m_iSuccessDistance)
 		{
@@ -156,6 +158,8 @@ class SP_NavigateTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override void UpdateState()
 	{
+		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
+			return;
 		SCR_CharacterDamageManagerComponent DmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (DmgComp.IsDestroyed())
 		{

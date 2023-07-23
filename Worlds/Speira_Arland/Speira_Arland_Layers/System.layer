@@ -59,26 +59,530 @@ PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/Per
 }
 SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
  components {
+  SCR_EntityCatalogManagerComponent "{5DC8E7D94849D925}" {
+   m_aEntityCatalogs {
+    SCR_EntityCatalog "{5DC8E7D94F822388}" : "{C8568AE52B2C8E1F}Configs/Dilaogue_Configs/Requests/Requests.conf" {
+     m_aEntityEntryList {
+      SCR_EntityCatalogInventoryItem "{5DC477F5440664B1}" {
+       m_sEntityPrefab "{A4E0D6FCECA5DEBA}prefabs/Items/Medicine/Bandage.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F5440664B4}" {
+         m_eItemType HEAL
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 3
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F5440664B9}" {
+       m_sEntityPrefab "{C3F1FA1E2EC2B345}Prefabs/Items/Medicine/FieldDressing_USSR_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F5440664B8}" {
+         m_eItemType HEAL
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 3
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F5440664BE}" {
+       m_sEntityPrefab "{A81F501D3EF6F38E}Prefabs/Items/Medicine/FieldDressing_US_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F5440664BD}" {
+         m_eItemType HEAL
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 3
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F544066483}" {
+       m_sEntityPrefab "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F544066482}" {
+         m_eItemType FOOD
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 2
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F544066480}" {
+       m_sEntityPrefab "{630FB4AD4A735264}prefabs/Items/Equipment/Canteens/Canteen_US_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F544066487}" {
+         m_eItemType DRINK
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 2
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F544066486}" {
+       m_sEntityPrefab "{630FB4AD4A735264}prefabs/Items/Equipment/Canteens/Canteen_US_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F544066485}" {
+         m_eItemType DRINK
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 2
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F54406648B}" {
+       m_sEntityPrefab "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F54406648A}" {
+         m_eItemType DRINK
+         m_eItemMode CONSUMABLE
+         m_iSupplyCost 2
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC477F544066488}" {
+       m_sEntityPrefab "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC477F54406648F}" {
+         m_eItemType EQUIPMENT
+         m_iSupplyCost 3
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC49733FFB4D65D}" {
+       m_sEntityPrefab "{E8F00BF730225B00}Prefabs/Weapons/Grenades/Grenade_M67.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC49733EB5CE9D5}" {
+         m_eItemType EXPLOSIVES
+         m_eItemMode WEAPON
+         m_iSupplyCost 4
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC497338D198AC7}" {
+       m_sEntityPrefab "{645C73791ECA1698}Prefabs/Weapons/Grenades/Grenade_RGD5.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC49733B2EDC9E4}" {
+         m_eItemType EXPLOSIVES
+         m_eItemMode WEAPON
+         m_iSupplyCost 4
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4973116968321}" {
+       m_sEntityPrefab "{B74A4FF0DD8BB116}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC497313C6D7240}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC49731299CAEB4}" {
+       m_sEntityPrefab "{FE5C49069C2499D9}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC49736D835694D}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC49736CAD6E6FE}" {
+       m_sEntityPrefab "{E685A8D337D36204}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover_w_goggles.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC49736F1FCC572}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC49736AF29E6F9}" {
+       m_sEntityPrefab "{03C1F3DB6BB9796A}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover_w_scrim.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4973655BCB3A4}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC497365E2E24BA}" {
+       m_sEntityPrefab "{A7E6D7ECD5F684D7}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4973648EA9C30}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC49736080B21FF}" {
+       m_sEntityPrefab "{66196D85AB93D2BE}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_camo.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC497360EB11ACA}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC497363CDCDACD}" {
+       m_sEntityPrefab "{D4028ED16DEE99EE}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_camonet.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4973625C13873}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC497362EBBA823}" {
+       m_sEntityPrefab "{3D74845B9D0867B0}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_cover.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC49737D43B9D15}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC49737CF996E63}" {
+       m_sEntityPrefab "{22963D69CA50EB9E}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_net.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC49737F5B86103}" {
+         m_eItemType HEADWEAR
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99FC443AAE1}" {
+       m_sEntityPrefab "{5C5C6EE05EE2FF1A}prefabs/Items/Equipment/Backpacks/Backpack_ALICE_Medium_assembled.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99FCC249D23}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99FE0DE92C2}" {
+       m_sEntityPrefab "{41A9C55B61F375F0}prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99FE294AE2B}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99FED2313F3}" {
+       m_sEntityPrefab "{FDA7B6630DB87991}prefabs/Items/Equipment/Backpacks/Backpack_M70_Swiss.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99F916900C0}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99F98A5FFA2}" {
+       m_sEntityPrefab "{4805E67E2AE30F8D}Prefabs/Items/Equipment/Backpacks/Backpack_Medical_M5.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99F9D2A25E2}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99F86350CF9}" {
+       m_sEntityPrefab "{7AC107CA7AFC9B59}Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99F8AC24099}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99FB2B8DA59}" {
+       m_sEntityPrefab "{6A39B5843B3F36DA}prefabs/Items/Equipment/Backpacks/Backpack_RPG_Assistant.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99FB8503FC3}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99FBF8C2153}" {
+       m_sEntityPrefab "{0D39750E5695B9D8}prefabs/Items/Equipment/Backpacks/Backpack_RPG_Gunner.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99FA0DBD561}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99FA8AF33E9}" {
+       m_sEntityPrefab "{3DE0155EC9767B98}prefabs/Items/Equipment/Backpacks/Backpack_Veshmeshok.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99FAC63B41E}" {
+         m_eItemType BACKPACK
+         m_eItemMode ATTACHMENT
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4C99F2774156D}" {
+       m_sEntityPrefab "{E1A5D4B878AA8980}prefabs/Items/Equipment/Radios/Radio_R148.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4C99F2BF0AA46}" {
+         m_eItemType RADIO
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4CBD4EA74B781}" {
+       m_sEntityPrefab "{73950FBA2D7DB5C5}Prefabs/Items/Equipment/Radios/Radio_ANPRC68.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4CBD4EEB9FC31}" {
+         m_eItemType RADIO
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4CBD49B12817C}" {
+       m_sEntityPrefab "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4CBD4B2B70ED0}" {
+         m_eItemType MAP
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4CBD4BF23B1BD}" {
+       m_sEntityPrefab "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4CBD4A0A61B67}" {
+         m_eItemType FLASHLIGHT
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4CBD4AA8BCD91}" {
+       m_sEntityPrefab "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4CBD4AFCE4DFF}" {
+         m_eItemType FLASHLIGHT
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4CBD4580DE092}" {
+       m_sEntityPrefab "{61D4F80E49BF9B12}Prefabs/Items/Equipment/Compass/Compass_SY183.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4CBD444BE4F06}" {
+         m_eItemType COMPASS
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DC4CBD44CE07889}" {
+       m_sEntityPrefab "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DC4CBD44E9C8AEB}" {
+         m_eItemType COMPASS
+         m_eItemMode GADGET
+        }
+       }
+       m_aLabels +{
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DECA24AEC93D151}" {
+       m_sEntityPrefab "{725C5E1C75CADAF4}Prefabs/Characters/Vests/Vest_M69/Vest_M69_M81woodland.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DECA24A956861AA}" {
+         m_eItemType ARMOR
+         m_eItemMode ATTACHMENT
+        }
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DECA24A9A750377}" {
+       m_sEntityPrefab "{F9ACDDE62D906D61}Prefabs/Characters/Vests/Vest_M69/Vest_M69_olive.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DECA24A9ED0C300}" {
+         m_eItemType ARMOR
+         m_eItemMode ATTACHMENT
+        }
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DECA24A85C60E1F}" {
+       m_sEntityPrefab "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DECA24A8B71B6AB}" {
+         m_eItemType ARMOR
+         m_eItemMode ATTACHMENT
+        }
+       }
+      }
+      SCR_EntityCatalogInventoryItem "{5DECA24AB7BBAB2F}" {
+       m_sEntityPrefab "{4B57C11AA5161760}Prefabs/Characters/Vests/Vest_PASGT/Vest_PASGT.et"
+       m_aEntityDataList {
+        SCR_ArsenalItem "{5DECA24ABDF66C53}" {
+         m_eItemType ARMOR
+         m_eItemMode ATTACHMENT
+        }
+       }
+      }
+     }
+    }
+    SCR_EntityCatalog "{5DC8E7D94F7C2B82}" : "{251BB14ECEF73562}Configs/Dilaogue_Configs/Requests/Rewards.conf" {
+    }
+    SCR_EntityCatalog "{5DD0FCA5935CA2DD}" : "{B219EC028EC342D8}Configs/Dilaogue_Configs/Requests/Stashes.conf" {
+    }
+   }
+  }
+  SCR_GameModeHealthSettings "{5DC8E7D95C0C2D67}" {
+   m_bPermitUnconsciousness 1
+  }
   SCR_GameModeSFManager "{5DC8E7D953E0EEA5}" {
    m_fFactionsToAppear {
     "US" "USSR" "FIA"
    }
   }
-  SP_DialogueComponent "{5DC8E7DFCC439B26}" {
-   m_WorldDirections SCR_MapLocationQuadHint "{5DEB139477B7E638}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+  SCR_GameOverScreenManagerComponent "{5DC8E7D96AC61234}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{5DC8E7DE92B37D05}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
+    m_aGameOverScreens {
+     SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
+      m_GameOverScreenId BROTHERFOUND
+     }
+     SCR_BaseGameOverScreenInfo "{5DC8E7DE9CEB2F9B}" {
+      m_GameOverScreenId DEATH
+     }
+    }
+   }
+  }
+  SCR_GroupsManagerComponent "{5DC8E7DE972D4980}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
+  }
+  SCR_InitWeatherComponent "{5DC8E7DED1B7B435}" {
+   m_sInitialStartingWeatherId "Cloudy"
+  }
+  SCR_NametagConfigComponent "{5DC8E7DEE754AF48}" {
+   m_sConfigPath "{09F7AAA14A642683}Configs/NameTags/NametagFriendlies.conf"
+  }
+  SCR_RadialMenuGameModeComponent "{5DC8E7DE57A4F5D5}" {
+   m_Menu SCR_RadialMenu "{5DC8E7DE60BB4E7B}" : "{D9448EF097CB0ACB}Configs/HUD/RadialMenu/GlobalRadialMenu.conf" {
+   }
+  }
+  SCR_RadialMenuItemsComponent "{5DC8E7DE63782FCD}" {
+   m_MenuController SCR_RadialMenuController "{5DC8E7DE7D1EF9AA}" {
+    m_RMControls SCR_RadialMenuControllerInputs "{5DC8E7DE7459FA62}" {
+     m_sControllerContext "WeaponSelectionContext"
+     m_sOpenAction "Inventory_WeaponSwitchingRadial"
+    }
+   }
+  }
+  SCR_TimeAndWeatherHandlerComponent "{5DC8E7DF962CC37D}" {
+   m_iStartingHours 5
+   m_iStartingMinutes 30
+   m_bRandomStartingDaytime 1
+   m_bRandomStartingWeather 1
+  }
+  SP_DialogueComponent "{5DEC870D3A2360AC}" {
+   m_CharacterArchetypeList {
+    SP_DialogueArchetype "{5DEC870ED28016DE}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {
+    }
+    SP_DialogueArchetype "{5DEC870ECCE21EE4}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
+    }
+    SP_DialogueArchetype "{5DEC870ECE8249A0}" : "{EBDA2467806C6197}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Private.conf" {
+    }
+   }
+   m_WorldDirections SCR_MapLocationQuadHint "{5DEC870D225EE3A6}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+   }
+   m_ChatChannelFIA FIAChatChannel "{5DEC870D24A9390E}" {
+    Style BaseChatChannelStyle "{5DEC870D2DC8FF78}" {
+    }
+   }
+   m_ChatChannelUSSR USSRChatChannel "{5DEC870D286061F6}" {
+    Style BaseChatChannelStyle "{5DEC870D2C522E1C}" {
+    }
+   }
+   m_ChatChannelUS USChatChannel "{5DEC870D2BB64921}" {
+    Style BaseChatChannelStyle "{5DEC870D2C2847BA}" {
+    }
    }
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
+   m_fTaskGenTime 30
    m_iMinTaskAmount 100
    TasksToSawn {
+    SP_BountyTask "{5DCC99CF04345A9C}" {
+    }
+    SP_DeliverTask "{5DCC99CF0758E224}" {
+    }
+    SP_NavigateTask "{5DCC99CF07807699}" {
+    }
     SP_RescueTask "{5DCC99CF06362CF3}" {
-     m_iMaxamount 0
     }
    }
   }
   SP_RespawnSystemComponent "{5DC8E7DC1AEF9B87}" {
-   m_SpawnLogic Sp_SpawnLogic "{5DE8F103B5221DEA}" {
+   m_SpawnLogic SP_SpawnLogic "{5DEC8708D96019E1}" {
+    Lives 2
    }
+  }
+  RplComponent "{5DC8E7DFE3D28994}" {
+   Streamable Disabled
   }
  }
  coords 2786.687 74.752 1583.354
@@ -101,6 +605,8 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
      m_aFriendlyFactionsIds {
       "US"
      }
+    }
+    SCR_Faction "{5DED00CE397670B2}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
     }
    }
   }
@@ -125,11 +631,6 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
 }
 RadioManagerEntity : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
  coords 2263.008 6.712 3232.114
-}
-SP_MapLocator MapLocator {
- coords 1649.71 3.583 874.553
- m_WorldDirections SCR_MapLocationQuadHint "{5D50913FB2B992BB}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
- }
 }
 SCR_BaseTaskManager : "{37FCEC4479C2CB5A}prefabs/Tasks/TaskMan.et" {
  coords 3163.231 57.033 1823.979

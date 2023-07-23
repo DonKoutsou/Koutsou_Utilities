@@ -2,7 +2,7 @@
 class SP_BountyTask: SP_Task
 {
 	//---------------------------------------------------------------------------//
-	IEntity Bounty;
+	//IEntity Bounty;
 	
 	[Attribute(defvalue: "20")]
 	int m_iRewardAverageAmount;
@@ -55,7 +55,7 @@ class SP_BountyTask: SP_Task
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override bool SetupTaskEntity()
+	/*override bool SetupTaskEntity()
 	{
 		if (TaskOwner && TaskTarget)
 		{
@@ -88,7 +88,7 @@ class SP_BountyTask: SP_Task
 			return true;
 		}
 		return false;
-	};
+	};*/
 	override void CreateDescritions()
 	{
 		string OName;
@@ -187,7 +187,8 @@ class SP_BountyTask: SP_Task
 				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 				reqman.OnTaskCompleted(this);
 				e_State = ETaskState.COMPLETED;
-				delete Bounty;
+				//if (Bounty)
+					//delete Bounty;
 				m_Copletionist = Assignee;
 				return true;
 			}
@@ -211,6 +212,8 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override void UpdateState()
 	{
+		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
+			return;
 		SCR_CharacterDamageManagerComponent OwnerDmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (OwnerDmgComp.IsDestroyed())
 		{
@@ -225,9 +228,9 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_BountyTask;};
 	//------------------------------------------------------------------------------------------------------------//
-	IEntity GetBountyEnt(){return Bounty;};
+	//IEntity GetBountyEnt(){return Bounty;};
 	//------------------------------------------------------------------------------------------------------------//
-	override void DeleteLeftovers()
+	/*override void DeleteLeftovers()
 	{
 		if(Bounty)
 		{
@@ -247,7 +250,7 @@ class SP_BountyTask: SP_Task
 		{
 			delete Bounty;
 		}
-	};
+	};*/
 	//------------------------------------------------------------------------------------------------------------//
 	int GetRewardAverage()
 	{

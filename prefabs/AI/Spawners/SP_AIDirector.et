@@ -20,10 +20,10 @@ SP_AIDirector {
   }
  }
  coords 692.935 1.501 2258.046
- DangerEventRange 50
+ DangerEventRange 1000
+ DynamicsimLastlodDistance 2000
  m_FactionsToApear {
   "FIA" "USSR" "US"
  }
  m_fRadius 500
- m_pDefaultWaypoint "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et"
 }

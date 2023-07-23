@@ -364,6 +364,7 @@ modded enum SCR_EArsenalItemType
 	FLASHLIGHT = 263500,
 	MAP = 270000,
 	CURRENCY = 280000,
+	ARMOR = 290000,
 };
 //------------------------------------------------------------------------------------------------------------//
 modded enum SCR_EArsenalItemMode
@@ -374,19 +375,25 @@ modded enum SCR_EArsenalItemMode
 //------------------------------------------------------------------//
 class CharacterHolder : ScriptAndConfig
 {
-	ref array <ChimeraCharacter> AliveCharacters = new ref array <ChimeraCharacter>();
-	ref array <ChimeraCharacter> DeadCharacters = new ref array <ChimeraCharacter>();
+	ref array <ChimeraCharacter> AliveCharacters;
+	ref array <ChimeraCharacter> DeadCharacters;
 	void InserCharacter(ChimeraCharacter Char)
 	{
+		if (!Char)
+			return;
 		AliveCharacters.Insert(Char);
 	}
 	void CharIsDead(ChimeraCharacter Char)
 	{
+		if (!Char)
+			return;
 		AliveCharacters.RemoveItem(Char);
 		DeadCharacters.Insert(Char);
 	}
 	void CharIsDel(ChimeraCharacter Char)
 	{
+		if (!Char)
+			return;
 		if (AliveCharacters.Contains(Char))
 			AliveCharacters.RemoveItem(Char);
 		if (DeadCharacters.Contains(Char))
@@ -432,7 +439,7 @@ class CharacterHolder : ScriptAndConfig
 		{
 			FarChar = AliveCharacters.GetRandomElement();
 			float dist = vector.Distance(FarChar.GetOrigin(), pos);
-			if (mindistance > dist)
+			if (mindistance < dist)
 				return true;
 		}
 		FarChar = null;
@@ -446,7 +453,7 @@ class CharacterHolder : ScriptAndConfig
 			if (!FarChar)
 				continue;
 			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
-			if (mindistance > dist)
+			if (mindistance < dist)
 				return true;
 		}
 		FarChar = null;
