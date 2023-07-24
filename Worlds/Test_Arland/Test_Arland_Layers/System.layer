@@ -564,7 +564,7 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 30
-   m_iMinTaskAmount 100
+   m_fTaskPerCharacter 2
    TasksToSawn {
     SP_BountyTask "{5DCC99CF04345A9C}" {
     }
@@ -604,6 +604,22 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
     SCR_Faction "{5DCF2DEC29F393ED}" {
      m_aFriendlyFactionsIds {
       "US"
+     }
+     m_aRanks {
+      SCR_CharacterRank "{5DF0F041927642FE}" : "{E9A150D6977ECC9F}Configs/Ranks/Private.conf" {
+      }
+      SCR_CharacterRank "{5DF0F041A065D055}" : "{B0E6C40B1B095B02}Configs/Ranks/CORPORAL.conf" {
+      }
+      SCR_CharacterRank "{5DF0F041B8B2F94C}" : "{649E8173ED557BFB}Configs/Ranks/SERGEANT.conf" {
+      }
+      SCR_CharacterRank "{5DF0F041B9F4FA2C}" : "{91A8ED004C62C8F1}Configs/Ranks/LIEUTENANT.conf" {
+      }
+      SCR_CharacterRank "{5DF0F041BD8A3EC4}" : "{F208F8C7BF28E013}Configs/Ranks/CAPTAIN.conf" {
+      }
+      SCR_CharacterRank "{5DF0F041B1D346F2}" : "{52CC402BF733EB03}Configs/Ranks/MAJOR.conf" {
+      }
+      SCR_CharacterRank "{5DF0F041B3D7281E}" : "{CCFCA890D28A049D}Configs/Ranks/RENEGADE.conf" {
+      }
      }
     }
     SCR_Faction "{5DED00CE397670B2}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {

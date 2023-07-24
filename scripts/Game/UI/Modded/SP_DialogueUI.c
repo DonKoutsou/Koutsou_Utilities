@@ -108,7 +108,7 @@ class DialogueUIClass: ChimeraMenuBase
 		}
 		
 		CharRank = rank;
-		PLrank = m_sPlRank;
+		m_sPlRank = PLrank;
 		
 		AssignIcons(faction, Plfaction);
 		

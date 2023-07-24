@@ -199,6 +199,10 @@ class SP_NavigateTask: SP_Task
 			
 			//add owner
 			Tgroup.AddAgent(agent);
+			AIWaypoint wp;
+			wp = group.GetCurrentWaypoint();
+			Tgroup.RemoveWaypoint(wp);
+			Tgroup.AddWaypoint(wp);
 			if (m_TaskMarker)
 			{
 				m_TaskMarker.Finish(true);

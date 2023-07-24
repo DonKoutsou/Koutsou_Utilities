@@ -43,7 +43,10 @@ class SP_RescueTask: SP_Task
 			else
 				CompleteTask(null);
 		}
-			
+		else
+		{
+			m_TaskMarker.SetOrigin(CharsToRescue.GetRandomElement().GetOrigin());
+		}
 	}
 	override bool Init()
 	{
@@ -277,7 +280,7 @@ class SP_RescueTask: SP_Task
 		{
 			CharsToRescue.Insert(agent.GetControlledEntity());
 		}
-		if (!CheckForCharacters(200, Victim.GetOrigin()))
+		if (!CheckForCharacters(400, Victim.GetOrigin()))
 			return false;
 		foreach(AIAgent agent : outAgents)
 		{

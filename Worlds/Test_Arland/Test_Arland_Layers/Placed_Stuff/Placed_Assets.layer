@@ -780,6 +780,30 @@ $grp GenericEntity : "{5D91308C543D1376}prefabs/Props/Fire_Barrel.et" {
   coords 425.358 2.917 2525.96
   angleY 0
  }
+ {
+  coords 2014.671 60.801 1083.386
+  angleY 0
+ }
+ {
+  coords 1465.259 34.812 1151.574
+  angleY 0
+ }
+ {
+  coords 1895.932 1.27 1553.331
+  angleY 0
+ }
+ {
+  coords 2268.956 52.409 1576.206
+  angleY 0
+ }
+ {
+  coords 2145.477 35.683 1673.694
+  angleY 0
+ }
+ {
+  coords 1454.199 11.278 1931.839
+  angleY 0
+ }
 }
 $grp GenericEntity : "{5E249786B7A6896D}Prefabs/Props/Construction/ConcretePipe/ConcretePipe_01_Large.et" {
  {

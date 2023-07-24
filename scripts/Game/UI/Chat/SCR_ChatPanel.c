@@ -50,12 +50,6 @@ class SCR_ChatPanel : ScriptedWidgetComponent
 	
 	[Attribute()]
 	ref SCR_ChatMessageStyle m_USChannelStyle;
-	
-	[Attribute()]
-	ref SCR_ChatMessageStyle m_BANDITSChannelStyle;
-	
-	[Attribute()]
-	ref SCR_ChatMessageStyle m_SPEIRAChannelStyle;
 
 	// Other attributes
 
@@ -777,7 +771,10 @@ class SCR_ChatPanel : ScriptedWidgetComponent
 			m_FactionChannelStyle,
 			m_VehicleChannelStyle,
 			m_LocalChannelStyle,
-			m_DirectChannelStyle
+			m_DirectChannelStyle,
+			m_FIAChannelStyle,
+			m_USChannelStyle,
+			m_USSRChannelStyle
 		};
 
 		foreach (Managed style : styles)
@@ -827,6 +824,16 @@ class SCR_ChatPanel : ScriptedWidgetComponent
 			case PrivateMessageChannel:
 				style = m_DirectChannelStyle;
 				break;
+			case FIAChatChannel:
+				style = m_FIAChannelStyle;
+				break;
+			case USSRChatChannel:
+				style = m_USSRChannelStyle;
+				break;
+			case USChatChannel:
+				style = m_USChannelStyle;
+				break;
+				
 		}
 
 		if (!style)

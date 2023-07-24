@@ -72,7 +72,11 @@ class SCR_Faction : ScriptedFaction
 	/*!
 	\return Order in which the faction appears in the list. Lower values are first.
 	*/
-	
+	void ~ SCR_Faction()
+	{
+		if (m_FriendlyMap)
+			m_FriendlyMap.Clear();
+	}
 	void AdjustRelation(Faction faction, int amount)
 	{
 		if(faction == this)
@@ -102,7 +106,6 @@ class SCR_Faction : ScriptedFaction
 			if (GetFactionRep(faction) > -50 && faction.IsFactionEnemy(this))
 				s_OnRelationHigh.Invoke(faction, this);
 		}
-		
 	}
 	ScriptInvoker OnRelationDropped()
 	{
@@ -114,16 +117,12 @@ class SCR_Faction : ScriptedFaction
 	}
 	int GetFactionRep(Faction fact)
 	{
+		if (fact == this)
+			return 100;
 		int rep;
-		if (!m_FriendlyMap.Find(fact, rep))
+		if (m_FriendlyMap.Contains(fact))
 		{
-			SCR_Faction scrfact = SCR_Faction.Cast(fact);
-			if (scrfact.GetFactionRep(this) != -1)
-			{
-				m_FriendlyMap.Insert(fact, scrfact.GetFactionRep(this));
-			}
-			else
-				return -1;
+			rep = m_FriendlyMap.Get(fact);
 		}
 		return rep;
 	}
@@ -347,7 +346,7 @@ class SCR_Faction : ScriptedFaction
 	*/
 	void SetFactionFriendly(notnull Faction faction)
 	{
-		m_FriendlyFactions.Insert(faction);	
+		m_FriendlyFactions.Insert(faction);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -539,9 +538,10 @@ class SCR_Faction : ScriptedFaction
 		
 		if (SCR_Global.IsEditMode()) 
 			return;
-		
+		if (!m_FriendlyMap)
+			m_FriendlyMap = new ref map<Faction, int>();
 		//~ Set faction friendly
-		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+		SP_FactionManager factionManager = SP_FactionManager.Cast(GetGame().GetFactionManager());
 		if (!factionManager)
 		{
 			//~ Still make sure faction is friendly towards itself	
@@ -560,7 +560,6 @@ class SCR_Faction : ScriptedFaction
 			if (!m_aFriendlyFactionsIds.IsEmpty())
 			{			
 				SCR_Faction faction;
-				
 				//~ Set each given faction ID as friendly
 				foreach (string factionId : m_aFriendlyFactionsIds)
 				{
@@ -578,10 +577,16 @@ class SCR_Faction : ScriptedFaction
 					
 					//~ Assign as friendly
 					factionManager.SetFactionsFriendly(this, faction);
+					m_FriendlyMap.Insert(faction, 100);
 				}
 			}
 		}
-		
+		array <Faction> factions = new array <Faction>();
+		factionManager.GetEnemyFactions(this, factions);
+		foreach (Faction enemf : factions)
+		{
+			AdjustRelationAbs(enemf, -100);
+		}
 		//~ Init the catalog for faster processing
 		SCR_EntityCatalogManagerComponent.InitCatalogs(m_aEntityCatalogs, m_mEntityCatalogs);
 		
