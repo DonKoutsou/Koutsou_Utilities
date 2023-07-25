@@ -522,7 +522,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 	override void EOnInit(IEntity owner)
 	{
 		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
-		if (!cont && !cont.GetControlledEntity())
+		if (!cont)
+			return;
+		if (!cont.GetControlledEntity())
 			return;
 		cont.m_OnControlledEntityChanged.Insert(Init);
 		

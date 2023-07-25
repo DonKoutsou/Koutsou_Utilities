@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------------------------------------//
-[BaseContainerProps(configRoot:true)]
 class SP_Task
+[BaseContainerProps(configRoot:true)]
 {
 	//-------------------------------------------------//
 	//Character wich created the task

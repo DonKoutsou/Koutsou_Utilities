@@ -1613,12 +1613,12 @@ class SCR_InventoryMenuUI : ChimeraMenuBase
 		string loc;
 		FactionKey fkey;
 		string mydesc;
-		//DogTagEntity tag = DogTagEntity.Cast(invItemComp.GetOwner());
-		//if(tag)
-		//{
-		//	tag.GetCname(cname);
-		//	cname = "TagOwner: " + cname
-		//}
+		DogTagEntity tag = DogTagEntity.Cast(invItemComp.GetOwner());
+		if(tag)
+		{
+			tag.GetCname(cname);
+			cname = "TagOwner: " + cname
+		}
 		
 		SP_UnretrievableComponent uncomp = SP_UnretrievableComponent.Cast(invItemComp.GetOwner().FindComponent(SP_UnretrievableComponent));
 		if(uncomp)

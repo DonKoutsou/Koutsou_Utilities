@@ -1,9 +1,11 @@
+//////////////////////////////////////////////////////////////
+//---------------------Request Manager---------------------//
 class SP_RequestManagerComponentClass : ScriptComponentClass
 {
 };
 class SP_RequestManagerComponent : ScriptComponent
 {
-	[Attribute()]
+	[Attribute(defvalue : "3", desc: "Cooldown for task generation")]
 	float m_fTaskGenTime;
 	
 	[Attribute(defvalue: "20", desc:"Tasks will be continiusly created until this number is met, after that askRespawnTimer will have to pass for a task to be created")]
@@ -15,11 +17,13 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(defvalue: "2", desc: "Max amount of tasks of sametype a character can be requesting at the same time")]
 	int m_fTaskOfSameTypePerCharacter;
 	
-	[Attribute()]
-	ref array<ref SP_Task> TasksToSawn;
+	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
+	ref array<ref SP_Task> m_aTasksToSpawn;
 	
-	static ref array<ref SP_Task> TaskSamples = null;
+	//Tasks samples to set up settings for all different tasks
+	static ref array<ref SP_Task> m_aTaskSamples = null;
 	
+	//Garbage Manager
 	[Attribute(defvalue: "60", desc: "Task garbage mamager kinda. Completed task are added to their own list, failed tasks are deleted")]
 	float m_fTaskClearTime;
 	
@@ -29,55 +33,80 @@ class SP_RequestManagerComponent : ScriptComponent
 	SP_GameMode m_GameMode;
 	protected ref CharacterHolder m_CharacterHolder = new CharacterHolder();
 	//------------------------------------------------------------------------------------------------------------//
-	static ref array<ref SP_Task> TaskMap = null;
-	static ref array<ref SP_Task> CompletedTaskMap = null;
+	//Array of existing tasks
+	static ref array<ref SP_Task> m_aTaskMap = null;
+	//Array of Completed tasks
+	static ref array<ref SP_Task> m_aCompletedTaskMap = null;
 	//------------------------------------------------------------------------------------------------------------//
-	protected ref ScriptInvoker s_OnTaskComplete = new ref ScriptInvoker();
-	protected ref ScriptInvoker s_OnTaskCreated = new ref ScriptInvoker();
+	//Invokers
+	private ref ScriptInvoker s_OnTaskComplete = new ref ScriptInvoker();
+	private ref ScriptInvoker s_OnTaskFailed = new ref ScriptInvoker();
+	private ref ScriptInvoker s_OnTaskCreated = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
-	void ~SP_RequestManagerComponent(){TaskMap.Clear();TaskMap.Clear();TaskSamples.Clear();};
+	//Destructor
+	void ~SP_RequestManagerComponent(){m_aTaskMap.Clear();m_aTaskMap.Clear();m_aTaskSamples.Clear();};
 	//------------------------------------------------------------------------------------------------------------//
 	ScriptInvoker OnTaskComplete()
 	{
 		return s_OnTaskComplete;
 	}
+	ScriptInvoker OnTaskFailed()
+	{
+		return s_OnTaskFailed;
+	}
 	ScriptInvoker OnTaskCreated()
 	{
 		return s_OnTaskCreated;
 	}
-	void OnNewChar(IEntity Char)
+	private event void OnNewChar(IEntity Char)
 	{
 		m_CharacterHolder.InserCharacter(ChimeraCharacter.Cast(Char));
 	}
-	void OnCharDeath(IEntity Char)
+	private event void OnCharDeath(IEntity Char)
 	{
 		m_CharacterHolder.CharIsDead(ChimeraCharacter.Cast(Char));
 	}
-	void OnCharDel(IEntity Char)
+	private event void OnCharDel(IEntity Char)
 	{
 		m_CharacterHolder.CharIsDel(ChimeraCharacter.Cast(Char));
 	}
+	event void OnTaskCompleted(SP_Task Task)
+	{
+		m_aTaskMap.RemoveItem(Task);
+		m_aCompletedTaskMap.Insert(Task);
+		s_OnTaskComplete.Invoke(Task, Task.GetCompletionist());
+	};
+	event void OnTaskFailed(SP_Task Task)
+	{
+		m_aTaskMap.RemoveItem(Task);
+		s_OnTaskFailed.Invoke(Task, Task.GetCompletionist());
+	};
+	//--------------------------------------------------------------------//
 	CharacterHolder GetCharacterHolder()
 	{
 		return m_CharacterHolder;
 	}
+	//--------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)
 	{
-		if(!TaskMap)
-			TaskMap = new array<ref SP_Task>();
-		if(!CompletedTaskMap)
-			CompletedTaskMap = new array<ref SP_Task>();
-		if(!TaskSamples)
+		//Init arrays
+		if(!m_aTaskMap)
+			m_aTaskMap = new array<ref SP_Task>();
+		if(!m_aCompletedTaskMap)
+			m_aCompletedTaskMap = new array<ref SP_Task>();
+		if(!m_aTaskSamples)
 		{
-			TaskSamples = new array<ref SP_Task>();
+			m_aTaskSamples = new array<ref SP_Task>();
 		}
-		if(TaskSamples.Count() == 0)
+		//Tasks set to spawn and set them as samples to be used later
+		if(m_aTaskSamples.Count() == 0)
 		{
-			foreach(SP_Task Task : TasksToSawn)
+			foreach(SP_Task Task : m_aTasksToSpawn)
 			{
-				TaskSamples.Insert(Task);
+				m_aTaskSamples.Insert(Task);
 			}
 		}
+		//Get game mode and hook events
 		if (!m_GameMode)
 		{
 			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
@@ -90,9 +119,10 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//Getter for samples
 	SP_Task GetTaskSample(typename tasktype)
 	{
-		foreach(SP_Task Task : TaskSamples)
+		foreach(SP_Task Task : m_aTaskSamples)
 		{
 			if(Task.GetClassName() == tasktype)
 			{
@@ -102,9 +132,10 @@ class SP_RequestManagerComponent : ScriptComponent
 		return null;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks if entity provided has tasks
 	bool CharHasTask(IEntity Char)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsOwner(Char) == true)
 			{
@@ -114,9 +145,10 @@ class SP_RequestManagerComponent : ScriptComponent
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks if entity provided is target of any of the tasks
 	bool CharIsTarget(IEntity Char)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsTarget(Char) == true)
 			{
@@ -126,11 +158,12 @@ class SP_RequestManagerComponent : ScriptComponent
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Used when somebody is killed and updates their tasks.
 	void UpdateCharacterTasks(IEntity Char, IEntity Instigator)
 	{
 		if(Char)
 		{
-			foreach (SP_Task task : TaskMap)
+			foreach (SP_Task task : m_aTaskMap)
 			{
 				if(task.CharacterIsOwner(Char) == true)
 				{
@@ -144,7 +177,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		if(Instigator)
 		{
-			foreach (SP_Task task : TaskMap)
+			foreach (SP_Task task : m_aTaskMap)
 			{
 				if(task.CharacterIsOwner(Instigator) == true)
 				{
@@ -159,6 +192,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Create tasks of type
 	bool CreateTask(typename TaskType)
 	{
 		if(!TaskType)
@@ -170,15 +204,18 @@ class SP_RequestManagerComponent : ScriptComponent
 		if(Task.Init())
 		{
 			IEntity Owner = Task.GetOwner();
-			TaskMap.Insert(Task);
+			m_aTaskMap.Insert(Task);
 			return true;
 		}
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter for tasks of provided entity
 	void GetCharTasks(IEntity Char,out array<ref SP_Task> tasks)
 	{
-		foreach (SP_Task task : TaskMap)
+		if (!Char)
+			return;
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsOwner(Char) == true)
 			{
@@ -186,10 +223,12 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Getter for amount of tasks
 	int GetInProgressTaskCount()
 	{
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.GetState() == ETaskState.UNASSIGNED || task.GetState() == ETaskState.ASSIGNED)
 			{
@@ -199,9 +238,10 @@ class SP_RequestManagerComponent : ScriptComponent
 		return tasks.Count();
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter for tasks of provided type that are related to the provided entity
 	void GetCharTasksOfSameType(IEntity Char,out array<ref SP_Task> tasks, typename tasktype)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsOwner(Char) == true)
 			{
@@ -221,9 +261,10 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void GetCharRescueTasks(IEntity Char,out array<ref SP_Task> tasks)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.GetClassName() == SP_RescueTask)
 			{
@@ -233,9 +274,10 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void GetRescueTasks(out array<ref SP_Task> tasks)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.GetClassName() == SP_RescueTask)
 			{
@@ -244,9 +286,10 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter for tasks of same type
 	void GetTasksOfSameType(out array<ref SP_Task> tasks, typename tasktype)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.GetClassName() == tasktype)
 			{
@@ -257,7 +300,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	void GetCharTargetTasks(IEntity Char, out array<ref SP_Task> tasks)
 	{
-		foreach (SP_Task task : TaskMap)
+		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsTarget(Char) == true)
 			{
@@ -269,35 +312,21 @@ class SP_RequestManagerComponent : ScriptComponent
 	void ClearTasks()
 	{
 		int removed;
-		for (int i = TaskMap.Count() - 1; i >= 0; i--)
+		array <SP_Task> toberemoved = new array <SP_Task>();
+		for (int i = m_aTaskMap.Count() - 1; i >= 0; i--)
 		{
-			if (TaskMap[i].GetState() == ETaskState.FAILED) 
+			if (m_aTaskMap[i].GetState() == ETaskState.FAILED) 
 			{
-				TaskMap.Remove(i);
+				toberemoved.Insert(m_aTaskMap[i]);
 				removed += 1;
 			}
-			if (TaskMap[i].GetState() == ETaskState.COMPLETED) 
+			if (m_aTaskMap[i].GetState() == ETaskState.COMPLETED) 
 			{
-				OnTaskCompleted(TaskMap[i]);
+				OnTaskCompleted(m_aTaskMap[i]);
 				removed += 1;
 			}
 		}
 		Print(string.Format("Cleanup finished, %1 tasks got cleared", removed))
-		/*foreach (SP_Task task : TaskMap)
-	    {
-				if (task.GetState() == ETaskState.FAILED) 
-				{
-					TaskMap.Remove(TaskMap.Find(task));
-					c--;
-					continue;
-				}
-				if (task.GetState() == ETaskState.COMPLETED) 
-				{
-					OnTaskCompleted(task);
-				}
-				i++;
-			}
-		*/
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	override void OnPostInit(IEntity owner)
@@ -314,7 +343,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)
 		{
-			typename Task = TaskSamples.GetRandomElement().GetClassName();
+			typename Task = m_aTaskSamples.GetRandomElement().GetClassName();
 			CreateTask(Task);
 		}
 		else
@@ -323,7 +352,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			if(m_fTaskRespawnTimer > m_fTaskGenTime)
 			{
 				typename Task;
-				Task = TaskSamples.GetRandomElement().GetClassName();
+				Task = m_aTaskSamples.GetRandomElement().GetClassName();
 				if(CreateTask(Task))
 				{
 					m_fTaskRespawnTimer = 0;
@@ -341,13 +370,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			ClearTasks();
 		}
 	};
-	//------------------------------------------------------------------------------------------------------------//
-	void OnTaskCompleted(SP_Task Task)
-	{
-		TaskMap.RemoveItem(Task);
-		CompletedTaskMap.Insert(Task);
-		s_OnTaskComplete.Invoke(Task, Task.GetCompletionist());
-	};
+	
 };
 //------------------------------------------------------------------------------------------------------------//
 modded enum EWeaponType
@@ -373,16 +396,19 @@ modded enum SCR_EArsenalItemMode
 	
 };
 //------------------------------------------------------------------//
+//Class to contain all characters
 class CharacterHolder : ScriptAndConfig
 {
-	ref array <ChimeraCharacter> AliveCharacters;
-	ref array <ChimeraCharacter> DeadCharacters;
+	private ref array <ChimeraCharacter> AliveCharacters;
+	private ref array <ChimeraCharacter> DeadCharacters;
+	//------------------------------------------------------------------------------------------------------------//
 	void InserCharacter(ChimeraCharacter Char)
 	{
 		if (!Char)
 			return;
 		AliveCharacters.Insert(Char);
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void CharIsDead(ChimeraCharacter Char)
 	{
 		if (!Char)
@@ -390,6 +416,7 @@ class CharacterHolder : ScriptAndConfig
 		AliveCharacters.RemoveItem(Char);
 		DeadCharacters.Insert(Char);
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void CharIsDel(ChimeraCharacter Char)
 	{
 		if (!Char)
@@ -399,10 +426,12 @@ class CharacterHolder : ScriptAndConfig
 		if (DeadCharacters.Contains(Char))
 			DeadCharacters.RemoveItem(Char);
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	int GetAliveCount()
 	{
 		return AliveCharacters.Count();
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	bool GetUnitOfFaction(Faction fact, out ChimeraCharacter mychar)
 	{
 		for (int i = 0; i < 10; i++)
@@ -421,6 +450,8 @@ class CharacterHolder : ScriptAndConfig
 		mychar = null;
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Get unit far form provided characters location
 	bool GetFarUnit(ChimeraCharacter mychar, float mindistance, out ChimeraCharacter FarChar)
 	{
 		for (int i = 0; i < 10; i++)
@@ -433,6 +464,8 @@ class CharacterHolder : ScriptAndConfig
 		FarChar = null;
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Get unit far form provided location
 	bool GetFarUnit(vector pos, float mindistance, out ChimeraCharacter FarChar)
 	{
 		for (int i = 0; i < 10; i++)
@@ -445,6 +478,8 @@ class CharacterHolder : ScriptAndConfig
 		FarChar = null;
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Get unit of specified faction far form provided character
 	bool GetFarUnitOfFaction(ChimeraCharacter mychar, float mindistance, Faction fact, out ChimeraCharacter FarChar)
 	{
 		for (int i = 0; i < 10; i++)
@@ -459,6 +494,7 @@ class CharacterHolder : ScriptAndConfig
 		FarChar = null;
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	bool GetRandomUnit(out ChimeraCharacter mychar)
 	{
 		mychar = AliveCharacters.GetRandomElement();
