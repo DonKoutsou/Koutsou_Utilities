@@ -29,6 +29,9 @@ SP_GameMode {
     }
    }
    m_iMaxNumberOfTasks 1
+   m_fFactionsToAppear {
+    "FIA" "USSR" "US"
+   }
   }
   SCR_GameOverScreenManagerComponent "{5DC8E7D96AC61234}" {
    m_GameOverScreenConfig SCR_GameOverScreenConfig "{5DC8E7DE92B37D05}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
@@ -81,9 +84,10 @@ SP_GameMode {
     SCR_SpawnPointSpawnHandlerComponent "{5DD6DD6E1DEC1E56}" {
     }
    }
-   m_SpawnLogic SCR_AutoSpawnLogic "{5DD6E5249CE50C2A}" {
-    m_sForcedFaction "FIA"
-    m_sForcedLoadout "Default"
+   m_SpawnLogic SP_SpawnLogic "{5DD6E5249CE50C2A}" {
+    m_sForcedFaction ""
+    m_sForcedLoadout ""
+    Lives 2
    }
   }
   SCR_SpawnerAIGroupManagerComponent "{5DEAF6D7C9F77D88}" {
@@ -95,6 +99,14 @@ SP_GameMode {
    m_bRandomStartingWeather 1
   }
   SP_DialogueComponent "{5DEC870D3A2360AC}" {
+   m_CharacterArchetypeList {
+    SP_DialogueArchetype "{5DF31169E96EAD5F}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {
+    }
+    SP_DialogueArchetype "{5DF31169EC5E94AB}" : "{EBDA2467806C6197}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Private.conf" {
+    }
+    SP_DialogueArchetype "{5DF31169EFDEEC58}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
+    }
+   }
    m_WorldDirections SCR_MapLocationQuadHint "{5DEC870D225EE3A6}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
    }
    m_ChatChannelFIA FIAChatChannel "{5DEC870D24A9390E}" {
@@ -113,18 +125,19 @@ SP_GameMode {
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 300
    m_iMinTaskAmount 200
+   m_fTaskPerCharacter 2
    m_fTaskOfSameTypePerCharacter 1
-   TasksToSawn {
-    SP_BountyTask "{5DCC99CF04345A9C}" {
+   m_aTasksToSpawn {
+    SP_DeliverTask "{5DF31169DFD93E86}" {
     }
-    SP_DeliverTask "{5DCC99CF0758E224}" {
+    SP_BountyTask "{5DF31169D0BB4162}" {
     }
-    SP_NavigateTask "{5DCC99CF07807699}" {
+    SP_NavigateTask "{5DF31169D19959DD}" {
     }
-    SP_RescueTask "{5DCC99CF06362CF3}" {
+    SP_RetrieveTask "{5DF31169D15D84C2}" {
+    }
+    SP_RescueTask "{5DF31169D21AA415}" {
      m_iMaxamount 6
-    }
-    SP_RetrieveTask "{5DCC99CF097FEE75}" {
     }
    }
   }
@@ -132,7 +145,7 @@ SP_GameMode {
    Streamable Disabled
   }
  }
- coords 2786.687 74.752 1583.354
+ coords 2504.506 139.009 2344.878
  PlayerControllerPrefab "{A1AE127F16DD352E}prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
  m_fAutoReloadTime 30
  m_bOverrideGameOverType 1
@@ -150,6 +163,9 @@ SP_GameMode {
    Factions {
     SCR_Faction "{5DCF2DEC154078E9}" : "{5EB46557DF2AA24F}Configs/Factions/US.conf" {
      m_bIsPlayable 0
+     m_aFriendlyFactionsIds {
+      "FIA"
+     }
      m_aEntityCatalogs {
       SCR_EntityCatalogMultiList "{5C68A0EE8B97CA50}" {
        m_aEntityEntryList {
@@ -174,8 +190,29 @@ SP_GameMode {
     }
     SCR_Faction "{5DCF2DEC1F25C352}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
      m_bIsPlayable 0
+     m_aFriendlyFactionsIds {
+     }
     }
     SCR_Faction "{5DCF2DEC29F393ED}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
+     m_aFriendlyFactionsIds {
+      "US"
+     }
+     m_aRanks {
+      SCR_CharacterRank "{5DF31168A89E14F2}" : "{E9A150D6977ECC9F}Configs/Ranks/Private.conf" {
+      }
+      SCR_CharacterRank "{5DF31168A91EAC72}" : "{649E8173ED557BFB}Configs/Ranks/SERGEANT.conf" {
+      }
+      SCR_CharacterRank "{5DF31168AD7A556F}" : "{91A8ED004C62C8F1}Configs/Ranks/LIEUTENANT.conf" {
+      }
+      SCR_CharacterRank "{5DF31168AE0C8F43}" : "{52CC402BF733EB03}Configs/Ranks/MAJOR.conf" {
+      }
+      SCR_CharacterRank "{5DF31168AFDFD4EE}" : "{B0E6C40B1B095B02}Configs/Ranks/CORPORAL.conf" {
+      }
+      SCR_CharacterRank "{5DF31168AF6BFE7C}" : "{6087F49BE9313FE8}Configs/Ranks/COMMANDER.conf" {
+      }
+      SCR_CharacterRank "{5DF31168A0592E0A}" : "{F208F8C7BF28E013}Configs/Ranks/CAPTAIN.conf" {
+      }
+     }
      m_aEntityCatalogs {
       SCR_EntityCatalogMultiList "{5C68A0EAB887A0C4}" {
        m_aEntityEntryList {
@@ -197,6 +234,9 @@ SP_GameMode {
        }
       }
      }
+    }
+    SCR_Faction "{5DF31169F0392A02}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
+     m_bIsPlayable 0
     }
    }
    m_bCanChangeFactionsPlayable 0
@@ -222,15 +262,11 @@ SP_GameMode {
    ID "5DC8E7DF1BA0C1B0"
    coords -44.306 -9.377 17.714
    m_aPlayerLoadouts {
-    SCR_FactionPlayerLoadout "{5CA7060267058AD7}" {
-     m_sLoadoutName "Default"
-     m_sLoadoutResource "{B1CE5CA5A0628961}prefabs/Characters/Factions/SPEIRA/Character_Speira_Gogland.et"
-     m_sAffiliatedFaction "SPEIRA"
+    SCR_FactionPlayerLoadout "{5DF31169115D154B}" : "{C71228DC46A2C723}Configs/Loadouts/US/Loadout_US_AR.conf" {
     }
-    SCR_FactionPlayerLoadout "{5D4EC11BB20DC322}" {
-     m_sLoadoutName "Respawn"
-     m_sLoadoutResource "{D68719F6FED9853A}prefabs/Characters/Factions/SPEIRA/Character_SPEIRA_RespawnGogland.et"
-     m_sAffiliatedFaction "SPEIRA"
+    SCR_FactionPlayerLoadout "{5DF31169144C1DA0}" : "{743C07B33B63F854}Configs/Loadouts/USSR/Loadout_USSR_AR.conf" {
+    }
+    SCR_FactionPlayerLoadout "{5DF31169485F6FED}" : "{4F55FEF094CA2778}Configs/Loadouts/US/Loadout_FIA_AR.conf" {
     }
    }
   }

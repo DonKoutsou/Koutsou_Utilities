@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------------------------------------//
+[BaseContainerProps()]
 class SP_Task
-[BaseContainerProps(configRoot:true)]
 {
 	//-------------------------------------------------//
 	//Character wich created the task
@@ -41,7 +41,7 @@ class SP_Task
 		}
 		//-------------------------------------------------//
 		//function to fill to check ckaracter
-		if(!CheckCharacter(TaskOwner))
+		if(!CheckOwner())
 		{
 			return false;
 		}
@@ -66,43 +66,52 @@ class SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	bool FindOwner(out IEntity Owner){return true;};
 	//------------------------------------------------------------------------------------------------------------//
-	bool CheckCharacter(IEntity Owner)
+	bool CheckOwner()
 	{
-		if (Owner == SCR_EntityHelper.GetPlayer())
+		if (!TaskOwner)
 			return false;
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Owner.FindComponent(SCR_CharacterDamageManagerComponent));
+		if (TaskOwner == SCR_EntityHelper.GetPlayer())
+			return false;
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		if (!dmg)
+			return false;
 		if(dmg.GetIsUnconscious())
 		{
 			return false;
 		}
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		if (!ReqMan || !Diag)
+			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		ReqMan.GetCharTasks(Owner, tasks);
-		if(tasks.Count() >= ReqMan.m_fTaskPerCharacter)
+		ReqMan.GetCharTasks(TaskOwner, tasks);
+		if(tasks.Count() >= ReqMan.GetTasksPerCharacter())
 		{
 			return false;
 		}
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		ReqMan.GetCharTasksOfSameType(Owner, sametasks, GetClassName());
-		if(sametasks.Count() >= ReqMan.m_fTaskOfSameTypePerCharacter)
+		ReqMan.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
+		if(sametasks.Count() >= ReqMan.GetTasksOfSameTypePerCharacter())
 		{
 			return false;
 		}
-		string charname = Diag.GetCharacterName(Owner);
-		string charrank = Diag.GetCharacterRankName(Owner);
+		string charname = Diag.GetCharacterName(TaskOwner);
+		string charrank = Diag.GetCharacterRankName(TaskOwner);
 		if(charname == " " || charrank == " ")
 		{
 			return false;
 		}
-		FactionKey senderFaction = Diag.GetCharacterFaction(Owner).GetFactionKey();
-		BaseChatChannel Channel;
-		if (senderFaction == "RENEGADE")
+		Faction senderFaction = Diag.GetCharacterFaction(TaskOwner);
+		if (!senderFaction)
+			return false;
+		if (senderFaction.GetFactionKey() == "RENEGADE")
 		{
 			return false;
 		};
@@ -197,10 +206,29 @@ class SP_Task
 			m_Copletionist = Assignee;
 			SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			reqman.OnTaskCompleted(this);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 			return true;
 		}
 		return false;
 	};
+	void FailTask(EDamageState state)
+	{
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+		if (state != EDamageState.DESTROYED)
+			return;
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Fail(true);
+			m_TaskMarker.RemoveAllAssignees();
+			m_TaskMarker.Finish(true);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", Diag.GetCharacterName(TaskOwner)));
+		}
+		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		e_State = ETaskState.FAILED;
+		reqman.OnTaskFailed(this);
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	ETaskState GetState(){return e_State;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -244,8 +272,6 @@ class SP_Task
 		}
 		return false;
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	void UpdateState(){};
 	//------------------------------------------------------------------------------------------------------------//
 	typename GetClassName(){return SP_Task;}
 	//------------------------------------------------------------------------------------------------------------//

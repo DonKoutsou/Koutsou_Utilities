@@ -217,6 +217,7 @@ class SP_DeliverTask: SP_Task
 				m_Copletionist = Assignee;
 				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 				reqman.OnTaskCompleted(this);
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 				return true;
 			}
 		}
@@ -237,23 +238,6 @@ class SP_DeliverTask: SP_Task
 		OLoc = Diag.GetCharacterLocation(TaskOwner);
 		DLoc = Diag.GetCharacterLocation(TaskTarget);
 	};
-	//------------------------------------------------------------------------------------------------------------//
-	//delivery fails if targer is killed
-	override void UpdateState()
-	{
-		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
-			return;
-		SCR_CharacterDamageManagerComponent DmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
-		if (DmgComp.IsDestroyed())
-		{
-			if(m_TaskMarker)
-			{
-				m_TaskMarker.Fail(true);
-			}
-			e_State = ETaskState.FAILED;
-			return;
-		}
-	}
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_DeliverTask;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -290,6 +274,23 @@ class SP_DeliverTask: SP_Task
 		}
 		return null;
 	};
+	override void AssignCharacter(IEntity Character)
+	{
+		IEntity Package = GetPackage();
+		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Character.FindComponent(InventoryStorageManagerComponent));
+		InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(InventoryStorageManagerComponent));
+		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Package.FindComponent(InventoryItemComponent));
+		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+		invChar.TryRemoveItemFromStorage(Package, parentSlot.GetStorage());
+		if(inv.TryInsertItem(Package))
+		{
+			SCR_HintManagerComponent.GetInstance().ShowCustom("The package has been added to your inventory");
+		}
+		else
+		{
+			SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, package left on the floor");
+		}
+	}
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
@@ -299,9 +300,8 @@ class SP_DeliverTask: SP_Task
 		{
 			return false;
 		}
-		//-------------------------------------------------//
 		//function to fill to check ckaracter
-		if(!CheckCharacter(TaskOwner))
+		if(!CheckOwner())
 		{
 			return false;
 		}
@@ -326,6 +326,8 @@ class SP_DeliverTask: SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//

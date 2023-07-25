@@ -12,10 +12,10 @@ class SP_RequestManagerComponent : ScriptComponent
 	int m_iMinTaskAmount;
 	
 	[Attribute(defvalue: "3", desc: "Max amount of tasks a character can be requesting at the same time")]
-	int m_fTaskPerCharacter;
+	protected int m_fTaskPerCharacter;
 	
 	[Attribute(defvalue: "2", desc: "Max amount of tasks of sametype a character can be requesting at the same time")]
-	int m_fTaskOfSameTypePerCharacter;
+	protected int m_fTaskOfSameTypePerCharacter;
 	
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_Task> m_aTasksToSpawn;
@@ -86,10 +86,24 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		return m_CharacterHolder;
 	}
+	int GetTasksPerCharacter()
+	{
+		return m_fTaskPerCharacter;
+	}
+	int GetTasksOfSameTypePerCharacter()
+	{
+		return m_fTaskOfSameTypePerCharacter;
+	}
 	//--------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)
 	{
 		//Init arrays
+		if (m_aTasksToSpawn.IsEmpty())
+		{
+			Print("No tasks configured in Request manager");
+			return;
+		}
+			
 		if(!m_aTaskMap)
 			m_aTaskMap = new array<ref SP_Task>();
 		if(!m_aCompletedTaskMap)
@@ -112,7 +126,6 @@ class SP_RequestManagerComponent : ScriptComponent
 			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
 			if (m_GameMode)
 			{
-				m_GameMode.GetOnControllableDestroyed().Insert(UpdateCharacterTasks);
 				m_GameMode.GetOnControllableSpawned().Insert(OnNewChar);
 				m_GameMode.GetOnControllableDestroyed().Insert(OnCharDeath);
 				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
@@ -156,40 +169,6 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Used when somebody is killed and updates their tasks.
-	void UpdateCharacterTasks(IEntity Char, IEntity Instigator)
-	{
-		if(Char)
-		{
-			foreach (SP_Task task : m_aTaskMap)
-			{
-				if(task.CharacterIsOwner(Char) == true)
-				{
-					task.UpdateState();
-				}
-				if(task.CharacterIsTarget(Char) == true)
-				{
-					task.UpdateState();
-				}
-			}
-		}
-		if(Instigator)
-		{
-			foreach (SP_Task task : m_aTaskMap)
-			{
-				if(task.CharacterIsOwner(Instigator) == true)
-				{
-					task.UpdateState();
-				}
-				if(task.CharacterIsTarget(Instigator) == true)
-				{
-					task.UpdateState();
-				}
-			}
-		}
-		
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Create tasks of type

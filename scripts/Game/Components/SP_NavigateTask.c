@@ -156,22 +156,6 @@ class SP_NavigateTask: SP_Task
 		TaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override void UpdateState()
-	{
-		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
-			return;
-		SCR_CharacterDamageManagerComponent DmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		if (DmgComp.IsDestroyed())
-		{
-			if(m_TaskMarker)
-			{
-				m_TaskMarker.Fail(true);
-			}
-			e_State = ETaskState.FAILED;
-			return;
-		}
-	}
-	//------------------------------------------------------------------------------------------------------------//
 	//to complete task need to assign owner to new group and get rid of WP
 	override bool CompleteTask(IEntity Assignee)
 	{
@@ -211,6 +195,7 @@ class SP_NavigateTask: SP_Task
 			m_Copletionist = Assignee;
 			SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			reqman.OnTaskCompleted(this);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 stopped following you", Diag.GetCharacterName(TaskOwner)));
 			return true;
 		}
@@ -236,5 +221,44 @@ class SP_NavigateTask: SP_Task
 		}
 		return null;
 	};
+	override void AssignCharacter(IEntity Character)
+	{
+		AIControlComponent comp = AIControlComponent.Cast(TaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return;
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return;
+		
+		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Character);
+		
+		
+		
+		
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		Diag.Escape(TaskOwner, Character);
+		SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+		group.RemoveAgent(agent);
+		Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
+		EntitySpawnParams myparams = EntitySpawnParams();
+		myparams.TransformMode = ETransformMode.WORLD;
+		myparams.Transform[3] = Character.GetOrigin();
+		SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
+		newgroup.AddAgent(agent);
+		SCR_EntityWaypoint m_Waypoint;
+		Resource wpRes = Resource.Load("{A0509D3C4DD4475E}prefabs/AI/Waypoints/AIWaypoint_Follow.et");
+		EntitySpawnParams params = EntitySpawnParams();
+		params.TransformMode = ETransformMode.WORLD;
+		params.Transform[3] = Character.GetOrigin();
+		m_Waypoint = SCR_EntityWaypoint.Cast(GetGame().SpawnEntityPrefab(wpRes, GetGame().GetWorld(), params));
+		m_Waypoint.SetEntity(SCR_ChimeraCharacter.Cast(Character));
+		Character.AddChild(m_Waypoint, -1);
+		newgroup.AddWaypointAt(m_Waypoint, 0);
+		utility.AddAction(action);
+		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", Diag.GetCharacterName(Character)));
+	}
 	//------------------------------------------------------------------------------------------------------------//
 };

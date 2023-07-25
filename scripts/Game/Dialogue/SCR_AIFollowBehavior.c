@@ -1,24 +1,19 @@
 class SCR_AIFollowBehavior : SCR_AIBehaviorBase
 {
 	protected ref SCR_BTParam<IEntity> m_vChar = new SCR_BTParam<IEntity>("Character");
-	protected ref SCR_BTParam<AIAgent> m_vAgent= new SCR_BTParam<AIAgent>("Agent");
 	protected ref SCR_BTParam<float> m_fDuration = new SCR_BTParam<float>("Duration");	// Initialize in derived class
 	protected ref SCR_BTParam<float> m_fRadius = new SCR_BTParam<float>("Radius");		// Initialize in derived class
-	//protected ref SCR_BTParam<bool> m_bUseBinoculars = new SCR_BTParam<bool>("UseBinoculars"); // Initialize in derived class
 	
 	protected float m_fDeleteActionTime_ms;	// Initialize in derived class by InitTimeout()
 	
-	bool m_bActiveConversation = false;
+	bool m_bActiveFollowing = false;
 	
 	//------------------------------------------------------------------------------------------------------------------------
 	void InitParameters(IEntity CharToFollow, AIAgent Agent)
 	{
 		m_vChar.Init(this, CharToFollow);
-		m_vAgent.Init(this, Agent);
 		m_fDuration.Init(this, 5000);
 		m_fRadius.Init(this, 0);
-		//m_bUniqueInActionQueue = false;
-		//m_bUseBinoculars.Init(this, false);
 	}
 	
 	// posWorld - position to observe
@@ -39,16 +34,15 @@ class SCR_AIFollowBehavior : SCR_AIBehaviorBase
 		if (!utility)
 			return;
 				
-		m_sBehaviorTree = "{C88D0BBCEE738F2F}AI/BehaviorTrees/Waypoints/WP_FollowChar.bt";
+		m_sBehaviorTree = "{F89BF93EA3363C34}AI/BehaviorTrees/AI_Navigate_Follow.bt";
 		m_bAllowLook = true; // Disable standard looking
 		m_bResetLook = true;
-		//m_bUniqueInActionQueue = true;
-		m_bActiveConversation = true;
+		m_bActiveFollowing = true;
 	}
 	
-	void SetActiveConversation(bool state)
+	void SetActiveFollowing(bool state)
 	{
-		m_bActiveConversation = state;
+		m_bActiveFollowing = state;
 	}
 	
 	override float EvaluatePriorityLevel()
@@ -61,7 +55,7 @@ class SCR_AIFollowBehavior : SCR_AIBehaviorBase
 		//	return 0;
 		//}
 		//return m_fPriority;
-		if (m_bActiveConversation)
+		if (m_bActiveFollowing)
 			return 100;
 		
 		Fail();
@@ -127,6 +121,6 @@ class SCR_FollowAction : ScriptedUserAction
 		
 		// or
 		SCR_AIFollowBehavior action = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
-		action.SetActiveConversation(false);
+		action.SetActiveFollowing(false);
 	}
 };

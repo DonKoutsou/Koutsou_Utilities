@@ -1,0 +1,162 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/AI_Navigate_Follow.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -331.429 -425.143
+   Nodes {
+    Selector Selector {
+     Name "Selector"
+     EditorPos -378.571 -248.571
+     Nodes {
+      Sequence Sequence {
+       Name "Sequence"
+       EditorPos -1248.239 -42.285
+       Nodes {
+        SCR_AIFollowParameters "SCR_AI Follow Parameters" {
+         Name "SCR_AI Follow Parameters"
+         EditorPos -2125.842 251.729
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 0
+           PortName "Character"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port -1
+           PortName "Duration"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port -1
+           PortName "Radius"
+          }
+         }
+        }
+        SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+         Name "SCR_AI Get Entity Position"
+         EditorPos -1723.841 263.729
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 0
+           PortName "Entity"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 1
+           PortName "Position"
+          }
+         }
+        }
+        SCR_AIGetPositionAndRotation "SCR_AI Get Position And Rotation" {
+         Name "SCR_AI Get Position And Rotation"
+         EditorPos -1363.015 256.19
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port -1
+           PortName "Entity"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 3
+           PortName "Position"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port -1
+           PortName "Rotation"
+          }
+         }
+        }
+        SCR_AIDecoVectorDistance "SCR_AI Deco Vector Distance" {
+         Name "SCR_AI Deco Vector Distance"
+         EditorPos -783.988 252.064
+         Nodes {
+          AITaskReturnState "Return State" {
+           Name "Return State"
+           EditorPos -737.143 562.857
+           Result FAIL
+          }
+         }
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 4
+           PortName "Vector0"
+          }
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 3
+           PortName "Vector1"
+          }
+          SingleInputPortContainer SingleInputPortContainer {
+           Port -1
+           PortName "Threshold"
+          }
+         }
+         AbortType AbortChildrenBranch
+         m_fDistanceThreshold 5
+        }
+        AITaskMove Move {
+         Name "Move"
+         EditorPos -408.525 268.428
+         InTargetLocation 2
+         PrecisionXZ 2
+        }
+        AITaskReturnState "Return State" {
+         Name "Return State"
+         EditorPos -74.786 267.357
+         Result FAIL
+        }
+       }
+      }
+      AITaskReturnState "Return State" {
+       Name "Return State"
+       EditorPos -62.858 -70
+       Result FAIL
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable CharToFollow {
+   VariableName "CharToFollow"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable CharPos {
+   VariableName "CharPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable MyPos {
+   VariableName "MyPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference CharToFollow {
+   VariableType 0
+   EditorPos -1904.841 420.729
+  }
+  VariableReference CharPos {
+   VariableType 1
+   EditorPos -1496.507 439.618
+  }
+  VariableReference CharPos {
+   VariableType 1
+   EditorPos -556.765 508.789
+  }
+  VariableReference MyPos {
+   VariableType 2
+   EditorPos -1016.667 396.19
+  }
+  VariableReference CharPos {
+   VariableType 1
+   EditorPos -1032.699 284.127
+  }
+ }
+}

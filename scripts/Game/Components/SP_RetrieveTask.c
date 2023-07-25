@@ -17,15 +17,14 @@ class SP_RetrieveTask: SP_Task
 		{
 			return false;
 		}
-		if(!CheckCharacter(TaskOwner))
+		if(!CheckOwner())
 		{
 			return false;
 		}
-		//if (!SetupTaskEntity())
-		//{
-		//	DeleteLeftovers();
-		//	return false;
-		//}
+		if (!SetupRequestTypenMode())
+		{
+			return false;
+		}
 		if (!AssignReward())
 		{
 			DeleteLeftovers();
@@ -33,6 +32,8 @@ class SP_RetrieveTask: SP_Task
 		}
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -50,42 +51,6 @@ class SP_RetrieveTask: SP_Task
 		}
 		return false;
 	};
-	//------------------------------------------------------------------------------------------------------------//
-	/*override bool SetupTaskEntity()
-	{
-		if (TaskOwner)
-		{
-			string OName;
-			string OLoc;
-			GetInfo(OName, OLoc);
-			if (OName == " " || OLoc == " ")
-			{
-				return false;
-			}
-			EntitySpawnParams params = EntitySpawnParams();
-			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = vector.Zero;
-			Resource res = Resource.Load("{A99880B995D4588F}prefabs/Items/ItemBountyPaper.et");
-			if (res)
-			{
-				ItemBounty = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
-				InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(InventoryStorageManagerComponent));
-				if (inv.TryInsertItem(ItemBounty) == false)
-				{
-					return false;
-				}
-			}
-			if(!SetupRequestTypenMode())
-			{
-				return false;
-			}
-			SP_ItemBountyComponent IBComp = SP_ItemBountyComponent.Cast(ItemBounty.FindComponent(	SP_ItemBountyComponent));
-			IBComp.SetInfo(OName, m_requestitemtype, m_requestitemmode, EEditableEntityLabel.ITEMTYPE_ITEM, m_iRequestedAmount, OLoc);
-			e_State = ETaskState.UNASSIGNED;
-			return true;
-		}
-		return false;
-	};*/
 	override void CreateDescritions()
 	{
 		string OName;
@@ -299,7 +264,7 @@ class SP_RetrieveTask: SP_Task
 							m_ifoundamount += 1;
 						}
 				}
-			if(m_ifoundamount == m_iRequestedAmount)
+			if(m_ifoundamount >= m_iRequestedAmount)
 			{
 				return true;
 			}
@@ -352,27 +317,12 @@ class SP_RetrieveTask: SP_Task
 				m_Copletionist = Assignee;
 				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 				reqman.OnTaskCompleted(this);
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 				return true;
 				
 			}
 		}
 		return false;
-	};
-	//------------------------------------------------------------------------------------------------------------//
-	override void UpdateState()
-	{
-		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
-			return;
-		SCR_CharacterDamageManagerComponent OwnerDmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		if (OwnerDmgComp.IsDestroyed())
-		{
-			if (m_TaskMarker)
-			{
-				m_TaskMarker.Fail(true);
-			}
-			e_State = ETaskState.FAILED;
-			return;
-		}
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	void GetInfo(out string OName, out string OLoc)

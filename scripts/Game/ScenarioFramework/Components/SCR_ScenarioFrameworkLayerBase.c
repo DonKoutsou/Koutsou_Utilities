@@ -170,7 +170,8 @@ class SCR_ScenarioFrameworkLayerBase : ScriptComponent
 	//------------------------------------------------------------------------------------------------
 	void SetFactionKey(FactionKey factionKey)
 	{
-		m_sFactionKey = factionKey;
+		if (factionKey)
+			m_sFactionKey = factionKey;
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -493,14 +494,14 @@ class SCR_ScenarioFrameworkLayerBase : ScriptComponent
 			previouslyRandomized = true;
 
 		// Handles inheritance of faction settings from parents
-		if (m_sFactionKey.IsEmpty())
+		if (m_sFactionKey.IsEmpty() && GetParentArea())
 		{
 			if (m_bUsePlayerFaction)
 			{
 				SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 				m_sFactionKey = factman.GetLocalPlayerFaction().GetFactionKey();
 			}
-			else if(!GetParentArea().GetFactionKey().IsEmpty())
+			else if(GetParentArea().GetFactionKey())
 			{
 				SetFactionKey(GetParentArea().GetFactionKey());
 			}

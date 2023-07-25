@@ -177,42 +177,32 @@ class SP_RescueTask: SP_Task
 		}
 		return null;
 	};
-	override void UpdateState()
+	override void FailTask(EDamageState state)
 	{
-		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		if (CharsToRescue.IsEmpty())
 			return;
-		bool anyuncon;
-		bool anyalive;
-		foreach(IEntity char : CharsToRescue)
+		foreach (IEntity Char : CharsToRescue)
 		{
-			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(char.FindComponent(SCR_CharacterDamageManagerComponent));
-			if(dmg.GetIsUnconscious())
+			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(Char.FindComponent(SCR_CharacterDamageManagerComponent));
+			if (!dmgman.IsDestroyed())
 			{
-				anyuncon = true;
-			}
-			if(!dmg.IsDestroyed())
-			{
-				anyalive = true;
-			}
-		}
-		if (!anyuncon)
-		{
-			if (m_TaskMarker)
-			{
-				m_TaskMarker.Finish(false);
-			}
-			e_State = ETaskState.COMPLETED;
-			CompleteTask(null);
 				return;
+			}
 		}
-		if (anyalive)
+		if (state != EDamageState.DESTROYED)
 			return;
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
+			m_TaskMarker.RemoveAllAssignees();
+			m_TaskMarker.Finish(true);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Rescue targets have died, task failed"));
 		}
+		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		e_State = ETaskState.FAILED;
-	};
+		reqman.OnTaskFailed(this);
+	}
 	override bool CompleteTask(IEntity Assignee)
 	{
 		if(CharsToRescue.Count() != 0)
@@ -230,6 +220,7 @@ class SP_RescueTask: SP_Task
 		e_State = ETaskState.COMPLETED;
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		reqman.OnTaskCompleted(this);
+		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 		return false;
 	};
 	override typename GetClassName(){return SP_RescueTask;};
@@ -296,7 +287,7 @@ class SP_RescueTask: SP_Task
 				dmg.SetResilienceRegenScale(0);
 				dmg.AddParticularBleeding();
 				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
-				dmg.GetOnDamageStateChanged().Insert(UpdateState);
+				dmg.GetOnDamageStateChanged().Insert(FailTask);
 			}
 		}
 		return true;

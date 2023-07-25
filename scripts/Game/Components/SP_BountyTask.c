@@ -151,6 +151,7 @@ class SP_BountyTask: SP_Task
 				reqman.OnTaskCompleted(this);
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 				return true;
 			}
 		}
@@ -171,21 +172,7 @@ class SP_BountyTask: SP_Task
 		DLoc = Diag.GetCharacterLocation(TaskTarget);
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override void UpdateState()
-	{
-		if (e_State == ETaskState.COMPLETED || e_State == ETaskState.FAILED)
-			return;
-		SCR_CharacterDamageManagerComponent OwnerDmgComp = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		if (OwnerDmgComp.IsDestroyed())
-		{
-			if(m_TaskMarker)
-			{
-				m_TaskMarker.Fail(true);
-			}
-			e_State = ETaskState.FAILED;
-			return;
-		}
-	};
+
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_BountyTask;};
 	//------------------------------------------------------------------------------------------------------------//
