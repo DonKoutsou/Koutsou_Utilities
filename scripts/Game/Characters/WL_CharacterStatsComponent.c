@@ -524,8 +524,6 @@ class SP_CharacterStatsComponent : ScriptComponent
 		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
 		if (!cont)
 			return;
-		if (!cont.GetControlledEntity())
-			return;
 		cont.m_OnControlledEntityChanged.Insert(Init);
 		
 	}

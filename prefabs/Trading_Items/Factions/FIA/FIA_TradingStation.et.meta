@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{DA4353EEE7006DD8}FIA_TradingStation.et"
+ Name "{3619B20E39C93549}prefabs/Trading_Items/Factions/FIA/FIA_TradingStation.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

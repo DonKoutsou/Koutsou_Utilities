@@ -1,0 +1,14 @@
+GenericEntity : "{93690AE7A4BAD926}Prefabs/Characters/Core/Vest_Base.et" {
+ ID "50D8C49B3558F152"
+ components {
+  InventoryItemComponent "{5B189416D721A6DE}" {
+   Attributes SCR_ItemAttributeCollection "{5B189416D721A6C7}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5DF4F66876FC5BE9}" {
+      m_TemperatureIsolation 0.1
+     }
+    }
+   }
+  }
+ }
+}

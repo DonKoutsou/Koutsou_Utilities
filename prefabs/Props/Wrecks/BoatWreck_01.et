@@ -1,0 +1,11 @@
+GenericEntity : "{3619812B192CCAE9}Prefabs/Props/Core/Wreck_Base.et" {
+ ID "5190C20B17828E20"
+ components {
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   Active AlwaysActive
+   Static 0
+  }
+  SCR_WaterPhysicsComponent "{5AEB77369ACB5051}" {
+  }
+ }
+}

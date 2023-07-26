@@ -227,10 +227,11 @@ class DialogueUIClass: ChimeraMenuBase
 		RemoveListeners();
 	}
 	//------------------------------------------------------------------------------------------------//
-	void ExecuteDialogue(int num)
+	void ExecuteDialogue(SCR_ListBoxElementComponent ListboxElement)
 	{
+		SP_ListBoxElementComponent listbox = SP_ListBoxElementComponent.Cast(ListboxElement);
 		RemoveListeners();
-		DiagComp.DoDialogue(myCallerEntity, myUserEntity, num);
+		DiagComp.DoDialogue(myCallerEntity, myUserEntity, listbox.branch);
 	}
 	//------------------------------------------------------------------------------------------------//
 	void DoDialogueBack()

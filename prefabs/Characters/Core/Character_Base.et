@@ -17,5 +17,14 @@ SCR_ChimeraCharacter {
    BreathNormalFrequency 0.45
    BreathExhaustedFrequency 1.1
   }
+  ActionsManagerComponent "{520EA1D2F659CE02}" {
+   additionalActions {
+    SP_DialogueAction "{5D76C2C8573128D5}" {
+     ParentContextList {
+      "Chest"
+     }
+    }
+   }
+  }
  }
 }

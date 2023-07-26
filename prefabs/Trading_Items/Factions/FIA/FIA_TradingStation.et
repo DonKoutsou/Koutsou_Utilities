@@ -49,20 +49,10 @@ GenericEntity {
    coords -0.732 -0.002 -1.599
    angleY -43.2
   }
-  GenericEntity : "{01F006DCCD718FD9}Prefabs/Trading_Items/Factions/FIA/TS_Equipment_FIA.et" {
+  GenericEntity : "{01F006DCCD718FD9}prefabs/Trading_Items/Factions/FIA/TS_Equipment_FIA.et" {
    ID "5B36B9A589175B93"
    coords -1.018 0 -0.949
    angleY -180
-  }
-  GenericEntity : "{11B99AAA62B2AC4A}Prefabs/Props/Furniture/Chest_Storage.et" {
-   ID "5C9920B756A5A70F"
-   coords -1.927 0 0.011
-   angleY -90
-  }
-  GenericEntity : "{54A1C6EBC68CF49E}Prefabs/Trading_Items/Wood_TradingStation.et" {
-   ID "5B36B9A589175B95"
-   coords -1.409 0.335 0.075
-   angleY -89.417
   }
   GenericEntity : "{5F76887813B86AD4}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V6_covered.et" {
    ID "5B36B9A589175B89"
@@ -122,7 +112,7 @@ GenericEntity {
    coords -1.12 0 -0.094
    angleY 90.2
   }
-  GenericEntity : "{9E5D9DE8AC6CDC85}Prefabs/Trading_Items/FIA_Clothing_TradingStation.et" {
+  GenericEntity : "{9E5D9DE8AC6CDC85}prefabs/Trading_Items/FIA_Clothing_TradingStation.et" {
    ID "5B36B9A589175B80"
    components {
     ActionsManagerComponent "{5B1111371149AC02}" {
@@ -164,17 +154,17 @@ GenericEntity {
     coords -1.81 0 -0.741
    }
   }
-  GenericEntity : "{BD8D487D0841A49D}Prefabs/Trading_Items/Factions/FIA/TS_Weapons_FIA.et" {
+  GenericEntity : "{BD8D487D0841A49D}prefabs/Trading_Items/Factions/FIA/TS_Weapons_FIA.et" {
    ID "5B36B9A589175B9E"
    coords -0.019 0.884 0.115
    angleY -141.117
   }
-  GenericEntity : "{DFC5EEAB65C44D26}Prefabs/Trading_Items/Factions/FIA/TS_Medical_FIA.et" {
+  GenericEntity : "{DFC5EEAB65C44D26}prefabs/Trading_Items/Factions/FIA/TS_Medical_FIA.et" {
    ID "5B36B9A589177601"
    coords 0.032 0.59 -0.809
    angleY 180
   }
-  GenericEntity : "{E682E960C6232AF6}Prefabs/Trading_Items/Factions/FIA/TS_Ammunition_FIA.et" {
+  GenericEntity : "{E682E960C6232AF6}prefabs/Trading_Items/Factions/FIA/TS_Ammunition_FIA.et" {
    ID "5B36B9A589175B8C"
    coords -0.881 0.82 -0.106
    angleY -92.067

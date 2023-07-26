@@ -1,0 +1,22 @@
+GenericEntity : "{B90E5414AB7C325B}Prefabs/Props/Wrecks/BTR70_wreck_static.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Materials {
+    MaterialAssignClass "{5B3CA16D67B64E05}" {
+     SourceMaterial "BTR_70_base_Wheels"
+     AssignedMaterial "{BA5783DD237A91FD}Assets/Vehicles/Wheeled/BTR70/Data/BTR_70_base_Wheels.emat"
+    }
+    MaterialAssignClass "{5B3CA16D67B64E34}" {
+     SourceMaterial "BTR_70_base_exterior_Body"
+     AssignedMaterial "{5E99FAD36EC7328F}Assets/Vehicles/Wheeled/BTR70/Data/BTR_70_base_exterior_Body.emat"
+    }
+    MaterialAssignClass "{5B3CA16D67B64E2F}" {
+     SourceMaterial "BTR_70_base_interior"
+     AssignedMaterial "{F842C45EFDD980F6}Assets/Vehicles/Wheeled/BTR70/Data/BTR_70_base_interior.emat"
+    }
+   }
+  }
+ }
+ coords 165.456 1.001 122.083
+}

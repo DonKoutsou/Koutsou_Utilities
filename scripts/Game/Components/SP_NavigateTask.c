@@ -39,7 +39,6 @@ class SP_NavigateTask: SP_Task
 
 		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, Fact, Char))
 			return false;
-		
 		if (Char)
 			Target = Char;
 		
@@ -161,32 +160,36 @@ class SP_NavigateTask: SP_Task
 	{
 		if (GiveReward(Assignee))
 		{
-			m_TaskMarker.Finish(true);
-			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-			//get task owner group and dissband it.
 			AIControlComponent comp = AIControlComponent.Cast(TaskOwner.FindComponent(AIControlComponent));
 			AIAgent agent = comp.GetAIAgent();
-			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-			AIWaypoint originalwp = group.GetCurrentWaypoint();
-			group.CompleteWaypoint(originalwp);
-			delete originalwp;
-			group.RemoveAgent(agent);
-			if(group)
-			{
-				delete group;
-			}
-			
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			SCR_AIFollowBehavior act = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
+			act.SetActiveFollowing(false);
 			//get group of target
-			AIControlComponent Tcomp = AIControlComponent.Cast(TaskTarget.FindComponent(AIControlComponent));
-			AIAgent Tagent = Tcomp.GetAIAgent();
-			SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
-			
-			//add owner
-			Tgroup.AddAgent(agent);
-			AIWaypoint wp;
-			wp = group.GetCurrentWaypoint();
-			Tgroup.RemoveWaypoint(wp);
-			Tgroup.AddWaypoint(wp);
+			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+			if (!dmgman.IsDestroyed())
+			{
+				AIControlComponent Tcomp = AIControlComponent.Cast(TaskTarget.FindComponent(AIControlComponent));
+				AIAgent Tagent = Tcomp.GetAIAgent();
+				SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
+					
+				if (Tgroup)
+				{
+					SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+					group.RemoveAgent(agent);
+					if(group)
+					{
+						delete group;
+					}
+					//add owner
+					Tgroup.AddAgent(agent);
+					AIWaypoint wp;
+					wp = Tgroup.GetCurrentWaypoint();
+					Tgroup.RemoveWaypoint(wp);
+					Tgroup.AddWaypoint(wp);
+				}
+			}
+			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 			if (m_TaskMarker)
 			{
 				m_TaskMarker.Finish(true);
@@ -232,12 +235,7 @@ class SP_NavigateTask: SP_Task
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 		if (!utility)
 			return;
-		
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Character);
-		
-		
-		
-		
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		Diag.Escape(TaskOwner, Character);
 		SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
@@ -248,17 +246,9 @@ class SP_NavigateTask: SP_Task
 		myparams.Transform[3] = Character.GetOrigin();
 		SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
 		newgroup.AddAgent(agent);
-		SCR_EntityWaypoint m_Waypoint;
-		Resource wpRes = Resource.Load("{A0509D3C4DD4475E}prefabs/AI/Waypoints/AIWaypoint_Follow.et");
-		EntitySpawnParams params = EntitySpawnParams();
-		params.TransformMode = ETransformMode.WORLD;
-		params.Transform[3] = Character.GetOrigin();
-		m_Waypoint = SCR_EntityWaypoint.Cast(GetGame().SpawnEntityPrefab(wpRes, GetGame().GetWorld(), params));
-		m_Waypoint.SetEntity(SCR_ChimeraCharacter.Cast(Character));
-		Character.AddChild(m_Waypoint, -1);
-		newgroup.AddWaypointAt(m_Waypoint, 0);
 		utility.AddAction(action);
 		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", Diag.GetCharacterName(Character)));
+		super.AssignCharacter(Character);
 	}
 	//------------------------------------------------------------------------------------------------------------//
 };

@@ -11,6 +11,8 @@ SCR_PlayerController {
     }
    }
   }
+  SP_CharacterStatsComponent "{5DF4F669AC20CEBD}" {
+  }
  }
  coords 1088.801 38.111 2622.36
 }

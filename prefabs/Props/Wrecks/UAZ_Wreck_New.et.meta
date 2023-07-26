@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{551AF45C50871ED4}prefabs/Props/Wrecks/UAZ_Wreck_New.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,5 +1,5 @@
 GenericEntity {
- ID "5C9AF12BE5E75D2C"
+ ID "5DF4DAF689776BAA"
  components {
   FactionAffiliationComponent "{5D6259430CABF2C3}" {
    "faction affiliation" "BANDITS"
@@ -31,17 +31,16 @@ GenericEntity {
    Enabled 1
   }
  }
- coords 160.965 1.001 124.062
- angleY -180
+ coords 2141.697 2.449 3532.822
  Flags 1027
  {
   GenericEntity : "{00067AEE99853EBB}prefabs/Trading_Items/Factions/Factionless/TS_Weapons_Factionless.et" {
-   ID "5C9AF12BE5E75DFB"
+   ID "5DF4DAF689776BB3"
    coords -0.019 0.884 0.115
    angleY -141.117
   }
   GenericEntity : "{0011A3CBD1B1212A}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_01.et" {
-   ID "5C9AF12BE5E75D24"
+   ID "5DF4DAF689776BB6"
    components {
     Hierarchy "{5C9AF12BE5E75D9F}" {
     }
@@ -50,7 +49,7 @@ GenericEntity {
    angleY -32.767
   }
   GenericEntity : "{013297BA01640EB9}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_02.et" {
-   ID "5C9AF12BE5E75DDB"
+   ID "5DF4DAF689776BB8"
    components {
     Hierarchy "{5C9AF12BE5E75D93}" {
     }
@@ -58,28 +57,23 @@ GenericEntity {
    coords -0.732 -0.002 -1.599
    angleY -43.2
   }
-  GenericEntity : "{11B99AAA62B2AC4A}prefabs/Props/Furniture/Chest_Storage.et" {
-   ID "5C9AF12BE5E75DD2"
-   coords -1.409 0.335 0.075
-   angleY -89.417
-  }
   GenericEntity : "{16D82E48D7BC51E0}prefabs/Trading_Items/Factions/Factionless/TS_Ammunition_Factionless.et" {
-   ID "5C9AF12BE5E75DC2"
+   ID "5DF4DAF689776BBD"
    coords -0.881 0.82 -0.106
    angleY -92.067
   }
   GenericEntity : "{27555B6FEA7DBBBD}prefabs/Trading_Items/Factions/Factionless/TS_Medical_Factionless.et" {
-   ID "5C9AF12BE5E75DD0"
+   ID "5DF4DAF689776BBC"
    coords 0.032 0.59 -0.809
    angleY 180
   }
   GenericEntity : "{4C6DD574D6C7B5EC}prefabs/Trading_Items/Factions/Factionless/TS_Equipment_Factionless.et" {
-   ID "5C9AF12BE5E75DDE"
+   ID "5DF4DAF689776BBF"
    coords -1.018 0 -0.949
    angleY -180
   }
   GenericEntity : "{5F76887813B86AD4}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V6_covered.et" {
-   ID "5C9AF12BE5E75DCD"
+   ID "5DF4DAF689776C42"
    components {
     MeshObject "{5872F0EB7FA40561}" {
      Materials {
@@ -101,7 +95,7 @@ GenericEntity {
    coords 0.024 0 -1.046
   }
   GenericEntity : "{6D66A35ABDA08197}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_01.et" {
-   ID "5C9AF12BE5E75DC1"
+   ID "5DF4DAF689776C46"
    components {
     Hierarchy "{5C9AF12BE5E75D81}" {
     }
@@ -110,7 +104,7 @@ GenericEntity {
    angleY -20.222
   }
   GenericEntity : "{890EE5FB23BA713E}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V2_covered.et" {
-   ID "5C9AF12BE5E75DC7"
+   ID "5DF4DAF689776C4A"
    components {
     MeshObject "{5872F0EB7FA40561}" {
      Materials {
@@ -137,12 +131,12 @@ GenericEntity {
    angleY 90.2
   }
   GenericEntity : "{99DCCFC762D1B1D6}prefabs/Trading_Items/Factions/Factionless/TS_Factionless_Expl.et" {
-   ID "5C9AF12BE5E75DD6"
+   ID "5DF4DAF689776C4E"
    coords -1.868 0 -0.029
    angleY -90
   }
   GenericEntity : "{A04DC55EB7C367F8}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_02.et" {
-   ID "5C9AF12BE5E75DFA"
+   ID "5DF4DAF689776C50"
    components {
     Hierarchy "{5C9AF12BE5E75DBD}" {
     }

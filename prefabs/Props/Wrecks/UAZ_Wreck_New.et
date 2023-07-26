@@ -1,0 +1,14 @@
+GenericEntity : "{3386EAA823BE462E}Prefabs/Props/Wrecks/UAZ469_wreck_static.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Materials {
+    MaterialAssignClass "{5B3CA16CC6247B4A}" {
+     SourceMaterial "UAZ469_Body"
+     AssignedMaterial "{4DCA5160040E0F0D}Assets/Vehicles/Wheeled/UAZ469/Data/UAZ469_Body.emat"
+    }
+   }
+  }
+ }
+ coords 169.853 1.001 110.824
+}

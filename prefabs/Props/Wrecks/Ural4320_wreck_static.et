@@ -1,0 +1,10 @@
+GenericEntity : "{4A0EB5570B2BB36C}Prefabs/Props/Wrecks/Ural4320_wreck.et" {
+ ID "F0DBA538AC2A0552"
+ {
+  SCR_PrefabSpawnPoint : "{79AF19675B3C1B71}prefabs/PrefabSpawner.et" {
+   ID "5DD2816A18FBB067"
+   coords -0.425 1.254 1.63
+   angleY -90
+  }
+ }
+}

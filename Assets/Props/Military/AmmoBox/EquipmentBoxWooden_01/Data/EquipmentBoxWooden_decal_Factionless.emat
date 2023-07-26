@@ -4,5 +4,5 @@ MatPBRDecal {
  BlendMode AlphaBlend
  MetalnessScale 0
  BCRMap "{4730F98DE6FAA9F3}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_decal_Factionless_BCR.edds"
- OpacityMap "{4E3E2775C3339619}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_decal_A.edds"
+ OpacityMap "{8DBBE6D4402FD505}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/Data/EquipmentBoxWooden_decal_A.edds"
 }

@@ -21,7 +21,6 @@ SP_AIDirector {
  }
  coords 692.935 1.501 2258.046
  DangerEventRange 1000
- DynamicsimLastlodDistance 2000
  m_FactionsToApear {
   "FIA" "USSR" "US"
  }

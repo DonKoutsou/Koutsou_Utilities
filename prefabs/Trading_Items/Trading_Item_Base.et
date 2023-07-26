@@ -1,6 +1,11 @@
 GenericEntity {
  ID "5B11113704C2B0B4"
  components {
+  ADM_ShopComponent "{5DF4DAF668312BCF}" {
+   m_Categories {
+    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
+   }
+  }
   FactionAffiliationComponent "{5D62594118C3B71C}" {
    "faction affiliation" "BANDITS"
   }
@@ -14,6 +19,16 @@ GenericEntity {
    Static 1
   }
   ActionsManagerComponent "{5B1111371149AC02}" {
+   additionalActions {
+    ADM_ShopAction "{5DF4DAF647D17645}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5DF4DAF652D343D0}" {
+      Name "Trade"
+     }
+    }
+   }
   }
   RplComponent "{5B11113B0FCA391F}" {
   }

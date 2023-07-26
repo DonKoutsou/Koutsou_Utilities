@@ -69,10 +69,10 @@ class SP_GameMode : SCR_BaseGameMode
 		
 	}
 	//------------------------------------------------------------------//
-	protected override void OnPlayerSpawned(int playerId, IEntity controlledEntity)
+	protected override void OnPlayerSpawnFinalize_S(SCR_SpawnRequestComponent requestComponent, SCR_SpawnHandlerComponent handlerComponent, SCR_SpawnData data, IEntity entity)
 	{
-		super.OnPlayerSpawned(playerId, controlledEntity);
-		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(controlledEntity.FindComponent(SCR_CharacterIdentityComponent));
+		super.OnPlayerSpawnFinalize_S(requestComponent, handlerComponent, data, entity);
+		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(entity.FindComponent(SCR_CharacterIdentityComponent));
 		id.SetCharacterRep(10);
 	}
 	//------------------------------------------------------------------//

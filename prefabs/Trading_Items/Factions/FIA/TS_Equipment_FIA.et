@@ -1,6 +1,9 @@
-GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
  ID "5B11113704C2B0B4"
  components {
+  ADM_ShopComponent "{5DF4DAF668312BCF}" {
+   m_ShopConfig "{12D5D36683AD9D97}Configs/Shops/Equipment_Factionless.conf"
+  }
   MeshObject "{58C4C15098F109F6}" {
    Object "{62A30D148D0D93B0}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Equipment_01.xob"
    Materials {
@@ -21,36 +24,6 @@ GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
      Position PointInfo "{5C96A264FED6985A}" {
       Offset 0 0.471 0
      }
-    }
-   }
-   additionalActions {
-    KLM_ConverseAction "{5C96A2622ADCBEC3}" : "{8177EB6BA66BE03C}Prefabs/Trading_Items/Configs/Equipment/B_Map.conf" {
-    }
-    KLM_ConverseAction "{5C96A264359F3A79}" : "{5A426ACD07D129B0}Prefabs/Trading_Items/Configs/Equipment/B_AliceBag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26250906847}" : "{594F77CEA9424E52}Prefabs/Trading_Items/Configs/Equipment/B_Kolobok.conf" {
-    }
-    KLM_ConverseAction "{5C96A26250273F9D}" : "{2F9B8FBA12E7388F}Prefabs/Trading_Items/Configs/Equipment/B_USSR_MedBag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26247513714}" : "{9D278F37750357F9}Prefabs/Trading_Items/Configs/Equipment/B_USSR_Binoc.conf" {
-    }
-    KLM_ConverseAction "{5C96A2625857885D}" : "{8FDE116B9571709D}Prefabs/Trading_Items/Configs/Equipment/B_USSR_Comp.conf" {
-    }
-    KLM_ConverseAction "{5C96A2625AE164AB}" : "{0B31559D92443319}Prefabs/Trading_Items/Configs/Equipment/B_USSR_Radio.conf" {
-    }
-    KLM_ConverseAction "{5C96A2625B60E2E2}" : "{83372782EEE62664}Prefabs/Trading_Items/Configs/Equipment/S_Map.conf" {
-    }
-    KLM_ConverseAction "{5C96A2625C4CFC4B}" : "{713E5BA88C618FC8}Prefabs/Trading_Items/Configs/Equipment/S_USSR_Binoc.conf" {
-    }
-    KLM_ConverseAction "{5C96A2625D3E8872}" : "{BF984F360A3930CB}Prefabs/Trading_Items/Configs/Equipment/S_USSR_Comp.conf" {
-    }
-    KLM_ConverseAction "{5C96A2625EFAEFBC}" : "{E72881026B26EB28}Prefabs/Trading_Items/Configs/Equipment/S_USSR_Radio.conf" {
-    }
-    KLM_ConverseAction "{5C96A26439C5CBAC}" : "{02C457473AFE8967}Prefabs/Trading_Items/Configs/Equipment/S_US_Binoc.conf" {
-    }
-    KLM_ConverseAction "{5C96A2643A285826}" : "{5E49C0CD2490D8A5}Prefabs/Trading_Items/Configs/Equipment/S_US_Comp.conf" {
-    }
-    KLM_ConverseAction "{5C96A2643B313802}" : "{94D28DEDDDB9ED87}Prefabs/Trading_Items/Configs/Equipment/S_US_Radio.conf" {
     }
    }
   }

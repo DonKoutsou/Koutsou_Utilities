@@ -1,0 +1,47 @@
+GenericEntity : "{50801280D56B67A1}Prefabs/Props/Services/Healthcare/BedMedical_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{8CA54B7C3503C854}Assets/Props/Furniture/BedDouble_02/Dst/BedDouble_02_dst_02.xob"
+  }
+  Hierarchy "{5B22A239ECB5CA82}" {
+  }
+  ActionsManagerComponent "{5D4D351C0D356923}" {
+   ActionContexts {
+    UserActionContext "{5D4D351C0C77182F}" {
+     ContextName "default"
+     Position PointInfo "{5D4D351C30A33D0F}" {
+      Offset -0.4639 0.5238 -0.1235
+     }
+     Radius 1.051
+    }
+   }
+   additionalActions {
+    SP_SleepAction "{5D4D351C3AFC86BF}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D4D351C3E57EB36}" {
+      Name "Sleep for 2 hours"
+     }
+     Duration 0.5
+     m_Sleepamount 2
+    }
+    SP_SleepAction "{5D4E87ED0E49398C}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D4E87ED33EB2546}" {
+      Name "Sleep for 8 hours"
+     }
+     Duration 0.5
+     m_Sleepamount 8
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+ coords 55.16 1.001 53.856
+}

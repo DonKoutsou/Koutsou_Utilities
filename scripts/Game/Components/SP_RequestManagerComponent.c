@@ -8,8 +8,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(defvalue : "3", desc: "Cooldown for task generation")]
 	float m_fTaskGenTime;
 	
-	[Attribute(defvalue: "20", desc:"Tasks will be continiusly created until this number is met, after that askRespawnTimer will have to pass for a task to be created")]
-	int m_iMinTaskAmount;
+	protected int m_iMinTaskAmount;
 	
 	[Attribute(defvalue: "3", desc: "Max amount of tasks a character can be requesting at the same time")]
 	protected int m_fTaskPerCharacter;
@@ -318,6 +317,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
+		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)

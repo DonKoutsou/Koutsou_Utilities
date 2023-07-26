@@ -22,28 +22,30 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
             Ural5 {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{BEFBFDEE7BCF4A04}prefabs/Vehicles/Wheeled/Ural4320/Ural4320_Fuelless.et"
+               m_sObjectToSpawn "{839F6D3AC9373AFD}prefabs/Props/Wrecks/Ural_Wreck_New.et"
               }
              }
-             coords 57.373 -1.356 41.762
+             coords 57.373 -1.807 41.762
              angleY 117.858
             }
             Ural3 {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{BEFBFDEE7BCF4A04}prefabs/Vehicles/Wheeled/Ural4320/Ural4320_Fuelless.et"
+               m_sObjectToSpawn "{839F6D3AC9373AFD}prefabs/Props/Wrecks/Ural_Wreck_New.et"
               }
              }
-             coords 54.116 -1.356 52.27
+             coords 54.116 -1.738 52.27
+             angleX -3.506
              angleY 117.858
             }
             Ural1 {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{BEFBFDEE7BCF4A04}prefabs/Vehicles/Wheeled/Ural4320/Ural4320_Fuelless.et"
+               m_sObjectToSpawn "{839F6D3AC9373AFD}prefabs/Props/Wrecks/Ural_Wreck_New.et"
               }
              }
-             coords 52.497 -1.356 60.028
+             coords 52.481 -1.65 60.036
+             angleX -3.342
              angleY 117.858
             }
            }
@@ -110,7 +112,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
             {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{55FB3C326FC49329}prefabs/Trading_Items/Factions/Factionless/Factionless_TradingStation.et"
+               m_sObjectToSpawn "{2294CC66E7E31A17}prefabs/Trading_Items/Factions/Factionless/Factionless_TradingStation.et"
               }
              }
              coords 588.993 -36.004 -1986.226
@@ -146,7 +148,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
             {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{75364BC4B00FA19E}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et"
+               m_sObjectToSpawn "{4068E1DFB7A1D377}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et"
               }
              }
              coords 107.285 -38.276 433.549
@@ -562,7 +564,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
             {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
+               m_sObjectToSpawn "{1CE762D0A53A395A}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
               }
              }
              coords -6.024 -0.569 0.261
@@ -641,7 +643,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
             {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
+               m_sObjectToSpawn "{1CE762D0A53A395A}Prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et"
               }
              }
              coords -5.364 -0.086 -2.836
@@ -1058,7 +1060,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
             {
              components {
               SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-               m_sObjectToSpawn "{75364BC4B00FA19E}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et"
+               m_sObjectToSpawn "{4068E1DFB7A1D377}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et"
               }
              }
              coords 326.023 -3.323 -475.833
@@ -1224,7 +1226,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
          Slot55 {
           components {
            SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-            m_sObjectToSpawn "{75364BC4B00FA19E}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et"
+            m_sObjectToSpawn "{4068E1DFB7A1D377}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et"
             m_aIncludedEditableEntityLabels {
             }
            }
@@ -1494,7 +1496,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
         coords 29.966 -0.628 33.589
         angleY -94.43
        }
-       Slot_307 {
+       {
         components {
          SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
           m_sObjectToSpawn "{F6AA92F7B23D8A71}Prefabs/Structures/Infrastructure/Naval/Piers/Pier_01.et"
@@ -1518,7 +1520,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
         components {
          SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
           m_sFactionKey "FIA"
-          m_sObjectToSpawn "{DA4353EEE7006DD8}prefabs/Trading_Items/Factions/FIA/FIA_TradingStation.et"
+          m_sObjectToSpawn "{3619B20E39C93549}prefabs/Trading_Items/Factions/FIA/FIA_TradingStation.et"
           m_aIncludedEditableEntityLabels {
           }
          }
@@ -1807,7 +1809,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        {
         components {
          SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-          m_sObjectToSpawn "{0E94F28FD722B1D8}prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
+          m_sObjectToSpawn "{0E94F28FD722B1D8}Prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
          }
         }
         coords 11.549 -1.115 7.597
@@ -1816,7 +1818,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        {
         components {
          SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-          m_sObjectToSpawn "{0E94F28FD722B1D8}prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
+          m_sObjectToSpawn "{0E94F28FD722B1D8}Prefabs/Props/Military/Generators/GeneratorFloodlight_US_01.et"
          }
         }
         coords -7.034 -0.805 15.298
@@ -1909,7 +1911,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
           m_aPlugins {
            SCR_ScenarioFrameworkPluginSlotAI "{5DEEB15D9D6D7B09}" {
             m_aUnitPrefabSlots {
-             "{1CA3D30464EE4674}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Spotter.et" "{3726077BE60962FF}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_RTO.et"
+             "{1CA3D30464EE4674}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Spotter.et" "{3726077BE60962FF}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_RTO.et"
             }
             m_iMaxMembers 2
            }
@@ -1925,7 +1927,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
           m_aPlugins {
            SCR_ScenarioFrameworkPluginSlotAI "{5DEEB15DE055BD5F}" {
             m_aUnitPrefabSlots {
-             "{1CA3D30464EE4674}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Spotter.et" "{3726077BE60962FF}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_RTO.et"
+             "{1CA3D30464EE4674}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Spotter.et" "{3726077BE60962FF}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_RTO.et"
             }
             m_iMaxMembers 2
            }
@@ -2118,7 +2120,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
         components {
          SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
           m_sFactionKey "FIA"
-          m_sObjectToSpawn "{DFA178C08722964D}prefabs/Trading_Items/Factions/US/US_TradingStation.et"
+          m_sObjectToSpawn "{D3B39C54FAC5D456}prefabs/Trading_Items/Factions/US/US_TradingStation.et"
           m_aIncludedEditableEntityLabels {
           }
          }
@@ -2198,17 +2200,8 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
    GenericEntity Layer_6 : "{5F9FFF4BF027B3A3}Prefabs/ScenarioFramework/Components/Layer.et" {
     coords 0 0 0
     {
-     GenericEntity SlotAI_5 : "{8D43830F02C3F114}Prefabs/ScenarioFramework/Components/SlotAI.et" {
-      components {
-       SCR_ScenarioFrameworkSlotAI "{5A26B3E02AC77BA0}" {
-        m_sObjectToSpawn "{5479700A1026D3D2}prefabs/Characters/Factions/Bandits/Character_Bandit_Navigator.et"
-        m_sWPToSpawn "{73FFE351E7A88777}prefabs/AI/Waypoints/AIWaypoint_Defend_Large_COMMANDER.et"
-       }
-      }
-      coords 464.484 -1.514 2650.678
-     }
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
-      Slot_317 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2217,7 +2210,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 870.06 33.166 -27.247
        angleY -180
       }
-      Slot_319 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2226,7 +2219,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 769.737 2.613 -113.578
        angleY -15
       }
-      Slot_320 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2235,7 +2228,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 1074.819 -0.374 40.674
        angleY 120
       }
-      Slot_322 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2244,7 +2237,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 1693.582 41.544 792.096
        angleY 107.884
       }
-      Slot_323 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2253,7 +2246,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 1565.178 46.924 916.318
        angleY 107.884
       }
-      Slot_324 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2262,7 +2255,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 1252.416 36.631 1853.944
        angleY 86.628
       }
-      Slot_325 {
+      {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
          m_sObjectToSpawn "{32AC51F992D5BB85}prefabs/Compositions/Misc/ChillPost.et"
@@ -2369,7 +2362,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
     coords 0 0 0
     {
      $grp GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
-      Slot_310 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2381,7 +2374,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 453.294 32.833 127.634
        angleY -100.527
       }
-      Slot_311 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2393,7 +2386,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 631.237 -33.026 190.818
        angleY 150.959
       }
-      Slot_312 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2404,7 +2397,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        }
        coords -1646.839 17.77 -1350.277
       }
-      Slot_313 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2416,7 +2409,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords -42.099 48.363 -934.416
        angleY -104.901
       }
-      Slot_314 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2428,7 +2421,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords 222.567 0.454 90.047
        angleY 108.974
       }
-      Slot_315 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2440,7 +2433,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords -1 -8.205 219.736
        angleY 38.687
       }
-      Slot_316 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2452,7 +2445,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords -1171.132 20.938 793.805
        angleY -100.527
       }
-      Slot_317 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2464,7 +2457,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords -2030.563 12.227 349.708
        angleY 105.492
       }
-      Slot_318 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
@@ -2476,7 +2469,7 @@ $grp GenericEntity : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Are
        coords -1738.731 10.666 445.689
        angleY 150.959
       }
-      Slot_319 {
+      {
        components {
         SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
          AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"

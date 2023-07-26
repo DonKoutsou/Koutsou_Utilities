@@ -1,6 +1,9 @@
-GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
  ID "5B11113704C2B0B4"
  components {
+  ADM_ShopComponent "{5DF4DAF668312BCF}" {
+   m_ShopConfig "{028DE399DE663E6C}Configs/Shops/WPN_FIA.conf"
+  }
   MeshObject "{58C4C15098F109F6}" {
    Object "{819ED3266EE5113B}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Weapon_01.xob"
    Materials {
@@ -21,28 +24,6 @@ GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
      Position PointInfo "{5C96A2640A0E21B0}" {
       Offset 0 0.3885 0
      }
-    }
-   }
-   additionalActions {
-    KLM_ConverseAction "{5C96A267CD80324F}" : "{8B7E7B0A1BC6036A}Prefabs/Trading_Items/Configs/Weapons/B_VZ58.conf" {
-    }
-    KLM_ConverseAction "{5C96A2634DFE943C}" : "{2ACD8849C0016828}Prefabs/Trading_Items/Configs/Weapons/B_PKM.conf" {
-    }
-    LIW_ConverseActionNoTake "{5C96A2634E8063A4}" : "{8881FC635217AE54}Prefabs/Trading_Items/Configs/Weapons/B_PM.conf" {
-    }
-    KLM_ConverseAction "{5C96A267C13341ED}" : "{4E535195C5D4364C}Prefabs/Trading_Items/Configs/Weapons/S_VZ58.conf" {
-    }
-    KLM_ConverseAction "{5C96A2634F265B7E}" : "{08B78738625F4FBF}Prefabs/Trading_Items/Configs/Weapons/B_SVD.conf" {
-    }
-    KLM_ConverseAction "{5C96A263405F4E96}" : "{10E583D9FDAA5EEC}Prefabs/Trading_Items/Configs/Weapons/S_AK74.conf" {
-    }
-    KLM_ConverseAction "{5C96A26343402E93}" : "{288D44A0888CAE70}Prefabs/Trading_Items/Configs/Weapons/S_PKM.conf" {
-    }
-    KLM_ConverseAction "{5C96A26344E54ADA}" : "{CD65E2D33044045F}Prefabs/Trading_Items/Configs/Weapons/S_PM.conf" {
-    }
-    KLM_ConverseAction "{5C96A26345D1A3DC}" : "{1648B8B59BC300C1}Prefabs/Trading_Items/Configs/Weapons/S_RPK.conf" {
-    }
-    KLM_ConverseAction "{5C96A263456EBB5D}" : "{0AF74BD12AD289E7}Prefabs/Trading_Items/Configs/Weapons/S_SVD.conf" {
     }
    }
   }

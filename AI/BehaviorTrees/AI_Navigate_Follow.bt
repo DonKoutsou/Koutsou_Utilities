@@ -1,21 +1,21 @@
-BehaviorTree {
+BehaviorTree "{8D025428FBEF3B73}AI/BehaviorTrees/Chimera/Soldier/CaptiveSoldier.bt" {
  Name "AI/BehaviorTrees/AI_Navigate_Follow.bt"
  Nodes {
   RootNode Root {
    Name "Root"
-   EditorPos -331.429 -425.143
+   EditorPos -89.894 -242.011
    Nodes {
-    Selector Selector {
-     Name "Selector"
-     EditorPos -378.571 -248.571
+    Parallel Parallel {
+     Name "Parallel"
+     EditorPos -81.139 -119.564
      Nodes {
       Sequence Sequence {
        Name "Sequence"
-       EditorPos -1248.239 -42.285
+       EditorPos -408.583 114.083
        Nodes {
         SCR_AIFollowParameters "SCR_AI Follow Parameters" {
          Name "SCR_AI Follow Parameters"
-         EditorPos -2125.842 251.729
+         EditorPos -1027.576 307.608
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
            Port 0
@@ -33,7 +33,7 @@ BehaviorTree {
         }
         SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
          Name "SCR_AI Get Entity Position"
-         EditorPos -1723.841 263.729
+         EditorPos -779.048 325.08
          InPorts {
           SingleInputPortContainer SingleInputPortContainer {
            Port 0
@@ -47,9 +47,9 @@ BehaviorTree {
           }
          }
         }
-        SCR_AIGetPositionAndRotation "SCR_AI Get Position And Rotation" {
-         Name "SCR_AI Get Position And Rotation"
-         EditorPos -1363.015 256.19
+        SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+         Name "SCR_AI Get Entity Position"
+         EditorPos -515.382 320.175
          InPorts {
           SingleInputPortContainer SingleInputPortContainer {
            Port -1
@@ -58,59 +58,143 @@ BehaviorTree {
          }
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
-           Port 3
+           Port 7
            PortName "Position"
           }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port -1
-           PortName "Rotation"
-          }
          }
         }
-        SCR_AIDecoVectorDistance "SCR_AI Deco Vector Distance" {
-         Name "SCR_AI Deco Vector Distance"
-         EditorPos -783.988 252.064
-         Nodes {
-          AITaskReturnState "Return State" {
-           Name "Return State"
-           EditorPos -737.143 562.857
-           Result FAIL
-          }
-         }
-         InPorts {
-          SingleInputPortContainer SingleInputPortContainer {
-           Port 4
-           PortName "Vector0"
-          }
-          SingleInputPortContainer SingleInputPortContainer {
-           Port 3
-           PortName "Vector1"
-          }
-          SingleInputPortContainer SingleInputPortContainer {
-           Port -1
-           PortName "Threshold"
-          }
-         }
-         AbortType AbortChildrenBranch
-         m_fDistanceThreshold 5
-        }
-        AITaskMove Move {
-         Name "Move"
-         EditorPos -408.525 268.428
-         InTargetLocation 2
-         PrecisionXZ 2
-        }
-        AITaskReturnState "Return State" {
-         Name "Return State"
-         EditorPos -74.786 267.357
-         Result FAIL
+        AITaskIdle Idle {
+         Name "Idle"
+         EditorPos -228.658 314.016
+         Period 2
         }
        }
       }
-      AITaskReturnState "Return State" {
-       Name "Return State"
-       EditorPos -62.858 -70
-       Result FAIL
+      Selector Selector {
+       Name "Selector"
+       EditorPos 744.143 93.876
+       Nodes {
+        DecoTestDistanceToEntity "Test Distance To Entity" {
+         Name "Test Distance To Entity"
+         EditorPos 295.555 250
+         Nodes {
+          RunBT RunBT {
+           Name "RunBT"
+           EditorPos 263.234 546.116
+           BehaviorTree "{990D4960E5206005}AI/BehaviorTrees/Chimera/Soldier/Soldier.bt"
+          }
+         }
+         InEntity 3
+         InPosition 2
+         DistanceThreshold 2
+        }
+        Sequence Sequence {
+         Name "Sequence"
+         EditorPos 1593.389 248.768
+         Nodes {
+          DecoTestDistanceToEntity "Test Distance To Entity" {
+           Name "Test Distance To Entity"
+           EditorPos 964.873 565.651
+           Nodes {
+            Sequence Sequence {
+             Name "Sequence"
+             EditorPos 986.841 833.6
+             Nodes {
+              RunOnce "Run Once" {
+               Name "Run Once"
+               EditorPos 577.304 1037.005
+               Nodes {
+                Sequence Sequence {
+                 Name "Sequence"
+                 EditorPos 572.245 1169.771
+                 Nodes {
+                  AITaskIdle Idle {
+                   Name "Idle"
+                   EditorPos 424.234 1313.605
+                   Period 3
+                   PeriodRandom 0
+                  }
+                  SCR_AISetStance "SCR_AI Set Stance" {
+                   Name "SCR_AI Set Stance"
+                   EditorPos 601.659 1321.117
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "Stance"
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+              DecoTestVariable "Test Variable" {
+               Name "Test Variable"
+               EditorPos 1364.533 1015.697
+               Nodes {
+                Sequence Sequence {
+                 Name "Sequence"
+                 EditorPos 1407.357 1223.571
+                 Nodes {
+                  SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+                   Name "SCR_AI Send Order_ Movement Type"
+                   EditorPos 1109.929 1547.072
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "Receiver"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "MovementType"
+                    }
+                   }
+                   m_eMovementType RUN
+                  }
+                  AITaskMoveToEntity "Move To Entity" {
+                   Name "Move To Entity"
+                   EditorPos 1621.901 1524.891
+                   InTargetOrientation -1
+                   InPrecisionXZ -1
+                   PrecisionXZ 3
+                   RequestResult -1
+                   InEntity 6
+                  }
+                 }
+                }
+               }
+               UseChildResult 1
+               InVariable 6
+              }
+             }
+            }
+           }
+           NegativeCondition 1
+           InEntity 4
+           InPosition 5
+           DistanceThreshold 2
+           OutDistance 8
+          }
+          RunBT RunBT {
+           Name "RunBT"
+           EditorPos 2259.38 646.761
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "positionOut"
+            }
+           }
+           OutPorts {
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "positionOut"
+            }
+           }
+           BehaviorTree "{151CFA2AE556CD71}AI/BehaviorTrees/Chimera/Soldier/LookUpdate.bt"
+          }
+         }
+        }
+       }
       }
      }
     }
@@ -118,14 +202,14 @@ BehaviorTree {
   }
  }
  Variables {
-  Variable CharToFollow {
-   VariableName "CharToFollow"
+  Variable ChaRToFollow {
+   VariableName "ChaRToFollow"
    VariableTypeName "IEntity"
    VariableExposedInput 0
    VariableExposedOutput 0
   }
-  Variable CharPos {
-   VariableName "CharPos"
+  Variable CharToFollowPos {
+   VariableName "CharToFollowPos"
    VariableTypeName "vector"
    VariableExposedInput 0
    VariableExposedOutput 0
@@ -136,27 +220,49 @@ BehaviorTree {
    VariableExposedInput 0
    VariableExposedOutput 0
   }
+  Variable Distance {
+   VariableName "Distance"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
  }
  VariablesRefs {
-  VariableReference CharToFollow {
+  VariableReference ChaRToFollow {
    VariableType 0
-   EditorPos -1904.841 420.729
+   EditorPos -862.382 492.858
   }
-  VariableReference CharPos {
+  VariableReference CharToFollowPos {
    VariableType 1
-   EditorPos -1496.507 439.618
-  }
-  VariableReference CharPos {
-   VariableType 1
-   EditorPos -556.765 508.789
+   EditorPos -575.715 479.525
   }
   VariableReference MyPos {
    VariableType 2
-   EditorPos -1016.667 396.19
+   EditorPos -62.857 494.762
   }
-  VariableReference CharPos {
-   VariableType 1
-   EditorPos -1032.699 284.127
+  VariableReference ChaRToFollow {
+   VariableType 0
+   EditorPos -74.286 409.207
+  }
+  VariableReference ChaRToFollow {
+   VariableType 0
+   EditorPos 671.5 665.402
+  }
+  VariableReference MyPos {
+   VariableType 2
+   EditorPos 690.25 742.206
+  }
+  VariableReference ChaRToFollow {
+   VariableType 0
+   EditorPos 1143.107 1188.715
+  }
+  VariableReference MyPos {
+   VariableType 2
+   EditorPos -291.429 481.429
+  }
+  VariableReference Distance {
+   VariableType 3
+   EditorPos 1252.857 741.429
   }
  }
 }

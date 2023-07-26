@@ -682,7 +682,7 @@ StaticModelEntity : "{48A04E0A139BB167}Prefabs/Structures/Military/Camps/TentSma
  angleY 0.122
  angleZ -4.066
 }
-$grp GenericEntity : "{4923E218F59644B9}Prefabs/Props/Wrecks/BoatWreck_01.et" {
+$grp GenericEntity : "{4923E218F59644B9}prefabs/Props/Wrecks/BoatWreck_01.et" {
  {
   coords 1254.597 0.807 1125.539
   angleX -2.81
@@ -782,10 +782,6 @@ $grp GenericEntity : "{5D91308C543D1376}prefabs/Props/Fire_Barrel.et" {
  }
  {
   coords 2014.671 60.801 1083.386
-  angleY 0
- }
- {
-  coords 1465.259 34.812 1151.574
   angleY 0
  }
  {

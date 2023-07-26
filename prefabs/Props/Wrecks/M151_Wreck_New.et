@@ -1,0 +1,14 @@
+GenericEntity : "{654B33C808C4D93E}Prefabs/Props/Wrecks/M151A2_wreck_static.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Materials {
+    MaterialAssignClass "{5B3CA16CBB638A5D}" {
+     SourceMaterial "M151A2_Body_Wreck"
+     AssignedMaterial "{51965F0CF2FEE72E}Assets/Vehicles/Wheeled/M151A2/Data/M151A2_Body.emat"
+    }
+   }
+  }
+ }
+ coords 166.262 1.001 110.879
+}

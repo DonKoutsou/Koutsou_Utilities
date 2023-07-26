@@ -7,7 +7,7 @@ class SP_DeliverTask: SP_Task
 	int m_iRewardAverageAmount;
 	//----------------------------------------------------------------------------------//
 	//Package that needs to be delivered
-	IEntity Package;
+	IEntity m_ePackage;
 	//------------------------------------------------------------------------------------------------------------//
 	//Delivery mission is looking for a random owner.
 	override bool FindOwner(out IEntity Owner)
@@ -75,15 +75,15 @@ class SP_DeliverTask: SP_Task
 		Resource res = Resource.Load("{057AEFF961B81816}prefabs/Items/Package.et");
 		if (res)
 		{
-			Package = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
+			m_ePackage = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
 			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(InventoryStorageManagerComponent));
-			if (inv.TryInsertItem(Package) == false)
+			if (inv.TryInsertItem(m_ePackage) == false)
 			{
-				delete Package;
+				delete m_ePackage;
 				return false;
 			}
 		}
-		SP_PackageComponent PComp = SP_PackageComponent.Cast(Package.FindComponent(SP_PackageComponent));
+		SP_PackageComponent PComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
 		PComp.SetInfo(OName, DName, DLoc);
 		
 		e_State = ETaskState.UNASSIGNED;
@@ -125,7 +125,7 @@ class SP_DeliverTask: SP_Task
 		{
 			for (int i, count = FoundPackages.Count(); i < count; i++)
 			{
-				if (FoundPackages[i] == Package)
+				if (FoundPackages[i] == m_ePackage)
 				{
 					return true;
 				}
@@ -241,28 +241,28 @@ class SP_DeliverTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_DeliverTask;};
 	//------------------------------------------------------------------------------------------------------------//
-	IEntity GetPackage(){return Package;};
+	IEntity GetPackage(){return m_ePackage;};
 	//------------------------------------------------------------------------------------------------------------//
 	//delete task entity. pakcage
 	override void DeleteLeftovers()
 	{
-		if(Package)
+		if(m_ePackage)
 		{
-			InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Package.FindComponent(InventoryItemComponent));
+			InventoryItemComponent pInvComp = InventoryItemComponent.Cast(m_ePackage.FindComponent(InventoryItemComponent));
 			InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 			if(parentSlot)
 			{
 				SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
 				if(inv)
 				{
-					inv.TryRemoveItemFromStorage(Package,parentSlot.GetStorage());
-					delete Package;
+					inv.TryRemoveItemFromStorage(m_ePackage,parentSlot.GetStorage());
+					delete m_ePackage;
 				}
 			}
 		}
-		if(Package)
+		if(m_ePackage)
 		{
-			delete Package;
+			delete m_ePackage;
 		}
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -290,6 +290,7 @@ class SP_DeliverTask: SP_Task
 		{
 			SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, package left on the floor");
 		}
+		super.AssignCharacter(Character);
 	}
 	override bool Init()
 	{

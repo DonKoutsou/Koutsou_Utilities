@@ -1,0 +1,18 @@
+GenericEntity : "{F9B96527E16549AB}Prefabs/Props/Wrecks/M998_wreck_static.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Materials {
+    MaterialAssignClass "{5B3CA16CE1A10C2B}" {
+     SourceMaterial "Wreck_Base"
+     AssignedMaterial "{1CE21568C5E2AC66}Assets/Vehicles/Wheeled/M998/Data/HMMWV_Body.emat"
+    }
+    MaterialAssignClass "{5B3CA16CE1A10CDE}" {
+     SourceMaterial "Wreck_Wheels"
+     AssignedMaterial "{B486A0DBEA8D7482}Assets/Vehicles/Wheeled/M998/Data/HMMWV_Wheels.emat"
+    }
+   }
+  }
+ }
+ coords 165.873 1.001 105.405
+}

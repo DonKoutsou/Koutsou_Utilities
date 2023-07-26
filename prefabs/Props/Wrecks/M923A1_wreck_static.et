@@ -1,0 +1,10 @@
+GenericEntity : "{7783AE4B44D3CF29}Prefabs/Props/Wrecks/M923A1_wreck.et" {
+ ID "F0DBA538AC2A0552"
+ {
+  SCR_PrefabSpawnPoint : "{79AF19675B3C1B71}prefabs/PrefabSpawner.et" {
+   ID "5DD2816AD2A361CC"
+   coords 0.35 1.11 1.516
+   angleY 90
+  }
+ }
+}

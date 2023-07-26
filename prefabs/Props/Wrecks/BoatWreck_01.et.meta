@@ -1,0 +1,13 @@
+MetaFileClass {
+ Name "{4923E218F59644B9}Prefabs/Props/Wrecks/BoatWreck_01.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

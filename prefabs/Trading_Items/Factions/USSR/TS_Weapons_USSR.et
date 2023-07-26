@@ -1,11 +1,8 @@
 GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
  ID "5B11113704C2B0B4"
  components {
-  ADM_ShopComponent "{5D98A89D1C215D7B}" {
+  ADM_ShopComponent "{5DF4DAF668312BCF}" {
    m_ShopConfig "{A451AA96D809A270}Configs/Shops/WPN_USSR.conf"
-   m_Categories {
-    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
-   }
   }
   MeshObject "{58C4C15098F109F6}" {
    Object "{819ED3266EE5113B}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Weapon_01.xob"
@@ -26,16 +23,6 @@ GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
      ContextName "default"
      Position PointInfo "{5C88A2D7080BD6C7}" {
       Offset 0 0.3885 0
-     }
-    }
-   }
-   additionalActions {
-    ADM_ShopAction "{5D98A89D197D5B2C}" {
-     ParentContextList {
-      "default"
-     }
-     UIInfo UIInfo "{5D98A89D1B2DF3F9}" {
-      Name "Trade"
      }
     }
    }

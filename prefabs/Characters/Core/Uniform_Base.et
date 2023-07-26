@@ -1,0 +1,13 @@
+GameEntity {
+ ID "5104869D194C6243"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5222CB01D5B9A306}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB01245CDF32}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5DF4F668304F9573}" {
+     }
+    }
+   }
+  }
+ }
+}

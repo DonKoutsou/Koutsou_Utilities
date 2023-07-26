@@ -1,7 +1,7 @@
-class SP_AIDirectorClass: GenericEntityClass
+class SP_AIDirectorClass: SCR_AIGroupClass
 {
 };
-class SP_AIDirector : GenericEntity
+class SP_AIDirector : SCR_AIGroup
 {
 	static ref array<SP_AIDirector> AllDirectors = null;
 	//--------------------------------------------------------------------------//

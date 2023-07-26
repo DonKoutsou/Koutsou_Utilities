@@ -124,3 +124,36 @@ class SCR_FollowAction : ScriptedUserAction
 		action.SetActiveFollowing(false);
 	}
 };
+class DecoratorScripted_IsBiggerThan : DecoratorScripted
+{
+	[Attribute("0")]
+	private int m_DistanceTocompareto;
+	
+	protected override bool TestFunction(AIAgent owner)
+	{
+		int var = GetVariableType(true, "value1");
+		if (var >= m_DistanceTocompareto)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}	
+	
+	protected override string GetOnHoverDescription()
+	{
+		return "DecoratorScripted_IsEqual: Compares whether 1st variable is bigger than 2nd. Supports int-int, float-float";
+	}
+	
+	protected static ref TStringArray s_aVarsIn = {
+		"value1"
+	};
+	protected override TStringArray GetVariablesIn()
+	{
+		return s_aVarsIn;
+	}
+};

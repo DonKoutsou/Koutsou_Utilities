@@ -1,5 +1,5 @@
 GenericEntity {
- ID "5C96A2673B6D0D8B"
+ ID "5DF4DAF57C8ACA7F"
  components {
   MeshObject "{5C96A2673B6D0C40}" {
    Object "{5172A6E151032216}Assets/Props/Military/AmmoBox/EquipmentBoxStack/EquipmentBoxStack_01_V1.xob"
@@ -28,11 +28,11 @@ GenericEntity {
    Enabled 1
   }
  }
- coords 2033.467 52.308 3059.979
+ coords 2142.799 2.384 3533.648
  Flags 1027
  {
   GenericEntity : "{0011A3CBD1B1212A}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_01.et" {
-   ID "5C96A2673B6D0DBD"
+   ID "5DF4DAF57C8ACA07"
    components {
     Hierarchy "{5C96A2673B6D0C1C}" {
     }
@@ -41,7 +41,7 @@ GenericEntity {
    angleY -32.767
   }
   GenericEntity : "{013297BA01640EB9}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_02.et" {
-   ID "5C96A2673B6D0DB7"
+   ID "5DF4DAF57C8ACA08"
    components {
     Hierarchy "{5C96A2673B6D0C13}" {
     }
@@ -49,8 +49,13 @@ GenericEntity {
    coords -0.732 -0.002 -1.599
    angleY -43.2
   }
+  GenericEntity : "{0BB4B21E4F560431}Prefabs/Props/Furniture/Chest_01.et" {
+   ID "5DF4DAF57C8ACA27"
+   coords -1.833 0 0
+   angleY -90
+  }
   GenericEntity : "{34C189DD4094A08A}prefabs/Trading_Items/Factions/USSR/TS_Equipment_USSR.et" {
-   ID "5C96A2673B6D0C52"
+   ID "5DF4DAF57C8ACA0F"
    components {
     FactionAffiliationComponent "{5D62594118C3B71C}" {
      "faction affiliation" "USSR"
@@ -60,7 +65,7 @@ GenericEntity {
    angleY -180
   }
   GenericEntity : "{52D7749A35F86AFB}prefabs/Trading_Items/Factions/USSR/TS_Medical_USSR.et" {
-   ID "5C96A2673B6D0C4B"
+   ID "5DF4DAF57C8ACA11"
    components {
     FactionAffiliationComponent "{5D62594118C3B71C}" {
      "faction affiliation" "USSR"
@@ -69,18 +74,8 @@ GenericEntity {
    coords 0.032 0.59 -0.809
    angleY 180
   }
-  GenericEntity : "{54A1C6EBC68CF49E}prefabs/Trading_Items/Wood_TradingStation.et" {
-   ID "5C96A2673B6D0DB2"
-   coords -1.409 0.335 0.075
-   angleY -89.417
-  }
-  GenericEntity : "{5A886252FA5D9F67}prefabs/Props/Furniture/Chest_Storage_USSR.et" {
-   ID "5C9920B774B67971"
-   coords -1.868 0 -0.029
-   angleY -90
-  }
   GenericEntity : "{5F76887813B86AD4}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V6_covered.et" {
-   ID "5C96A2673B6D0DAA"
+   ID "5DF4DAF57C8ACA14"
    components {
     MeshObject "{5872F0EB7FA40561}" {
      Materials {
@@ -102,7 +97,7 @@ GenericEntity {
    coords 0.024 0 -1.046
   }
   GenericEntity : "{6D66A35ABDA08197}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_USSR_01.et" {
-   ID "5C96A2673B6D0DA4"
+   ID "5DF4DAF57C8ACA18"
    components {
     Hierarchy "{5C96A2673B6D0C3E}" {
     }
@@ -111,7 +106,7 @@ GenericEntity {
    angleY -20.222
   }
   GenericEntity : "{6F011B58D6D2DBE7}prefabs/Trading_Items/Factions/USSR/TS_Ammunition_USSR.et" {
-   ID "5C96A2673B6D0C4E"
+   ID "5DF4DAF57C8ACA1B"
    components {
     FactionAffiliationComponent "{5D62594118C3B71C}" {
      "faction affiliation" "USSR"
@@ -121,7 +116,7 @@ GenericEntity {
    angleY -92.067
   }
   GenericEntity : "{890EE5FB23BA713E}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/USSR/EquipmentBoxStack_USSR_01_V2_covered.et" {
-   ID "5C96A2673B6D0DA0"
+   ID "5DF4DAF57C8ACA1C"
    components {
     MeshObject "{5872F0EB7FA40561}" {
      Materials {
@@ -148,7 +143,7 @@ GenericEntity {
    angleY 90.2
   }
   GenericEntity : "{89EF92CA286A962C}prefabs/Trading_Items/Factions/USSR/TS_Weapons_USSR.et" {
-   ID "5C96A2673B6D0C4A"
+   ID "5DF4DAF57C8ACA21"
    components {
     FactionAffiliationComponent "{5D62594118C3B71C}" {
      "faction affiliation" "USSR"
@@ -159,21 +154,21 @@ GenericEntity {
   }
   $grp GenericEntity : "{A04DC55EB7C367F8}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_02.et" {
    {
-    ID "5C96A2673B6D0C57"
-    components {
-     Hierarchy "{5C96A2673B6D0CD5}" {
-     }
-    }
-    coords -1.81 0 -0.741
-   }
-   {
-    ID "5C96A2673B6D0C58"
+    ID "5DF4DAF57C8ACA22"
     components {
      Hierarchy "{5C96A2673B6D0CDB}" {
      }
     }
     coords 1.007 0 0.478
     angleY -18.235
+   }
+   {
+    ID "5DF4DAF57C8ACA23"
+    components {
+     Hierarchy "{5C96A2673B6D0CD5}" {
+     }
+    }
+    coords -1.81 0 -0.741
    }
   }
  }

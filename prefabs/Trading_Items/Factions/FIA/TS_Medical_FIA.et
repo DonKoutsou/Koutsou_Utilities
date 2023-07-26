@@ -1,6 +1,9 @@
-GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
  ID "5B11113704C2B0B4"
  components {
+  ADM_ShopComponent "{5DF4DAF668312BCF}" {
+   m_ShopConfig "{AF1C4F245463ADA4}Configs/Shops/Medicals_USSR.conf"
+  }
   MeshObject "{58C4C15098F109F6}" {
    Object "{FE31750973EA92C7}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Medical_01.xob"
    Materials {
@@ -21,30 +24,6 @@ GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
      Position PointInfo "{5C96A264F6DEBF8D}" {
       Offset 0 0.4708 0
      }
-    }
-   }
-   additionalActions {
-    KLM_ConverseAction "{5C96A2647850E308}" : "{1A2ABB48F0C17D5A}Prefabs/Trading_Items/Configs/Medical/B_Bandage.conf" {
-    }
-    KLM_ConverseAction "{5C96A263DD651796}" : "{D023BCF8B4A859DF}Prefabs/Trading_Items/Configs/Medical/B_USSR_Turn.conf" {
-    }
-    KLM_ConverseAction "{5C96A263D948ADB4}" : "{1DACE61E2BC2C1BE}Prefabs/Trading_Items/Configs/Medical/B_Morph.conf" {
-    }
-    KLM_ConverseAction "{5C96A263DA20B1B6}" : "{A288FDFAA97CB8E6}Prefabs/Trading_Items/Configs/Medical/B_Saline.conf" {
-    }
-    KLM_ConverseAction "{5C96A263D3E0AE24}" : "{17BA19BB09016810}Prefabs/Trading_Items/Configs/Medical/S_Morph.conf" {
-    }
-    KLM_ConverseAction "{5C96A263D4EC3752}" : "{A3F057852584A27E}Prefabs/Trading_Items/Configs/Medical/S_Saline.conf" {
-    }
-    KLM_ConverseAction "{5C96A263D7495F5A}" : "{59884F52CCA122C8}Prefabs/Trading_Items/Configs/Medical/S_US_FD.conf" {
-    }
-    KLM_ConverseAction "{5C96A263E817AC30}" : "{68C855F8E868438B}Prefabs/Trading_Items/Configs/Medical/S_US_Turn.conf" {
-    }
-    KLM_ConverseAction "{5C96A263E9C1C78A}" : "{A719C16B99EFD1C0}Prefabs/Trading_Items/Configs/Medical/S_USSR_FD.conf" {
-    }
-    KLM_ConverseAction "{5C96A263EBB1F0FA}" : "{E065E2A52BE01989}Prefabs/Trading_Items/Configs/Medical/S_USSR_Turn.conf" {
-    }
-    KLM_ConverseAction "{5C96A263ECB15277}" : "{76B15606789B4C2C}Prefabs/Trading_Items/Configs/Medical/S_Bandage.conf" {
     }
    }
   }

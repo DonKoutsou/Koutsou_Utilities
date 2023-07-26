@@ -1,6 +1,9 @@
-GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
+GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
  ID "5B11113704C2B0B4"
  components {
+  ADM_ShopComponent "{5DF4DAF668312BCF}" {
+   m_ShopConfig "{FC596DE9111DEF95}Configs/Shops/AMMO_FIA.conf"
+  }
   MeshObject "{58C4C15098F109F6}" {
    Object "{9E1DFF036BCE913E}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Ammunition_01.xob"
    Materials {
@@ -21,30 +24,6 @@ GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
      Position PointInfo "{5C96A2656BA0ED03}" {
       Offset 0 0.324 0
      }
-    }
-   }
-   additionalActions {
-    KLM_ConverseAction "{5C96A2679482B452}" : "{95DFAD3D99D9116D}Prefabs/Trading_Items/Configs/Magazines/B_VZ58_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A2607CB75C04}" : "{8AF5FA4E2A47DECB}Prefabs/Trading_Items/Configs/Magazines/B_PKM_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A2607C7687D8}" : "{E9CAA03D06BC12AF}Prefabs/Trading_Items/Configs/Magazines/B_PM_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A2679D65E518}" : "{E3FC78E6D94EAB5E}Prefabs/Trading_Items/Configs/Magazines/B_RPG_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A2607F039BF3}" : "{98B2151904A55A51}Prefabs/Trading_Items/Configs/Magazines/B_SVD_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A267ACF3C499}" : "{72814C319704B8C4}Prefabs/Trading_Items/Configs/Magazines/S_VZ58_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26070292324}" : "{AC7F6296386F399F}Prefabs/Trading_Items/Configs/Magazines/S_AK74_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26072B12973}" : "{B0AF64297BB77058}Prefabs/Trading_Items/Configs/Magazines/S_PKM_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26073C93C15}" : "{E8B20A428A440837}Prefabs/Trading_Items/Configs/Magazines/S_PM_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26074BE8F0E}" : "{6386EBF467F818E7}Prefabs/Trading_Items/Configs/Magazines/S_RPK_Mag.conf" {
-    }
-    KLM_ConverseAction "{5C96A26074764424}" : "{A2E88B7E5555F4C2}Prefabs/Trading_Items/Configs/Magazines/S_SVD_Mag.conf" {
     }
    }
   }
