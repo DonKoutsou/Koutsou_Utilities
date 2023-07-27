@@ -1,0 +1,59 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SignalsManagerComponent "{5AEB3B35134D7218}" {
+  }
+  SoundComponent "{5AEB3B3535F1086C}" {
+  }
+  SCR_FactionAffiliationComponent "{5AEB3B353B52FBA4}" {
+   "faction affiliation" "US"
+  }
+  SCR_UniversalInventoryStorageComponent "{5AEB3B3527DBC714}" {
+   Attributes SCR_ItemAttributeCollection "{5AEB3B349C4E4B06}" {
+    ItemDisplayName UIInfo "{5AEB3B349E75CD62}" {
+     Name "Medical cabinet"
+     Description "Used for storing medicine"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5AEB3B3491E71E5C}" {
+      CameraOrbitAngles 15 0 0
+      CameraDistanceToItem 0.75
+      ItemRenderRotation 15 15 0
+      FOV 45
+     }
+    }
+    m_Size SLOT_2x2
+   }
+   InitialStorageSlots {
+    InventoryStorageSlot Bandage {
+     Prefab "{C3F1FA1E2EC2B345}Prefabs/Items/Medicine/FieldDressing_USSR_01.et"
+    }
+   }
+  }
+  SCR_ArsenalInventoryStorageManagerComponent "{5AEB3B352234AC2E}" {
+  }
+  ActionsManagerComponent "{5AEB3B352D40BC80}" {
+   ActionContexts {
+    UserActionContext "{5AEB3B37F3BDCD01}" {
+     ContextName "default"
+     Position PointInfo "{5AEB3B3703274C0B}" {
+      Offset 0 0.2372 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5AEB3B3546F46976}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5AEB3B355A0C62E7}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

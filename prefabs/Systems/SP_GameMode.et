@@ -124,7 +124,6 @@ SP_GameMode {
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 300
-   m_iMinTaskAmount 200
    m_fTaskPerCharacter 2
    m_fTaskOfSameTypePerCharacter 1
    m_aTasksToSpawn {
@@ -262,11 +261,15 @@ SP_GameMode {
    ID "5DC8E7DF1BA0C1B0"
    coords -44.306 -9.377 17.714
    m_aPlayerLoadouts {
-    SCR_FactionPlayerLoadout "{5DF31169115D154B}" : "{C71228DC46A2C723}Configs/Loadouts/US/Loadout_US_AR.conf" {
+    SCR_FactionPlayerLoadout "{5DF31169115D154B}" : "{7C7C65FD583E6612}Configs/Loadouts/US/Loadout_US_Rifleman.conf" {
     }
-    SCR_FactionPlayerLoadout "{5DF31169144C1DA0}" : "{743C07B33B63F854}Configs/Loadouts/USSR/Loadout_USSR_AR.conf" {
+    SCR_FactionPlayerLoadout "{5DF31169144C1DA0}" : "{5F9034642E99437D}Configs/Loadouts/USSR/Loadout_USSR_Rifleman.conf" {
     }
-    SCR_FactionPlayerLoadout "{5DF31169485F6FED}" : "{4F55FEF094CA2778}Configs/Loadouts/US/Loadout_FIA_AR.conf" {
+    SCR_FactionPlayerLoadout "{5DF31169485F6FED}" {
+     m_sLoadoutName "FIA Rifleman"
+     m_sLoadoutResource "{84B40583F4D1B7A3}Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Rifleman.et"
+     m_sLoadoutImage "{6601A3AE17EA976D}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_Rifleman.edds"
+     m_sAffiliatedFaction "FIA"
     }
    }
   }

@@ -29,6 +29,7 @@ class SP_Task
 	SP_BaseTask m_TaskMarker;
 	//-------------------------------------------------//
 	SP_RequestManagerComponent m_RequestManager;
+	EEditableEntityLabel RewardLabel;
 	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{
@@ -50,13 +51,6 @@ class SP_Task
 		{
 			return false;
 		}
-		//-------------------------------------------------//
-		//function to fill if task needs an entity, eg package for delivery
-		//if (!SetupTaskEntity())
-		//{
-		//	DeleteLeftovers();
-		//	return false;
-		//}
 		//-------------------------------------------------//
 		if (!AssignReward())
 		{
@@ -147,7 +141,7 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool AssignReward()
 	{
-		EEditableEntityLabel RewardLabel;
+		
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
@@ -175,7 +169,7 @@ class SP_Task
 		{
 			EntitySpawnParams params = EntitySpawnParams();
 			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = vector.Zero;
+			params.Transform[3] = TaskOwner.GetOrigin();
 			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
 			array<IEntity> Rewardlist = new array<IEntity>();
 			Resource RewardRes = Resource.Load(reward);
@@ -190,7 +184,9 @@ class SP_Task
 				}
 				Movedamount += 1;
 			}
-			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), FilePath.StripPath(reward)));
+			
+			string curr = FilePath.StripPath(reward);
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
 		}
 		return false;
@@ -206,7 +202,7 @@ class SP_Task
 			m_Copletionist = Assignee;
 			SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			reqman.OnTaskCompleted(this);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 			return true;
 		}
 		return false;

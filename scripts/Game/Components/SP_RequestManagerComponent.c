@@ -94,43 +94,6 @@ class SP_RequestManagerComponent : ScriptComponent
 		return m_fTaskOfSameTypePerCharacter;
 	}
 	//--------------------------------------------------------------------//
-	override void EOnInit(IEntity owner)
-	{
-		//Init arrays
-		if (m_aTasksToSpawn.IsEmpty())
-		{
-			Print("No tasks configured in Request manager");
-			return;
-		}
-			
-		if(!m_aTaskMap)
-			m_aTaskMap = new array<ref SP_Task>();
-		if(!m_aCompletedTaskMap)
-			m_aCompletedTaskMap = new array<ref SP_Task>();
-		if(!m_aTaskSamples)
-		{
-			m_aTaskSamples = new array<ref SP_Task>();
-		}
-		//Tasks set to spawn and set them as samples to be used later
-		if(m_aTaskSamples.Count() == 0)
-		{
-			foreach(SP_Task Task : m_aTasksToSpawn)
-			{
-				m_aTaskSamples.Insert(Task);
-			}
-		}
-		//Get game mode and hook events
-		if (!m_GameMode)
-		{
-			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
-			if (m_GameMode)
-			{
-				m_GameMode.GetOnControllableSpawned().Insert(OnNewChar);
-				m_GameMode.GetOnControllableDestroyed().Insert(OnCharDeath);
-				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
-			}
-		}
-	}
 	//Getter for samples
 	SP_Task GetTaskSample(typename tasktype)
 	{
@@ -349,6 +312,43 @@ class SP_RequestManagerComponent : ScriptComponent
 			ClearTasks();
 		}
 	};
+	override void EOnInit(IEntity owner)
+	{
+		//Init arrays
+		if (m_aTasksToSpawn.IsEmpty())
+		{
+			Print("No tasks configured in Request manager");
+			return;
+		}
+			
+		if(!m_aTaskMap)
+			m_aTaskMap = new array<ref SP_Task>();
+		if(!m_aCompletedTaskMap)
+			m_aCompletedTaskMap = new array<ref SP_Task>();
+		if(!m_aTaskSamples)
+		{
+			m_aTaskSamples = new array<ref SP_Task>();
+		}
+		//Tasks set to spawn and set them as samples to be used later
+		if(m_aTaskSamples.Count() == 0)
+		{
+			foreach(SP_Task Task : m_aTasksToSpawn)
+			{
+				m_aTaskSamples.Insert(Task);
+			}
+		}
+		//Get game mode and hook events
+		if (!m_GameMode)
+		{
+			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
+			if (m_GameMode)
+			{
+				m_GameMode.GetOnControllableSpawned().Insert(OnNewChar);
+				m_GameMode.GetOnControllableDestroyed().Insert(OnCharDeath);
+				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
+			}
+		}
+	};
 	
 };
 //------------------------------------------------------------------------------------------------------------//
@@ -409,6 +409,25 @@ class CharacterHolder : ScriptAndConfig
 	int GetAliveCount()
 	{
 		return AliveCharacters.Count();
+	}
+	ChimeraCharacter GetRandomDeadOfFaction(Faction fact)
+	{
+		ChimeraCharacter mychar;
+		for (int i = 0; i < 10; i++)
+		{
+			mychar = AliveCharacters.GetRandomElement();
+			if (!mychar)
+				continue;
+			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
+			if (!Aff)
+				continue;
+			if(Aff.GetAffiliatedFaction() == fact)
+			{
+				return mychar;
+			}
+		}
+		mychar = null;
+		return mychar;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	bool GetUnitOfFaction(Faction fact, out ChimeraCharacter mychar)

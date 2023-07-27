@@ -21,23 +21,4 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 			Group.SetMaxMembers(m_iMaxMembers);
 		}
 	}
-	void UpdatePreview(SCR_ScenarioFrameworkLayerBase object)
-	{
-		SCR_ScenarioFrameworkSlotBase slot = SCR_ScenarioFrameworkSlotBase.Cast(object);
-		if (!slot)
-			return;
-		if (!slot.m_PreviewEntity)
-			return;
-		SCR_AIGroup Group = SCR_AIGroup.Cast(slot.m_PreviewEntity);
-		if (Group)
-		{
-			Group.m_aUnitPrefabSlots.Clear();
-			Group.m_aUnitPrefabSlots.Copy(m_aUnitPrefabSlots);
-		}
-	}
-	override void OnWBKeyChanged(SCR_ScenarioFrameworkLayerBase object) 
-	{
-		super.OnWBKeyChanged(object);
-		UpdatePreview(object);
-	}
 }

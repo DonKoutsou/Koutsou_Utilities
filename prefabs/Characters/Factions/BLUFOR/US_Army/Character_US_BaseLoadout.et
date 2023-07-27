@@ -5,7 +5,7 @@ SCR_ChimeraCharacter : "{836E7E39AAC5888B}prefabs/Characters/Factions/BLUFOR/US_
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5D7CAAFB9235E902}" {
      PrefabsToSpawn + {
-      "{0199266A4B0AA532}prefabs/Currency/Wallet_US_5_Watches.et"
+      "{C68F53EF85E90734}prefabs/Currency/Wallet_US_10_Watches.et"
      }
     }
    }

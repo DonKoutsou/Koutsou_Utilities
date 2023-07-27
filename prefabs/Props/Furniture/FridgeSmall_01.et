@@ -1,0 +1,60 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{FC330655F95CF82F}Assets/Props/Furniture/FridgeSmall_01/FridgeSmall_01.xob"
+  }
+  Hierarchy "{5D88A7E7E866D77A}" {
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "HugeDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_DestructionMultiPhaseComponent "{5624A88D86EFE8BA}" {
+   m_fBaseHealth 5000
+   m_aDamagePhases {
+    SCR_DamagePhaseData "{5604B1D529D0FB24}" {
+     m_fPhaseHealth 3000
+     m_PhaseModel "{3CB769F84A1F9A73}Assets/Props/Furniture/Fridge_01/dst/Fridge_01_dst_01.xob"
+    }
+   }
+  }
+  SCR_UniversalInventoryStorageComponent "{5D87077303BF2FD5}" {
+   Attributes SCR_ItemAttributeCollection "{5D87077304DB71DE}" {
+    ItemDisplayName UIInfo "{5D8707730B859584}" {
+     Name "Freezer"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5D8707730E9A7F3B}" {
+     Weight 100
+     SizeSetupStrategy Manual
+     ItemDimensions 100 100 100
+     ItemVolume 10000
+    }
+    m_bDraggable 0
+   }
+   InitialStorageSlots {
+    InventoryStorageSlot meat {
+     Prefab "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{5D870770C5D64ECF}" {
+   ActionContexts {
+    UserActionContext "{5D870770C419FFEB}" {
+     ContextName "default"
+     Position PointInfo "{5D870770C6AC2D5C}" {
+      Offset 0.2809 0.9057 0.3691
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5D870770F63A5FD9}" : "{E9B4646CB9AA14B4}Prefabs/Characters/Core/OpenStorageAction.conf" {
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

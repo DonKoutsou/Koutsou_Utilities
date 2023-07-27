@@ -1,0 +1,10 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ {
+  SCR_PrefabSpawnPoint : "{79AF19675B3C1B71}prefabs/PrefabSpawner.et" {
+   ID "5DD0FCA98F76F5AF"
+   coords 0 0.188 0
+   angleY -90
+  }
+ }
+}

@@ -9,6 +9,10 @@ class SP_RetrieveTask: SP_Task
 	//----------------------------------------//
 	SCR_EArsenalItemType	m_requestitemtype;
 	SCR_EArsenalItemMode	m_requestitemmode;
+	
+	ref array <ResourceName>	rewards;
+	//----------------------------------------//
+	ref array <IEntity> m_aRetrievedItems;
 	//------------------------------------------------------------------------------------------------------------//
 	override bool Init()
 	{
@@ -23,11 +27,6 @@ class SP_RetrieveTask: SP_Task
 		}
 		if (!SetupRequestTypenMode())
 		{
-			return false;
-		}
-		if (!AssignReward())
-		{
-			DeleteLeftovers();
 			return false;
 		}
 		CreateDescritions();
@@ -57,8 +56,8 @@ class SP_RetrieveTask: SP_Task
 		string OLoc;
 		GetInfo(OName, OLoc);
 		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
-		TaskDesc = string.Format("%1 is looking for %2 %3. Reward is %4 %5", OName, m_iRequestedAmount.ToString(), itemdesc, m_iRewardAmount, FilePath.StripPath(reward));
-		TaskDiag = string.Format("I'm looking for %1 %2. Come back to find me on %3. Reward is %4 %5", m_iRequestedAmount.ToString(), itemdesc, OLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		TaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
+		TaskDiag = string.Format("I'm looking for %1 %2. Come back to find me on %3.", m_iRequestedAmount.ToString(), itemdesc, OLoc);
 		TaskTitle = string.Format("Retrieve: bring %1 %2 to %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -70,7 +69,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.HEAL;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				m_iRewardAmount = 2;
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 1)
@@ -78,7 +77,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.FOOD;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				m_iRewardAmount = 3;
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 2)
@@ -86,7 +85,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.DRINK;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				m_iRewardAmount = 2;
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 3)
@@ -94,7 +93,8 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.EXPLOSIVES;
 				m_requestitemmode = SCR_EArsenalItemMode.WEAPON;
 				m_iRequestedAmount = Math.RandomInt(1, 10);
-				m_iRewardAmount = 5;
+				if (m_iRequestedAmount < 5)
+					RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 				return true;
 			}
 		if (index == 4)
@@ -119,7 +119,6 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.HEADWEAR;
 				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
-				m_iRewardAmount = 15;
 				return true;
 			}
 		if (index == 5)
@@ -136,7 +135,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.BACKPACK;
 				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
-				m_iRewardAmount = 10;
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 6)
@@ -144,7 +143,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.FLASHLIGHT;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = 1;
-				m_iRewardAmount = 10;
+			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 7)
@@ -152,23 +151,23 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.MAP;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				m_iRewardAmount = 2;
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 8)
 			{
 				m_requestitemtype = SCR_EArsenalItemType.COMPASS;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
-				m_iRequestedAmount = 1;
-				m_iRewardAmount = 5;
+				m_iRequestedAmount = Math.RandomInt(1, 3);
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 9)
 			{
 				m_requestitemtype = SCR_EArsenalItemType.RADIO;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
-				m_iRequestedAmount = 1;
-				m_iRewardAmount = 10;
+				m_iRequestedAmount = Math.RandomInt(1, 3);
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 10)
@@ -193,34 +192,12 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.ARMOR;
 				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
-				m_iRewardAmount = 20;
 				return true;
 			}
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	override bool AssignReward()
-	{
-		EEditableEntityLabel RewardLabel;
-		int index = Math.RandomInt(0,2);
-		if(index == 0)
-		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-			m_iRewardAmount = m_iRewardAmount * m_iRequestedAmount;
-		}
-		if(index == 1)
-		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-			m_iRewardAmount = 1;
-		}
-		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
-		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(RewardLabel, Mylist);
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		reward = entry.GetPrefab();
-		return true;
-	};
+	
 	override void SpawnTaskMarker(IEntity Assignee)
 	{
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
@@ -280,35 +257,47 @@ class SP_RetrieveTask: SP_Task
 		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemtype, m_requestitemmode);
 		array <IEntity> FoundItems = new array <IEntity>();
 		inv.FindItems(FoundItems, RequestPred);
+		int amountleft = m_iRequestedAmount;
 		if (FoundItems.Count() >= m_iRequestedAmount)
-		{
+		{			
+			m_aRetrievedItems = new ref array <IEntity>();
+			foreach (IEntity item : FoundItems)
+			{
+				if (amountleft <= 0)
+					break;
+				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
+				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+				LoadoutSlotInfo eqslot = LoadoutSlotInfo.Cast(parentSlot);
+				if(!eqslot)
+				{
+					inv.TryRemoveItemFromStorage(item,parentSlot.GetStorage());
+					if(m_requestitemtype == SCR_EArsenalItemType.HEADWEAR)
+					{
+						Ownerinv.TryInsertItem(item);
+						Ownerinv.EquipCloth(item);
+					}
+					else if(m_requestitemtype == SCR_EArsenalItemType.BACKPACK)
+					{
+						Ownerinv.EquipCloth(item);
+					}
+					else if(m_requestitemtype == SCR_EArsenalItemType.ARMOR)
+					{
+						Ownerinv.EquipCloth(item);
+					}
+					else
+					{
+						Ownerinv.TryInsertItem(item);
+					}
+					m_aRetrievedItems.Insert(item);
+					//if (ItemBounty)
+						//delete ItemBounty;
+					amountleft -= 1;
+				}
+				
+			}
+			AssignReward();
 			if (GiveReward(Assignee))
 			{
-				foreach (IEntity item : FoundItems)
-				{
-					InventoryItemComponent pInvComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
-					InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-					LoadoutSlotInfo eqslot = LoadoutSlotInfo.Cast(parentSlot);
-					if(!eqslot)
-					{
-						inv.TryRemoveItemFromStorage(item,parentSlot.GetStorage());
-						if(m_requestitemtype == SCR_EArsenalItemType.HEADWEAR)
-						{
-							Ownerinv.TryInsertItem(item);
-							Ownerinv.EquipCloth(item);
-						}
-						else if(m_requestitemtype == SCR_EArsenalItemType.BACKPACK)
-						{
-							Ownerinv.EquipCloth(item);
-						}
-						else
-						{
-							Ownerinv.TryInsertItem(item);
-						}
-						//if (ItemBounty)
-							//delete ItemBounty;
-					}
-				}
 				if (m_TaskMarker)
 				{
 					m_TaskMarker.Finish(true);
@@ -317,7 +306,7 @@ class SP_RetrieveTask: SP_Task
 				m_Copletionist = Assignee;
 				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 				reqman.OnTaskCompleted(this);
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 				return true;
 				
 			}
@@ -335,6 +324,95 @@ class SP_RetrieveTask: SP_Task
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
 		OLoc = Diag.GetCharacterLocation(TaskOwner);
+	};
+	override bool AssignReward()
+	{
+		rewards = new ref array <ResourceName>();
+		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+		SCR_EntityCatalog RewardCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
+		array<SCR_EntityCatalogEntry> Requestlist = new array<SCR_EntityCatalogEntry>();
+		array<SCR_EntityCatalogEntry> Rewardlist = new array<SCR_EntityCatalogEntry>();
+		RequestCatalog.GetEntityList(Requestlist);
+		if (m_aRetrievedItems.IsEmpty())
+			return false;
+		foreach (IEntity Item :m_aRetrievedItems)
+		{
+			EntityPrefabData prefabData = Item.GetPrefabData();
+			ResourceName prefabName = prefabData.GetPrefabName();
+			SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefabName);
+			SCR_ArsenalItem arsenaldata = SCR_ArsenalItem.Cast(entry.GetEntityDataOfType(SCR_ArsenalItem));
+			m_iRewardAmount = m_iRewardAmount + arsenaldata.GetSupplyCost();
+		}
+		RewardCatalog.GetEntityList(Rewardlist);
+		while (m_iRewardAmount > 0)
+		{
+			SCR_EntityCatalogEntry entry = Rewardlist.GetRandomElement();
+			SCR_ArsenalItem arsenaldata = SCR_ArsenalItem.Cast(entry.GetEntityDataOfType(SCR_ArsenalItem));
+			if (arsenaldata.GetSupplyCost() <= m_iRewardAmount)
+			{
+				m_iRewardAmount -= arsenaldata.GetSupplyCost();
+				rewards.Insert(entry.GetPrefab());
+			}
+		}
+		/*if (!RewardLabel)
+		{
+			int index = Math.RandomInt(0,2);
+			if(index == 0)
+			{
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				//m_iRewardAmount = m_iRewardAmount * m_iRequestedAmount;
+			}
+			if(index == 1)
+			{
+				RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+				//m_iRewardAmount = 1;
+			}
+		}
+		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
+		reward = entry.GetPrefab();*/
+		return true;
+		
+	};
+	override bool GiveReward(IEntity Target)
+	{
+		if (!rewards.IsEmpty())
+		{
+			EntitySpawnParams params = EntitySpawnParams();
+			params.TransformMode = ETransformMode.WORLD;
+			params.Transform[3] = TaskOwner.GetOrigin();
+			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+			array<IEntity> Rewardlist = new array<IEntity>();
+			int Movedamount;
+			for (int j = 0; j < rewards.Count(); j++)
+				Rewardlist.Insert(GetGame().SpawnEntityPrefab(Resource.Load(rewards[j]), Target.GetWorld(), params));
+			for (int i, count = Rewardlist.Count(); i < count; i++)
+			{
+				if(TargetInv.TryInsertItem(Rewardlist[i]) == false)
+				{
+					return false;
+				}
+				Movedamount += 1;
+			}
+			string rewardstring;
+			map <ResourceName, int> stringarray = new map <ResourceName, int>();
+			for (int j = 0; j < rewards.Count(); j++)
+			{
+				if (!stringarray.Contains(rewards[j]))
+					stringarray.Insert(rewards[j], 1);
+				else
+					stringarray.Set(rewards[j], stringarray.Get(rewards[j]) + 1);
+			}
+			for (int j = 0; j < stringarray.Count(); j++)
+			{
+				string itemstring = FilePath.StripPath(stringarray.GetKey(j));
+				rewardstring = rewardstring + stringarray.Get(stringarray.GetKey(j)) + " " + itemstring.Substring(0, itemstring.Length() - 3) + ", ";
+			}
+				
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 added to your inventory, and your reputation has improved", rewardstring));
+			return true;
+		}
+		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};

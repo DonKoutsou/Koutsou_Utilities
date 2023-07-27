@@ -88,7 +88,6 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool AssignReward()
 	{
-		EEditableEntityLabel RewardLabel;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
@@ -148,10 +147,10 @@ class SP_BountyTask: SP_Task
 					m_TaskMarker.Finish(true);
 				}
 				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-				reqman.OnTaskCompleted(this);
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+				reqman.OnTaskCompleted(this);
 				return true;
 			}
 		}

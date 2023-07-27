@@ -1,0 +1,34 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "6093E737E14BFABB"
+ components {
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   Layers 2
+   LayerPreset "Interaction"
+  }
+  ActionsManagerComponent "{5D7EED0193BFE78A}" {
+   ActionContexts {
+    UserActionContext "{5D7EED01ABCAB8C8}" {
+     ContextName "default"
+     Position PointInfo "{5D7EED01A05E58BE}" {
+      Offset 0 0 0.2974
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    SP_RefillCanteensAction "{5D7EED01B956F29C}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5D7EED01BD6A439A}" {
+      Name "Refill bottles"
+     }
+     Duration 3
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

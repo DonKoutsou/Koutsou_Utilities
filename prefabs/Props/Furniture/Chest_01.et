@@ -1,0 +1,76 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SignalsManagerComponent "{5AE90764B1601AE6}" {
+  }
+  SoundComponent "{5AE90764B6ADFBD5}" {
+   Filenames {
+    "{1A1F49248284A1CF}Sounds/Props/Military/AmmoBoxes/AmmoBox_81mm_mortar_3rnd/Props_AmmoBox_81mm_mortar_3rnd.acp"
+   }
+   DistanceManagement 0
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "SmallDestructible"
+  }
+  SCR_FactionAffiliationComponent "{5AE90762ADC570E9}" {
+   "faction affiliation" "US"
+  }
+  SCR_UniversalInventoryStorageComponent "{5AE9076772249F37}" {
+   Attributes SCR_ItemAttributeCollection "{5AE9076449B359E8}" {
+    ItemDisplayName UIInfo "{5AE907644B93E471}" {
+     Name "Chest"
+     Description "Wooden chest, used to store clothing and personal items"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5AE907645CCD256F}" {
+      CameraOrbitAngles 15 0 0
+      CameraDistanceToItem 1
+      ItemRenderRotation 15 15 0
+      FOV 45
+     }
+     ItemPhysicalAttributes "{5AF50BA1F10CEB12}" {
+      Weight 10
+      SizeSetupStrategy Volume
+      ItemVolume 5000
+     }
+    }
+   }
+   Priority 100
+   InitialStorageSlots {
+    InventoryStorageSlot ff2 {
+     Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+    }
+    InventoryStorageSlot ff3 {
+     Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+    }
+   }
+  }
+  SCR_ArsenalInventoryStorageManagerComponent "{5AE90764BE8B46AB}" {
+  }
+  ActionsManagerComponent "{5AE9076497988C13}" {
+   ActionContexts {
+    UserActionContext "{5AE90764E6AD6C00}" {
+     ContextName "default"
+     Position PointInfo "{5AE90764F150FBDA}" {
+      Offset 0 0.3261 0
+     }
+     Radius 0.5
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5AE907640DB13229}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5AE907641827F3BC}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+     "Sort Priority" 100
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

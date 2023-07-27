@@ -96,7 +96,7 @@ class SP_DeliverTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
-		TaskDesc = string.Format("Deliver package received from %1, to %2. %2 is located on %3. Reward is %4 %5", OName, DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		TaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. %2 is located on %3. Reward is %4 %5", OName, DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
 		TaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Come find me on %3. Reward is %4 %5", DName, DLoc, OLoc, m_iRewardAmount, FilePath.StripPath(reward));
 		TaskTitle = string.Format("Deliver: deliver package to %1", DName);
 	};
@@ -137,7 +137,6 @@ class SP_DeliverTask: SP_Task
 	//overriding AssignReward to apply the average attribute from SP_RequestManagerComponent
 	override bool AssignReward()
 	{
-		EEditableEntityLabel RewardLabel;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
@@ -216,8 +215,8 @@ class SP_DeliverTask: SP_Task
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
 				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 				reqman.OnTaskCompleted(this);
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
 				return true;
 			}
 		}

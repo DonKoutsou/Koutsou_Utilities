@@ -8,8 +8,8 @@ class SP_RescueTask: SP_Task
 	[Attribute(defvalue: "2", desc: "Max amount of rescue tasks that can exist")]
 	int m_iMaxamount;
 	
-	ref array <IEntity> CharsToRescue = ;
 	
+	ref array <IEntity> CharsToRescue = ;
 	int GetMaxamount()
 	{
 		return m_iMaxamount;
@@ -23,17 +23,17 @@ class SP_RescueTask: SP_Task
 		if (dType != EDamageType.BLEEDING)
 			return;
 		IEntity Instigator;
-		foreach (IEntity Character : CharsToRescue)
+		for (int i = CharsToRescue.Count() - 1; i >= 0; --i)
 		{
-			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Character.FindComponent(SCR_CharacterDamageManagerComponent));
+			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(CharsToRescue[i].FindComponent(SCR_CharacterDamageManagerComponent));
 			array<HitZone> blhitZones = new array<HitZone>();
 			dmg.GetBleedingHitZones(blhitZones);
 			if(blhitZones.IsEmpty())
 			{
 				dmg.SetResilienceRegenScale(0.3);
 				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
-				CharsToRescue.RemoveItem(Character);
 				Instigator = dmg.GetInstigator();
+				CharsToRescue.RemoveItem(CharsToRescue[i]);
 			}
 		}
 		if (CharsToRescue.IsEmpty())
@@ -45,7 +45,10 @@ class SP_RescueTask: SP_Task
 		}
 		else
 		{
-			m_TaskMarker.SetOrigin(CharsToRescue.GetRandomElement().GetOrigin());
+			if (m_TaskMarker)
+				m_TaskMarker.SetOrigin(CharsToRescue.GetRandomElement().GetOrigin());
+			else
+				AssignCharacter(Instigator);
 		}
 	}
 	override bool Init()
@@ -85,7 +88,7 @@ class SP_RescueTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, DLoc, OLoc);
-		TaskDesc = string.Format("%1's squad was ambussed, they need someone to rescuer them, they are somethwere areound %2", DName, DLoc);
+		TaskDesc = string.Format("%1's squad was ambussed, they need someone to rescuer them, they are somewhere areound %2", DName, DLoc);
 		TaskDiag = string.Format("We havent been able to establish connections with %1's squad for a while, please go to %2 and look for them", DName, DLoc);
 		TaskTitle = string.Format("Rescue: locate %1's squad and provide help", DName);
 	};
@@ -153,7 +156,6 @@ class SP_RescueTask: SP_Task
 	override bool AssignReward()
 	{
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		EEditableEntityLabel RewardLabel;
 		RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 		SP_RescueTask tasksample = SP_RescueTask.Cast(reqman.GetTaskSample(SP_RescueTask));
 		m_iRewardAverageAmount = tasksample.GetRewardAverage();
@@ -220,7 +222,7 @@ class SP_RescueTask: SP_Task
 		e_State = ETaskState.COMPLETED;
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		reqman.OnTaskCompleted(this);
-		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
+		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 		return false;
 	};
 	override typename GetClassName(){return SP_RescueTask;};

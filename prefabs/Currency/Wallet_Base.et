@@ -10,7 +10,7 @@ GenericEntity {
    DistanceManagement 0
   }
   MeshObject "{5C78C42204C939A4}" {
-   Object "{C93586479590F3C6}Assets/Items/Equipment/Accessories/Pouch_Medical_Soviet/Pouch_Medical_Soviet_item.xob"
+   Object "{402839377B0ADE78}Assets/Wallet/Wallet.xob"
    Materials {
     MaterialAssignClass "{5C78C42204C939A2}" {
      SourceMaterial "Pouch_Medical_Soviet"
@@ -36,14 +36,14 @@ GenericEntity {
     }
     CustomAttributes {
      PreviewRenderAttributes "{5C78C42204C93A02}" {
-      CameraPreset Top
       CameraOrbitAngles 0 25 0
+      CameraDistanceToItem 0.1
       FOV 45
      }
     }
     CommonItemType "WALLET"
     m_Size SLOT_1x1
-    m_SlotType SLOT_LOOT_CURRENCY
+    m_SlotType SLOT_BACKPACK
    }
    Priority 9
    StoragePurpose 9

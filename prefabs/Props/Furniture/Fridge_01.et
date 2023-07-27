@@ -1,0 +1,46 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "6093E737E30F72A1"
+ components {
+  Hierarchy "{5D88A7E7E0E236F3}" {
+  }
+  UniversalInventoryStorageComponent "{5D8707709C5FEF84}" {
+   Attributes SCR_ItemAttributeCollection "{5D8707709F1EA1E2}" {
+    ItemDisplayName UIInfo "{5D8707709E7784FA}" {
+     Name "Fridge"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5D870770854CD401}" {
+     Weight 200
+     SizeSetupStrategy Manual
+     ItemDimensions 200 200 200
+     ItemVolume 2000
+    }
+    m_bDraggable 0
+   }
+   MultiSlots {
+    MultiSlotConfiguration "{5D870770B24BF08C}" {
+     SlotTemplate InventoryStorageSlot meat {
+      Prefab "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et"
+     }
+     NumSlots 2
+    }
+   }
+  }
+  ActionsManagerComponent "{5D870770A53491BC}" {
+   ActionContexts {
+    UserActionContext "{5D870770A4E079B2}" {
+     ContextName "default"
+     Position PointInfo "{5D870770A62DF33E}" {
+      Offset 0.7948 1.3538 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5D8707705527DAAD}" : "{E9B4646CB9AA14B4}Prefabs/Characters/Core/OpenStorageAction.conf" {
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

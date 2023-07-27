@@ -75,7 +75,6 @@ class SP_NavigateTask: SP_Task
 	//overriding AssignReward to apply the average attribute from SP_RequestManagerComponent
 	override bool AssignReward()
 	{
-		EEditableEntityLabel RewardLabel;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
@@ -198,8 +197,8 @@ class SP_NavigateTask: SP_Task
 			m_Copletionist = Assignee;
 			SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			reqman.OnTaskCompleted(this);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskDesc);
-			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 stopped following you", Diag.GetCharacterName(TaskOwner)));
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+			//SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 stopped following you", Diag.GetCharacterName(TaskOwner)));
 			return true;
 		}
 		return false;
