@@ -44,7 +44,8 @@ class SP_ConsumableEffectEat : SCR_ConsumableEffectBase
 	
 	override bool ActivateEffect(IEntity target, IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams = null)
 	{
-		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(user.FindComponent(SP_CharacterStatsComponent));
+		PlayerController playerController = GetGame().GetPlayerController();
+		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
 		if (!statComponent)
 			return false;
 		
@@ -86,7 +87,8 @@ class SP_ConsumableEffectDrink : SCR_ConsumableEffectBase
 	
 	override bool ActivateEffect(IEntity target, IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams = null)
 	{
-		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(user.FindComponent(SP_CharacterStatsComponent));
+		PlayerController playerController = GetGame().GetPlayerController();
+		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
 		if (!statComponent)
 			return false;
 		
