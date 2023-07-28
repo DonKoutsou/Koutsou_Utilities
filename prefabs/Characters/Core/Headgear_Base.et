@@ -1,3 +1,14 @@
 GameEntity {
  ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes ItemAttributeCollection "{5244E4431DA56D64}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5DF8D014D89E2A05}" {
+      m_TemperatureIsolation 0.05
+     }
+    }
+   }
+  }
+ }
 }

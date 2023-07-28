@@ -51,6 +51,10 @@ class SP_Task
 		{
 			return false;
 		}
+		if(!CheckTarget())
+		{
+			return false;
+		}
 		//-------------------------------------------------//
 		if (!AssignReward())
 		{
@@ -75,6 +79,8 @@ class SP_Task
 			return false;
 		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (!dmg)
+			return false;
+		if (dmg.IsDestroyed())
 			return false;
 		if(dmg.GetIsUnconscious())
 		{
@@ -111,6 +117,41 @@ class SP_Task
 		};
 		return true;
 	};
+	bool CheckTarget()
+	{
+		if (!TaskTarget)
+			return false;
+		if (TaskTarget == SCR_EntityHelper.GetPlayer())
+			return false;
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		if (!dmg)
+			return false;
+		if (dmg.IsDestroyed())
+			return false;
+		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		if (!ReqMan || !Diag)
+			return false;
+		array<ref SP_Task> tasks = new array<ref SP_Task>();
+		ReqMan.GetCharTargetTasks(TaskTarget, tasks);
+		if(tasks.Count() >= ReqMan.GetTasksPerCharacter())
+		{
+			return false;
+		}
+		array<ref SP_Task> sametasks = new array<ref SP_Task>();
+		ReqMan.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
+		if(sametasks.Count() >= ReqMan.GetTasksOfSameTypePerCharacter() + 1)
+		{
+			return false;
+		}
+		string charname = Diag.GetCharacterName(TaskTarget);
+		string charrank = Diag.GetCharacterRankName(TaskTarget);
+		if(charname == " " || charrank == " ")
+		{
+			return false;
+		}
+		return true;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	bool CharacterIsOwner(IEntity Character)
 	{

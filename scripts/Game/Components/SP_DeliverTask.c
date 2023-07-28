@@ -310,6 +310,10 @@ class SP_DeliverTask: SP_Task
 		{
 			return false;
 		}
+		if(!CheckTarget())
+		{
+			return false;
+		}
 		//-------------------------------------------------//
 		//function to fill if task needs an entity, eg package for delivery
 		if (!SetupTaskEntity())

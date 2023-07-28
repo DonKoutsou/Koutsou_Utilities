@@ -447,6 +447,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 			{
 				clothesFactor = clothesFactor + GetClothCoverage(pants);
 			}
+			IEntity Vest = m_pLoadout.GetClothFromArea(LoadoutArmoredVestSlotArea);
+			if (Vest)
+			{
+				clothesFactor = clothesFactor + GetClothCoverage(Vest);
+			}
 			// headgear
 			IEntity headgear = m_pLoadout.GetClothFromArea(LoadoutHeadCoverArea);
 			if (headgear)
@@ -493,15 +498,15 @@ class SP_CharacterStatsComponent : ScriptComponent
 			const float cooldownRate = 0.1;
 			
 			float diffTemp = (clothesFactor - needClothes) * timeSlice;		
-			m_fTemperature = Math.Clamp(m_fTemperature + diffTemp + p_Drain, 0, m_fMaxTemperature);
+			m_fTemperature = Math.Clamp(m_fTemperature + diffTemp + p_Drain/10, 0, m_fMaxTemperature);
 			//Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes));
 			
 			// check temperature for crossing thresholds and effects
 			CheckTemperature();
 			OnTempChange();
 			
-			float hungerloss = GetCharacterStatsPrefabData().m_fHungerChangedPerSecond + p_Drain;
-			float thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond + p_Drain;
+			float hungerloss = GetCharacterStatsPrefabData().m_fHungerChangedPerSecond + p_Drain/10;
+			float thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond + p_Drain/10;
 			SetNewHunger(m_fHunger - hungerloss * timeBtwEachTick);
 			SetNewThirst(m_fThirst - thirstloss * timeBtwEachTick);
 			//Print("hunger drain =" + hungerloss);
