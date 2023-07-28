@@ -13,7 +13,7 @@ class SP_SpawnLogic : SCR_AutoSpawnLogic
 	}
 	override protected void Spawn(int playerId)
 	{
-		if (Lives == 0)
+		/*if (Lives == 0)
 		{
 			SCR_GameModeSFManager manager = SCR_GameModeSFManager.Cast(GetGame().GetGameMode().FindComponent(SCR_GameModeSFManager));
 			if (!manager)
@@ -21,7 +21,7 @@ class SP_SpawnLogic : SCR_AutoSpawnLogic
 			manager.SetMissionEndScreen(EGameOverTypes.DEATH);
 			manager.Finish();
 			return;
-		}
+		}*/
 			
 		super.Spawn(playerId);
 		
