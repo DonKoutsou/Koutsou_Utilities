@@ -468,10 +468,7 @@ class SCR_GameModeSFManager : SCR_BaseGameModeComponent
 		LoadHeaderSettings();
 		
 		SP_GameMode Gamemod = SP_GameMode.Cast(GetGame().GetGameMode());
-		if (!Gamemod.GetPlFaction())
-			Gamemod.GetOnPlayerFactionSet().Insert(InitAreas);
-		else
-			InitAreas();
+		InitAreas();
 		
 		return true;
 	}
