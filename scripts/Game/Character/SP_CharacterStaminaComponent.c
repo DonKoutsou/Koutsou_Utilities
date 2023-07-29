@@ -1,9 +1,4 @@
-[ComponentEditorProps(category: "GameScripted/Character", description: "Stamina component for character.", icon: HYBRID_COMPONENT_ICON)]
-class SP_CharacterStaminaComponentClass : SCR_CharacterStaminaComponentClass
-{
-};
-
-class SP_CharacterStaminaComponent : SCR_CharacterStaminaComponent
+modded class SCR_CharacterStaminaComponent
 {
 	protected float m_fStaminaDrain;
 	protected ref ScriptInvoker m_OnStaminaDrain;

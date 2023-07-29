@@ -530,8 +530,8 @@ class SP_AIDirector : SCR_AIGroup
 					slot.m_aIncludedEditableEntityLabels.Copy(m_aIncludedEditableEntityLabels);
 					slot.m_aExcludedEditableEntityLabels.Clear();
 					slot.m_aExcludedEditableEntityLabels.Copy(m_aExcludedEditableEntityLabels);
-					if (!m_aQueriedSentinels.IsEmpty())
-						entity.SetOrigin(m_aQueriedSentinels.GetRandomElement().GetOrigin());
+					//if (!m_aQueriedSentinels.IsEmpty())
+						//entity.SetOrigin(m_aQueriedSentinels.GetRandomElement().GetOrigin());
 					slot.SelectRandomSlot();
 					slot.SpawnAsset();
 					slot.InitEnt();

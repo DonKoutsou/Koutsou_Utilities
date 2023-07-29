@@ -7,8 +7,12 @@ modded class SP_DialogueComponent
 		string rummor;
 		SP_RequestManagerComponent RequestManager = SP_RequestManagerComponent.Cast(GameMode.FindComponent(SP_RequestManagerComponent));
 		CharacterHolder Characters = RequestManager.GetCharacterHolder();
-		SP_FactionManager FactionMan = SP_FactionManager.Cast(GameMode.FindComponent(SP_FactionManager));
+		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
 		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		if (!FactionMan || !Characters || !RequestManager)
+		{
+			return STRING_EMPTY;
+		}
 		int index = Math.RandomInt(0, 5);
 		switch (index)
 		{

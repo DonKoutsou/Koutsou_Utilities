@@ -51,6 +51,34 @@ class SP_RescueTask: SP_Task
 				AssignCharacter(Instigator);
 		}
 	}
+	override	bool GiveReward(IEntity Target)
+	{
+		if (reward)
+		{
+			EntitySpawnParams params = EntitySpawnParams();
+			params.TransformMode = ETransformMode.WORLD;
+			params.Transform[3] = Target.GetOrigin();
+			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+			array<IEntity> Rewardlist = new array<IEntity>();
+			Resource RewardRes = Resource.Load(reward);
+			int Movedamount;
+			for (int j = 0; j < m_iRewardAmount; j++)
+				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, GetGame().GetWorld(), params));
+			for (int i, count = Rewardlist.Count(); i < count; i++)
+			{
+				if(TargetInv.TryInsertItem(Rewardlist[i]) == false)
+				{
+					return false;
+				}
+				Movedamount += 1;
+			}
+			
+			string curr = FilePath.StripPath(reward);
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
+			return true;
+		}
+		return false;
+	};
 	override bool Init()
 	{
 		CharsToRescue = new ref array <IEntity>();
