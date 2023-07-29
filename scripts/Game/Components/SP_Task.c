@@ -219,10 +219,7 @@ class SP_Task
 				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
 			for (int i, count = Rewardlist.Count(); i < count; i++)
 			{
-				if(TargetInv.TryInsertItem(Rewardlist[i]) == false)
-				{
-					return false;
-				}
+				TargetInv.TryInsertItem(Rewardlist[i]);
 				Movedamount += 1;
 			}
 			

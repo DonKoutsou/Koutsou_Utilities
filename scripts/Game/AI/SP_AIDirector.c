@@ -726,22 +726,6 @@ class SP_AIDirector : SCR_AIGroup
 			group.GetOnEmpty().Insert(ClearEmptyGroups);
 		}
 	}
-	/*override void _WB_SetExtraVisualiser(EntityVisualizerType type, IEntitySource src)
-	{		
-		m_bVisualize = false;
-		switch (type)
-		{
-			case EntityVisualizerType.EVT_NONE:
-				return;
-			
-			case EntityVisualizerType.EVT_NORMAL:
-				return;
-		}
-		
-		m_bVisualize = true;		
-		super._WB_SetExtraVisualiser(type, src);
-	}
-	*/
 	private bool QueryEntitiesForSentinels(IEntity e)
 	{
 		SCR_AISmartActionSentinelComponent sentinel = SCR_AISmartActionSentinelComponent.Cast(e.FindComponent(SCR_AISmartActionSentinelComponent));

@@ -100,3 +100,27 @@ modded enum EGameOverTypes
 	DEATH = 3000,
 	BROTHERFOUND = 3001,
 }
+modded class SCR_ArsenalComponent
+{
+	override protected void OnPostInit(IEntity owner)
+	{
+		Deactivate(owner);
+	}
+	override protected void EOnInit(IEntity owner)
+	{
+		Deactivate(owner);
+	}
+}
+modded class SCR_ArsenalDisplayComponent
+{
+	override void EOnInit(IEntity owner)
+	{
+		Deactivate(owner);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void OnPostInit(IEntity owner)
+	{
+		Deactivate(owner);
+	}
+}

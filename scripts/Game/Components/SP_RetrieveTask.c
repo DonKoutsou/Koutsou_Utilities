@@ -385,13 +385,10 @@ class SP_RetrieveTask: SP_Task
 			array<IEntity> Rewardlist = new array<IEntity>();
 			int Movedamount;
 			for (int j = 0; j < rewards.Count(); j++)
-				Rewardlist.Insert(GetGame().SpawnEntityPrefab(Resource.Load(rewards[j]), Target.GetWorld(), params));
+				Rewardlist.Insert(GetGame().SpawnEntityPrefab(Resource.Load(rewards[j]), GetGame().GetWorld(), params));
 			for (int i, count = Rewardlist.Count(); i < count; i++)
 			{
-				if(TargetInv.TryInsertItem(Rewardlist[i]) == false)
-				{
-					return false;
-				}
+				TargetInv.TryInsertItem(Rewardlist[i]);
 				Movedamount += 1;
 			}
 			string rewardstring;
