@@ -477,7 +477,7 @@ class SCR_GameModeSFManager : SCR_BaseGameModeComponent
 		SP_GameMode Gamemod = SP_GameMode.Cast(GetGame().GetGameMode());
  		// Spawn everything inside the Area except the task layers
 		SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-		m_fFactionsToAppear.RemoveItem(Gamemod.GetPlFaction().GetFactionKey());
+		//m_fFactionsToAppear.RemoveItem(Gamemod.GetPlFaction().GetFactionKey());
  		foreach(SCR_ScenarioFrameworkArea area : m_aAreas)
  		{
  			if (m_sForcedArea.IsEmpty())		//for debug purposes

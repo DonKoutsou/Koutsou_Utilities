@@ -18,9 +18,10 @@ class SP_SleepAction : ScriptedUserAction
 		{
 			TnWManager.SetTimeOfTheDay(TimeToWakeUP, true);
 		}
-		SP_CharacterStatsComponent StatComp = SP_CharacterStatsComponent.Cast(pUserEntity.FindComponent(SP_CharacterStatsComponent));
-		StatComp.SetNewHunger(StatComp.GetHunger() - 10.0 * m_Sleepamount);
-		StatComp.SetNewThirst(StatComp.GetThirst() - 10.0 * m_Sleepamount);
+		PlayerController playerController = GetGame().GetPlayerController();
+		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
+		statComponent.SetNewHunger(statComponent.GetHunger() - 3.6 * m_Sleepamount);
+		statComponent.SetNewThirst(statComponent.GetThirst() - 7.2 * m_Sleepamount);
 	}
 	event override bool CanBePerformedScript(IEntity user) 
 	{
@@ -30,8 +31,8 @@ class SP_SleepAction : ScriptedUserAction
 		if (controller.GetControlledEntity() != user)
 			return false;
 		SP_CharacterStatsComponent StatComp = SP_CharacterStatsComponent.Cast(controller.FindComponent(SP_CharacterStatsComponent));
-		float AmountToDeplete = 10.0 * m_Sleepamount;
-		if(AmountToDeplete >= StatComp.GetHunger() || AmountToDeplete >= StatComp.GetThirst())
+		float AmountToDeplete = 3600 * m_Sleepamount;
+		if(AmountToDeplete * 0.001 >= StatComp.GetHunger() || AmountToDeplete * 0.002 >= StatComp.GetThirst())
 			{
 				SetCannotPerformReason("You are not properly hudrated/fed to sleep that much");
 				return false;

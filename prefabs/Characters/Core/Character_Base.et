@@ -8,14 +8,10 @@ SCR_ChimeraCharacter {
    }
   }
   SCR_CharacterStaminaComponent "{520EA1D2F659C824}" {
-   Enabled 0
-  }
-  SP_CharacterStaminaComponent "{5DEAE91671BBFAFD}" {
-   StaminaDrainRun -0.008
-   StaminaDrainSprint -0.016
-   EncumbranceDrainMax -0.1
-   BreathNormalFrequency 0.45
-   BreathExhaustedFrequency 1.1
+   StaminaRegainPerS 0.002
+   StaminaDrainRun -0.0008
+   StaminaDrainSprint -0.0016
+   EncumbranceDrainMax -0.006
   }
   ActionsManagerComponent "{520EA1D2F659CE02}" {
    additionalActions {

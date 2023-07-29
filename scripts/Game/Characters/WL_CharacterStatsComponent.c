@@ -207,8 +207,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 	float CalculateFeelsLikeTemperature(float outsideTemperature, float windSpeed, float rain)
 	{
 	    // Wind chill formula for temperatures above 10 degrees Celsius
-	    if (outsideTemperature > 10.0)
-	        return outsideTemperature;
+	    //if (outsideTemperature > 10.0)
+	        //return outsideTemperature;
 	
 	    // Wind chill formula for temperatures below 10 degrees Celsius
 	    float windChillIndex = 13.12 + 0.6215 * outsideTemperature - 11.37 * Math.Pow(windSpeed, 0.16) + 0.3965 * outsideTemperature * Math.Pow(windSpeed, 0.16);
@@ -235,7 +235,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 			// heat should have falloff
 			// at distance of 2 the heat should be 0
 			// at distance 0 heat should be 20
-			float dist = (ent.GetOrigin() - GetOwner().GetOrigin()).Length();
+			SCR_PlayerController cont = SCR_PlayerController.Cast(GetOwner());
+			float dist = (ent.GetOrigin() - cont.GetControlledEntity().GetOrigin()).Length();
 			float heat = (FIREPLACE_RANGE - dist) / FIREPLACE_RANGE * 30;
 			
 			if (heat > 0)
@@ -481,13 +482,13 @@ class SP_CharacterStatsComponent : ScriptComponent
 			
 			// todo: divide because of wind
 			outsideTemperature = CalculateFeelsLikeTemperature(outsideTemperature, m_pWeather.GetWindSpeed(), m_pWeather.GetRainIntensity());
-			
 			//altitude
-			float alt = GetPlayerAltitude(owner) * 0.0065;
+			float alt = GetPlayerAltitude(m_pChar) * 0.0065;
 			
+			vector origin = m_pChar.GetOrigin();
 			// consider fireplaces
 			m_FireplacesHeat = 0;
-			owner.GetWorld().QueryEntitiesBySphere(owner.GetOrigin(), FIREPLACE_RANGE, FindFireplace);
+			owner.GetWorld().QueryEntitiesBySphere(origin, FIREPLACE_RANGE, FindFireplace);
 			
 			outsideTemperature = outsideTemperature + m_FireplacesHeat - alt;
 			
@@ -499,7 +500,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 			
 			float diffTemp = (clothesFactor - needClothes) * timeSlice;		
 			m_fTemperature = Math.Clamp(m_fTemperature + diffTemp + p_Drain/10, 0, m_fMaxTemperature);
-			//Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes));
+			Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes));
 			
 			// check temperature for crossing thresholds and effects
 			CheckTemperature();
@@ -516,10 +517,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 			
 			if (m_fHunger <= 0 || m_fThirst <= 0)
 			{
-				CharacterControllerComponent controller = CharacterControllerComponent.Cast(GetOwner().FindComponent(CharacterControllerComponent));
-				if (controller && !controller.IsDead())
+				if (m_pDamage && !m_pDamage.IsDestroyed())
 				{
-					controller.ForceDeath();
+					m_pDamage.Kill();
 				}
 			}
 		}
@@ -550,7 +550,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 		}
 		
 		m_pEventHandlerManager = EventHandlerManagerComponent.Cast(owner.FindComponent(EventHandlerManagerComponent));
-		SP_CharacterStaminaComponent Stam = SP_CharacterStaminaComponent.Cast(owner.FindComponent(SP_CharacterStaminaComponent));
+		SCR_CharacterStaminaComponent Stam = SCR_CharacterStaminaComponent.Cast(owner.FindComponent(SCR_CharacterStaminaComponent));
 		Stam.GetOnStaminaDrain().Insert(SetStaminDrain);
 		m_pWeather = GetGame().GetTimeAndWeatherManager();
 		m_pChar = ChimeraCharacter.Cast(owner);
