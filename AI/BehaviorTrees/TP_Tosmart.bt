@@ -18,7 +18,7 @@ BehaviorTree {
          EditorPos -2073.81 -161.19
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
-           Port 16
+           Port 15
            PortName "PriorityLevel"
           }
          }
@@ -49,7 +49,7 @@ BehaviorTree {
            PortName "RadiusOut"
           }
           SingleOutputPortContainer SingleOutputPortContainer {
-           Port 18
+           Port 17
            PortName "AllowCloseSpawn"
           }
           SingleOutputPortContainer SingleOutputPortContainer {
@@ -64,39 +64,20 @@ BehaviorTree {
         }
         ForEachChild "For Each Child" {
          Name "For Each Child"
-         EditorPos -77.333 -104.167
+         EditorPos -78.762 -95.596
          Nodes {
           Sequence Sequence {
            Name "Sequence"
            EditorPos -56 102
            Nodes {
-            SCR_AIGetSmartAction "SCR_AI Get Smart Action" {
-             Name "SCR_AI Get Smart Action"
-             EditorPos -288.096 341.786
-             InPorts {
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 9
-               PortName "Possition"
-              }
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 12
-               PortName "Radius"
-              }
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 11
-               PortName "InTags"
-              }
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 19
-               PortName "AllowCloseSpawn"
-              }
-             }
-             OutPorts {
-              SingleOutputPortContainer SingleOutputPortContainer {
-               Port 4
-               PortName "OutSmartAction"
-              }
-             }
+            AITaskFindSmartAction "Find Smart Action" {
+             Name "Find Smart Action"
+             EditorPos -361.429 385.714
+             OutSmartAction 4
+             InPosition 9
+             InRadius 12
+             TagsTest AnySet
+             InTags 11
             }
             DecoTestVariable "Test Variable" {
              Name "Test Variable"
@@ -109,7 +90,7 @@ BehaviorTree {
                 AITaskGetSmartActionParams "Get Smart Action Params" {
                  Name "Get Smart Action Params"
                  EditorPos -213.333 705
-                 InSmartAction 20
+                 InSmartAction 18
                  OutPos 0
                  OutSmartActionEntity -1
                 }
@@ -140,7 +121,7 @@ BehaviorTree {
                    PortName "OwnerAgentIn"
                   }
                   SingleInputPortContainer SingleInputPortContainer {
-                   Port 15
+                   Port 14
                    PortName "SmartActionIn"
                   }
                  }
@@ -163,7 +144,7 @@ BehaviorTree {
          EditorPos 423.333 -86.667
          InPorts {
           SingleInputPortContainer SingleInputPortContainer {
-           Port 17
+           Port 16
            PortName "WaypointIn"
           }
          }
@@ -310,10 +291,6 @@ BehaviorTree {
    VariableType 6
    EditorPos 502.921 860.526
   }
-  VariableReference priorityLevel {
-   VariableType 8
-   EditorPos 613.662 952.32
-  }
   VariableReference smartActionComponent {
    VariableType 5
    EditorPos 217.583 1088.706
@@ -329,10 +306,6 @@ BehaviorTree {
   VariableReference allwoclosespawn {
    VariableType 10
    EditorPos -485.714 47.143
-  }
-  VariableReference allwoclosespawn {
-   VariableType 10
-   EditorPos -558.5 612.583
   }
   VariableReference smartActionComponent {
    VariableType 5

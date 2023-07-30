@@ -663,7 +663,7 @@ class SP_AIDirector : SCR_AIGroup
 				m_vPositiontoSpawn[1] = groundHeight;
 		}*/
 	}
-	bool CreateVictim(out IEntity Victim)
+	/*bool CreateVictim(out IEntity Victim)
 	{
 		if (!m_bAllowRescue)
 		{
@@ -707,7 +707,7 @@ class SP_AIDirector : SCR_AIGroup
 			}
 		}
 		return true;
-	};
+	};*/
 	event void OnSpawn(IEntity spawned)
 	{
 		SCR_AIGroup group = SCR_AIGroup.Cast(spawned);

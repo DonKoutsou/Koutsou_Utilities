@@ -284,7 +284,7 @@ BehaviorTree "{87F8618AA19A90F5}AI/BehaviorTrees/Chimera/Group/ActivityDefend.bt
                    }
                    Group "{5C5ACDCFBB6EB794}"
                    NegativeCondition 1
-                   InVariable -1
+                   InVariable 50
                    TestType EqualsValue
                    TestValue "true"
                   }
@@ -886,6 +886,10 @@ BehaviorTree "{87F8618AA19A90F5}AI/BehaviorTrees/Chimera/Group/ActivityDefend.bt
   VariableReference OutSmartPos {
    VariableType 18
    EditorPos 5955.714 887.143
+  }
+  VariableReference fastInit {
+   VariableType 15
+   EditorPos 6075 645.083
   }
  }
  Groups {

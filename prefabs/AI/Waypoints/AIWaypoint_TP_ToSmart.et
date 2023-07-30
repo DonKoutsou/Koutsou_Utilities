@@ -10,6 +10,6 @@ SP_TPWaypoint {
  m_fPriorityLevel 1000
  m_bFastInit 1
  m_aTagsForSearch {
-  "ChillPost" "CustomSpot" "ObservationPost" "GetPost"
+  "CustomSpot"
  }
 }

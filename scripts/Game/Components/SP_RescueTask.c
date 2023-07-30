@@ -254,7 +254,7 @@ class SP_RescueTask: SP_Task
 			return false;
 		}
 		luckygroup.GetAgents(outAgents);
-		if(outAgents.Count() <= 0)
+		if(outAgents.Count() <= 0 || outAgents.Count() >= 5)
 		{
 			return false;
 		}

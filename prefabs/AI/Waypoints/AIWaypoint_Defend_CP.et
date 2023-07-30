@@ -1,10 +1,11 @@
 SCR_DefendWaypoint {
  ID "5A5E8832CED378BA"
  CompletionRadius 250
+ m_holdingTime 5000
  m_bFastInit 0
  m_DefendPresets {
   SCR_DefendWaypointPreset "{5A5E8832CED378A7}" {
-   m_aTagsForSearch + {
+   m_aTagsForSearch {
     "ChillPost" "ObservationPost" "GatePost"
    }
   }

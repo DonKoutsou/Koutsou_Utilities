@@ -29,7 +29,7 @@ class SCR_ScenarioFrameworkPluginTPWaypoint: SCR_ScenarioFrameworkPlugin
 	[Attribute("1")]
 	bool m_bAllowCloseSpawning;
 	
-	[Attribute("CustomPost", UIWidgets.Auto, "List tags to search in the preset")];
+	[Attribute("", UIWidgets.Auto, "List tags to search in the preset")];
 	ref array<string> m_aTagsForSearch;	
 	
 	override void Init(SCR_ScenarioFrameworkLayerBase object)

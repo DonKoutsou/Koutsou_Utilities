@@ -85,12 +85,21 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 			Print("no player found");
 			return;
 		}
-		
 		m_cCharacterController = SCR_CharacterControllerComponent.Cast(player.FindComponent(SCR_CharacterControllerComponent));
 		if (m_cCharacterController) Print("Found character controllerc omponent");
 		CharStats = SP_CharacterStatsComponent.Cast(player.FindComponent(SP_CharacterStatsComponent));
+		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
+		if (!cont)
+			return;
+		cont.m_OnControlledEntityChanged.Insert(UpdateChar);
 	}
-	
+	void UpdateChar(IEntity from, IEntity to)
+	{
+		if (!to)
+			return;
+		m_cCharacterController = SCR_CharacterControllerComponent.Cast(GetGame().GetPlayerController().FindComponent(SCR_CharacterControllerComponent));
+		CharStats = SP_CharacterStatsComponent.Cast(GetGame().GetPlayerController().FindComponent(SP_CharacterStatsComponent));
+	}
 	override event void UpdateValues(IEntity owner, float timeSlice)
 	{
 		if (!m_cCharacterController)

@@ -424,11 +424,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 			return;
 		
 		if (state == EDamageState.DESTROYED)
-			ClearEventMask(GetOwner(), EntityEvent.FIXEDFRAME);
+			ClearEventMask(GetOwner(), EntityEvent.FRAME);
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	override void EOnFixedFrame(IEntity owner, float timeSlice)
+	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		m_fTime += timeSlice;
 		
@@ -473,8 +473,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 			m_pWeather.GetSunriseHour(sunrise);
 			m_pWeather.GetSunsetHour(sunset);
 			
-			const float dayTemp = 15.0;
-			const float nightTemp = 5.0;		
+			const float dayTemp = 18.0;
+			const float nightTemp = 10.0;		
 			
 			float outsideTemperature = dayTemp;
 			if (timeOfDay < sunrise || timeOfDay > sunset)
@@ -498,8 +498,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 			// apply factors on current temperature
 			const float cooldownRate = 0.1;
 			
-			float diffTemp = (clothesFactor - needClothes) * timeSlice;		
-			m_fTemperature = Math.Clamp(m_fTemperature + diffTemp + p_Drain/10, 0, m_fMaxTemperature);
+			float diffTemp = (clothesFactor - needClothes) * timeSlice;
+			if (diffTemp >= 0.01 || diffTemp <= -0.01)
+				m_fTemperature = Math.Clamp(m_fTemperature + diffTemp + p_Drain/10, 0, m_fMaxTemperature);
 			Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes));
 			
 			// check temperature for crossing thresholds and effects
@@ -542,7 +543,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_pRplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
 		if (!m_pRplComponent || !m_pRplComponent.IsProxy())
 		{
-			SetEventMask(owner, EntityEvent.FIXEDFRAME);
+			SetEventMask(owner, EntityEvent.FRAME);
 			
 			ScriptedDamageManagerComponent damageManagerComponent = ScriptedDamageManagerComponent.Cast(owner.FindComponent(ScriptedDamageManagerComponent));
 			if (damageManagerComponent)
@@ -557,6 +558,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_pDamage = m_pChar.GetDamageManager();
 		//m_pLoadout = BaseLoadoutManagerComponent.Cast(m_pChar.FindComponent(BaseLoadoutManagerComponent));
 		m_pLoadout = EquipedLoadoutStorageComponent.Cast(m_pChar.FindComponent(EquipedLoadoutStorageComponent));
+		m_fHunger = 100;
+		m_fThirst = 100;
+		m_fTemperature = 36.6;
 	}
 	void SetStaminDrain(float Drain)
 	{
@@ -566,7 +570,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 	override void OnPostInit(IEntity owner)
 	{
 		m_fTemperature = m_fHealthyTemperature;
-		SetEventMask(owner, EntityEvent.INIT | EntityEvent.FIXEDFRAME);
+		SetEventMask(owner, EntityEvent.INIT | EntityEvent.FRAME);
 		SetEventMask(owner, EntityEvent.INIT);
 	}
 
