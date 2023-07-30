@@ -66,13 +66,9 @@ class SP_RescueTask: SP_Task
 				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, GetGame().GetWorld(), params));
 			for (int i, count = Rewardlist.Count(); i < count; i++)
 			{
-				if(TargetInv.TryInsertItem(Rewardlist[i]) == false)
-				{
-					return false;
-				}
+				TargetInv.TryInsertItem(Rewardlist[i]);
 				Movedamount += 1;
 			}
-			
 			string curr = FilePath.StripPath(reward);
 			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
@@ -122,24 +118,21 @@ class SP_RescueTask: SP_Task
 	};
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
 	{
-		if (!TaskTarget)
-		{
-			return;
-		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskTarget.FindComponent(SCR_CharacterRankComponent));
-		if(TaskOwner)
+		if (TaskOwner)
 		{
 			OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
 			OLoc = Diag.GetCharacterLocation(TaskOwner);
 		}
-		DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-		DLoc = Diag.GetCharacterLocation(TaskTarget);
+		if (TaskTarget)
+		{
+			DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
+			DLoc = Diag.GetCharacterLocation(TaskTarget);
+		}
 	};
 	override bool FindTarget(out IEntity Target)
 	{
-		SP_RequestManagerComponent RequestMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		
 		if (!CreateVictim(Target))
 		{
 			return false;
@@ -151,36 +144,11 @@ class SP_RescueTask: SP_Task
 			AIAgent disagent = comp.GetAIAgent();
 			SCR_AIGroup luckygroup = SCR_AIGroup.Cast(disagent.GetParentGroup());
 			luckygroup.GetAgents(outAgents);
-			//foreach(AIAgent agent : outAgents)
-			//{
-			//	CharsToRescue.Insert(agent.GetControlledEntity());
-			//}
 			Target = luckygroup.GetLeaderEntity();
 			return true;
 		}
 		return false;
 	};
-	/*override bool FindOwner(out IEntity Owner)
-	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
-		if (!CharHolder)
-			return false;
-		ChimeraCharacter FarChar;
-		SCR_AIGroup group = SCR_AIGroup.Cast(TaskTarget);
-		//-----------------------------------------------------------------//
-		SCR_Faction Fact = SCR_Faction.Cast(group.GetFaction());
-		if (!Fact)
-			return false;
-		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(TaskTarget), 300, Fact, FarChar))
-			return false;
-		if (FarChar)
-			Owner = FarChar;
-		if (Owner == GetTarget())
-			return false;
-		if(Owner)
-			return true;
-		return false;
-	};*/
 	override bool AssignReward()
 	{
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
@@ -209,19 +177,19 @@ class SP_RescueTask: SP_Task
 	};
 	override void FailTask(EDamageState state)
 	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		if (CharsToRescue.IsEmpty())
-			return;
-		foreach (IEntity Char : CharsToRescue)
-		{
-			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(Char.FindComponent(SCR_CharacterDamageManagerComponent));
-			if (!dmgman.IsDestroyed())
-			{
-				return;
-			}
-		}
 		if (state != EDamageState.DESTROYED)
 			return;
+		if (!CharsToRescue.IsEmpty())
+		{
+			foreach (IEntity Char : CharsToRescue)
+			{
+				SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(Char.FindComponent(SCR_CharacterDamageManagerComponent));
+				if (!dmgman.IsDestroyed())
+				{
+					return;
+				}
+			}
+		}
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
@@ -266,8 +234,7 @@ class SP_RescueTask: SP_Task
 	private bool CheckForCharacters(float radius, vector origin)
 	{
 		BaseWorld world = GetGame().GetWorld();
-		bool found = GetGame().GetWorld().QueryEntitiesBySphere(origin, radius, QueryEntitiesForCharacter);
-		return found;
+		return GetGame().GetWorld().QueryEntitiesBySphere(origin, radius, QueryEntitiesForCharacter);
 	}
 	
 	bool CreateVictim(out IEntity Victim)

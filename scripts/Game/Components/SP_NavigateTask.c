@@ -149,8 +149,8 @@ class SP_NavigateTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		TaskDesc = string.Format("Navigate %1, to %2's location. %2 is located on %3. Reward is %4 %5", OName, DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
-		TaskDiag = string.Format("I am looking for someone to help me navigate to %1 on %2. Come find me on %3. Reward is %4 %5", DName, DLoc, OLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		TaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
+		TaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
 		TaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//

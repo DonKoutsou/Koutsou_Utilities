@@ -31,45 +31,12 @@ class SP_Task
 	SP_RequestManagerComponent m_RequestManager;
 	EEditableEntityLabel RewardLabel;
 	//------------------------------------------------------------------------------------------------------------//
-	bool Init()
-	{
-		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		//-------------------------------------------------//
-		//first look for owner cause targer is usually derived from owner faction/location etc...
-		if (!FindOwner(TaskOwner))
-		{
-			return false;
-		}
-		//-------------------------------------------------//
-		//function to fill to check ckaracter
-		if(!CheckOwner())
-		{
-			return false;
-		}
-		//-------------------------------------------------//
-		if (!FindTarget(TaskTarget))
-		{
-			return false;
-		}
-		if(!CheckTarget())
-		{
-			return false;
-		}
-		//-------------------------------------------------//
-		if (!AssignReward())
-		{
-			DeleteLeftovers();
-			return false;
-		}
-		//-------------------------------------------------//
-		CreateDescritions();
-		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
-		return true;
-	};
-	//------------------------------------------------------------------------------------------------------------//
 	bool FindOwner(out IEntity Owner){return true;};
+	//------------------------------------------------------------------------------------------------------------//
+	bool FindTarget(out IEntity Target){return true;};
+	//------------------------------------------------------------------------------------------------------------//
+	IEntity GetOwner(){return TaskOwner;};
+	IEntity GetTarget(){return TaskTarget;};
 	//------------------------------------------------------------------------------------------------------------//
 	bool CheckOwner()
 	{
@@ -91,20 +58,16 @@ class SP_Task
 		if (!ReqMan || !Diag)
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
+		//Check if char can get more tasks
 		ReqMan.GetCharTasks(TaskOwner, tasks);
 		if(tasks.Count() >= ReqMan.GetTasksPerCharacter())
 		{
 			return false;
 		}
+		//Check if char can get more tasks of same type
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
 		ReqMan.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
 		if(sametasks.Count() >= ReqMan.GetTasksOfSameTypePerCharacter())
-		{
-			return false;
-		}
-		string charname = Diag.GetCharacterName(TaskOwner);
-		string charrank = Diag.GetCharacterRankName(TaskOwner);
-		if(charname == " " || charrank == " ")
 		{
 			return false;
 		}
@@ -144,12 +107,6 @@ class SP_Task
 		{
 			return false;
 		}
-		string charname = Diag.GetCharacterName(TaskTarget);
-		string charrank = Diag.GetCharacterRankName(TaskTarget);
-		if(charname == " " || charrank == " ")
-		{
-			return false;
-		}
 		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -161,11 +118,6 @@ class SP_Task
 		}
 		return false;
 	};
-	//------------------------------------------------------------------------------------------------------------//
-	IEntity GetOwner(){return TaskOwner;};
-	IEntity GetTarget(){return TaskTarget;};
-	//------------------------------------------------------------------------------------------------------------//
-	bool FindTarget(out IEntity Target){return true;};
 	//------------------------------------------------------------------------------------------------------------//
 	bool CharacterIsTarget(IEntity Character)
 	{
@@ -312,6 +264,44 @@ class SP_Task
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetCompletionist(){return m_Copletionist;};
+	//------------------------------------------------------------------------------------------------------------//
+	bool Init()
+	{
+		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		//-------------------------------------------------//
+		//first look for owner cause targer is usually derived from owner faction/location etc...
+		if (!FindOwner(TaskOwner))
+		{
+			return false;
+		}
+		//-------------------------------------------------//
+		//function to fill to check ckaracter
+		if(!CheckOwner())
+		{
+			return false;
+		}
+		//-------------------------------------------------//
+		if (!FindTarget(TaskTarget))
+		{
+			return false;
+		}
+		if(!CheckTarget())
+		{
+			return false;
+		}
+		//-------------------------------------------------//
+		if (!AssignReward())
+		{
+			DeleteLeftovers();
+			return false;
+		}
+		//-------------------------------------------------//
+		CreateDescritions();
+		e_State = ETaskState.UNASSIGNED;
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		return true;
+	};
 };
 //------------------------------------------------------------------------------------------------------------//
 enum ETaskState

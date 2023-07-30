@@ -1,11 +1,10 @@
-//! Returns a position of entity with local space offset
 class SCR_AIGetSmartAction : AITaskScripted
 {
-	[Attribute("0 0 0", UIWidgets.Auto)]
-	protected vector m_fOffsetLocal;
+	[Attribute()]
+	protected ref array <string> m_aTags;
 	
-	[Attribute("0 0 0", UIWidgets.Auto)]
-	protected vector m_fOffsetWorld;
+	[Attribute()]
+	float m_fRadius;
 	
 	protected static const string POISSITION_PORT = "Possition";
 	protected static const string RADIUS_PORT = "Radius";
@@ -23,7 +22,7 @@ class SCR_AIGetSmartAction : AITaskScripted
 	
 	override string GetOnHoverDescription()
 	{
-		return "Returns position of entity with local and world space offset.";
+		return "Smart Action in radius.";
 	}
 	
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
@@ -32,6 +31,12 @@ class SCR_AIGetSmartAction : AITaskScripted
 		GetVariableIn(RADIUS_PORT, Radius);
 		GetVariableIn(TAGS_PORT, tags);
 		GetVariableIn(CLOSESPAWN_PORT, CloseSpawn);
+		if (tags.IsEmpty() && m_aTags)
+			tags.Copy(m_aTags);
+		if (!Radius)
+			Radius = m_fRadius;
+		if (!Origin)
+			Origin = owner.GetControlledEntity().GetOrigin();
 		if (!Origin || !Radius || tags.IsEmpty())
 			return ENodeResult.FAIL;
 		GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radius, QueryEntitiesForSmartAction);
@@ -72,12 +77,12 @@ class SCR_AIGetSmartAction : AITaskScripted
 				}
 			}
 		}
-		if (!CloseSpawn)
-		{
-			bool found = GetGame().GetWorld().QueryEntitiesBySphere(e.GetOrigin(), 50, QueryEntitiesForCharacter);
-			if (!found)
-				return true;
-		}
+		//if (!CloseSpawn)
+		//{
+		//	bool found = GetGame().GetWorld().QueryEntitiesBySphere(e.GetOrigin(), 50, QueryEntitiesForCharacter);
+		//	if (!found)
+		//		return true;
+		//}
 		foreach (Managed Smart : smartacts)
 		{
 			SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);

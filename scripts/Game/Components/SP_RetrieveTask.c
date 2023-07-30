@@ -414,29 +414,6 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};
 	//------------------------------------------------------------------------------------------------------------//
-	//IEntity GetItemBountyEnt(){return ItemBounty;};
-	//------------------------------------------------------------------------------------------------------------//
-	/*override void DeleteLeftovers()
-	{
-		if(ItemBounty)
-		{
-			InventoryItemComponent pInvComp = InventoryItemComponent.Cast(ItemBounty.FindComponent(InventoryItemComponent));
-			InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-			if(parentSlot)
-			{
-				SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
-				if(inv)
-				{
-					inv.TryRemoveItemFromStorage(ItemBounty,parentSlot.GetStorage());
-					delete ItemBounty;
-				}
-			}
-		}
-		if(ItemBounty)
-		{
-			delete ItemBounty;
-		}
-	};*/
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_RequestPredicate : InventorySearchPredicate

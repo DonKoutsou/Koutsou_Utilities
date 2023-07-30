@@ -96,8 +96,8 @@ class SP_DeliverTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
-		TaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. %2 is located on %3. Reward is %4 %5", OName, DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
-		TaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Come find me on %3. Reward is %4 %5", DName, DLoc, OLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		TaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
+		TaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
 		TaskTitle = string.Format("Deliver: deliver package to %1", DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
