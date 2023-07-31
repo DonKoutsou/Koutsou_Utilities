@@ -2,6 +2,7 @@
 [BaseContainerProps(configRoot:true)]
 class SP_RetrieveTask: SP_Task
 {
+	
 	//----------------------------------------//
 	//IEntity	ItemBounty;
 	//----------------------------------------//
@@ -17,13 +18,19 @@ class SP_RetrieveTask: SP_Task
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		if (!FindOwner(TaskOwner))
+		if (!TaskOwner)
 		{
-			return false;
-		}
-		if(!CheckOwner())
-		{
-			return false;
+			//first look for owner cause targer is usually derived from owner faction/location etc...
+			if (!FindOwner(TaskOwner))
+			{
+				return false;
+			}
+			//-------------------------------------------------//
+			//function to fill to check ckaracter
+			if(!CheckOwner())
+			{
+				return false;
+			}
 		}
 		if (!SetupRequestTypenMode())
 		{
@@ -293,7 +300,6 @@ class SP_RetrieveTask: SP_Task
 						//delete ItemBounty;
 					amountleft -= 1;
 				}
-				
 			}
 			AssignReward();
 			if (GiveReward(Assignee))
@@ -304,8 +310,9 @@ class SP_RetrieveTask: SP_Task
 				}
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
-				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-				reqman.OnTaskCompleted(this);
+				GetOnTaskFinished(this);
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 				return true;
 				

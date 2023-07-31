@@ -214,9 +214,10 @@ class SP_DeliverTask: SP_Task
 				}
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
-				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
-				reqman.OnTaskCompleted(this);
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+				GetOnTaskFinished(this);
 				return true;
 			}
 		}
@@ -296,23 +297,30 @@ class SP_DeliverTask: SP_Task
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
-		if (!FindOwner(TaskOwner))
+		if (!TaskOwner)
 		{
-			return false;
-		}
-		//function to fill to check ckaracter
-		if(!CheckOwner())
-		{
-			return false;
+			if (!FindOwner(TaskOwner))
+			{
+				return false;
+			}
+			//-------------------------------------------------//
+			//function to fill to check ckaracter
+			if(!CheckOwner())
+			{
+				return false;
+			}
 		}
 		//-------------------------------------------------//
-		if (!FindTarget(TaskTarget))
+		if (!TaskTarget)
 		{
-			return false;
-		}
-		if(!CheckTarget())
-		{
-			return false;
+			if (!FindTarget(TaskTarget))
+			{
+				return false;
+			}
+			if(!CheckTarget())
+			{
+				return false;
+			}
 		}
 		//-------------------------------------------------//
 		//function to fill if task needs an entity, eg package for delivery

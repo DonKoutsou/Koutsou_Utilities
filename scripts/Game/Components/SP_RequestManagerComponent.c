@@ -49,7 +49,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		return s_OnTaskComplete;
 	}
-	ScriptInvoker OnTaskFailed()
+	ScriptInvoker OnTaskFail()
 	{
 		return s_OnTaskFailed;
 	}
@@ -73,13 +73,22 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		m_aTaskMap.RemoveItem(Task);
 		m_aCompletedTaskMap.Insert(Task);
-		s_OnTaskComplete.Invoke(Task, Task.GetCompletionist());
+		OnTaskComplete().Invoke(Task, Task.GetCompletionist());
 	};
 	event void OnTaskFailed(SP_Task Task)
 	{
 		m_aTaskMap.RemoveItem(Task);
-		s_OnTaskFailed.Invoke(Task, Task.GetCompletionist());
+		OnTaskFail().Invoke(Task, Task.GetCompletionist());
 	};
+	void OnTaskFinished(SP_Task task)
+	{
+		task.OnTaskFinished().Remove(OnTaskFinished);
+		ETaskState state = task.GetState();
+		if (state == ETaskState.COMPLETED)
+			OnTaskCompleted(task);
+		if (state == ETaskState.FAILED)
+			OnTaskFailed(task);
+	}
 	//--------------------------------------------------------------------//
 	CharacterHolder GetCharacterHolder()
 	{
@@ -140,12 +149,32 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			return false;
 		}
+		if (!GetTaskSample(TaskType).m_bEnabled)
+			return false;
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		if(Task.Init())
 		{
 			IEntity Owner = Task.GetOwner();
 			m_aTaskMap.Insert(Task);
+			Task.OnTaskFinished().Insert(OnTaskFinished);
+			return true;
+		}
+		return false;
+	}
+	bool CreateChainedTask(IEntity Owner, array <ref SP_Task> InTasks)
+	{
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		SP_ChainedTask Task;
+		if (Owner)
+			Task.TaskOwner = Owner;
+		if (!InTasks.IsEmpty())
+			Task.SetTasklist(InTasks);
+		if(Task.Init())
+		{
+			Task.GetOwner();
+			m_aTaskMap.Insert(Task);
+			Task.OnTaskFinished().Insert(OnTaskFinished);
 			return true;
 		}
 		return false;

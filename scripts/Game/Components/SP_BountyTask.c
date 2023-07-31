@@ -146,11 +146,12 @@ class SP_BountyTask: SP_Task
 				{
 					m_TaskMarker.Finish(true);
 				}
-				SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
-				reqman.OnTaskCompleted(this);
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+				GetOnTaskFinished(this);
 				return true;
 			}
 		}

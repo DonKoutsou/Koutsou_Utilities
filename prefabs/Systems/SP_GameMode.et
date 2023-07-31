@@ -128,19 +128,6 @@ SP_GameMode {
    m_fTaskGenTime 300
    m_fTaskPerCharacter 2
    m_fTaskOfSameTypePerCharacter 1
-   m_aTasksToSpawn {
-    SP_DeliverTask "{5DF31169DFD93E86}" {
-    }
-    SP_BountyTask "{5DF31169D0BB4162}" {
-    }
-    SP_NavigateTask "{5DF31169D19959DD}" {
-    }
-    SP_RetrieveTask "{5DF31169D15D84C2}" {
-    }
-    SP_RescueTask "{5DF31169D21AA415}" {
-     m_iMaxamount 6
-    }
-   }
   }
   RplComponent "{5DC8E7DFE3D28994}" {
    Streamable Disabled

@@ -91,9 +91,19 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
-		if (!FindTarget(TaskTarget))
+		if (!TaskOwner)
 		{
-			return false;
+			//first look for owner cause targer is usually derived from owner faction/location etc...
+			if (!FindOwner(TaskOwner))
+			{
+				return false;
+			}
+			//-------------------------------------------------//
+			//function to fill to check ckaracter
+			if(!CheckOwner())
+			{
+				return false;
+			}
 		}
 		//FindOwner(TaskOwner);
 		if (!AssignReward())
@@ -119,7 +129,7 @@ class SP_RescueTask: SP_Task
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
 	{
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskTarget.FindComponent(SCR_CharacterRankComponent));
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
 		if (TaskOwner)
 		{
 			OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
@@ -131,20 +141,19 @@ class SP_RescueTask: SP_Task
 			DLoc = Diag.GetCharacterLocation(TaskTarget);
 		}
 	};
-	override bool FindTarget(out IEntity Target)
+	override bool FindOwner(out IEntity Owner)
 	{
-		if (!CreateVictim(Target))
+		if (!CreateVictim(Owner))
 		{
 			return false;
 		}
-		if(Target)
+		if(Owner)
 		{
 			array<AIAgent> outAgents = new array<AIAgent>();
-			AIControlComponent comp = AIControlComponent.Cast(Target.FindComponent(AIControlComponent));
+			AIControlComponent comp = AIControlComponent.Cast(Owner.FindComponent(AIControlComponent));
 			AIAgent disagent = comp.GetAIAgent();
 			SCR_AIGroup luckygroup = SCR_AIGroup.Cast(disagent.GetParentGroup());
 			luckygroup.GetAgents(outAgents);
-			Target = luckygroup.GetLeaderEntity();
 			return true;
 		}
 		return false;
@@ -197,6 +206,8 @@ class SP_RescueTask: SP_Task
 			m_TaskMarker.Finish(true);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Rescue targets have died, task failed"));
 		}
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		e_State = ETaskState.FAILED;
 		reqman.OnTaskFailed(this);
@@ -213,11 +224,10 @@ class SP_RescueTask: SP_Task
 		}
 		if (m_TaskMarker)
 		{
-				m_TaskMarker.Finish(true);
+			m_TaskMarker.Finish(true);
 		}
 		e_State = ETaskState.COMPLETED;
-		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		reqman.OnTaskCompleted(this);
+		GetOnTaskFinished(this);
 		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 		return false;
 	};
@@ -239,11 +249,16 @@ class SP_RescueTask: SP_Task
 	
 	bool CreateVictim(out IEntity Victim)
 	{
-		CharacterHolder Chars = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent)).GetCharacterHolder();
 		array<AIAgent> outAgents = new array<AIAgent>();
+		CharacterHolder Chars = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent)).GetCharacterHolder();
 		ChimeraCharacter luckyguy;
-		if (!Chars.GetRandomUnit(luckyguy))
-			return false;
+		if (!TaskOwner)
+		{
+			if (!Chars.GetRandomUnit(luckyguy))
+				return false;
+		}
+		else
+			luckyguy = ChimeraCharacter.Cast(TaskOwner);
 		AIControlComponent ContComp = AIControlComponent.Cast(luckyguy.FindComponent(AIControlComponent));
 		AIAgent Agent = ContComp.GetAIAgent();
 		if (!Agent)
@@ -258,8 +273,7 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
-		
-		Victim = luckygroup.GetLeaderEntity();
+		Victim = luckyguy;
 		if(!Victim)
 		{
 			return false;

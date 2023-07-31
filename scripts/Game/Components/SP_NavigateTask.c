@@ -164,6 +164,7 @@ class SP_NavigateTask: SP_Task
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			SCR_AIFollowBehavior act = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
 			act.SetActiveFollowing(false);
+			//utility.SetStateAllActionsOfType(SCR_AIFollowBehavior, EAIActionState.FAILED, false);
 			//get group of target
 			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 			if (!dmgman.IsDestroyed())
@@ -171,15 +172,10 @@ class SP_NavigateTask: SP_Task
 				AIControlComponent Tcomp = AIControlComponent.Cast(TaskTarget.FindComponent(AIControlComponent));
 				AIAgent Tagent = Tcomp.GetAIAgent();
 				SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
-					
 				if (Tgroup)
 				{
 					SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
 					group.RemoveAgent(agent);
-					if(group)
-					{
-						delete group;
-					}
 					//add owner
 					Tgroup.AddAgent(agent);
 					AIWaypoint wp;
@@ -188,17 +184,16 @@ class SP_NavigateTask: SP_Task
 					Tgroup.AddWaypoint(wp);
 				}
 			}
-			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 			if (m_TaskMarker)
 			{
 				m_TaskMarker.Finish(true);
 			}
 			e_State = ETaskState.COMPLETED;
 			m_Copletionist = Assignee;
-			SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			reqman.OnTaskCompleted(this);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
-			//SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 stopped following you", Diag.GetCharacterName(TaskOwner)));
+			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+			GetOnTaskFinished(this);
 			return true;
 		}
 		return false;

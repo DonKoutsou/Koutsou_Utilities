@@ -13,7 +13,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
 				{
-					Diag.Escape(Character, Player);
+					//Diag.Escape(Character, Player);
 					MyTasks[i].CompleteTask(Player);
 				}
 			}
@@ -26,7 +26,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
 				{
-					Diag.Escape(Character, Player);
+					//Diag.Escape(Character, Player);
 					MyTasks[i].CompleteTask(Player);
 				}
 			}
@@ -83,6 +83,9 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(Task.ReadyToDeliver(Character, Player))
 				{
+					SP_ChainedTask Chained = SP_ChainedTask.Cast(Task);
+					if (Chained)
+						Task = Chained.GetCurrentTask();
 					SP_BountyTask BountyT = SP_BountyTask.Cast(Task);
 					if(BountyT)
 					{
@@ -98,6 +101,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 					{
 						Navigatetaskam += 1;
 					}
+					
 				}
 			}
 		}
@@ -109,6 +113,9 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(Task.ReadyToDeliver(Character, Player))
 				{
+					SP_ChainedTask Chained = SP_ChainedTask.Cast(Task);
+					if (Chained)
+						Task = Chained.GetCurrentTask();
 					SP_DeliverTask DelT = SP_DeliverTask.Cast(Task);
 					if(DelT)
 					{

@@ -2,6 +2,8 @@
 [BaseContainerProps()]
 class SP_Task
 {
+	[Attribute(defvalue : "1", desc : "Dissabled wont be randomly spawned but still exist as samples")]
+	bool m_bEnabled;
 	//-------------------------------------------------//
 	//Character wich created the task
 	IEntity TaskOwner;
@@ -30,6 +32,8 @@ class SP_Task
 	//-------------------------------------------------//
 	SP_RequestManagerComponent m_RequestManager;
 	EEditableEntityLabel RewardLabel;
+	//-------------------------------------------------//
+	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
 	bool FindOwner(out IEntity Owner){return true;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -38,6 +42,14 @@ class SP_Task
 	IEntity GetOwner(){return TaskOwner;};
 	IEntity GetTarget(){return TaskTarget;};
 	//------------------------------------------------------------------------------------------------------------//
+	ScriptInvoker OnTaskFinished()
+	{
+		return s_OnTaskFinished;
+	}
+	event void GetOnTaskFinished(SP_Task Task)
+	{
+		OnTaskFinished().Invoke(Task);
+	};
 	bool CheckOwner()
 	{
 		if (!TaskOwner)
@@ -53,21 +65,20 @@ class SP_Task
 		{
 			return false;
 		}
-		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		if (!ReqMan || !Diag)
+		if (!m_RequestManager || !Diag)
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
-		ReqMan.GetCharTasks(TaskOwner, tasks);
-		if(tasks.Count() >= ReqMan.GetTasksPerCharacter())
+		m_RequestManager.GetCharTasks(TaskOwner, tasks);
+		if(tasks.Count() >= m_RequestManager.GetTasksPerCharacter())
 		{
 			return false;
 		}
 		//Check if char can get more tasks of same type
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		ReqMan.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= ReqMan.GetTasksOfSameTypePerCharacter())
+		m_RequestManager.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
+		if(sametasks.Count() >= m_RequestManager.GetTasksOfSameTypePerCharacter())
 		{
 			return false;
 		}
@@ -91,19 +102,18 @@ class SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		if (!ReqMan || !Diag)
+		if (!m_RequestManager || !Diag)
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		ReqMan.GetCharTargetTasks(TaskTarget, tasks);
-		if(tasks.Count() >= ReqMan.GetTasksPerCharacter())
+		m_RequestManager.GetCharTargetTasks(TaskTarget, tasks);
+		if(tasks.Count() >= m_RequestManager.GetTasksPerCharacter())
 		{
 			return false;
 		}
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		ReqMan.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= ReqMan.GetTasksOfSameTypePerCharacter() + 1)
+		m_RequestManager.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
+		if(sametasks.Count() >= m_RequestManager.GetTasksOfSameTypePerCharacter() + 1)
 		{
 			return false;
 		}
@@ -134,7 +144,6 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool AssignReward()
 	{
-		
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
@@ -184,14 +193,14 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool CompleteTask(IEntity Assignee)
 	{
-		
-		m_TaskMarker.Finish(true);
 		if (GiveReward(Assignee))
 		{
+			m_TaskMarker.Finish(true);
+			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			e_State = ETaskState.COMPLETED;
 			m_Copletionist = Assignee;
-			SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			reqman.OnTaskCompleted(this);
+			GetOnTaskFinished(this);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
 			return true;
 		}
@@ -199,11 +208,12 @@ class SP_Task
 	};
 	void FailTask(EDamageState state)
 	{
+		
+		if (state != EDamageState.DESTROYED)
+			return;
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
-		if (state != EDamageState.DESTROYED)
-			return;
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
@@ -211,9 +221,8 @@ class SP_Task
 			m_TaskMarker.Finish(true);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", Diag.GetCharacterName(TaskOwner)));
 		}
-		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		e_State = ETaskState.FAILED;
-		reqman.OnTaskFailed(this);
+		GetOnTaskFinished(this);
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	ETaskState GetState(){return e_State;};
@@ -269,25 +278,31 @@ class SP_Task
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
-		//first look for owner cause targer is usually derived from owner faction/location etc...
-		if (!FindOwner(TaskOwner))
+		if (!TaskOwner)
 		{
-			return false;
+			//first look for owner cause targer is usually derived from owner faction/location etc...
+			if (!FindOwner(TaskOwner))
+			{
+				return false;
+			}
+			//-------------------------------------------------//
+			//function to fill to check ckaracter
+			if(!CheckOwner())
+			{
+				return false;
+			}
 		}
 		//-------------------------------------------------//
-		//function to fill to check ckaracter
-		if(!CheckOwner())
+		if (!TaskTarget)
 		{
-			return false;
-		}
-		//-------------------------------------------------//
-		if (!FindTarget(TaskTarget))
-		{
-			return false;
-		}
-		if(!CheckTarget())
-		{
-			return false;
+			if (!FindTarget(TaskTarget))
+			{
+				return false;
+			}
+			if(!CheckTarget())
+			{
+				return false;
+			}
 		}
 		//-------------------------------------------------//
 		if (!AssignReward())
