@@ -43,7 +43,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	private ref ScriptInvoker s_OnTaskCreated = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
 	//Destructor
-	void ~SP_RequestManagerComponent(){m_aTaskMap.Clear();m_aTaskMap.Clear();m_aTaskSamples.Clear();};
+	void ~SP_RequestManagerComponent(){if (m_aCompletedTaskMap)m_aCompletedTaskMap.Clear();if (m_aTaskMap)m_aTaskMap.Clear();if (m_aTaskSamples)m_aTaskSamples.Clear();};
 	//------------------------------------------------------------------------------------------------------------//
 	ScriptInvoker OnTaskComplete()
 	{
@@ -172,7 +172,6 @@ class SP_RequestManagerComponent : ScriptComponent
 			Task.SetTasklist(InTasks);
 		if(Task.Init())
 		{
-			Task.GetOwner();
 			m_aTaskMap.Insert(Task);
 			Task.OnTaskFinished().Insert(OnTaskFinished);
 			return true;
@@ -476,6 +475,25 @@ class CharacterHolder : ScriptAndConfig
 		}
 		mychar = null;
 		return false;
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	bool GetCharOfRank(SCR_CharacterRank rank, out ChimeraCharacter mychar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			mychar = AliveCharacters.GetRandomElement();
+			if (!mychar)
+				continue;
+			SCR_CharacterRankComponent Rankcomp = SCR_CharacterRankComponent.Cast(mychar.FindComponent(SCR_CharacterRankComponent));
+			if (!Rankcomp)
+				continue;
+			if(Rankcomp.GetCharacterRankName(mychar) == rank)
+			{
+				return true;
+			}
+		}
+		mychar = null;
+		return false;	
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Get unit far form provided characters location

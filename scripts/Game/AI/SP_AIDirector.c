@@ -480,17 +480,7 @@ class SP_AIDirector : SCR_AIGroup
 		AllDirectors.Insert(this);
 		
 		m_fRespawnPeriod = Math.RandomFloat(1, 20);
-		// get first children, it should be WP
-		//vector position = GetOrigin();
-		//vector spawnMatrix[4] = { "1 0 0 0", "0 1 0 0", "0 0 1 0", "0 0 0 0" };
-		//spawnMatrix[3] = position;
-		//EntitySpawnParams WPspawnParams = EntitySpawnParams();
-		//WPspawnParams.TransformMode = ETransformMode.WORLD;
-		//WPspawnParams.Transform = spawnMatrix;
-		//Resource WP = Resource.Load(m_pDefaultWaypoint);
-		//DefWaypoint = AIWaypoint.Cast(GetGame().SpawnEntityPrefab(WP, null, WPspawnParams));
-		//DefWaypoint.SetCompletionRadius(m_fRadius);
-		GetGame().GetCallqueue().CallLater(SpawnPrefab, 2, false);
+		SpawnPrefab();
 		Initialised = true;
 	}
 	override void EOnFrame(IEntity owner, float timeSlice)

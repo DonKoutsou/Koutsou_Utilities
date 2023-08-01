@@ -231,7 +231,6 @@ class SP_NavigateTask: SP_Task
 			return;
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Character);
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		Diag.Escape(TaskOwner, Character);
 		SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
 		group.RemoveAgent(agent);
 		Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");

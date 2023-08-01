@@ -43,7 +43,7 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
     }
    }
    m_eInitialLightState OFF
-   m_fShouldBeAliveFor 20000
+   m_fShouldBeAliveFor 5000
    m_RawMeatPrefab "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et"
    m_CookedMeatPrefab "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et"
    m_BurnedMeatPrefab "{5AC9346AB70F4959}prefabs/Items/Food/Burned_Meat.et"

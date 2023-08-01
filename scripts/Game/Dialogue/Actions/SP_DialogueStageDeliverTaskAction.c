@@ -13,7 +13,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
 				{
-					//Diag.Escape(Character, Player);
+					Diag.Escape(Character, Player);
 					MyTasks[i].CompleteTask(Player);
 				}
 			}
@@ -26,7 +26,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
 				{
-					//Diag.Escape(Character, Player);
+					Diag.Escape(Character, Player);
 					MyTasks[i].CompleteTask(Player);
 				}
 			}

@@ -14,7 +14,7 @@ SCR_PlayerController {
   SP_CharacterStatsComponent "{5DF4F669AC20CEBD}" {
    m_fHungerChangedPerSecond 0.001
    m_fThirstChangedPerSecond 0.002
-   m_fTimeBetweenEachTick 2.5
+   m_fTimeBetweenEachTick 1
   }
  }
  coords 1088.801 38.111 2622.36
