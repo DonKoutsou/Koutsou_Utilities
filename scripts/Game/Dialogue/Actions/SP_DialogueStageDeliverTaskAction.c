@@ -13,8 +13,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
 				{
-					Diag.Escape(Character, Player);
+					//Diag.Escape(Character, Player);
+					DialogueText = MyTasks[i].GetCompletionText(Player);
 					MyTasks[i].CompleteTask(Player);
+					SP_ChainedTask Chained = SP_ChainedTask.Cast(MyTasks[i]);
+					if (Chained)
+						DialogueText = DialogueText + " " + Chained.GetTaskDiag();
 				}
 			}
 		}
@@ -26,8 +30,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
 				{
-					Diag.Escape(Character, Player);
+					//Diag.Escape(Character, Player);
+					DialogueText = MyTasks[i].GetCompletionText(Player);
 					MyTasks[i].CompleteTask(Player);
+					SP_ChainedTask Chained = SP_ChainedTask.Cast(MyTasks[i]);
+					if (Chained)
+						DialogueText = DialogueText + " " + Chained.GetTaskDiag();
 				}
 			}
 		}
@@ -75,6 +83,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		int bountytaskam;
 		int Requesttaskam;
 		int Navigatetaskam;
+		int TalkTtaskam;
 		if(requestman.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
@@ -101,6 +110,11 @@ class DialogueStageDeliverTaskAction : DialogueStage
 					{
 						Navigatetaskam += 1;
 					}
+					SP_TalkTask TalkT = SP_TalkTask.Cast(Task);
+					if(TalkT)
+					{
+						TalkTtaskam += 1;
+					}
 					
 				}
 			}
@@ -126,12 +140,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		}
 		if (delivertaskam > 0)
 		{
-	    if (bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0)
+	    if (bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0)
 				{
 	        acttext = "I have a delivery for you.";
 	        return true;
 	    	}
-	    else if (bountytaskam > 0 || Requesttaskam > 0 ||  Navigatetaskam > 0)
+	    else if (bountytaskam > 0 || Requesttaskam > 0 ||  Navigatetaskam > 0 || TalkTtaskam > 0)
 				{
 	        acttext = "I have some tasks to deliver.";
 	        return true;
@@ -139,12 +153,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		}
 		if (bountytaskam > 0) 
 			{
-				if (delivertaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0) 
+				if (delivertaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0) 
 					{
 				  	acttext = "I've completed the bounty.";
 				    return true;
 				  }
-				else if (delivertaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0)
+				else if (delivertaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0)
 					{
 			    	acttext = "I have some tasks to deliver.";
 			      return true;
@@ -152,12 +166,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			}
 		if (Requesttaskam > 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Navigatetaskam == 0)
+		    if (delivertaskam == 0 && bountytaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0)
 				{
 		    	acttext = "I've brought the items you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Navigatetaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
@@ -165,12 +179,25 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			}
 		if (Navigatetaskam > 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0)
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && TalkTtaskam == 0)
 				{
 		    	acttext = "I've brought you where you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || TalkTtaskam > 0)
+				{
+		    	acttext = "I have some tasks to deliver.";
+		    	return true;
+		    }
+			}
+		if (TalkTtaskam > 0)
+			{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0)
+				{
+		    	acttext = "I'm here to meet you.";
+		    	return true;
+		    }
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;

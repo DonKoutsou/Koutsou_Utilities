@@ -388,7 +388,10 @@ class SCR_CharacterDamageManagerComponent : ScriptedDamageManagerComponent
 		
 		if (IsDamagedOverTime(EDamageType.BLEEDING) && GetIsUnconscious())
 			resilienceRegenScale *= m_fUnconsciousRegenerationScale;
-
+		
+		if (m_fUnconsciousRegenerationScale == 0 && GetIsUnconscious())
+			resilienceRegenScale = 0;
+		
 		return resilienceRegenScale;
 	}
 	void SetResilienceRegenScale(float value)

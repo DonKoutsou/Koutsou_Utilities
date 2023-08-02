@@ -18,15 +18,10 @@ class SP_GameMode : SCR_BaseGameMode
 	protected SP_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
 	protected SP_FactionManager m_factionManager;
-	protected ref ScriptInvoker s_OnPlayerFactionSet = new ref ScriptInvoker();
 	Faction plfact;
 	Faction GetPlFaction()
 	{
 		return plfact;
-	}
-	ScriptInvoker GetOnPlayerFactionSet()
-	{
-		return s_OnPlayerFactionSet;
 	}
 	//------------------------------------------------------------------//
 	SP_DialogueComponent GetDialogueComponent()
@@ -74,6 +69,8 @@ class SP_GameMode : SCR_BaseGameMode
 		super.OnPlayerSpawnFinalize_S(requestComponent, handlerComponent, data, entity);
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(entity.FindComponent(SCR_CharacterIdentityComponent));
 		id.SetCharacterRep(10);
+		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		ReqMan.AssignInitTasks(entity);
 	}
 	//------------------------------------------------------------------//
 	protected override void OnPlayerKilled(int playerId, IEntity player, IEntity killer)

@@ -2,6 +2,8 @@
 [BaseContainerProps(configRoot:true)]
 class SP_DeliverTask: SP_Task
 {
+	[Attribute(defvalue : "{057AEFF961B81816}prefabs/Items/Package.et")]
+	ResourceName m_pPackage;
 	//----------------------------------------------------------------------------------//
 	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency")]
 	int m_iRewardAverageAmount;
@@ -14,8 +16,16 @@ class SP_DeliverTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (CharHolder)
-			CharHolder.GetRandomUnit(Char);
+		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+		}
+		else
+		{
+			if (CharHolder)
+			if(!CharHolder.GetRandomUnit(Char))
+				return false;
+		}
 		if (Char)
 			Owner = Char;
 		if(Owner)
@@ -30,21 +40,27 @@ class SP_DeliverTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		
-		FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
-		Faction Fact = AffiliationComp.GetAffiliatedFaction();
-		if (!Fact)
-			return false;
+		if (TaskTargetOverride && GetGame().FindEntity(TaskTargetOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskTargetOverride));
+		}
+		else
+		{
+			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
+			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+			Faction Fact = AffiliationComp.GetAffiliatedFaction();
+			if (!Fact)
+				return false;
+	
+			array <Faction> enemies = new array <Faction>();
+			FactionMan.GetFriendlyFactions(Fact, enemies);
+			if (enemies.IsEmpty())
+				return false;
+			
+			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+				return false;
+		}
 
-		array <Faction> enemies = new array <Faction>();
-		FactionMan.GetFriendlyFactions(Fact, enemies);
-		if (enemies.IsEmpty())
-			return false;
-		
-		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
-			return false;
-		
 		if (Char)
 			Target = Char;
 		
@@ -68,11 +84,12 @@ class SP_DeliverTask: SP_Task
 		if (OName == " " || DName == " " || DLoc == " ")
 		{
 			return false;
-		}     
+		} 
+		SP_DeliverTask tasksample = SP_DeliverTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_DeliverTask));
 		EntitySpawnParams params = EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
 		params.Transform[3] = vector.Zero;
-		Resource res = Resource.Load("{057AEFF961B81816}prefabs/Items/Package.et");
+		Resource res = Resource.Load(tasksample.m_pPackage);
 		if (res)
 		{
 			m_ePackage = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
@@ -96,9 +113,9 @@ class SP_DeliverTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
-		TaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
-		TaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
-		TaskTitle = string.Format("Deliver: deliver package to %1", DName);
+		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
+		m_sTaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		m_sTaskTitle = string.Format("Deliver: deliver package to %1", DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
@@ -214,8 +231,8 @@ class SP_DeliverTask: SP_Task
 				}
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
-				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
 				return true;
@@ -292,6 +309,12 @@ class SP_DeliverTask: SP_Task
 		}
 		super.AssignCharacter(Character);
 	}
+	override string GetCompletionText(IEntity Completionist)
+	{
+		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		string TaskCompletiontext = string.Format("Thanks the delivery %1 %2, hope the reward it enough.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
+		return TaskCompletiontext;
+	};
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
@@ -338,7 +361,7 @@ class SP_DeliverTask: SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};

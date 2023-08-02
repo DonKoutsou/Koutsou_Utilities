@@ -79,11 +79,9 @@ modded class SP_DialogueComponent
 						if (afcomp.GetAffiliatedFaction() == Affiliation.GetAffiliatedFaction())
 							{
 								string Oname;
-								string Dname;
 								string OLoc;
-								string DLoc;
-								resctask.GetInfo(Oname, Dname, OLoc, DLoc);
-								rummor = string.Format("I heard about %1's squad lossing contact with HQ around %2. If you are around the area keep an eye out", Dname, DLoc);
+								resctask.GetInfo(Oname, OLoc);
+								rummor = string.Format("I heard about %1's squad lossing contact with HQ around %2. If you are around the area keep an eye out", Oname, OLoc);
 								resctask.AssignCharacter(Player);
 								break;
 							}

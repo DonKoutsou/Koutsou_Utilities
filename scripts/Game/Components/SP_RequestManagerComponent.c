@@ -19,6 +19,11 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_Task> m_aTasksToSpawn;
 	
+	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
+	ref array<ref SP_ChainedTask> m_aQuestlines;
+	
+	bool m_bQuestInited;
+	
 	//Tasks samples to set up settings for all different tasks
 	static ref array<ref SP_Task> m_aTaskSamples = null;
 	
@@ -30,7 +35,8 @@ class SP_RequestManagerComponent : ScriptComponent
 	protected float m_fTaskClearTimer;
 	
 	SP_GameMode m_GameMode;
-	protected ref CharacterHolder m_CharacterHolder = new CharacterHolder();
+	[Attribute()]
+	protected ref CharacterHolder m_CharacterHolder;
 	//------------------------------------------------------------------------------------------------------------//
 	//Array of existing tasks
 	static ref array<ref SP_Task> m_aTaskMap = null;
@@ -104,7 +110,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	}
 	//--------------------------------------------------------------------//
 	//Getter for samples
-	SP_Task GetTaskSample(typename tasktype)
+	static SP_Task GetTaskSample(typename tasktype)
 	{
 		foreach(SP_Task Task : m_aTaskSamples)
 		{
@@ -162,21 +168,20 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
-	bool CreateChainedTask(IEntity Owner, array <ref SP_Task> InTasks)
+	bool CreateChainedTasks()
 	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
-		SP_ChainedTask Task;
-		if (Owner)
-			Task.TaskOwner = Owner;
-		if (!InTasks.IsEmpty())
-			Task.SetTasklist(InTasks);
-		if(Task.Init())
+		bool anyfailed;
+		foreach (SP_ChainedTask qLine : m_aQuestlines)
 		{
-			m_aTaskMap.Insert(Task);
-			Task.OnTaskFinished().Insert(OnTaskFinished);
-			return true;
+			if (m_aTaskMap.Contains(qLine))
+				continue;
+			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+			qLine.Init();
+			m_aTaskMap.Insert(qLine);
+			qLine.OnTaskFinished().Insert(OnTaskFinished);
 		}
-		return false;
+		m_bQuestInited = true;
+		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter for tasks of provided entity
@@ -277,6 +282,19 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	void AssignInitTasks(IEntity Char)
+	{
+		if (m_aQuestlines.IsEmpty())
+			return;
+		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Char.FindComponent(FactionAffiliationComponent));
+		foreach (SP_ChainedTask chain : m_aQuestlines)
+		{
+			if (chain.AssignOnInit && affcomp.GetAffiliatedFaction().GetFactionKey() == chain.key)
+			{
+				chain.AssignCharacter(Char);
+			}
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	void ClearTasks()
 	{
@@ -308,6 +326,8 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
+		if (!m_bQuestInited)
+			return;
 		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
@@ -376,6 +396,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
 			}
 		}
+		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 5000);
 	};
 	
 };
@@ -408,10 +429,14 @@ class CharacterHolder : ScriptAndConfig
 {
 	private ref array <ChimeraCharacter> AliveCharacters;
 	private ref array <ChimeraCharacter> DeadCharacters;
-	//------------------------------------------------------------------------------------------------------------//
+	[Attribute()]
+	ref array<string> m_aSpecialCars;
+	
 	void InserCharacter(ChimeraCharacter Char)
 	{
 		if (!Char)
+			return;
+		if (m_aSpecialCars.Contains(Char.GetName()))
 			return;
 		AliveCharacters.Insert(Char);
 	}
@@ -441,11 +466,14 @@ class CharacterHolder : ScriptAndConfig
 	ChimeraCharacter GetRandomDeadOfFaction(Faction fact)
 	{
 		ChimeraCharacter mychar;
+		if (DeadCharacters.IsEmpty())
+			return null;
 		for (int i = 0; i < 10; i++)
 		{
-			mychar = AliveCharacters.GetRandomElement();
+			mychar = DeadCharacters.GetRandomElement();
 			if (!mychar)
 				continue;
+			
 			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
 			if (!Aff)
 				continue;
@@ -462,8 +490,7 @@ class CharacterHolder : ScriptAndConfig
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			mychar = AliveCharacters.GetRandomElement();
-			if (!mychar)
+			if (!GetRandomUnit(mychar))
 				continue;
 			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
 			if (!Aff)
@@ -481,13 +508,12 @@ class CharacterHolder : ScriptAndConfig
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			mychar = AliveCharacters.GetRandomElement();
-			if (!mychar)
+			if (!GetRandomUnit(mychar))
 				continue;
 			SCR_CharacterRankComponent Rankcomp = SCR_CharacterRankComponent.Cast(mychar.FindComponent(SCR_CharacterRankComponent));
 			if (!Rankcomp)
 				continue;
-			if(Rankcomp.GetCharacterRankName(mychar) == rank)
+			if(Rankcomp.GetCharacterRankName(mychar) == rank.ToString())
 			{
 				return true;
 			}
@@ -501,7 +527,8 @@ class CharacterHolder : ScriptAndConfig
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			FarChar = AliveCharacters.GetRandomElement();
+			if (!GetRandomUnit(FarChar))
+				continue;
 			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
 			if (mindistance > dist)
 				return true;
@@ -515,7 +542,8 @@ class CharacterHolder : ScriptAndConfig
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			FarChar = AliveCharacters.GetRandomElement();
+			if (!GetRandomUnit(FarChar))
+				continue;
 			float dist = vector.Distance(FarChar.GetOrigin(), pos);
 			if (mindistance < dist)
 				return true;
@@ -529,8 +557,7 @@ class CharacterHolder : ScriptAndConfig
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			GetUnitOfFaction(fact, FarChar);
-			if (!FarChar)
+			if (!GetUnitOfFaction(fact, FarChar))
 				continue;
 			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
 			if (mindistance < dist)
@@ -542,7 +569,13 @@ class CharacterHolder : ScriptAndConfig
 	//------------------------------------------------------------------------------------------------------------//
 	bool GetRandomUnit(out ChimeraCharacter mychar)
 	{
+		if (AliveCharacters.IsEmpty())
+			return false;
 		mychar = AliveCharacters.GetRandomElement();
+		if (m_aSpecialCars.Contains(mychar.GetName()))
+			return false;
+		if (SCR_EntityHelper.IsPlayer(mychar))
+			return false;
 		if (mychar)
 			return true;
 		return false;
@@ -568,12 +601,15 @@ class CharacterHolder : ScriptAndConfig
 			AliveCharacters = new ref array <ChimeraCharacter>();
 		if (!DeadCharacters)
 			DeadCharacters = new ref array <ChimeraCharacter>();
+		if (!m_aSpecialCars)
+			m_aSpecialCars = new array<string>();
 	}
 	
 	void ~CharacterHolder()
 	{
 		AliveCharacters.Clear();
 		DeadCharacters.Clear();
+		m_aSpecialCars.Clear();
 	}
 	
 }

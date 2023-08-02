@@ -10,9 +10,17 @@ class SP_BountyTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (CharHolder)
+		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+		}
+		else
+		{
+			if (CharHolder)
 			if(!CharHolder.GetRandomUnit(Char))
 				return false;
+		}
+		
 		if (Char)
 			Owner = Char;
 		if(Owner)
@@ -26,20 +34,26 @@ class SP_BountyTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		
-		FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
-		Faction Fact = AffiliationComp.GetAffiliatedFaction();
-		if (!Fact)
-			return false;
-
-		array <Faction> enemies = new array <Faction>();
-		FactionMan.GetEnemyFactions(Fact, enemies);
-		if (enemies.IsEmpty())
-			return false;
-		
-		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
-			return false;
+		if (TaskTargetOverride && GetGame().FindEntity(TaskTargetOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskTargetOverride));
+		}
+		else
+		{
+			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
+			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+			Faction Fact = AffiliationComp.GetAffiliatedFaction();
+			if (!Fact)
+				return false;
+	
+			array <Faction> enemies = new array <Faction>();
+			FactionMan.GetEnemyFactions(Fact, enemies);
+			if (enemies.IsEmpty())
+				return false;
+			
+			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+				return false;
+		}
 		
 		if (Char)
 			Target = Char;
@@ -60,9 +74,9 @@ class SP_BountyTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		TaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
-		TaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
-		TaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
+		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
+		m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		m_sTaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
@@ -148,7 +162,7 @@ class SP_BountyTask: SP_Task
 				}
 				e_State = ETaskState.COMPLETED;
 				m_Copletionist = Assignee;
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
@@ -183,6 +197,12 @@ class SP_BountyTask: SP_Task
 			return m_iRewardAverageAmount;
 		}
 		return null;
+	};
+	override string GetCompletionText(IEntity Completionist)
+	{
+		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		string TaskCompletiontext = string.Format("Thanks the completing the task %1 %2, he got what he deserved, dont have any regrets on that.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
+		return TaskCompletiontext;
 	};
 };
 //------------------------------------------------------------------------------------------------------------//

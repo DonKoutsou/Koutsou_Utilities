@@ -8,7 +8,9 @@ class SP_RetrieveTask: SP_Task
 	//----------------------------------------//
 	int	m_iRequestedAmount;
 	//----------------------------------------//
+	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(SCR_EArsenalItemType))]
 	SCR_EArsenalItemType	m_requestitemtype;
+	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(SCR_EArsenalItemMode))]
 	SCR_EArsenalItemMode	m_requestitemmode;
 	
 	ref array <ResourceName>	rewards;
@@ -47,8 +49,16 @@ class SP_RetrieveTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (CharHolder)
-			CharHolder.GetRandomUnit(Char);
+		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+		}
+		else
+		{
+			if (CharHolder)
+				if(!CharHolder.GetRandomUnit(Char))
+					return false;
+		}
 		if (Char)
 			Owner = Char;
 		if(Owner)
@@ -63,9 +73,9 @@ class SP_RetrieveTask: SP_Task
 		string OLoc;
 		GetInfo(OName, OLoc);
 		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
-		TaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
-		TaskDiag = string.Format("I'm looking for %1 %2. Come back to find me on %3.", m_iRequestedAmount.ToString(), itemdesc, OLoc);
-		TaskTitle = string.Format("Retrieve: bring %1 %2 to %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
+		m_sTaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
+		m_sTaskDiag = string.Format("I'm looking for %1 %2. Come back to find me on %3.", m_iRequestedAmount.ToString(), itemdesc, OLoc);
+		m_sTaskTitle = string.Format("Retrieve: bring %1 %2 to %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	bool SetupRequestTypenMode()
@@ -212,8 +222,8 @@ class SP_RetrieveTask: SP_Task
 		TaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(TaskTitle);
-		m_TaskMarker.SetDescription(TaskDesc);
+		m_TaskMarker.SetTitle(m_sTaskTitle);
+		m_TaskMarker.SetDescription(m_sTaskDesc);
 		m_TaskMarker.SetTarget(TaskOwner);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
 		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
@@ -313,7 +323,7 @@ class SP_RetrieveTask: SP_Task
 				GetOnTaskFinished(this);
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 				return true;
 				
 			}
@@ -421,6 +431,12 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};
 	//------------------------------------------------------------------------------------------------------------//
+	override string GetCompletionText(IEntity Completionist)
+	{
+		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		string TaskCompletiontext = string.Format("Thanks for retrieving the items i asked for %1 %2. Here is the reward hope is suficient", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
+		return TaskCompletiontext;
+	};
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_RequestPredicate : InventorySearchPredicate
@@ -465,6 +481,7 @@ class SP_RequestPredicate : InventorySearchPredicate
 		}
 		return false;
 	}
+	
 };
 //------------------------------------------------------------------------------------------------------------//
 modded enum EEditableEntityLabel

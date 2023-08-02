@@ -47,21 +47,10 @@ class SP_EquipGrenadeAction : ScriptedUserAction
 					Channel = DiagComp.m_ChatChannelUSSR;
 				}
 				break;
-				case "BANDITS":
-				{
-					GreetText = "Hey bro!";
-					Channel = DiagComp.m_ChatChannelBANDITS;
-				}
-				break;
-				case "SPEIRA":
-				{
-					Channel = DiagComp.m_ChatChannelSPEIRA;
-				}
-				break;
 				case "US":
 				{
 					GreetText = "What do you need?";
-					Channel = DiagComp.m_ChatChannelSPEIRA;
+					Channel = DiagComp.m_ChatChannelUS;
 				}
 				break;
 			}

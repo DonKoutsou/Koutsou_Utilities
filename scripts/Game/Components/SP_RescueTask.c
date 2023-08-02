@@ -23,18 +23,25 @@ class SP_RescueTask: SP_Task
 		if (dType != EDamageType.BLEEDING)
 			return;
 		IEntity Instigator;
-		for (int i = CharsToRescue.Count() - 1; i >= 0; --i)
+		ref array <IEntity> CharsRescued = new ref array <IEntity>();
+		foreach (IEntity Rescued : CharsToRescue)
 		{
-			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(CharsToRescue[i].FindComponent(SCR_CharacterDamageManagerComponent));
+			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Rescued.FindComponent(SCR_CharacterDamageManagerComponent));
 			array<HitZone> blhitZones = new array<HitZone>();
 			dmg.GetBleedingHitZones(blhitZones);
 			if(blhitZones.IsEmpty())
 			{
 				dmg.SetResilienceRegenScale(0.3);
+				dmg.FullHeal(false);
 				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
 				Instigator = dmg.GetInstigator();
-				CharsToRescue.RemoveItem(CharsToRescue[i]);
+				CharsRescued.Insert(Rescued);
+				
 			}
+		}
+		for (int i = CharsRescued.Count() - 1; i >= 0; --i)
+		{
+			CharsToRescue.RemoveItem(CharsRescued[i]);
 		}
 		if (CharsToRescue.IsEmpty())
 		{
@@ -118,15 +125,28 @@ class SP_RescueTask: SP_Task
 	override void CreateDescritions()
 	{
 		string OName;
-		string DName;
-		string DLoc;
 		string OLoc;
-		GetInfo(OName, DName, DLoc, OLoc);
-		TaskDesc = string.Format("%1's squad was ambussed, they need someone to rescuer them, they are somewhere areound %2", DName, DLoc);
-		TaskDiag = string.Format("We havent been able to establish connections with %1's squad for a while, please go to %2 and look for them", DName, DLoc);
-		TaskTitle = string.Format("Rescue: locate %1's squad and provide help", DName);
+		GetInfo(OName, OLoc);
+		m_sTaskDesc = string.Format("%1's squad was ambussed, they need someone to rescuer them, they are somewhere areound %2", OName, OLoc);
+		m_sTaskDiag = string.Format("We havent been able to establish connections with %1's squad for a while, please go to %2 and look for them", OName, OLoc);
+		m_sTaskTitle = string.Format("Rescue: locate %1's squad and provide help", OName);
 	};
-	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
+	override void SpawnTaskMarker(IEntity Assignee)
+	{
+		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
+		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
+		TaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
+		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
+		m_TaskMarker.SetTitle(m_sTaskTitle);
+		m_TaskMarker.SetDescription(m_sTaskDesc);
+		m_TaskMarker.SetTarget(TaskOwner);
+		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
+		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
+		m_TaskMarker.AddAssignee(assignee, 0);
+	}
+	void GetInfo(out string OName, out string OLoc)
 	{
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
@@ -134,11 +154,6 @@ class SP_RescueTask: SP_Task
 		{
 			OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
 			OLoc = Diag.GetCharacterLocation(TaskOwner);
-		}
-		if (TaskTarget)
-		{
-			DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-			DLoc = Diag.GetCharacterLocation(TaskTarget);
 		}
 	};
 	override bool FindOwner(out IEntity Owner)
@@ -228,7 +243,9 @@ class SP_RescueTask: SP_Task
 		}
 		e_State = ETaskState.COMPLETED;
 		GetOnTaskFinished(this);
-		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		Diag.SendText(GetCompletionText(Assignee), Diag.m_ChatChannelUS, 0, Diag.GetCharacterName(TaskOwner), Diag.GetCharacterRankName(TaskOwner));
 		return false;
 	};
 	override typename GetClassName(){return SP_RescueTask;};
@@ -252,13 +269,21 @@ class SP_RescueTask: SP_Task
 		array<AIAgent> outAgents = new array<AIAgent>();
 		CharacterHolder Chars = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent)).GetCharacterHolder();
 		ChimeraCharacter luckyguy;
-		if (!TaskOwner)
+		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
 		{
-			if (!Chars.GetRandomUnit(luckyguy))
-				return false;
+			luckyguy = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
 		}
 		else
-			luckyguy = ChimeraCharacter.Cast(TaskOwner);
+		{
+			if (!TaskOwner)
+			{
+				if (!Chars.GetRandomUnit(luckyguy))
+					return false;
+			}
+			else
+				luckyguy = ChimeraCharacter.Cast(TaskOwner);
+		}
+		
 		AIControlComponent ContComp = AIControlComponent.Cast(luckyguy.FindComponent(AIControlComponent));
 		AIAgent Agent = ContComp.GetAIAgent();
 		if (!Agent)
@@ -282,25 +307,33 @@ class SP_RescueTask: SP_Task
 		{
 			CharsToRescue.Insert(agent.GetControlledEntity());
 		}
-		if (!CheckForCharacters(400, Victim.GetOrigin()))
-			return false;
+		//if (!CheckForCharacters(400, Victim.GetOrigin()))
+			//return false;
 		foreach(AIAgent agent : outAgents)
 		{
 			IEntity Char = agent.GetControlledEntity();
 			if(Char)
 			{
 				SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Char.FindComponent(SCR_CharacterDamageManagerComponent));
-				if(dmg.GetIsUnconscious())
+				if(!dmg.GetIsUnconscious())
 				{
-					return false;
+					dmg.ForceUnconsciousness();
+					dmg.SetResilienceRegenScale(0);
+					dmg.AddParticularBleeding();
 				}
-				dmg.ForceUnconsciousness();
 				dmg.SetResilienceRegenScale(0);
-				dmg.AddParticularBleeding();
 				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
 				dmg.GetOnDamageStateChanged().Insert(FailTask);
 			}
 		}
 		return true;
+	};
+	override string GetCompletionText(IEntity Completionist)
+	{
+		if (!Completionist)
+			return STRING_EMPTY;
+		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		string TaskCompletiontext = string.Format("We owe you our lives %1 %2, thanks for saving us.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
+		return TaskCompletiontext;
 	};
 }

@@ -14,8 +14,16 @@ class SP_NavigateTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (CharHolder)
-			CharHolder.GetRandomUnit(Char);
+		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+		}
+		else
+		{
+			if (CharHolder)
+				if(!CharHolder.GetRandomUnit(Char))
+					return false;
+		}
 		if (Char)
 			Owner = Char;
 		if(Owner)
@@ -30,15 +38,22 @@ class SP_NavigateTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
+		if (TaskTargetOverride && GetGame().FindEntity(TaskTargetOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskTargetOverride));
+		}
+		else
+		{
+			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
+			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+			Faction Fact = AffiliationComp.GetAffiliatedFaction();
+			if (!Fact)
+				return false;
+	
+			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, Fact, Char))
+				return false;
+		}
 		
-		FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
-		Faction Fact = AffiliationComp.GetAffiliatedFaction();
-		if (!Fact)
-			return false;
-
-		if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, Fact, Char))
-			return false;
 		if (Char)
 			Target = Char;
 		
@@ -149,9 +164,9 @@ class SP_NavigateTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		TaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
-		TaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
-		TaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
+		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
+		m_sTaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		m_sTaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//to complete task need to assign owner to new group and get rid of WP
@@ -190,7 +205,7 @@ class SP_NavigateTask: SP_Task
 			}
 			e_State = ETaskState.COMPLETED;
 			m_Copletionist = Assignee;
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			GetOnTaskFinished(this);
@@ -243,5 +258,11 @@ class SP_NavigateTask: SP_Task
 		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", Diag.GetCharacterName(Character)));
 		super.AssignCharacter(Character);
 	}
+	override string GetCompletionText(IEntity Completionist)
+	{
+		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		string TaskCompletiontext = string.Format("Glad we made it in one piece, thanks alot %1 %2, hope the reward is suficient.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
+		return TaskCompletiontext;
+	};
 	//------------------------------------------------------------------------------------------------------------//
 };

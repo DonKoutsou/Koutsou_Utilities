@@ -6,25 +6,17 @@ class SP_ChainedTask : SP_Task
 	
 	private int stage;
 	
+	[Attribute()]
+	bool AssignOnInit;
+	
+	[Attribute()]
+	FactionKey key;
+	
 	ref array <ref SP_Task> m_aTasks;
 	
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		if (!TaskOwner)
-		{
-			//first look for owner cause targer is usually derived from owner faction/location etc...
-			if (!FindOwner(TaskOwner))
-			{
-				return false;
-			}
-			//-------------------------------------------------//
-			//function to fill to check ckaracter
-			if(!CheckOwner())
-			{
-				return false;
-			}
-		}
 		if (!m_aTasklist)
 		{
 			m_aTasklist = new array <ref SP_Task>();
@@ -41,14 +33,14 @@ class SP_ChainedTask : SP_Task
 				m_aTasks = new array <ref SP_Task>();
 			SP_Task task = SP_Task.Cast(sample.GetClassName().Spawn());
 			m_aTasks.Insert(task);
+			task.TaskOwnerOverride = sample.TaskOwnerOverride;
+			task.TaskTargetOverride = sample.TaskTargetOverride;
 		}
-		if (!TaskOwner)
-			return false;
 		if (!InitCurrentStage())
 			return false;
 		//-------------------------------------------------//
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(GetCurrentTask().GetOwner().FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
@@ -84,7 +76,6 @@ class SP_ChainedTask : SP_Task
 	}
 	bool InitCurrentStage()
 	{
-		m_aTasks[stage].TaskOwner = TaskOwner;
 		if (!m_aTasks[stage].Init())
 			return false;
 		m_aTasks[stage].OnTaskFinished().Insert(Progress);
@@ -104,6 +95,7 @@ class SP_ChainedTask : SP_Task
 				stage += 1;
 				if (!InitCurrentStage())
 					FailTask(EDamageState.DESTROYED);
+				GetCurrentTask().AssignCharacter(a_TaskAssigned[0]);
 			}
 		}
 		else if (task.e_State == ETaskState.FAILED)
@@ -134,9 +126,9 @@ class SP_ChainedTask : SP_Task
 		}
 		return false;
 	}
-	override string GetTaskDescription(){return m_aTasks[stage].TaskDesc;}
+	override string GetTaskDescription(){return m_aTasks[stage].m_sTaskDesc;}
 	//------------------------------------------------------------------------------------------------------------//
-	override string GetTaskDiag(){return m_aTasks[stage].TaskDiag;}
+	override string GetTaskDiag(){return m_aTasks[stage].m_sTaskDiag;}
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
@@ -161,7 +153,7 @@ class SP_ChainedTask : SP_Task
 		if (state != EDamageState.DESTROYED)
 			return;
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(GetCurrentTask().GetOwner().FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		e_State = ETaskState.FAILED;
 		GetOnTaskFinished(this);
@@ -195,4 +187,8 @@ class SP_ChainedTask : SP_Task
 		return  task.CharacterIsTarget(Character);
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	override string GetCompletionText(IEntity Completionist)
+	{
+		return GetCurrentTask().GetCompletionText(Completionist);
+	};
 }

@@ -15,11 +15,16 @@ modded class DialogueUIClass: ChimeraMenuBase
 		}
 		if(myUserEntity)
 		{
+			/*
 			PlayerManager mngr = GetGame().GetPlayerManager();
 			int pid = mngr.GetPlayerIdFromControlledEntity(myUserEntity);
 			PlName = mngr.GetPlayerName(pid);
 			PLrank = DiagComp.GetCharacterRankName(myUserEntity);
-			Plfaction = DiagComp.GetCharacterFaction(myUserEntity).GetFactionKey(); 
+			Plfaction = DiagComp.GetCharacterFaction(myUserEntity).GetFactionKey();
+			*/ 
+			PlName = DiagComp.GetCharacterName(myUserEntity);
+			PLrank = DiagComp.GetCharacterRankName(myUserEntity);
+			Plfaction = DiagComp.GetCharacterFaction(myUserEntity).GetFactionKey();
 		}
 		
 		SCR_Faction SCRFact = SCR_Faction.Cast(DiagComp.GetCharacterFaction(myCallerEntity));

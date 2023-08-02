@@ -4,6 +4,12 @@ class SP_Task
 {
 	[Attribute(defvalue : "1", desc : "Dissabled wont be randomly spawned but still exist as samples")]
 	bool m_bEnabled;
+	
+	[Attribute()]
+	string TaskOwnerOverride;
+	
+	[Attribute()]
+	string TaskTargetOverride;
 	//-------------------------------------------------//
 	//Character wich created the task
 	IEntity TaskOwner;
@@ -11,11 +17,11 @@ class SP_Task
 	//Target of the task (kill task, deliver task etc... not necesarry on retrieve task)
 	IEntity TaskTarget;
 	//-------------------------------------------------//
-	string TaskDesc;
+	string m_sTaskDesc;
 	//-------------------------------------------------//
-	string TaskDiag;
+	string m_sTaskDiag;
 	//-------------------------------------------------//
-	string TaskTitle;
+	string m_sTaskTitle;
 	//-------------------------------------------------//
 	ResourceName reward;
 	//-------------------------------------------------//
@@ -61,10 +67,6 @@ class SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		if(dmg.GetIsUnconscious())
-		{
-			return false;
-		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		if (!m_RequestManager || !Diag)
 			return false;
@@ -201,7 +203,7 @@ class SP_Task
 			e_State = ETaskState.COMPLETED;
 			m_Copletionist = Assignee;
 			GetOnTaskFinished(this);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: TaskTitle);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			return true;
 		}
 		return false;
@@ -227,9 +229,9 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	ETaskState GetState(){return e_State;};
 	//------------------------------------------------------------------------------------------------------------//
-	string GetTaskDescription(){return TaskDesc;}
+	string GetTaskDescription(){return m_sTaskDesc;}
 	//------------------------------------------------------------------------------------------------------------//
-	string GetTaskDiag(){return TaskDiag;}
+	string GetTaskDiag(){return m_sTaskDiag;}
 	//------------------------------------------------------------------------------------------------------------//
 	void AssignCharacter(IEntity Character)
 	{
@@ -250,8 +252,8 @@ class SP_Task
 		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		TaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(TaskTitle);
-		m_TaskMarker.SetDescription(TaskDesc);
+		m_TaskMarker.SetTitle(m_sTaskTitle);
+		m_TaskMarker.SetDescription(m_sTaskDesc);
 		m_TaskMarker.SetTarget(TaskTarget);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
 		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
@@ -273,6 +275,8 @@ class SP_Task
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetCompletionist(){return m_Copletionist;};
+	//------------------------------------------------------------------------------------------------------------//
+	string GetCompletionText(IEntity Completionist){};
 	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{
