@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{F6849F1325102B9D}Assets/Items/Misc/Drachma/Data/Drachma_BCR.edds"
+ NMOMap "{CE5C2481FC677903}Assets/Items/Misc/Drachma/Data/Drachma_NMO.edds"
+}

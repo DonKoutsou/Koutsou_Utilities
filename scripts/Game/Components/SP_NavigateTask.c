@@ -3,9 +3,6 @@
 class SP_NavigateTask: SP_Task
 {
 	//----------------------------------------------------------------------------------//
-	[Attribute(defvalue: "20")]
-	int m_iRewardAverageAmount;
-	//----------------------------------------------------------------------------------//
 	[Attribute(defvalue: "20", desc: "Distance from target at wich task can be considered ready to deliver")]
 	int m_iSuccessDistance;
 	//------------------------------------------------------------------------------------------------------------//
@@ -14,9 +11,9 @@ class SP_NavigateTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
 		else
 		{
@@ -38,9 +35,9 @@ class SP_NavigateTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskTargetOverride && GetGame().FindEntity(TaskTargetOverride))
+		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskTargetOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
 		}
 		else
 		{
@@ -69,11 +66,11 @@ class SP_NavigateTask: SP_Task
 	//Its ready to deliver when targer and owner are closer than m_iSuccessDistance
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
-		if (TalkingChar == TaskTarget)
+		if (TalkingChar == m_eTaskTarget)
 			return false;
-		if (!a_TaskAssigned.Contains(Assignee))
+		if (!m_aTaskAssigned.Contains(Assignee))
 			return false;
-		float dis = vector.Distance(TaskTarget.GetOrigin(), TalkingChar.GetOrigin());
+		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), TalkingChar.GetOrigin());
 		if(!m_iSuccessDistance)
 		{
 			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
@@ -90,10 +87,12 @@ class SP_NavigateTask: SP_Task
 	//overriding AssignReward to apply the average attribute from SP_RequestManagerComponent
 	override bool AssignReward()
 	{
+		if (e_RewardLabel)
+			return true;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			if(!ReqMan)
 			{
@@ -117,7 +116,7 @@ class SP_NavigateTask: SP_Task
 		}
 		if(index == 1)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 			m_iRewardAmount = 1;
 		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
@@ -133,10 +132,10 @@ class SP_NavigateTask: SP_Task
 				return false;
 			}
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RewardsCatalog.GetEntityListWithLabel(RewardLabel, Mylist);
+		RewardsCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		reward = entry.GetPrefab();
-		if(!reward)
+		m_Reward = entry.GetPrefab();
+		if(!m_Reward)
 			{
 				return false;
 			}
@@ -145,16 +144,16 @@ class SP_NavigateTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
 	{
-		if (!TaskOwner || !TaskTarget)
+		if (!m_eTaskOwner || !m_eTaskTarget)
 		{
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-		OLoc = Diag.GetCharacterLocation(TaskOwner);
-		DLoc = Diag.GetCharacterLocation(TaskTarget);
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+		DName = CharRank.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
+		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
+		DLoc = Diag.GetCharacterLocation(m_eTaskTarget);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override void CreateDescritions()
@@ -165,7 +164,7 @@ class SP_NavigateTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
-		m_sTaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		m_sTaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -174,17 +173,17 @@ class SP_NavigateTask: SP_Task
 	{
 		if (GiveReward(Assignee))
 		{
-			AIControlComponent comp = AIControlComponent.Cast(TaskOwner.FindComponent(AIControlComponent));
+			AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
 			AIAgent agent = comp.GetAIAgent();
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			SCR_AIFollowBehavior act = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
 			act.SetActiveFollowing(false);
 			//utility.SetStateAllActionsOfType(SCR_AIFollowBehavior, EAIActionState.FAILED, false);
 			//get group of target
-			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 			if (!dmgman.IsDestroyed())
 			{
-				AIControlComponent Tcomp = AIControlComponent.Cast(TaskTarget.FindComponent(AIControlComponent));
+				AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
 				AIAgent Tagent = Tcomp.GetAIAgent();
 				SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
 				if (Tgroup)
@@ -204,9 +203,9 @@ class SP_NavigateTask: SP_Task
 				m_TaskMarker.Finish(true);
 			}
 			e_State = ETaskState.COMPLETED;
-			m_Copletionist = Assignee;
+			m_eCopletionist = Assignee;
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			GetOnTaskFinished(this);
 			return true;
@@ -235,7 +234,7 @@ class SP_NavigateTask: SP_Task
 	};
 	override void AssignCharacter(IEntity Character)
 	{
-		AIControlComponent comp = AIControlComponent.Cast(TaskOwner.FindComponent(AIControlComponent));
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
 		if (!comp)
 			return;
 		AIAgent agent = comp.GetAIAgent();

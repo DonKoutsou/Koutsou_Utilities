@@ -20,10 +20,10 @@ class SP_RetrieveTask: SP_Task
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
-			if (!FindOwner(TaskOwner))
+			if (!FindOwner(m_eTaskOwner))
 			{
 				return false;
 			}
@@ -40,7 +40,7 @@ class SP_RetrieveTask: SP_Task
 		}
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
@@ -49,9 +49,9 @@ class SP_RetrieveTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
 		else
 		{
@@ -80,13 +80,15 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool SetupRequestTypenMode()
 	{
+		if (e_RewardLabel && m_requestitemtype && m_requestitemmode)
+			return true;
 		int index = Math.RandomInt(0, 11);
 		if (index == 0)
 			{
 				m_requestitemtype = SCR_EArsenalItemType.HEAL;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 1)
@@ -94,7 +96,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.FOOD;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 2)
@@ -102,7 +104,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.DRINK;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 3)
@@ -111,12 +113,12 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemmode = SCR_EArsenalItemMode.WEAPON;
 				m_iRequestedAmount = Math.RandomInt(1, 10);
 				if (m_iRequestedAmount < 5)
-					RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+					e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 				return true;
 			}
 		if (index == 4)
 			{
-				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(TaskOwner.FindComponent(EquipedLoadoutStorageComponent));
+				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(m_eTaskOwner.FindComponent(EquipedLoadoutStorageComponent));
 				if (!loadoutStorage)
 					return false;
 
@@ -140,7 +142,7 @@ class SP_RetrieveTask: SP_Task
 			}
 		if (index == 5)
 			{
-				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(TaskOwner.FindComponent(EquipedLoadoutStorageComponent));
+				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(m_eTaskOwner.FindComponent(EquipedLoadoutStorageComponent));
 				if (!loadoutStorage)
 					return false;
 				
@@ -152,7 +154,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.BACKPACK;
 				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 6)
@@ -160,7 +162,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.FLASHLIGHT;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = 1;
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 7)
@@ -168,7 +170,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.MAP;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 8)
@@ -176,7 +178,7 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.COMPASS;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 9)
@@ -184,12 +186,12 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.RADIO;
 				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 10)
 			{
-				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(TaskOwner.FindComponent(EquipedLoadoutStorageComponent));
+				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(m_eTaskOwner.FindComponent(EquipedLoadoutStorageComponent));
 				if (!loadoutStorage)
 					return false;
 
@@ -219,21 +221,21 @@ class SP_RetrieveTask: SP_Task
 	{
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		TaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
+		m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 		m_TaskMarker.SetTitle(m_sTaskTitle);
 		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(TaskOwner);
+		m_TaskMarker.SetTarget(m_eTaskOwner);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
-		if (TalkingChar != TaskOwner)
+		if (TalkingChar != m_eTaskOwner)
 		{
 			return false;
 		}
@@ -270,7 +272,7 @@ class SP_RetrieveTask: SP_Task
 	{
 		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(Assignee.FindComponent(SCR_InventoryStorageManagerComponent));
-		SCR_InventoryStorageManagerComponent Ownerinv = SCR_InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
+		SCR_InventoryStorageManagerComponent Ownerinv = SCR_InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
 		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemtype, m_requestitemmode);
 		array <IEntity> FoundItems = new array <IEntity>();
 		inv.FindItems(FoundItems, RequestPred);
@@ -319,9 +321,9 @@ class SP_RetrieveTask: SP_Task
 					m_TaskMarker.Finish(true);
 				}
 				e_State = ETaskState.COMPLETED;
-				m_Copletionist = Assignee;
+				m_eCopletionist = Assignee;
 				GetOnTaskFinished(this);
-				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 				return true;
@@ -333,14 +335,14 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void GetInfo(out string OName, out string OLoc)
 	{
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		OLoc = Diag.GetCharacterLocation(TaskOwner);
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 	};
 	override bool AssignReward()
 	{
@@ -372,17 +374,17 @@ class SP_RetrieveTask: SP_Task
 				rewards.Insert(entry.GetPrefab());
 			}
 		}
-		/*if (!RewardLabel)
+		/*if (!e_RewardLabel)
 		{
 			int index = Math.RandomInt(0,2);
 			if(index == 0)
 			{
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				//m_iRewardAmount = m_iRewardAmount * m_iRequestedAmount;
 			}
 			if(index == 1)
 			{
-				RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 				//m_iRewardAmount = 1;
 			}
 		}
@@ -397,7 +399,7 @@ class SP_RetrieveTask: SP_Task
 		{
 			EntitySpawnParams params = EntitySpawnParams();
 			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = TaskOwner.GetOrigin();
+			params.Transform[3] = m_eTaskOwner.GetOrigin();
 			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
 			array<IEntity> Rewardlist = new array<IEntity>();
 			int Movedamount;

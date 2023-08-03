@@ -1,21 +1,37 @@
 //------------------------------------------------------------------------------------------------------------//
+enum ETaskState
+{
+	UNASSIGNED,
+	ASSIGNED,
+	COMPLETED,
+	FAILED,
+	EMPTY
+}
+//------------------------------------------------------------------------------------------------------------//
 [BaseContainerProps()]
 class SP_Task
 {
+	//-------------------------------------------------//
 	[Attribute(defvalue : "1", desc : "Dissabled wont be randomly spawned but still exist as samples")]
 	bool m_bEnabled;
-	
-	[Attribute()]
-	string TaskOwnerOverride;
-	
-	[Attribute()]
-	string TaskTargetOverride;
+	//-------------------------------------------------//
+	[Attribute(desc : "Override with entity name in the world wich will become task owner instead of looking for an owner")]
+	string m_sTaskOwnerOverride;
+	//-------------------------------------------------//
+	[Attribute(desc : "Override with entity name in the world wich will become task target instead of looking for an target")]
+	string m_sTaskTargetOverride;
+	//-------------------------------------------------//
+	[Attribute("0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(EEditableEntityLabel))]
+	EEditableEntityLabel e_RewardLabel;
+	//-------------------------------------------------//
+	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency")]
+	int m_iRewardAverageAmount;
 	//-------------------------------------------------//
 	//Character wich created the task
-	IEntity TaskOwner;
+	IEntity m_eTaskOwner;
 	//-------------------------------------------------//
 	//Target of the task (kill task, deliver task etc... not necesarry on retrieve task)
-	IEntity TaskTarget;
+	IEntity m_eTaskTarget;
 	//-------------------------------------------------//
 	string m_sTaskDesc;
 	//-------------------------------------------------//
@@ -23,46 +39,62 @@ class SP_Task
 	//-------------------------------------------------//
 	string m_sTaskTitle;
 	//-------------------------------------------------//
-	ResourceName reward;
+	ResourceName m_Reward;
 	//-------------------------------------------------//
 	int m_iRewardAmount;
 	//-------------------------------------------------//
 	protected ETaskState e_State = ETaskState.EMPTY;
 	//-------------------------------------------------//
 	//Characters assigned to this task
-	ref array <IEntity> a_TaskAssigned = new ref array <IEntity>();
+	ref array <IEntity> m_aTaskAssigned = new ref array <IEntity>();
 	//-------------------------------------------------//
-	IEntity m_Copletionist;
+	IEntity m_eCopletionist;
 	//-------------------------------------------------//
 	SP_BaseTask m_TaskMarker;
 	//-------------------------------------------------//
 	SP_RequestManagerComponent m_RequestManager;
-	EEditableEntityLabel RewardLabel;
 	//-------------------------------------------------//
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
+	//------------------------------------------------------------------------------------------------------------//
+	IEntity GetOwner(){return m_eTaskOwner;};
+	//------------------------------------------------------------------------------------------------------------//
+	IEntity GetTarget(){return m_eTaskTarget;};
+	//------------------------------------------------------------------------------------------------------------//
+	IEntity GetCompletionist(){return m_eCopletionist;};
+	//------------------------------------------------------------------------------------------------------------//
+	string GetCompletionText(IEntity Completionist){};
+	//------------------------------------------------------------------------------------------------------------//
+	ETaskState GetState(){return e_State;};
+	//------------------------------------------------------------------------------------------------------------//
+	string GetTaskDescription(){return m_sTaskDesc;}
+	//------------------------------------------------------------------------------------------------------------//
+	string GetTaskDiag(){return m_sTaskDiag;}
+	//------------------------------------------------------------------------------------------------------------//
+	ScriptInvoker OnTaskFinished(){return s_OnTaskFinished;}
+	//------------------------------------------------------------------------------------------------------------//
+	event void GetOnTaskFinished(SP_Task Task){OnTaskFinished().Invoke(Task);};
+	//------------------------------------------------------------------------------------------------------------//
+	void DeleteLeftovers(){};
+	//------------------------------------------------------------------------------------------------------------//
+	void CreateDescritions(){};
+	//------------------------------------------------------------------------------------------------------------//
+	bool SetupTaskEntity(){return true;};
+	//------------------------------------------------------------------------------------------------------------//
+	bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee){return true;};
 	//------------------------------------------------------------------------------------------------------------//
 	bool FindOwner(out IEntity Owner){return true;};
 	//------------------------------------------------------------------------------------------------------------//
 	bool FindTarget(out IEntity Target){return true;};
 	//------------------------------------------------------------------------------------------------------------//
-	IEntity GetOwner(){return TaskOwner;};
-	IEntity GetTarget(){return TaskTarget;};
+	typename GetClassName(){return SP_Task;}
 	//------------------------------------------------------------------------------------------------------------//
-	ScriptInvoker OnTaskFinished()
-	{
-		return s_OnTaskFinished;
-	}
-	event void GetOnTaskFinished(SP_Task Task)
-	{
-		OnTaskFinished().Invoke(Task);
-	};
 	bool CheckOwner()
 	{
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 			return false;
-		if (TaskOwner == SCR_EntityHelper.GetPlayer())
+		if (m_eTaskOwner == SCR_EntityHelper.GetPlayer())
 			return false;
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (!dmg)
 			return false;
 		if (dmg.IsDestroyed())
@@ -72,19 +104,19 @@ class SP_Task
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
-		m_RequestManager.GetCharTasks(TaskOwner, tasks);
+		m_RequestManager.GetCharTasks(m_eTaskOwner, tasks);
 		if(tasks.Count() >= m_RequestManager.GetTasksPerCharacter())
 		{
 			return false;
 		}
 		//Check if char can get more tasks of same type
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		m_RequestManager.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
+		m_RequestManager.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
 		if(sametasks.Count() >= m_RequestManager.GetTasksOfSameTypePerCharacter())
 		{
 			return false;
 		}
-		Faction senderFaction = Diag.GetCharacterFaction(TaskOwner);
+		Faction senderFaction = Diag.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
 		if (senderFaction.GetFactionKey() == "RENEGADE")
@@ -93,13 +125,14 @@ class SP_Task
 		};
 		return true;
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	bool CheckTarget()
 	{
-		if (!TaskTarget)
+		if (!m_eTaskTarget)
 			return false;
-		if (TaskTarget == SCR_EntityHelper.GetPlayer())
+		if (m_eTaskTarget == SCR_EntityHelper.GetPlayer())
 			return false;
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (!dmg)
 			return false;
 		if (dmg.IsDestroyed())
@@ -108,13 +141,13 @@ class SP_Task
 		if (!m_RequestManager || !Diag)
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		m_RequestManager.GetCharTargetTasks(TaskTarget, tasks);
+		m_RequestManager.GetCharTargetTasks(m_eTaskTarget, tasks);
 		if(tasks.Count() >= m_RequestManager.GetTasksPerCharacter())
 		{
 			return false;
 		}
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		m_RequestManager.GetCharTasksOfSameType(TaskOwner, sametasks, GetClassName());
+		m_RequestManager.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
 		if(sametasks.Count() >= m_RequestManager.GetTasksOfSameTypePerCharacter() + 1)
 		{
 			return false;
@@ -124,7 +157,7 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool CharacterIsOwner(IEntity Character)
 	{
-		if (Character == TaskOwner)
+		if (Character == m_eTaskOwner)
 		{
 			return true;
 		}
@@ -133,50 +166,47 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool CharacterIsTarget(IEntity Character)
 	{
-		if (Character == TaskTarget)
+		if (Character == m_eTaskTarget)
 		{
 			return true;
 		}
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	bool SetupTaskEntity(){return true;};
-	//------------------------------------------------------------------------------------------------------------//
-	bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee){return true;};
-	//------------------------------------------------------------------------------------------------------------//
 	bool AssignReward()
 	{
+		if (e_RewardLabel)
+			return true;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 			m_iRewardAmount = 10;
 		}
 		if(index == 1)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 			m_iRewardAmount = 1;
 		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(RewardLabel, Mylist);
+		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		reward = entry.GetPrefab();
+		m_Reward = entry.GetPrefab();
 		return true;
 	};
-	void CreateDescritions(){};
 	//------------------------------------------------------------------------------------------------------------//
 	bool GiveReward(IEntity Target)
 	{
-		if (reward)
+		if (m_Reward)
 		{
 			EntitySpawnParams params = EntitySpawnParams();
 			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = TaskOwner.GetOrigin();
+			params.Transform[3] = m_eTaskOwner.GetOrigin();
 			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
 			array<IEntity> Rewardlist = new array<IEntity>();
-			Resource RewardRes = Resource.Load(reward);
+			Resource RewardRes = Resource.Load(m_Reward);
 			int Movedamount;
 			for (int j = 0; j < m_iRewardAmount; j++)
 				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
@@ -186,7 +216,7 @@ class SP_Task
 				Movedamount += 1;
 			}
 			
-			string curr = FilePath.StripPath(reward);
+			string curr = FilePath.StripPath(m_Reward);
 			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
 		}
@@ -198,47 +228,42 @@ class SP_Task
 		if (GiveReward(Assignee))
 		{
 			m_TaskMarker.Finish(true);
-			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			e_State = ETaskState.COMPLETED;
-			m_Copletionist = Assignee;
+			m_eCopletionist = Assignee;
 			GetOnTaskFinished(this);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			return true;
 		}
 		return false;
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	void FailTask(EDamageState state)
 	{
 		
 		if (state != EDamageState.DESTROYED)
 			return;
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
 			m_TaskMarker.RemoveAllAssignees();
 			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", Diag.GetCharacterName(TaskOwner)));
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", Diag.GetCharacterName(m_eTaskOwner)));
 		}
 		e_State = ETaskState.FAILED;
 		GetOnTaskFinished(this);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	ETaskState GetState(){return e_State;};
-	//------------------------------------------------------------------------------------------------------------//
-	string GetTaskDescription(){return m_sTaskDesc;}
-	//------------------------------------------------------------------------------------------------------------//
-	string GetTaskDiag(){return m_sTaskDiag;}
-	//------------------------------------------------------------------------------------------------------------//
 	void AssignCharacter(IEntity Character)
 	{
-		if (a_TaskAssigned.Contains(Character))
+		if (m_aTaskAssigned.Contains(Character))
 			return;
-		a_TaskAssigned.Insert(Character);
-		if(a_TaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
+		m_aTaskAssigned.Insert(Character);
+		if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
 		{
 			e_State = ETaskState.ASSIGNED;
 		}
@@ -250,42 +275,34 @@ class SP_Task
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
 		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		TaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
+		m_eTaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 		m_TaskMarker.SetTitle(m_sTaskTitle);
 		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(TaskTarget);
+		m_TaskMarker.SetTarget(m_eTaskTarget);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	bool CharacterAssigned(IEntity Character)
 	{
-		if(a_TaskAssigned.Contains(Character))
+		if(m_aTaskAssigned.Contains(Character))
 		{
 			return true;
 		}
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	typename GetClassName(){return SP_Task;}
-	//------------------------------------------------------------------------------------------------------------//
-	void DeleteLeftovers(){};
-	//------------------------------------------------------------------------------------------------------------//
-	IEntity GetCompletionist(){return m_Copletionist;};
-	//------------------------------------------------------------------------------------------------------------//
-	string GetCompletionText(IEntity Completionist){};
-	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
-			if (!FindOwner(TaskOwner))
+			if (!FindOwner(m_eTaskOwner))
 			{
 				return false;
 			}
@@ -297,9 +314,9 @@ class SP_Task
 			}
 		}
 		//-------------------------------------------------//
-		if (!TaskTarget)
+		if (!m_eTaskTarget)
 		{
-			if (!FindTarget(TaskTarget))
+			if (!FindTarget(m_eTaskTarget))
 			{
 				return false;
 			}
@@ -317,17 +334,8 @@ class SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
 };
-//------------------------------------------------------------------------------------------------------------//
-enum ETaskState
-{
-	UNASSIGNED,
-	ASSIGNED,
-	COMPLETED,
-	FAILED,
-	EMPTY
-}

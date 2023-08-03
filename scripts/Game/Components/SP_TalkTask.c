@@ -8,9 +8,9 @@ class SP_TalkTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
 		else
 		{
@@ -31,13 +31,13 @@ class SP_TalkTask: SP_Task
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
 		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		TaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
+		m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 		m_TaskMarker.SetTitle(m_sTaskTitle);
 		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(TaskOwner);
+		m_TaskMarker.SetTarget(m_eTaskOwner);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
@@ -55,7 +55,7 @@ class SP_TalkTask: SP_Task
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
-		if (TalkingChar != TaskOwner)
+		if (TalkingChar != m_eTaskOwner)
 		{
 			return false;
 		}
@@ -78,9 +78,9 @@ class SP_TalkTask: SP_Task
 			m_TaskMarker.Finish(true);
 		}
 		e_State = ETaskState.COMPLETED;
-		m_Copletionist = Assignee;
+		m_eCopletionist = Assignee;
 		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		GetOnTaskFinished(this);
 		return true;
@@ -89,14 +89,14 @@ class SP_TalkTask: SP_Task
 	//Info needed for delivery mission is Names of O/T and location names of O/T
 	void GetInfo(out string OName, out string OLoc)
 	{
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = Diag.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		OLoc = Diag.GetCharacterLocation(TaskOwner);
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_TalkTask;};
@@ -116,9 +116,9 @@ class SP_TalkTask: SP_Task
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
-			if (!FindOwner(TaskOwner))
+			if (!FindOwner(m_eTaskOwner))
 			{
 				return false;
 			}
@@ -132,7 +132,7 @@ class SP_TalkTask: SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};

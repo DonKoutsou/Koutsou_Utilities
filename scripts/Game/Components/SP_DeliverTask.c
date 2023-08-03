@@ -5,8 +5,7 @@ class SP_DeliverTask: SP_Task
 	[Attribute(defvalue : "{057AEFF961B81816}prefabs/Items/Package.et")]
 	ResourceName m_pPackage;
 	//----------------------------------------------------------------------------------//
-	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency")]
-	int m_iRewardAverageAmount;
+	
 	//----------------------------------------------------------------------------------//
 	//Package that needs to be delivered
 	IEntity m_ePackage;
@@ -16,9 +15,9 @@ class SP_DeliverTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
 		else
 		{
@@ -40,9 +39,9 @@ class SP_DeliverTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskTargetOverride && GetGame().FindEntity(TaskTargetOverride))
+		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskTargetOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
 		}
 		else
 		{
@@ -93,7 +92,7 @@ class SP_DeliverTask: SP_Task
 		if (res)
 		{
 			m_ePackage = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
-			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(InventoryStorageManagerComponent));
+			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
 			if (inv.TryInsertItem(m_ePackage) == false)
 			{
 				delete m_ePackage;
@@ -114,14 +113,14 @@ class SP_DeliverTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
-		m_sTaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		m_sTaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Deliver: deliver package to %1", DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
-		if (TalkingChar != TaskTarget)
+		if (TalkingChar != m_eTaskTarget)
 		{
 			return false;
 		}
@@ -154,10 +153,12 @@ class SP_DeliverTask: SP_Task
 	//overriding AssignReward to apply the average attribute from SP_RequestManagerComponent
 	override bool AssignReward()
 	{
+		if (e_RewardLabel)
+			return true;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			if(!ReqMan)
 			{
@@ -180,7 +181,7 @@ class SP_DeliverTask: SP_Task
 		}
 		if(index == 1)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 			m_iRewardAmount = 1;
 		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
@@ -196,10 +197,10 @@ class SP_DeliverTask: SP_Task
 				return false;
 			}
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RewardsCatalog.GetEntityListWithLabel(RewardLabel, Mylist);
+		RewardsCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		reward = entry.GetPrefab();
-		if(!reward)
+		m_Reward = entry.GetPrefab();
+		if(!m_Reward)
 			{
 				return false;
 			}
@@ -211,9 +212,9 @@ class SP_DeliverTask: SP_Task
 	{
 		
 		InventoryStorageManagerComponent Assigneeinv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-		InventoryStorageManagerComponent Targetinv = InventoryStorageManagerComponent.Cast(TaskTarget.FindComponent(InventoryStorageManagerComponent));
+		InventoryStorageManagerComponent Targetinv = InventoryStorageManagerComponent.Cast(m_eTaskTarget.FindComponent(InventoryStorageManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SP_PackagePredicate PackPred = new SP_PackagePredicate(Diag.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget));
+		SP_PackagePredicate PackPred = new SP_PackagePredicate(Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget));
 		array <IEntity> FoundPackages = new array <IEntity>();
 		Assigneeinv.FindItems(FoundPackages, PackPred);
 		if (FoundPackages.Count() > 0)
@@ -230,9 +231,9 @@ class SP_DeliverTask: SP_Task
 					m_TaskMarker.Finish(true);
 				}
 				e_State = ETaskState.COMPLETED;
-				m_Copletionist = Assignee;
+				m_eCopletionist = Assignee;
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
 				return true;
@@ -244,16 +245,16 @@ class SP_DeliverTask: SP_Task
 	//Info needed for delivery mission is Names of O/T and location names of O/T
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
 	{
-		if (!TaskOwner || !TaskTarget)
+		if (!m_eTaskOwner || !m_eTaskTarget)
 		{
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = Diag.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		DName = Diag.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-		OLoc = Diag.GetCharacterLocation(TaskOwner);
-		DLoc = Diag.GetCharacterLocation(TaskTarget);
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+		DName = Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
+		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
+		DLoc = Diag.GetCharacterLocation(m_eTaskTarget);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_DeliverTask;};
@@ -269,7 +270,7 @@ class SP_DeliverTask: SP_Task
 			InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 			if(parentSlot)
 			{
-				SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
+				SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
 				if(inv)
 				{
 					inv.TryRemoveItemFromStorage(m_ePackage,parentSlot.GetStorage());
@@ -295,7 +296,7 @@ class SP_DeliverTask: SP_Task
 	{
 		IEntity Package = GetPackage();
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Character.FindComponent(InventoryStorageManagerComponent));
-		InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(InventoryStorageManagerComponent));
+		InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
 		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Package.FindComponent(InventoryItemComponent));
 		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 		invChar.TryRemoveItemFromStorage(Package, parentSlot.GetStorage());
@@ -320,9 +321,9 @@ class SP_DeliverTask: SP_Task
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
-			if (!FindOwner(TaskOwner))
+			if (!FindOwner(m_eTaskOwner))
 			{
 				return false;
 			}
@@ -334,9 +335,9 @@ class SP_DeliverTask: SP_Task
 			}
 		}
 		//-------------------------------------------------//
-		if (!TaskTarget)
+		if (!m_eTaskTarget)
 		{
-			if (!FindTarget(TaskTarget))
+			if (!FindTarget(m_eTaskTarget))
 			{
 				return false;
 			}
@@ -361,7 +362,7 @@ class SP_DeliverTask: SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};

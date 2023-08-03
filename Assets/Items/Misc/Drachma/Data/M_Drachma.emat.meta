@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{417EE4A17F01F77A}Assets/Items/Misc/Drachma/Data/M_Drachma.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

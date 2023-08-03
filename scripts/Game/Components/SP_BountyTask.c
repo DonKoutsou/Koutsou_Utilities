@@ -1,18 +1,14 @@
 [BaseContainerProps(configRoot:true)]
 class SP_BountyTask: SP_Task
 {
-	//---------------------------------------------------------------------------//
-	[Attribute(defvalue: "20")]
-	int m_iRewardAverageAmount;
-	
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
 		else
 		{
@@ -34,9 +30,9 @@ class SP_BountyTask: SP_Task
 	{
 		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (TaskTargetOverride && GetGame().FindEntity(TaskTargetOverride))
+		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(TaskTargetOverride));
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
 		}
 		else
 		{
@@ -75,7 +71,7 @@ class SP_BountyTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
-		m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(reward));
+		m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -87,10 +83,10 @@ class SP_BountyTask: SP_Task
 		}
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(TaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (dmgman.IsDestroyed())
 			return true;
-		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget));
+		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget));
 		array <IEntity> FoundTags = new array <IEntity>();
 		inv.FindItems(FoundTags, TagPred);
 		if (FoundTags.Count() > 0)
@@ -102,10 +98,12 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool AssignReward()
 	{
+		if (e_RewardLabel)
+			return true;
 		int index = Math.RandomInt(0,2);
 		if(index == 0)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			if(!ReqMan)
 			{
@@ -128,24 +126,24 @@ class SP_BountyTask: SP_Task
 		}
 		if(index == 1)
 		{
-			RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
 			m_iRewardAmount = 1;
 		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(RewardLabel, Mylist);
+		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		reward = entry.GetPrefab();
+		m_Reward = entry.GetPrefab();
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool CompleteTask(IEntity Assignee)
 	{
 		InventoryStorageManagerComponent Assigneeinv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-		InventoryStorageManagerComponent Ownerinv = InventoryStorageManagerComponent.Cast(TaskOwner.FindComponent(InventoryStorageManagerComponent));
+		InventoryStorageManagerComponent Ownerinv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget));
+		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget));
 		array <IEntity> FoundTags = new array <IEntity>();
 		Assigneeinv.FindItems(FoundTags, TagPred);
 		if (FoundTags.Count() > 0)
@@ -161,9 +159,9 @@ class SP_BountyTask: SP_Task
 					m_TaskMarker.Finish(true);
 				}
 				e_State = ETaskState.COMPLETED;
-				m_Copletionist = Assignee;
+				m_eCopletionist = Assignee;
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
 				return true;
@@ -174,16 +172,16 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
 	{
-		if (!TaskOwner || !TaskTarget)
+		if (!m_eTaskOwner || !m_eTaskTarget)
 		{
 			return;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-		DName = CharRank.GetCharacterRankName(TaskTarget) + " " + Diag.GetCharacterName(TaskTarget);
-		OLoc = Diag.GetCharacterLocation(TaskOwner);
-		DLoc = Diag.GetCharacterLocation(TaskTarget);
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+		DName = CharRank.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
+		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
+		DLoc = Diag.GetCharacterLocation(m_eTaskTarget);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 

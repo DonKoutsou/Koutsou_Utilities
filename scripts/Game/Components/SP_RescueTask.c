@@ -2,9 +2,6 @@
 [BaseContainerProps(configRoot:true)]
 class SP_RescueTask: SP_Task
 {
-	[Attribute(defvalue: "20")]
-	int m_iRewardAverageAmount;
-	
 	[Attribute(defvalue: "2", desc: "Max amount of rescue tasks that can exist")]
 	int m_iMaxamount;
 	
@@ -60,14 +57,14 @@ class SP_RescueTask: SP_Task
 	}
 	override	bool GiveReward(IEntity Target)
 	{
-		if (reward)
+		if (m_Reward)
 		{
 			EntitySpawnParams params = EntitySpawnParams();
 			params.TransformMode = ETransformMode.WORLD;
 			params.Transform[3] = Target.GetOrigin();
 			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
 			array<IEntity> Rewardlist = new array<IEntity>();
-			Resource RewardRes = Resource.Load(reward);
+			Resource RewardRes = Resource.Load(m_Reward);
 			int Movedamount;
 			for (int j = 0; j < m_iRewardAmount; j++)
 				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, GetGame().GetWorld(), params));
@@ -76,7 +73,7 @@ class SP_RescueTask: SP_Task
 				TargetInv.TryInsertItem(Rewardlist[i]);
 				Movedamount += 1;
 			}
-			string curr = FilePath.StripPath(reward);
+			string curr = FilePath.StripPath(m_Reward);
 			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
 		}
@@ -98,10 +95,10 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
-		if (!TaskOwner)
+		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
-			if (!FindOwner(TaskOwner))
+			if (!FindOwner(m_eTaskOwner))
 			{
 				return false;
 			}
@@ -112,7 +109,7 @@ class SP_RescueTask: SP_Task
 				return false;
 			}
 		}
-		//FindOwner(TaskOwner);
+		//FindOwner(m_eTaskOwner);
 		if (!AssignReward())
 		{
 			DeleteLeftovers();
@@ -136,24 +133,24 @@ class SP_RescueTask: SP_Task
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
 		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		TaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
+		m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 		m_TaskMarker.SetTitle(m_sTaskTitle);
 		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(TaskOwner);
+		m_TaskMarker.SetTarget(m_eTaskOwner);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(a_TaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
 	void GetInfo(out string OName, out string OLoc)
 	{
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(TaskOwner.FindComponent(SCR_CharacterRankComponent));
-		if (TaskOwner)
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		if (m_eTaskOwner)
 		{
-			OName = CharRank.GetCharacterRankName(TaskOwner) + " " + Diag.GetCharacterName(TaskOwner);
-			OLoc = Diag.GetCharacterLocation(TaskOwner);
+			OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+			OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 		}
 	};
 	override bool FindOwner(out IEntity Owner)
@@ -175,8 +172,10 @@ class SP_RescueTask: SP_Task
 	};
 	override bool AssignReward()
 	{
+		if (e_RewardLabel)
+			return true;
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+		e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 		SP_RescueTask tasksample = SP_RescueTask.Cast(reqman.GetTaskSample(SP_RescueTask));
 		m_iRewardAverageAmount = tasksample.GetRewardAverage();
 		if(m_iRewardAverageAmount)
@@ -186,9 +185,9 @@ class SP_RescueTask: SP_Task
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(RewardLabel, Mylist);
+		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		reward = entry.GetPrefab();
+		m_Reward = entry.GetPrefab();
 		return true;
 	};
 	int GetRewardAverage()
@@ -221,7 +220,7 @@ class SP_RescueTask: SP_Task
 			m_TaskMarker.Finish(true);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Rescue targets have died, task failed"));
 		}
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(TaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		e_State = ETaskState.FAILED;
@@ -235,7 +234,7 @@ class SP_RescueTask: SP_Task
 		}
 		if (Assignee && GiveReward(Assignee))
 		{
-				m_Copletionist = Assignee;
+				m_eCopletionist = Assignee;
 		}
 		if (m_TaskMarker)
 		{
@@ -245,7 +244,7 @@ class SP_RescueTask: SP_Task
 		GetOnTaskFinished(this);
 		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		Diag.SendText(GetCompletionText(Assignee), Diag.m_ChatChannelUS, 0, Diag.GetCharacterName(TaskOwner), Diag.GetCharacterRankName(TaskOwner));
+		Diag.SendText(GetCompletionText(Assignee), Diag.m_ChatChannelUS, 0, Diag.GetCharacterName(m_eTaskOwner), Diag.GetCharacterRankName(m_eTaskOwner));
 		return false;
 	};
 	override typename GetClassName(){return SP_RescueTask;};
@@ -269,19 +268,19 @@ class SP_RescueTask: SP_Task
 		array<AIAgent> outAgents = new array<AIAgent>();
 		CharacterHolder Chars = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent)).GetCharacterHolder();
 		ChimeraCharacter luckyguy;
-		if (TaskOwnerOverride && GetGame().FindEntity(TaskOwnerOverride))
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
-			luckyguy = ChimeraCharacter.Cast(GetGame().FindEntity(TaskOwnerOverride));
+			luckyguy = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
 		else
 		{
-			if (!TaskOwner)
+			if (!m_eTaskOwner)
 			{
 				if (!Chars.GetRandomUnit(luckyguy))
 					return false;
 			}
 			else
-				luckyguy = ChimeraCharacter.Cast(TaskOwner);
+				luckyguy = ChimeraCharacter.Cast(m_eTaskOwner);
 		}
 		
 		AIControlComponent ContComp = AIControlComponent.Cast(luckyguy.FindComponent(AIControlComponent));
