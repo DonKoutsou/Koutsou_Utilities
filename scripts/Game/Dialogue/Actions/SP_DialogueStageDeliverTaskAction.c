@@ -84,6 +84,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		int Requesttaskam;
 		int Navigatetaskam;
 		int TalkTtaskam;
+		int KillTtaskam;
 		if(requestman.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
@@ -99,6 +100,11 @@ class DialogueStageDeliverTaskAction : DialogueStage
 					if(BountyT)
 					{
 						bountytaskam += 1;
+					}
+					SP_KillTask KillT = SP_KillTask.Cast(Task);
+					if(KillT)
+					{
+						KillTtaskam += 1;
 					}
 					SP_RetrieveTask RetrieveT = SP_RetrieveTask.Cast(Task);
 					if(RetrieveT)
@@ -140,12 +146,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		}
 		if (delivertaskam > 0)
 		{
-	    if (bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0)
+	    if (bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
 				{
 	        acttext = "I have a delivery for you.";
 	        return true;
 	    	}
-	    else if (bountytaskam > 0 || Requesttaskam > 0 ||  Navigatetaskam > 0 || TalkTtaskam > 0)
+	    else if (bountytaskam > 0 || Requesttaskam > 0 ||  Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
 				{
 	        acttext = "I have some tasks to deliver.";
 	        return true;
@@ -153,12 +159,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		}
 		if (bountytaskam > 0) 
 			{
-				if (delivertaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0) 
+				if (delivertaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0) 
 					{
 				  	acttext = "I've completed the bounty.";
 				    return true;
 				  }
-				else if (delivertaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0)
+				else if (delivertaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
 					{
 			    	acttext = "I have some tasks to deliver.";
 			      return true;
@@ -166,12 +172,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			}
 		if (Requesttaskam > 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0)
+		    if (delivertaskam == 0 && bountytaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
 				{
 		    	acttext = "I've brought the items you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
@@ -179,12 +185,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			}
 		if (Navigatetaskam > 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && TalkTtaskam == 0)
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
 				{
 		    	acttext = "I've brought you where you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || TalkTtaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
@@ -192,12 +198,25 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			}
 		if (TalkTtaskam > 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0)
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && KillTtaskam == 0)
 				{
 		    	acttext = "I'm here to meet you.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || KillTtaskam > 0)
+				{
+		    	acttext = "I have some tasks to deliver.";
+		    	return true;
+		    }
+			}
+		if (KillTtaskam > 0)
+			{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0)
+				{
+		    	acttext = "I killed who you asked.";
+		    	return true;
+		    }
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;

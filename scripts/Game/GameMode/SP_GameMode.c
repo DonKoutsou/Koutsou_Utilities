@@ -75,8 +75,20 @@ class SP_GameMode : SCR_BaseGameMode
 	//------------------------------------------------------------------//
 	protected override void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
 	{
+		m_iLives -= 1;
+		if (!m_iLives)
+		{
+			SCR_GameModeSFManager manager = SCR_GameModeSFManager.Cast(GetGame().GetGameMode().FindComponent(SCR_GameModeSFManager));
+			if (!manager)
+				return;
+			
+			if (m_bOverrideGameOverType)
+				manager.SetMissionEndScreen(m_eOverriddenGameOverType);
+			
+			manager.Finish();
+			return;
+		}
 		super.OnPlayerKilled(playerId, player, killer);
-		
 	}
 	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
 	{

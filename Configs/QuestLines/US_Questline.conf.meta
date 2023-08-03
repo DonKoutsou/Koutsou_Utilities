@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C953103F7D6D0BD2}Configs/QuestLines/US_Questline.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

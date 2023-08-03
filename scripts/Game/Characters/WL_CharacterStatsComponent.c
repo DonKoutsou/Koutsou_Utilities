@@ -570,8 +570,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 	override void OnPostInit(IEntity owner)
 	{
 		m_fTemperature = m_fHealthyTemperature;
-		SetEventMask(owner, EntityEvent.INIT | EntityEvent.FIXEDFRAME);
 		SetEventMask(owner, EntityEvent.INIT);
+		SetEventMask(owner, EntityEvent.FIXEDFRAME);
 	}
 
 	//------------------------------------------------------------------------------------------------
