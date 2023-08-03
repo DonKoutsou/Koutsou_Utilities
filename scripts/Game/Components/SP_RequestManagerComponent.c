@@ -396,7 +396,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
 			}
 		}
-		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 5000);
+		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 1000);
 	};
 	
 };
