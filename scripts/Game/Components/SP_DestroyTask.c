@@ -1,22 +1,14 @@
 [BaseContainerProps(configRoot:true)]
-class SP_KillTask: SP_Task
+class SP_DestroyTask: SP_Task
 {
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
 			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 		}
-		else
-		{
-			if (CharHolder)
-			if(!CharHolder.GetRandomUnit(Char))
-				return false;
-		}
-		
 		if (Char)
 			Owner = Char;
 		if(Owner)
@@ -29,9 +21,8 @@ class SP_KillTask: SP_Task
 	{
 		if (state != EDamageState.DESTROYED)
 			return;
-		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
 		dmgman.GetOnDamageStateChanged().Remove(UpdateTaskPointer);
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Finish(true);
@@ -41,7 +32,7 @@ class SP_KillTask: SP_Task
 			m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 			m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 			m_TaskMarker.SetTitle("Return");
-			m_TaskMarker.SetDescription(string.Format("Return to %1 %2 to claim your reward.", diag.GetCharacterRankName(m_eTaskOwner), diag.GetCharacterName(m_eTaskOwner)));
+			m_TaskMarker.SetDescription(string.Format("Return to %1 %2 to claim your reward.", SP_DialogueComponent.GetCharacterRankName(m_eTaskOwner), SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 			m_TaskMarker.SetTarget(m_eTaskOwner);
 			m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
 			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
@@ -49,44 +40,47 @@ class SP_KillTask: SP_Task
 			m_TaskMarker.AddAssignee(assignee, 0);
 		}
 	}
+	override void SpawnTaskMarker(IEntity Assignee)
+	{
+		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
+		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
+		m_eTaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
+		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
+		m_TaskMarker.SetTitle(m_sTaskTitle);
+		m_TaskMarker.SetDescription(m_sTaskDesc);
+		m_TaskMarker.SetTarget(m_eTaskTarget);
+		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
+		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
+		m_TaskMarker.AddAssignee(assignee, 0);
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindTarget(out IEntity Target)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
-		ChimeraCharacter Char;
 		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
+			Target = GetGame().FindEntity(m_sTaskTargetOverride);
 		}
-		else
-		{
-			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
-			Faction Fact = AffiliationComp.GetAffiliatedFaction();
-			if (!Fact)
-				return false;
-	
-			array <Faction> enemies = new array <Faction>();
-			FactionMan.GetEnemyFactions(Fact, enemies);
-			if (enemies.IsEmpty())
-				return false;
-			
-			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
-				return false;
-		}
-		
-		if (Char)
-			Target = Char;
-		
-		if (Target == GetOwner())
-			return false;
-		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(Target.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgman.GetOnDamageStateChanged().Insert(UpdateTaskPointer);
 		if(Target)
+		{
+			ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(Target.FindComponent(ScriptedDamageManagerComponent));
+			dmgman.GetOnDamageStateChanged().Insert(UpdateTaskPointer);
 			return true;
-		
+		}
 		return false;
 	};
+	override bool CheckTarget()
+	{
+		if (!m_eTaskTarget)
+			return false;
+		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		if (!dmg)
+			return false;
+		if (dmg.IsDestroyed())
+			return false;
+		return true;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	override void CreateDescritions()
 	{
@@ -95,11 +89,11 @@ class SP_KillTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
-		m_sTaskDiag = string.Format("I want you to kill %1, he should be on %2.", DName, DLoc);
-		m_sTaskTitle = string.Format("Kill: assasinate %1", DName);
-		m_sTaskCompletiontext = "Good job %1, he got what he deserved, thanks, hope the reward will suffice.";
-		m_sacttext = string.Format("%1 is dead.", DName);
+		m_sTaskDesc = string.Format("%1 wants someone to destroy a %2 located on %3.", OName, DName, DLoc);
+		m_sTaskDiag = string.Format("I want you to destroy a %1 located on %2.", DName, DLoc);
+		m_sTaskTitle = string.Format("Destroy: %1", DName);
+		m_sTaskCompletiontext = "Good job %1, that will cause some ruckus in their ranks, better keep them on their toes.";
+		m_sacttext = string.Format("The %1 is destroyed." , DName); 
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
@@ -108,7 +102,7 @@ class SP_KillTask: SP_Task
 		{
 			return false;
 		}
-		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
 		if (dmgman.IsDestroyed())
 			return true;
 		return false;			
@@ -127,7 +121,7 @@ class SP_KillTask: SP_Task
 			{
 				return false;
 			}
-			SP_KillTask tasksample = SP_KillTask.Cast(ReqMan.GetTaskSample(SP_KillTask));
+			SP_DestroyTask tasksample = SP_DestroyTask.Cast(ReqMan.GetTaskSample(SP_DestroyTask));
 			if(!tasksample)
 			{
 				return false;
@@ -160,7 +154,6 @@ class SP_KillTask: SP_Task
 	{
 		InventoryStorageManagerComponent Assigneeinv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
 		InventoryStorageManagerComponent Ownerinv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		if (GiveReward(Assignee))
 		{
 			if (m_TaskMarker)
@@ -170,7 +163,7 @@ class SP_KillTask: SP_Task
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			ScriptedDamageManagerComponent dmgmn = ScriptedDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(ScriptedDamageManagerComponent));
 			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			GetOnTaskFinished(this);
 			return true;
@@ -184,17 +177,15 @@ class SP_KillTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
-		DName = CharRank.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
-		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
-		DLoc = Diag.GetCharacterLocation(m_eTaskTarget);
+		OName = SCR_CharacterRankComponent.GetCharacterRankName(m_eTaskOwner) + " " + SP_DialogueComponent.GetCharacterName(m_eTaskOwner);
+		DName = SP_DialogueComponent.GetEditableEntName(m_eTaskTarget);
+		OLoc = SP_DialogueComponent.GetCharacterLocation(m_eTaskOwner);
+		DLoc = SP_DialogueComponent.GetCharacterLocation(m_eTaskTarget);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 
 	//------------------------------------------------------------------------------------------------------------//
-	override typename GetClassName(){return SP_KillTask;};
+	override typename GetClassName(){return SP_DestroyTask;};
 	//------------------------------------------------------------------------------------------------------------//
 	int GetRewardAverage()
 	{

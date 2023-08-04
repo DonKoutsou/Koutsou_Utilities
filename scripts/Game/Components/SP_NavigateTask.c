@@ -166,6 +166,7 @@ class SP_NavigateTask: SP_Task
 		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
 		m_sTaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
+		m_sacttext = "I've brought you where you asked.";
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//to complete task need to assign owner to new group and get rid of WP

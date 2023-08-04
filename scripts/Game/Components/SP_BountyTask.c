@@ -73,6 +73,8 @@ class SP_BountyTask: SP_Task
 		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
 		m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
+		m_sTaskCompletiontext = "Thanks the completing the task %1, he got what he deserved, dont have any regrets on that.";
+		m_sacttext = string.Format("The bounty on %1 is complete.", DName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
@@ -195,12 +197,6 @@ class SP_BountyTask: SP_Task
 			return m_iRewardAverageAmount;
 		}
 		return null;
-	};
-	override string GetCompletionText(IEntity Completionist)
-	{
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		string TaskCompletiontext = string.Format("Thanks the completing the task %1 %2, he got what he deserved, dont have any regrets on that.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
-		return TaskCompletiontext;
 	};
 };
 //------------------------------------------------------------------------------------------------------------//

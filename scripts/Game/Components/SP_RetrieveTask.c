@@ -73,9 +73,12 @@ class SP_RetrieveTask: SP_Task
 		string OLoc;
 		GetInfo(OName, OLoc);
 		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
+		itemdesc.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
 		m_sTaskDiag = string.Format("I'm looking for %1 %2. Come back to find me on %3.", m_iRequestedAmount.ToString(), itemdesc, OLoc);
 		m_sTaskTitle = string.Format("Retrieve: bring %1 %2 to %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
+		m_sTaskCompletiontext = "Thanks for retrieving the items i asked for %1. Here is the reward hope is suficient";
+		m_sacttext = string.Format("I've brought the %1 you asked.", itemdesc);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	bool SetupRequestTypenMode()
@@ -432,13 +435,6 @@ class SP_RetrieveTask: SP_Task
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};
-	//------------------------------------------------------------------------------------------------------------//
-	override string GetCompletionText(IEntity Completionist)
-	{
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		string TaskCompletiontext = string.Format("Thanks for retrieving the items i asked for %1 %2. Here is the reward hope is suficient", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
-		return TaskCompletiontext;
-	};
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_RequestPredicate : InventorySearchPredicate

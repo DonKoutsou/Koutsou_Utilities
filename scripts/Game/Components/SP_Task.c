@@ -39,6 +39,10 @@ class SP_Task
 	//-------------------------------------------------//
 	string m_sTaskTitle;
 	//-------------------------------------------------//
+	string m_sTaskCompletiontext
+	//-------------------------------------------------//
+	string m_sacttext
+	//-------------------------------------------------//
 	ResourceName m_Reward;
 	//-------------------------------------------------//
 	int m_iRewardAmount;
@@ -62,13 +66,15 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetCompletionist(){return m_eCopletionist;};
 	//------------------------------------------------------------------------------------------------------------//
-	string GetCompletionText(IEntity Completionist){};
+	string GetCompletionText(IEntity Completionist){return string.Format(m_sTaskCompletiontext, SP_DialogueComponent.GetCharacterRankName(Completionist) + " " + SP_DialogueComponent.GetCharacterSurname(Completionist));};
 	//------------------------------------------------------------------------------------------------------------//
 	ETaskState GetState(){return e_State;};
 	//------------------------------------------------------------------------------------------------------------//
 	string GetTaskDescription(){return m_sTaskDesc;}
 	//------------------------------------------------------------------------------------------------------------//
 	string GetTaskDiag(){return m_sTaskDiag;}
+	//------------------------------------------------------------------------------------------------------------//
+	string GetActionText(){return m_sacttext;}
 	//------------------------------------------------------------------------------------------------------------//
 	ScriptInvoker OnTaskFinished(){return s_OnTaskFinished;}
 	//------------------------------------------------------------------------------------------------------------//
@@ -99,8 +105,7 @@ class SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		if (!m_RequestManager || !Diag)
+		if (!m_RequestManager)
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
@@ -116,7 +121,7 @@ class SP_Task
 		{
 			return false;
 		}
-		Faction senderFaction = Diag.GetCharacterFaction(m_eTaskOwner);
+		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
 		if (senderFaction.GetFactionKey() == "RENEGADE")
@@ -137,8 +142,7 @@ class SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		if (!m_RequestManager || !Diag)
+		if (!m_RequestManager)
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		m_RequestManager.GetCharTargetTasks(m_eTaskTarget, tasks);
@@ -244,7 +248,6 @@ class SP_Task
 		
 		if (state != EDamageState.DESTROYED)
 			return;
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		if (m_TaskMarker)
@@ -252,7 +255,7 @@ class SP_Task
 			m_TaskMarker.Fail(true);
 			m_TaskMarker.RemoveAllAssignees();
 			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", Diag.GetCharacterName(m_eTaskOwner)));
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 		}
 		e_State = ETaskState.FAILED;
 		GetOnTaskFinished(this);

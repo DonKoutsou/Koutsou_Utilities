@@ -115,6 +115,8 @@ class SP_DeliverTask: SP_Task
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
 		m_sTaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Deliver: deliver package to %1", DName);
+		m_sTaskCompletiontext = "Thanks the delivery %1, hope the reward it enough.";
+		m_sacttext = "I have a delivery for you.";
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
@@ -310,12 +312,6 @@ class SP_DeliverTask: SP_Task
 		}
 		super.AssignCharacter(Character);
 	}
-	override string GetCompletionText(IEntity Completionist)
-	{
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		string TaskCompletiontext = string.Format("Thanks the delivery %1 %2, hope the reward it enough.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
-		return TaskCompletiontext;
-	};
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));

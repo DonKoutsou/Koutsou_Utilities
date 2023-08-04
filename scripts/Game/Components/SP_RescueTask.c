@@ -127,6 +127,7 @@ class SP_RescueTask: SP_Task
 		m_sTaskDesc = string.Format("%1's squad was ambussed, they need someone to rescuer them, they are somewhere areound %2", OName, OLoc);
 		m_sTaskDiag = string.Format("We havent been able to establish connections with %1's squad for a while, please go to %2 and look for them", OName, OLoc);
 		m_sTaskTitle = string.Format("Rescue: locate %1's squad and provide help", OName);
+		m_sTaskCompletiontext = "We owe you our lives %1, thanks for saving us.";
 	};
 	override void SpawnTaskMarker(IEntity Assignee)
 	{
@@ -326,13 +327,5 @@ class SP_RescueTask: SP_Task
 			}
 		}
 		return true;
-	};
-	override string GetCompletionText(IEntity Completionist)
-	{
-		if (!Completionist)
-			return STRING_EMPTY;
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		string TaskCompletiontext = string.Format("We owe you our lives %1 %2, thanks for saving us.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
-		return TaskCompletiontext;
 	};
 }

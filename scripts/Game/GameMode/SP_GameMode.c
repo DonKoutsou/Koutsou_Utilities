@@ -12,9 +12,6 @@ class SP_GameMode : SCR_BaseGameMode
 	[Attribute("1", UIWidgets.ComboBox, "Game Over Type", "", ParamEnumArray.FromEnum(EGameOverTypes))];
 	protected EGameOverTypes			m_eOverriddenGameOverType;
 	//------------------------------------------------------------------//
-	[Attribute("1")]
-	int m_iLives;
-	//------------------------------------------------------------------//
 	protected SP_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
 	protected SP_FactionManager m_factionManager;
@@ -71,24 +68,6 @@ class SP_GameMode : SCR_BaseGameMode
 		id.SetCharacterRep(10);
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		ReqMan.AssignInitTasks(entity);
-	}
-	//------------------------------------------------------------------//
-	protected override void OnPlayerKilled(int playerId, IEntity player, IEntity killer)
-	{
-		m_iLives -= 1;
-		if (!m_iLives)
-		{
-			SCR_GameModeSFManager manager = SCR_GameModeSFManager.Cast(GetGame().GetGameMode().FindComponent(SCR_GameModeSFManager));
-			if (!manager)
-				return;
-			
-			if (m_bOverrideGameOverType)
-				manager.SetMissionEndScreen(m_eOverriddenGameOverType);
-			
-			manager.Finish();
-			return;
-		}
-		super.OnPlayerKilled(playerId, player, killer);
 	}
 	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
 	{

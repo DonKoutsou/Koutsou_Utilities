@@ -50,6 +50,8 @@ class SP_TalkTask: SP_Task
 		m_sTaskDesc = string.Format("Talk to %1.", OName);
 		m_sTaskDiag = string.Format("Meet %1 in %2", OName, OLoc);
 		m_sTaskTitle = string.Format("Meet: talk to %1", OName);
+		m_sTaskCompletiontext = "Thanks for meeting me %1.";
+		m_sacttext = "I'm here to meet you.";
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
@@ -105,12 +107,6 @@ class SP_TalkTask: SP_Task
 	{
 		super.AssignCharacter(Character);
 	}
-	override string GetCompletionText(IEntity Completionist)
-	{
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
-		string TaskCompletiontext = string.Format("Thanks for meeting me %1 %2.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
-		return TaskCompletiontext;
-	};
 	override bool Init()
 	{
 		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));

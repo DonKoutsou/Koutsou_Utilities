@@ -79,12 +79,16 @@ class DialogueStageDeliverTaskAction : DialogueStage
 	override bool GetActionText(IEntity Character, IEntity Player, out string acttext)
 	{
 		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		int taskam;
+		
 		int delivertaskam;
 		int bountytaskam;
 		int Requesttaskam;
 		int Navigatetaskam;
 		int TalkTtaskam;
 		int KillTtaskam;
+		int DestTtaskam;
+		array<ref SP_Task> MyReadyTasks = new array<ref SP_Task>();
 		if(requestman.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
@@ -93,35 +97,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(Task.ReadyToDeliver(Character, Player))
 				{
-					SP_ChainedTask Chained = SP_ChainedTask.Cast(Task);
-					if (Chained)
-						Task = Chained.GetCurrentTask();
-					SP_BountyTask BountyT = SP_BountyTask.Cast(Task);
-					if(BountyT)
-					{
-						bountytaskam += 1;
-					}
-					SP_KillTask KillT = SP_KillTask.Cast(Task);
-					if(KillT)
-					{
-						KillTtaskam += 1;
-					}
-					SP_RetrieveTask RetrieveT = SP_RetrieveTask.Cast(Task);
-					if(RetrieveT)
-					{
-						Requesttaskam += 1;
-					}
-					SP_NavigateTask NavigateT = SP_NavigateTask.Cast(Task);
-					if(NavigateT)
-					{
-						Navigatetaskam += 1;
-					}
-					SP_TalkTask TalkT = SP_TalkTask.Cast(Task);
-					if(TalkT)
-					{
-						TalkTtaskam += 1;
-					}
-					
+					MyReadyTasks.Insert(Task);
 				}
 			}
 		}
@@ -133,95 +109,112 @@ class DialogueStageDeliverTaskAction : DialogueStage
 			{
 				if(Task.ReadyToDeliver(Character, Player))
 				{
-					SP_ChainedTask Chained = SP_ChainedTask.Cast(Task);
-					if (Chained)
-						Task = Chained.GetCurrentTask();
-					SP_DeliverTask DelT = SP_DeliverTask.Cast(Task);
-					if(DelT)
-					{
-						delivertaskam += 1;
-					}
+					MyReadyTasks.Insert(Task);
 				}
 			}
 		}
-		if (delivertaskam > 0)
+		if (MyReadyTasks.Count() > 1)
 		{
-	    if (bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
-				{
-	        acttext = "I have a delivery for you.";
-	        return true;
+			acttext = "I have some tasks to deliver.";
+			return true;
+		}
+		if (MyReadyTasks.Count() == 1)
+		{
+			acttext = MyReadyTasks[0].GetActionText();
+			return true;
+		}
+		
+		/*if (delivertaskam > 0)
+		{
+	   		if (bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0 && DestTtaskam == 0)
+			{
+		        acttext = "I have a delivery for you.";
+		        return true;
 	    	}
-	    else if (bountytaskam > 0 || Requesttaskam > 0 ||  Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
-				{
-	        acttext = "I have some tasks to deliver.";
-	        return true;
+	    	else if (bountytaskam > 0 || Requesttaskam > 0 ||  Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0 || DestTtaskam > 0)
+			{
+		        acttext = "I have some tasks to deliver.";
+		        return true;
 	    	}
 		}
 		if (bountytaskam > 0) 
+		{
+			if (delivertaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0 && DestTtaskam == 0) 
 			{
-				if (delivertaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0) 
-					{
-				  	acttext = "I've completed the bounty.";
-				    return true;
-				  }
-				else if (delivertaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
-					{
-			    	acttext = "I have some tasks to deliver.";
-			      return true;
-			    }
-			}
+			  	acttext = "I've completed the bounty.";
+			    return true;
+			 }
+			else if (delivertaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0 || DestTtaskam > 0)
+			{
+		    	acttext = "I have some tasks to deliver.";
+		    	return true;
+		    }
+		}
 		if (Requesttaskam > 0)
-			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
+		{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0 && DestTtaskam == 0)
 				{
 		    	acttext = "I've brought the items you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
-				{
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0 || DestTtaskam > 0)
+			{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
 		    }
-			}
+		}
 		if (Navigatetaskam > 0)
+		{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0 && DestTtaskam == 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
-				{
 		    	acttext = "I've brought you where you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0 || DestTtaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
 		    }
-			}
+		}
 		if (TalkTtaskam > 0)
+		{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && KillTtaskam == 0 && DestTtaskam == 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && KillTtaskam == 0)
-				{
 		    	acttext = "I'm here to meet you.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || KillTtaskam > 0)
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || KillTtaskam > 0 || DestTtaskam > 0)
 				{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
 		    }
-			}
+		}
 		if (KillTtaskam > 0)
+		{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && DestTtaskam == 0)
 			{
-		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0)
-				{
 		    	acttext = "I killed who you asked.";
 		    	return true;
 		    }
-		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0)
-				{
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || DestTtaskam > 0)
+			{
 		    	acttext = "I have some tasks to deliver.";
 		    	return true;
 		    }
-			}
+		}
+		if (DestTtaskam > 0)
+		{
+		    if (delivertaskam == 0 && bountytaskam == 0 && Requesttaskam == 0 && Navigatetaskam == 0 && TalkTtaskam == 0 && KillTtaskam == 0)
+			{
+		    	acttext = "I destroyed the  .";
+		    	return true;
+		    }
+		    else if (delivertaskam > 0 || bountytaskam > 0 || Requesttaskam > 0 || Navigatetaskam > 0 || TalkTtaskam > 0 || KillTtaskam > 0)
+			{
+		    	acttext = "I have some tasks to deliver.";
+		    	return true;
+		    }
+		}*/
 		return false;
 	}
 
