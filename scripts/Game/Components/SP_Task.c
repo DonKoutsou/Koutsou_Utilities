@@ -56,8 +56,6 @@ class SP_Task
 	//-------------------------------------------------//
 	SP_BaseTask m_TaskMarker;
 	//-------------------------------------------------//
-	SP_RequestManagerComponent m_RequestManager;
-	//-------------------------------------------------//
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetOwner(){return m_eTaskOwner;};
@@ -105,19 +103,17 @@ class SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		if (!m_RequestManager)
-			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
-		m_RequestManager.GetCharTasks(m_eTaskOwner, tasks);
-		if(tasks.Count() >= m_RequestManager.GetTasksPerCharacter())
+		SP_RequestManagerComponent.GetCharTasks(m_eTaskOwner, tasks);
+		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
 		{
 			return false;
 		}
 		//Check if char can get more tasks of same type
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		m_RequestManager.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= m_RequestManager.GetTasksOfSameTypePerCharacter())
+		SP_RequestManagerComponent.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
+		if(sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter())
 		{
 			return false;
 		}
@@ -142,17 +138,15 @@ class SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		if (!m_RequestManager)
-			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		m_RequestManager.GetCharTargetTasks(m_eTaskTarget, tasks);
-		if(tasks.Count() >= m_RequestManager.GetTasksPerCharacter())
+		SP_RequestManagerComponent.GetCharTargetTasks(m_eTaskTarget, tasks);
+		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
 		{
 			return false;
 		}
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		m_RequestManager.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= m_RequestManager.GetTasksOfSameTypePerCharacter() + 1)
+		SP_RequestManagerComponent.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
+		if(sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter() + 1)
 		{
 			return false;
 		}
@@ -300,7 +294,6 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{
-		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		if (!m_eTaskOwner)
 		{

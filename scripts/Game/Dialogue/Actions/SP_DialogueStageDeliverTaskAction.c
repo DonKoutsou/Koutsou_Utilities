@@ -3,12 +3,11 @@ class DialogueStageDeliverTaskAction : DialogueStage
 {
 	override void Perform(IEntity Character, IEntity Player)
 	{
-		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-		if(requestman.CharHasTask(Character))
+		if(SP_RequestManagerComponent.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			requestman.GetCharTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharTasks(Character, MyTasks);
 			for (int i, count = MyTasks.Count(); i < count; i++)
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
@@ -22,10 +21,10 @@ class DialogueStageDeliverTaskAction : DialogueStage
 				}
 			}
 		}
-		if(requestman.CharIsTarget(Character))
+		if(SP_RequestManagerComponent.CharIsTarget(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			requestman.GetCharTargetTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharTargetTasks(Character, MyTasks);
 			for (int i, count = MyTasks.Count(); i < count; i++)
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
@@ -42,11 +41,10 @@ class DialogueStageDeliverTaskAction : DialogueStage
 	};
 	override bool CanBeShown(IEntity Character, IEntity Player)
 	{
-		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		if(requestman.CharHasTask(Character))
+		if(SP_RequestManagerComponent.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			requestman.GetCharTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharTasks(Character, MyTasks);
 			foreach (SP_Task Task : MyTasks)
 			{
 				if(Task.ReadyToDeliver(Character, Player))
@@ -58,10 +56,10 @@ class DialogueStageDeliverTaskAction : DialogueStage
 				}
 			}
 		}
-		if(requestman.CharIsTarget(Character))
+		if(SP_RequestManagerComponent.CharIsTarget(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			requestman.GetCharTargetTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharTargetTasks(Character, MyTasks);
 			foreach (SP_Task Task : MyTasks)
 			{
 				if(Task.ReadyToDeliver(Character, Player))
@@ -78,21 +76,12 @@ class DialogueStageDeliverTaskAction : DialogueStage
 	}
 	override bool GetActionText(IEntity Character, IEntity Player, out string acttext)
 	{
-		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		int taskam;
-		
-		int delivertaskam;
-		int bountytaskam;
-		int Requesttaskam;
-		int Navigatetaskam;
-		int TalkTtaskam;
-		int KillTtaskam;
-		int DestTtaskam;
 		array<ref SP_Task> MyReadyTasks = new array<ref SP_Task>();
-		if(requestman.CharHasTask(Character))
-		{
+		if(SP_RequestManagerComponent.CharHasTask(Character))
+		{ 
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			requestman.GetCharTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharTasks(Character, MyTasks);
 			foreach (SP_Task Task : MyTasks)
 			{
 				if(Task.ReadyToDeliver(Character, Player))
@@ -101,10 +90,10 @@ class DialogueStageDeliverTaskAction : DialogueStage
 				}
 			}
 		}
-		if(requestman.CharIsTarget(Character))
+		if(SP_RequestManagerComponent.CharIsTarget(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			requestman.GetCharTargetTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharTargetTasks(Character, MyTasks);
 			foreach (SP_Task Task : MyTasks)
 			{
 				if(Task.ReadyToDeliver(Character, Player))

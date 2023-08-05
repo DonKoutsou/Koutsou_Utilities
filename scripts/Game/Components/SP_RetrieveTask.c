@@ -19,7 +19,6 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool Init()
 	{
-		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
@@ -47,7 +46,6 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
@@ -55,8 +53,7 @@ class SP_RetrieveTask: SP_Task
 		}
 		else
 		{
-			if (CharHolder)
-				if(!CharHolder.GetRandomUnit(Char))
+				if(!CharacterHolder.GetRandomUnit(Char))
 					return false;
 		}
 		if (Char)
@@ -75,7 +72,7 @@ class SP_RetrieveTask: SP_Task
 		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
 		itemdesc.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
-		m_sTaskDiag = string.Format("I'm looking for %1 %2. Come back to find me on %3.", m_iRequestedAmount.ToString(), itemdesc, OLoc);
+		m_sTaskDiag = string.Format("Bring me the %1 %2 and i'll pay you a good summ for them.", m_iRequestedAmount.ToString(), itemdesc);
 		m_sTaskTitle = string.Format("Retrieve: bring %1 %2 to %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
 		m_sTaskCompletiontext = "Thanks for retrieving the items i asked for %1. Here is the reward hope is suficient";
 		m_sacttext = string.Format("I've brought the %1 you asked.", itemdesc);

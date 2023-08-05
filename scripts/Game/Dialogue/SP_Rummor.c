@@ -5,11 +5,9 @@ modded class SP_DialogueComponent
 		if (!GameMode)
 			return "Missing GameMode cunt";
 		string rummor;
-		SP_RequestManagerComponent RequestManager = SP_RequestManagerComponent.Cast(GameMode.FindComponent(SP_RequestManagerComponent));
-		CharacterHolder Characters = RequestManager.GetCharacterHolder();
 		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
 		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
-		if (!FactionMan || !Characters || !RequestManager)
+		if (!FactionMan)
 		{
 			return STRING_EMPTY;
 		}
@@ -20,7 +18,7 @@ modded class SP_DialogueComponent
 				{
 					//look for bounty of friendly unit
 				array <ref SP_Task> tasks = new array <ref SP_Task> ();
-				RequestManager.GetTasksOfSameType(tasks, SP_BountyTask);
+				SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_BountyTask);
 				if (tasks.IsEmpty())
 					break;
 				foreach (SP_Task task : tasks)
@@ -40,11 +38,11 @@ modded class SP_DialogueComponent
 				{
 					//look for task of friendly unit
 					ChimeraCharacter Friendly;
-					Characters.GetUnitOfFaction(Affiliation.GetAffiliatedFaction(), Friendly);
+					CharacterHolder.GetUnitOfFaction(Affiliation.GetAffiliatedFaction(), Friendly);
 					if (Friendly == Instigator && Friendly == Player)
 						break;
 					array <ref SP_Task> tasks = new array <ref SP_Task> ();
-					RequestManager.GetCharTasks(Friendly, tasks);
+					SP_RequestManagerComponent.GetCharTasks(Friendly, tasks);
 					if (tasks.IsEmpty())
 						break;
 					rummor = tasks.GetRandomElement().GetTaskDescription();
@@ -59,7 +57,7 @@ modded class SP_DialogueComponent
 					if (enemFactions.IsEmpty())
 						break;
 					Faction enemFaction = enemFactions.GetRandomElement();
-					if (!Characters.GetUnitOfFaction(enemFaction, Enemy))
+					if (!CharacterHolder.GetUnitOfFaction(enemFaction, Enemy))
 						break;
 					rummor = string.Format("We have reports of %1 units in %2.", enemFaction.GetFactionKey(), GetCharacterLocation(Enemy));
 				}
@@ -68,7 +66,7 @@ modded class SP_DialogueComponent
 				{
 					//look for lost groups
 					array <ref SP_Task> tasks = new array <ref SP_Task> ();
-					RequestManager.GetTasksOfSameType(tasks, SP_RescueTask);
+					SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_RescueTask);
 					if (tasks.IsEmpty())
 						break;
 					foreach (SP_Task Task : tasks)
@@ -91,7 +89,7 @@ modded class SP_DialogueComponent
 			case 4:
 				{
 					//Tell about dead friendlies
-					ChimeraCharacter deadchar = Characters.GetRandomDeadOfFaction(Affiliation.GetAffiliatedFaction());
+					ChimeraCharacter deadchar = CharacterHolder.GetRandomDeadOfFaction(Affiliation.GetAffiliatedFaction());
 					if (deadchar)
 					{
 						string charname = GetCharacterName(deadchar);

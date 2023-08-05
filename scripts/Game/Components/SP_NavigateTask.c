@@ -9,7 +9,6 @@ class SP_NavigateTask: SP_Task
 	//In navigate task we look for random owner
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
@@ -17,8 +16,7 @@ class SP_NavigateTask: SP_Task
 		}
 		else
 		{
-			if (CharHolder)
-				if(!CharHolder.GetRandomUnit(Char))
+				if(!CharacterHolder.GetRandomUnit(Char))
 					return false;
 		}
 		if (Char)
@@ -33,7 +31,6 @@ class SP_NavigateTask: SP_Task
 	//Target needs to be from same faction
 	override bool FindTarget(out IEntity Target)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
@@ -47,7 +44,7 @@ class SP_NavigateTask: SP_Task
 			if (!Fact)
 				return false;
 	
-			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, Fact, Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, Fact, Char))
 				return false;
 		}
 		
@@ -164,7 +161,7 @@ class SP_NavigateTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
-		m_sTaskDiag = string.Format("I am looking for someone to escort me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
+		m_sTaskDiag = string.Format("Take me to %1 on %2. Try to keep us away from enemies, what i am carrying cant fall into enemies hands.", DName, DLoc);
 		m_sTaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
 		m_sacttext = "I've brought you where you asked.";
 	};

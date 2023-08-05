@@ -6,7 +6,6 @@ class SP_TalkTask: SP_Task
 	//Delivery mission is looking for a random owner.
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
@@ -14,8 +13,7 @@ class SP_TalkTask: SP_Task
 		}
 		else
 		{
-			if (CharHolder)
-			if(!CharHolder.GetRandomUnit(Char))
+			if(!CharacterHolder.GetRandomUnit(Char))
 				return false;
 		}
 		if (Char)
@@ -48,8 +46,8 @@ class SP_TalkTask: SP_Task
 		string OLoc;
 		GetInfo(OName, OLoc);
 		m_sTaskDesc = string.Format("Talk to %1.", OName);
-		m_sTaskDiag = string.Format("Meet %1 in %2", OName, OLoc);
-		m_sTaskTitle = string.Format("Meet: talk to %1", OName);
+		m_sTaskDiag = string.Format("Make your way to %1's location, he's asked to speak with you. He's on %2.", OName, OLoc);
+		m_sTaskTitle = string.Format("Talk: make your way to %1's location", OName);
 		m_sTaskCompletiontext = "Thanks for meeting me %1.";
 		m_sacttext = "I'm here to meet you.";
 	};
@@ -109,7 +107,6 @@ class SP_TalkTask: SP_Task
 	}
 	override bool Init()
 	{
-		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
 		if (!m_eTaskOwner)

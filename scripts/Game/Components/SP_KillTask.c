@@ -4,7 +4,6 @@ class SP_KillTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
@@ -12,8 +11,7 @@ class SP_KillTask: SP_Task
 		}
 		else
 		{
-			if (CharHolder)
-			if(!CharHolder.GetRandomUnit(Char))
+			if(!CharacterHolder.GetRandomUnit(Char))
 				return false;
 		}
 		
@@ -52,7 +50,6 @@ class SP_KillTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindTarget(out IEntity Target)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
@@ -71,7 +68,7 @@ class SP_KillTask: SP_Task
 			if (enemies.IsEmpty())
 				return false;
 			
-			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
 				return false;
 		}
 		

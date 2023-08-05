@@ -4,7 +4,6 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
@@ -12,8 +11,7 @@ class SP_BountyTask: SP_Task
 		}
 		else
 		{
-			if (CharHolder)
-			if(!CharHolder.GetRandomUnit(Char))
+			if(!CharacterHolder.GetRandomUnit(Char))
 				return false;
 		}
 		
@@ -28,7 +26,6 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindTarget(out IEntity Target)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
@@ -47,7 +44,7 @@ class SP_BountyTask: SP_Task
 			if (enemies.IsEmpty())
 				return false;
 			
-			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
 				return false;
 		}
 		
@@ -71,7 +68,7 @@ class SP_BountyTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
-		m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
+		m_sTaskDiag = string.Format("The bounty is on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
 		m_sTaskCompletiontext = "Thanks the completing the task %1, he got what he deserved, dont have any regrets on that.";
 		m_sacttext = string.Format("The bounty on %1 is complete.", DName);

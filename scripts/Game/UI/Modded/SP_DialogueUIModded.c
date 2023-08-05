@@ -96,6 +96,11 @@ modded class DialogueUIClass: ChimeraMenuBase
 		m_PlayerRank = TextWidget.Cast(m_wRoot.FindAnyWidget("PlayerRank0"));
 		m_PlayerRank.SetText(m_sPlRank);
 		
+		array <string> a_texthistory = new array <string>();
+		DiagComp.GetTextHistory(a_texthistory);
+		foreach (string text : a_texthistory)
+			m_ListBoxComponentHistory.AddItem(text);
+		
 		for (int i = 0; i < 7; i++)
 		{
 			DiagComp.GetActionName(i, myCallerEntity, Player, DiagText);

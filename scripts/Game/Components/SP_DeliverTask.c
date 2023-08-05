@@ -13,7 +13,6 @@ class SP_DeliverTask: SP_Task
 	//Delivery mission is looking for a random owner.
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
@@ -21,8 +20,7 @@ class SP_DeliverTask: SP_Task
 		}
 		else
 		{
-			if (CharHolder)
-			if(!CharHolder.GetRandomUnit(Char))
+			if(!CharacterHolder.GetRandomUnit(Char))
 				return false;
 		}
 		if (Char)
@@ -37,7 +35,6 @@ class SP_DeliverTask: SP_Task
 	//then look for a target with same faction
 	override bool FindTarget(out IEntity Target)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
 		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
 		{
@@ -56,7 +53,7 @@ class SP_DeliverTask: SP_Task
 			if (enemies.IsEmpty())
 				return false;
 			
-			if (!CharHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
 				return false;
 		}
 
@@ -113,10 +110,10 @@ class SP_DeliverTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
-		m_sTaskDiag = string.Format("I am looking for someone to deliver a package for me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
-		m_sTaskTitle = string.Format("Deliver: deliver package to %1", DName);
+		m_sTaskDiag = string.Format("Please deliver this to %1, he should be around %2. He should have the reward ready for you.", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
+		m_sTaskTitle = string.Format("Deliver: deliver package to %1.", DName);
 		m_sTaskCompletiontext = "Thanks the delivery %1, hope the reward it enough.";
-		m_sacttext = "I have a delivery for you.";
+		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
@@ -314,7 +311,6 @@ class SP_DeliverTask: SP_Task
 	}
 	override bool Init()
 	{
-		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
 		if (!m_eTaskOwner)

@@ -21,7 +21,6 @@ class DialogueStageTask : DialogueStage
 	}
 	override string GetStageDialogueText(IEntity Character, IEntity Player)
 		{
-			return t_Task.GetTaskDescription();
-		 	
+			return t_Task.GetTaskDiag();
 		}
 }

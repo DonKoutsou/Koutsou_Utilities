@@ -27,18 +27,19 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_ChainedTask;}
 	//------------------------------------------------------------------------------------------------------------//
-	override string GetTaskDescription(){return m_aTasks[stage].m_sTaskDesc;}
+	override string GetTaskDescription(){return GetCurrentTask().GetTaskDescription();}
 	//------------------------------------------------------------------------------------------------------------//
-	override string GetTaskDiag(){return m_aTasks[stage].m_sTaskDiag;}
+	override string GetTaskDiag(){return GetCurrentTask().GetTaskDiag();}
+	//------------------------------------------------------------------------------------------------------------//
+	override string GetActionText(){return GetCurrentTask().GetActionText();}
 	//------------------------------------------------------------------------------------------------------------//
 	override ETaskState GetState(){return e_State;};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
-		CharacterHolder CharHolder = m_RequestManager.GetCharacterHolder();
 		ChimeraCharacter Char;
-		if (CharHolder)
-			CharHolder.GetRandomUnit(Char);
+		if (!CharacterHolder.GetRandomUnit(Char))
+			return false;
 		if (Char)
 			Owner = Char;
 		if(Owner)
@@ -153,11 +154,10 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool Init()
 	{
-		m_RequestManager = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		if (!m_aTasklist)
 		{
 			m_aTasklist = new array <ref SP_Task>();
-			SP_ChainedTask tasksample = SP_ChainedTask.Cast(m_RequestManager.GetTaskSample(SP_ChainedTask));
+			SP_ChainedTask tasksample = SP_ChainedTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_ChainedTask));
 			if(!tasksample)
 			{
 				return false;

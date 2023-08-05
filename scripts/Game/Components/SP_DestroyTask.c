@@ -90,7 +90,7 @@ class SP_DestroyTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 wants someone to destroy a %2 located on %3.", OName, DName, DLoc);
-		m_sTaskDiag = string.Format("I want you to destroy a %1 located on %2.", DName, DLoc);
+		m_sTaskDiag = string.Format("I want you to destroy a %1 located on %2, come back to me after to claim your reward, if the task is too much for you dont risk your life over a few drachmas.", DName, DLoc);
 		m_sTaskTitle = string.Format("Destroy: %1", DName);
 		m_sTaskCompletiontext = "Good job %1, that will cause some ruckus in their ranks, better keep them on their toes.";
 		m_sacttext = string.Format("The %1 is destroyed." , DName); 
