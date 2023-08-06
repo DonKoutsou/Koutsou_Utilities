@@ -149,63 +149,6 @@ class SP_DeliverTask: SP_Task
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	//overriding AssignReward to apply the average attribute from SP_RequestManagerComponent
-	override bool AssignReward()
-	{
-		if (e_RewardLabel)
-			return true;
-		int index = Math.RandomInt(0,2);
-		if(index == 0)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			if(!ReqMan)
-			{
-				return false;
-			}
-			SP_DeliverTask tasksample = SP_DeliverTask.Cast(ReqMan.GetTaskSample(SP_DeliverTask));
-			if(!tasksample)
-			{
-				return false;
-			}
-			m_iRewardAverageAmount = tasksample.GetRewardAverage();
-			if(m_iRewardAverageAmount)
-			{
-				m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
-			}
-			else
-			{
-				m_iRewardAmount = Math.RandomInt(5, 15)
-			}
-		}
-		if(index == 1)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-			m_iRewardAmount = 1;
-		}
-		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		if(!Catalog)
-			{
-				Print("Cant find catalog, task creation failed in Assign reward");
-				return false;
-			}
-		SCR_EntityCatalog RewardsCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
-		if(!RewardsCatalog)
-			{
-				Print("Rewards missing from entity catalog");
-				return false;
-			}
-		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RewardsCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		m_Reward = entry.GetPrefab();
-		if(!m_Reward)
-			{
-				return false;
-			}
-		return true;
-	};
-	//------------------------------------------------------------------------------------------------------------//
 	//Complete tasks means package is on target's inventory and reward is givven to assigne
 	override bool CompleteTask(IEntity Assignee)
 	{
@@ -283,14 +226,6 @@ class SP_DeliverTask: SP_Task
 		}
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	int GetRewardAverage()
-	{
-		if (m_iRewardAverageAmount)
-		{
-			return m_iRewardAverageAmount;
-		}
-		return null;
-	};
 	override void AssignCharacter(IEntity Character)
 	{
 		IEntity Package = GetPackage();

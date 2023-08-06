@@ -87,8 +87,8 @@ class SP_ChainedTask : SP_Task
 			else
 			{
 				stage += 1;
-				if (!InitCurrentStage())
-					FailTask(EDamageState.DESTROYED);
+				while (!InitCurrentStage())
+					SkipStage(task);
 				GetCurrentTask().AssignCharacter(m_aTaskAssigned[0]);
 			}
 		}
@@ -96,6 +96,17 @@ class SP_ChainedTask : SP_Task
 		{
 			task.OnTaskFinished().Remove(Progress);
 			FailTask(EDamageState.DESTROYED);
+		}
+	}
+	void SkipStage(SP_Task task)
+	{
+		if (stage + 1 == m_aTasks.Count())
+		{
+			CompleteChainedTask(m_aTaskAssigned[0]);
+		}
+		else
+		{
+			stage += 1;
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -173,7 +184,7 @@ class SP_ChainedTask : SP_Task
 			task.m_sTaskOwnerOverride = sample.m_sTaskOwnerOverride;
 			task.m_sTaskTargetOverride = sample.m_sTaskTargetOverride;
 			task.m_iRewardAverageAmount = sample.m_iRewardAverageAmount;
-			
+			task.e_RewardLabel = sample.e_RewardLabel;
 		}
 		if (!InitCurrentStage())
 			return false;

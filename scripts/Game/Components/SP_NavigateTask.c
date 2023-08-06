@@ -81,64 +81,6 @@ class SP_NavigateTask: SP_Task
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	//overriding AssignReward to apply the average attribute from SP_RequestManagerComponent
-	override bool AssignReward()
-	{
-		if (e_RewardLabel)
-			return true;
-		int index = Math.RandomInt(0,2);
-		if(index == 0)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			if(!ReqMan)
-			{
-				return false;
-			}
-			SP_NavigateTask tasksample = SP_NavigateTask.Cast(ReqMan.GetTaskSample(SP_NavigateTask));
-			if(!tasksample)
-			{
-				return false;
-			}
-			m_iRewardAverageAmount = tasksample.GetRewardAverage();
-			if(m_iRewardAverageAmount)
-			{
-				m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
-			}
-			else
-			{
-				m_iRewardAmount = Math.RandomInt(5, 15)
-			}
-			
-		}
-		if(index == 1)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-			m_iRewardAmount = 1;
-		}
-		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		if(!Catalog)
-			{
-				Print("Cant find catalog, task creation failed in Assign reward");
-				return false;
-			}
-		SCR_EntityCatalog RewardsCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
-		if(!RewardsCatalog)
-			{
-				Print("Rewards missing from entity catalog");
-				return false;
-			}
-		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RewardsCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		m_Reward = entry.GetPrefab();
-		if(!m_Reward)
-			{
-				return false;
-			}
-		return true;
-	};
-	//------------------------------------------------------------------------------------------------------------//
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
 	{
 		if (!m_eTaskOwner || !m_eTaskTarget)
@@ -212,15 +154,6 @@ class SP_NavigateTask: SP_Task
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_NavigateTask;};
-	//------------------------------------------------------------------------------------------------------------//
-	int GetRewardAverage()
-	{
-		if (m_iRewardAverageAmount)
-		{
-			return m_iRewardAverageAmount;
-		}
-		return null;
-	};
 	//------------------------------------------------------------------------------------------------------------//
 	int GetSuccessDistance()
 	{

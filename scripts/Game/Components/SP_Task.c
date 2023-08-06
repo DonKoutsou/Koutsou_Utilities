@@ -133,7 +133,7 @@ class SP_Task
 			return false;
 		if (m_eTaskTarget == SCR_EntityHelper.GetPlayer())
 			return false;
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
 		if (!dmg)
 			return false;
 		if (dmg.IsDestroyed())
@@ -173,19 +173,40 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool AssignReward()
 	{
-		if (e_RewardLabel)
-			return true;
-		int index = Math.RandomInt(0,2);
-		if(index == 0)
+		if (!e_RewardLabel)
 		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-			m_iRewardAmount = 10;
+			int index = Math.RandomInt(0,2);
+			if(index == 0)
+			{
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+				if(!ReqMan)
+				{
+					return false;
+				}
+				SP_Task tasksample = ReqMan.GetTaskSample(GetClassName());
+				if(!tasksample)
+				{
+					return false;
+				}
+				m_iRewardAverageAmount = tasksample.GetRewardAverage();
+				if(m_iRewardAverageAmount)
+				{
+					m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
+				}
+				else
+				{
+					m_iRewardAmount = Math.RandomInt(5, 15)
+				}
+			}
+			if(index == 1)
+			{
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
+				m_iRewardAmount = 1;
+			}
 		}
-		if(index == 1)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-			m_iRewardAmount = 1;
-		}
+		else
+			m_iRewardAmount = m_iRewardAverageAmount;
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
@@ -215,6 +236,7 @@ class SP_Task
 			}
 			
 			string curr = FilePath.StripPath(m_Reward);
+			curr.ToLower();
 			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
 		}
@@ -225,13 +247,16 @@ class SP_Task
 	{
 		if (GiveReward(Assignee))
 		{
-			m_TaskMarker.Finish(true);
-			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+			if (m_TaskMarker)
+			{
+				m_TaskMarker.Finish(true);
+			}
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
-			GetOnTaskFinished(this);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+			ScriptedDamageManagerComponent dmgmn = ScriptedDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(ScriptedDamageManagerComponent));
+			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+			GetOnTaskFinished(this);
 			return true;
 		}
 		return false;
@@ -291,6 +316,15 @@ class SP_Task
 		}
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
+	int GetRewardAverage()
+	{
+		if (m_iRewardAverageAmount)
+		{
+			return m_iRewardAverageAmount;
+		}
+		return null;
+	};
 	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{

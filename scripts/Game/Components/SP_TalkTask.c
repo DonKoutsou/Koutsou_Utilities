@@ -73,17 +73,21 @@ class SP_TalkTask: SP_Task
 	//Complete tasks means package is on target's inventory and reward is givven to assigne
 	override bool CompleteTask(IEntity Assignee)
 	{
-		if (m_TaskMarker)
+		if (GiveReward(Assignee))
 		{
-			m_TaskMarker.Finish(true);
+			if (m_TaskMarker)
+			{
+				m_TaskMarker.Finish(true);
+			}
+			e_State = ETaskState.COMPLETED;
+			m_eCopletionist = Assignee;
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+			GetOnTaskFinished(this);
+			return true;
 		}
-		e_State = ETaskState.COMPLETED;
-		m_eCopletionist = Assignee;
-		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
-		GetOnTaskFinished(this);
-		return true;
+		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Info needed for delivery mission is Names of O/T and location names of O/T
@@ -121,6 +125,11 @@ class SP_TalkTask: SP_Task
 			{
 				return false;
 			}
+		}
+		if (!AssignReward())
+		{
+			DeleteLeftovers();
+			return false;
 		}
 		//-------------------------------------------------//
 		CreateDescritions();

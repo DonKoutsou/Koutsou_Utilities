@@ -95,48 +95,6 @@ class SP_BountyTask: SP_Task
 		return false;			
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override bool AssignReward()
-	{
-		if (e_RewardLabel)
-			return true;
-		int index = Math.RandomInt(0,2);
-		if(index == 0)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			if(!ReqMan)
-			{
-				return false;
-			}
-			SP_BountyTask tasksample = SP_BountyTask.Cast(ReqMan.GetTaskSample(SP_BountyTask));
-			if(!tasksample)
-			{
-				return false;
-			}
-			m_iRewardAverageAmount = tasksample.GetRewardAverage();
-			if(m_iRewardAverageAmount)
-			{
-				m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
-			}
-			else
-			{
-				m_iRewardAmount = Math.RandomInt(5, 15)
-			}
-		}
-		if(index == 1)
-		{
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-			m_iRewardAmount = 1;
-		}
-		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
-		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		m_Reward = entry.GetPrefab();
-		return true;
-	};
-	//------------------------------------------------------------------------------------------------------------//
 	override bool CompleteTask(IEntity Assignee)
 	{
 		InventoryStorageManagerComponent Assigneeinv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
@@ -187,14 +145,6 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_BountyTask;};
 	//------------------------------------------------------------------------------------------------------------//
-	int GetRewardAverage()
-	{
-		if (m_iRewardAverageAmount)
-		{
-			return m_iRewardAverageAmount;
-		}
-		return null;
-	};
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_NamedTagPredicate : InventorySearchPredicate

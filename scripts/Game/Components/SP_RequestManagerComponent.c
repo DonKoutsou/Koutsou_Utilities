@@ -574,6 +574,9 @@ class CharacterHolder : ScriptAndConfig
 		mychar = AliveCharacters.GetRandomElement();
 		if (m_aSpecialCars.Contains(mychar.GetName()))
 			return false;
+		if (mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup())
+			if (m_aSpecialCars.Contains(mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup().GetName()))
+				return false;
 		if (SCR_EntityHelper.IsPlayer(mychar))
 			return false;
 		if (mychar)

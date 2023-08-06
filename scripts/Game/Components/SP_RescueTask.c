@@ -205,34 +205,6 @@ class SP_RescueTask: SP_Task
 		}
 		return false;
 	};
-	override bool AssignReward()
-	{
-		if (e_RewardLabel)
-			return true;
-		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-		SP_RescueTask tasksample = SP_RescueTask.Cast(reqman.GetTaskSample(SP_RescueTask));
-		m_iRewardAverageAmount = tasksample.GetRewardAverage();
-		if(m_iRewardAverageAmount)
-			{
-				m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
-			}
-		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
-		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		m_Reward = entry.GetPrefab();
-		return true;
-	};
-	int GetRewardAverage()
-	{
-		if (m_iRewardAverageAmount)
-		{
-			return m_iRewardAverageAmount;
-		}
-		return null;
-	};
 	override void FailTask(EDamageState state)
 	{
 		if (state != EDamageState.DESTROYED)

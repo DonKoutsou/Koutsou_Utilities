@@ -109,8 +109,6 @@ SP_GameMode {
     SP_DialogueArchetype "{5DF31169EFDEEC58}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
     }
    }
-   m_WorldDirections SCR_MapLocationQuadHint "{5DEC870D225EE3A6}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
-   }
    m_ChatChannelFIA FIAChatChannel "{5DEC870D24A9390E}" {
     Style BaseChatChannelStyle "{5DEC870D2DC8FF78}" {
     }
@@ -184,47 +182,7 @@ SP_GameMode {
      m_aFriendlyFactionsIds {
      }
     }
-    SCR_Faction "{5DCF2DEC29F393ED}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
-     m_aFriendlyFactionsIds {
-      "US"
-     }
-     m_aRanks {
-      SCR_CharacterRank "{5DF31168A89E14F2}" : "{E9A150D6977ECC9F}Configs/Ranks/Private.conf" {
-      }
-      SCR_CharacterRank "{5DF31168A91EAC72}" : "{649E8173ED557BFB}Configs/Ranks/SERGEANT.conf" {
-      }
-      SCR_CharacterRank "{5DF31168AD7A556F}" : "{91A8ED004C62C8F1}Configs/Ranks/LIEUTENANT.conf" {
-      }
-      SCR_CharacterRank "{5DF31168AE0C8F43}" : "{52CC402BF733EB03}Configs/Ranks/MAJOR.conf" {
-      }
-      SCR_CharacterRank "{5DF31168AFDFD4EE}" : "{B0E6C40B1B095B02}Configs/Ranks/CORPORAL.conf" {
-      }
-      SCR_CharacterRank "{5DF31168AF6BFE7C}" : "{6087F49BE9313FE8}Configs/Ranks/COMMANDER.conf" {
-      }
-      SCR_CharacterRank "{5DF31168A0592E0A}" : "{F208F8C7BF28E013}Configs/Ranks/CAPTAIN.conf" {
-      }
-     }
-     m_aEntityCatalogs {
-      SCR_EntityCatalogMultiList "{5C68A0EAB887A0C4}" {
-       m_aEntityEntryList {
-        SCR_EntityCatalogEntry "{5CCEA181947C4060}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181928A4CA5}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181914326A2}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181901D0475}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA18190D50A71}" {
-         m_bEnabled 0
-        }
-       }
-      }
-     }
+    SCR_Faction "{5E0CF32C10667C7D}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
     }
     SCR_Faction "{5DF31169F0392A02}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
      m_bIsPlayable 0

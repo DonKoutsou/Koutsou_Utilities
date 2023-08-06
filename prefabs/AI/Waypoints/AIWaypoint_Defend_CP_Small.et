@@ -1,0 +1,5 @@
+SCR_DefendWaypoint : "{2A81753527971941}prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et" {
+ ID "5A5E8832CED378BA"
+ coords 2748.503 72.586 1730.362
+ CompletionRadius 10
+}

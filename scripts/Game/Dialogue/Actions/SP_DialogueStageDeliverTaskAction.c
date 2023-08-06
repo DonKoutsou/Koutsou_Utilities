@@ -16,7 +16,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 					DialogueText = MyTasks[i].GetCompletionText(Player);
 					MyTasks[i].CompleteTask(Player);
 					SP_ChainedTask Chained = SP_ChainedTask.Cast(MyTasks[i]);
-					if (Chained)
+					if (Chained && Chained.GetState() != ETaskState.COMPLETED)
 						DialogueText = DialogueText + " " + Chained.GetTaskDiag();
 				}
 			}
@@ -33,7 +33,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 					DialogueText = MyTasks[i].GetCompletionText(Player);
 					MyTasks[i].CompleteTask(Player);
 					SP_ChainedTask Chained = SP_ChainedTask.Cast(MyTasks[i]);
-					if (Chained)
+					if (Chained && Chained.GetState() != ETaskState.COMPLETED)
 						DialogueText = DialogueText + " " + Chained.GetTaskDiag();
 				}
 			}
