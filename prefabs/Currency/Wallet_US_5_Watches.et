@@ -1,16 +1,3 @@
 GenericEntity : "{0E57659542679147}prefabs/Currency/Wallet_Base_US.et" {
  ID "5C78C422199A1092"
- components {
-  SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {
-   MultiSlots {
-    MultiSlotConfiguration "{5C7CF032ECFB9ADD}" {
-     SlotTemplate InventoryStorageSlot watches {
-      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
-     }
-     NumSlots 5
-    }
-   }
-  }
- }
- coords 126.537 1.001 110.659
 }

@@ -25,7 +25,7 @@ GenericEntity : "{0D39750E5695B9D8}prefabs/Items/Equipment/Backpacks/Backpack_RP
     }
     MultiSlotConfiguration "{5B248C13F0C40D72}" {
      SlotTemplate InventoryStorageSlot currency {
-      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+      Prefab "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
      }
      NumSlots 3
     }

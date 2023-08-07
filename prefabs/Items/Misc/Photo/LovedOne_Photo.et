@@ -46,7 +46,7 @@ GenericEntity {
      }
     }
     m_Size SLOT_1x1
-    m_SlotType SLOT_LOOT_CURRENCY
+    m_SlotType SLOT_BACKPACK
    }
   }
   MeshObject "{5C7D11CAD4E6F39C}" {
@@ -59,8 +59,8 @@ GenericEntity {
    LinearDamping 0.5
    AngularDamping 0.5
    AngularSleepingThreashold 1
-   SimState Simulation
-   ModelGeometry 1
+   SimState None
+   Static 1
   }
   SCR_WristwatchComponent "{5C7D32C0A2E8759B}" {
    m_iWristwatchType VOSTOK

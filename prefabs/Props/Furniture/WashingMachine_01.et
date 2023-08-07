@@ -3,6 +3,11 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
  {
   SCR_PrefabSpawnPoint : "{79AF19675B3C1B71}prefabs/PrefabSpawner.et" {
    ID "5DD0FCA907C8A8B9"
+   components {
+    RplComponent "{5E0F3C257E5F5778}" {
+     Streamable Disabled
+    }
+   }
    coords -0.351 0.419 0.453
   }
  }

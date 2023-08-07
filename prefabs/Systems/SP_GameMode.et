@@ -184,8 +184,7 @@ SP_GameMode {
     }
     SCR_Faction "{5E0CF32C10667C7D}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
     }
-    SCR_Faction "{5DF31169F0392A02}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
-     m_bIsPlayable 0
+    SCR_Faction "{5E0EC7435CD1252C}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
     }
    }
    m_bCanChangeFactionsPlayable 0

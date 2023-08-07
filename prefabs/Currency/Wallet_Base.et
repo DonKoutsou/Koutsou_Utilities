@@ -9,14 +9,8 @@ GenericEntity {
    }
    DistanceManagement 0
   }
-  MeshObject "{5C78C42204C939A4}" {
+  MeshObject "{5E0EFE4578D0CBC8}" {
    Object "{402839377B0ADE78}Assets/Wallet/Wallet.xob"
-   Materials {
-    MaterialAssignClass "{5C78C42204C939A2}" {
-     SourceMaterial "Pouch_Medical_Soviet"
-     AssignedMaterial "{40C1E017102522B1}Assets/Items/Equipment/Accessories/Pouch_Medical_Soviet/Data/Wallet.emat"
-    }
-   }
   }
   RigidBody "{5C78C42204C93A50}" {
    ModelGeometry 1

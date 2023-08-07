@@ -38,8 +38,8 @@ GenericEntity {
    Object "{651788F88AF909F8}Assets/Items/Misc/Drachma/Drachma.xob"
    Materials {
     MaterialAssignClass "{5C954B31450A3C19}" {
-     SourceMaterial "16__Default"
-     AssignedMaterial "{9BCB9AA9CC2B7BA0}Assets/Items/Equipment/Watches/Watch_Vostok/Data/Watch_Vostok_01.emat"
+     SourceMaterial "M_Drachma"
+     AssignedMaterial "{417EE4A17F01F77A}Assets/Items/Misc/Drachma/Data/M_Drachma.emat"
     }
    }
    LODFactors {

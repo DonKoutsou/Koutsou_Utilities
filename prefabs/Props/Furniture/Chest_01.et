@@ -38,10 +38,10 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
    Priority 100
    InitialStorageSlots {
     InventoryStorageSlot ff2 {
-     Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     Prefab "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
     }
     InventoryStorageSlot ff3 {
-     Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+     Prefab "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
     }
    }
   }
@@ -73,4 +73,5 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
    Enabled 1
   }
  }
+ coords 3064.768 72.344 1593.077
 }

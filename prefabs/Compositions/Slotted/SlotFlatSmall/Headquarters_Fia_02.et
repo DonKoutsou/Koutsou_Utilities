@@ -429,7 +429,7 @@ StaticModelEntity : "{54AF9F7C4603B71B}Prefabs/Structures/Military/Camps/TentFIA
    {
     ID "5B168E88CC2C454E"
     coords -3.513 0.001 -3.576
-    angleY 121.659
+    angleY 121.{891BA05A96D3A0BE}prefabs/Currency/Drachma.et
    }
    {
     ID "5B168E88CC2C925A"

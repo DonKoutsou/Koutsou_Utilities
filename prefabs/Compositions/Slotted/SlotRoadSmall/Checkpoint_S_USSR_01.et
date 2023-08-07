@@ -20,7 +20,7 @@ GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.
   GenericEntity {
    ID "570283C4BAC49EF6"
    components {
-    SCR_AISmartActionSentinelComponent "{5D78D1F659DD4001}" {
+    SCR_AISmartActionSentinelComponent "{5D78D1F{891BA05A96D3A0BE}prefabs/Currency/Drachma.etDD4001}" {
      AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
      Tags {
       "ObservationPost"

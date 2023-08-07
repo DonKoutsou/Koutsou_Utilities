@@ -57,7 +57,7 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
         Duration 2
         m_WantedPay "{0102CA31599E00AA}prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_02.et"
         m_WantedAmount 1
-        m_PrefabToSell "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+        m_PrefabToSell "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
         m_SellingAmount 30
        }
       }

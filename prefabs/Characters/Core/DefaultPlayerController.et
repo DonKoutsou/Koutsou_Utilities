@@ -5,6 +5,9 @@ SCR_PlayerController {
   }
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
+    SCR_NearbyContextDisplay "{54EED98126B92A63}" {
+     m_fWidgetMaximumRange 100
+    }
     WJ_StaminaBarUI "{5DEB12A0DFB47EAA}" {
      m_LayoutPath "{8C65180B05811316}scripts/Game/UI/HUD/StaminaBar.layout"
      m_eLayer HIGH
@@ -12,8 +15,8 @@ SCR_PlayerController {
    }
   }
   SP_CharacterStatsComponent "{5DF4F669AC20CEBD}" {
-   m_fHungerChangedPerSecond 0.001
-   m_fThirstChangedPerSecond 0.002
+   m_fHungerChangedPerSecond 0.008
+   m_fThirstChangedPerSecond 0.01
    m_fTimeBetweenEachTick 1
   }
  }

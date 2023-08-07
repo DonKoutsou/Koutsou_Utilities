@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{283B16BDFBFC2E9E}prefabs/Currency/Wallet_US_2_Watches.et"
+ Name "{1E2DCB8B1A183CF7}prefabs/Currency/Wallet_Base_US_2_Watches.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

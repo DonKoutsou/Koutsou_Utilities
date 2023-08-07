@@ -3,6 +3,11 @@ SCR_DestructibleBuildingEntity : "{A43A100E3C377DB2}Prefabs/Structures/Core/Buil
  {
   SCR_PrefabSpawnPoint : "{79AF19675B3C1B71}prefabs/PrefabSpawner.et" {
    ID "5DCF121392B4A532"
+   components {
+    RplComponent "{5E0F3C25098C30DF}" {
+     Streamable Disabled
+    }
+   }
    coords -1.934 0 0
    angleY -180
    m_eType MilitaryVehicles

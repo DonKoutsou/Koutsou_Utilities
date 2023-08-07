@@ -7,18 +7,18 @@ GenericEntity : "{E9F1761D9F579F0B}prefabs/Items/Equipment/Backpacks/Backpack_M7
    MultiSlots {
     MultiSlotConfiguration "{5C71148FA7F7CB5D}" {
      SlotTemplate InventoryStorageSlot Ammo {
-      Prefab "{4B0D5960ECE64D82}Prefabs/Weapons/Magazines/Vz52/Magazine_762x39_Vz52_10rnd.et"
+      Prefab "{48720FC416263FC1}Prefabs/Weapons/Magazines/Vz58/Magazine_762x39_Vz58_30rnd_Ball.et"
      }
      NumSlots 2
     }
     MultiSlotConfiguration "{5C71148FA7EF84EE}" {
      SlotTemplate InventoryStorageSlot currency {
-      Prefab "{6E932B6B724F4AE7}prefabs/Currency/Watch_Currency.et"
+      Prefab "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
      }
      NumSlots 2
     }
    }
   }
  }
- coords 106.519 1.001 116.923
+ coords 3070.363 11.76 2870.635
 }
