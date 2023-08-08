@@ -28,14 +28,27 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 	{
 		return m_iCharacterRep;
 	}
-	bool AdjustCharRep(int amount)
+	void AdjustCharRep(int amount)
 	{
+		if (!amount)
+			return;
+		FactionAffiliationComponent FactionComp = FactionAffiliationComponent.Cast(GetHeadEntity().FindComponent(FactionAffiliationComponent));
 		m_iCharacterRep = m_iCharacterRep + amount;
 		if(m_iCharacterRep <= 0)
 		{
-			return true;
+			FactionComp.SetAffiliatedFactionByKey("RENEGADE");
+			if (EntityUtils.IsPlayer(GetHeadEntity()))
+			{
+				SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
+			}
 		}
-		return false;
+		else
+		{
+			if (EntityUtils.IsPlayer(GetHeadEntity()))
+			{
+				SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation is worsened");
+			}
+		}
 	}
 	void GetFormattedFullName(out string format, out string name, out string alias, out string surname)
 	{

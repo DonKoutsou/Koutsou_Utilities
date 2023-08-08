@@ -65,7 +65,7 @@ class SP_GameMode : SCR_BaseGameMode
 	{
 		super.OnPlayerSpawnFinalize_S(requestComponent, handlerComponent, data, entity);
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(entity.FindComponent(SCR_CharacterIdentityComponent));
-		id.SetCharacterRep(10);
+		id.SetCharacterRep(45);
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		ReqMan.AssignInitTasks(entity);
 	}

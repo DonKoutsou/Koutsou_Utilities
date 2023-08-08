@@ -96,7 +96,7 @@ class SP_KillTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
+		m_sTaskDesc = string.Format("Locate and eliminate %1 head. Location: %2", DName, DLoc);
 		m_sTaskDiag = string.Format("I want you to kill %1, he should be on %2.", DName, DLoc);
 		m_sTaskTitle = string.Format("Kill: assasinate %1", DName);
 		m_sTaskCompletiontext = "Good job %1, he got what he deserved, thanks, hope the reward will suffice.";

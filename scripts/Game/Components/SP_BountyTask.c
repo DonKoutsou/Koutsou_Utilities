@@ -67,7 +67,7 @@ class SP_BountyTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head.", OName, DName);
+		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head. Location: %3", OName, DName, DLoc);
 		m_sTaskDiag = string.Format("The bounty is on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
 		m_sTaskCompletiontext = "Thanks the completing the task %1, he got what he deserved, dont have any regrets on that.";

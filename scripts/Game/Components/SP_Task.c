@@ -15,6 +15,9 @@ class SP_Task
 	[Attribute(defvalue : "1", desc : "Dissabled wont be randomly spawned but still exist as samples")]
 	bool m_bEnabled;
 	//-------------------------------------------------//
+	[Attribute(defvalue : "5", desc : "Amount of rep + when completing this task")]
+	int m_iRepReward;
+	//-------------------------------------------------//
 	[Attribute(desc : "Override with entity name in the world wich will become task owner instead of looking for an owner")]
 	string m_sTaskOwnerOverride;
 	//-------------------------------------------------//
@@ -81,6 +84,8 @@ class SP_Task
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
 	void CreateDescritions(){};
+	//------------------------------------------------------------------------------------------------------------//
+	int GetRepReward(){return m_iRepReward;};
 	//------------------------------------------------------------------------------------------------------------//
 	bool SetupTaskEntity(){return true;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -189,6 +194,7 @@ class SP_Task
 				{
 					return false;
 				}
+				m_iRepReward = tasksample.GetRepReward();
 				m_iRewardAverageAmount = tasksample.GetRewardAverage();
 				if(m_iRewardAverageAmount)
 				{
@@ -207,6 +213,7 @@ class SP_Task
 		}
 		else
 			m_iRewardAmount = m_iRewardAverageAmount;
+		
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();

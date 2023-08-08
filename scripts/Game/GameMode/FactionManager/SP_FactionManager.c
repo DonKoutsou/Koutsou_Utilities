@@ -12,8 +12,6 @@ class SP_FactionManager : SCR_FactionManager
 	[Attribute("5")]
 	int m_FactionTaskCompleteRepBonus;
 	
-	[Attribute("5")]
-	int m_CharacterTaskCompleteRepBonus;
 	
 	private SP_GameMode m_GameMode;
 
@@ -43,21 +41,7 @@ class SP_FactionManager : SCR_FactionManager
 		if(instigator == Afflicted)
 		{
 			
-			if (id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty))
-			{
-				FactionComp.SetAffiliatedFactionByKey("RENEGADE");
-				if (EntityUtils.IsPlayer(Killer))
-				{
-					SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
-				}
-			}
-			else
-			{
-				if (EntityUtils.IsPlayer(Killer))
-				{
-					SCR_HintManagerComponent.GetInstance().ShowCustom("Killed unit of your own faction, your reputation is worsened by alot");
-				}
-			}
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty);
 			return;
 		}
 		if(instigator.IsFactionFriendly(Afflicted))
@@ -66,14 +50,7 @@ class SP_FactionManager : SCR_FactionManager
 			{
 				SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("You caused issues between %1 and %2, your reputation has worsened", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
 			}
-			if (id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty))
-			{
-				FactionComp.SetAffiliatedFactionByKey("RENEGADE");
-				if (EntityUtils.IsPlayer(Killer))
-				{
-					SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
-				}
-			}
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty);
 			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRepPenalty);
 			array <Faction> friendlyfacts = new array <Faction>();
 			Afflicted.GetFriendlyFactions2(friendlyfacts);
@@ -101,7 +78,7 @@ class SP_FactionManager : SCR_FactionManager
 		SCR_Faction instigatorFaction = SCR_Faction.Cast(FactionCompAssignee.GetAffiliatedFaction());
 		SCR_Faction OwnerFaction = SCR_Faction.Cast(FactionCompOwner.GetAffiliatedFaction());
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Assignee.FindComponent(SCR_CharacterIdentityComponent));
-		id.AdjustCharRep(m_CharacterTaskCompleteRepBonus);
+		id.AdjustCharRep(task.GetRepReward());
 		OwnerFaction.AdjustRelation(instigatorFaction, m_FactionTaskCompleteRepBonus);
 		array <Faction> friendlyfacts = new array <Faction>();
 		OwnerFaction.GetFriendlyFactions2(friendlyfacts);

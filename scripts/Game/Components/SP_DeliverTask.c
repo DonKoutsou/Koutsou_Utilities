@@ -109,7 +109,7 @@ class SP_DeliverTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
-		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2.", OName, DName);
+		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. Location: %3", OName, DName, DLoc);
 		m_sTaskDiag = string.Format("Please deliver this to %1, he should be around %2. He should have the reward ready for you.", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
 		m_sTaskTitle = string.Format("Deliver: deliver package to %1.", DName);
 		m_sTaskCompletiontext = "Thanks the delivery %1, hope the reward it enough.";
@@ -291,6 +291,14 @@ class SP_DeliverTask: SP_Task
 		e_State = ETaskState.UNASSIGNED;
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		return true;
+	};
+	override bool AssignReward()
+	{
+		if (!super.AssignReward())
+			return false;
+		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
+		m_iRewardAmount = m_iRewardAmount * (dis/40);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//

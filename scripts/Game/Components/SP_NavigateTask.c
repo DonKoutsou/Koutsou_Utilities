@@ -102,7 +102,7 @@ class SP_NavigateTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2's location.", OName, DName);
+		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. Location: %3", OName, DName, DLoc);
 		m_sTaskDiag = string.Format("Take me to %1 on %2. Try to keep us away from enemies, what i am carrying cant fall into enemies hands.", DName, DLoc);
 		m_sTaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
 		m_sacttext = "I've brought you where you asked.";
@@ -193,6 +193,14 @@ class SP_NavigateTask: SP_Task
 		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		string TaskCompletiontext = string.Format("Glad we made it in one piece, thanks alot %1 %2, hope the reward is suficient.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
 		return TaskCompletiontext;
+	};
+	override bool AssignReward()
+	{
+		if (!super.AssignReward())
+			return false;
+		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
+		m_iRewardAmount = m_iRewardAmount * (dis/40);
+		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 };
