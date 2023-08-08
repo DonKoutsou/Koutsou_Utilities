@@ -41,6 +41,8 @@ class SP_RetrieveTask: SP_Task
 		e_State = ETaskState.UNASSIGNED;
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Remove(CreateDescritions);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//

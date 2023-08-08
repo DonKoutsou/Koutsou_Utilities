@@ -117,6 +117,10 @@ class SP_RescueTask: SP_Task
 		}
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Insert(CreateDescritions);
 		return true;
 	};
 	override bool CheckOwner()
@@ -229,6 +233,8 @@ class SP_RescueTask: SP_Task
 		}
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Remove(CreateDescritions);
 		SP_RequestManagerComponent reqman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		e_State = ETaskState.FAILED;
 		reqman.OnTaskFailed(this);

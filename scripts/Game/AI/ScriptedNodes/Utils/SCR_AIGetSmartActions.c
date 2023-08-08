@@ -53,51 +53,45 @@ class SCR_AIGetSmartAction : AITaskScripted
 	private bool QueryEntitiesForSmartAction(IEntity e)
 	{
 		array<Managed> smartacts = new array<Managed>();
+		array <Managed> correctsmartacts = new array <Managed>();
 		e.FindComponents(SCR_AISmartActionComponent, smartacts);
 		if (smartacts.IsEmpty())
 			return true;
-		if (!tags.IsEmpty())
+		else
 		{
-			array <string> demtags = new array <string>();
 			foreach (Managed Smart : smartacts)
 			{
+				array <string> demtags2 = new array <string>();
 				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);
-				smatcomp.GetTags(demtags);
-			}
-				
-			foreach (string tag : demtags)
-			{
-				if (tags.Contains(tag))
+				if (!smatcomp.IsActionAccessible())
+					continue;
+				smatcomp.GetTags(demtags2);
+				foreach (string tg : demtags2)
 				{
-					break;
-				}
-				else
-				{
-					return true;
+					if (tags.Contains(tg))
+						correctsmartacts.Insert(Smart);
 				}
 			}
+			if (correctsmartacts.IsEmpty())
+				return true;
 		}
-		//if (!CloseSpawn)
-		//{
-		//	bool found = GetGame().GetWorld().QueryEntitiesBySphere(e.GetOrigin(), 50, QueryEntitiesForCharacter);
-		//	if (!found)
-		//		return true;
-		//}
-		foreach (Managed Smart : smartacts)
+		
+		if (!CloseSpawn)
 		{
-			SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);
-			if (smatcomp.IsActionAccessible())
-			{
-				OutSmartAction = smatcomp;
-				return false;
-			}
+			bool found = GetGame().GetWorld().QueryEntitiesBySphere(e.GetOrigin(), 25, QueryEntitiesForCharacter);
+			if (!found)
+				return true;
 		}
-		return true;
+		OutSmartAction = SCR_AISmartActionComponent.Cast(correctsmartacts.GetRandomElement());
+		return false;
 	}
 	private bool QueryEntitiesForCharacter(IEntity e)
 	{
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
 		if (!char)
+			return true;
+		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(e.FindComponent(ScriptedDamageManagerComponent));
+		if (dmg.GetState() == EDamageState.DESTROYED)
 			return true;
 		return false;
 	}

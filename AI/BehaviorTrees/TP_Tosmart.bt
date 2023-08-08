@@ -70,14 +70,33 @@ BehaviorTree {
            Name "Sequence"
            EditorPos -56 102
            Nodes {
-            AITaskFindSmartAction "Find Smart Action" {
-             Name "Find Smart Action"
-             EditorPos -361.429 385.714
-             OutSmartAction 4
-             InPosition 9
-             InRadius 12
-             TagsTest AnySet
-             InTags 11
+            SCR_AIGetSmartAction "SCR_AI Get Smart Action" {
+             Name "SCR_AI Get Smart Action"
+             EditorPos -322.222 373.333
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainerClass {
+               Port 9
+               PortName "Possition"
+              }
+              SingleInputPortContainer SingleInputPortContainerClass {
+               Port 12
+               PortName "Radius"
+              }
+              SingleInputPortContainer SingleInputPortContainerClass {
+               Port 11
+               PortName "InTags"
+              }
+              SingleInputPortContainer SingleInputPortContainerClass {
+               Port 19
+               PortName "AllowCloseSpawn"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainerClass {
+               Port 4
+               PortName "OutSmartAction"
+              }
+             }
             }
             DecoTestVariable "Test Variable" {
              Name "Test Variable"
@@ -310,6 +329,10 @@ BehaviorTree {
   VariableReference smartActionComponent {
    VariableType 5
    EditorPos -824.5 832.559
+  }
+  VariableReference allwoclosespawn {
+   VariableType 10
+   EditorPos -584.444 602.222
   }
  }
 }

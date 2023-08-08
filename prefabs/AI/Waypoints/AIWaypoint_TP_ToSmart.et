@@ -9,7 +9,4 @@ SP_TPWaypoint {
  Autocomplete 0
  m_fPriorityLevel 1000
  m_bFastInit 1
- m_aTagsForSearch {
-  "CustomSpot"
- }
 }
