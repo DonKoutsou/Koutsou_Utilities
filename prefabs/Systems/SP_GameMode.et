@@ -100,6 +100,12 @@ SP_GameMode {
    m_bRandomStartingDaytime 1
    m_bRandomStartingWeather 1
   }
+  SCR_VotingManagerComponent "{5E112C4A070FAD30}" {
+   m_aVotingTemplates {
+    SCR_VotingEditorIn "{5E112C4A538B0A69}" : "{9DE543906BEAB993}Configs/Voting/EditorIn.conf" {
+    }
+   }
+  }
   SP_DialogueComponent "{5DEC870D3A2360AC}" {
    m_CharacterArchetypeList {
     SP_DialogueArchetype "{5DF31169E96EAD5F}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {

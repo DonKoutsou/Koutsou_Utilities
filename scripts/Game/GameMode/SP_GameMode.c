@@ -68,6 +68,13 @@ class SP_GameMode : SCR_BaseGameMode
 		id.SetCharacterRep(45);
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		ReqMan.AssignInitTasks(entity);
+		SCR_EditorManagerEntity localEditorManager = SCR_EditorManagerEntity.GetInstance();
+		SCR_VotingManagerComponent votingManager = SCR_VotingManagerComponent.GetInstance();
+			if (votingManager)
+			{
+				votingManager.StartVoting(EVotingType.EDITOR_IN, localEditorManager.GetPlayerID());
+				votingManager.EndVoting(EVotingType.EDITOR_IN, localEditorManager.GetPlayerID(), EVotingOutcome.FORCE_WIN);
+			}
 	}
 	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
 	{
