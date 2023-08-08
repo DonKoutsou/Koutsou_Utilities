@@ -28,23 +28,23 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 	{
 		return m_iCharacterRep;
 	}
-	void AdjustCharRep(int amount)
+	void AdjustCharRep(int amount, IEntity madude)
 	{
 		if (!amount)
 			return;
-		FactionAffiliationComponent FactionComp = FactionAffiliationComponent.Cast(GetHeadEntity().FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent FactionComp = FactionAffiliationComponent.Cast(madude.FindComponent(FactionAffiliationComponent));
 		m_iCharacterRep = m_iCharacterRep + amount;
 		if(m_iCharacterRep <= 0)
 		{
 			FactionComp.SetAffiliatedFactionByKey("RENEGADE");
-			if (EntityUtils.IsPlayer(GetHeadEntity()))
+			if (EntityUtils.IsPlayer(madude))
 			{
 				SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
 			}
 		}
 		else
 		{
-			if (EntityUtils.IsPlayer(GetHeadEntity()))
+			if (EntityUtils.IsPlayer(madude))
 			{
 				SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation is worsened");
 			}

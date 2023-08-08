@@ -41,7 +41,7 @@ class SP_FactionManager : SCR_FactionManager
 		if(instigator == Afflicted)
 		{
 			
-			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty);
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer);
 			return;
 		}
 		if(instigator.IsFactionFriendly(Afflicted))
@@ -50,7 +50,7 @@ class SP_FactionManager : SCR_FactionManager
 			{
 				SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("You caused issues between %1 and %2, your reputation has worsened", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
 			}
-			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty);
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer);
 			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRepPenalty);
 			array <Faction> friendlyfacts = new array <Faction>();
 			Afflicted.GetFriendlyFactions2(friendlyfacts);
@@ -78,7 +78,7 @@ class SP_FactionManager : SCR_FactionManager
 		SCR_Faction instigatorFaction = SCR_Faction.Cast(FactionCompAssignee.GetAffiliatedFaction());
 		SCR_Faction OwnerFaction = SCR_Faction.Cast(FactionCompOwner.GetAffiliatedFaction());
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Assignee.FindComponent(SCR_CharacterIdentityComponent));
-		id.AdjustCharRep(task.GetRepReward());
+		id.AdjustCharRep(task.GetRepReward(), Assignee);
 		OwnerFaction.AdjustRelation(instigatorFaction, m_FactionTaskCompleteRepBonus);
 		array <Faction> friendlyfacts = new array <Faction>();
 		OwnerFaction.GetFriendlyFactions2(friendlyfacts);
