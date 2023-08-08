@@ -16,8 +16,8 @@ class SP_NavigateTask: SP_Task
 		}
 		else
 		{
-				if(!CharacterHolder.GetRandomUnit(Char))
-					return false;
+			if(!CharacterHolder.GetRandomUnit(Char))
+				return false;
 		}
 		if (Char)
 			Owner = Char;

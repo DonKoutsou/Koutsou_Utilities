@@ -180,35 +180,26 @@ class SP_Task
 	{
 		if (!e_RewardLabel)
 		{
-			int index = Math.RandomInt(0,2);
-			if(index == 0)
+			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+			if(!ReqMan)
 			{
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-				if(!ReqMan)
-				{
-					return false;
-				}
-				SP_Task tasksample = ReqMan.GetTaskSample(GetClassName());
-				if(!tasksample)
-				{
-					return false;
-				}
-				m_iRepReward = tasksample.GetRepReward();
-				m_iRewardAverageAmount = tasksample.GetRewardAverage();
-				if(m_iRewardAverageAmount)
-				{
-					m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
-				}
-				else
-				{
-					m_iRewardAmount = Math.RandomInt(5, 15)
-				}
+				return false;
 			}
-			if(index == 1)
+			SP_Task tasksample = ReqMan.GetTaskSample(GetClassName());
+			if(!tasksample)
 			{
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-				m_iRewardAmount = 1;
+				return false;
+			}
+			e_RewardLabel = tasksample.GetRewardLabel();
+			m_iRepReward = tasksample.GetRepReward();
+			m_iRewardAverageAmount = tasksample.GetRewardAverage();
+			if(m_iRewardAverageAmount)
+			{
+				m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
+			}
+			else
+			{
+				m_iRewardAmount = Math.RandomInt(5, 15)
 			}
 		}
 		else
@@ -332,6 +323,10 @@ class SP_Task
 		}
 		return null;
 	};
+	EEditableEntityLabel GetRewardLabel()
+	{
+		return e_RewardLabel;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	bool Init()
 	{
