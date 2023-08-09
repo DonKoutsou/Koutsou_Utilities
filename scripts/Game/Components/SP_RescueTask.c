@@ -5,6 +5,9 @@ class SP_RescueTask: SP_Task
 	[Attribute(defvalue: "2", desc: "Max amount of rescue tasks that can exist")]
 	int m_iMaxamount;
 	
+	[Attribute()]
+	ResourceName m_BleedTrigger;
+	
 	
 	ref array <IEntity> CharsToRescue = ;
 	int GetMaxamount()
@@ -91,6 +94,7 @@ class SP_RescueTask: SP_Task
 			return false;
 		}
 		m_iMaxamount = tasksample.GetMaxamount();
+		m_BleedTrigger = tasksample.m_BleedTrigger;
 		if(tasks.Count() >= m_iMaxamount)
 		{
 			return false;
@@ -115,9 +119,10 @@ class SP_RescueTask: SP_Task
 			DeleteLeftovers();
 			return false;
 		}
+		//SpawnBleedTrigger();
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		RankCo.s_OnRankChanged.Insert(CreateDescritions);
@@ -266,9 +271,12 @@ class SP_RescueTask: SP_Task
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
 		if (!char)
 			return true;
-		if (!CharsToRescue.Contains(e))
-			return false;
-		return true;
+		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(e.FindComponent(ScriptedDamageManagerComponent));
+		if (dmg.GetState() == EDamageState.DESTROYED)
+			return true;
+		if (CharsToRescue.Contains(e))
+			return true;
+		return false;
 	}
 	private bool CheckForCharacters(float radius, vector origin)
 	{
@@ -292,8 +300,10 @@ class SP_RescueTask: SP_Task
 		{
 			if (!m_eTaskOwner)
 			{
-				//if (!CharacterHolder.GetRandomUnit(ChimeraCharacter.Cast(Owner)))
-					//return false;
+				ChimeraCharacter char;
+				if (!CharacterHolder.GetRandomUnit(char))
+					return false;
+				Owner = char;
 			}
 			else
 				Owner = ChimeraCharacter.Cast(m_eTaskOwner);
@@ -322,6 +332,8 @@ class SP_RescueTask: SP_Task
 		{
 			CharsToRescue.Insert(agent.GetControlledEntity());
 		}
+		if (!CheckForCharacters(100, Owner.GetOrigin()))
+			return false;
 		//if (!CheckForCharacters(400, Victim.GetOrigin()))
 			//return false;
 		foreach(AIAgent agent : outAgents)
@@ -333,8 +345,6 @@ class SP_RescueTask: SP_Task
 				if(!dmg.GetIsUnconscious())
 				{
 					dmg.ForceUnconsciousness();
-					dmg.SetResilienceRegenScale(0);
-					dmg.AddParticularBleeding();
 				}
 				dmg.SetResilienceRegenScale(0);
 				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
@@ -343,4 +353,13 @@ class SP_RescueTask: SP_Task
 		}
 		return true;
 	};
+	void SpawnBleedTrigger()
+	{
+		EntitySpawnParams params = EntitySpawnParams();
+		params.TransformMode = ETransformMode.WORLD;
+		params.Transform[3] = m_eTaskOwner.GetOrigin();
+		SP_CharacterTriggerEntity trigger = SP_CharacterTriggerEntity.Cast(GetGame().SpawnEntityPrefab(Resource.Load(m_BleedTrigger), GetGame().GetWorld(), params));
+		trigger.AddCharacters(CharsToRescue);
+		//m_eTaskOwner.AddChild(trigger, 1);
+	}
 }
