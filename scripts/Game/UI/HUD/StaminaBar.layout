@@ -1,98 +1,341 @@
 FrameWidgetClass {
- Opacity 0.5
+ Name "root"
+ Slot FrameWidgetSlot "{5E16C02121F0F324}" {
+  Anchor 0 1 0 1
+  PositionX 0
+  OffsetLeft 0
+  PositionY 0
+  OffsetTop 0
+  SizeX 0
+  OffsetRight 0
+  SizeY 0
+  OffsetBottom 0
+  SizeToContent 1
+ }
  Color 0 0.502 0.125 1
  "Inherit Color" 1
  {
-  TextWidgetClass "{5D82A413A9DA2AB8}" {
-   Name "m_sTempnumber"
-   Slot FrameWidgetSlot "{5D82A413A9DA2AA3}" {
-    PositionX 310.647
-    OffsetLeft 310.647
-    PositionY 1013.91
-    OffsetTop 1013.91
-    SizeX 21.812
-    OffsetRight -332.459
-    SizeY 6.98
-    OffsetBottom -1020.89
+  FrameWidgetClass "{5E16C0213FD528BB}" {
+   Name "Frame0"
+   Slot FrameWidgetSlot "{5E16C0213FD528A0}" {
+    Anchor 0 1 0 1
+    PositionX 5
+    OffsetLeft 5
+    PositionY -5
+    OffsetTop -5
+    SizeX 110
+    OffsetRight -115
+    SizeY 135
+    OffsetBottom -130
+    Alignment 0 1
    }
-   Text "36,6 C"
-   "Font Size" 8
-   "Min Font Size" 8
-  }
-  ProgressBarWidgetClass "{5D82A412743DA7BB}" {
-   Name "m_wTemp"
-   Slot FrameWidgetSlot "{5D82A412743DA7AF}" {
-    Anchor 0.5 1 0.5 1
-    PositionX -950.625
-    OffsetLeft -950.6
-    PositionY -65.053
-    OffsetTop -65.1
-    SizeX 300
-    OffsetRight 650.6
-    SizeY 5.4
-    OffsetBottom 59.7
+   {
+    FrameWidgetClass "{5E16C89745531CBA}" {
+     Name "Frame3"
+     Slot FrameWidgetSlot "{5E16C89745531C92}" {
+      Anchor 0.5 1 0.5 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 100
+      OffsetRight -100
+      SizeY 30
+      OffsetBottom -30
+      Alignment 0.5 1
+      SizeToContent 1
+     }
+     {
+      ProgressBarWidgetClass "{5965486C4D9C8173}" {
+       Prefab "{5965486C4D9C8173}"
+       Name "m_wStaminaBar"
+       Slot FrameWidgetSlot "{5965486C4D9C809B}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 10
+        OffsetBottom -10
+        Alignment 0.5 0
+       }
+       Opacity 0.597
+       Color 0.261 0.337 0.264 1
+       style SimpleWithBackground
+       Maximum 1
+       Current 1
+      }
+      PanelWidgetClass "{5E16C89751242FBF}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5E16C89751242F95}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 10
+        OffsetBottom -10
+        Alignment 0.5 0
+       }
+       style pixel_frame
+      }
+     }
+    }
+    FrameWidgetClass "{5E16C0231AE1989E}" {
+     Name "Frame1"
+     Slot FrameWidgetSlot "{5E16C0231AE198BE}" {
+      Anchor 0 0 0 1
+      PositionX 5
+      OffsetLeft 5
+      PositionY 0
+      OffsetTop 0
+      SizeX 5
+      OffsetRight -10
+      SizeY -90
+      OffsetBottom 15
+      SizeToContent 1
+     }
+     {
+      PanelWidgetClass "{5E16C0234B18052E}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5E16C02394899EA2}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       style pixel_frame
+      }
+      ProgressBarWidgetClass "{5D7D3108F65FD931}" {
+       Name "m_wHungerBar"
+       Slot FrameWidgetSlot "{5D7D3108F65FD927}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       Opacity 0.5
+       Color 1 0.691 0.216 1
+       style magazine_small
+       Current 100
+       Vertical 1
+       Flipped 1
+      }
+      ImageWidgetClass "{5E16C893A4451688}" {
+       Name "Image0"
+       Slot FrameWidgetSlot "{5E16C02200685917}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY -5
+        OffsetTop -5
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -25
+        Alignment 0.5 1
+        SizeToContent 1
+       }
+       Size 16 16
+       Filter 0
+       Mask "{EDC79EAA39540E20}Assets/Icons/HungerIcon.edds"
+       "Transition width" 0.823
+       Progress 0.345
+      }
+     }
+    }
+    FrameWidgetClass "{5E16C02381481CDB}" {
+     Name "Frame0"
+     Slot FrameWidgetSlot "{5E16C02381481CC5}" {
+      Anchor 0 0 0 1
+      PositionX 70
+      OffsetLeft 70
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight -70
+      SizeY 0
+      OffsetBottom 15
+      Alignment 1 0
+      SizeToContent 1
+     }
+     {
+      ImageWidgetClass "{5E16C0220068596A}" {
+       Name "Image0"
+       Slot FrameWidgetSlot "{5E16C02200685917}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY -5
+        OffsetTop -5
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -25
+        Alignment 0.5 1
+        SizeToContent 1
+       }
+       Size 16 16
+       Filter 0
+       Mask "{1E5EBF821852B8DB}Assets/Icons/HydrationIcon.edds"
+       "Transition width" 0.823
+       Progress 0.345
+      }
+      PanelWidgetClass "{5E16C02394899EBF}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5E16C02394899EA2}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       style pixel_frame
+      }
+      ProgressBarWidgetClass "{5D7D3108350D1D65}" {
+       Name "m_wThirstBar"
+       Slot FrameWidgetSlot "{5D7D3108350D1D01}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       Opacity 0.5
+       Color 0.42 0.623 1 1
+       style magazine_small
+       Current 50
+       Vertical 1
+       Flipped 1
+      }
+     }
+    }
+    FrameWidgetClass "{5E16C89341DC7632}" {
+     Name "Frame2"
+     Slot FrameWidgetSlot "{5E16C02381481CC5}" {
+      Anchor 0 0 0 1
+      PositionX 105
+      OffsetLeft 105
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight -105
+      SizeY 0
+      OffsetBottom 15
+      Alignment 1 0
+      SizeToContent 1
+     }
+     {
+      TextWidgetClass "{5D82A413A9DA2AB8}" {
+       Name "m_sTempnumber"
+       Slot FrameWidgetSlot "{5D82A413A9DA2AA3}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 20
+        OffsetTop 20
+        SizeX 10
+        OffsetRight -10
+        SizeY 120
+        OffsetBottom -140
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Pivot 0 0
+       Text "36,6 C"
+       "Font Size" 8
+       "Min Font Size" 8
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+      }
+      ProgressBarWidgetClass "{5D82A412743DA7BB}" {
+       Name "m_wTemp"
+       Slot FrameWidgetSlot "{5D82A412743DA7AF}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       Opacity 0.5
+       style magazine_small
+       Minimum 29
+       Maximum 40
+       Current 36.6
+       Vertical 1
+       Flipped 1
+      }
+      ImageWidgetClass "{5E16C89341DC7635}" {
+       Name "Image0"
+       Slot FrameWidgetSlot "{5E16C02200685917}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY -5
+        OffsetTop -5
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -25
+        Alignment 0.5 1
+        SizeToContent 1
+       }
+       Size 16 16
+       Filter 0
+       Mask "{72862E1822F6AC0C}Assets/Icons/TempIcon.edds"
+       "Transition width" 0.823
+       Progress 0.345
+      }
+      PanelWidgetClass "{5E16C89341DC7637}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5E16C02394899EA2}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       style pixel_frame
+      }
+     }
+    }
    }
-   Opacity 0.5
-   style SimpleWithBackground
-   Minimum 29
-   Maximum 40
-   Current 36.6
-  }
-  ProgressBarWidgetClass "{5D7D3108350D1D65}" {
-   Name "m_wThirstBar"
-   Slot FrameWidgetSlot "{5D7D3108350D1D01}" {
-    Anchor 0.5 1 0.5 1
-    PositionX -950.625
-    OffsetLeft -950.625
-    PositionY -34.853
-    OffsetTop -34.853
-    SizeX 300
-    OffsetRight 650.625
-    SizeY 5.4
-    OffsetBottom 29.453
-   }
-   Opacity 0.5
-   Color 0.42 0.623 1 1
-   style SimpleWithBackground
-   Current 100
-  }
-  ProgressBarWidgetClass "{5D7D3108F65FD931}" {
-   Name "m_wHungerBar"
-   Slot FrameWidgetSlot "{5D7D3108F65FD927}" {
-    Anchor 0.5 1 0.5 1
-    PositionX -950.625
-    OffsetLeft -950.625
-    PositionY -51.053
-    OffsetTop -51.053
-    SizeX 300
-    OffsetRight 650.625
-    SizeY 5.3
-    OffsetBottom 45.753
-   }
-   Opacity 0.5
-   Color 1 0.691 0.216 1
-   style SimpleWithBackground
-   Current 100
-  }
-  ProgressBarWidgetClass "{5965486C4D9C8173}" {
-   Prefab "{5965486C4D9C8173}"
-   Name "m_wStaminaBar"
-   Slot FrameWidgetSlot "{5965486C4D9C809B}" {
-    Anchor 0.5 1 0.5 1
-    PositionX -950.625
-    OffsetLeft -950.6
-    PositionY -19.653
-    OffsetTop -19.7
-    SizeX 300
-    OffsetRight 650.6
-    SizeY 5.356
-    OffsetBottom 14.3
-   }
-   Opacity 0.597
-   Color 0.261 0.337 0.264 1
-   style SimpleWithBackground
-   Maximum 1
-   Current 1
   }
  }
 }

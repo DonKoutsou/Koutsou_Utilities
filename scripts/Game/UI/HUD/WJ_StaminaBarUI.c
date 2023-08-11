@@ -12,7 +12,7 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 	{
 		if (!m_wStaminaBar)
 		{
-			m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wStaminaBar"));
+			m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wStaminaBar"));
 			if (!m_wStaminaBar) return;
 		};
 		
@@ -22,7 +22,7 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 	{
 		if (!m_wHungerBar)
 		{
-			m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wHungerBar"));
+			m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wHungerBar"));
 			if (!m_wHungerBar) return;
 		};
 		
@@ -32,7 +32,7 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 	{
 		if (!m_wThirstBar)
 		{
-			m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wThirstBar"));
+			m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
 			if (!m_wThirstBar) return;
 		};
 		
@@ -45,7 +45,7 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		float b = 0;
 		if (!m_wTemp)
 		{
-			m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wTemp"));
+			m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wTemp"));
 			if (!m_wTemp) return;
 		};
 		float temp = Math.InverseLerp(29, 42, value);
@@ -75,11 +75,11 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 	override event void OnStartDraw(IEntity owner)
 	{
 		super.OnStartDraw(owner);
-		m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wTemp"));
-		m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wStaminaBar"));
-		m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wHungerBar"));
-		m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindWidget("m_wThirstBar"));
-		m_sTempnumber = TextWidget.Cast(m_wRoot.FindWidget("m_sTempnumber"));
+		m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wTemp"));
+		m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wStaminaBar"));
+		m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wHungerBar"));
+		m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
+		m_sTempnumber = TextWidget.Cast(m_wRoot.FindAnyWidget("m_sTempnumber"));
 		IEntity player = GetGame().GetPlayerController();
 		if (!player) {
 			Print("no player found");

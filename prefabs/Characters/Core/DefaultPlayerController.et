@@ -15,8 +15,8 @@ SCR_PlayerController {
    }
   }
   SP_CharacterStatsComponent "{5DF4F669AC20CEBD}" {
-   m_fHungerChangedPerSecond 0.008
-   m_fThirstChangedPerSecond 0.01
+   m_fHungerChangedPerSecond 0.016
+   m_fThirstChangedPerSecond 0.02
    m_fTimeBetweenEachTick 1
   }
  }
