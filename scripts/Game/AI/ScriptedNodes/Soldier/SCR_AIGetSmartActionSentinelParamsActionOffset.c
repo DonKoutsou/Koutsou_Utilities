@@ -40,7 +40,7 @@ class SCR_AIGetSmartActionParamsActionOffset : AITaskScripted
 		
 		vector worldPosition;
 		vector mat[4];
-		smartAction.m_Owner.GetWorldTransform(mat);
+		worldPosition = smartAction.GetOwner().GetOrigin();
 		SetVariableOut(ACTION_OFFSET_PORT, worldPosition + smartAction.GetActionOffset());
 		SetVariableOut(POSITION_PORT, worldPosition);
 		return ENodeResult.SUCCESS;

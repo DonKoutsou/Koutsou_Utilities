@@ -35,6 +35,13 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
    m_fLookDirectionRange 180
    m_iCharacterStance CROUCH
   }
+  SCR_AISmartActionSentinelComponent "{5E14E6EFA5C5144C}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "CustomPost"
+   }
+   ActionOffset 0 0 -2.854
+  }
   SCR_FireplaceComponent "{5876E7F288BF5C8E}" {
    m_aLightData {
     SCR_BaseLightData "{58D0938270686D72}" {

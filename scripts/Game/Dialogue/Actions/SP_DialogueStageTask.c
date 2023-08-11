@@ -14,13 +14,13 @@ class DialogueStageTask : DialogueStage
 	{
 		if(t_Task && t_Task.CharacterAssigned(Player) == false && t_Task.GetState() != ETaskState.COMPLETED)
 		{
-			acttext = t_Task.GetTaskDescription();
+			acttext = t_Task.GetAcceptText();
 			return true;
 		}
 		return false;
 	}
 	override string GetStageDialogueText(IEntity Character, IEntity Player)
 		{
-			return t_Task.GetTaskDiag();
+			return "Thanks alot. Good luck!";
 		}
 }

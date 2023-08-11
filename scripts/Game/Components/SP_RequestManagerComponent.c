@@ -202,6 +202,18 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	static void GetUnassignedCharTasks(IEntity Char, IEntity Assignee, out array<ref SP_Task> tasks)
+	{
+		if (!Char)
+			return;
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.CharacterIsOwner(Char) && !task.CharacterAssigned(Assignee))
+			{
+				tasks.Insert(task);
+			}
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter for amount of tasks
 	static int GetInProgressTaskCount()

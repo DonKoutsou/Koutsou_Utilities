@@ -28,6 +28,9 @@ GenericEntity : "{48D88E385C227340}Prefabs/Compositions/Misc/SubCompositions/Bar
      ActionOffset -0.168 -0.711 -1.538
      m_iCharacterStance STAND
     }
+    SCR_AISmartActionSentinelComponent "{5E14E6EFA5C5144C}" {
+     ActionOffset 0 -0.801 -2.854
+    }
     SCR_FireplaceComponent "{5876E7F288BF5C8E}" {
      m_aLightData {
       SCR_BaseLightData "{58D0938270686D72}" {

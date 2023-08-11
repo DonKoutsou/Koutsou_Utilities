@@ -74,9 +74,10 @@ class SP_RetrieveTask: SP_Task
 		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
 		itemdesc.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
-		m_sTaskDiag = string.Format("Bring me the %1 %2 and i'll pay you a good summ for them.", m_iRequestedAmount.ToString(), itemdesc);
-		m_sTaskTitle = string.Format("Retrieve: bring %1 %2 to %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
-		m_sTaskCompletiontext = "Thanks for retrieving the items i asked for %1. Here is the reward hope is suficient";
+		m_sTaskDiag = string.Format("I am looking for someone to bring me %1 %2.", m_iRequestedAmount.ToString(), itemdesc);
+		m_sTaskTitle = string.Format("Retrieve %1 %2 for %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
+		m_sTaskCompletiontext = "Thanks for retrieving the items i asked for %1. Here is the reward, hope is suficient";
+		m_sAcceptTest = string.Format("I'll get you the %1.", itemdesc);
 		m_sacttext = string.Format("I've brought the %1 you asked.", itemdesc);
 	};
 	//------------------------------------------------------------------------------------------------------------//

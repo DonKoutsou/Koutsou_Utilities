@@ -6,6 +6,8 @@ class SCR_AIGetSmartAction : AITaskScripted
 	[Attribute()]
 	float m_fRadius;
 	
+	[Attribute()]
+	bool m_bAllowCloseSpawning;
 	protected static const string POISSITION_PORT = "Possition";
 	protected static const string RADIUS_PORT = "Radius";
 	protected static const string TAGS_PORT = "InTags";
@@ -30,7 +32,8 @@ class SCR_AIGetSmartAction : AITaskScripted
 		GetVariableIn(POISSITION_PORT, Origin);
 		GetVariableIn(RADIUS_PORT, Radius);
 		GetVariableIn(TAGS_PORT, tags);
-		GetVariableIn(CLOSESPAWN_PORT, CloseSpawn);
+		if (!GetVariableIn(CLOSESPAWN_PORT, CloseSpawn))
+			CloseSpawn = m_bAllowCloseSpawning;
 		if (tags.IsEmpty() && m_aTags)
 			tags.Copy(m_aTags);
 		if (!Radius)

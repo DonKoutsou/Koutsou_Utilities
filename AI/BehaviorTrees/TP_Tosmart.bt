@@ -74,25 +74,25 @@ BehaviorTree {
              Name "SCR_AI Get Smart Action"
              EditorPos -322.222 373.333
              InPorts {
-              SingleInputPortContainer SingleInputPortContainerClass {
+              SingleInputPortContainer SingleInputPortContainer {
                Port 9
                PortName "Possition"
               }
-              SingleInputPortContainer SingleInputPortContainerClass {
+              SingleInputPortContainer SingleInputPortContainer {
                Port 12
                PortName "Radius"
               }
-              SingleInputPortContainer SingleInputPortContainerClass {
+              SingleInputPortContainer SingleInputPortContainer {
                Port 11
                PortName "InTags"
               }
-              SingleInputPortContainer SingleInputPortContainerClass {
+              SingleInputPortContainer SingleInputPortContainer {
                Port 19
                PortName "AllowCloseSpawn"
               }
              }
              OutPorts {
-              SingleOutputPortContainer SingleOutputPortContainerClass {
+              SingleOutputPortContainer SingleOutputPortContainer {
                Port 4
                PortName "OutSmartAction"
               }
@@ -106,12 +106,25 @@ BehaviorTree {
                Name "Sequence"
                EditorPos 720 550
                Nodes {
-                AITaskGetSmartActionParams "Get Smart Action Params" {
-                 Name "Get Smart Action Params"
-                 EditorPos -213.333 705
-                 InSmartAction 18
-                 OutPos 0
-                 OutSmartActionEntity -1
+                SCR_AIGetSmartActionParamsActionOffset "SCR_AI Get Smart Action Params Action Offset" {
+                 Name "SCR_AI Get Smart Action Params Action Offset"
+                 EditorPos -303.636 693.637
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 18
+                   PortName "SmartActionGuard"
+                  }
+                 }
+                 OutPorts {
+                  SingleOutputPortContainer SingleOutputPortContainer {
+                   Port -1
+                   PortName "OutPos"
+                  }
+                  SingleOutputPortContainer SingleOutputPortContainer {
+                   Port 0
+                   PortName "ActionOffset"
+                  }
+                 }
                 }
                 SCR_AISetPosition "SCR_AI Set Position" {
                  Name "SCR_AI Set Position"

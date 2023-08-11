@@ -5,7 +5,7 @@ SCR_ChimeraCharacter : "{836E7E39AAC5888B}prefabs/Characters/Factions/BLUFOR/US_
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5D7CAAFB9235E902}" {
      PrefabsToSpawn + {
-      "{B6C7499C8D4F61FC}prefabs/Currency/Wallet_US_10_Watches.et" "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" "{EB21D26B8D5A3232}prefabs/Items/Food/MRE.et"
+      "{E477A369758A2B06}prefabs/Currency/Wallet_10_Watches.et" "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" "{EB21D26B8D5A3232}prefabs/Items/Food/MRE.et"
      }
     }
     ItemsInitConfigurationItem "{5D7CAAFB9235E903}" {

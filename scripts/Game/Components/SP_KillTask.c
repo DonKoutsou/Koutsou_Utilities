@@ -96,9 +96,10 @@ class SP_KillTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		m_sTaskDesc = string.Format("Locate and eliminate %1 head. Location: %2", DName, DLoc);
+		m_sTaskDesc = string.Format("Locate and eliminate %1. Location: %2", DName, DLoc);
 		m_sTaskDiag = string.Format("I want you to kill %1, he should be on %2.", DName, DLoc);
 		m_sTaskTitle = string.Format("Kill: assasinate %1", DName);
+		m_sAcceptTest = string.Format("I'll go for %1's head.", DName);
 		m_sTaskCompletiontext = "Good job %1, he got what he deserved, thanks, hope the reward will suffice.";
 		m_sacttext = string.Format("%1 is dead.", DName);
 	};

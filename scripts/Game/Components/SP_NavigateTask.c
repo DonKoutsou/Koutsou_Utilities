@@ -102,9 +102,13 @@ class SP_NavigateTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
+		string s_RewardName = FilePath.StripPath(m_Reward);
+		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
+		s_RewardName.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. Location: %3", OName, DName, DLoc);
-		m_sTaskDiag = string.Format("Take me to %1 on %2. Try to keep us away from enemies, what i am carrying cant fall into enemies hands.", DName, DLoc);
-		m_sTaskTitle = string.Format("Navigate: escort %1 to %2's location", OName, DName);
+		m_sTaskDiag = string.Format("I am looking for someone to take me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
+		m_sTaskTitle = string.Format("Escort %1 to %2's location", OName, DName);
+		m_sAcceptTest = string.Format("Follow me. I'll take you to %1's location.", DName);
 		m_sacttext = "I've brought you where you asked.";
 	};
 	//------------------------------------------------------------------------------------------------------------//

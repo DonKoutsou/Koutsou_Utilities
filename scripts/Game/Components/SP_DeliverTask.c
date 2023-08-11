@@ -109,10 +109,14 @@ class SP_DeliverTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
-		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. Location: %3", OName, DName, DLoc);
-		m_sTaskDiag = string.Format("Please deliver this to %1, he should be around %2. He should have the reward ready for you.", DName, DLoc, m_iRewardAmount, FilePath.StripPath(m_Reward));
-		m_sTaskTitle = string.Format("Deliver: deliver package to %1.", DName);
-		m_sTaskCompletiontext = "Thanks the delivery %1, hope the reward it enough.";
+		string s_RewardName = FilePath.StripPath(m_Reward);
+		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
+		s_RewardName.ToLower();
+		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. Location: %3.", OName, DName, DLoc);
+		m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, look for him around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
+		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
+		m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
+		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -200,6 +204,7 @@ class SP_DeliverTask: SP_Task
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_DeliverTask;};
+	
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetPackage(){return m_ePackage;};
 	//------------------------------------------------------------------------------------------------------------//

@@ -7,13 +7,6 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
     "SwitchLight"
    }
   }
-  SCR_AISmartActionSentinelComponent "{5D68F1E7DCCD8E88}" {
-   Enabled 0
-   AIBehaviorTree "{1BEB7235D444F6C5}AI/BehaviorTrees/SmartActions/SA_ObservationPost2.bt"
-   Tags {
-    "ObservationPost"
-   }
-  }
   SCR_BaseInteractiveLightComponent "{5876E7CF88610C12}" {
    m_aLightData {
     SCR_BaseLightData "{58CED048F1F8003F}" {

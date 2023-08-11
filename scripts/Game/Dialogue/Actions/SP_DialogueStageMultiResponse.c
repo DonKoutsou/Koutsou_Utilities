@@ -8,16 +8,23 @@ class DialogueStageMultiResponse : DialogueStage
 			SP_RequestManagerComponent TaskMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			
 			array <ref SP_Task> tasks = new array <ref SP_Task>();
-			TaskMan.GetCharTasks(Character, tasks);
+			TaskMan.GetUnassignedCharTasks(Character, Player, tasks);
 			if(tasks.Count() > 0)
 			{
+				string tasktext;
 				foreach (SP_Task task : tasks)
 				{
-					if(task.CharacterAssigned(Player) == false)
+					if(!task.CharacterAssigned(Player))
 					{
-						return DialogueText;
+						if (!tasktext)
+							tasktext =  task.GetTaskDiag();
+						else
+							tasktext =  tasktext + " And also, " + task.GetTaskDiag();
 					}
 				}
+				if (tasktext)
+					tasktext = DialogueText + " " + tasktext;
+				return tasktext;
 				
 			}
 		 	return DialogueText2;

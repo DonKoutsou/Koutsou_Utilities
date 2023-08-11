@@ -4,6 +4,8 @@ GameEntity {
   InventoryItemComponent "{5244E4431E28A759}" {
    Attributes ItemAttributeCollection "{5244E4431DA56D64}" {
     CustomAttributes {
+     SP_ClothFactionAttributes "{5E14DE6AF18A00A7}" {
+     }
      SP_ClothAttributes "{5DF8D014D89E2A05}" {
       m_TemperatureIsolation 0.05
      }
