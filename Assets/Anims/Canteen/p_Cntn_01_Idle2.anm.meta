@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{19BEA8089B778FD2}Assets/Anims/Canteen/p_Cntn_01_Idle2.anm"
+ Configurations {
+  TXAResourceClass PC {
+  }
+  TXAResourceClass XBOX_ONE : PC {
+  }
+  TXAResourceClass XBOX_SERIES : PC {
+  }
+  TXAResourceClass PS4 : PC {
+  }
+  TXAResourceClass HEADLESS : PC {
+  }
+ }
+}

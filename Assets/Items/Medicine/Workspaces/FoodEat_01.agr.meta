@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7EBC7366EAA6B365}Assets/Items/Medicine/Workspaces/FoodEat_01.agr"
+ Configurations {
+  AnimGraphResourceClass PC {
+  }
+  AnimGraphResourceClass XBOX_ONE : PC {
+  }
+  AnimGraphResourceClass XBOX_SERIES : PC {
+  }
+  AnimGraphResourceClass PS4 : PC {
+  }
+  AnimGraphResourceClass HEADLESS : PC {
+  }
+ }
+}

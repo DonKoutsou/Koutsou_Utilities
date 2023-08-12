@@ -1,0 +1,65 @@
+AnimSetInstanceSource {
+ Template "{3747AB664EEAB407}Assets/Items/Medicine/Workspaces/MorphineInjection_01.ast"
+ IkPose "{9AD19AA91B7FA538}Assets/Anims/Canteen/p_Cntn_01_Idle.anm"
+ Lines {
+  AnimSetInstanceSource_Line "Morphine.Erc.MorphineInject" {
+   Resource "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Cro.MorphineInject" {
+   Resource "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Erc.Idle" {
+   Resource "{D2019D368280B4BD}Assets/Items/Equipment/Radios/Radio_R148/anims/anm/p_R148_una_idle.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Pne.Idle" {
+   Resource "{AF8FB80B8500D861}Assets/Items/Equipment/Radios/Radio_R148/anims/anm/p_R148_pne_idle.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Cro.Idle" {
+   Resource "{BB84A07112CB2535}Assets/Items/Equipment/Radios/Radio_R148/anims/anm/p_R148_cro_idle.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Pne.MorphineInject" {
+   Resource "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Erc.HealingOthersCro" {
+   Resource "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Erc.HealingOthersErc" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Cro.HealingOthersCro" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Cro.HealingOthersErc" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Pne.HealingOthersErc" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Pne.HealingOthersCro" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Pne.HealingOthersProne" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Erc.HealingOthersProne" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "HealingOthers.Cro.HealingOthersProne" {
+   Resource "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Passanger.Idle" {
+   Resource "{19BEA8089B778FD2}Assets/Anims/Canteen/p_Cntn_01_Idle2.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Driver.Idle" {
+   Resource "{19BEA8089B778FD2}Assets/Anims/Canteen/p_Cntn_01_Idle2.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Passanger.MorphineVehicle" {
+   Resource "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Driver.MorphineVehicle" {
+   Resource "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+  }
+ }
+ RBF AnimSetInstanceSourceRBFArray "{5E171EC2F9F474D8}" {
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{83ABCF60EF1F77B3}Assets/Anims/Canteen/p_Cntn_01_Fill.anm"
+ Configurations {
+  TXAResourceClass PC {
+  }
+  TXAResourceClass XBOX_ONE : PC {
+  }
+  TXAResourceClass XBOX_SERIES : PC {
+  }
+  TXAResourceClass PS4 : PC {
+  }
+  TXAResourceClass HEADLESS : PC {
+  }
+ }
+}

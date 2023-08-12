@@ -35,23 +35,22 @@ class SP_CharacterHasEatableItemEquippedCondition : SCR_AvailableActionCondition
 };
 
 [BaseContainerProps()]
-class SP_ConsumableEffectEat : SCR_ConsumableEffectBase
+class SP_ConsumableEffectEat : SCR_ConsumableEffectHealthItems
 {
 	override bool CanApplyEffect(notnull IEntity target, notnull IEntity user, out SCR_EConsumableFailReason failReason = SCR_EConsumableFailReason.NONE)
 	{
 		return true;
 	}
 	
-	override bool ActivateEffect(IEntity target, IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams = null)
+	override void ApplyEffect(notnull IEntity target, notnull IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams)
 	{
+		super.ApplyEffect(target, user, item, animParams);
 		PlayerController playerController = GetGame().GetPlayerController();
 		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
 		if (!statComponent)
-			return false;
+			return;
 		
 		statComponent.Eat(item);
-		
-		return true;
 	}
 }
 
@@ -78,23 +77,21 @@ class SP_CharacterHasDrinkableItemEquippedCondition : SCR_AvailableActionConditi
 };
 
 [BaseContainerProps()]
-class SP_ConsumableEffectDrink : SCR_ConsumableEffectBase
+class SP_ConsumableEffectDrink : SCR_ConsumableEffectHealthItems
 {
 	override bool CanApplyEffect(notnull IEntity target, notnull IEntity user, out SCR_EConsumableFailReason failReason = SCR_EConsumableFailReason.NONE)
 	{
 		return true;
 	}
-	
-	override bool ActivateEffect(IEntity target, IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams = null)
+	override void ApplyEffect(notnull IEntity target, notnull IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams)
 	{
+		super.ApplyEffect(target, user, item, animParams);
 		PlayerController playerController = GetGame().GetPlayerController();
 		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
 		if (!statComponent)
-			return false;
+			return;
 		
 		statComponent.Drink(item);
-		
-		return true;
 	}
 }
 

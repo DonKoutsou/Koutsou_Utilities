@@ -1,0 +1,38 @@
+AnimSetInstanceSource {
+ Template "{3747AB664EEAB407}Assets/Items/Medicine/Workspaces/MorphineInjection_01.ast"
+ IkPose "{9AD19AA91B7FA538}Assets/Anims/Canteen/p_Cntn_01_Idle.anm"
+ Lines {
+  AnimSetInstanceSource_Line "Morphine.Erc.Idle" {
+   Resource "{D2019D368280B4BD}Assets/Items/Equipment/Radios/Radio_R148/anims/anm/p_R148_una_idle.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Cro.Idle" {
+   Resource "{BB84A07112CB2535}Assets/Items/Equipment/Radios/Radio_R148/anims/anm/p_R148_cro_idle.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Erc.MorphineInject" {
+   Resource "{C4F7D75044A190AE}Assets/Anims/Canteen/p_food_01_eat.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Cro.MorphineInject" {
+   Resource "{C4F7D75044A190AE}Assets/Anims/Canteen/p_food_01_eat.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Passanger.Idle" {
+   Resource "{19BEA8089B778FD2}Assets/Anims/Canteen/p_Cntn_01_Idle2.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Driver.Idle" {
+   Resource "{19BEA8089B778FD2}Assets/Anims/Canteen/p_Cntn_01_Idle2.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Passanger.MorphineVehicle" {
+   Resource "{C4F7D75044A190AE}Assets/Anims/Canteen/p_food_01_eat.anm"
+  }
+  AnimSetInstanceSource_Line "VehicleHealing.Driver.MorphineVehicle" {
+   Resource "{C4F7D75044A190AE}Assets/Anims/Canteen/p_food_01_eat.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Pne.MorphineInject" {
+   Resource "{C4F7D75044A190AE}Assets/Anims/Canteen/p_food_01_eat.anm"
+  }
+  AnimSetInstanceSource_Line "Morphine.Pne.Idle" {
+   Resource "{AF8FB80B8500D861}Assets/Items/Equipment/Radios/Radio_R148/anims/anm/p_R148_pne_idle.anm"
+  }
+ }
+ RBF AnimSetInstanceSourceRBFArray "{5E1845F41CF20224}" {
+ }
+}

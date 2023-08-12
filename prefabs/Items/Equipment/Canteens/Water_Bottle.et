@@ -12,11 +12,22 @@ GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen_Sovi
      ItemDimensions 5 5 5
      ItemVolume 100
     }
+    ItemAnimationAttributes ItemAnimationAttributes "{5D38EB800D2CA94B}" {
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5D38EB803ADB5F44}" {
+       AnimGraph "{103E57FDB3E71B27}Assets/Items/Medicine/Workspaces/CanteenDrink_01.agr"
+      }
+     }
+     HandAdditiveRotation 0 0 0
+     HandAdditiveTranslation 0 0 0
+    }
     CustomAttributes {
      PreviewRenderAttributes "{52D4E9E3E3A95631}" {
       CameraOrbitAngles -35 0 -25
       CameraDistanceToItem 1
       CameraOffset 0 -0.005 0
+     }
+     ItemActionAnimAttributes "{5E171B4330C445FC}" {
      }
     }
    }
@@ -24,10 +35,8 @@ GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen_Sovi
   MeshObject "{3703E72BAA1A42DD}" {
    Object "{15FF1BAEA3B87082}Assets/Items/Misc/Bottle/Water_Bottle.xob"
   }
-  SCR_BaseInventoryItemComponent "{5D8AE1816056A184}" {
-   Enabled 0
-  }
-  SCR_ConsumableItemComponent "{5D7D438BC9A7504F}" {
+  RigidBody "{2829E7297110F493}" {
+   SimState Simulation
   }
   SP_UnretrievableComponent "{5D7F4BDEB122E8AC}" {
   }

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{303D541AA6147FEF}Assets/Anims/Canteen/p_Cntn_01_Drink.anm"
+ Configurations {
+  TXAResourceClass PC {
+  }
+  TXAResourceClass XBOX_ONE : PC {
+  }
+  TXAResourceClass XBOX_SERIES : PC {
+  }
+  TXAResourceClass PS4 : PC {
+  }
+  TXAResourceClass HEADLESS : PC {
+  }
+ }
+}

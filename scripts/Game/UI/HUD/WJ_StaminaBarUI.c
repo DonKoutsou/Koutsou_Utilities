@@ -67,7 +67,8 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		//}
 		Color mycolor = Color(r, 0, b, 1);
 		m_wTemp.SetColor(mycolor);
-		string tempnumber = value.ToString() + "C";
+		string val = value.ToString().Substring(0, 4);
+		string tempnumber = val + "C";
 		m_sTempnumber.SetText(tempnumber);
 		m_wTemp.SetCurrent(value);
 		

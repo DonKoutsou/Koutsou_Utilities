@@ -158,6 +158,52 @@ FrameWidgetClass {
        "Transition width" 0.823
        Progress 0.345
       }
+      ImageWidgetClass "{5E170AA9AA95268A}" {
+       Name "m_wHungertDown"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Color 0.503 0.054 0.054 1
+       Rotation 90
+       Size 16 16
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.482
+      }
+      ImageWidgetClass "{5E170AA913D729D7}" {
+       Name "m_wHungertUp"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       "Is Visible" 0
+       Color 0.072 0.503 0.054 1
+       "Inherit Color" 1
+       Rotation -90
+       Size 16 16
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.482
+      }
      }
     }
     FrameWidgetClass "{5E16C02381481CDB}" {
@@ -230,9 +276,57 @@ FrameWidgetClass {
        Opacity 0.5
        Color 0.42 0.623 1 1
        style magazine_small
-       Current 50
+       Current 100
        Vertical 1
        Flipped 1
+      }
+      ImageWidgetClass "{5E170AA8213726C8}" {
+       Name "m_wThirstDown"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Color 0.503 0.054 0.054 1
+       "Inherit Color" 1
+       Rotation 90
+       Size 16 16
+       "Blend Mode" Opaque
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.55
+      }
+      ImageWidgetClass "{5E170AA910F897DF}" {
+       Name "m_wThirstUp"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       "Is Visible" 0
+       Color 0.072 0.503 0.054 1
+       "Inherit Color" 1
+       Rotation -90
+       Size 16 16
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.482
       }
      }
     }

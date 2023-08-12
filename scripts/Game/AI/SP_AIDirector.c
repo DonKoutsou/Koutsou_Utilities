@@ -795,11 +795,10 @@ class SP_AIDirector : SCR_AIGroup
 			Resource prefabtospawn = Resource.Load(prefab);
 			SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetWorld());
 			PrefabspawnParams.Transform = spawnpos;
-			IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, null, PrefabspawnParams);
+			IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, GetGame().GetWorld(), PrefabspawnParams);
 			SCR_AIWorld aiWorld = SCR_AIWorld.Cast(GetGame().GetAIWorld());
 			if(aiWorld)
 				aiWorld.RequestNavmeshRebuildEntity(Entity);
-			delete prefabspawner;
 		}
 		
 		m_aQueriedPrefabSpawnP.Clear();

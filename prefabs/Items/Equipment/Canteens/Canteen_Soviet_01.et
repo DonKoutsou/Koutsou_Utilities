@@ -3,6 +3,10 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5E1836CE84C3E238}" {
+     Name "#AR-Item_CanteenUSSR_Name"
+     Description "#AR-Item_CanteenUSSR_Description"
+    }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      ItemDimensions 10 10 10
      ItemVolume 100
@@ -12,15 +16,20 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
      AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
      AnimationAttachments {
       AnimationAttachmentInfo "{5D38EB803ADB5F44}" {
-       AnimGraph "{883777E45A6C4DA1}Assets/Items/Medicine/Workspaces/Gauze_01.agr"
-       AnimInstance "{79BD98038DD60F88}Assets/Items/Medicine/Workspaces/Gauze_01_player.asi"
+       AnimGraph "{103E57FDB3E71B27}Assets/Items/Medicine/Workspaces/CanteenDrink_01.agr"
+       AnimInstance "{37F3E16C5067CA0B}Assets/Items/Medicine/Workspaces/canteen_player.asi"
        BindingName "Gadget"
       }
      }
-     HandAdditiveRotation 0 0 -90
-     HandAdditiveTranslation 0.06 0.015 0
     }
     CustomAttributes {
+     ItemActionAnimAttributes "{5E171B4330C445FC}" {
+      AnimationGraphTemplate "{DFFC0A34A77ADCB4}anims/workspaces/player/player_main.agr"
+      ActionAnimationCommandName "CMD_HealSelf"
+      AllowMovementDuringAction 1
+     }
+     CharacterModifierAttributes "{5E182DD35615CB46}" {
+     }
     }
     m_SlotType SLOT_VEST
    }

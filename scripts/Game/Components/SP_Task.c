@@ -201,7 +201,7 @@ class SP_Task
 			m_iRewardAverageAmount = tasksample.GetRewardAverage();
 			if(m_iRewardAverageAmount)
 			{
-				m_iRewardAmount = Math.Floor(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
+				m_iRewardAmount = Math.Ceil(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
 			}
 			else
 			{

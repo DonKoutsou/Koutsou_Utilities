@@ -8,7 +8,7 @@ modded class SCR_ConsumableItemComponent
 	protected bool m_bIsDrinkable;
 	
 	[Attribute("0", UIWidgets.CheckBox, "Amount of hunger/thirst this consumable holds")]
-	protected float m_fInitContainerCapacity;
+	protected int m_fInitContainerCapacity;
 	
 	[Attribute("0", UIWidgets.CheckBox, "Amount of hunger/thirst this consumable will replenish on use")]
 	protected float m_fUseAmount;
@@ -19,6 +19,10 @@ modded class SCR_ConsumableItemComponent
 	{
 		return m_fUseAmount;
 	}
+	int GetInitialCapacity()
+		return m_fInitContainerCapacity;
+	float GetCurrentCapacity()
+		return CurrentCapacity;
 	bool IsEatable()
 	{
 		return m_bIsEatable;
@@ -29,6 +33,7 @@ modded class SCR_ConsumableItemComponent
 		return m_bIsDrinkable;
 		
 	}
+	
 	bool HasUses()
 	{
 		if(CurrentCapacity > 0)
