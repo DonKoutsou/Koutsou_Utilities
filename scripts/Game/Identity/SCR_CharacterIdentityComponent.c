@@ -28,7 +28,7 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 	{
 		return m_iCharacterRep;
 	}
-	void AdjustCharRep(int amount, IEntity madude)
+	void AdjustCharRep(int amount, IEntity madude, string Cause = STRING_EMPTY)
 	{
 		if (!amount)
 			return;
@@ -39,14 +39,21 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 			FactionComp.SetAffiliatedFactionByKey("RENEGADE");
 			if (EntityUtils.IsPlayer(madude))
 			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
+				SCR_HintManagerComponent.GetInstance().ShowCustom(Cause + " " + "Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
 			}
 		}
-		else
+		else if (amount < 0)
 		{
 			if (EntityUtils.IsPlayer(madude))
 			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom("Your reputation is worsened");
+				SCR_HintManagerComponent.GetInstance().ShowCustom(Cause + " " + "Your reputation is worsened.");
+			}
+		}
+		else if (amount > 0)
+		{
+			if (EntityUtils.IsPlayer(madude))
+			{
+				SCR_HintManagerComponent.GetInstance().ShowCustom(Cause + " " + "Your reputation is improved.");
 			}
 		}
 	}

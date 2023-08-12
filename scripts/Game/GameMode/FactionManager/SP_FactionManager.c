@@ -41,16 +41,12 @@ class SP_FactionManager : SCR_FactionManager
 		if(instigator == Afflicted)
 		{
 			
-			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer);
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer, "You killed a unit of you own faction.");
 			return;
 		}
 		if(instigator.IsFactionFriendly(Afflicted))
 		{
-			if (EntityUtils.IsPlayer(Killer))
-			{
-				SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("You caused issues between %1 and %2, your reputation has worsened", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
-			}
-			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer);
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer,string.Format("You caused issues between %1 and %2 forces.", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
 			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRepPenalty);
 			array <Faction> friendlyfacts = new array <Faction>();
 			Afflicted.GetFriendlyFactions2(friendlyfacts);
@@ -73,12 +69,17 @@ class SP_FactionManager : SCR_FactionManager
 		{
 			return;
 		}
+		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		FactionAffiliationComponent FactionCompAssignee = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		FactionAffiliationComponent FactionCompOwner = FactionAffiliationComponent.Cast(TaskOwner.FindComponent(FactionAffiliationComponent));
 		SCR_Faction instigatorFaction = SCR_Faction.Cast(FactionCompAssignee.GetAffiliatedFaction());
 		SCR_Faction OwnerFaction = SCR_Faction.Cast(FactionCompOwner.GetAffiliatedFaction());
+		SCR_CharacterIdentityComponent Charid = SCR_CharacterIdentityComponent.Cast(TaskOwner.FindComponent(SCR_CharacterIdentityComponent));
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Assignee.FindComponent(SCR_CharacterIdentityComponent));
-		id.AdjustCharRep(task.GetRepReward(), Assignee);
+		if (instigatorFaction == OwnerFaction)
+			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1.", diag.GetCharacterName(TaskOwner)));
+		else
+			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1. The %2 forces will remember that. Your factions relations have improved", diag.GetCharacterName(TaskOwner), OwnerFaction.GetFactionKey()));
 		OwnerFaction.AdjustRelation(instigatorFaction, m_FactionTaskCompleteRepBonus);
 		array <Faction> friendlyfacts = new array <Faction>();
 		OwnerFaction.GetFriendlyFactions2(friendlyfacts);

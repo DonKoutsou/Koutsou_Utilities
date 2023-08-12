@@ -167,10 +167,9 @@ class SP_DeliverTask: SP_Task
 		{
 			if (GiveReward(Assignee))
 			{
-				InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
 				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(FoundPackages[0].FindComponent(InventoryItemComponent));
 				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-				inv.TryRemoveItemFromStorage(FoundPackages[0],parentSlot.GetStorage());
+				Assigneeinv.TryRemoveItemFromStorage(FoundPackages[0],parentSlot.GetStorage());
 				Targetinv.TryInsertItem(FoundPackages[0]);
 				if (m_TaskMarker)
 				{
