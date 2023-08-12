@@ -1,0 +1,690 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  FrameWidgetClass "{5E18E22E12016E67}" {
+   Name "Frame3"
+   Slot FrameWidgetSlot "{5E18E22E12016E7C}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 100
+    PositionY 0
+    OffsetTop 100
+    SizeX -1820
+    OffsetRight 100
+    SizeY -1050
+    OffsetBottom 100
+   }
+   {
+    ImageWidgetClass "{5E18E22F17941220}" {
+     Name "Image1"
+     Slot FrameWidgetSlot "{5E18E22EAB46E9AA}" {
+      SizeToContent 1
+     }
+     Color 0 0 0 1
+     Size 1920 1200
+    }
+    ImageWidgetClass "{5E18E22EAB46E841}" {
+     Name "Image0"
+     Slot FrameWidgetSlot "{5E18E22EAB46E9AA}" {
+      SizeToContent 1
+     }
+     Texture "{75455009AFED376B}UI/Textures/Workshop/AddonThumbnails/workshop_loading_UI.edds"
+     Size 1920 1080
+    }
+    ButtonWidgetClass "{5E18E22B5E4BB4E3}" {
+     Name "Close"
+     Slot FrameWidgetSlot "{5E18E22B5E4BD1C1}" {
+      Anchor 1 0 1 0
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 50
+      OffsetRight -50
+      SizeY 50
+      OffsetBottom -50
+      Alignment 1 0
+     }
+     Clipping False
+     Color 0 0 0 0
+     components {
+      ButtonActionComponent "{5E19006C3AA729E3}" {
+      }
+     }
+     "no focus" 1
+     {
+      SizeLayoutWidgetClass "{5E18E22B5E4BB4E2}" {
+       Name "SizeLayout"
+       Slot ButtonWidgetSlot "{5C5F7912A3BAFE40}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       AllowWidthOverride 1
+       WidthOverride 48
+       AllowHeightOverride 1
+       HeightOverride 48
+       {
+        ImageWidgetClass "{5E18E22B5E4BB4E7}" {
+         Name "Image0"
+         Slot AlignableSlot "{5CA449956BE1547B}" {
+         }
+         Texture "{E0B1311CCED2471A}UI/Textures/Icons/iconExit.edds"
+         Size 96 96
+        }
+       }
+      }
+     }
+    }
+    UniformGridLayoutWidgetClass "{5E18B86DE885CA7D}" {
+     Name "UniformGridLayout0"
+     Slot FrameWidgetSlot "{5E18B86DE885CB89}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 150
+      PositionY 0
+      OffsetTop 50
+      SizeX -1820
+      OffsetRight 0
+      SizeY -1050
+      OffsetBottom 0
+     }
+     {
+      PanelWidgetClass "{5E18E228994E563D}" {
+       Name "Panel0"
+       Slot UniformGridWidgetSlot "{5E18E22BB6ECF6C5}" {
+       }
+      }
+      TextWidgetClass "{5E18B86DB3CEE7AF}" {
+       Name "UG_0_0"
+       Slot UniformGridWidgetSlot "{5E18B86DB3CEE788}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86DB05967FC}" {
+       Name "UG_0_1"
+       Slot UniformGridWidgetSlot "{5E18B86DB0596716}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Column 1
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86D96BBFDDA}" {
+       Name "UG_0_2"
+       Slot UniformGridWidgetSlot "{5E18B86D96BBFD02}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Column 2
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86D9771820E}" {
+       Name "UG_0_3"
+       Slot UniformGridWidgetSlot "{5E18B86D97718277}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Column 3
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86FEE129CEE}" {
+       Name "UG_0_4"
+       Slot UniformGridWidgetSlot "{5E18B86D97718277}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Column 4
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E676D2D16}" {
+       Name "UG_1_0"
+       Slot UniformGridWidgetSlot "{5E18B86DB3CEE788}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 1
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E1CD3DAC1}" {
+       Name "UG_1_1"
+       Slot UniformGridWidgetSlot "{5E18B86DB3CEE788}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 1
+        Column 1
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E032C07DB}" {
+       Name "UG_1_2"
+       Slot UniformGridWidgetSlot "{5E18B86DB3CEE788}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 1
+        Column 2
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E04586A11}" {
+       Name "UG_1_3"
+       Slot UniformGridWidgetSlot "{5E18B86DB3CEE788}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 1
+        Column 3
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86F95945557}" {
+       Name "UG_1_4"
+       Slot UniformGridWidgetSlot "{5E18B86DB3CEE788}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 1
+        Column 4
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E676DB9D9}" {
+       Name "UG_2_0"
+       Slot UniformGridWidgetSlot "{5E18B86DB0596716}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 2
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E089CEE65}" {
+       Name "UG_2_1"
+       Slot UniformGridWidgetSlot "{5E18B86DB0596716}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 2
+        Column 1
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E0CD3C141}" {
+       Name "UG_2_2"
+       Slot UniformGridWidgetSlot "{5E18B86DB0596716}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 2
+        Column 2
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E0E842CAE}" {
+       Name "UG_2_3"
+       Slot UniformGridWidgetSlot "{5E18B86DB0596716}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 2
+        Column 3
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86F98DB6D74}" {
+       Name "UG_2_4"
+       Slot UniformGridWidgetSlot "{5E18B86DB0596716}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 2
+        Column 4
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+      }
+      TextWidgetClass "{5E18B86E676E3C2B}" {
+       Name "UG_3_0"
+       Slot UniformGridWidgetSlot "{5E18B86D96BBFD02}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 3
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E33B73B75}" {
+       Name "UG_3_1"
+       Slot UniformGridWidgetSlot "{5E18B86D96BBFD02}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 3
+        Column 1
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E34240550}" {
+       Name "UG_3_2"
+       Slot UniformGridWidgetSlot "{5E18B86D96BBFD02}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 3
+        Column 2
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86E36318819}" {
+       Name "UG_3_3"
+       Slot UniformGridWidgetSlot "{5E18B86D96BBFD02}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 3
+        Column 3
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+      }
+      TextWidgetClass "{5E18B86F9C232FCB}" {
+       Name "UG_3_4"
+       Slot UniformGridWidgetSlot "{5E18B86D96BBFD02}" {
+        HorizontalAlign Center
+        VerticalAlign Center
+        Row 3
+        Column 4
+       }
+       "Font Size" 40
+       "Min Font Size" 40
+       FontProperties FontProperties "{5E18E22F4AB6CB40}" {
+       }
+      }
+      PanelWidgetClass "{5E18E22882FD7964}" {
+       Name "Panel1"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+       }
+      }
+      PanelWidgetClass "{5E18E22886FB33C8}" {
+       Name "Panel2"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Column 1
+       }
+      }
+      PanelWidgetClass "{5E18E2288A4DBDAD}" {
+       Name "Panel3"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Column 2
+       }
+      }
+      PanelWidgetClass "{5E18E2288FACE93B}" {
+       Name "Panel4"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Column 3
+       }
+      }
+      PanelWidgetClass "{5E18E228B085A20C}" {
+       Name "Panel5"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Column 4
+       }
+      }
+      PanelWidgetClass "{5E18E228B41CE6C9}" {
+       Name "Panel6"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 1
+        Column 4
+       }
+      }
+      PanelWidgetClass "{5E18E228B9D53E6E}" {
+       Name "Panel7"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 1
+        Column 3
+       }
+      }
+      PanelWidgetClass "{5E18E228BDF33C32}" {
+       Name "Panel8"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 1
+        Column 2
+       }
+      }
+      PanelWidgetClass "{5E18E228BFE7F239}" {
+       Name "Panel9"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 1
+        Column 1
+       }
+      }
+      PanelWidgetClass "{5E18E228A16D60C6}" {
+       Name "Panel10"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 1
+       }
+      }
+      PanelWidgetClass "{5E18E228A30043AE}" {
+       Name "Panel11"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 3
+       }
+      }
+      PanelWidgetClass "{5E18E228A28974CF}" {
+       Name "Panel12"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 2
+        Column 1
+       }
+      }
+      PanelWidgetClass "{5E18E228A74D59F5}" {
+       Name "Panel13"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 2
+        Column 2
+       }
+      }
+      PanelWidgetClass "{5E18E228A6F02511}" {
+       Name "Panel14"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 2
+        Column 3
+       }
+      }
+      PanelWidgetClass "{5E18E228A85F7F87}" {
+       Name "Panel15"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 2
+        Column 4
+       }
+      }
+      PanelWidgetClass "{5E18E228AB96E8CB}" {
+       Name "Panel16"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 3
+        Column 4
+       }
+      }
+      PanelWidgetClass "{5E18E228AC2F7E9E}" {
+       Name "Panel17"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 3
+        Column 3
+       }
+      }
+      PanelWidgetClass "{5E18E228AE79F901}" {
+       Name "Panel18"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 3
+        Column 2
+       }
+      }
+      PanelWidgetClass "{5E18E22851DF915D}" {
+       Name "Panel19"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 3
+        Column 1
+       }
+      }
+      PanelWidgetClass "{5E18E22820B07CB0}" {
+       Name "Panel110"
+       Slot UniformGridWidgetSlot "{5E18E228994E5665}" {
+        Row 2
+       }
+      }
+     }
+    }
+    PanelWidgetClass "{5E18E22EA317C2C6}" {
+     Name "Panel0"
+     Slot FrameWidgetSlot "{5E18E22EA317C222}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -1920
+      OffsetRight 0
+      SizeY -1080
+      OffsetBottom 0
+      SizeToContent 1
+     }
+     style outline_4px
+    }
+    FrameWidgetClass "{5E18B86D70047CA8}" {
+     Name "Frame1"
+     Slot FrameWidgetSlot "{5E18B86D56AA8595}" {
+      Anchor 0 0 0 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 150
+      OffsetRight -150
+      SizeY 200
+      OffsetBottom 0
+      Alignment 0 0
+     }
+     {
+      UniformGridLayoutWidgetClass "{5E18B86EB973032D}" {
+       Name "UniformGridLayout0"
+       Slot FrameWidgetSlot "{5E18B86EB9730304}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 50
+        OffsetTop 50
+        SizeX -50
+        OffsetRight 0
+        SizeY 150
+        OffsetBottom 0
+       }
+       {
+        TextWidgetClass "{5E18B86EBE151262}" {
+         Name "UG_V_Fact_0"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+         }
+         Text "Faction0"
+        }
+        TextWidgetClass "{5E18B86EBE151256}" {
+         Name "UG_V_Fact_1"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Row 1
+         }
+         Text "Faction1"
+        }
+        TextWidgetClass "{5E18B86EBE1513BD}" {
+         Name "UG_V_Fact_2"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Row 2
+         }
+         Text "Faction2"
+        }
+        TextWidgetClass "{5E18B86EBE15139E}" {
+         Name "UG_V_Fact_3"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Row 3
+         }
+         Text "Faction3"
+        }
+       }
+      }
+     }
+    }
+    FrameWidgetClass "{5E18B86DAA5F68D2}" {
+     Name "Frame0"
+     Slot FrameWidgetSlot "{5E18B86D56AA8595}" {
+      Anchor 0 0 1 0
+      PositionX 860
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -1720
+      OffsetRight 0
+      SizeY 50
+      OffsetBottom -50
+      Alignment 0 0
+     }
+     {
+      UniformGridLayoutWidgetClass "{5E18B86D16A99ECB}" {
+       Name "UniformGridLayout0"
+       Slot FrameWidgetSlot "{5E18B86D16A99E23}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 150
+        PositionY 25
+        OffsetTop 0
+        SizeX -1920
+        OffsetRight 0
+        SizeY -50
+        OffsetBottom 0
+        Alignment 0 0
+        SizeToContent 1
+       }
+       {
+        TextWidgetClass "{5E18B86D05BB3287}" {
+         Name "UG_H_Goodwill"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+         }
+         Text "Goodwill"
+        }
+        TextWidgetClass "{5E18B86D33153D4C}" {
+         Name "UG_H_Fact_0"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Column 1
+         }
+         Text "Faction0"
+        }
+        TextWidgetClass "{5E18B86E9D9A37EF}" {
+         Name "UG_H_Fact_1"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Column 2
+         }
+         Text "Faction1"
+        }
+        TextWidgetClass "{5E18B86E8FAFD76C}" {
+         Name "UG_H_Fact_2"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Column 3
+         }
+         Text "Faction2"
+        }
+        TextWidgetClass "{5E18B86FC39840A0}" {
+         Name "UG_H_Fact_3"
+         Slot UniformGridWidgetSlot "{5E18B86D05BB32EB}" {
+          HorizontalAlign Center
+          VerticalAlign Center
+          Column 4
+         }
+         Text "Faction3"
+        }
+       }
+      }
+     }
+    }
+    FrameWidgetClass "{5E190061F386E8A5}" {
+     Name "Frame2"
+     Slot FrameWidgetSlot "{5E190061F386E893}" {
+      PositionX 10
+      OffsetLeft 10
+      PositionY 10
+      OffsetTop 10
+      SizeX 120
+      OffsetRight -130
+      SizeY 30
+      OffsetBottom -40
+     }
+     {
+      ButtonWidgetClass "{5E19006C66050520}" {
+       Name "TextButton"
+       Slot FrameWidgetSlot "{5E19006C66050503}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 50
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+        SizeToContent 1
+       }
+       Color 0.494 0.494 0.494 1
+       components {
+        ButtonActionComponent "{5E19006C15553148}" {
+        }
+       }
+       style Editor
+       Switch toggle
+      }
+      PanelWidgetClass "{5E19006192B1498A}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5E19006192B149E5}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 50
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+        SizeToContent 1
+       }
+       Color 1 0.785 0.286 1
+       style pixel_corners
+      }
+      TextWidgetClass "{5E190061A5E17071}" {
+       Name "Text0"
+       Slot FrameWidgetSlot "{5E190061A5E1704C}" {
+        Anchor 0 0 1 1
+        PositionX 10
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX -70
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+        Alignment 0 0
+        SizeToContent 1
+       }
+       Text "Toggle Numbers"
+       "Font Size" 15
+       "Min Font Size" 15
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+       FontProperties FontProperties "{5E19006160EDD5E3}" {
+        Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+        OutlineSize 3
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -222,12 +222,16 @@ SP_GameMode {
    coords -44.306 -9.377 17.714
    m_aPlayerLoadouts {
     SCR_FactionPlayerLoadout "{5DF31169115D154B}" : "{7C7C65FD583E6612}Configs/Loadouts/US/Loadout_US_Rifleman.conf" {
+     m_sLoadoutName "US"
+     m_sLoadoutResource "{284E735C6C70DAD2}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_BaseLoadout.et"
     }
     SCR_FactionPlayerLoadout "{5DF31169144C1DA0}" : "{5F9034642E99437D}Configs/Loadouts/USSR/Loadout_USSR_Rifleman.conf" {
+     m_sLoadoutName "USSR"
+     m_sLoadoutResource "{3ECA3A935BC069B9}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_BaseLoadout.et"
     }
     SCR_FactionPlayerLoadout "{5DF31169485F6FED}" {
      m_sLoadoutName "FIA Rifleman"
-     m_sLoadoutResource "{84B40583F4D1B7A3}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Rifleman.et"
+     m_sLoadoutResource "{3ECA3A935BC069B9}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_BaseLoadout.et"
      m_sLoadoutImage "{6601A3AE17EA976D}UI/Textures/EditorPreviews/Characters/INDFOR/FIA/Character_FIA_Rifleman.edds"
      m_sAffiliatedFaction "FIA"
     }

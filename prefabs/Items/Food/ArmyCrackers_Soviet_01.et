@@ -17,8 +17,8 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
      AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
      AnimationAttachments {
       AnimationAttachmentInfo "{5D34DC89A8FE3D85}" {
-       AnimGraph "{883777E45A6C4DA1}Assets/Items/Medicine/Workspaces/Gauze_01.agr"
-       AnimInstance "{79BD98038DD60F88}Assets/Items/Medicine/Workspaces/Gauze_01_player.asi"
+       AnimGraph "{7EBC7366EAA6B365}Assets/Items/Medicine/Workspaces/FoodEat_01.agr"
+       AnimInstance "{BD34F6DED909CD52}Assets/Items/Medicine/Workspaces/food_player.asi"
        BindingName "Gadget"
       }
      }
@@ -26,6 +26,15 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
     CustomAttributes {
      SCR_ItemOfInterestAttribute "{5D84D824DE0CAD76}" {
       m_InterestType FOOD
+     }
+     ItemActionAnimAttributes "{5E18850B888A68AF}" {
+      AnimationGraphTemplate "{DFFC0A34A77ADCB4}anims/workspaces/player/player_main.agr"
+      ActionAnimationCommandName "CMD_HealSelf"
+     }
+     CharacterModifierAttributes "{5E18850BB13FCD5C}" {
+      SpeedLimit 4
+      ADSSpeedLimit 4
+      SpeedLimitHighready 4
      }
     }
     CommonItemType "FOOD"

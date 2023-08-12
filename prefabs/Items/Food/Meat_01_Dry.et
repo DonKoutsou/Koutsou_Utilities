@@ -16,10 +16,25 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
      AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
      AnimationAttachments {
       AnimationAttachmentInfo "{5D87077187D7449E}" {
-       AnimGraph "{883777E45A6C4DA1}Assets/Items/Medicine/Workspaces/Gauze_01.agr"
-       AnimInstance "{79BD98038DD60F88}Assets/Items/Medicine/Workspaces/Gauze_01_player.asi"
+       AnimGraph "{7EBC7366EAA6B365}Assets/Items/Medicine/Workspaces/FoodEat_01.agr"
+       AnimInstance "{BD34F6DED909CD52}Assets/Items/Medicine/Workspaces/food_player.asi"
        BindingName "Gadget"
       }
+     }
+    }
+    CustomAttributes {
+     SCR_ItemOfInterestAttribute "{5E18850BF70ACFFF}" {
+      m_InterestType FOOD
+     }
+     CharacterModifierAttributes "{5E18850BFBDACE51}" {
+      SpeedLimit 4
+      ADSSpeedLimit 4
+      SpeedLimitHighready 4
+     }
+     ItemActionAnimAttributes "{5E18850BE2BA20C7}" {
+      AnimationGraphTemplate "{DFFC0A34A77ADCB4}anims/workspaces/player/player_main.agr"
+      ActionAnimationCommandName "CMD_HealSelf"
+      AllowMovementDuringAction 1
      }
     }
     m_SlotType SLOT_VEST
@@ -45,8 +60,6 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
    m_fUseAmount 10
   }
   SP_UnretrievableComponent "{5D870771FE9BFCE6}" {
-  }
-  ActionsManagerComponent "{508AB5952B584B2E}" {
   }
  }
 }

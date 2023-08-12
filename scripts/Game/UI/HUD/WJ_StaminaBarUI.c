@@ -7,7 +7,8 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 	private ProgressBarWidget m_wTemp = null;
 	private SCR_CharacterControllerComponent m_cCharacterController = null;
 	private SP_CharacterStatsComponent CharStats = null;
-
+	private int maxtemp;
+	private int mintemp;
 	void OnStaminaChange(float value)
 	{
 		if (!m_wStaminaBar)
@@ -43,31 +44,38 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		float whateva;
 		float r = 0;
 		float b = 0;
+		float g = 0;
 		if (!m_wTemp)
 		{
 			m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wTemp"));
 			if (!m_wTemp) return;
 		};
-		float temp = Math.InverseLerp(29, 42, value);
-		r = 1 * temp;
-		b = 1-1 * temp;
-		//if(value > 36.6)
-		//{
-		//	whateva = value - 36.6;
-		//	r = 1 * temp;
-		//	Color mycolor = m_wTemp.GetColor();
-		//	m_wTemp.SetColor(mycolor);
-		//}
-		//if(value < 36.6)
-		//{
-		//	whateva = value - 36.6;
-		//	b = 1 * temp;
-		//	Color mycolor = Color(r, 0, b, 1);
-		//	m_wTemp.SetColor(mycolor);
-		//}
-		Color mycolor = Color(r, 0, b, 1);
+		float temp = Math.InverseLerp(mintemp, maxtemp, value);
+		
+		if (temp <= 0.5) 
+		{
+			if (temp < 0)
+			{
+				r = 0;
+				g = 0;
+				b = 1;
+			}
+			else
+			{
+				r = temp * 2.0;
+		    g = temp * 2.0;
+		    b = 1 - temp / 2;
+			}
+		} 
+		else 
+		{
+		    r = 1;
+		    g = 1.0 - (temp - 0.5) * 2.0;
+		    b = 0;
+		}
+		Color mycolor = new Color(r, g, b, 1);
 		m_wTemp.SetColor(mycolor);
-		string val = value.ToString().Substring(0, 4);
+		string val = value.ToString();
 		string tempnumber = val + "C";
 		m_sTempnumber.SetText(tempnumber);
 		m_wTemp.SetCurrent(value);
@@ -90,6 +98,8 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		if (m_cCharacterController) Print("Found character controllerc omponent");
 		CharStats = SP_CharacterStatsComponent.Cast(player.FindComponent(SP_CharacterStatsComponent));
 		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
+		maxtemp = CharStats.m_fMaxTemperature;
+		mintemp = CharStats.m_fUnconsciousTemperature;
 		if (!cont)
 			return;
 		cont.m_OnControlledEntityChanged.Insert(UpdateChar);

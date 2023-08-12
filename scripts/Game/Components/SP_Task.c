@@ -241,7 +241,6 @@ class SP_Task
 			
 			string curr = FilePath.StripPath(m_Reward);
 			curr.ToLower();
-			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
 		}
 		return false;

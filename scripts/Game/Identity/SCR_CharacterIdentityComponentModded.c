@@ -1,9 +1,4 @@
-[ComponentEditorProps(category: "GameScripted/Identity", description: "")]
-class SCR_CharacterIdentityComponentClass : CharacterIdentityComponentClass
-{
-};
-
-class SCR_CharacterIdentityComponent : CharacterIdentityComponent
+modded class SCR_CharacterIdentityComponent
 {		
 	[Attribute("#AR-Idenity_Name_Format_Full")]
 	protected LocalizedString m_IdentityFormatFull;
@@ -11,8 +6,20 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 	[Attribute("#AR-Idenity_Name_Format_NoAlias")]
 	protected LocalizedString m_IdentityFormatNoAlias;
 	
-	protected int m_iCharacterRep = Math.RandomInt(20, 100);
+	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
+	protected SP_DialogueArchetype m_DialogueArchetype;
 	
+	protected int m_iCharacterRep = Math.RandomInt(10, 100);
+	
+	SP_DialogueArchetype GetArchetype()
+		return m_DialogueArchetype;
+	
+	bool HasArchetype()
+	{
+		if (m_DialogueArchetype)
+			return true;
+		return false;
+	}
 	/*!
 	Get full name with formatting. Alias might be empty but it is handeled in formatting
 	\param[out] format Either includes or leaves out Alias
@@ -34,7 +41,7 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 			return;
 		FactionAffiliationComponent FactionComp = FactionAffiliationComponent.Cast(madude.FindComponent(FactionAffiliationComponent));
 		m_iCharacterRep = m_iCharacterRep + amount;
-		if(m_iCharacterRep <= 0)
+		/*if(m_iCharacterRep <= 0)
 		{
 			FactionComp.SetAffiliatedFactionByKey("RENEGADE");
 			if (EntityUtils.IsPlayer(madude))
@@ -42,7 +49,7 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 				SCR_HintManagerComponent.GetInstance().ShowCustom(Cause + " " + "Your reputation has fallen to much and your faction has expeled you. You'll be treated as renegade from now on");
 			}
 		}
-		else if (amount < 0)
+		if (amount < 0)
 		{
 			if (EntityUtils.IsPlayer(madude))
 			{
@@ -55,9 +62,9 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 			{
 				SCR_HintManagerComponent.GetInstance().ShowCustom(Cause + " " + "Your reputation is improved.");
 			}
-		}
+		}*/
 	}
-	void GetFormattedFullName(out string format, out string name, out string alias, out string surname)
+	override void GetFormattedFullName(out string format, out string name, out string alias, out string surname)
 	{
 		name = GetIdentity().GetName();
 		alias = GetIdentity().GetAlias();
@@ -74,7 +81,7 @@ class SCR_CharacterIdentityComponent : CharacterIdentityComponent
 	\param[out] format Either includes or leaves out Alias
 	\param[out] names Will have an entry for name, alias and surname. Alias can be an empty string
 	*/
-	void GetFormattedFullName(out string format, out notnull array<string> names)
+	override void GetFormattedFullName(out string format, out notnull array<string> names)
 	{		
 		names.Clear();
 		

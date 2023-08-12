@@ -467,7 +467,7 @@ class SP_AIDirector : SCR_AIGroup
 	}*/
 	void Init()
 	{
-		if(!GetGame().GetWorldEntity())
+		if(!GetGame().GetWorld())
 		{
 			return;
 		}

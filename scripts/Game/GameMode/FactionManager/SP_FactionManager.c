@@ -3,15 +3,26 @@ class SP_FactionManagerClass : SCR_FactionManagerClass
 };
 class SP_FactionManager : SCR_FactionManager
 {
-	[Attribute("5", desc: "applies input value as negative, if value is 5 it will apply a -5 penalty")]
-	int m_FactionFriendlyKillRepPenalty;
+	[Attribute("250", desc: "Penalty to relation of 2 factions when killing friendly character. applies input value as negative, if value is 5 it will apply a -5 penalty")]
+	int m_FactionFriendlyKillRelationPenalty;
 	
-	[Attribute("20", desc: "applies input value as negative, if value is 5 it will apply a -5 penalty")]
+	[Attribute("250", desc: "Penalty to goodwill of player when killing friendly character. applies input value as negative, if value is 5 it will apply a -5 penalty")]
+	int m_FactionFriendlyKillGoodwillPenalty;
+	
+	[Attribute("50", desc: "Relation improvement when a faciton kills an enemy of another faction")]
+	int m_FactionFriendlyKillRelationImprovement;
+	
+	[Attribute("50", desc: "Goodwill improvement when a player kills an enemy of another faction")]
+	int m_FactionFriendlyKillGoodwillImprovement;
+	
+	[Attribute("5", desc: "Penalty to characters reputation when killing friendly, applies input value as negative, if value is 5 it will apply a -5 penalty")]
 	int m_CharacterFriendlyKillRepPenalty;
 	
-	[Attribute("5")]
-	int m_FactionTaskCompleteRepBonus;
+	[Attribute("15", desc: "Bonus to goodwill of player when completing task.")]
+	int m_TaskCompleteGoodwillBonus;
 	
+	[Attribute("15", desc: "Bonus to relation of 2 factions when task of friendly faction is completed.")]
+	int m_TaskCompleteFactionRelationBonus;
 	
 	private SP_GameMode m_GameMode;
 
@@ -19,9 +30,9 @@ class SP_FactionManager : SCR_FactionManager
 	{
 		int relation1 = Faction1.GetFactionRep(Faction2);
 		int relation2 = Faction2.GetFactionRep(Faction1);
-		if (relation1 > -50 && relation2 > -50)
+		if (relation1 > -500 && relation2 > -500)
 		{
-			if (relation1 > 50 && relation2 > 50)
+			if (relation1 > 500 && relation2 > 500)
 			{
 				return EFactionRelationState.FRIENDLY;
 			}
@@ -29,6 +40,8 @@ class SP_FactionManager : SCR_FactionManager
 		}
 		return EFactionRelationState.ENEMY;
 	};
+	//Handles death and checks if penalties need to be applied to reputations and faction relations.
+	//If there was kill of friendly faction takes away goodwill and reputation of killer, and degrades relation of 2 factions
 	void HandleDeath(IEntity Victim, IEntity Killer)
 	{
 		if(!Killer)
@@ -40,26 +53,74 @@ class SP_FactionManager : SCR_FactionManager
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Killer.FindComponent(SCR_CharacterIdentityComponent));
 		if(instigator == Afflicted)
 		{
-			
+			instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty);
 			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer, "You killed a unit of you own faction.");
 			return;
 		}
-		if(instigator.IsFactionFriendly(Afflicted))
+		else if(Afflicted.IsFactionFriendly(instigator))
 		{
 			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer,string.Format("You caused issues between %1 and %2 forces.", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
-			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRepPenalty);
+			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty);
+			instigator.AdjustRelation(Afflicted, -m_FactionFriendlyKillRelationPenalty);
+			Afflicted.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty);
+			//instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty);
 			array <Faction> friendlyfacts = new array <Faction>();
 			Afflicted.GetFriendlyFactions2(friendlyfacts);
 			foreach(Faction frfact : friendlyfacts)
 			{
+				if (frfact == instigator || frfact == Afflicted)
+					continue;
 				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
-				scrfact.AdjustRelation(instigator, m_FactionTaskCompleteRepBonus/2);
+				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2);
+				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2);
+				scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2);
 			}
-			return;
+			array <Faction> enemyfacts = new array <Faction>();
+			Afflicted.GetEnemyFactions(enemyfacts);
+			foreach(Faction enfact : enemyfacts)
+			{
+				if (enfact.GetFactionKey() == "RENEGADE")
+					continue;
+				if (enfact == instigator || enfact == Afflicted)
+					continue;
+				SCR_Faction scrfact = SCR_Faction.Cast(enfact);
+				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement);
+				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement);
+				scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement);
+			}
 		}
+		else if(Afflicted.IsFactionEnemy(instigator))
+		{
+			array <Faction> friendlyfacts = new array <Faction>();
+			Afflicted.GetFriendlyFactions2(friendlyfacts);
+			foreach(Faction frfact : friendlyfacts)
+			{
+				if (frfact == instigator || frfact == Afflicted)
+					continue;
+				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
+				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2);
+				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2);
+				scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2);
+			}
+			array <Faction> enemyfacts = new array <Faction>();
+			Afflicted.GetEnemyFactions(enemyfacts);
+			foreach(Faction enfact : enemyfacts)
+			{
+				if (enfact.GetFactionKey() == "RENEGADE")
+					continue;
+				if (enfact == instigator || enfact == Afflicted)
+					continue;
+				SCR_Faction scrfact = SCR_Faction.Cast(enfact);
+				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement);
+				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement);
+				scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement);
+			}
+		};
 		
+		return;
 	}
-
+	//Handles task completion and checks if penalties need to be applied to reputations and faction relations.
+	//If completed tasks of friendly faction gives you goodwill for them and increases the relations of the 2 factions.
 	void OnTaskCompleted(SP_Task task, IEntity Assignee)
 	{
 		IEntity TaskOwner = task.GetOwner();
@@ -77,16 +138,27 @@ class SP_FactionManager : SCR_FactionManager
 		SCR_CharacterIdentityComponent Charid = SCR_CharacterIdentityComponent.Cast(TaskOwner.FindComponent(SCR_CharacterIdentityComponent));
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Assignee.FindComponent(SCR_CharacterIdentityComponent));
 		if (instigatorFaction == OwnerFaction)
-			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1.", diag.GetCharacterName(TaskOwner)));
-		else
-			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1. The %2 forces will remember that. Your factions relations have improved", diag.GetCharacterName(TaskOwner), OwnerFaction.GetFactionKey()));
-		OwnerFaction.AdjustRelation(instigatorFaction, m_FactionTaskCompleteRepBonus);
-		array <Faction> friendlyfacts = new array <Faction>();
-		OwnerFaction.GetFriendlyFactions2(friendlyfacts);
-		foreach(Faction frfact : friendlyfacts)
 		{
-			SCR_Faction scrfact = SCR_Faction.Cast(frfact);
-			scrfact.AdjustRelation(instigatorFaction, m_FactionTaskCompleteRepBonus/2);
+			OwnerFaction.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus);
+			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1.", diag.GetCharacterName(TaskOwner)));
+		}
+		else
+		{
+			OwnerFaction.AdjustRelation(instigatorFaction, m_TaskCompleteFactionRelationBonus);
+			instigatorFaction.AdjustRelation(OwnerFaction, m_TaskCompleteFactionRelationBonus);
+			OwnerFaction.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus);
+			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1. The %2 forces will remember that. Your factions relations have improved", diag.GetCharacterName(TaskOwner), OwnerFaction.GetFactionKey()));
+			array <Faction> friendlyfacts = new array <Faction>();
+			OwnerFaction.GetFriendlyFactions2(friendlyfacts);
+			foreach(Faction frfact : friendlyfacts)
+			{
+				if (frfact == instigatorFaction || frfact == OwnerFaction)
+						continue;
+				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
+				scrfact.AdjustRelation(instigatorFaction, m_TaskCompleteFactionRelationBonus/2);
+				instigatorFaction.AdjustRelation(scrfact, m_TaskCompleteFactionRelationBonus/2);
+				scrfact.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus/2);
+			}
 		}
 	};
 
@@ -145,6 +217,32 @@ class SP_FactionManager : SCR_FactionManager
 		{
 			if (fact.IsFactionFriendly(faction))
 				friends.Insert(faction);
+		}
+			
+	
+	}
+	void SetUpPlayerGoodwill(IEntity Player)
+	{
+		array <Faction> factions = new array <Faction>();
+		GetFactionsList(factions);
+		FactionAffiliationComponent fact = FactionAffiliationComponent.Cast(Player.FindComponent(FactionAffiliationComponent));
+		SCR_Faction myfaction = SCR_Faction.Cast(fact.GetAffiliatedFaction());
+		foreach (Faction faction : factions)
+		{
+			SCR_Faction scrfact = SCR_Faction.Cast(faction);
+			if (scrfact == myfaction)
+			{
+				scrfact.SetPlayerGoodwill(1000);
+			}
+			else if (scrfact.IsFactionFriendly(myfaction))
+			{
+				scrfact.SetPlayerGoodwill(500);
+			}
+			else if (scrfact.IsFactionEnemy(myfaction))
+			{
+				scrfact.SetPlayerGoodwill(-500);
+			}
+			
 		}
 			
 	

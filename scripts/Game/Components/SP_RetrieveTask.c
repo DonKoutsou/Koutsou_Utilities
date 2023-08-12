@@ -427,8 +427,6 @@ class SP_RetrieveTask: SP_Task
 				string itemstring = FilePath.StripPath(stringarray.GetKey(j));
 				rewardstring = rewardstring + stringarray.Get(stringarray.GetKey(j)) + " " + itemstring.Substring(0, itemstring.Length() - 3) + ", ";
 			}
-				
-			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 added to your inventory, and your reputation has improved", rewardstring));
 			return true;
 		}
 		return false;

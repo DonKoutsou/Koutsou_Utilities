@@ -274,7 +274,7 @@ FrameWidgetClass {
         Alignment 0.5 1
        }
        Opacity 0.5
-       Color 0.42 0.623 1 1
+       Color 0.44 0.641 1 1
        style magazine_small
        Current 100
        Vertical 1
@@ -346,28 +346,6 @@ FrameWidgetClass {
       SizeToContent 1
      }
      {
-      TextWidgetClass "{5D82A413A9DA2AB8}" {
-       Name "m_sTempnumber"
-       Slot FrameWidgetSlot "{5D82A413A9DA2AA3}" {
-        Anchor 0.5 0 0.5 0
-        PositionX 0
-        OffsetLeft 0
-        PositionY 20
-        OffsetTop 20
-        SizeX 10
-        OffsetRight -10
-        SizeY 120
-        OffsetBottom -140
-        Alignment 0.5 0
-        SizeToContent 1
-       }
-       Pivot 0 0
-       Text "36,6 C"
-       "Font Size" 8
-       "Min Font Size" 8
-       "Horizontal Alignment" Center
-       "Vertical Alignment" Center
-      }
       ProgressBarWidgetClass "{5D82A412743DA7BB}" {
        Name "m_wTemp"
        Slot FrameWidgetSlot "{5D82A412743DA7AF}" {
@@ -385,7 +363,7 @@ FrameWidgetClass {
        Opacity 0.5
        style magazine_small
        Minimum 29
-       Maximum 40
+       Maximum 42
        Current 36.6
        Vertical 1
        Flipped 1
@@ -426,6 +404,28 @@ FrameWidgetClass {
         Alignment 0.5 1
        }
        style pixel_frame
+      }
+      TextWidgetClass "{5D82A413A9DA2AB8}" {
+       Name "m_sTempnumber"
+       Slot FrameWidgetSlot "{5D82A413A9DA2AA3}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 20
+        OffsetTop 20
+        SizeX 10
+        OffsetRight -10
+        SizeY 120
+        OffsetBottom -140
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Pivot 0 0
+       Text "36,6 C"
+       "Font Size" 8
+       "Min Font Size" 8
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
       }
      }
     }
