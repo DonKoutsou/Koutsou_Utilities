@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CBC9262CB0175391}Configs/ShopCategories/Shop_Merch/Trade_USSR_Suspenders.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C2F46681777BA09F}Configs/ShopCategories/Shop_Merch/Medicals/Trade_Morphine.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

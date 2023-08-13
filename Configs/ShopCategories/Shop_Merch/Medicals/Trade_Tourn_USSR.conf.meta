@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{EC69353F41EB9106}Configs/ShopCategories/Shop_Merch/Medicals/Trade_Tourn_USSR.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

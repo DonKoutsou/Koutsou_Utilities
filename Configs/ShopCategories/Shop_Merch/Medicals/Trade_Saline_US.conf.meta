@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F39CBC19E5E03580}Configs/ShopCategories/Shop_Merch/Medicals/Trade_Saline_US.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

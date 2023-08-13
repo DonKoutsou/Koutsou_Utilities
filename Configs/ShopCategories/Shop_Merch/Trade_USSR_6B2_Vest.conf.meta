@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D31A5B2B7841AC17}Configs/ShopCategories/Shop_Merch/Trade_USSR_6B2_Vest.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

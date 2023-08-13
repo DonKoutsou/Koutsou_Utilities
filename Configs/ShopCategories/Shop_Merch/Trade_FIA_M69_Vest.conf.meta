@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CCAF5EBB7AE0406E}Configs/ShopCategories/Shop_Merch/Trade_FIA_M69_Vest.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

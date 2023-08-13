@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A65D15652D497203}Configs/ShopCategories/Shop_Merch/Trade_Type56_Vest.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -4,7 +4,7 @@ SCR_ChimeraCharacter {
   ADM_ShopComponent "{5DECA2570456E9D3}" {
    m_ShopConfig "{338F686DC39801BC}Configs/Shops/Generic_Trade.conf"
    m_Categories {
-    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
+    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf" "{60AB8A8EF6031556}Configs/ShopCategories/Weapon_Atatchments.conf"
    }
   }
   SCR_CharacterStaminaComponent "{520EA1D2F659C824}" {

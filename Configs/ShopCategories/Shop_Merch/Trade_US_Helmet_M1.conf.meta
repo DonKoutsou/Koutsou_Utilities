@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{37761978ED532B12}Configs/ShopCategories/Shop_Merch/Trade_USSR_Helmet_M1.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

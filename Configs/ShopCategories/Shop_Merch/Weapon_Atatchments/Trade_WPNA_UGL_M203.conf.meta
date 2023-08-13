@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{116471AD1DD0B456}Configs/ShopCategories/Shop_Merch/Weapon_Atatchments/Trade_WPNA_UGL_M203.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}
