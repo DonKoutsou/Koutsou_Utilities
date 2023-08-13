@@ -22,6 +22,7 @@ class SP_SleepAction : ScriptedUserAction
 		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
 		statComponent.SetNewHunger(statComponent.GetHunger() - 3.6 * m_Sleepamount);
 		statComponent.SetNewThirst(statComponent.GetThirst() - 7.2 * m_Sleepamount);
+		statComponent.SetNewEnergy(statComponent.GetEnergy() + 10 *  m_Sleepamount);
 	}
 	event override bool CanBePerformedScript(IEntity user) 
 	{

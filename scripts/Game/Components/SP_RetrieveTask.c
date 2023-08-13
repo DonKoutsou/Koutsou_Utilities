@@ -63,7 +63,7 @@ class SP_RetrieveTask: SP_Task
 	{
 		if (e_RewardLabel && m_requestitemtype && m_requestitemmode)
 			return true;
-		int index = Math.RandomInt(0, 11);
+		int index = Math.RandomInt(0, 12);
 		if (index == 0)
 			{
 				m_requestitemtype = SCR_EArsenalItemType.HEAL;
@@ -192,6 +192,14 @@ class SP_RetrieveTask: SP_Task
 				m_requestitemtype = SCR_EArsenalItemType.ARMOR;
 				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
+				return true;
+			}
+		if (index == 11)
+			{
+				m_requestitemtype = SCR_EArsenalItemType.SLEEPINGPILLS;
+				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
+				m_iRequestedAmount = 1;
+				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		return false;
@@ -403,6 +411,7 @@ class SP_RetrieveTask: SP_Task
 			for (int j = 0; j < stringarray.Count(); j++)
 			{
 				string itemstring = FilePath.StripPath(stringarray.GetKey(j));
+				itemstring.ToLower();
 				rewardstring = rewardstring + stringarray.Get(stringarray.GetKey(j)) + " " + itemstring.Substring(0, itemstring.Length() - 3) + ", ";
 			}
 			return true;
@@ -461,5 +470,6 @@ class SP_RequestPredicate : InventorySearchPredicate
 modded enum EEditableEntityLabel
 {
 	ITEMTYPE_CURRENCY = 85,
-	ITEMTYPE_STASH = 86
+	ITEMTYPE_STASH = 86,
+	ITEMTYPE_SLEEPINGPILLS = 87,
 }

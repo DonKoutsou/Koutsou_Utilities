@@ -1,8 +1,9 @@
-class WJ_StaminaBarUI: SCR_InfoDisplay
+class SP_StaminaBarUI: SCR_InfoDisplay
 {
 	private ProgressBarWidget m_wStaminaBar = null;
 	private ProgressBarWidget m_wHungerBar = null;
 	private ProgressBarWidget m_wThirstBar = null;
+	private ProgressBarWidget m_wEnergyBar = null;
 	private TextWidget m_sTempnumber = null;
 	private ProgressBarWidget m_wTemp = null;
 	private SCR_CharacterControllerComponent m_cCharacterController = null;
@@ -38,6 +39,27 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		};
 		
 		m_wThirstBar.SetCurrent(value);
+	}
+	void OnEnergyChange(float value)
+	{
+		if (!m_wEnergyBar)
+		{
+			m_wEnergyBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
+			if (!m_wEnergyBar) return;
+		};
+		Widget m_wEnergyDown = m_wRoot.FindAnyWidget("m_wEnergyDown");
+			Widget m_wEnergyUp = m_wRoot.FindAnyWidget("m_wEnergyUp");
+		if (value > m_wEnergyBar.GetCurrent())
+		{
+			m_wEnergyDown.SetOpacity(0);
+			m_wEnergyUp.SetOpacity(100);
+		}
+		if (value < m_wEnergyBar.GetCurrent())
+		{
+			m_wEnergyDown.SetOpacity(100);
+			m_wEnergyUp.SetOpacity(0);
+		}
+		m_wEnergyBar.SetCurrent(value);
 	}
 	void OnTempChange(float value)
 	{
@@ -88,6 +110,7 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wStaminaBar"));
 		m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wHungerBar"));
 		m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
+		m_wEnergyBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wEnergyBar"));
 		m_sTempnumber = TextWidget.Cast(m_wRoot.FindAnyWidget("m_sTempnumber"));
 		IEntity player = GetGame().GetPlayerController();
 		if (!player) {
@@ -137,6 +160,6 @@ class WJ_StaminaBarUI: SCR_InfoDisplay
 		OnHungerChange(CharStats.GetHunger());
 		OnThirstChange(CharStats.GetThirst());
 		OnTempChange(CharStats.GetCurrentTemp());
-		
+		OnEnergyChange(CharStats.GetEnergy());
 	}
 }

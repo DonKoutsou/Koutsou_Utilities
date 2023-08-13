@@ -1,0 +1,50 @@
+GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
+ ID "3472273B5965FE24"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "Sleeping Pills"
+     Description "Causes tirdness to grow."
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 0.01
+     SizeSetupStrategy Manual
+     ItemVolume 50
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5E1A8638CC1DD130}" {
+     AnimationInstance "{AF06D3F738A50403}anims/workspaces/player/player_main_heavy.asi"
+     AnimationIKPose "{3E5C93E85F05C6B5}Assets/Weapons/Grenades/RGD5/anims/anm/p_rgd5_ik.anm"
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5E1A8638F6128E45}" {
+       AnimGraph "{7EBC7366EAA6B365}Assets/Items/Medicine/Workspaces/FoodEat_01.agr"
+       AnimInstance "{BD34F6DED909CD52}Assets/Items/Medicine/Workspaces/food_player.asi"
+       BindingName "Gadget"
+      }
+     }
+    }
+    CustomAttributes {
+     ItemActionAnimAttributes "{5E1A8638E7EC25B1}" {
+      AnimationGraphTemplate "{DFFC0A34A77ADCB4}anims/workspaces/player/player_main.agr"
+      ActionAnimationCommandName "CMD_HealSelf"
+      AllowMovementDuringAction 1
+     }
+     CharacterModifierAttributes "{5E1A86389323229C}" {
+     }
+    }
+    m_SlotType SLOT_VEST
+   }
+  }
+  Hierarchy "{5E1A8627F969DF31}" {
+  }
+  SCR_ConsumableItemComponent "{5E1A86388172BD87}" {
+   m_eAnimVariable ADRIANOV
+   m_ConsumableEffect SP_ConsumableEffectPills "{5E1A8627CDADB687}" {
+    m_bDeleteOnUse 0
+   }
+   m_bIsEatable 1
+   m_fInitContainerCapacity 200
+   m_fUseAmount 10
+  }
+ }
+}

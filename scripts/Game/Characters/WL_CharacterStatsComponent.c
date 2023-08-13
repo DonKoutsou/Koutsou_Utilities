@@ -53,6 +53,25 @@ class SP_ConsumableEffectEat : SCR_ConsumableEffectHealthItems
 		statComponent.Eat(item);
 	}
 }
+[BaseContainerProps()]
+class SP_ConsumableEffectPills : SCR_ConsumableEffectHealthItems
+{
+	override bool CanApplyEffect(notnull IEntity target, notnull IEntity user, out SCR_EConsumableFailReason failReason = SCR_EConsumableFailReason.NONE)
+	{
+		return true;
+	}
+	
+	override void ApplyEffect(notnull IEntity target, notnull IEntity user, IEntity item, SCR_ConsumableEffectAnimationParameters animParams)
+	{
+		super.ApplyEffect(target, user, item, animParams);
+		PlayerController playerController = GetGame().GetPlayerController();
+		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
+		if (!statComponent)
+			return;
+		
+		statComponent.TireDown(item);
+	}
+}
 
 [BaseContainerProps()]
 class SP_CharacterHasDrinkableItemEquippedCondition : SCR_AvailableActionCondition
@@ -104,6 +123,9 @@ class SP_CharacterStatsComponentClass : ScriptComponentClass
 	[Attribute("0.02", params: "0.0 inf", desc: "How much thirst should changed per second", category: "Thirst")]
 	float m_fThirstChangedPerSecond;
 	
+	[Attribute("0.02", params: "0.0 inf", desc: "How much thirst should changed per second", category: "Energy")]
+	float m_fEnergyChangedPerSecond;
+	
 	[Attribute("5", params: "0.0 inf", desc: "Time between each tick of stats on server [s]")]
 	float m_fTimeBetweenEachTick;
 };
@@ -114,6 +136,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 	protected float m_fHunger = 100.0;
 	[RplProp(onRplName: "OnThirstChanged", condition: RplCondition.OwnerOnly)]
 	protected float m_fThirst = 100.0;
+	[RplProp(onRplName: "OnEnergyChanged", condition: RplCondition.OwnerOnly)]
+	protected float m_fEnergy = 100.0;
+	
 	
 	float MAX_CLOTHES_FACTOR = 1.0;
 	float FIREPLACE_RANGE = 3;
@@ -137,6 +162,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 	
 	[Attribute("29.0")]
 	float m_fDeathTemperature;
+	
+	[Attribute("20")]
+	float m_fUnconEnergy;
 	
 	// weather manager
 	TimeAndWeatherManagerEntity m_pWeather;
@@ -180,6 +208,23 @@ class SP_CharacterStatsComponent : ScriptComponent
 		else if (m_fTemperature >= m_fMaxTemperature)
 		{
 			m_pDamage.Kill();
+		}
+	}
+	void CheckEnergy()
+	{
+		if (!m_pChar.GetCharacterController().IsUnconscious())
+		{
+			if (m_fEnergy < m_fUnconEnergy)
+			{
+				m_pChar.GetCharacterController().SetUnconscious(true);
+			}
+		}
+		else
+		{
+			if (m_fEnergy > m_fUnconEnergy + 1)
+			{
+				m_pChar.GetCharacterController().SetUnconscious(false);
+			}
 		}
 	}
 	
@@ -270,6 +315,10 @@ class SP_CharacterStatsComponent : ScriptComponent
 	{
 		return m_fThirst;
 	}
+	float GetEnergy()
+	{
+		return m_fEnergy;
+	}
 	//! Only on authoritative machine
 	void SetNewHunger(float newHunger)
 	{
@@ -291,6 +340,15 @@ class SP_CharacterStatsComponent : ScriptComponent
 		
 		Replication.BumpMe();
 	}
+	void SetNewEnergy(float newEnergy)
+	{
+		m_fEnergy = Math.Clamp(newEnergy, 0.0, 100.0);
+		
+		if (!System.IsConsoleApp())
+			OnEnergyChanged();
+		
+		Replication.BumpMe();
+	}
 	
 	protected void OnHungerChanged()
 	{
@@ -302,6 +360,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 	{
 		if (m_pEventHandlerManager)
 			m_pEventHandlerManager.RaiseEvent("OnThirstChanged", 1, m_fThirst);
+	}
+	protected void OnEnergyChanged()
+	{
+		if (m_pEventHandlerManager)
+			m_pEventHandlerManager.RaiseEvent("OnEnergyChanged", 1, m_fEnergy);
 	}
 	protected void OnTempChange()
 	{
@@ -340,7 +403,28 @@ class SP_CharacterStatsComponent : ScriptComponent
 		if(consumable.HasUses() == false && consumable.GetConsumableEffect().GetDeleteOnUse() == true)
 			RplComponent.DeleteRplEntity(item, false);
 	}
-	
+	void TireDown(IEntity item)
+	{
+		SCR_ConsumableItemComponent consumable = SCR_ConsumableItemComponent.Cast(item.FindComponent(SCR_ConsumableItemComponent));
+		if(consumable.HasUses() == false)
+		{
+			return;
+		}
+		if (m_pRplComponent && m_pRplComponent.IsProxy())
+		{
+			InventoryItemComponent itemComponent = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
+			if (!itemComponent)
+				return;
+			
+			RplId itemComponentRplID = Replication.FindId(itemComponent);
+			Rpc(RpcAsk_TireDown, itemComponentRplID);
+			return;
+		}
+		SetNewEnergy(m_fEnergy + -consumable.GetUseAmount());
+		consumable.Use(consumable.GetUseAmount());
+		if(consumable.HasUses() == false && consumable.GetConsumableEffect().GetDeleteOnUse() == true)
+			RplComponent.DeleteRplEntity(item, false);
+	}
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	protected void RpcAsk_Eat(RplId itemRplID)
 	{
@@ -359,6 +443,25 @@ class SP_CharacterStatsComponent : ScriptComponent
 		SCR_ConsumableItemComponent consumable = SCR_ConsumableItemComponent.Cast(item.FindComponent(SCR_ConsumableItemComponent));
 		if (consumable && consumable.IsEatable())
 			Eat(item);
+	}
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	protected void RpcAsk_TireDown(RplId itemRplID)
+	{
+		if (!itemRplID.IsValid())
+			return;
+		
+		Managed rplItem = Replication.FindItem(itemRplID);
+		if (!rplItem)
+			return;
+		
+		InventoryItemComponent itemComp = InventoryItemComponent.Cast(rplItem);
+		if (!itemComp)
+			return;
+		
+		IEntity item = itemComp.GetOwner();
+		SCR_ConsumableItemComponent consumable = SCR_ConsumableItemComponent.Cast(item.FindComponent(SCR_ConsumableItemComponent));
+		if (consumable && consumable.IsEatable())
+			TireDown(item);
 	}
 	
 	//! Only on authoritative machine
@@ -392,6 +495,10 @@ class SP_CharacterStatsComponent : ScriptComponent
 		}
 		if(consumable.HasUses() == false && consumable.GetConsumableEffect().GetDeleteOnUse() == true)
 			RplComponent.DeleteRplEntity(item, false);
+	}
+	void Sleep(IEntity itemm, int amount)
+	{
+		SetNewEnergy(m_fEnergy + amount);
 	}
 	
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
@@ -502,12 +609,26 @@ class SP_CharacterStatsComponent : ScriptComponent
 			
 			// check temperature for crossing thresholds and effects
 			CheckTemperature();
+			CheckEnergy();
 			OnTempChange();
-			
-			float hungerloss = GetCharacterStatsPrefabData().m_fHungerChangedPerSecond + p_Drain/10;
-			float thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond + p_Drain/10;
+			OnEnergyChanged();
+			float hungerloss = GetCharacterStatsPrefabData().m_fHungerChangedPerSecond + p_Drain;
+			float thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond + p_Drain;
+			float energyloss = GetCharacterStatsPrefabData().m_fEnergyChangedPerSecond + p_Drain;
 			SetNewHunger(m_fHunger - hungerloss * timeBtwEachTick);
 			SetNewThirst(m_fThirst - thirstloss * timeBtwEachTick);
+			
+			
+			SCR_CharacterDamageManagerComponent dmgman = 	SCR_CharacterDamageManagerComponent.Cast(m_pChar.FindComponent(SCR_CharacterDamageManagerComponent));
+			if (dmgman)
+			{
+				if (!dmgman.GetIsUnconscious())
+					SetNewEnergy(m_fEnergy - energyloss * timeBtwEachTick);
+				else
+					SetNewEnergy(m_fEnergy + energyloss * timeBtwEachTick);
+			}
+			
+				
 			//Print("hunger drain =" + hungerloss);
 			//Print("thirst drain =" + thirstloss);
 			p_Drain = 0;
@@ -555,8 +676,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_pDamage = m_pChar.GetDamageManager();
 		//m_pLoadout = BaseLoadoutManagerComponent.Cast(m_pChar.FindComponent(BaseLoadoutManagerComponent));
 		m_pLoadout = EquipedLoadoutStorageComponent.Cast(m_pChar.FindComponent(EquipedLoadoutStorageComponent));
-		m_fHunger = 100;
-		m_fThirst = 100;
+		m_fHunger = Math.RandomInt(70, 100);
+		m_fThirst = Math.RandomInt(70, 100);
+		m_fEnergy = Math.RandomInt(70, 100);
 		m_fTemperature = 36.6;
 	}
 	void SetStaminDrain(float Drain)

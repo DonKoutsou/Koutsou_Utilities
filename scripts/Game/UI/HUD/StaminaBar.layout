@@ -23,8 +23,8 @@ FrameWidgetClass {
     OffsetLeft 5
     PositionY -5
     OffsetTop -5
-    SizeX 110
-    OffsetRight -115
+    SizeX 145
+    OffsetRight -150
     SizeY 135
     OffsetBottom -130
     Alignment 0 1
@@ -38,10 +38,10 @@ FrameWidgetClass {
       OffsetLeft 0
       PositionY 0
       OffsetTop 0
-      SizeX 100
-      OffsetRight -100
-      SizeY 30
-      OffsetBottom -30
+      SizeX 150
+      OffsetRight -150
+      SizeY 10
+      OffsetBottom -10
       Alignment 0.5 1
       SizeToContent 1
      }
@@ -55,8 +55,8 @@ FrameWidgetClass {
         OffsetLeft 0
         PositionY 0
         OffsetTop 0
-        SizeX 100
-        OffsetRight -100
+        SizeX 145
+        OffsetRight -145
         SizeY 10
         OffsetBottom -10
         Alignment 0.5 0
@@ -75,8 +75,8 @@ FrameWidgetClass {
         OffsetLeft 0
         PositionY 0
         OffsetTop 0
-        SizeX 100
-        OffsetRight -100
+        SizeX 145
+        OffsetRight -145
         SizeY 10
         OffsetBottom -10
         Alignment 0.5 0
@@ -426,6 +426,128 @@ FrameWidgetClass {
        "Min Font Size" 8
        "Horizontal Alignment" Center
        "Vertical Alignment" Center
+      }
+     }
+    }
+    FrameWidgetClass "{5E1A863E610E913C}" {
+     Name "Frame4"
+     Slot FrameWidgetSlot "{5E16C0231AE198BE}" {
+      Anchor 0 0 0 1
+      PositionX 110
+      OffsetLeft 110
+      PositionY 0
+      OffsetTop 0
+      SizeX 5
+      OffsetRight -115
+      SizeY -90
+      OffsetBottom 15
+      SizeToContent 1
+     }
+     {
+      PanelWidgetClass "{5E1A863E610E9103}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5E16C02394899EA2}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       style pixel_frame
+      }
+      ProgressBarWidgetClass "{5E1A863E610E9101}" {
+       Name "m_wEnergyBar"
+       Slot FrameWidgetSlot "{5D7D3108F65FD927}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 30
+        OffsetRight -30
+        SizeY 120
+        OffsetBottom -120
+        Alignment 0.5 1
+       }
+       Opacity 0.5
+       Color 0.561 0.376 0.749 1
+       style magazine_small
+       Current 100
+       Vertical 1
+       Flipped 1
+      }
+      ImageWidgetClass "{5E1A863E610E9100}" {
+       Name "Image0"
+       Slot FrameWidgetSlot "{5E16C02200685917}" {
+        Anchor 0.5 1 0.5 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY -5
+        OffsetTop -5
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -25
+        Alignment 0.5 1
+        SizeToContent 1
+       }
+       Color 1 0.95 0 1
+       Size 16 16
+       Filter 0
+       Mask "{DC8B5A39E360D88D}Assets/Icons/EnergyIcon.edds"
+       "Transition width" 0.823
+       Progress 0.345
+      }
+      ImageWidgetClass "{5E1A863E610E9107}" {
+       Name "m_wEnergyDown"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Opacity 0
+       Color 0.503 0.054 0.054 1
+       Rotation 90
+       Size 16 16
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.482
+      }
+      ImageWidgetClass "{5E1A863E610E9105}" {
+       Name "m_wEnergyUp"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Color 0.072 0.503 0.054 1
+       "Inherit Color" 1
+       Rotation -90
+       Size 16 16
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.482
       }
      }
     }

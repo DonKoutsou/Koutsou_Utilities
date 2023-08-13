@@ -428,6 +428,7 @@ modded enum SCR_EArsenalItemType
 	MAP = 270000,
 	CURRENCY = 280000,
 	ARMOR = 290000,
+	SLEEPINGPILLS = 300000,
 };
 //------------------------------------------------------------------------------------------------------------//
 modded enum SCR_EArsenalItemMode

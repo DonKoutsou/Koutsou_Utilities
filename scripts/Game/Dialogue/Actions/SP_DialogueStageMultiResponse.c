@@ -40,6 +40,9 @@ class DialogueStageMultiResponse : DialogueStage
 				{
 					foreach (SP_Task taskcheck : tasks)
 					{
+						SP_ChainedTask questlinetask = SP_ChainedTask.Cast(taskcheck);
+						if (questlinetask)
+							continue;
 						if(taskcheck.CharacterAssigned(Player) == false)
 						{
 								return true;
