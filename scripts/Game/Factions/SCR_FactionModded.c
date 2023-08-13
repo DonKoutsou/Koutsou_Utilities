@@ -1,16 +1,29 @@
 //------------------------------------------------------------------------------------------------
 modded class SCR_Faction
 {
+	//Relations map
 	protected ref map<Faction, int> m_FriendlyMap;
+	//Playergoodwill
 	protected int m_iPlayerGoodwill;
+	
+	//---------------------------------------------------------------------//
 	protected ref ScriptInvoker s_OnRelationLow = new ref ScriptInvoker();
 	protected ref ScriptInvoker s_OnRelationHigh = new ref ScriptInvoker();
-	
+	//---------------------------------------------------------------------//
+	ScriptInvoker OnRelationDropped()
+	{
+		return s_OnRelationLow;
+	}
+	ScriptInvoker OnRelationRaised()
+	{
+		return s_OnRelationHigh;
+	}
+	//Adjust relation
 	void AdjustRelation(Faction faction, int amount)
 	{
 		if(faction == this)
 			return;
-		if(m_FriendlyMap)
+		if(!m_FriendlyMap.IsEmpty())
 		{
 			int relation;
 			m_FriendlyMap.Find(faction, relation);
@@ -21,6 +34,7 @@ modded class SCR_Faction
 				s_OnRelationHigh.Invoke(faction, this);
 		}
 	}
+	//Set Relation
 	void AdjustRelationAbs(Faction faction, int amount)
 	{
 		if(faction == this)
@@ -36,14 +50,7 @@ modded class SCR_Faction
 				s_OnRelationHigh.Invoke(faction, this);
 		}
 	}
-	ScriptInvoker OnRelationDropped()
-	{
-		return s_OnRelationLow;
-	}
-	ScriptInvoker OnRelationRaised()
-	{
-		return s_OnRelationHigh;
-	}
+	
 	int GetFactionRep(Faction fact)
 	{
 		int rep;
@@ -53,6 +60,7 @@ modded class SCR_Faction
 		}
 		return rep;
 	}
+	//Fill warray with friendly factions
 	void GetFriendlyFactions2(out array<Faction> friendlyfactions)
 	{
 		friendlyfactions = new array<Faction>();
@@ -61,6 +69,7 @@ modded class SCR_Faction
 			friendlyfactions.Insert(fact);
 		}
 	}
+	//Fill array with enemy factions
 	void GetEnemyFactions(out array<Faction> enemyfactions)
 	{
 		SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
@@ -72,6 +81,7 @@ modded class SCR_Faction
 				enemyfactions.Insert(fact);
 		}
 	}
+	
 	override void Init(IEntity owner)
 	{
 		super.Init(owner);
