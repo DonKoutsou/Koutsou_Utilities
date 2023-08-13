@@ -181,7 +181,35 @@ class SP_CharacterStatsComponent : ScriptComponent
 	protected float p_Drain;
 	protected RplComponent m_pRplComponent;
 	protected EventHandlerManagerComponent m_pEventHandlerManager;
-	
+	bool MissingSomething(out int reasonindex)
+	{
+		if (GetCurrentTemp() < m_fHealthyTemperature - 5)
+		{
+			reasonindex = 0;
+			return true;
+		}
+		if (GetCurrentTemp() > m_fHealthyTemperature + 5)
+		{
+			reasonindex = 1;
+			return true;
+		}
+		if (GetHunger() < 20)
+		{
+			reasonindex = 2;
+			return true;
+		}
+		if (GetThirst() < 20)
+		{
+			reasonindex = 3;
+			return true;
+		}
+		if (GetEnergy() < 20)
+		{
+			reasonindex = 4;
+			return true;
+		}
+		return false;
+	}
 	//------------------------------------------------------------------------------------------------
 	SP_CharacterStatsComponentClass GetCharacterStatsPrefabData()
 	{
@@ -245,27 +273,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 	
 	    return minClothes + (maxClothes - minClothes) * (outsideTemp - minTemp) / (maxTemp - minTemp);
 	}
-
-	float CalculateFeelsLikeTemperature(float outsideTemperature, float windSpeed, float rain)
-	{
-	    // Wind chill formula for temperatures above 10 degrees Celsius
-	    //if (outsideTemperature > 10.0)
-	        //return outsideTemperature;
 	
-	    // Wind chill formula for temperatures below 10 degrees Celsius
-	    float windChillIndex = 13.12 + 0.6215 * outsideTemperature - 11.37 * Math.Pow(windSpeed, 0.16) + 0.3965 * outsideTemperature * Math.Pow(windSpeed, 0.16);
-	
-	    // Add an adjustment for rain
-	    windChillIndex = windChillIndex - 0.25 * rain * (windChillIndex - 10.0);
-	
-	    return windChillIndex;
-	}
-	float GetPlayerAltitude(IEntity Player)
-	{
-		vector pos = Player.GetOrigin();
-		float alt = pos[1];
-		return alt;
-	}
 
 	bool FindFireplace(IEntity ent)
 	{
@@ -572,29 +580,15 @@ class SP_CharacterStatsComponent : ScriptComponent
 			if (m_pDamage.IsDestroyed())
 			return;	
 		
-			float timeOfDay = m_pWeather.GetTimeOfTheDay();
-			float sunrise, sunset;
-			m_pWeather.GetSunriseHour(sunrise);
-			m_pWeather.GetSunsetHour(sunset);
 			
-			const float dayTemp = 18.0;
-			const float nightTemp = 10.0;		
 			
-			float outsideTemperature = dayTemp;
-			if (timeOfDay < sunrise || timeOfDay > sunset)
-				outsideTemperature = nightTemp;
-			
-			// todo: divide because of wind
-			outsideTemperature = CalculateFeelsLikeTemperature(outsideTemperature, m_pWeather.GetWindSpeed(), m_pWeather.GetRainIntensity());
-			//altitude
-			float alt = GetPlayerAltitude(m_pChar) * 0.0065;
 			
 			vector origin = m_pChar.GetOrigin();
 			// consider fireplaces
 			m_FireplacesHeat = 0;
 			owner.GetWorld().QueryEntitiesBySphere(origin, FIREPLACE_RANGE, FindFireplace);
-			
-			outsideTemperature = outsideTemperature + m_FireplacesHeat - alt;
+			float outsideTemperature = m_pWeather.CalculateFeelsLikeTemperature(m_pChar);
+			outsideTemperature = outsideTemperature + m_FireplacesHeat;
 			
 			clothesFactor = Math.Clamp(clothesFactor, 0, MAX_CLOTHES_FACTOR);
 			float needClothes = GetNeedClothes(outsideTemperature);

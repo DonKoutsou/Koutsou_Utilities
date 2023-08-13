@@ -37,7 +37,7 @@ SP_GameMode {
    m_GameOverScreenConfig SCR_GameOverScreenConfig "{5DC8E7DE92B37D05}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
     m_aGameOverScreens {
      SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
-      m_GameOverScreenId BROTHERFOUND
+      m_GameOverScreenId UNKNOWN
      }
      SCR_BaseGameOverScreenInfo "{5DC8E7DE9CEB2F9B}" {
       m_GameOverScreenId DEATH
@@ -142,6 +142,7 @@ SP_GameMode {
  m_bUseSpawnPreload 0
  m_bOverrideGameOverType 1
  m_eOverriddenGameOverType DEATH
+ m_iPlayerInitialRep 45
  {
   SP_FactionManager "5DD0FCA5EFCD0A3F" {
    ID "5DC8E7DF1BAF44A6"
