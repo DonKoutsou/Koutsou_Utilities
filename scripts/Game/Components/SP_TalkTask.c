@@ -2,28 +2,6 @@
 [BaseContainerProps(configRoot:true)]
 class SP_TalkTask: SP_Task
 {
-	//------------------------------------------------------------------------------------------------------------//
-	//Delivery mission is looking for a random owner.
-	override bool FindOwner(out IEntity Owner)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
-		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
-		}
-		else
-		{
-			if(!CharacterHolder.GetRandomUnit(Char))
-				return false;
-		}
-		if (Char)
-			Owner = Char;
-		if(Owner)
-		{
-			return true;
-		}
-		return false;
-	};
 	override void SpawnTaskMarker(IEntity Assignee)
 	{
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
@@ -59,10 +37,12 @@ class SP_TalkTask: SP_Task
 		{
 			return false;
 		}
+		//we dont care if character is assigned. You should be able to deliver even packages you find on dead bodies for wich you have no task
 		//if (!CharacterAssigned(Assignee))
 		//{
 		//	return false;
 		//}
+		//If its completed its not ready to deliver
 		if (e_State == ETaskState.COMPLETED)
 		{
 			return false;

@@ -17,8 +17,8 @@ class SP_GameMode : SCR_BaseGameMode
 	protected SP_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
 	protected SP_FactionManager m_factionManager;
+	protected Faction plfact;
 	
-	Faction plfact;
 	Faction GetPlFaction()
 	{
 		return plfact;
@@ -47,23 +47,6 @@ class SP_GameMode : SCR_BaseGameMode
 		m_factionManager = SP_FactionManager.Cast(GetGame().GetFactionManager());
 	}
 	//------------------------------------------------------------------//
-	protected override void OnControllableSpawned(IEntity entity)
-	{
-		super.OnControllableSpawned(entity);
-	}
-	//------------------------------------------------------------------//
-	protected override void OnControllableDestroyed(IEntity entity, IEntity instigator)
-	{
-		super.OnControllableDestroyed(entity, instigator);
-		
-	}
-	//------------------------------------------------------------------//
-	protected override void OnControllableDeleted(IEntity entity)
-	{
-		super.OnControllableDeleted(entity);
-		
-	}
-	//------------------------------------------------------------------//
 	protected override void OnPlayerSpawnFinalize_S(SCR_SpawnRequestComponent requestComponent, SCR_SpawnHandlerComponent handlerComponent, SCR_SpawnData data, IEntity entity)
 	{
 		super.OnPlayerSpawnFinalize_S(requestComponent, handlerComponent, data, entity);
@@ -88,20 +71,11 @@ class SP_GameMode : SCR_BaseGameMode
 	{
 		plfact = faction;
 	}
-	//------------------------------------------------------------------//
-	//------------------------------------------------------------------------------------------------
-	/*
-		When a controllable entity is spawned, this event is raised.
-		\param entity Spawned entity that raised this event
-	*/
-	
-	
 };
 //------------------------------------------------------------------//
 modded enum EGameOverTypes
 {
 	DEATH = 3000,
-	BROTHERFOUND = 3001,
 }
 modded class SCR_ArsenalComponent
 {

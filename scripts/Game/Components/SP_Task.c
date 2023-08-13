@@ -48,61 +48,105 @@ class SP_Task
 	//-------------------------------------------------//
 	string m_sAcceptTest;
 	//-------------------------------------------------//
+	//Reward that is going to be handed to completionist *m_iRewardAmount
 	ResourceName m_Reward;
 	//-------------------------------------------------//
+	//Amount of the m_Reward resource that is going to be given to completionist. Calculated average using m_iRewardAverageAmount taken from task sample in SP_RequestManagerComponent
 	int m_iRewardAmount;
 	//-------------------------------------------------//
+	//Stato of task using ETaskState enum
 	protected ETaskState e_State = ETaskState.EMPTY;
 	//-------------------------------------------------//
 	//Characters assigned to this task
 	ref array <IEntity> m_aTaskAssigned = new ref array <IEntity>();
 	//-------------------------------------------------//
+	//Character that completed this task. Filled after task is complete
 	IEntity m_eCopletionist;
 	//-------------------------------------------------//
+	//task marker
 	SP_BaseTask m_TaskMarker;
 	//-------------------------------------------------//
+	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
+	//Owner of task.
 	IEntity GetOwner(){return m_eTaskOwner;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Task target
 	IEntity GetTarget(){return m_eTaskTarget;};
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetCompletionist(){return m_eCopletionist;};
 	//------------------------------------------------------------------------------------------------------------//
+	//adds the completioninst's name to the m_sTaskCompletiontext
 	string GetCompletionText(IEntity Completionist){return string.Format(m_sTaskCompletiontext, SP_DialogueComponent.GetCharacterRankName(Completionist) + " " + SP_DialogueComponent.GetCharacterSurname(Completionist));};
 	//------------------------------------------------------------------------------------------------------------//
+	//Returns state of task
 	ETaskState GetState(){return e_State;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Returns task descritption
 	string GetTaskDescription(){return m_sTaskDesc;}
 	//------------------------------------------------------------------------------------------------------------//
+	//Returns dialogue of task owner when giving task
 	string GetTaskDiag(){return m_sTaskDiag;}
 	//------------------------------------------------------------------------------------------------------------//
+	//Return task title
 	string GetTaskTitle(){return m_sTaskTitle;}
 	//------------------------------------------------------------------------------------------------------------//
+	//Get test for action in dialogue menu
 	string GetActionText(){return m_sacttext;}
 	//------------------------------------------------------------------------------------------------------------//
+	//Text charactre will say once task is complete
 	string GetAcceptText(){return m_sAcceptTest;}
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter for task finish invoker
 	ScriptInvoker OnTaskFinished(){return s_OnTaskFinished;}
 	//------------------------------------------------------------------------------------------------------------//
 	event void GetOnTaskFinished(SP_Task Task){OnTaskFinished().Invoke(Task);};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function used to delete excess stuff when a task is failed or couldnt initialise
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function used to set up all the texts of the task on Init
 	void CreateDescritions(){};
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter for reputation reward of task
 	int GetRepReward(){return m_iRepReward;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function to set up entities used for the task. E.g. to spawn package on a delivery mission
 	bool SetupTaskEntity(){return true;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function used to check if task is ready to deliver. Simmilar to CanBePerformed
 	bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee){return true;};
 	//------------------------------------------------------------------------------------------------------------//
-	bool FindOwner(out IEntity Owner){return true;};
+	//Function to hold logic of what owner should be for each task
+	bool FindOwner(out IEntity Owner)
+	{
+		ChimeraCharacter Char;
+		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
+		{
+			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
+		}
+		else
+		{
+			if(!CharacterHolder.GetRandomUnit(Char))
+				return false;
+		}
+		if (Char)
+			Owner = Char;
+		if(Owner)
+		{
+			return true;
+		}
+		return false;
+	};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function to hold logic of what tarket should be for each task
 	bool FindTarget(out IEntity Target){return true;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Returns class name of task
 	typename GetClassName(){return SP_Task;}
 	//------------------------------------------------------------------------------------------------------------//
+	//Function used to do various checks on owner character found durring initialisation
 	bool CheckOwner()
 	{
 		if (!m_eTaskOwner)
@@ -138,6 +182,7 @@ class SP_Task
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function used to do various checks on target character found durring initialisation
 	bool CheckTarget()
 	{
 		if (!m_eTaskTarget)
@@ -164,6 +209,7 @@ class SP_Task
 		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks if character provided in the owner of this task
 	bool CharacterIsOwner(IEntity Character)
 	{
 		if (Character == m_eTaskOwner)
@@ -173,6 +219,7 @@ class SP_Task
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks if character provided is target of this task
 	bool CharacterIsTarget(IEntity Character)
 	{
 		if (Character == m_eTaskTarget)
@@ -182,6 +229,7 @@ class SP_Task
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
 		if (!e_RewardLabel)
@@ -220,6 +268,7 @@ class SP_Task
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
+	//Called when task if completed to give rewards to completionist
 	bool GiveReward(IEntity Target)
 	{
 		if (m_Reward)
@@ -285,6 +334,7 @@ class SP_Task
 		GetOnTaskFinished(this);
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Assign character to this task
 	void AssignCharacter(IEntity Character)
 	{
 		if (m_aTaskAssigned.Contains(Character))
@@ -297,6 +347,7 @@ class SP_Task
 		SpawnTaskMarker(Character);
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Spawn task marker for this task, called when assigning character
 	void SpawnTaskMarker(IEntity Assignee)
 	{
 		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
@@ -313,6 +364,7 @@ class SP_Task
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks if character is assigned
 	bool CharacterAssigned(IEntity Character)
 	{
 		if(m_aTaskAssigned.Contains(Character))
@@ -322,6 +374,7 @@ class SP_Task
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter of m_iRewardAverageAmount attribute. Used on task samples stored in SP_RequestManagerComponent.
 	int GetRewardAverage()
 	{
 		if (m_iRewardAverageAmount)
@@ -330,11 +383,13 @@ class SP_Task
 		}
 		return null;
 	};
+	//Reward lebal deffines what kind of reward this task will provide. atm only works with EEditableEntityLabel.ITEMTYPE_ITEM and EEditableEntityLabel.ITEMTYPE_WEAPON
 	EEditableEntityLabel GetRewardLabel()
 	{
 		return e_RewardLabel;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Deffining structure of Init
 	bool Init()
 	{
 		//-------------------------------------------------//
@@ -373,8 +428,10 @@ class SP_Task
 		//-------------------------------------------------//
 		CreateDescritions();
 		e_State = ETaskState.UNASSIGNED;
+		//Set the invoker so the task fails if owner dies
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		//set invoker for when rank of character is changed in order to update strings
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		RankCo.s_OnRankChanged.Insert(CreateDescritions);
 		return true;

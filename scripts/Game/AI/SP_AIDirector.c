@@ -762,6 +762,7 @@ class SP_AIDirector : SCR_AIGroup
 		_CapturePrefabSpawns();
 		if(m_aQueriedPrefabSpawnP.IsEmpty())
 		{
+			Print("No prefab spawners found bitch");
 			return;
 		}
 		FactionManager factionManager = GetGame().GetFactionManager();
@@ -793,7 +794,7 @@ class SP_AIDirector : SCR_AIGroup
 			vector spawnpos[4];
 			Pspawn.GetWorldTransform(spawnpos);
 			Resource prefabtospawn = Resource.Load(prefab);
-			SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetWorld());
+			SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetGame().GetWorld());
 			PrefabspawnParams.Transform = spawnpos;
 			IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, GetGame().GetWorld(), PrefabspawnParams);
 			SCR_AIWorld aiWorld = SCR_AIWorld.Cast(GetGame().GetAIWorld());

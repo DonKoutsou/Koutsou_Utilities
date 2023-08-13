@@ -2,12 +2,11 @@
 [BaseContainerProps(configRoot:true)]
 class SP_RetrieveTask: SP_Task
 {
-	
 	//----------------------------------------//
-	//IEntity	ItemBounty;
-	//----------------------------------------//
+	//amount of requested items
 	int	m_iRequestedAmount;
 	//----------------------------------------//
+	//Using rewards from entity catalog in game mode
 	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(SCR_EArsenalItemType))]
 	SCR_EArsenalItemType	m_requestitemtype;
 	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(SCR_EArsenalItemMode))]
@@ -44,27 +43,6 @@ class SP_RetrieveTask: SP_Task
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		RankCo.s_OnRankChanged.Remove(CreateDescritions);
 		return true;
-	};
-	//------------------------------------------------------------------------------------------------------------//
-	override bool FindOwner(out IEntity Owner)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
-		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
-		}
-		else
-		{
-				if(!CharacterHolder.GetRandomUnit(Char))
-					return false;
-		}
-		if (Char)
-			Owner = Char;
-		if(Owner)
-		{
-			return true;
-		}
-		return false;
 	};
 	override void CreateDescritions()
 	{
