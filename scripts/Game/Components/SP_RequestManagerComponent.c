@@ -267,6 +267,16 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	static void GetTasksCompletedBy(IEntity Char, out array<ref SP_Task> tasks)
+	{
+		foreach (SP_Task task : m_aCompletedTaskMap)
+		{
+			if(task.GetCompletionist() == Char)
+			{
+				tasks.Insert(task);
+			}
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter for tasks of same type
 	static void GetTasksOfSameType(out array<ref SP_Task> tasks, typename tasktype)

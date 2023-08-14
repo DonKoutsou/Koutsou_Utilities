@@ -13,6 +13,15 @@ SCR_ChimeraCharacter {
    StaminaDrainSprint -0.0032
    EncumbranceDrainMax -0.006
   }
+  ActionsManagerComponent "{520EA1D2F659CE02}" {
+   additionalActions {
+    SP_DialogueAction "{5D76C2C8573128D5}" {
+     ParentContextList {
+      "Head"
+     }
+    }
+   }
+  }
  }
  coords 2002.69 56.249 3254.096
 }

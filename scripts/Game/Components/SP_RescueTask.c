@@ -156,7 +156,8 @@ class SP_RescueTask: SP_Task
 		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
-		if (senderFaction.GetFactionKey() == "RENEGADE")
+		m_OwnerFaction = senderFaction;
+		if (m_OwnerFaction.GetFactionKey() == "RENEGADE")
 		{
 			return false;
 		};

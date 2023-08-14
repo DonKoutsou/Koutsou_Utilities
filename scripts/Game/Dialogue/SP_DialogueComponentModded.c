@@ -3,7 +3,7 @@ modded class SP_DialogueComponent
 	void IntroducitonSting(IEntity talker, IEntity Player)
 	{
 		string IndtroducionString;
-		int index = Math.RandomInt(0,4);
+		int index = Math.RandomInt(0,6);
 		switch (index)
 		{
 			case 0: 
@@ -49,37 +49,43 @@ modded class SP_DialogueComponent
 				//comment on reputation
 			case 3: 
 			{
-				SCR_CharacterIdentityComponent Idcomp = SCR_CharacterIdentityComponent.Cast(Player.FindComponent(SCR_CharacterIdentityComponent));
-				int MyRep = Idcomp.GetRep();
+				IndtroducionString = ComposeReputationCommentString(Player);
 				
-				if(MyRep > 80)
-				{
-					IndtroducionString = "Your reputetion supercedes you. Keep up the goood work, we need more of oyu here.";
-				}
-				else if(MyRep > 60)
-				{
-					IndtroducionString = "I've heard you keep your head down and dont mess around, keep it like that and you wont have to worry about a thing.";
-				}
-				else if(MyRep > 40)
-				{
-					IndtroducionString = "Not heard about you, you new around here?.";
-				}
-				else if(MyRep > 20)
-				{
-					IndtroducionString = "What do want? Make it quick, dont want to be talking to you more than i have to.";
-				}
-				else if(MyRep > 1)
-				{
-					IndtroducionString = "Keep your distance, dont try anything and this goese well for both.";
-				}
 			}
 			break;
-				//
-			case 4: 
+				//tell about a task of his
+			case 4:
 			{
-			
+				IndtroducionString = ComposeAvailableTasksString(talker);
 			}
 			break;
+			case 5:
+			{
+				IndtroducionString = ComposeCompletedTasksString(talker, Player);
+			}
+			break;
+				//apreciate equipment
+			case 2: 
+			{
+				CharacterWeaponManagerComponent wepman = CharacterWeaponManagerComponent.Cast(Player.FindComponent(CharacterWeaponManagerComponent));
+				BaseWeaponComponent weapon = wepman.GetCurrentWeapon();
+				if (weapon)
+				{
+					IndtroducionString = string.Format("That's a cool %1 you got there.", weapon.GetUIInfo().GetName());
+					break;
+				}
+				EquipedLoadoutStorageComponent m_pLoadout = EquipedLoadoutStorageComponent.Cast(Player.FindComponent(EquipedLoadoutStorageComponent));
+				IEntity armoredvest = m_pLoadout.GetClothFromArea(LoadoutArmoredVestSlotArea);
+				if (armoredvest)
+				{
+					InventoryItemComponent item = InventoryItemComponent.Cast(armoredvest.FindComponent(InventoryItemComponent));
+					if (item)
+					{
+						IndtroducionString = string.Format("That's a cool %1 you got there.", item.GetUIInfo().GetName());
+						break;
+					}
+				}
+			}
 		}
 		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
 		string Plname = SP_DialogueComponent.GetCharacterSurname(Player);
@@ -92,6 +98,76 @@ modded class SP_DialogueComponent
 			IndtroducionString = string.Format("Hello %1 %2. %3", Plrank, Plname, IndtroducionString);
 		a_texthistory.Insert(IndtroducionString);
 	}
+	string ComposeReputationCommentString(IEntity Player)
+	{
+		SCR_CharacterIdentityComponent Idcomp = SCR_CharacterIdentityComponent.Cast(Player.FindComponent(SCR_CharacterIdentityComponent));
+		int MyRep = Idcomp.GetRep();
+		string text;
+		if(MyRep > 80)
+		{
+			text = "Your reputetion supercedes you. Keep up the goood work, we need more of oyu here.";
+		}
+		else if(MyRep > 60)
+		{
+			text = "I've heard you keep your head down and dont mess around, keep it like that and you wont have to worry about a thing.";
+		}
+		else if(MyRep > 40)
+		{
+			text = "Not heard about you, you new around here?.";
+		}
+		else if(MyRep > 20)
+		{
+			text = "What do want? Make it quick, dont want to be talking to you more than i have to.";
+		}
+		else if(MyRep > 1)
+		{
+			text = "Keep your distance, dont try anything and this goese well for both.";
+		}
+		return text;
+	}
+	string ComposeCompletedTasksString(IEntity talker, IEntity Player)
+	{
+		array<ref SP_Task> tasks = {};
+		string text;
+		SP_RequestManagerComponent.GetTasksCompletedBy(Player, tasks);
+		FactionAffiliationComponent FactionAff = FactionAffiliationComponent.Cast(talker.FindComponent(FactionAffiliationComponent));
+		if (!tasks.IsEmpty())
+		{
+			SP_Task compltask = tasks.GetRandomElement();
+			string task = compltask.GetClassName().ToString();
+			if (task == "SP_ChainedTask")
+				return text;
+			Faction faction = compltask.GetOwnerFaction();
+			SCR_Faction CharFaction = SCR_Faction.Cast(FactionAff.GetAffiliatedFaction());
+			if (CharFaction == faction)
+			{
+				text = "I head you've been helping us by providing help to our troops. Every bit is apreciated.";
+			}
+			else if (CharFaction.IsFactionFriendly(faction))
+			{
+				text = string.Format("I head you've been helping the %1 troops by complting tasks for them. Have to keep our friends close.", faction.GetFactionKey());
+			}
+		}
+		return text;
+	}
+	string ComposeAvailableTasksString(IEntity talker)
+	{
+		array<ref SP_Task> tasks = {};
+		string text;
+		SP_RequestManagerComponent.GetCharTasks(talker, tasks);
+		if (!tasks.IsEmpty())
+		{
+			string task =  tasks.GetRandomElement().GetClassName().ToString();
+			if (task == "SP_ChainedTask")
+				return text;
+			string taskname = task.Substring(3, task.Length() - 7);
+			taskname.ToLower();
+			text = string.Format("You arent looking for any work, are you. I'm looking for someone to do a %1 for me.", taskname);
+		}
+		return text;
+	
+	}
+	
 	string ComposeNeedString(IEntity Player, int reasonindex)
 	{
 		string Needstring;

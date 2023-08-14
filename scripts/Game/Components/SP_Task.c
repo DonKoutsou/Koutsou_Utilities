@@ -48,6 +48,8 @@ class SP_Task
 	//-------------------------------------------------//
 	string m_sAcceptTest;
 	//-------------------------------------------------//
+	Faction m_OwnerFaction;
+	//-------------------------------------------------//
 	//Reward that is going to be handed to completionist *m_iRewardAmount
 	ResourceName m_Reward;
 	//-------------------------------------------------//
@@ -71,6 +73,7 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	//Owner of task.
 	IEntity GetOwner(){return m_eTaskOwner;};
+	Faction GetOwnerFaction(){return m_OwnerFaction;};
 	//------------------------------------------------------------------------------------------------------------//
 	//Task target
 	IEntity GetTarget(){return m_eTaskTarget;};
@@ -175,7 +178,8 @@ class SP_Task
 		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
-		if (senderFaction.GetFactionKey() == "RENEGADE")
+		m_OwnerFaction = senderFaction;
+		if (m_OwnerFaction.GetFactionKey() == "RENEGADE")
 		{
 			return false;
 		};
