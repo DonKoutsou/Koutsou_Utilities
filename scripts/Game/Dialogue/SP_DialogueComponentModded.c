@@ -64,28 +64,6 @@ modded class SP_DialogueComponent
 				IndtroducionString = ComposeCompletedTasksString(talker, Player);
 			}
 			break;
-				//apreciate equipment
-			case 2: 
-			{
-				CharacterWeaponManagerComponent wepman = CharacterWeaponManagerComponent.Cast(Player.FindComponent(CharacterWeaponManagerComponent));
-				BaseWeaponComponent weapon = wepman.GetCurrentWeapon();
-				if (weapon)
-				{
-					IndtroducionString = string.Format("That's a cool %1 you got there.", weapon.GetUIInfo().GetName());
-					break;
-				}
-				EquipedLoadoutStorageComponent m_pLoadout = EquipedLoadoutStorageComponent.Cast(Player.FindComponent(EquipedLoadoutStorageComponent));
-				IEntity armoredvest = m_pLoadout.GetClothFromArea(LoadoutArmoredVestSlotArea);
-				if (armoredvest)
-				{
-					InventoryItemComponent item = InventoryItemComponent.Cast(armoredvest.FindComponent(InventoryItemComponent));
-					if (item)
-					{
-						IndtroducionString = string.Format("That's a cool %1 you got there.", item.GetUIInfo().GetName());
-						break;
-					}
-				}
-			}
 		}
 		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
 		string Plname = SP_DialogueComponent.GetCharacterSurname(Player);
