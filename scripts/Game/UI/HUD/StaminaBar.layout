@@ -195,7 +195,6 @@ FrameWidgetClass {
         Alignment 0.5 0
         SizeToContent 1
        }
-       "Is Visible" 0
        Color 0.072 0.503 0.054 1
        "Inherit Color" 1
        Rotation -90
@@ -302,7 +301,7 @@ FrameWidgetClass {
        "Blend Mode" Opaque
        Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
        "Transition width" 1
-       Progress 0.55
+       Progress 0.471
       }
       ImageWidgetClass "{5E170AA910F897DF}" {
        Name "m_wThirstUp"
@@ -319,7 +318,6 @@ FrameWidgetClass {
         Alignment 0.5 0
         SizeToContent 1
        }
-       "Is Visible" 0
        Color 0.072 0.503 0.054 1
        "Inherit Color" 1
        Rotation -90
@@ -426,6 +424,53 @@ FrameWidgetClass {
        "Min Font Size" 8
        "Horizontal Alignment" Center
        "Vertical Alignment" Center
+      }
+      ImageWidgetClass "{5E1D226CDBED9FB4}" {
+       Name "m_wTempDown"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Color 0.503 0.054 0.054 1
+       "Inherit Color" 1
+       Rotation 90
+       Size 16 16
+       "Blend Mode" Opaque
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.479
+      }
+      ImageWidgetClass "{5E1D226CC4BAD91C}" {
+       Name "m_wTempUp"
+       Slot FrameWidgetSlot "{5E170AA82137262A}" {
+        Anchor 0.5 0 0.5 0
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 100
+        OffsetRight -100
+        SizeY 30
+        OffsetBottom -30
+        Alignment 0.5 0
+        SizeToContent 1
+       }
+       Color 0.072 0.503 0.054 1
+       "Inherit Color" 1
+       Rotation -90
+       Size 16 16
+       Mask "{8BE038B4F91BCC99}UI/Textures/WidgetLibrary/ArrowButton.edds"
+       "Transition width" 1
+       Progress 0.482
       }
      }
     }

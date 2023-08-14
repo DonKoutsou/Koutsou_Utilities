@@ -163,6 +163,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 	[Attribute("29.0")]
 	float m_fDeathTemperature;
 	
+	[Attribute("39.0")]
+	float m_fThirstTemperature;
+	
 	[Attribute("20")]
 	float m_fUnconEnergy;
 	
@@ -495,14 +498,24 @@ class SP_CharacterStatsComponent : ScriptComponent
 			float newuseamount = 100 - m_fThirst;
 			SetNewThirst(m_fThirst + newuseamount);
 			consumable.Use(newuseamount);
+			CoolDown(newuseamount); 
 		}
 		else
 		{
 			SetNewThirst(m_fThirst + consumable.GetUseAmount());
 			consumable.Use(consumable.GetUseAmount());
+			CoolDown(consumable.GetUseAmount()); 
 		}
 		if(consumable.HasUses() == false && consumable.GetConsumableEffect().GetDeleteOnUse() == true)
 			RplComponent.DeleteRplEntity(item, false);
+	}
+	void CoolDown(float useamount)
+	{
+		float temp = GetCurrentTemp();
+		if (temp > 39)
+		{
+			m_fTemperature = GetCurrentTemp() - useamount/100;
+		}
 	}
 	void Sleep(IEntity itemm, int amount)
 	{
@@ -599,6 +612,9 @@ class SP_CharacterStatsComponent : ScriptComponent
 			float diffTemp = (clothesFactor - needClothes) * timeSlice;
 			if (diffTemp >= 0.01 || diffTemp <= -0.01)
 				m_fTemperature = Math.Clamp(m_fTemperature + diffTemp + p_Drain/10, 0, m_fMaxTemperature);
+			else
+				m_fTemperature = m_fTemperature + ((m_fHealthyTemperature - m_fTemperature)/ 50);
+				
 			Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes));
 			
 			// check temperature for crossing thresholds and effects
@@ -607,7 +623,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 			OnTempChange();
 			OnEnergyChanged();
 			float hungerloss = GetCharacterStatsPrefabData().m_fHungerChangedPerSecond + p_Drain;
-			float thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond + p_Drain;
+			float thirstloss;
+			if (m_fTemperature > m_fThirstTemperature)
+				thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond * 2 + p_Drain;
+			else
+				thirstloss = GetCharacterStatsPrefabData().m_fThirstChangedPerSecond + p_Drain;
 			float energyloss = GetCharacterStatsPrefabData().m_fEnergyChangedPerSecond + p_Drain;
 			SetNewHunger(m_fHunger - hungerloss * timeBtwEachTick);
 			SetNewThirst(m_fThirst - thirstloss * timeBtwEachTick);

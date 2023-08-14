@@ -27,7 +27,18 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 			m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wHungerBar"));
 			if (!m_wHungerBar) return;
 		};
-		
+		Widget m_wHungertDown = m_wRoot.FindAnyWidget("m_wHungertDown");
+		Widget m_wHungertUp = m_wRoot.FindAnyWidget("m_wHungertUp");
+		if (value > m_wHungerBar.GetCurrent())
+		{
+			m_wHungertDown.SetOpacity(0);
+			m_wHungertUp.SetOpacity(100);
+		}
+		if (value < m_wHungerBar.GetCurrent())
+		{
+			m_wHungertDown.SetOpacity(100);
+			m_wHungertUp.SetOpacity(0);
+		}
 		m_wHungerBar.SetCurrent(value);
 	}
 	void OnThirstChange(float value)
@@ -37,7 +48,18 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 			m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
 			if (!m_wThirstBar) return;
 		};
-		
+		Widget m_wThirstDown = m_wRoot.FindAnyWidget("m_wThirstDown");
+		Widget m_wThirstUp = m_wRoot.FindAnyWidget("m_wThirstUp");
+		if (value > m_wThirstBar.GetCurrent())
+		{
+			m_wThirstDown.SetOpacity(0);
+			m_wThirstUp.SetOpacity(100);
+		}
+		if (value < m_wThirstBar.GetCurrent())
+		{
+			m_wThirstDown.SetOpacity(100);
+			m_wThirstUp.SetOpacity(0);
+		}
 		m_wThirstBar.SetCurrent(value);
 	}
 	void OnEnergyChange(float value)
@@ -48,7 +70,7 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 			if (!m_wEnergyBar) return;
 		};
 		Widget m_wEnergyDown = m_wRoot.FindAnyWidget("m_wEnergyDown");
-			Widget m_wEnergyUp = m_wRoot.FindAnyWidget("m_wEnergyUp");
+		Widget m_wEnergyUp = m_wRoot.FindAnyWidget("m_wEnergyUp");
 		if (value > m_wEnergyBar.GetCurrent())
 		{
 			m_wEnergyDown.SetOpacity(0);
@@ -98,8 +120,20 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		Color mycolor = new Color(r, g, b, 1);
 		m_wTemp.SetColor(mycolor);
 		string val = value.ToString();
-		string tempnumber = val + "C";
+		string tempnumber = val.Substring(0,Math.Min(val.Length(), 5)) + "C";
 		m_sTempnumber.SetText(tempnumber);
+		Widget m_wTempDown = m_wRoot.FindAnyWidget("m_wTempDown");
+		Widget m_wTempUp = m_wRoot.FindAnyWidget("m_wTempUp");
+		if (value > m_wTemp.GetCurrent())
+		{
+			m_wTempDown.SetOpacity(0);
+			m_wTempUp.SetOpacity(100);
+		}
+		if (value < m_wTemp.GetCurrent())
+		{
+			m_wTempDown.SetOpacity(100);
+			m_wTempUp.SetOpacity(0);
+		}
 		m_wTemp.SetCurrent(value);
 		
 	}
