@@ -113,7 +113,7 @@ class SP_DeliverTask: SP_Task
 		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 		s_RewardName.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. Location: %3.", OName, DName, DLoc);
-		m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, look for him around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
+		m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
 		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
 		m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
 		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
@@ -292,13 +292,29 @@ class SP_DeliverTask: SP_Task
 		}
 		//-------------------------------------------------//
 		CreateDescritions();
+		AddOwnerInvokers();
+		AddTargetInvokers();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
-		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Insert(CreateDescritions);
 		return true;
 	};
+	override void AddOwnerInvokers()
+	{
+		if (m_OwnerFaction)
+		{
+			m_OwnerFaction.OnRelationDropped().Insert(CheckUpdatedAffiliations);
+		}
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Insert(CreateDescritions);
+	}
+	override void RemoveOwnerInvokers()
+	{
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Remove(CreateDescritions);
+		if (m_OwnerFaction)
+		{
+			m_OwnerFaction.OnRelationDropped().Remove(CheckUpdatedAffiliations);
+		}
+	}
 	override bool AssignReward()
 	{
 		if (!super.AssignReward())

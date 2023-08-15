@@ -190,8 +190,6 @@ class SP_ChainedTask : SP_Task
 			return false;
 		//-------------------------------------------------//
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(GetCurrentTask().GetOwner().FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//

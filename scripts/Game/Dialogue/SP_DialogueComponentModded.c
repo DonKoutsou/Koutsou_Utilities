@@ -4,74 +4,77 @@ modded class SP_DialogueComponent
 	void IntroducitonSting(IEntity talker, IEntity Player)
 	{
 		string IndtroducionString;
-		int index = Math.RandomInt(0,6);
-		switch (index)
+		while (!IndtroducionString)
 		{
-			case 0: 
+			int index = Math.RandomInt(0,7);
+			switch (index)
 			{
-				//Find if the player is lacking sleep/huger/thirst
-				SP_CharacterStatsComponent statcomp = SP_CharacterStatsComponent.Cast(GetGame().GetPlayerController().FindComponent(SP_CharacterStatsComponent));
-				int reasonindex;
-				if (statcomp.MissingSomething(reasonindex))
+				case 0: 
 				{
-					IndtroducionString = ComposeNeedString(Player ,reasonindex);
-				};
-			}
-			break;
-				//comment on wather
-			case 1: 
-			{
-				IndtroducionString = ComposeWeatherComment(talker);
-			}
-			break;
-				//apreciate equipment
-			case 2: 
-			{
-				CharacterWeaponManagerComponent wepman = CharacterWeaponManagerComponent.Cast(Player.FindComponent(CharacterWeaponManagerComponent));
-				BaseWeaponComponent weapon = wepman.GetCurrentWeapon();
-				if (weapon)
-				{
-					IndtroducionString = string.Format("That's a cool %1 you got there.", weapon.GetUIInfo().GetName());
-					break;
-				}
-				EquipedLoadoutStorageComponent m_pLoadout = EquipedLoadoutStorageComponent.Cast(Player.FindComponent(EquipedLoadoutStorageComponent));
-				IEntity armoredvest = m_pLoadout.GetClothFromArea(LoadoutArmoredVestSlotArea);
-				if (armoredvest)
-				{
-					InventoryItemComponent item = InventoryItemComponent.Cast(armoredvest.FindComponent(InventoryItemComponent));
-					if (item)
+					//Find if the player is lacking sleep/huger/thirst
+					SP_CharacterStatsComponent statcomp = SP_CharacterStatsComponent.Cast(GetGame().GetPlayerController().FindComponent(SP_CharacterStatsComponent));
+					int reasonindex;
+					if (statcomp.MissingSomething(reasonindex))
 					{
-						IndtroducionString = string.Format("That's a cool %1 you got there.", item.GetUIInfo().GetName());
+						IndtroducionString = ComposeNeedString(Player ,reasonindex);
+					};
+				}
+				break;
+					//comment on wather
+				case 1: 
+				{
+					IndtroducionString = ComposeWeatherComment(talker);
+				}
+				break;
+					//apreciate equipment
+				case 2: 
+				{
+					CharacterWeaponManagerComponent wepman = CharacterWeaponManagerComponent.Cast(Player.FindComponent(CharacterWeaponManagerComponent));
+					BaseWeaponComponent weapon = wepman.GetCurrentWeapon();
+					if (weapon)
+					{
+						IndtroducionString = string.Format("That's a cool %1 you got there.", weapon.GetUIInfo().GetName());
 						break;
 					}
+					EquipedLoadoutStorageComponent m_pLoadout = EquipedLoadoutStorageComponent.Cast(Player.FindComponent(EquipedLoadoutStorageComponent));
+					IEntity armoredvest = m_pLoadout.GetClothFromArea(LoadoutArmoredVestSlotArea);
+					if (armoredvest)
+					{
+						InventoryItemComponent item = InventoryItemComponent.Cast(armoredvest.FindComponent(InventoryItemComponent));
+						if (item)
+						{
+							IndtroducionString = string.Format("That's a cool %1 you got there.", item.GetUIInfo().GetName());
+							break;
+						}
+					}
 				}
+				break;
+					//comment on reputation
+				case 3: 
+				{
+					IndtroducionString = ComposeReputationCommentString(Player);
+					
+				}
+				break;
+					//tell about a task of his
+				case 4:
+				{
+					IndtroducionString = ComposeAvailableTasksString(talker);
+				}
+				break;
+					//comment on tasks completed by character
+				case 5:
+				{
+					IndtroducionString = ComposeCompletedTasksString(talker, Player);
+				}
+				break;
+					//Rummor
+				case 6:
+				{
+					IndtroducionString = GenerateRummor(talker, Player);
+				}
+				break;
 			}
-			break;
-				//comment on reputation
-			case 3: 
-			{
-				IndtroducionString = ComposeReputationCommentString(Player);
-				
-			}
-			break;
-				//tell about a task of his
-			case 4:
-			{
-				IndtroducionString = ComposeAvailableTasksString(talker);
-			}
-			break;
-				//comment on tasks completed by character
-			case 5:
-			{
-				IndtroducionString = ComposeCompletedTasksString(talker, Player);
-			}
-			break;
-				//Rummor
-			case 6:
-			{
-				IndtroducionString = GenerateRummor(talker, Player);
-			}
-			break;
 		}
 		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
 		string Plname = SP_DialogueComponent.GetCharacterSurname(Player);
@@ -113,7 +116,7 @@ modded class SP_DialogueComponent
 						FactionAffiliationComponent targetaffiliation = FactionAffiliationComponent.Cast(target.FindComponent(FactionAffiliationComponent));
 						if (targetaffiliation.GetAffiliatedFaction() != Affiliation.GetAffiliatedFaction())
 							break;
-						rummor = string.Format("I heard that someone has put a bounty on %1's head", GetCharacterName(target));
+						rummor = string.Format("I heard that someone has put a bounty on %1's head. Keep an eye out for the guy will you?", GetCharacterName(target));
 						break;
 					}
 				}
@@ -143,7 +146,7 @@ modded class SP_DialogueComponent
 					Faction enemFaction = enemFactions.GetRandomElement();
 					if (!CharacterHolder.GetUnitOfFaction(enemFaction, Enemy))
 						break;
-					rummor = string.Format("We have reports of %1 units in %2.", enemFaction.GetFactionKey(), GetCharacterLocation(Enemy));
+					rummor = string.Format("We have reports of %1 units in %2. Take care if you are thinking of heading that direction", enemFaction.GetFactionKey(), GetCharacterLocation(Enemy));
 				}
 			break;
 			case 3:
@@ -176,8 +179,30 @@ modded class SP_DialogueComponent
 					ChimeraCharacter deadchar = CharacterHolder.GetRandomDeadOfFaction(Affiliation.GetAffiliatedFaction());
 					if (deadchar)
 					{
+						SCR_CharacterIdentityComponent Identitycomp = SCR_CharacterIdentityComponent.Cast(deadchar.FindComponent(SCR_CharacterIdentityComponent));
+						int rep = Identitycomp.GetRep();
 						string charname = GetCharacterName(deadchar);
-						rummor = string.Format("%1 lost his life not so long ago, I will miss him.", charname);
+						if(rep > 80)
+						{
+							rummor = string.Format("%1 lost his life not so long ago. We will all miss him, he was a real role model for some of us, such a waste.", charname);
+						}
+						else if(rep > 60)
+						{
+							rummor = string.Format("%1 lost his life not so long ago, I will miss him.", charname);
+						}
+						else if(rep > 40)
+						{
+							rummor = string.Format("We got some new recently about someone called %1's body was found somewhere on the island, i never knew the guy but maybe you did.", charname);
+						}
+						else if(rep > 20)
+						{
+							rummor = string.Format("%1 lost his life not so long ago, didnt have the best reputation around, but cant say i havent seen worse folks in these parts.", charname);
+						}
+						else if(rep > 1)
+						{
+							rummor = string.Format("%1 lost his life not so long ago. Going to be honest for the better. That guy was a dick.", charname);
+						}
+						
 					}
 					break;
 				}
@@ -244,12 +269,10 @@ modded class SP_DialogueComponent
 		SP_RequestManagerComponent.GetCharTasks(talker, tasks);
 		if (!tasks.IsEmpty())
 		{
-			string task =  tasks.GetRandomElement().GetClassName().ToString();
+			string task =  tasks.GetRandomElement().GetTaskDiag();
 			if (task == "SP_ChainedTask")
 				return text;
-			string taskname = task.Substring(3, task.Length() - 7);
-			taskname.ToLower();
-			text = string.Format("You arent looking for any work, are you. I'm looking for someone to do a %1 for me.", taskname);
+			text = string.Format("You arent looking for any work, are you? %1", task);
 		}
 		return text;
 	

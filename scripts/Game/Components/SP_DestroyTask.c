@@ -64,8 +64,6 @@ class SP_DestroyTask: SP_Task
 		}
 		if(Target)
 		{
-			ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(Target.FindComponent(ScriptedDamageManagerComponent));
-			dmgman.GetOnDamageStateChanged().Insert(UpdateTaskPointer);
 			return true;
 		}
 		return false;
@@ -120,6 +118,30 @@ class SP_DestroyTask: SP_Task
 		OLoc = SP_DialogueComponent.GetCharacterLocation(m_eTaskOwner);
 		DLoc = SP_DialogueComponent.GetCharacterLocation(m_eTaskTarget);
 	};
+	override void AddOwnerInvokers()
+	{
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Insert(CreateDescritions);
+	}
+	override void RemoveOwnerInvokers()
+	{
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Insert(CreateDescritions);
+	}
+	override void AddTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Insert(UpdateTaskPointer);
+	}
+	override void RemoveTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Remove(UpdateTaskPointer);
+	}
 	//------------------------------------------------------------------------------------------------------------//
 
 	//------------------------------------------------------------------------------------------------------------//

@@ -206,5 +206,7 @@ class SP_NavigateTask: SP_Task
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
 		return true;
 	};
+	override void AddTargetInvokers(){};
+	override void RemoveTargetInvokers(){};
 	//------------------------------------------------------------------------------------------------------------//
 };

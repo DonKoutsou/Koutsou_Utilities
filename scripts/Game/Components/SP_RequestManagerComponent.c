@@ -320,14 +320,9 @@ class SP_RequestManagerComponent : ScriptComponent
 		array <SP_Task> toberemoved = new array <SP_Task>();
 		for (int i = m_aTaskMap.Count() - 1; i >= 0; i--)
 		{
-			if (m_aTaskMap[i].GetState() == ETaskState.FAILED) 
+			if (m_aTaskMap[i].MarkedForRemoval())
 			{
 				toberemoved.Insert(m_aTaskMap[i]);
-				removed += 1;
-			}
-			if (m_aTaskMap[i].GetState() == ETaskState.COMPLETED) 
-			{
-				OnTaskCompleted(m_aTaskMap[i]);
 				removed += 1;
 			}
 		}

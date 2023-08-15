@@ -11,6 +11,7 @@ SCR_DestructibleBuildingEntity : "{A43A100E3C377DB2}Prefabs/Structures/Core/Buil
    coords -1.934 0 0
    angleY -180
    m_eType MilitaryVehicles
+   m_bSnapToGroud 1
   }
  }
 }

@@ -121,11 +121,8 @@ class SP_RescueTask: SP_Task
 		}
 		//SpawnBleedTrigger();
 		CreateDescritions();
+		AddOwnerInvokers();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
-		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Insert(CreateDescritions);
 		return true;
 	};
 	override bool CheckOwner()
@@ -156,7 +153,7 @@ class SP_RescueTask: SP_Task
 		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
-		m_OwnerFaction = senderFaction;
+		m_OwnerFaction = SCR_Faction.Cast(senderFaction);
 		if (m_OwnerFaction.GetFactionKey() == "RENEGADE")
 		{
 			return false;
@@ -348,11 +345,29 @@ class SP_RescueTask: SP_Task
 					dmg.ForceUnconsciousness();
 				}
 				dmg.SetResilienceRegenScale(0);
-				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
-				dmg.GetOnDamageStateChanged().Insert(FailTask);
 			}
 		}
 		return true;
+	};
+	override void AddOwnerInvokers()
+	{
+		super.AddOwnerInvokers();
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
+		dmg.GetOnDamageStateChanged().Insert(FailTask);
+	}
+	override void RemoveOwnerInvokers()
+	{
+		super.RemoveOwnerInvokers();
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
+		dmg.GetOnDamageStateChanged().Remove(FailTask);
+	}
+	override void AddTargetInvokers()
+	{
+	};
+	override void RemoveTargetInvokers()
+	{
 	};
 	void SpawnBleedTrigger()
 	{

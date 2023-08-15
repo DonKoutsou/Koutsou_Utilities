@@ -31,6 +31,9 @@ class SP_AIDirector : SCR_AIGroup
 	[Attribute("10", category: "Spawning settings")]
 	int m_iMaxVehiclesToSpawn;
 	
+	[Attribute("10", category: "Spawning settings")]
+	int m_iMaxStashesToSpawn;
+	
 	[Attribute("100", category: "Spawning settings")]
 	float m_fRadius;
 	
@@ -770,36 +773,53 @@ class SP_AIDirector : SCR_AIGroup
 		{
 			return;
 		}
-		foreach(IEntity prefabspawner : m_aQueriedPrefabSpawnP)
+		int count = m_aQueriedPrefabSpawnP.Count();
+		int vehcount;
+		int stashcount;
+		for (int i = 0; i < count; i++)
 		{
-			SCR_PrefabSpawnPoint Pspawn = SCR_PrefabSpawnPoint.Cast(prefabspawner);
+			SCR_PrefabSpawnPoint Pspawn = SCR_PrefabSpawnPoint.Cast(m_aQueriedPrefabSpawnP.GetRandomElement());
 			ResourceName prefab;
-			if(Pspawn.GetType() == EPrefabSpawnType.MilitaryVehicles)
+			if(Pspawn.GetType() == EPrefabSpawnType.MilitaryVehicles && vehcount < m_iMaxVehiclesToSpawn)
 			{
 				SCR_Faction randfaction = SCR_Faction.Cast(factionManager.GetFactionByKey(m_FactionsToApear.GetRandomElement()));
 				SCR_EntityCatalog entityCatalog = randfaction.GetFactionEntityCatalogOfType(EEntityCatalogType.VEHICLE);
 				array<SCR_EntityCatalogEntry> aFactionEntityEntry = new array<SCR_EntityCatalogEntry>();
 				entityCatalog.GetEntityList(aFactionEntityEntry);
 				prefab = aFactionEntityEntry.GetRandomElement().GetPrefab();
+				vehcount += 1;
+				EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+				vector spawnpos[4];
+				Pspawn.GetWorldTransform(spawnpos);
+				Resource prefabtospawn = Resource.Load(prefab);
+				if (Pspawn.ShouldSnapToGound())
+					SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetGame().GetWorld());
+				PrefabspawnParams.Transform = spawnpos;
+				IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, GetGame().GetWorld(), PrefabspawnParams);
+				SCR_AIWorld aiWorld = SCR_AIWorld.Cast(GetGame().GetAIWorld());
+				if(aiWorld)
+					aiWorld.RequestNavmeshRebuildEntity(Entity);
 			}
-			if(Pspawn.GetType() == EPrefabSpawnType.Generic)
+			if(Pspawn.GetType() == EPrefabSpawnType.Generic && stashcount < m_iMaxStashesToSpawn)
 			{
 				SCR_EntityCatalogManagerComponent CatalogM = SCR_EntityCatalogManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_EntityCatalogManagerComponent));
 				SCR_EntityCatalog entityCatalog = CatalogM.GetEntityCatalogOfType(EEntityCatalogType.STASH);
 				array<SCR_EntityCatalogEntry> aEntityEntry = new array<SCR_EntityCatalogEntry>();
 				entityCatalog.GetEntityList(aEntityEntry);
 				prefab = aEntityEntry.GetRandomElement().GetPrefab();
+				stashcount += 1;
+				EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+				vector spawnpos[4];
+				Pspawn.GetWorldTransform(spawnpos);
+				Resource prefabtospawn = Resource.Load(prefab);
+				if (Pspawn.ShouldSnapToGound())
+					SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetGame().GetWorld());
+				PrefabspawnParams.Transform = spawnpos;
+				IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, GetGame().GetWorld(), PrefabspawnParams);
+				GetGame().GetGarbageManager().Withdraw(Entity);
 			}
-			EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-			vector spawnpos[4];
-			Pspawn.GetWorldTransform(spawnpos);
-			Resource prefabtospawn = Resource.Load(prefab);
-			SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetGame().GetWorld());
-			PrefabspawnParams.Transform = spawnpos;
-			IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, GetGame().GetWorld(), PrefabspawnParams);
-			SCR_AIWorld aiWorld = SCR_AIWorld.Cast(GetGame().GetAIWorld());
-			if(aiWorld)
-				aiWorld.RequestNavmeshRebuildEntity(Entity);
+			m_aQueriedPrefabSpawnP.RemoveItem(Pspawn);
+			delete Pspawn;
 		}
 		
 		m_aQueriedPrefabSpawnP.Clear();
@@ -907,3 +927,11 @@ class SP_AIDirector : SCR_AIGroup
 		return found;
 	}
 };
+modded class SCR_PrefabSpawnPoint
+{
+	void SCR_PrefabSpawnPoint(IEntitySource src, IEntity parent)
+	{
+		SetFlags(EntityFlags.TRACEABLE, false);
+		SCR_PrefabsSpawnerManager.RegisterPrefabSpawnPoint(this);
+	}
+}

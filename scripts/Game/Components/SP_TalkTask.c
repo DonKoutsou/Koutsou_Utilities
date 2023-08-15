@@ -113,11 +113,8 @@ class SP_TalkTask: SP_Task
 		}
 		//-------------------------------------------------//
 		CreateDescritions();
+		AddOwnerInvokers();
 		e_State = ETaskState.UNASSIGNED;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
-		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Insert(CreateDescritions);
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//

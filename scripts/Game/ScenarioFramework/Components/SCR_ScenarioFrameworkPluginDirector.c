@@ -27,6 +27,9 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 	[Attribute("10", category: "Spawning settings")]
 	int m_iMaxVehiclesToSpawn;
 	
+	[Attribute("10", category: "Spawning settings")]
+	int m_iMaxStashesToSpawn;
+	
 	[Attribute("100", category: "Spawning settings")]
 	float m_fRadius;
 	
@@ -60,6 +63,7 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 			director.m_bRespawn = m_bRespawn;
 			director.m_iMaxAgentsToSpawn = m_iMaxAgentsToSpawn;
 			director.m_iMaxVehiclesToSpawn = m_iMaxVehiclesToSpawn;
+			director.m_iMaxStashesToSpawn = m_iMaxStashesToSpawn;
 			director.m_fRadius = m_fRadius;
 			director.m_fRespawnTimer = m_fRespawnTimer;
 			director.m_iDirectorUpdatePeriod = m_iDirectorUpdatePeriod;

@@ -54,20 +54,31 @@ class SP_FactionManager : SCR_FactionManager
 		//If kiled unit of same faction
 		if(instigator == Afflicted)
 		{
-			instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty);
-			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer, "You killed a unit of you own faction.");
+			SCR_CharacterRankComponent rankComp = SCR_CharacterRankComponent.Cast(Victim.FindComponent(SCR_CharacterRankComponent));
+			int multiplier = rankComp.GetCharacterRank(Victim);
+			if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+				instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty * multiplier);
+			if (multiplier > 2)
+				id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty * multiplier, Killer, "You killed a high ranking unit of you own faction.");
+			else
+				id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty * multiplier, Killer, "You killed a unit of you own faction.");
 			return;
 		}
 		//If killed unit of friendly faction
 		else if(Afflicted.IsFactionFriendly(instigator))
 		{
-			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty, Killer,string.Format("You caused issues between %1 and %2 forces.", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
+			SCR_CharacterRankComponent rankComp = SCR_CharacterRankComponent.Cast(Victim.FindComponent(SCR_CharacterRankComponent));
+			int multiplier = rankComp.GetCharacterRank(Victim);
+			id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty * multiplier, Killer,string.Format("You caused issues between %1 and %2 forces.", instigator.GetFactionKey(), Afflicted.GetFactionKey()));
 			//adjust relation between 2 factions
-			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty);
-			instigator.AdjustRelation(Afflicted, -m_FactionFriendlyKillRelationPenalty);
+			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty * multiplier);
+			instigator.AdjustRelation(Afflicted, -m_FactionFriendlyKillRelationPenalty * multiplier);
 			//Adjust player goodwill, losed half from players fation
-			Afflicted.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty);
-			instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2);
+			if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+			{
+				Afflicted.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty * multiplier);
+				instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2 * multiplier);
+			}
 			//Adjust relation of factions frenly to the afflicted.
 			array <Faction> friendlyfacts = new array <Faction>();
 			Afflicted.GetFriendlyFactions2(friendlyfacts);
@@ -76,9 +87,10 @@ class SP_FactionManager : SCR_FactionManager
 				if (frfact == instigator || frfact == Afflicted)
 					continue;
 				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
-				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2);
-				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2);
-				scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2);
+				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
+				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+					scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2 * multiplier);
 			}
 			//Do same for enemy factions
 			array <Faction> enemyfacts = new array <Faction>();
@@ -90,14 +102,17 @@ class SP_FactionManager : SCR_FactionManager
 				if (enfact == instigator || enfact == Afflicted)
 					continue;
 				SCR_Faction scrfact = SCR_Faction.Cast(enfact);
-				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement);
-				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement);
-				scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement);
+				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement * multiplier);
+				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement * multiplier);
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+					scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement * multiplier);
 			}
 		}
 		//if killed unit is of enemy faction
 		else if(Afflicted.IsFactionEnemy(instigator))
 		{
+			SCR_CharacterRankComponent rankComp = SCR_CharacterRankComponent.Cast(Victim.FindComponent(SCR_CharacterRankComponent));
+			int multiplier = rankComp.GetCharacterRank(Victim);
 			//adjust relation of factions frendly to the afflicted
 			array <Faction> friendlyfacts = new array <Faction>();
 			Afflicted.GetFriendlyFactions2(friendlyfacts);
@@ -106,9 +121,10 @@ class SP_FactionManager : SCR_FactionManager
 				if (frfact == instigator || frfact == Afflicted)
 					continue;
 				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
-				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2);
-				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2);
-				scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2);
+				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
+				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+					scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2 * multiplier);
 			}
 			//adjust relation of faction enemy to the afflicted
 			array <Faction> enemyfacts = new array <Faction>();
@@ -120,9 +136,10 @@ class SP_FactionManager : SCR_FactionManager
 				if (enfact == instigator || enfact == Afflicted)
 					continue;
 				SCR_Faction scrfact = SCR_Faction.Cast(enfact);
-				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement);
-				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement);
-				scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement);
+				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement * multiplier);
+				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement * multiplier);
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+					scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement * multiplier);
 			}
 		};
 		

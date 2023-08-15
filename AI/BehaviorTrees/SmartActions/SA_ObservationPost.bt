@@ -1289,25 +1289,25 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
          Nodes {
           SCR_AIDayNightTest "SCR_AI Day Night Test" {
            Name "SCR_AI Day Night Test"
-           EditorPos 2507.583 -416.5
+           EditorPos 2540.333 -402.333
            Nodes {
             SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
              Name "SCR_AI Toggle Flashlights On Simulate"
-             EditorPos 2437.834 -112
-            }
-           }
-           NegativeCondition 1
-          }
-          SCR_AIDayNightTest "SCR_AI Day Night Test" {
-           Name "SCR_AI Day Night Test"
-           EditorPos 2898.333 -403.333
-           Nodes {
-            SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
-             Name "SCR_AI Toggle Flashlights On Simulate"
-             EditorPos 2866.667 -123.333
+             EditorPos 2427.667 -72.333
              m_bEnable 0
             }
            }
+          }
+          SCR_AIDayNightTest "SCR_AI Day Night Test" {
+           Name "SCR_AI Day Night Test"
+           EditorPos 2915.583 -370.5
+           Nodes {
+            SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
+             Name "SCR_AI Toggle Flashlights On Simulate"
+             EditorPos 2845.834 -66
+            }
+           }
+           NegativeCondition 1
           }
          }
         }

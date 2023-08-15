@@ -81,8 +81,6 @@ class SP_KillTask: SP_Task
 		
 		if (Target == GetOwner())
 			return false;
-		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(Target.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgman.GetOnDamageStateChanged().Insert(UpdateTaskPointer);
 		if(Target)
 			return true;
 		
@@ -129,6 +127,16 @@ class SP_KillTask: SP_Task
 		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 		DLoc = Diag.GetCharacterLocation(m_eTaskTarget);
 	};
+	override void AddTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Insert(UpdateTaskPointer);
+	}
+	override void RemoveTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Remove(UpdateTaskPointer);
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_KillTask;};
 	//------------------------------------------------------------------------------------------------------------//

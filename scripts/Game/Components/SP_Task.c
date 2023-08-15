@@ -48,10 +48,11 @@ class SP_Task
 	//-------------------------------------------------//
 	string m_sAcceptTest;
 	//-------------------------------------------------//
-	Faction m_OwnerFaction;
+	SCR_Faction m_OwnerFaction;
 	//-------------------------------------------------//
 	//Reward that is going to be handed to completionist *m_iRewardAmount
 	ResourceName m_Reward;
+	private bool m_bMarkedForRemoval;
 	//-------------------------------------------------//
 	//Amount of the m_Reward resource that is going to be given to completionist. Calculated average using m_iRewardAverageAmount taken from task sample in SP_RequestManagerComponent
 	int m_iRewardAmount;
@@ -72,6 +73,7 @@ class SP_Task
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
 	//Owner of task.
+	bool MarkedForRemoval(){return m_bMarkedForRemoval;};
 	IEntity GetOwner(){return m_eTaskOwner;};
 	Faction GetOwnerFaction(){return m_OwnerFaction;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -104,7 +106,7 @@ class SP_Task
 	//Getter for task finish invoker
 	ScriptInvoker OnTaskFinished(){return s_OnTaskFinished;}
 	//------------------------------------------------------------------------------------------------------------//
-	event void GetOnTaskFinished(SP_Task Task){OnTaskFinished().Invoke(Task);};
+	event void GetOnTaskFinished(SP_Task Task){if (m_eTaskOwner) RemoveOwnerInvokers(); if (m_eTaskTarget) RemoveTargetInvokers(); OnTaskFinished().Invoke(Task);};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function used to delete excess stuff when a task is failed or couldnt initialise
 	void DeleteLeftovers(){};
@@ -178,7 +180,7 @@ class SP_Task
 		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
-		m_OwnerFaction = senderFaction;
+		m_OwnerFaction = SCR_Faction.Cast(senderFaction);
 		if (m_OwnerFaction.GetFactionKey() == "RENEGADE")
 		{
 			return false;
@@ -310,9 +312,8 @@ class SP_Task
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-			ScriptedDamageManagerComponent dmgmn = ScriptedDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(ScriptedDamageManagerComponent));
-			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			GetOnTaskFinished(this);
+			m_bMarkedForRemoval = 1;
 			return true;
 		}
 		return false;
@@ -320,13 +321,8 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void FailTask(EDamageState state)
 	{
-		
 		if (state != EDamageState.DESTROYED)
 			return;
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
-		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Remove(CreateDescritions);
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
@@ -335,7 +331,63 @@ class SP_Task
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 		}
 		e_State = ETaskState.FAILED;
+		m_bMarkedForRemoval = 1;
 		GetOnTaskFinished(this);
+	}
+	void AddOwnerInvokers()
+	{
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		if (m_OwnerFaction)
+		{
+			m_OwnerFaction.OnRelationDropped().Insert(CheckUpdatedAffiliations);
+		}
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Insert(CreateDescritions);
+	}
+	void AddTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Insert(FailTask);
+	}
+	void RemoveTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Remove(FailTask);
+	}
+	void RemoveOwnerInvokers()
+	{
+		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		RankCo.s_OnRankChanged.Remove(CreateDescritions);
+		if (m_OwnerFaction)
+		{
+			m_OwnerFaction.OnRelationDropped().Remove(CheckUpdatedAffiliations);
+		}
+	}
+	void CancelTask()
+	{
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Fail(true);
+			m_TaskMarker.RemoveAllAssignees();
+			m_TaskMarker.Finish(true);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+		}
+		e_State = ETaskState.FAILED;
+		m_bMarkedForRemoval = 1;
+		GetOnTaskFinished(this);
+	}
+	void CheckUpdatedAffiliations(SCR_Faction factionA, SCR_Faction factionB = null)
+	{
+		if (!factionB || !m_eTaskTarget)
+		{
+			return;
+		}
+		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(m_eTaskTarget.FindComponent(FactionAffiliationComponent));
+		if (affcomp.GetAffiliatedFaction() == factionB)
+			CancelTask();
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Assign character to this task
@@ -431,13 +483,11 @@ class SP_Task
 		}
 		//-------------------------------------------------//
 		CreateDescritions();
+		AddOwnerInvokers();
+		AddTargetInvokers();
 		e_State = ETaskState.UNASSIGNED;
 		//Set the invoker so the task fails if owner dies
-		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
-		//set invoker for when rank of character is changed in order to update strings
-		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Insert(CreateDescritions);
+		
 		return true;
 	};
 };
