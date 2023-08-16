@@ -1,7 +1,4 @@
-class SP_FactionManagerClass : SCR_FactionManagerClass
-{
-};
-class SP_FactionManager : SCR_FactionManager
+modded class SCR_FactionManager
 {
 	[Attribute("250", desc: "Penalty to relation of 2 factions when killing friendly character. applies input value as negative, if value is 5 it will apply a -5 penalty")]
 	int m_FactionFriendlyKillRelationPenalty;

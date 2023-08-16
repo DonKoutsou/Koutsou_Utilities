@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------//
-[BaseContainerProps(configRoot:true)]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_TalkTask: SP_Task
 {
 	override void SpawnTaskMarker(IEntity Assignee)

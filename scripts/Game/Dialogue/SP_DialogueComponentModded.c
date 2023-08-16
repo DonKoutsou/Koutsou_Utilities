@@ -6,12 +6,12 @@ modded class SP_DialogueComponent
 		string IndtroducionString;
 		while (!IndtroducionString)
 		{
-			int index = Math.RandomInt(0,7);
+			int index = Math.RandomInt(0,11);
 			switch (index)
 			{
 				case 0: 
 				{
-					//Find if the player is lacking sleep/huger/thirst
+				//Find if the player is lacking sleep/huger/thirst
 					SP_CharacterStatsComponent statcomp = SP_CharacterStatsComponent.Cast(GetGame().GetPlayerController().FindComponent(SP_CharacterStatsComponent));
 					int reasonindex;
 					if (statcomp.MissingSomething(reasonindex))
@@ -20,13 +20,13 @@ modded class SP_DialogueComponent
 					};
 				}
 				break;
-					//comment on wather
+				//comment on wather
 				case 1: 
 				{
 					IndtroducionString = ComposeWeatherComment(talker);
 				}
 				break;
-					//apreciate equipment
+				//apreciate equipment
 				case 2: 
 				{
 					CharacterWeaponManagerComponent wepman = CharacterWeaponManagerComponent.Cast(Player.FindComponent(CharacterWeaponManagerComponent));
@@ -49,29 +49,53 @@ modded class SP_DialogueComponent
 					}
 				}
 				break;
-					//comment on reputation
+				//comment on reputation
 				case 3: 
 				{
 					IndtroducionString = ComposeReputationCommentString(Player);
 					
 				}
 				break;
-					//tell about a task of his
+				//tell about a task of his
 				case 4:
 				{
 					IndtroducionString = ComposeAvailableTasksString(talker);
 				}
 				break;
-					//comment on tasks completed by character
+				//comment on tasks completed by character
 				case 5:
 				{
 					IndtroducionString = ComposeCompletedTasksString(talker, Player);
 				}
 				break;
-					//Rummor
+				//Rummor
 				case 6:
 				{
-					IndtroducionString = GenerateRummor(talker, Player);
+					IndtroducionString = ComposeEnemyWarningString(talker, Player)
+				}
+				break;
+				//dead guy news
+				case 7:
+				{
+					IndtroducionString = ComposeDeadFriendlyString(talker, Player)
+				}
+				break;
+				//Look for tasks of friendlies to share
+				case 8:
+				{
+					IndtroducionString = ComposeFriendlyTaskString(talker, Player)
+				}
+				break;
+				//look for bounties on friendly units
+				case 9:
+				{
+					IndtroducionString = ComposeFriendlyBountyString(talker, Player)
+				}
+				break;
+				//look for lost groups
+				case 10:
+				{
+					IndtroducionString = LookForLostGroups(talker, Player)
 				}
 				break;
 			}
@@ -87,128 +111,119 @@ modded class SP_DialogueComponent
 			IndtroducionString = string.Format("Hello %1 %2. %3", Plrank, Plname, IndtroducionString);
 		a_texthistory.Insert(IndtroducionString);
 	}
-	string GenerateRummor(IEntity Instigator, IEntity Player)
+	string LookForLostGroups(IEntity Instigator, IEntity Player)
 	{
-		if (!GameMode)
-			return "Missing GameMode cunt";
-		string rummor;
-		SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+		//look for lost groups
+		string Taskstring;
 		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
-		if (!FactionMan)
+		array <ref SP_Task> tasks = new array <ref SP_Task> ();
+		SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_RescueTask);
+		if (tasks.IsEmpty())
+			return Taskstring;
+		foreach (SP_Task Task : tasks)
 		{
-			return STRING_EMPTY;
-		}
-		int index = Math.RandomInt(0, 5);
-		switch (index)
-		{
-			case 0:
+			SP_RescueTask resctask = SP_RescueTask.Cast(Task);
+			IEntity target = Task.GetOwner();
+			FactionAffiliationComponent afcomp = FactionAffiliationComponent.Cast(target.FindComponent(FactionAffiliationComponent));
+			if (afcomp.GetAffiliatedFaction().IsFactionFriendly(Affiliation.GetAffiliatedFaction()))
 				{
-					//look for bounty of friendly unit
-				array <ref SP_Task> tasks = new array <ref SP_Task> ();
-				SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_BountyTask);
-				if (tasks.IsEmpty())
+					string Oname;
+					string OLoc;
+					resctask.GetInfo(Oname, OLoc);
+					Taskstring = string.Format("I heard about %1's squad lossing contact with HQ around %2. If you are around the area keep an eye out", Oname, OLoc);
+					resctask.AssignCharacter(Player);
 					break;
-				foreach (SP_Task task : tasks)
-					{
-						IEntity target = task.GetTarget();
-						if (target == Instigator)
-							break;
-						FactionAffiliationComponent targetaffiliation = FactionAffiliationComponent.Cast(target.FindComponent(FactionAffiliationComponent));
-						if (targetaffiliation.GetAffiliatedFaction() != Affiliation.GetAffiliatedFaction())
-							break;
-						rummor = string.Format("I heard that someone has put a bounty on %1's head. Keep an eye out for the guy will you?", GetCharacterName(target));
-						break;
-					}
 				}
+		}
+		return Taskstring;
+	}
+	string ComposeFriendlyTaskString(IEntity Instigator, IEntity Player)
+	{
+		//look for task of friendly unit
+		string FriendlyTaskString;
+		ChimeraCharacter Friendly;
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		CharacterHolder.GetUnitOfFaction(Affiliation.GetAffiliatedFaction(), Friendly);
+		if (Friendly == Instigator && Friendly == Player)
+			return FriendlyTaskString;
+		array <ref SP_Task> tasks = new array <ref SP_Task> ();
+		SP_RequestManagerComponent.GetCharTasks(Friendly, tasks);
+		if (tasks.IsEmpty())
+			return FriendlyTaskString;
+		FriendlyTaskString = "You arent looking for any work, are you?" + tasks.GetRandomElement().GetTaskDescription();
+		return FriendlyTaskString;
+	}
+	string ComposeFriendlyBountyString(IEntity Instigator, IEntity Player)
+	{
+		string FriendlyBountyString;
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		array <ref SP_Task> tasks = new array <ref SP_Task> ();
+		SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_BountyTask);
+		if (tasks.IsEmpty())
+			return FriendlyBountyString;
+		foreach (SP_Task task : tasks)
+		{
+			IEntity target = task.GetTarget();
+			if (target == Instigator)
 			break;
-			case 1:
-				{
-					//look for task of friendly unit
-					ChimeraCharacter Friendly;
-					CharacterHolder.GetUnitOfFaction(Affiliation.GetAffiliatedFaction(), Friendly);
-					if (Friendly == Instigator && Friendly == Player)
-						break;
-					array <ref SP_Task> tasks = new array <ref SP_Task> ();
-					SP_RequestManagerComponent.GetCharTasks(Friendly, tasks);
-					if (tasks.IsEmpty())
-						break;
-					rummor = tasks.GetRandomElement().GetTaskDescription();
-				}
+			FactionAffiliationComponent targetaffiliation = FactionAffiliationComponent.Cast(target.FindComponent(FactionAffiliationComponent));
+			if (targetaffiliation.GetAffiliatedFaction() != Affiliation.GetAffiliatedFaction())
 			break;
-			case 2:
-				{
-					//look for enemy units and report location
-					ChimeraCharacter Enemy;
-					array <Faction> enemFactions = new array <Faction>();
-					FactionMan.GetEnemyFactions(Affiliation.GetAffiliatedFaction(), enemFactions);
-					if (enemFactions.IsEmpty())
-						break;
-					Faction enemFaction = enemFactions.GetRandomElement();
-					if (!CharacterHolder.GetUnitOfFaction(enemFaction, Enemy))
-						break;
-					rummor = string.Format("We have reports of %1 units in %2. Take care if you are thinking of heading that direction", enemFaction.GetFactionKey(), GetCharacterLocation(Enemy));
-				}
+			FriendlyBountyString = string.Format("I heard that someone has put a bounty on %1's head. Keep an eye out for the guy will you?", GetCharacterName(target));
 			break;
-			case 3:
-				{
-					//look for lost groups
-					array <ref SP_Task> tasks = new array <ref SP_Task> ();
-					SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_RescueTask);
-					if (tasks.IsEmpty())
-						break;
-					foreach (SP_Task Task : tasks)
-					{
-						SP_RescueTask resctask = SP_RescueTask.Cast(Task);
-						IEntity target = Task.GetTarget();
-						FactionAffiliationComponent afcomp = FactionAffiliationComponent.Cast(target.FindComponent(FactionAffiliationComponent));
-						if (afcomp.GetAffiliatedFaction() == Affiliation.GetAffiliatedFaction())
-							{
-								string Oname;
-								string OLoc;
-								resctask.GetInfo(Oname, OLoc);
-								rummor = string.Format("I heard about %1's squad lossing contact with HQ around %2. If you are around the area keep an eye out", Oname, OLoc);
-								resctask.AssignCharacter(Player);
-								break;
-							}
-					}
-				}
-			break;
-			case 4:
-				{
-					//Tell about dead friendlies
-					ChimeraCharacter deadchar = CharacterHolder.GetRandomDeadOfFaction(Affiliation.GetAffiliatedFaction());
-					if (deadchar)
-					{
-						SCR_CharacterIdentityComponent Identitycomp = SCR_CharacterIdentityComponent.Cast(deadchar.FindComponent(SCR_CharacterIdentityComponent));
-						int rep = Identitycomp.GetRep();
-						string charname = GetCharacterName(deadchar);
-						if(rep > 80)
-						{
-							rummor = string.Format("%1 lost his life not so long ago. We will all miss him, he was a real role model for some of us, such a waste.", charname);
-						}
-						else if(rep > 60)
-						{
-							rummor = string.Format("%1 lost his life not so long ago, I will miss him.", charname);
-						}
-						else if(rep > 40)
-						{
-							rummor = string.Format("We got some new recently about someone called %1's body was found somewhere on the island, i never knew the guy but maybe you did.", charname);
-						}
-						else if(rep > 20)
-						{
-							rummor = string.Format("%1 lost his life not so long ago, didnt have the best reputation around, but cant say i havent seen worse folks in these parts.", charname);
-						}
-						else if(rep > 1)
-						{
-							rummor = string.Format("%1 lost his life not so long ago. Going to be honest for the better. That guy was a dick.", charname);
-						}
+		}
+		return FriendlyBountyString;
+	}
+	string ComposeEnemyWarningString(IEntity Instigator, IEntity Player)
+	{
+		//look for enemy units and report location
+		string WarningString;
+		SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		ChimeraCharacter Enemy;
+		array <Faction> enemFactions = new array <Faction>();
+		factman.GetEnemyFactions(Affiliation.GetAffiliatedFaction(), enemFactions);
+		if (enemFactions.IsEmpty())
+			return WarningString;
+		Faction enemFaction = enemFactions.GetRandomElement();
+		if (!CharacterHolder.GetUnitOfFaction(enemFaction, Enemy))
+			return WarningString;
+		WarningString = string.Format("We have reports of %1 units in %2. Take care if you are thinking of heading that direction", enemFaction.GetFactionKey(), GetCharacterLocation(Enemy));
+		return WarningString;
+	}
+	string ComposeDeadFriendlyString(IEntity Instigator, IEntity Player)
+	{
+		string DeadFriendlyString;
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		ChimeraCharacter deadchar = CharacterHolder.GetRandomDeadOfFaction(Affiliation.GetAffiliatedFaction());
+		if (deadchar)
+		{
+			SCR_CharacterIdentityComponent Identitycomp = SCR_CharacterIdentityComponent.Cast(deadchar.FindComponent(SCR_CharacterIdentityComponent));
+			int rep = Identitycomp.GetRep();
+			string charname = GetCharacterName(deadchar);
+			if(rep > 80)
+			{
+				DeadFriendlyString = string.Format("%1 lost his life not so long ago. We will all miss him, he was a real role model for some of us, such a waste.", charname);
+			}
+			else if(rep > 60)
+			{
+				DeadFriendlyString = string.Format("%1 lost his life not so long ago, I will miss him.", charname);
+			}
+			else if(rep > 40)
+			{
+				DeadFriendlyString = string.Format("We got some new recently about someone called %1's body was found somewhere on the island, i never knew the guy but maybe you did.", charname);
+			}
+			else if(rep > 20)
+			{
+				DeadFriendlyString = string.Format("%1 lost his life not so long ago, didnt have the best reputation around, but cant say i havent seen worse folks in these parts.", charname);
+			}
+			else if(rep > 1)
+			{
+				DeadFriendlyString = string.Format("%1 lost his life not so long ago. Going to be honest for the better. That guy was a dick.", charname);
+			}
 						
-					}
-					break;
-				}
-			break;
 		}
-		return rummor;
+		return DeadFriendlyString;
 	}
 	string ComposeReputationCommentString(IEntity Player)
 	{
@@ -257,7 +272,7 @@ modded class SP_DialogueComponent
 			}
 			else if (CharFaction.IsFactionFriendly(faction))
 			{
-				text = string.Format("I head you've been helping the %1 troops by complting tasks for them. Have to keep our friends close.", faction.GetFactionKey());
+				text = string.Format("I heard you've been helping the %1 troops by complting tasks for them. Have to keep our friends close.", faction.GetFactionKey());
 			}
 		}
 		return text;
@@ -269,10 +284,12 @@ modded class SP_DialogueComponent
 		SP_RequestManagerComponent.GetCharTasks(talker, tasks);
 		if (!tasks.IsEmpty())
 		{
-			string task =  tasks.GetRandomElement().GetTaskDiag();
-			if (task == "SP_ChainedTask")
+			SP_Task task = tasks.GetRandomElement();
+			SP_ChainedTask chtask = SP_ChainedTask.Cast(task);
+			if (chtask)
 				return text;
-			text = string.Format("You arent looking for any work, are you? %1", task);
+			string taskd =  task.GetTaskDiag();
+			text = string.Format("You arent looking for any work, are you? %1", taskd);
 		}
 		return text;
 	
@@ -321,13 +338,15 @@ modded class SP_DialogueComponent
 	{
 		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
 		string weathercomment;
-		int index = Math.RandomInt(0,2);
+		int index = Math.RandomInt(0,3);
+		ref LocalWeatherSituation Weather = new LocalWeatherSituation();
+		TnWman.TryGetCompleteLocalWeather(Weather, 0, talker.GetOrigin());
 		switch (index)
 		{
 			//rain
 			case 0: 
 			{
-				if (TnWman.GetRainIntensity() > 0.1)
+				if (Weather.GetRainIntensity() > 0.1)
 					weathercomment = "Kinda hate this rain, not going to lie";
 				else
 					weathercomment = "We were expecting some rain today. Maybe later, i'm keeping a dry change of clothes just to be sure.";
@@ -354,6 +373,10 @@ modded class SP_DialogueComponent
 			break;
 			case 2: 
 			{
+				if (Weather.GetFog() > 0.1)
+					weathercomment = "Kinda hate this fog, not going to lie";
+				else
+					weathercomment = "We were expecting some fog today. Maybe later.";
 			}
 			break;
 		}

@@ -1,4 +1,4 @@
-[BaseContainerProps(configRoot:true)]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_BountyTask: SP_Task
 {
 	//------------------------------------------------------------------------------------------------------------//
@@ -34,7 +34,7 @@ class SP_BountyTask: SP_Task
 		else
 		{
 			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+			SCR_FactionManager FactionMan = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 			Faction Fact = AffiliationComp.GetAffiliatedFaction();
 			if (!Fact)
 				return false;
@@ -70,7 +70,7 @@ class SP_BountyTask: SP_Task
 		string s_RewardName = FilePath.StripPath(m_Reward);
 		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 		s_RewardName.ToLower();
-		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head. Location: %3", OName, DName, DLoc);
+		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
 		m_sTaskTitle = string.Format("Bounty: retrieve %1's dogtags", DName);
 		m_sTaskCompletiontext = "Thanks the completing the task %1, he got what he deserved, dont have any regrets on that.";

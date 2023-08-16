@@ -16,7 +16,7 @@ class SP_GameMode : SCR_BaseGameMode
 	protected int m_iPlayerInitialRep;
 	protected SP_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
-	protected SP_FactionManager m_factionManager;
+	protected SCR_FactionManager m_factionManager;
 	protected Faction plfact;
 	
 	Faction GetPlFaction()
@@ -34,7 +34,7 @@ class SP_GameMode : SCR_BaseGameMode
 		return m_RequestManagerComponent;
 	}
 	//------------------------------------------------------------------//
-	SP_FactionManager GetFactionManager()
+	SCR_FactionManager GetFactionManager()
 	{
 		return m_factionManager;
 	}
@@ -44,7 +44,7 @@ class SP_GameMode : SCR_BaseGameMode
 		super.EOnInit(owner);
 		m_DialogueComponent = SP_DialogueComponent.Cast(owner.FindComponent(SP_DialogueComponent));
 		m_RequestManagerComponent = SP_RequestManagerComponent.Cast(owner.FindComponent(SP_RequestManagerComponent));
-		m_factionManager = SP_FactionManager.Cast(GetGame().GetFactionManager());
+		m_factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 	}
 	//------------------------------------------------------------------//
 	protected override void OnPlayerSpawnFinalize_S(SCR_SpawnRequestComponent requestComponent, SCR_SpawnHandlerComponent handlerComponent, SCR_SpawnData data, IEntity entity)

@@ -1,4 +1,4 @@
-[BaseContainerProps(configRoot:true)]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_KillTask: SP_Task
 {
 	//------------------------------------------------------------------------------------------------------------//
@@ -62,7 +62,7 @@ class SP_KillTask: SP_Task
 		else
 		{
 			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+			SCR_FactionManager FactionMan = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 			Faction Fact = AffiliationComp.GetAffiliatedFaction();
 			if (!Fact)
 				return false;
@@ -94,9 +94,9 @@ class SP_KillTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		m_sTaskDesc = string.Format("Locate and eliminate %1. Location: %2", DName, DLoc);
+		m_sTaskDesc = string.Format("%1 is looking for someone to locate and eliminate %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		m_sTaskDiag = string.Format("I want you to kill %1, he should be on %2.", DName, DLoc);
-		m_sTaskTitle = string.Format("Kill: assasinate %1", DName);
+		m_sTaskTitle = string.Format("Kill %1", DName);
 		m_sAcceptTest = string.Format("I'll go for %1's head.", DName);
 		m_sTaskCompletiontext = "Good job %1, he got what he deserved, thanks, hope the reward will suffice.";
 		m_sacttext = string.Format("%1 is dead.", DName);

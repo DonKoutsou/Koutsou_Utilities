@@ -232,11 +232,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 				m_pChar.GetCharacterController().SetUnconscious(true);
 			}
 		}
-		else if (m_fTemperature <= m_fDeathTemperature)
+		if (m_fTemperature <= m_fDeathTemperature)
 		{
 			m_pDamage.Kill();
 		}
-		else if (m_fTemperature >= m_fMaxTemperature)
+		if (m_fTemperature >= m_fMaxTemperature)
 		{
 			m_pDamage.Kill();
 		}

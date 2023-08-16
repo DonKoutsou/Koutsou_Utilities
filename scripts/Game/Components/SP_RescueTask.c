@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------//
-[BaseContainerProps(configRoot:true)]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_RescueTask: SP_Task
 {
 	[Attribute(defvalue: "2", desc: "Max amount of rescue tasks that can exist")]
@@ -31,18 +31,19 @@ class SP_RescueTask: SP_Task
 			dmg.GetBleedingHitZones(blhitZones);
 			if(blhitZones.IsEmpty())
 			{
-				dmg.SetResilienceRegenScale(0.3);
-				dmg.FullHeal(false);
-				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
 				if (dmg.GetInstigator())
 					Instigator = dmg.GetInstigator();
 				CharsRescued.Insert(Rescued);
+				dmg.SetResilienceRegenScale(0.3);
+				dmg.FullHeal(false);
 				
 			}
 		}
 		for (int i = CharsRescued.Count() - 1; i >= 0; --i)
 		{
+			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(CharsRescued[i].FindComponent(SCR_CharacterDamageManagerComponent));
 			CharsToRescue.RemoveItem(CharsRescued[i]);
+			dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
 		}
 		if (CharsToRescue.IsEmpty())
 		{
@@ -119,7 +120,7 @@ class SP_RescueTask: SP_Task
 			DeleteLeftovers();
 			return false;
 		}
-		//SpawnBleedTrigger();
+		SpawnBleedTrigger();
 		CreateDescritions();
 		AddOwnerInvokers();
 		e_State = ETaskState.UNASSIGNED;
@@ -330,7 +331,7 @@ class SP_RescueTask: SP_Task
 		{
 			CharsToRescue.Insert(agent.GetControlledEntity());
 		}
-		if (!CheckForCharacters(100, Owner.GetOrigin()))
+		if (!CheckForCharacters(400, Owner.GetOrigin()))
 			return false;
 		//if (!CheckForCharacters(400, Victim.GetOrigin()))
 			//return false;
@@ -345,24 +346,11 @@ class SP_RescueTask: SP_Task
 					dmg.ForceUnconsciousness();
 				}
 				dmg.SetResilienceRegenScale(0);
+				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
 			}
 		}
 		return true;
 	};
-	override void AddOwnerInvokers()
-	{
-		super.AddOwnerInvokers();
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
-		dmg.GetOnDamageStateChanged().Insert(FailTask);
-	}
-	override void RemoveOwnerInvokers()
-	{
-		super.RemoveOwnerInvokers();
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
-		dmg.GetOnDamageStateChanged().Remove(FailTask);
-	}
 	override void AddTargetInvokers()
 	{
 	};

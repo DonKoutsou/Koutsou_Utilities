@@ -91,7 +91,7 @@ modded class SCR_Faction
 		if (!m_FriendlyMap)
 			m_FriendlyMap = new ref map<Faction, int>();
 		//~ Set faction friendly
-		SP_FactionManager factionManager = SP_FactionManager.Cast(GetGame().GetFactionManager());
+		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 		if (!factionManager)
 		{
 			//~ Still make sure faction is friendly towards itself	

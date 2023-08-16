@@ -139,12 +139,11 @@ SP_GameMode {
  }
  coords 2504.506 139.009 2344.878
  PlayerControllerPrefab "{A1AE127F16DD352E}prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et"
- m_bUseSpawnPreload 0
  m_bOverrideGameOverType 1
  m_eOverriddenGameOverType DEATH
  m_iPlayerInitialRep 45
  {
-  SP_FactionManager "5DD0FCA5EFCD0A3F" {
+  SCR_FactionManager "5DD0FCA5EFCD0A3F" {
    ID "5DC8E7DF1BAF44A6"
    components {
     SCR_DelegateFactionManagerComponent "{5D5705392CA1FA82}" {
@@ -156,44 +155,6 @@ SP_GameMode {
    }
    coords -41.458 -9.728 24.066
    Flags 0
-   Factions {
-    SCR_Faction "{5DCF2DEC154078E9}" : "{5EB46557DF2AA24F}Configs/Factions/US.conf" {
-     m_bIsPlayable 0
-     m_aFriendlyFactionsIds {
-      "FIA"
-     }
-     m_aEntityCatalogs {
-      SCR_EntityCatalogMultiList "{5C68A0EE8B97CA50}" {
-       m_aEntityEntryList {
-        SCR_EntityCatalogEntry "{5CCEA181AD29F55C}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181ADF83294}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181ACAFE503}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181AB034B38}" {
-         m_bEnabled 0
-        }
-        SCR_EntityCatalogEntry "{5CCEA181ABCF2648}" {
-         m_bEnabled 0
-        }
-       }
-      }
-     }
-    }
-    SCR_Faction "{5DCF2DEC1F25C352}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
-     m_bIsPlayable 0
-     m_aFriendlyFactionsIds {
-     }
-    }
-    SCR_Faction "{5E0CF32C10667C7D}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
-    }
-    SCR_Faction "{5E0EC7435CD1252C}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
-    }
-   }
    m_bCanChangeFactionsPlayable 0
   }
   TagManager {

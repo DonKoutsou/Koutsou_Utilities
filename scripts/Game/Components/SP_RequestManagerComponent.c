@@ -3,6 +3,7 @@
 class SP_RequestManagerComponentClass : ScriptComponentClass
 {
 };
+[BaseContainerProps(configRoot: true)]
 class SP_RequestManagerComponent : ScriptComponent
 {
 	[Attribute(defvalue : "3", desc: "Cooldown for task generation")]
@@ -433,7 +434,7 @@ modded enum SCR_EArsenalItemType
 	MAP = 270000,
 	CURRENCY = 280000,
 	ARMOR = 290000,
-	SLEEPINGPILLS = 300000,
+	SLEEPING_PILLS = 300000,
 };
 //------------------------------------------------------------------------------------------------------------//
 modded enum SCR_EArsenalItemMode

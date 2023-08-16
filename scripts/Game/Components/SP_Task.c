@@ -8,7 +8,7 @@ enum ETaskState
 	EMPTY
 }
 //------------------------------------------------------------------------------------------------------------//
-[BaseContainerProps()]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_Task
 {
 	//-------------------------------------------------//
@@ -27,7 +27,7 @@ class SP_Task
 	[Attribute("0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(EEditableEntityLabel))]
 	EEditableEntityLabel e_RewardLabel;
 	//-------------------------------------------------//
-	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency")]
+	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency, keep at 1 for Distance based tasks (Navigate, Deliver), reward is calculated based on distance and multiplied to this value, so increase to increase multiplier")]
 	int m_iRewardAverageAmount;
 	//-------------------------------------------------//
 	//Character wich created the task
@@ -36,22 +36,30 @@ class SP_Task
 	//Target of the task (kill task, deliver task etc... not necesarry on retrieve task)
 	IEntity m_eTaskTarget;
 	//-------------------------------------------------//
+	// task description, should be composed in 3rd person. "Private .. is looking for .... in....."
 	string m_sTaskDesc;
 	//-------------------------------------------------//
+	// task dialogue character will say when he is describing the task so the player can pick it.
 	string m_sTaskDiag;
 	//-------------------------------------------------//
+	// used for UI popups
 	string m_sTaskTitle;
 	//-------------------------------------------------//
+	//Dialogue line for completing the task
 	string m_sTaskCompletiontext;
 	//-------------------------------------------------//
+	//action text for dialogue menu
 	string m_sacttext;
 	//-------------------------------------------------//
+	//action text to show up for player to accept task
 	string m_sAcceptTest;
 	//-------------------------------------------------//
+	//Faction of owner of task
 	SCR_Faction m_OwnerFaction;
 	//-------------------------------------------------//
 	//Reward that is going to be handed to completionist *m_iRewardAmount
 	ResourceName m_Reward;
+	//Used for ClearTasks function in SP_DialogueComponent used to clean completed/failed tasks from main task array
 	private bool m_bMarkedForRemoval;
 	//-------------------------------------------------//
 	//Amount of the m_Reward resource that is going to be given to completionist. Calculated average using m_iRewardAverageAmount taken from task sample in SP_RequestManagerComponent
@@ -73,7 +81,6 @@ class SP_Task
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
 	//Owner of task.
-	bool MarkedForRemoval(){return m_bMarkedForRemoval;};
 	IEntity GetOwner(){return m_eTaskOwner;};
 	Faction GetOwnerFaction(){return m_OwnerFaction;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -111,11 +118,14 @@ class SP_Task
 	//Function used to delete excess stuff when a task is failed or couldnt initialise
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
+	bool MarkedForRemoval(){return m_bMarkedForRemoval;};
+	//------------------------------------------------------------------------------------------------------------//
 	//Function used to set up all the texts of the task on Init
 	void CreateDescritions(){};
-	//------------------------------------------------------------------------------------------------------------//
+	//-------------------------------------//
 	//Getter for reputation reward of task
 	int GetRepReward(){return m_iRepReward;};
+	//-------------------------------------//
 	//------------------------------------------------------------------------------------------------------------//
 	//Function to set up entities used for the task. E.g. to spawn package on a delivery mission
 	bool SetupTaskEntity(){return true;};
@@ -334,6 +344,23 @@ class SP_Task
 		m_bMarkedForRemoval = 1;
 		GetOnTaskFinished(this);
 	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Fail task duplicate used for stuff other than character dying
+	void CancelTask()
+	{
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Fail(true);
+			m_TaskMarker.RemoveAllAssignees();
+			m_TaskMarker.Finish(true);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+		}
+		e_State = ETaskState.FAILED;
+		m_bMarkedForRemoval = 1;
+		GetOnTaskFinished(this);
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//invoker stuff
 	void AddOwnerInvokers()
 	{
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
@@ -365,19 +392,6 @@ class SP_Task
 		{
 			m_OwnerFaction.OnRelationDropped().Remove(CheckUpdatedAffiliations);
 		}
-	}
-	void CancelTask()
-	{
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Fail(true);
-			m_TaskMarker.RemoveAllAssignees();
-			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
-		}
-		e_State = ETaskState.FAILED;
-		m_bMarkedForRemoval = 1;
-		GetOnTaskFinished(this);
 	}
 	void CheckUpdatedAffiliations(SCR_Faction factionA, SCR_Faction factionB = null)
 	{
@@ -491,3 +505,18 @@ class SP_Task
 		return true;
 	};
 };
+class TaskAttribute : BaseContainerCustomTitle
+{
+	override bool _WB_GetCustomTitle(BaseContainer source, out string title)
+	{
+		string enabled;
+		bool enable;
+		source.Get("m_bEnabled", enable);
+		if (enable)
+			enabled = "ACTIVE";
+		else
+			enabled = "INACTIVE";
+		title = source.GetClassName() + " | " + enabled;
+		return true;
+	}
+}

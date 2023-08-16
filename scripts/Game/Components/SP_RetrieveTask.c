@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------//
-[BaseContainerProps(configRoot:true)]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_RetrieveTask: SP_Task
 {
 	//----------------------------------------//
@@ -48,7 +48,7 @@ class SP_RetrieveTask: SP_Task
 		GetInfo(OName, OLoc);
 		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
 		itemdesc.ToLower();
-		m_sTaskDesc = string.Format("%1 is looking for %2 %3.", OName, m_iRequestedAmount.ToString(), itemdesc);
+		m_sTaskDesc = string.Format("%1 is looking for %2 %3. %1 is on %4, go meet him if you can help him.", OName, m_iRequestedAmount.ToString(), itemdesc, OLoc);
 		m_sTaskDiag = string.Format("I am looking for someone to bring me %1 %2.", m_iRequestedAmount.ToString(), itemdesc);
 		m_sTaskTitle = string.Format("Retrieve %1 %2 for %3 ",m_iRequestedAmount.ToString(), itemdesc, OName);
 		m_sTaskCompletiontext = "Thanks for retrieving the items i asked for %1. Here is the reward, hope is suficient";
@@ -193,7 +193,7 @@ class SP_RetrieveTask: SP_Task
 			}
 		if (index == 11)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.SLEEPINGPILLS;
+				m_requestitemtype = SCR_EArsenalItemType.SLEEPING_PILLS;
 				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = 1;
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;

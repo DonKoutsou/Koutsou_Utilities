@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------//
-[BaseContainerProps(configRoot:true)]
+[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_NavigateTask: SP_Task
 {
 	//----------------------------------------------------------------------------------//
@@ -39,7 +39,7 @@ class SP_NavigateTask: SP_Task
 		else
 		{
 			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-			SP_FactionManager FactionMan = SP_FactionManager.Cast(GetGame().GetFactionManager());
+			SCR_FactionManager FactionMan = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 			Faction Fact = AffiliationComp.GetAffiliatedFaction();
 			if (!Fact)
 				return false;
@@ -105,7 +105,7 @@ class SP_NavigateTask: SP_Task
 		string s_RewardName = FilePath.StripPath(m_Reward);
 		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 		s_RewardName.ToLower();
-		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. Location: %3", OName, DName, DLoc);
+		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		m_sTaskDiag = string.Format("I am looking for someone to take me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
 		m_sTaskTitle = string.Format("Escort %1 to %2's location", OName, DName);
 		m_sAcceptTest = string.Format("Follow me. I'll take you to %1's location.", DName);
