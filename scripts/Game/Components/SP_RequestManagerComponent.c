@@ -23,6 +23,11 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_ChainedTask> m_aQuestlines;
 	
+	[Attribute(defvalue: "2", desc: "Max amount of tasks that can be assigned")]
+	protected int m_iassignmax;
+	
+	int m_iassigncount;
+	
 	[Attribute()]
 	ref array<string> m_aSpecialCars;
 	
@@ -133,7 +138,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		foreach (SP_Task task : m_aTaskMap)
 		{
-			if(task.CharacterIsOwner(Char) == true)
+			if(task.CharacterIsOwner(Char))
 			{
 				return true;
 			}
@@ -146,12 +151,28 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		foreach (SP_Task task : m_aTaskMap)
 		{
-			if(task.CharacterIsTarget(Char) == true)
+			if(task.CharacterIsTarget(Char))
 			{
 				return true;
 			}
 		}
 		return false;
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Get assigned tasks of character
+	static bool GetassignedTasks(IEntity Char, out array<ref SP_Task> tasks)
+	{
+		
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.CharacterAssigned(Char))
+			{
+				tasks.Insert(task);
+			}
+		}
+		if (tasks.IsEmpty())
+			return false;
+		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Create tasks of type
@@ -236,6 +257,21 @@ class SP_RequestManagerComponent : ScriptComponent
 		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsOwner(Char) || task.CharacterIsTarget(Char))
+			{
+				if(task.GetClassName() == tasktype)
+				{
+					tasks.Insert(task);
+				}
+			}
+		}
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Getter for tasks of provided type that are related to the provided entity
+	static void GetCharOwnedTasksOfSameType(IEntity Char,out array<ref SP_Task> tasks, typename tasktype)
+	{
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.CharacterIsOwner(Char))
 			{
 				if(task.GetClassName() == tasktype)
 				{
@@ -338,11 +374,65 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		super.OnPostInit(owner);
 		SetEventMask(owner, EntityEvent.INIT);
-		SetEventMask(owner, EntityEvent.FIXEDFRAME);
+		SetEventMask(owner, EntityEvent.FRAME);
 		owner.SetFlags(EntityFlags.ACTIVE, true);
 	}
+	void AssignATask()
+	{
+		if (m_iassigncount >= m_iassignmax)
+			return;
+		ChimeraCharacter Assignee;
+		if (!m_CharacterHolder.GetRandomUnit(Assignee))
+			return;
+		
+		array<ref SP_Task> assignedtasks = {};
+		GetassignedTasks(Assignee, assignedtasks);
+		if (!assignedtasks.IsEmpty())
+			return;
+		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
+		ChimeraCharacter CloseChar;
+		if (!m_CharacterHolder.GetUnitOfAnyFriendlyFaction(affcomp.GetAffiliatedFaction(), CloseChar))
+			return;
+		if (Assignee == CloseChar)
+			return;
+		array <ref SP_Task> tasks = {};
+		GetCharOwnedTasksOfSameType(CloseChar, tasks, SP_DeliverTask);
+		if (tasks.IsEmpty())
+			return;
+		GetassignedTasks(CloseChar, assignedtasks);
+		if (!assignedtasks.IsEmpty())
+			return;
+		for (int i = tasks.Count() - 1; i >= 0; i--)
+		{
+			if (tasks[i].IsReserved())
+				continue;
+			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
+			if (!comp)
+				return;
+			AIAgent agent = comp.GetAIAgent();
+			if (!agent)
+				return;
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			if (!utility)
+				return;
+			SCR_AIExecuteTaskBehavior action = new SCR_AIExecuteTaskBehavior(utility, null, tasks[i].GetOwner());
+			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+			group.RemoveAgent(agent);
+			Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
+			EntitySpawnParams myparams = EntitySpawnParams();
+			myparams.TransformMode = ETransformMode.WORLD;
+			myparams.Transform[3] = Assignee.GetOrigin();
+			SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
+			newgroup.AddAgent(agent);
+			utility.AddAction(action);
+			tasks[i].SetReserved();
+			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
+			m_iassigncount += 1;
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
-	override void EOnFixedFrame(IEntity owner, float timeSlice)
+	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		if (!m_bQuestInited)
 			return;
@@ -377,6 +467,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			m_fTaskClearTimer = 0;
 			ClearTasks();
 		}
+		AssignATask();
 	};
 	override void EOnInit(IEntity owner)
 	{
@@ -522,6 +613,23 @@ class CharacterHolder : ScriptAndConfig
 		mychar = null;
 		return false;
 	}
+	static bool GetUnitOfAnyFriendlyFaction(Faction fact, out ChimeraCharacter mychar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (!GetRandomUnit(mychar))
+				continue;
+			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
+			if (!Aff)
+				continue;
+			if(Aff.GetAffiliatedFaction().IsFactionFriendly(fact))
+			{
+				return true;
+			}
+		}
+		mychar = null;
+		return false;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	static bool GetCharOfRank(SCR_CharacterRank rank, out ChimeraCharacter mychar)
 	{
@@ -571,6 +679,21 @@ class CharacterHolder : ScriptAndConfig
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Get unit close provided location
+	static bool GetCloseUnit(vector pos, float maxdistance, out ChimeraCharacter CloseChar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (!GetRandomUnit(CloseChar))
+				continue;
+			float dist = vector.Distance(CloseChar.GetOrigin(), pos);
+			if (maxdistance > dist)
+				return true;
+		}
+		CloseChar = null;
+		return false;
+	}
+	//------------------------------------------------------------------------------------------------------------//
 	//Get unit of specified faction far form provided character
 	static bool GetFarUnitOfFaction(ChimeraCharacter mychar, float mindistance, Faction fact, out ChimeraCharacter FarChar)
 	{
@@ -578,11 +701,30 @@ class CharacterHolder : ScriptAndConfig
 		{
 			if (!GetUnitOfFaction(fact, FarChar))
 				continue;
+			if (FarChar == mychar)
+				continue;
 			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
 			if (mindistance < dist)
 				return true;
 		}
 		FarChar = null;
+		return false;
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Get unit of specified faction clsoe to provided character
+	static bool GetCloseUnitOfFaction(ChimeraCharacter mychar, float maxdistance, Faction fact, out ChimeraCharacter CloseChar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (!GetUnitOfFaction(fact, CloseChar))
+				continue;
+			if (CloseChar == mychar)
+				continue;
+			float dist = vector.Distance(CloseChar.GetOrigin(), mychar.GetOrigin());
+			if (maxdistance > dist)
+				return true;
+		}
+		CloseChar = null;
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//

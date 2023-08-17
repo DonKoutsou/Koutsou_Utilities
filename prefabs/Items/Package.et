@@ -33,6 +33,7 @@ GenericEntity {
     ItemPhysAttributes ItemPhysicalAttributes "{5D6501852E9DCF0C}" {
      Weight 4
      SizeSetupStrategy Manual
+     ItemDimensions 8 8 8
      ItemVolume 8
     }
     CustomAttributes {
@@ -44,6 +45,7 @@ GenericEntity {
      }
     }
     m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
    }
    CapacityCoefficient 0
   }

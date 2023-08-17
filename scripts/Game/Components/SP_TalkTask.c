@@ -85,9 +85,11 @@ class SP_TalkTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_TalkTask;};
 	//------------------------------------------------------------------------------------------------------------//
-	override void AssignCharacter(IEntity Character)
+	override bool AssignCharacter(IEntity Character)
 	{
-		super.AssignCharacter(Character);
+		if (super.AssignCharacter(Character))
+			return true;
+		return false;
 	}
 	override bool Init()
 	{

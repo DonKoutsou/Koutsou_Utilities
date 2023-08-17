@@ -118,6 +118,12 @@ class SP_DeliverTask: SP_Task
 		m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
 		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
+		SP_PackageComponent PackageComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
+		
+		if (PackageComp)
+		{
+			PackageComp.SetInfo(OName, DName, DLoc);
+		}
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
@@ -181,6 +187,25 @@ class SP_DeliverTask: SP_Task
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
+				if (GetGame().GetPlayerController().GetControlledEntity() != Assignee)
+				{
+					AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
+					AIAgent agent = comp.GetAIAgent();
+					SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+					SCR_AIExecuteTaskBehavior act = SCR_AIExecuteTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteTaskBehavior));
+					act.SetActiveFollowing(false);
+					AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
+					AIAgent Tagent = Tcomp.GetAIAgent();
+					SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
+					if (Tgroup)
+					{
+						AIWaypoint wp;
+						wp = Tgroup.GetCurrentWaypoint();
+						agent.GetParentGroup().AddWaypoint(wp);
+					}
+				}
+				SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+				req.m_iassigncount -= 1;
 				return true;
 			}
 		}
@@ -230,23 +255,31 @@ class SP_DeliverTask: SP_Task
 		}
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override void AssignCharacter(IEntity Character)
+	override bool AssignCharacter(IEntity Character)
 	{
 		IEntity Package = GetPackage();
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Character.FindComponent(InventoryStorageManagerComponent));
 		InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
 		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Package.FindComponent(InventoryItemComponent));
 		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-		invChar.TryRemoveItemFromStorage(Package, parentSlot.GetStorage());
-		if(inv.TryInsertItem(Package))
+		BaseInventoryStorageComponent storage = inv.FindStorageForItem(Package);
+		if(storage)
 		{
+			string storageent = storage.GetUIInfo().GetName();
+			if (!invChar.TryRemoveItemFromStorage(Package, parentSlot.GetStorage()))
+				return false;
+			if (!inv.TryInsertItemInStorage(Package, storage))
+				return false;
 			SCR_HintManagerComponent.GetInstance().ShowCustom("The package has been added to your inventory");
 		}
 		else
 		{
 			SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, package left on the floor");
+			return false;
 		}
-		super.AssignCharacter(Character);
+		if (super.AssignCharacter(Character))
+			return true;
+		return false;
 	}
 	override bool Init()
 	{

@@ -110,7 +110,7 @@ class SP_ChainedTask : SP_Task
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	override void AssignCharacter(IEntity Character)
+	override bool AssignCharacter(IEntity Character)
 	{
 		if (!m_aTaskAssigned.Contains(Character))
 			m_aTaskAssigned.Insert(Character);
@@ -119,6 +119,7 @@ class SP_ChainedTask : SP_Task
 			e_State = ETaskState.ASSIGNED;
 		}
 		m_aTasks[stage].AssignCharacter(Character);
+		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	override bool CharacterAssigned(IEntity Character)

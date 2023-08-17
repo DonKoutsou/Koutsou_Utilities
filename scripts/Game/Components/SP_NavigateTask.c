@@ -167,17 +167,17 @@ class SP_NavigateTask: SP_Task
 		}
 		return null;
 	};
-	override void AssignCharacter(IEntity Character)
+	override bool AssignCharacter(IEntity Character)
 	{
 		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
 		if (!comp)
-			return;
+			return false;
 		AIAgent agent = comp.GetAIAgent();
 		if (!agent)
-			return;
+			return false;
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 		if (!utility)
-			return;
+			return false;
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Character);
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
@@ -190,7 +190,9 @@ class SP_NavigateTask: SP_Task
 		newgroup.AddAgent(agent);
 		utility.AddAction(action);
 		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", Diag.GetCharacterName(Character)));
-		super.AssignCharacter(Character);
+		if (super.AssignCharacter(Character))
+			return true;
+		return false;
 	}
 	override string GetCompletionText(IEntity Completionist)
 	{

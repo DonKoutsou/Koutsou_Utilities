@@ -2,6 +2,8 @@ modded class SCR_AIGroup
 {
 	override void OnLeaderChanged(AIAgent currentLeader, AIAgent prevLeader)
 	{
+		if (!currentLeader)
+			return;
 		Event_OnLeaderChanged.Invoke(currentLeader, prevLeader);
 		
 		if (currentLeader && currentLeader.GetControlledEntity())

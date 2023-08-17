@@ -387,6 +387,44 @@ modded class SP_DialogueAction
 {
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
+		if (GetGame().GetPlayerController().GetControlledEntity() != pUserEntity)
+		{
+			array <ref SP_Task> taskstodeliver = {};
+			SP_RequestManagerComponent.GetCharTargetTasks(pOwnerEntity, taskstodeliver);
+			if (!taskstodeliver.IsEmpty())
+			{
+				foreach (SP_Task task : taskstodeliver)
+				{
+					if (task.ReadyToDeliver(pOwnerEntity, pUserEntity))
+						task.CompleteTask(pUserEntity);
+					SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+					req.m_iassigncount -= 1;
+				}
+			}
+			array <ref SP_Task> taskstoassign = {};
+			SP_RequestManagerComponent.GetCharOwnedTasksOfSameType(pOwnerEntity, taskstoassign, SP_DeliverTask);
+			if (!taskstoassign.IsEmpty())
+			{
+				foreach (SP_Task task : taskstoassign)
+				{
+					AIControlComponent comp = AIControlComponent.Cast(pUserEntity.FindComponent(AIControlComponent));
+					if (!comp)
+						return;
+					AIAgent agent = comp.GetAIAgent();
+					if (!agent)
+						return;
+					SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+					if (!utility)
+						return;
+					SCR_AIExecuteTaskBehavior act = SCR_AIExecuteTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteTaskBehavior));
+					act.SetActiveFollowing(false);
+					task.AssignCharacter(pUserEntity);
+					SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+					req.m_iassigncount += 1;
+				}
+			}
+			return;
+		}
 		AIControlComponent comp = AIControlComponent.Cast(pOwnerEntity.FindComponent(AIControlComponent));
 		if (!comp)
 			return;

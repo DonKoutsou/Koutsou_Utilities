@@ -29,6 +29,8 @@ class SP_Task
 	//-------------------------------------------------//
 	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency, keep at 1 for Distance based tasks (Navigate, Deliver), reward is calculated based on distance and multiplied to this value, so increase to increase multiplier")]
 	int m_iRewardAverageAmount;
+	
+	
 	//-------------------------------------------------//
 	//Character wich created the task
 	IEntity m_eTaskOwner;
@@ -65,6 +67,9 @@ class SP_Task
 	//Amount of the m_Reward resource that is going to be given to completionist. Calculated average using m_iRewardAverageAmount taken from task sample in SP_RequestManagerComponent
 	int m_iRewardAmount;
 	//-------------------------------------------------//
+	// used for when an ai has started heading towards taking a task to avoid multiple AI going for same task
+	bool reserved;
+	//-------------------------------------------------//
 	//Stato of task using ETaskState enum
 	protected ETaskState e_State = ETaskState.EMPTY;
 	//-------------------------------------------------//
@@ -80,6 +85,8 @@ class SP_Task
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
+	void SetReserved(){reserved = true;};
+	bool IsReserved(){return reserved;};
 	//Owner of task.
 	IEntity GetOwner(){return m_eTaskOwner;};
 	Faction GetOwnerFaction(){return m_OwnerFaction;};
@@ -324,6 +331,7 @@ class SP_Task
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			GetOnTaskFinished(this);
 			m_bMarkedForRemoval = 1;
+			
 			return true;
 		}
 		return false;
@@ -405,16 +413,50 @@ class SP_Task
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Assign character to this task
-	void AssignCharacter(IEntity Character)
+	bool AssignCharacter(IEntity Character)
 	{
 		if (m_aTaskAssigned.Contains(Character))
-			return;
-		m_aTaskAssigned.Insert(Character);
-		if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
+			return false;
+		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
 		{
-			e_State = ETaskState.ASSIGNED;
+			m_aTaskAssigned.Insert(Character);
+			if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
+			{
+				e_State = ETaskState.ASSIGNED;
+			}
+			SpawnTaskMarker(Character);
+			return true;
 		}
-		SpawnTaskMarker(Character);
+		else
+		{
+			m_aTaskAssigned.Insert(Character);
+			if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
+			{
+				e_State = ETaskState.ASSIGNED;
+			}
+			AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
+			if (!comp)
+				return false;
+			AIAgent agent = comp.GetAIAgent();
+			if (!agent)
+				return false;
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			if (!utility)
+				return false;
+			SCR_AIExecuteTaskBehavior action = new SCR_AIExecuteTaskBehavior(utility, null, m_eTaskTarget);
+			//SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+			//SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+			//group.RemoveAgent(agent);
+			//Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
+			//EntitySpawnParams myparams = EntitySpawnParams();
+			//myparams.TransformMode = ETransformMode.WORLD;
+			//myparams.Transform[3] = Character.GetOrigin();
+			//SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
+			//newgroup.AddAgent(agent);
+			utility.AddAction(action);
+			return true;
+		}
+		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Spawn task marker for this task, called when assigning character
