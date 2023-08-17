@@ -95,7 +95,7 @@ BehaviorTree {
                PortName "MovementType"
               }
              }
-             m_eMovementType WALK
+             m_eMovementType RUN
             }
             AITaskMoveToEntity "Move To Entity" {
              Name "Move To Entity"

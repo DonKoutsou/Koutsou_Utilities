@@ -85,7 +85,7 @@ class SP_Task
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
-	void SetReserved(){reserved = true;};
+	void SetReserved(bool res){reserved = res;};
 	bool IsReserved(){return reserved;};
 	//Owner of task.
 	IEntity GetOwner(){return m_eTaskOwner;};
@@ -454,9 +454,26 @@ class SP_Task
 			//SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
 			//newgroup.AddAgent(agent);
 			utility.AddAction(action);
+			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
+			if (dmgcomp)
+			{
+				dmgcomp.GetOnDamageStateChanged().Insert(UnAssignCharacter);
+			}
 			return true;
 		}
 		return false;
+	}
+	void UnAssignCharacter(EDamageState state)
+	{
+		if (m_aTaskAssigned.IsEmpty())
+			return;
+		m_aTaskAssigned.Clear();
+		if (state != EDamageState.DESTROYED)
+			return;
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Cancel(true);
+		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Spawn task marker for this task, called when assigning character

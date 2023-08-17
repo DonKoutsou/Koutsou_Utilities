@@ -270,12 +270,14 @@ class SP_DeliverTask: SP_Task
 				return false;
 			if (!inv.TryInsertItemInStorage(Package, storage))
 				return false;
-			SCR_HintManagerComponent.GetInstance().ShowCustom("The package has been added to your inventory");
+			if (GetGame().GetPlayerController().GetControlledEntity() == Character)
+				SCR_HintManagerComponent.GetInstance().ShowCustom("The package has been added to your inventory");
 		}
 		else
 		{
-			SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, package left on the floor");
-			return false;
+			if (GetGame().GetPlayerController().GetControlledEntity() == Character)
+				SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, package left on the floor");
+			return true;
 		}
 		if (super.AssignCharacter(Character))
 			return true;

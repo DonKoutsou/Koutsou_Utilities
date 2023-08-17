@@ -384,7 +384,9 @@ class SP_RequestManagerComponent : ScriptComponent
 		ChimeraCharacter Assignee;
 		if (!m_CharacterHolder.GetRandomUnit(Assignee))
 			return;
-		
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Assignee.GetDamageManager());
+		if (dmg.GetIsUnconscious())
+			return;
 		array<ref SP_Task> assignedtasks = {};
 		GetassignedTasks(Assignee, assignedtasks);
 		if (!assignedtasks.IsEmpty())
@@ -426,7 +428,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
 			newgroup.AddAgent(agent);
 			utility.AddAction(action);
-			tasks[i].SetReserved();
+			tasks[i].SetReserved(true);
 			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
 			m_iassigncount += 1;
 		}
