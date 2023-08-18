@@ -356,12 +356,12 @@ class SP_DeliverTask: SP_Task
 			m_OwnerFaction.OnRelationDropped().Insert(CheckUpdatedAffiliations);
 		}
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Insert(CreateDescritions);
+		RankCo.s_OnRankChanged.Insert(GetOnOwnerRankUp);
 	}
 	override void RemoveOwnerInvokers()
 	{
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Remove(CreateDescritions);
+		RankCo.s_OnRankChanged.Remove(GetOnOwnerRankUp);
 		if (m_OwnerFaction)
 		{
 			m_OwnerFaction.OnRelationDropped().Remove(CheckUpdatedAffiliations);
@@ -375,6 +375,37 @@ class SP_DeliverTask: SP_Task
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
 		return true;
 	};
+	override void GetOnOwnerDeath()
+	{
+		RemoveOwnerInvokers();
+		//possible to fail task, if so override dis
+	}
+	override void GetOnTargetDeath()
+	{
+		RemoveTargetInvokers();
+		FailTask();
+	}
+	override void GetOnAssigneeDeath()
+	{
+		UnAssignCharacter();
+		//Decide owner behevior
+		//possible retrieve quest for player
+	}
+	override void UnAssignCharacter()
+	{
+		RemoveAssigneeInvokers();
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
+		if (!dmgman.IsDestroyed())
+		{
+			AIControlComponent comp = AIControlComponent.Cast(m_aTaskAssigned.FindComponent(AIControlComponent));
+			AIAgent agent = comp.GetAIAgent();
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			SCR_AIExecuteNavigateTaskBehavior act = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
+			if (act)
+				act.SetActiveFollowing(false);
+		}
+		super.UnAssignCharacter();
+	}
 	//------------------------------------------------------------------------------------------------------------//
 };
 //------------------------------------------------------------------------------------------------------------//

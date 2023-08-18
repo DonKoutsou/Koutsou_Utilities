@@ -385,7 +385,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (!m_CharacterHolder.GetRandomUnit(Assignee))
 			return;
 		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Assignee.GetDamageManager());
-		if (dmg.GetIsUnconscious())
+		if (dmg.GetIsUnconscious() || dmg.IsDestroyed())
 			return;
 		array<ref SP_Task> assignedtasks = {};
 		GetassignedTasks(Assignee, assignedtasks);
@@ -430,6 +430,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
 				newgroup.AddAgent(agent);
 			}
+			else
+				group.CompleteWaypoint(group.GetCurrentWaypoint());
 			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, task.GetOwner());
 			utility.AddAction(action);
 			task.SetReserved(true);

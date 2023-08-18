@@ -35,7 +35,7 @@ class SP_DestroyTask: SP_Task
 			m_TaskMarker.SetDescription(string.Format("Return to %1 %2 to claim your reward.", SP_DialogueComponent.GetCharacterRankName(m_eTaskOwner), SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 			m_TaskMarker.SetTarget(m_eTaskOwner);
 			m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
+			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 			SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 			m_TaskMarker.AddAssignee(assignee, 0);
 		}
@@ -51,7 +51,7 @@ class SP_DestroyTask: SP_Task
 		m_TaskMarker.SetDescription(m_sTaskDesc);
 		m_TaskMarker.SetTarget(m_eTaskTarget);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}

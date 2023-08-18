@@ -214,7 +214,7 @@ class SP_RetrieveTask: SP_Task
 		m_TaskMarker.SetDescription(m_sTaskDesc);
 		m_TaskMarker.SetTarget(m_eTaskOwner);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}

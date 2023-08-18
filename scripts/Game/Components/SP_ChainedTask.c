@@ -82,27 +82,27 @@ class SP_ChainedTask : SP_Task
 			task.OnTaskFinished().Remove(Progress);
 			if (stage + 1 == m_aTasks.Count())
 			{
-				CompleteChainedTask(m_aTaskAssigned[0]);
+				CompleteChainedTask(m_aTaskAssigned);
 			}
 			else
 			{
 				stage += 1;
 				while (!InitCurrentStage())
 					SkipStage(task);
-				GetCurrentTask().AssignCharacter(m_aTaskAssigned[0]);
+				GetCurrentTask().AssignCharacter(m_aTaskAssigned);
 			}
 		}
 		else if (task.e_State == ETaskState.FAILED)
 		{
 			task.OnTaskFinished().Remove(Progress);
-			FailTask(EDamageState.DESTROYED);
+			FailTask();
 		}
 	}
 	void SkipStage(SP_Task task)
 	{
 		if (stage + 1 == m_aTasks.Count())
 		{
-			CompleteChainedTask(m_aTaskAssigned[0]);
+			CompleteChainedTask(m_aTaskAssigned);
 		}
 		else
 		{
@@ -112,9 +112,9 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool AssignCharacter(IEntity Character)
 	{
-		if (!m_aTaskAssigned.Contains(Character))
-			m_aTaskAssigned.Insert(Character);
-		if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
+		if (!m_aTaskAssigned)
+			m_aTaskAssigned = Character;
+		if(m_aTaskAssigned && e_State == ETaskState.UNASSIGNED)
 		{
 			e_State = ETaskState.ASSIGNED;
 		}
@@ -124,7 +124,7 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool CharacterAssigned(IEntity Character)
 	{
-		if(m_aTasks[stage].m_aTaskAssigned.Contains(Character))
+		if(m_aTasks[stage].m_aTaskAssigned == Character)
 		{
 			return true;
 		}
@@ -146,10 +146,8 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool CompleteTask(IEntity Assignee){return m_aTasks[stage].CompleteTask(Assignee);};
 	//------------------------------------------------------------------------------------------------------------//
-	override void FailTask(EDamageState state)
+	override void FailTask()
 	{
-		if (state != EDamageState.DESTROYED)
-			return;
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(GetCurrentTask().GetOwner().FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);

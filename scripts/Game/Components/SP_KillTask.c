@@ -42,7 +42,7 @@ class SP_KillTask: SP_Task
 			m_TaskMarker.SetDescription(string.Format("Return to %1 %2 to claim your reward.", diag.GetCharacterRankName(m_eTaskOwner), diag.GetCharacterName(m_eTaskOwner)));
 			m_TaskMarker.SetTarget(m_eTaskOwner);
 			m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
+			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 			SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 			m_TaskMarker.AddAssignee(assignee, 0);
 		}

@@ -74,7 +74,7 @@ class SP_Task
 	protected ETaskState e_State = ETaskState.EMPTY;
 	//-------------------------------------------------//
 	//Characters assigned to this task
-	ref array <IEntity> m_aTaskAssigned = new ref array <IEntity>();
+	IEntity m_aTaskAssigned;
 	//-------------------------------------------------//
 	//Character that completed this task. Filled after task is complete
 	IEntity m_eCopletionist;
@@ -120,7 +120,7 @@ class SP_Task
 	//Getter for task finish invoker
 	ScriptInvoker OnTaskFinished(){return s_OnTaskFinished;}
 	//------------------------------------------------------------------------------------------------------------//
-	event void GetOnTaskFinished(SP_Task Task){if (m_eTaskOwner) RemoveOwnerInvokers(); if (m_eTaskTarget) RemoveTargetInvokers(); OnTaskFinished().Invoke(Task);};
+	event void GetOnTaskFinished(SP_Task Task){if (m_eTaskOwner) RemoveOwnerInvokers(); if (m_eTaskTarget) RemoveTargetInvokers(); if (m_aTaskAssigned) RemoveAssigneeInvokers(); OnTaskFinished().Invoke(Task);};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function used to delete excess stuff when a task is failed or couldnt initialise
 	void DeleteLeftovers(){};
@@ -179,6 +179,10 @@ class SP_Task
 		if (!dmg)
 			return false;
 		if (dmg.IsDestroyed())
+			return false;
+		array<ref SP_Task> assignedtasks = {};
+		SP_RequestManagerComponent.GetassignedTasks(m_eTaskOwner, assignedtasks);
+		if (!assignedtasks.IsEmpty())
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
@@ -252,6 +256,67 @@ class SP_Task
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks if character is assigned
+	bool CharacterAssigned(IEntity Character)
+	{
+		if(m_aTaskAssigned == Character)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------------------------------//
+	//Manipulation of task state and results
+	bool CompleteTask(IEntity Assignee)
+	{
+		if (GiveReward(Assignee))
+		{
+			if (m_TaskMarker)
+			{
+				m_TaskMarker.Finish(true);
+			}
+			e_State = ETaskState.COMPLETED;
+			m_eCopletionist = Assignee;
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+			GetOnTaskFinished(this);
+			m_bMarkedForRemoval = 1;
+			
+			return true;
+		}
+		return false;
+	};
+	//------------------------------------------------------------------------------------------------------------//
+	void FailTask()
+	{
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Fail(true);
+			m_TaskMarker.RemoveAllAssignees();
+			m_TaskMarker.Finish(true);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+		}
+		e_State = ETaskState.FAILED;
+		m_bMarkedForRemoval = 1;
+		GetOnTaskFinished(this);
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Fail task duplicate used for stuff other than character dying
+	void CancelTask()
+	{
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Fail(true);
+			m_TaskMarker.RemoveAllAssignees();
+			m_TaskMarker.Finish(true);
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+		}
+		e_State = ETaskState.FAILED;
+		m_bMarkedForRemoval = 1;
+		GetOnTaskFinished(this);
+	}
+	///////////////////REWARD//////////////
+	//------------------------------------------------------------------------------------------------------------//
 	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
@@ -318,89 +383,129 @@ class SP_Task
 		return false;
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	bool CompleteTask(IEntity Assignee)
-	{
-		if (GiveReward(Assignee))
-		{
-			if (m_TaskMarker)
-			{
-				m_TaskMarker.Finish(true);
-			}
-			e_State = ETaskState.COMPLETED;
-			m_eCopletionist = Assignee;
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-			GetOnTaskFinished(this);
-			m_bMarkedForRemoval = 1;
-			
-			return true;
-		}
-		return false;
-	};
-	//------------------------------------------------------------------------------------------------------------//
-	void FailTask(EDamageState state)
-	{
-		if (state != EDamageState.DESTROYED)
-			return;
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Fail(true);
-			m_TaskMarker.RemoveAllAssignees();
-			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
-		}
-		e_State = ETaskState.FAILED;
-		m_bMarkedForRemoval = 1;
-		GetOnTaskFinished(this);
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Fail task duplicate used for stuff other than character dying
-	void CancelTask()
-	{
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Fail(true);
-			m_TaskMarker.RemoveAllAssignees();
-			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
-		}
-		e_State = ETaskState.FAILED;
-		m_bMarkedForRemoval = 1;
-		GetOnTaskFinished(this);
-	}
-	//------------------------------------------------------------------------------------------------------------//
 	//invoker stuff
+	//------------------------------------------------------------------//
+	//Owner stuff
+	void GetOnOwnerDeath()
+	{
+		RemoveOwnerInvokers();
+		m_eTaskOwner = null;
+		//possible to fail task, if so override dis
+	}
+	void GetOnOwnerRankUp()
+	{
+		CreateDescritions();
+	}
 	void AddOwnerInvokers()
 	{
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Insert(FailTask);
+		dmgmn.GetOnDamageStateChanged().Insert(GetOnOwnerDeath);
 		if (m_OwnerFaction)
 		{
 			m_OwnerFaction.OnRelationDropped().Insert(CheckUpdatedAffiliations);
 		}
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Insert(CreateDescritions);
-	}
-	void AddTargetInvokers()
-	{
-		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
-		dmgman.GetOnDamageStateChanged().Insert(FailTask);
-	}
-	void RemoveTargetInvokers()
-	{
-		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
-		dmgman.GetOnDamageStateChanged().Remove(FailTask);
+		RankCo.s_OnRankChanged.Insert(GetOnOwnerRankUp);
 	}
 	void RemoveOwnerInvokers()
 	{
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
-		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+		dmgmn.GetOnDamageStateChanged().Remove(GetOnOwnerDeath);
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		RankCo.s_OnRankChanged.Remove(CreateDescritions);
+		RankCo.s_OnRankChanged.Remove(GetOnOwnerRankUp);
 		if (m_OwnerFaction)
 		{
 			m_OwnerFaction.OnRelationDropped().Remove(CheckUpdatedAffiliations);
 		}
 	}
+	//------------------------------------------------------------------//
+	//Target stuff
+	void GetOnTargetDeath()
+	{
+		RemoveTargetInvokers();
+		m_eTaskTarget = null;
+		//possible to fail task, if so override dis
+	}
+	void GetOnTargetRankUp()
+	{
+		CreateDescritions();
+	}
+	void AddTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Insert(GetOnTargetDeath);
+	}
+	void RemoveTargetInvokers()
+	{
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Remove(GetOnTargetDeath);
+	}
+	
+	//------------------------------------------------------------------//
+	//Assignee stuff
+	//------------------------------------------------------------------------------------------------------------//
+	//Assign character to this task
+	bool AssignCharacter(IEntity Character)
+	{
+		//if already assigned return
+		if (m_aTaskAssigned == Character)
+			return true;
+		//If player
+		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
+		{
+			m_aTaskAssigned = Character;
+			if(m_aTaskAssigned && e_State == ETaskState.UNASSIGNED)
+			{
+				e_State = ETaskState.ASSIGNED;
+			}
+			AddAssigneeInvokers();
+			SpawnTaskMarker(Character);
+			return true;
+		}
+		//if AI
+		else
+		{
+			m_aTaskAssigned = Character;
+			if(m_aTaskAssigned && e_State == ETaskState.UNASSIGNED)
+			{
+				e_State = ETaskState.ASSIGNED;
+			}
+			AddAssigneeInvokers();
+			return true;
+		}
+		return false;
+	}
+	void UnAssignCharacter()
+	{
+		if (!m_aTaskAssigned)
+			return;
+		m_aTaskAssigned = null;
+		if (m_TaskMarker)
+		{
+			m_TaskMarker.Cancel(true);
+		}
+	}
+	void GetOnAssigneeDeath()
+	{
+		RemoveAssigneeInvokers();
+		m_aTaskAssigned = null;
+		//Decide owner behevior
+	}
+	void AddAssigneeInvokers()
+	{
+		if (!m_aTaskAssigned)
+			return;
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Insert(GetOnAssigneeDeath);
+	}
+	void RemoveAssigneeInvokers()
+	{
+		if (!m_aTaskAssigned)
+			return;
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
+		dmgman.GetOnDamageStateChanged().Remove(GetOnAssigneeDeath);
+	}
+	//------------------------------------------------------------------//
 	void CheckUpdatedAffiliations(SCR_Faction factionA, SCR_Faction factionB = null)
 	{
 		if (!factionB || !m_eTaskTarget)
@@ -411,50 +516,7 @@ class SP_Task
 		if (affcomp.GetAffiliatedFaction() == factionB)
 			CancelTask();
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Assign character to this task
-	bool AssignCharacter(IEntity Character)
-	{
-		if (m_aTaskAssigned.Contains(Character))
-			return false;
-		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
-		{
-			m_aTaskAssigned.Insert(Character);
-			if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
-			{
-				e_State = ETaskState.ASSIGNED;
-			}
-			SpawnTaskMarker(Character);
-			return true;
-		}
-		else
-		{
-			m_aTaskAssigned.Insert(Character);
-			if(m_aTaskAssigned.Count() > 0 && e_State == ETaskState.UNASSIGNED)
-			{
-				e_State = ETaskState.ASSIGNED;
-			}
-			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
-			if (dmgcomp)
-			{
-				dmgcomp.GetOnDamageStateChanged().Insert(UnAssignCharacter);
-			}
-			return true;
-		}
-		return false;
-	}
-	void UnAssignCharacter(EDamageState state)
-	{
-		if (m_aTaskAssigned.IsEmpty())
-			return;
-		m_aTaskAssigned.Clear();
-		if (state != EDamageState.DESTROYED)
-			return;
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Cancel(true);
-		}
-	}
+	
 	//------------------------------------------------------------------------------------------------------------//
 	//Spawn task marker for this task, called when assigning character
 	void SpawnTaskMarker(IEntity Assignee)
@@ -468,20 +530,11 @@ class SP_Task
 		m_TaskMarker.SetDescription(m_sTaskDesc);
 		m_TaskMarker.SetTarget(m_eTaskTarget);
 		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned[0]);
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Checks if character is assigned
-	bool CharacterAssigned(IEntity Character)
-	{
-		if(m_aTaskAssigned.Contains(Character))
-		{
-			return true;
-		}
-		return false;
-	}
+	
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter of m_iRewardAverageAmount attribute. Used on task samples stored in SP_RequestManagerComponent.
 	int GetRewardAverage()
@@ -543,6 +596,7 @@ class SP_Task
 		
 		return true;
 	};
+	
 };
 class TaskAttribute : BaseContainerCustomTitle
 {
