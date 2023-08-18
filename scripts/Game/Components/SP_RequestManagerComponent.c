@@ -399,6 +399,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		array <ref SP_Task> tasks = {};
 		GetCharOwnedTasksOfSameType(CloseChar, tasks, SP_DeliverTask);
+		GetCharOwnedTasksOfSameType(CloseChar, tasks, SP_NavigateTask);
 		if (tasks.IsEmpty())
 			return;
 		GetassignedTasks(CloseChar, assignedtasks);
@@ -406,7 +407,8 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		for (int i = tasks.Count() - 1; i >= 0; i--)
 		{
-			if (tasks[i].IsReserved())
+			SP_Task task = tasks.GetRandomElement();
+			if (task.IsReserved())
 				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
 			if (!comp)
@@ -417,20 +419,23 @@ class SP_RequestManagerComponent : ScriptComponent
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			if (!utility)
 				return;
-			SCR_AIExecuteTaskBehavior action = new SCR_AIExecuteTaskBehavior(utility, null, tasks[i].GetOwner());
-			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-			group.RemoveAgent(agent);
-			Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
-			EntitySpawnParams myparams = EntitySpawnParams();
-			myparams.TransformMode = ETransformMode.WORLD;
-			myparams.Transform[3] = Assignee.GetOrigin();
-			SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
-			newgroup.AddAgent(agent);
+			if (group.GetAgentsCount() > 1)
+			{
+				group.RemoveAgent(agent);
+				Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
+				EntitySpawnParams myparams = EntitySpawnParams();
+				myparams.TransformMode = ETransformMode.WORLD;
+				myparams.Transform[3] = Assignee.GetOrigin();
+				SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
+				newgroup.AddAgent(agent);
+			}
+			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, task.GetOwner());
 			utility.AddAction(action);
-			tasks[i].SetReserved(true);
+			task.SetReserved(true);
 			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
 			m_iassigncount += 1;
+			return;
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//

@@ -434,26 +434,6 @@ class SP_Task
 			{
 				e_State = ETaskState.ASSIGNED;
 			}
-			AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
-			if (!comp)
-				return false;
-			AIAgent agent = comp.GetAIAgent();
-			if (!agent)
-				return false;
-			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-			if (!utility)
-				return false;
-			SCR_AIExecuteTaskBehavior action = new SCR_AIExecuteTaskBehavior(utility, null, m_eTaskTarget);
-			//SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
-			//SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-			//group.RemoveAgent(agent);
-			//Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
-			//EntitySpawnParams myparams = EntitySpawnParams();
-			//myparams.TransformMode = ETransformMode.WORLD;
-			//myparams.Transform[3] = Character.GetOrigin();
-			//SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
-			//newgroup.AddAgent(agent);
-			utility.AddAction(action);
 			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
 			if (dmgcomp)
 			{

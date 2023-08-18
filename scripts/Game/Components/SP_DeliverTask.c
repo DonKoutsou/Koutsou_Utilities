@@ -118,6 +118,8 @@ class SP_DeliverTask: SP_Task
 		m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
 		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
+		if (m_ePackage)
+			CancelTask();
 		SP_PackageComponent PackageComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
 		
 		if (PackageComp)
@@ -192,7 +194,7 @@ class SP_DeliverTask: SP_Task
 					AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
 					AIAgent agent = comp.GetAIAgent();
 					SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-					SCR_AIExecuteTaskBehavior act = SCR_AIExecuteTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteTaskBehavior));
+					SCR_AIExecuteDeliveryTaskBehavior act = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteDeliveryTaskBehavior));
 					act.SetActiveFollowing(false);
 					AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
 					AIAgent Tagent = Tcomp.GetAIAgent();
@@ -203,9 +205,9 @@ class SP_DeliverTask: SP_Task
 						wp = Tgroup.GetCurrentWaypoint();
 						agent.GetParentGroup().AddWaypoint(wp);
 					}
+					SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+					req.m_iassigncount -= 1;
 				}
-				SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-				req.m_iassigncount -= 1;
 				return true;
 			}
 		}
@@ -280,7 +282,22 @@ class SP_DeliverTask: SP_Task
 			return true;
 		}
 		if (super.AssignCharacter(Character))
+		{
+			AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
+			if (!comp)
+				return false;
+			AIAgent agent = comp.GetAIAgent();
+			if (!agent)
+				return false;
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			if (!utility)
+				return false;
+			SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, m_eTaskOwner , m_eTaskTarget);
+			utility.AddAction(action);
+			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
 			return true;
+		}
+			
 		return false;
 	}
 	override bool Init()

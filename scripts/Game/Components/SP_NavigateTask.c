@@ -152,6 +152,25 @@ class SP_NavigateTask: SP_Task
 			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			GetOnTaskFinished(this);
+			if (GetGame().GetPlayerController().GetControlledEntity() != Assignee)
+			{
+				AIControlComponent comp2 = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
+				AIAgent agent2 = comp2.GetAIAgent();
+				SCR_AIUtilityComponent utility2 = SCR_AIUtilityComponent.Cast(agent2.FindComponent(SCR_AIUtilityComponent));
+				SCR_AIExecuteNavigateTaskBehavior act2 = SCR_AIExecuteNavigateTaskBehavior.Cast(utility2.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
+				act2.SetActiveFollowing(false);
+				AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
+				AIAgent Tagent = Tcomp.GetAIAgent();
+				SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
+				if (Tgroup)
+				{
+					AIWaypoint wp;
+					wp = Tgroup.GetCurrentWaypoint();
+					agent2.GetParentGroup().AddWaypoint(wp);
+				}
+				SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+				req.m_iassigncount -= 1;
+			}
 			return true;
 		}
 		return false;
@@ -179,19 +198,43 @@ class SP_NavigateTask: SP_Task
 		if (!utility)
 			return false;
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Character);
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-		group.RemoveAgent(agent);
-		Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
-		EntitySpawnParams myparams = EntitySpawnParams();
-		myparams.TransformMode = ETransformMode.WORLD;
-		myparams.Transform[3] = Character.GetOrigin();
-		SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
-		newgroup.AddAgent(agent);
+		if (group.GetAgentsCount() > 1)
+		{
+			group.RemoveAgent(agent);
+			Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
+			EntitySpawnParams myparams = EntitySpawnParams();
+			myparams.TransformMode = ETransformMode.WORLD;
+			myparams.Transform[3] = Character.GetOrigin();
+			SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
+			newgroup.AddAgent(agent);
+		}
+		if (!super.AssignCharacter(Character))
+			return false;
 		utility.AddAction(action);
-		SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", Diag.GetCharacterName(Character)));
-		if (super.AssignCharacter(Character))
+		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
+		{
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", SP_DialogueComponent.GetCharacterName(Character)));
 			return true;
+		}
+		else
+		{
+			AIControlComponent comp2 = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
+			if (!comp2)
+				return false;
+			AIAgent agent2 = comp2.GetAIAgent();
+			if (!agent2)
+				return false;
+			SCR_AIUtilityComponent utility2 = SCR_AIUtilityComponent.Cast(agent2.FindComponent(SCR_AIUtilityComponent));
+			if (!utility2)
+				return false;
+			SCR_AIExecuteNavigateTaskBehavior action2 = new SCR_AIExecuteNavigateTaskBehavior(utility2, null, m_eTaskOwner , m_eTaskTarget);
+			if (action2)
+				utility.AddAction(action);
+			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
+			return true;
+		}
+			
 		return false;
 	}
 	override string GetCompletionText(IEntity Completionist)
