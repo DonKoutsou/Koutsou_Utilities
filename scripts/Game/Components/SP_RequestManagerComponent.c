@@ -26,7 +26,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(defvalue: "2", desc: "Max amount of tasks that can be assigned")]
 	protected int m_iassignmax;
 	
-	int m_iassigncount;
+	static int m_iassigncount;
 	
 	[Attribute()]
 	ref array<string> m_aSpecialCars;
@@ -60,7 +60,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	//Constructor
 	void SP_RequestManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent){if (!s_Instance)s_Instance = this;};
 	//Destructor
-	void ~SP_RequestManagerComponent(){if (m_aCompletedTaskMap)m_aCompletedTaskMap.Clear();if (m_aTaskMap)m_aTaskMap.Clear();if (m_aTaskSamples)m_aTaskSamples.Clear();};
+	void ~SP_RequestManagerComponent(){if (m_aCompletedTaskMap)m_aCompletedTaskMap.Clear();if (m_aTaskMap)m_aTaskMap.Clear();if (m_aTaskSamples)m_aTaskSamples.Clear(); m_iassigncount = 0;};
 	//------------------------------------------------------------------------------------------------------------//
 	//instance
 	static SP_RequestManagerComponent s_Instance;
@@ -222,6 +222,10 @@ class SP_RequestManagerComponent : ScriptComponent
 			{
 				tasks.Insert(task);
 			}
+			if(task.CharacterIsTarget(Char) == true)
+			{
+				tasks.Insert(task);
+			}
 		}
 	}
 	static void GetUnassignedCharTasks(IEntity Char, IEntity Assignee, out array<ref SP_Task> tasks)
@@ -280,6 +284,20 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	static void GetReadyToDeliver(IEntity Char,out array<ref SP_Task> tasks, IEntity Assignee)
+	{
+		array<ref SP_Task> Readytasks = {};
+		{
+			GetCharTasks(Char, Readytasks);
+			if (Readytasks.IsEmpty())
+				return;
+			foreach (SP_Task task : Readytasks)
+			{
+				if (task.ReadyToDeliver(Char, Assignee))
+					tasks.Insert(task);
+			}
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	static void GetCharRescueTasks(IEntity Char,out array<ref SP_Task> tasks)
 	{
@@ -324,6 +342,31 @@ class SP_RequestManagerComponent : ScriptComponent
 			{
 				tasks.Insert(task);
 			}
+		}
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	static void GetCharOwnedTasks(IEntity Char, out array<ref SP_Task> tasks)
+	{
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.CharacterIsOwner(Char) == true)
+			{
+				tasks.Insert(task);
+			}
+		}
+	}
+	static void GetAssignableTasks(IEntity Owner, out array<ref SP_Task> tasks,IEntity Assignee)
+	{
+		array <ref SP_Task> ownedtasks = {};
+		GetCharOwnedTasks(Owner, ownedtasks);
+		if (ownedtasks.IsEmpty())
+		{
+			return;
+		}
+		foreach (SP_Task task : ownedtasks)
+		{
+			if (task.CanBeAssigned(Owner, Assignee))
+				tasks.Insert(task);
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -420,6 +463,8 @@ class SP_RequestManagerComponent : ScriptComponent
 			if (!utility)
 				return;
 			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+			if (!group)
+				return;
 			if (group.GetAgentsCount() > 1)
 			{
 				group.RemoveAgent(agent);
@@ -432,19 +477,20 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 			else
 				group.CompleteWaypoint(group.GetCurrentWaypoint());
-			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, task.GetOwner());
+			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, CloseChar);
 			utility.AddAction(action);
 			task.SetReserved(true);
-			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
 			m_iassigncount += 1;
+			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
+			
 			return;
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (!m_bQuestInited)
-			return;
+		//if (!m_bQuestInited)
+			//return;
 		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;

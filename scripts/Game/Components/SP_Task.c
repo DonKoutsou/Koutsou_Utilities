@@ -140,6 +140,12 @@ class SP_Task
 	//Function used to check if task is ready to deliver. Simmilar to CanBePerformed
 	bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee){return true;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Function to test if someone can take that task
+	bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
+	{
+		return false;
+	};
+	//------------------------------------------------------------------------------------------------------------//
 	//Function to hold logic of what owner should be for each task
 	bool FindOwner(out IEntity Owner)
 	{
@@ -186,7 +192,7 @@ class SP_Task
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
-		SP_RequestManagerComponent.GetCharTasks(m_eTaskOwner, tasks);
+		SP_RequestManagerComponent.GetCharOwnedTasks(m_eTaskOwner, tasks);
 		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
 		{
 			return false;
@@ -281,7 +287,6 @@ class SP_Task
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			GetOnTaskFinished(this);
 			m_bMarkedForRemoval = 1;
-			
 			return true;
 		}
 		return false;
@@ -470,6 +475,7 @@ class SP_Task
 			{
 				e_State = ETaskState.ASSIGNED;
 			}
+			
 			AddAssigneeInvokers();
 			return true;
 		}
@@ -484,6 +490,7 @@ class SP_Task
 		{
 			m_TaskMarker.Cancel(true);
 		}
+		SP_RequestManagerComponent.m_iassigncount -= 1;
 	}
 	void GetOnAssigneeDeath()
 	{

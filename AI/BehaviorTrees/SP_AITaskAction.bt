@@ -96,12 +96,8 @@ BehaviorTree {
             AITaskMoveToEntity "Move To Entity" {
              Name "Move To Entity"
              EditorPos 147.704 1068.845
-             PrecisionXZ 1
+             PrecisionXZ 2
              InEntity 8
-            }
-            AITaskIdle Idle {
-             Name "Idle"
-             EditorPos 470.394 1102.821
             }
             SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
              Name "SCR_AI Perform Task Action"
@@ -112,6 +108,10 @@ BehaviorTree {
                PortName "TargetEntity"
               }
              }
+            }
+            SCR_AISetFollowFalse "SCR_AI Set Follow False" {
+             Name "SCR_AI Set Follow False"
+             EditorPos 865.714 1102.857
             }
            }
           }

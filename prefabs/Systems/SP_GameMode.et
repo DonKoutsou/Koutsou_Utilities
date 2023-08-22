@@ -155,6 +155,16 @@ SP_GameMode {
    }
    coords -41.458 -9.728 24.066
    Flags 0
+   Factions {
+    SCR_Faction "{5E2D07F612754B66}" : "{5EB46557DF2AA24F}Configs/Factions/US.conf" {
+    }
+    SCR_Faction "{5E2D07F6154C9100}" : "{8053DB656DD18B14}Configs/Factions/FIA.conf" {
+    }
+    SCR_Faction "{5E2D07F617C45CD4}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
+    }
+    SCR_Faction "{5E2D07F6194A30ED}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
+    }
+   }
    m_bCanChangeFactionsPlayable 0
   }
   TagManager {

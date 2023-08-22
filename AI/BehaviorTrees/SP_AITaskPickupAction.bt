@@ -17,7 +17,7 @@ BehaviorTree {
          Name "SCR_AI Task Pickup Parameters"
          EditorPos -1443 531.75
          OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainerClass {
+          SingleOutputPortContainer SingleOutputPortContainer {
            Port 2
            PortName "TaskOwner"
           }
@@ -92,22 +92,22 @@ BehaviorTree {
             AITaskMoveToEntity "Move To Entity" {
              Name "Move To Entity"
              EditorPos 157.881 1117.889
-             PrecisionXZ 1
+             PrecisionXZ 2
              InEntity 6
-            }
-            AITaskIdle Idle {
-             Name "Idle"
-             EditorPos 480.571 1151.865
             }
             SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
              Name "SCR_AI Perform Task Action"
-             EditorPos 613.034 1146.187
+             EditorPos 488.034 1152.854
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port 6
                PortName "TargetEntity"
               }
              }
+            }
+            SCR_AISetFollowFalse "SCR_AI Set Follow False" {
+             Name "SCR_AI Set Follow False"
+             EditorPos 723.333 1163.333
             }
            }
           }

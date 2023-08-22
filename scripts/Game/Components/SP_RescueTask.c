@@ -139,7 +139,7 @@ class SP_RescueTask: SP_Task
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
 		//Check if char can get more tasks
-		SP_RequestManagerComponent.GetCharTasks(m_eTaskOwner, tasks);
+		SP_RequestManagerComponent.GetCharOwnedTasks(m_eTaskOwner, tasks);
 		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
 		{
 			return false;

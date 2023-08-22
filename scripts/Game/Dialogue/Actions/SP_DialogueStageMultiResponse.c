@@ -35,7 +35,7 @@ class DialogueStageMultiResponse : DialogueStage
 			if(Character)
 			{
 				array <ref SP_Task> tasks = new array <ref SP_Task>();
-				taskman.GetCharTasks(Character, tasks);
+				taskman.GetCharOwnedTasks(Character, tasks);
 				if(tasks.Count() > 0)
 				{
 					foreach (SP_Task taskcheck : tasks)
@@ -57,7 +57,7 @@ class DialogueStageMultiResponse : DialogueStage
 			SP_RequestManagerComponent TaskMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			
 			array<ref SP_Task> tasks = new array<ref SP_Task>();
-			TaskMan.GetCharTasks(Character, tasks);
+			TaskMan.GetCharOwnedTasks(Character, tasks);
 			for (int i, count = m_Branch.Count(); i < count; i++)
 			{
 				int taskcount = tasks.Count();

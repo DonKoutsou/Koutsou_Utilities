@@ -7,7 +7,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		if(SP_RequestManagerComponent.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			SP_RequestManagerComponent.GetCharTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharOwnedTasks(Character, MyTasks);
 			for (int i, count = MyTasks.Count(); i < count; i++)
 			{
 				if(MyTasks[i].ReadyToDeliver(Character, Player))
@@ -44,7 +44,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		if(SP_RequestManagerComponent.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			SP_RequestManagerComponent.GetCharTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharOwnedTasks(Character, MyTasks);
 			foreach (SP_Task Task : MyTasks)
 			{
 				if(Task.ReadyToDeliver(Character, Player))
@@ -81,7 +81,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 		if(SP_RequestManagerComponent.CharHasTask(Character))
 		{ 
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();
-			SP_RequestManagerComponent.GetCharTasks(Character, MyTasks);
+			SP_RequestManagerComponent.GetCharOwnedTasks(Character, MyTasks);
 			foreach (SP_Task Task : MyTasks)
 			{
 				if(Task.ReadyToDeliver(Character, Player))

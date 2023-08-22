@@ -176,8 +176,7 @@ class SP_NavigateTask: SP_Task
 				}
 				
 			}
-			SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			req.m_iassigncount -= 1;
+			SP_RequestManagerComponent.m_iassigncount -= 1;
 			return true;
 		}
 			

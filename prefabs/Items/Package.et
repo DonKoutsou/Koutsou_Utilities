@@ -31,10 +31,10 @@ GenericEntity {
      Description "you were given this package with a name to who you should deliver it to. Drop it to the floor to check the destrionation."
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5D6501852E9DCF0C}" {
-     Weight 4
+     Weight 0.1
      SizeSetupStrategy Manual
-     ItemDimensions 8 8 8
-     ItemVolume 8
+     ItemDimensions 1 1 1
+     ItemVolume 1
     }
     CustomAttributes {
      PreviewRenderAttributes "{5D968E01A926EB1C}" {

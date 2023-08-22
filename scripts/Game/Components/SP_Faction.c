@@ -1,7 +1,7 @@
-class SP_Faction : SCR_Faction
+/*modded class SCR_Faction 
 {
 	
-	protected map<SP_Faction, int> relationmap;
+	protected map<SCR_Faction, int> relationmap;
 	
 	override void Init(IEntity owner)
 	{

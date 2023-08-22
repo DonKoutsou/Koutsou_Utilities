@@ -147,7 +147,7 @@ modded class SP_DialogueComponent
 		if (Friendly == Instigator && Friendly == Player)
 			return FriendlyTaskString;
 		array <ref SP_Task> tasks = new array <ref SP_Task> ();
-		SP_RequestManagerComponent.GetCharTasks(Friendly, tasks);
+		SP_RequestManagerComponent.GetCharOwnedTasks(Friendly, tasks);
 		if (tasks.IsEmpty())
 			return FriendlyTaskString;
 		FriendlyTaskString = "You arent looking for any work, are you?" + tasks.GetRandomElement().GetTaskDescription();
@@ -281,7 +281,7 @@ modded class SP_DialogueComponent
 	{
 		array<ref SP_Task> tasks = {};
 		string text;
-		SP_RequestManagerComponent.GetCharTasks(talker, tasks);
+		SP_RequestManagerComponent.GetCharOwnedTasks(talker, tasks);
 		if (!tasks.IsEmpty())
 		{
 			SP_Task task = tasks.GetRandomElement();
@@ -390,18 +390,16 @@ modded class SP_DialogueAction
 		if (GetGame().GetPlayerController().GetControlledEntity() != pUserEntity)
 		{
 			array <ref SP_Task> taskstodeliver = {};
-			SP_RequestManagerComponent.GetCharTargetTasks(pOwnerEntity, taskstodeliver);
+			SP_RequestManagerComponent.GetReadyToDeliver(pOwnerEntity, taskstodeliver, pUserEntity);
 			if (!taskstodeliver.IsEmpty())
 			{
 				foreach (SP_Task task : taskstodeliver)
 				{
-					if (task.ReadyToDeliver(pOwnerEntity, pUserEntity))
-						task.CompleteTask(pUserEntity);
+					task.CompleteTask(pUserEntity);
 				}
 			}
 			array <ref SP_Task> taskstoassign = {};
-			SP_RequestManagerComponent.GetCharOwnedTasksOfSameType(pOwnerEntity, taskstoassign, SP_DeliverTask);
-			SP_RequestManagerComponent.GetCharOwnedTasksOfSameType(pOwnerEntity, taskstoassign, SP_NavigateTask);
+			SP_RequestManagerComponent.GetAssignableTasks(pOwnerEntity, taskstoassign, pUserEntity);
 			if (!taskstoassign.IsEmpty())
 			{
 				SP_Task astask = taskstoassign.GetRandomElement();
@@ -415,10 +413,9 @@ modded class SP_DialogueAction
 				if (!utility)
 					return;
 				SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
-				if (act)
-					act.SetActiveFollowing(false);
+				//if (act)
+					//act.SetActiveFollowing(false);
 				astask.AssignCharacter(pUserEntity);
-				SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			}
 			return;
 		}

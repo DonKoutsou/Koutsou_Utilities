@@ -53,7 +53,7 @@ class SP_DeliverTask: SP_Task
 			if (enemies.IsEmpty())
 				return false;
 			
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 30, enemies.GetRandomElement(), Char))
 				return false;
 		}
 
@@ -175,10 +175,13 @@ class SP_DeliverTask: SP_Task
 		{
 			if (GiveReward(Assignee))
 			{
+				if (!m_aTaskAssigned)
+					m_aTaskAssigned = Assignee;
 				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(FoundPackages[0].FindComponent(InventoryItemComponent));
 				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 				Assigneeinv.TryRemoveItemFromStorage(FoundPackages[0],parentSlot.GetStorage());
 				Targetinv.TryInsertItem(FoundPackages[0]);
+				DeleteLeftovers();
 				if (m_TaskMarker)
 				{
 					m_TaskMarker.Finish(true);
@@ -205,8 +208,7 @@ class SP_DeliverTask: SP_Task
 						wp = Tgroup.GetCurrentWaypoint();
 						agent.GetParentGroup().AddWaypoint(wp);
 					}
-					SP_RequestManagerComponent req = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-					req.m_iassigncount -= 1;
+					UnAssignCharacter();
 				}
 				return true;
 			}
@@ -256,6 +258,19 @@ class SP_DeliverTask: SP_Task
 			delete m_ePackage;
 		}
 	};
+	override bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
+	{
+		IEntity Package = GetPackage();
+		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
+		BaseInventoryStorageComponent storage = inv.FindStorageForItem(Package);
+		if(storage)
+		{
+			if (m_aTaskAssigned)
+				return false;
+			return true;
+		}
+		return false;
+	};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool AssignCharacter(IEntity Character)
 	{
@@ -292,7 +307,7 @@ class SP_DeliverTask: SP_Task
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			if (!utility)
 				return false;
-			SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, m_eTaskOwner , m_eTaskTarget);
+			SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, m_eTaskTarget , m_eTaskOwner);
 			utility.AddAction(action);
 			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
 			return true;
