@@ -87,9 +87,14 @@ class SCR_AIPerformLightAction : AITaskScripted
 };
 class SCR_AIPerformTaskAction : AITaskScripted
 {
+	protected static string TARGETENTITY_IN_PORT = "TargetEntity";
+	
+	protected static string TASK_IN_PORT = "Task";
 	//------------------------------------------------------------------------------------------------
-	protected static ref TStringArray s_aVarsIn = {
-		"TargetEntity"
+	protected static ref TStringArray s_aVarsIn = 
+	{
+		TARGETENTITY_IN_PORT,
+		TASK_IN_PORT
 	};
 	
 	//------------------------------------------------------------------------------------------------
@@ -104,31 +109,34 @@ class SCR_AIPerformTaskAction : AITaskScripted
 		if(owner)
 		{
 			IEntity targetEntity;
-			string userActionString = "SP_DialogueAction";
-			typename userAction;
-			GetVariableIn("TargetEntity", targetEntity);
+			GetVariableIn(TARGETENTITY_IN_PORT, targetEntity);
+			ref SP_Task task;
+			GetVariableIn(TASK_IN_PORT, task);
 			if (!targetEntity)
 				return ENodeResult.FAIL;
-	
+			string userActionString = "SP_DialogueAction";
+			
 			IEntity controlledEntity = owner.GetControlledEntity();
 			if (!controlledEntity)
 				return ENodeResult.FAIL;
-	
 			
-	
+			typename userAction;
 			userAction = userActionString.ToType();
 			if (!userAction)
 				return ENodeResult.FAIL;
 	
 			array<BaseUserAction> outActions = {};
-			ScriptedUserAction action;
+			SP_DialogueAction action;
 			GetActions(targetEntity, outActions);
 			foreach (BaseUserAction baseAction : outActions)
 			{
-				action = ScriptedUserAction.Cast(baseAction);
+				action = SP_DialogueAction.Cast(baseAction);
 				if (action && userAction == action.Type() && action.CanBePerformedScript(controlledEntity))
 				{
-					
+					if (task)
+					{
+						action.task = task;
+					}
 					action.PerformAction(targetEntity, controlledEntity);
 					return ENodeResult.SUCCESS;
 				}

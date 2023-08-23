@@ -385,6 +385,7 @@ modded class SP_DialogueComponent
 }
 modded class SP_DialogueAction
 {
+	SP_Task task;
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		if (GetGame().GetPlayerController().GetControlledEntity() != pUserEntity)
@@ -398,24 +399,10 @@ modded class SP_DialogueAction
 					task.CompleteTask(pUserEntity);
 				}
 			}
-			array <ref SP_Task> taskstoassign = {};
-			SP_RequestManagerComponent.GetAssignableTasks(pOwnerEntity, taskstoassign, pUserEntity);
-			if (!taskstoassign.IsEmpty())
+			if (task)
 			{
-				SP_Task astask = taskstoassign.GetRandomElement();
-				AIControlComponent comp = AIControlComponent.Cast(pUserEntity.FindComponent(AIControlComponent));
-				if (!comp)
-					return;
-				AIAgent agent = comp.GetAIAgent();
-				if (!agent)
-					return;
-				SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-				if (!utility)
-					return;
-				SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
-				//if (act)
-					//act.SetActiveFollowing(false);
-				astask.AssignCharacter(pUserEntity);
+				task.AssignCharacter(pUserEntity);
+				task = null;
 			}
 			return;
 		}

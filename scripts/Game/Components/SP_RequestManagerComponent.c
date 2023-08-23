@@ -397,7 +397,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	void ClearTasks()
 	{
 		int removed;
-		array <SP_Task> toberemoved = new array <SP_Task>();
+		array <ref SP_Task> toberemoved = new array <ref SP_Task>();
 		for (int i = m_aTaskMap.Count() - 1; i >= 0; i--)
 		{
 			if (m_aTaskMap[i].MarkedForRemoval())
@@ -450,8 +450,8 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		for (int i = tasks.Count() - 1; i >= 0; i--)
 		{
-			SP_Task task = tasks.GetRandomElement();
-			if (task.IsReserved())
+			SP_Task mytask = tasks.GetRandomElement();
+			if (mytask.IsReserved())
 				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
 			if (!comp)
@@ -477,9 +477,9 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 			else
 				group.CompleteWaypoint(group.GetCurrentWaypoint());
-			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, CloseChar);
+			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, CloseChar, mytask);
 			utility.AddAction(action);
-			task.SetReserved(true);
+			mytask.SetReserved(true);
 			m_iassigncount += 1;
 			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
 			
@@ -527,6 +527,10 @@ class SP_RequestManagerComponent : ScriptComponent
 	override void EOnInit(IEntity owner)
 	{
 		//Init arrays
+		if (!m_aTasksToSpawn)
+		{
+			return;
+		}
 		if (m_aTasksToSpawn.IsEmpty())
 		{
 			Print("No tasks configured in Request manager");

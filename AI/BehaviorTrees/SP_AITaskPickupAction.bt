@@ -15,17 +15,21 @@ BehaviorTree {
        Nodes {
         SCR_AITaskPickupParameters "SCR_AI Task Pickup Parameters" {
          Name "SCR_AI Task Pickup Parameters"
-         EditorPos -1443 531.75
+         EditorPos -1423.952 552.051
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
            Port 2
            PortName "TaskOwner"
           }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 16
+           PortName "Task"
+          }
          }
         }
         SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
          Name "SCR_AI Get Entity Position"
-         EditorPos -1040.02 543.433
+         EditorPos -901.449 547.719
          InPorts {
           SingleInputPortContainer SingleInputPortContainer {
            Port 2
@@ -72,11 +76,11 @@ BehaviorTree {
          Nodes {
           Sequence Sequence {
            Name "Sequence"
-           EditorPos 232.988 974.52
+           EditorPos -63.679 992.853
            Nodes {
             SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
              Name "SCR_AI Send Order_ Movement Type"
-             EditorPos -222.144 1117.247
+             EditorPos -518.811 1135.58
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port -1
@@ -91,23 +95,27 @@ BehaviorTree {
             }
             AITaskMoveToEntity "Move To Entity" {
              Name "Move To Entity"
-             EditorPos 157.881 1117.889
+             EditorPos -138.786 1136.222
              PrecisionXZ 2
              InEntity 6
             }
             SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
              Name "SCR_AI Perform Task Action"
-             EditorPos 488.034 1152.854
+             EditorPos 191.367 1171.187
              InPorts {
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 6
+              SingleInputPortContainer SingleInputPortContainerClass {
+               Port 18
                PortName "TargetEntity"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 17
+               PortName "Task"
               }
              }
             }
             SCR_AISetFollowFalse "SCR_AI Set Follow False" {
              Name "SCR_AI Set Follow False"
-             EditorPos 723.333 1163.333
+             EditorPos 425.237 1183.095
             }
            }
           }
@@ -303,6 +311,12 @@ BehaviorTree {
    VariableExposedInput 0
    VariableExposedOutput 0
   }
+  Variable task {
+   VariableName "task"
+   VariableTypeName "SP_Task"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
  }
  VariablesRefs {
   VariableReference Distance {
@@ -315,7 +329,7 @@ BehaviorTree {
   }
   VariableReference TaskOwner {
    VariableType 2
-   EditorPos -1224.298 678.434
+   EditorPos -1087.155 665.577
   }
   VariableReference MyPos {
    VariableType 1
@@ -331,7 +345,7 @@ BehaviorTree {
   }
   VariableReference TaskOwner {
    VariableType 2
-   EditorPos -120.809 1304.615
+   EditorPos -417.476 1322.948
   }
   VariableReference TaskOwner {
    VariableType 2
@@ -355,7 +369,7 @@ BehaviorTree {
   }
   VariableReference CharToFollowPos {
    VariableType 3
-   EditorPos -806.409 678.989
+   EditorPos -686.409 668.989
   }
   VariableReference MyPos {
    VariableType 1
@@ -368,6 +382,18 @@ BehaviorTree {
   VariableReference TaskOwner {
    VariableType 2
    EditorPos 1333.875 2024.201
+  }
+  VariableReference task {
+   VariableType 4
+   EditorPos -1100.238 748.809
+  }
+  VariableReference task {
+   VariableType 4
+   EditorPos -92.084 1421.666
+  }
+  VariableReference TaskOwner {
+   VariableType 2
+   EditorPos -92.857 1502.857
   }
  }
 }

@@ -101,11 +101,15 @@ BehaviorTree {
             }
             SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
              Name "SCR_AI Perform Task Action"
-             EditorPos 602.857 1097.143
+             EditorPos 560 1097.143
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
-               Port 8
+               Port 16
                PortName "TargetEntity"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
+               PortName "Task"
               }
              }
             }
@@ -384,6 +388,10 @@ BehaviorTree {
   VariableReference TaskTarget {
    VariableType 1
    EditorPos -39.046 625.183
+  }
+  VariableReference TaskTarget {
+   VariableType 1
+   EditorPos 325.714 1238.571
   }
  }
 }
