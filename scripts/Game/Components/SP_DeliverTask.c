@@ -118,7 +118,7 @@ class SP_DeliverTask: SP_Task
 		m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
 		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
-		if (m_ePackage)
+		if (!m_ePackage)
 			CancelTask();
 		SP_PackageComponent PackageComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
 		
@@ -198,7 +198,8 @@ class SP_DeliverTask: SP_Task
 					AIAgent agent = comp.GetAIAgent();
 					SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 					SCR_AIExecuteDeliveryTaskBehavior act = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteDeliveryTaskBehavior));
-					act.SetActiveFollowing(false);
+					if (act)
+						act.SetActiveFollowing(false);
 					AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
 					AIAgent Tagent = Tcomp.GetAIAgent();
 					SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());

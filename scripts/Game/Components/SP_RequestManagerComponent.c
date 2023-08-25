@@ -450,7 +450,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		for (int i = tasks.Count() - 1; i >= 0; i--)
 		{
-			SP_Task mytask = tasks.GetRandomElement();
+			ref SP_Task mytask = tasks.GetRandomElement();
 			if (mytask.IsReserved())
 				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
