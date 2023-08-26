@@ -45,6 +45,8 @@ GenericEntity {
    MaxItemSize 10 10 10
    m_fMaxWeight 1
   }
+  SP_UnretrievableComponent "{5E34C51884C7F460}" {
+  }
   ActionsManagerComponent "{5C78C42204C93AEF}" {
    ActionContexts {
     UserActionContext "{5C78C42204C93ADE}" {
