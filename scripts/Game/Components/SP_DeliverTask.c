@@ -276,6 +276,11 @@ class SP_DeliverTask: SP_Task
 	override bool AssignCharacter(IEntity Character)
 	{
 		IEntity Package = GetPackage();
+		if (!Package)
+		{
+			CancelTask();
+			return false;
+		}
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Character.FindComponent(InventoryStorageManagerComponent));
 		InventoryStorageManagerComponent invChar = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
 		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Package.FindComponent(InventoryItemComponent));
@@ -310,7 +315,6 @@ class SP_DeliverTask: SP_Task
 				return false;
 			SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, m_eTaskTarget , m_eTaskOwner);
 			utility.AddAction(action);
-			ScriptedDamageManagerComponent dmgcomp = ScriptedDamageManagerComponent.Cast(Character.FindComponent(ScriptedDamageManagerComponent));
 			return true;
 		}
 			

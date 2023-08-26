@@ -40,9 +40,12 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(defvalue: "60", desc: "Task garbage mamager kinda. Completed task are added to their own list, failed tasks are deleted")]
 	float m_fTaskClearTime;
 	
+	[Attribute(defvalue:"0")]
+	bool m_bShowDebug;
+	
 	protected float m_fTaskRespawnTimer;
 	protected float m_fTaskClearTimer;
-	
+	protected float m_fDebugTimer;
 	SP_GameMode m_GameMode;
 	
 	protected ref CharacterHolder m_CharacterHolder;
@@ -451,6 +454,8 @@ class SP_RequestManagerComponent : ScriptComponent
 		for (int i = tasks.Count() - 1; i >= 0; i--)
 		{
 			ref SP_Task mytask = tasks.GetRandomElement();
+			if (mytask.GetTarget() == Assignee)
+				continue;
 			if (mytask.IsReserved())
 				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
@@ -477,7 +482,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 			else
 				group.CompleteWaypoint(group.GetCurrentWaypoint());
-			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, CloseChar, mytask);
+			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
 			utility.AddAction(action);
 			mytask.SetReserved(true);
 			m_iassigncount += 1;
@@ -491,6 +496,17 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		//if (!m_bQuestInited)
 			//return;
+		m_fTaskClearTimer += timeSlice;
+		if(m_fTaskClearTimer > m_fTaskClearTime)
+		{
+			m_fTaskClearTimer = 0;
+			ClearTasks();
+		}
+		if (m_bShowDebug)
+		{
+			CreateDebug();
+		}
+		
 		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
@@ -516,12 +532,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				}
 			}
 		}
-		m_fTaskClearTimer += timeSlice;
-		if(m_fTaskClearTimer > m_fTaskClearTime)
-		{
-			m_fTaskClearTimer = 0;
-			ClearTasks();
-		}
+		
 		AssignATask();
 	};
 	override void EOnInit(IEntity owner)
@@ -567,6 +578,76 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_CharacterHolder.m_aSpecialCars.Copy(m_aSpecialCars);
 		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 1000);
 	};
+	void CreateDebug()
+	{
+		if (m_CharacterHolder.GetAliveCount() == 0)
+			return;
+		if (!GetGame().GetCameraManager().CurrentCamera())
+			return;
+		vector Origin = GetGame().GetCameraManager().CurrentCamera().GetOrigin();
+		foreach (ChimeraCharacter Owner : m_CharacterHolder.GetAllAlive())
+		{
+			if (vector.Distance(Origin, Owner.GetOrigin()) > 100)
+				continue;
+			
+			array <ref SP_Task> OwnedTasks = {};
+			GetCharOwnedTasks(Owner, OwnedTasks);
+			LocalizedString infoText2 = string.Format("CharName: %1\n Owned Tasks: \n", SP_DialogueComponent.GetCharacterName(Owner));
+			foreach (SP_Task task : OwnedTasks)
+			{
+				LocalizedString name = SP_DialogueComponent.GetCharacterName(task.GetTarget());
+				infoText2 = string.Format("%1 %2 Target : %3 \n", infoText2, task.GetClassName().ToString(), name);
+			}
+			infoText2 = infoText2 + "Target of Tasks: \n";
+			array <ref SP_Task> TargetedTasks = {};
+			GetCharTargetTasks(Owner, TargetedTasks);
+			foreach (SP_Task task : TargetedTasks)
+			{
+				LocalizedString name = SP_DialogueComponent.GetCharacterName(task.GetOwner());
+				infoText2 = string.Format("%1 %2 Owner : %3 \n", infoText2, task.GetClassName().ToString(), name);
+			}
+			infoText2 = infoText2 + "Assigned Tasks: \n";
+			array <ref SP_Task> AssignedTasks = {};
+			GetassignedTasks(Owner, AssignedTasks);
+			foreach (SP_Task task : AssignedTasks)
+			{
+				LocalizedString name = SP_DialogueComponent.GetCharacterName(task.GetOwner());
+				infoText2 = string.Format("%1 %2 Owner : %3 \n", infoText2, task.GetClassName().ToString(), name);
+			}
+			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Owner.FindComponent(InventoryStorageManagerComponent));		
+			if (!inv)
+				continue;
+			Resource cur = Resource.Load("{891BA05A96D3A0BE}prefabs/Currency/Drachma.et");
+			PrefabResource_Predicate pred = new PrefabResource_Predicate(cur.GetResource().GetResourceName());
+			array <IEntity> items = {};
+			int amount = inv.FindItems(items, pred);
+			infoText2 = infoText2 + string.Format("Owned Currency: %1\n", amount);
+			auto origin = Owner.GetOrigin();
+			AIControlComponent comp = AIControlComponent.Cast(Owner.FindComponent(AIControlComponent));
+			if (!comp)
+				return;
+			AIAgent agent = comp.GetAIAgent();
+			if (!agent)
+				return;
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			if (!utility)
+				return;
+			SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.GetCurrentAction());
+			if (action)
+			{
+				LocalizedString name = SP_DialogueComponent.GetCharacterName(action.PickedTask.GetOwner());
+				infoText2 = infoText2 + string.Format("Heading towards %1's location to pick %2", name ,action.PickedTask.GetClassName().ToString());
+			}
+			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.GetCurrentAction());
+			if (followact)
+			{
+				LocalizedString name = SP_DialogueComponent.GetCharacterName(followact.Char);
+				infoText2 = infoText2 + string.Format("Following %1", name);
+			}
+			//SCR_AITaskPickupBehavior
+			DebugTextWorldSpace.Create(GetGame().GetWorld(), infoText2, DebugTextFlags.FACE_CAMERA | DebugTextFlags.IN_WORLD | DebugTextFlags.ONCE, origin[0], origin[1] + 4, origin[2], 0.1, 0xFFFFFFFF, Color.BLACK);
+		}		
+	}
 };
 //------------------------------------------------------------------------------------------------------------//
 modded enum EWeaponType
@@ -601,6 +682,11 @@ class CharacterHolder : ScriptAndConfig
 
 	static ref array<string> m_aSpecialCars;
 	
+	
+	array <ChimeraCharacter> GetAllAlive()
+	{
+		return AliveCharacters;
+	}
 	static void InserCharacter(ChimeraCharacter Char)
 	{
 		if (!Char)

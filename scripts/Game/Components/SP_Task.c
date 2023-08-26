@@ -287,6 +287,8 @@ class SP_Task
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			GetOnTaskFinished(this);
 			m_bMarkedForRemoval = 1;
+			if (m_aTaskAssigned)
+				UnAssignCharacter();
 			return true;
 		}
 		return false;
@@ -303,6 +305,8 @@ class SP_Task
 		}
 		e_State = ETaskState.FAILED;
 		m_bMarkedForRemoval = 1;
+		if (m_aTaskAssigned)
+			UnAssignCharacter();
 		GetOnTaskFinished(this);
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -318,6 +322,8 @@ class SP_Task
 		}
 		e_State = ETaskState.FAILED;
 		m_bMarkedForRemoval = 1;
+		if (m_aTaskAssigned)
+			UnAssignCharacter();
 		GetOnTaskFinished(this);
 	}
 	///////////////////REWARD//////////////
@@ -327,12 +333,7 @@ class SP_Task
 	{
 		if (!e_RewardLabel)
 		{
-			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			if(!ReqMan)
-			{
-				return false;
-			}
-			SP_Task tasksample = ReqMan.GetTaskSample(GetClassName());
+			SP_Task tasksample = SP_RequestManagerComponent.GetTaskSample(GetClassName());
 			if(!tasksample)
 			{
 				return false;
@@ -620,3 +621,47 @@ class TaskAttribute : BaseContainerCustomTitle
 		return true;
 	}
 }
+class SCR_AIGetTaskParams : AITaskScripted
+{
+	static const string TASK_PORT = "Task";
+	static const string TASK_OWNER_PORT		= "TaskOwner";
+	static const string TASK_TARGET_PORT				= "TaskTarget";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		TASK_PORT
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsOut = {
+		TASK_OWNER_PORT,
+		TASK_TARGET_PORT,
+	};
+	override TStringArray GetVariablesOut()
+    {
+        return s_aVarsOut;
+    }
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SP_Task Task;
+		if(!GetVariableIn(TASK_PORT, Task))
+		{
+			NodeError(this, owner, "Invalid Task Provided!");
+			return ENodeResult.FAIL;
+		}
+		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
+		SetVariableOut(TASK_TARGET_PORT, Task.GetTarget());
+		return ENodeResult.SUCCESS;
+	}	
+};

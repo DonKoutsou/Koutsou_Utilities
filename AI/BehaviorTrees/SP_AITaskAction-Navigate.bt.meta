@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{BA22426A96305944}AI/BehaviorTrees/SP_AINavigateTaskAction.bt"
+ Name "{A670B53B3B00B2D2}AI/BehaviorTrees/SP_AITaskAction- Navigate.bt"
  Configurations {
   BehaviorTreeResourceClass PC {
   }

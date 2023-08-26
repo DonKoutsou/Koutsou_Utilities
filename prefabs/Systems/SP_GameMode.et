@@ -130,7 +130,7 @@ SP_GameMode {
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 300
-   m_fTaskPerCharacter 2
+   m_fTaskPerCharacter 1
    m_fTaskOfSameTypePerCharacter 1
   }
   RplComponent "{5DC8E7DFE3D28994}" {

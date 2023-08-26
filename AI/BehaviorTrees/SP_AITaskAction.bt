@@ -38,7 +38,7 @@ BehaviorTree {
          }
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
-           Port 12
+           Port 11
            PortName "Position"
           }
          }
@@ -97,14 +97,14 @@ BehaviorTree {
              Name "Move To Entity"
              EditorPos 147.704 1068.845
              PrecisionXZ 2
-             InEntity 8
+             InEntity 7
             }
             SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
              Name "SCR_AI Perform Task Action"
              EditorPos 560 1097.143
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
-               Port 16
+               Port 14
                PortName "TargetEntity"
               }
               SingleInputPortContainer SingleInputPortContainer {
@@ -121,7 +121,7 @@ BehaviorTree {
           }
          }
          AbortType AbortChildrenBranch
-         InEntity 15
+         InEntity 13
          InPosition 4
          DistanceThreshold 5
         }
@@ -177,34 +177,24 @@ BehaviorTree {
                    Name "Test Distance To Entity"
                    EditorPos 1183.216 1752.047
                    Nodes {
-                    DecoTestDistanceToEntity "Test Distance To Entity" {
-                     Name "Test Distance To Entity"
-                     EditorPos 1113.93 2131.166
-                     Nodes {
-                      SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
-                       Name "SCR_AI Send Order_ Movement Type"
-                       EditorPos 1057.895 2438.571
-                       InPorts {
-                        SingleInputPortContainer SingleInputPortContainer {
-                         Port -1
-                         PortName "Receiver"
-                        }
-                        SingleInputPortContainer SingleInputPortContainer {
-                         Port -1
-                         PortName "MovementType"
-                        }
-                       }
-                       m_eMovementType RUN
+                    SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+                     Name "SCR_AI Send Order_ Movement Type"
+                     EditorPos 1077.895 2167.143
+                     InPorts {
+                      SingleInputPortContainer SingleInputPortContainer {
+                       Port -1
+                       PortName "Receiver"
+                      }
+                      SingleInputPortContainer SingleInputPortContainer {
+                       Port -1
+                       PortName "MovementType"
                       }
                      }
-                     InEntity 7
-                     InPosition 14
-                     DistanceThreshold 5
-                     OutDistance -1
+                     m_eMovementType RUN
                     }
                    }
                    InEntity 6
-                   InPosition 11
+                   InPosition 10
                    DistanceThreshold 10
                    OutDistance -1
                   }
@@ -229,8 +219,8 @@ BehaviorTree {
                     }
                    }
                    NegativeCondition 1
-                   InEntity 10
-                   InPosition 13
+                   InEntity 9
+                   InPosition 12
                    DistanceThreshold 15
                    OutDistance -1
                   }
@@ -256,7 +246,7 @@ BehaviorTree {
            NegativeCondition 1
            AbortType AbortChildrenBranch
            InEntity 2
-           InPosition 9
+           InPosition 8
            DistanceThreshold 5
            OutDistance 0
           }
@@ -355,10 +345,6 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos 813.859 2149.13
-  }
-  VariableReference TaskTarget {
-   VariableType 1
    EditorPos -130.986 1255.571
   }
   VariableReference MyPos {
@@ -380,10 +366,6 @@ BehaviorTree {
   VariableReference MyPos {
    VariableType 3
    EditorPos 1406.734 2063.389
-  }
-  VariableReference MyPos {
-   VariableType 3
-   EditorPos 886.359 2254.131
   }
   VariableReference TaskTarget {
    VariableType 1

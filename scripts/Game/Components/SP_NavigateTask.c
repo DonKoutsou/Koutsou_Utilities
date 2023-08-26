@@ -44,7 +44,7 @@ class SP_NavigateTask: SP_Task
 			if (!Fact)
 				return false;
 	
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, Fact, Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 50, Fact, Char))
 				return false;
 		}
 		
@@ -225,7 +225,7 @@ class SP_NavigateTask: SP_Task
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, m_aTaskAssigned);
 		utility.AddAction(action);
 		//if player throw popup
-		if (GetGame().GetPlayerController().GetControlledEntity() == m_aTaskAssigned)
+		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
 		{
 			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", SP_DialogueComponent.GetCharacterName(Character)));
 		}
@@ -241,12 +241,12 @@ class SP_NavigateTask: SP_Task
 			SCR_AIUtilityComponent utility2 = SCR_AIUtilityComponent.Cast(agent2.FindComponent(SCR_AIUtilityComponent));
 			if (!utility2)
 				return false;
-			SCR_AIExecuteNavigateTaskBehavior action2 = new SCR_AIExecuteNavigateTaskBehavior(utility2, null, m_eTaskOwner , m_eTaskTarget);
+			SCR_AIExecuteNavigateTaskBehavior action2 = new SCR_AIExecuteNavigateTaskBehavior(utility2, null, this);
 			if (action2)
-				utility.AddAction(action);
+				utility2.AddAction(action2);
 		}
 		AddAssigneeInvokers();
-		return false;
+		return true;
 	}
 	override string GetCompletionText(IEntity Completionist)
 	{
@@ -260,6 +260,9 @@ class SP_NavigateTask: SP_Task
 			return false;
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
+		SP_NavigateTask tasksample = SP_NavigateTask.Cast(SP_RequestManagerComponent.GetTaskSample(GetClassName()));
+		m_iSuccessDistance = tasksample.GetSuccessDistance();
+		
 		return true;
 	};
 	override void AddTargetInvokers(){};
@@ -303,5 +306,61 @@ class SP_NavigateTask: SP_Task
 				act.SetActiveFollowing(false);
 		}
 	}
+	override bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
+	{
+		return true;
+	};
 	//------------------------------------------------------------------------------------------------------------//
+};
+class SCR_AIGetNavigateTaskParams : AITaskScripted
+{	
+	static const string TASK_PORT = "Task";
+	static const string TASK_OWNER_PORT		= "TaskOwner";
+	static const string TASK_TARGET_PORT				= "TaskTarget";
+	static const string TASK_RADIUS_PORT				= "successRadius";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		TASK_PORT
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsOut = {
+		TASK_OWNER_PORT,
+		TASK_TARGET_PORT,
+		TASK_RADIUS_PORT,
+	};
+
+	override TStringArray GetVariablesOut()
+    {
+			//if (!s_aVarsOut.Contains(TASK_RADIUS_PORT))
+				//s_aVarsOut.Insert(TASK_RADIUS_PORT);
+      return s_aVarsOut;
+    }
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SP_Task Task;
+		if(!GetVariableIn(TASK_PORT, Task))
+		{
+			NodeError(this, owner, "Invalid Task Provided!");
+			return ENodeResult.FAIL;
+		}
+		SP_NavigateTask navtask = SP_NavigateTask.Cast(Task);
+		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
+		SetVariableOut(TASK_TARGET_PORT, Task.GetTarget());
+		if (navtask)
+			SetVariableOut(TASK_RADIUS_PORT, navtask.GetSuccessDistance());
+		
+		return ENodeResult.SUCCESS;
+	}	
 };
