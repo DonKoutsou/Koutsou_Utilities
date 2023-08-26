@@ -100,6 +100,7 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
+		InheritFromSample();
 		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...

@@ -26,8 +26,6 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(defvalue: "2", desc: "Max amount of tasks that can be assigned")]
 	protected int m_iassignmax;
 	
-	static int m_iassigncount;
-	
 	[Attribute()]
 	ref array<string> m_aSpecialCars;
 	
@@ -63,7 +61,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	//Constructor
 	void SP_RequestManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent){if (!s_Instance)s_Instance = this;};
 	//Destructor
-	void ~SP_RequestManagerComponent(){if (m_aCompletedTaskMap)m_aCompletedTaskMap.Clear();if (m_aTaskMap)m_aTaskMap.Clear();if (m_aTaskSamples)m_aTaskSamples.Clear(); m_iassigncount = 0;};
+	void ~SP_RequestManagerComponent(){if (m_aCompletedTaskMap)m_aCompletedTaskMap.Clear();if (m_aTaskMap)m_aTaskMap.Clear();if (m_aTaskSamples)m_aTaskSamples = null;};
 	//------------------------------------------------------------------------------------------------------------//
 	//instance
 	static SP_RequestManagerComponent s_Instance;
@@ -126,6 +124,8 @@ class SP_RequestManagerComponent : ScriptComponent
 	//Getter for samples
 	static SP_Task GetTaskSample(typename tasktype)
 	{
+		if (m_aTaskSamples.IsEmpty())
+			return null;
 		foreach(SP_Task Task : m_aTaskSamples)
 		{
 			if(Task.GetClassName() == tasktype)
@@ -161,6 +161,18 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	static bool CharIsPickingTask(IEntity Char)
+	{
+		if (!Char)
+			return false;
+		AIControlComponent comp = AIControlComponent.Cast(Char.FindComponent(AIControlComponent));
+		AIAgent agent = comp.GetAIAgent();
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
+		if (act)
+			return true;
+		return false;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Get assigned tasks of character
 	static bool GetassignedTasks(IEntity Char, out array<ref SP_Task> tasks)
@@ -176,6 +188,22 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (tasks.IsEmpty())
 			return false;
 		return true;
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Get assigned tasks count of character
+	static int GetassignedTaskCount(IEntity Char)
+	{
+		array<ref SP_Task> tasks = {};
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.CharacterAssigned(Char))
+			{
+				tasks.Insert(task);
+			}
+		}
+		if (tasks.IsEmpty())
+			return 0;
+		return tasks.Count();
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Create tasks of type
@@ -221,15 +249,35 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		foreach (SP_Task task : m_aTaskMap)
 		{
-			if(task.CharacterIsOwner(Char) == true)
+			if(task.CharacterIsOwner(Char))
 			{
 				tasks.Insert(task);
 			}
-			if(task.CharacterIsTarget(Char) == true)
+			if(task.CharacterIsTarget(Char))
 			{
 				tasks.Insert(task);
 			}
 		}
+	}
+	static int GetCharTaskCount(IEntity Char)
+	{
+		if (!Char)
+			return -1;
+		array<ref SP_Task> tasks = {};
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.CharacterIsOwner(Char))
+			{
+				tasks.Insert(task);
+			}
+			if(task.CharacterIsTarget(Char))
+			{
+				tasks.Insert(task);
+			}
+		}
+		if (tasks.IsEmpty())
+			return 0;
+		return tasks.Count();
 	}
 	static void GetUnassignedCharTasks(IEntity Char, IEntity Assignee, out array<ref SP_Task> tasks)
 	{
@@ -425,13 +473,13 @@ class SP_RequestManagerComponent : ScriptComponent
 	}
 	void AssignATask()
 	{
-		if (m_iassigncount >= m_iassignmax)
-			return;
 		ChimeraCharacter Assignee;
 		if (!m_CharacterHolder.GetRandomUnit(Assignee))
 			return;
 		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Assignee.GetDamageManager());
 		if (dmg.GetIsUnconscious() || dmg.IsDestroyed())
+			return;
+		if (GetCharTaskCount(Assignee) > 0)
 			return;
 		array<ref SP_Task> assignedtasks = {};
 		GetassignedTasks(Assignee, assignedtasks);
@@ -444,8 +492,11 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (Assignee == CloseChar)
 			return;
 		array <ref SP_Task> tasks = {};
-		GetCharOwnedTasksOfSameType(CloseChar, tasks, SP_DeliverTask);
-		GetCharOwnedTasksOfSameType(CloseChar, tasks, SP_NavigateTask);
+		foreach (SP_Task task : m_aTaskSamples)
+		{
+			if (task.m_bAssignable)
+				GetCharOwnedTasksOfSameType(CloseChar, tasks, task.GetClassName());
+		}
 		if (tasks.IsEmpty())
 			return;
 		GetassignedTasks(CloseChar, assignedtasks);
@@ -453,7 +504,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		for (int i = tasks.Count() - 1; i >= 0; i--)
 		{
-			ref SP_Task mytask = tasks.GetRandomElement();
+			SP_Task mytask = tasks.GetRandomElement();
 			if (mytask.GetTarget() == Assignee)
 				continue;
 			if (mytask.IsReserved())
@@ -479,13 +530,13 @@ class SP_RequestManagerComponent : ScriptComponent
 				myparams.Transform[3] = Assignee.GetOrigin();
 				SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
 				newgroup.AddAgent(agent);
+				newgroup.AddWaypoint(group.GetCurrentWaypoint());
 			}
-			else
-				group.CompleteWaypoint(group.GetCurrentWaypoint());
+			//else
+				//group.CompleteWaypoint(group.GetCurrentWaypoint());
 			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
 			utility.AddAction(action);
 			mytask.SetReserved(true);
-			m_iassigncount += 1;
 			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
 			
 			return;
@@ -507,7 +558,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			CreateDebug();
 		}
 		
-		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
+		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount();
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)
@@ -595,7 +646,11 @@ class SP_RequestManagerComponent : ScriptComponent
 			LocalizedString infoText2 = string.Format("CharName: %1\n Owned Tasks: \n", SP_DialogueComponent.GetCharacterName(Owner));
 			foreach (SP_Task task : OwnedTasks)
 			{
-				LocalizedString name = SP_DialogueComponent.GetCharacterName(task.GetTarget());
+				LocalizedString name;
+				if (task.GetTarget())
+					name = SP_DialogueComponent.GetCharacterName(task.GetTarget());
+				else
+					name = SP_DialogueComponent.GetCharacterName(task.GetOwner());
 				infoText2 = string.Format("%1 %2 Target : %3 \n", infoText2, task.GetClassName().ToString(), name);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";

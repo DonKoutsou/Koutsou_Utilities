@@ -2,6 +2,8 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_NavigateTask: SP_Task
 {
+	[Attribute(defvalue: "300", desc: "Min distance for task to be valid")]
+	int m_iTargetOwnerMinDistance;
 	//----------------------------------------------------------------------------------//
 	[Attribute(defvalue: "20", desc: "Distance from target at wich task can be considered ready to deliver")]
 	int m_iSuccessDistance;
@@ -23,6 +25,11 @@ class SP_NavigateTask: SP_Task
 			Owner = Char;
 		if(Owner)
 		{
+			//if someone is doing a task, they should be looking to be escorted somewhere.
+			if (SP_RequestManagerComponent.GetassignedTaskCount(Owner) > 0)
+				return false;
+			if (SP_RequestManagerComponent.CharIsPickingTask(Owner))
+				return false;
 			return true;
 		}
 		return false;
@@ -44,7 +51,7 @@ class SP_NavigateTask: SP_Task
 			if (!Fact)
 				return false;
 	
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 50, Fact, Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), m_iTargetOwnerMinDistance, Fact, Char))
 				return false;
 		}
 		
@@ -70,8 +77,7 @@ class SP_NavigateTask: SP_Task
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), TalkingChar.GetOrigin());
 		if(!m_iSuccessDistance)
 		{
-			SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-			SP_NavigateTask tasksample = SP_NavigateTask.Cast(ReqMan.GetTaskSample(SP_NavigateTask));
+			SP_NavigateTask tasksample = SP_NavigateTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_NavigateTask));
 			m_iSuccessDistance = tasksample.GetSuccessDistance();
 		}
 		if(dis <= m_iSuccessDistance)
@@ -176,7 +182,6 @@ class SP_NavigateTask: SP_Task
 				}
 				
 			}
-			SP_RequestManagerComponent.m_iassigncount -= 1;
 			return true;
 		}
 			
@@ -260,8 +265,6 @@ class SP_NavigateTask: SP_Task
 			return false;
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
-		SP_NavigateTask tasksample = SP_NavigateTask.Cast(SP_RequestManagerComponent.GetTaskSample(GetClassName()));
-		m_iSuccessDistance = tasksample.GetSuccessDistance();
 		
 		return true;
 	};
@@ -310,6 +313,16 @@ class SP_NavigateTask: SP_Task
 	{
 		return true;
 	};
+	override void InheritFromSample()
+	{
+		super.InheritFromSample();
+		SP_NavigateTask TaskSample = SP_NavigateTask.Cast(SP_RequestManagerComponent.GetTaskSample(GetClassName()));
+		if (TaskSample)
+		{
+			m_iSuccessDistance = TaskSample.m_iSuccessDistance;
+			m_iTargetOwnerMinDistance = TaskSample.m_iTargetOwnerMinDistance;
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 };
 class SCR_AIGetNavigateTaskParams : AITaskScripted

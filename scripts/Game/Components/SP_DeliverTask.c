@@ -2,6 +2,8 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_DeliverTask: SP_Task
 {
+	[Attribute(defvalue: "300", desc: "Min distance for task to be valid")]
+	int m_iTargetOwnerMinDistance;
 	[Attribute(defvalue : "{057AEFF961B81816}prefabs/Items/Package.et")]
 	ResourceName m_pPackage;
 	//----------------------------------------------------------------------------------//
@@ -27,6 +29,11 @@ class SP_DeliverTask: SP_Task
 			Owner = Char;
 		if(Owner)
 		{
+			//if someone is doing a task, they should be looking to be escorted somewhere.
+			if (SP_RequestManagerComponent.GetassignedTaskCount(Owner) > 0)
+				return false;
+			if (SP_RequestManagerComponent.CharIsPickingTask(Owner))
+				return false;
 			return true;
 		}
 		return false;
@@ -53,7 +60,7 @@ class SP_DeliverTask: SP_Task
 			if (enemies.IsEmpty())
 				return false;
 			
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 30, enemies.GetRandomElement(), Char))
+			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), m_iTargetOwnerMinDistance, enemies.GetRandomElement(), Char))
 				return false;
 		}
 
@@ -322,6 +329,7 @@ class SP_DeliverTask: SP_Task
 	}
 	override bool Init()
 	{
+		InheritFromSample();
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
 		if (!m_eTaskOwner)
@@ -425,6 +433,15 @@ class SP_DeliverTask: SP_Task
 				act.SetActiveFollowing(false);
 		}
 		super.UnAssignCharacter();
+	}
+	override void InheritFromSample()
+	{
+		super.InheritFromSample();
+		SP_DeliverTask TaskSample = SP_DeliverTask.Cast(SP_RequestManagerComponent.GetTaskSample(GetClassName()));
+		if (TaskSample)
+		{
+			m_iTargetOwnerMinDistance = TaskSample.m_iTargetOwnerMinDistance;
+		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
 };

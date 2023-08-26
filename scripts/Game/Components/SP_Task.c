@@ -15,6 +15,9 @@ class SP_Task
 	[Attribute(defvalue : "1", desc : "Dissabled wont be randomly spawned but still exist as samples")]
 	bool m_bEnabled;
 	//-------------------------------------------------//
+	[Attribute(defvalue : "1", desc : "Can be assigned to AI")]
+	bool m_bAssignable;
+	//-------------------------------------------------//
 	[Attribute(defvalue : "5", desc : "Amount of rep + when completing this task")]
 	int m_iRepReward;
 	//-------------------------------------------------//
@@ -126,6 +129,25 @@ class SP_Task
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
 	bool MarkedForRemoval(){return m_bMarkedForRemoval;};
+	void InheritFromSample()
+	{
+		SP_Task tasksample = SP_RequestManagerComponent.GetTaskSample(GetClassName());
+		if(!tasksample)
+		{
+			return;
+		}
+		e_RewardLabel = tasksample.GetRewardLabel();
+		m_iRepReward = tasksample.GetRepReward();
+		m_iRewardAverageAmount = tasksample.GetRewardAverage();
+		if(m_iRewardAverageAmount)
+		{
+			m_iRewardAmount = Math.Ceil(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
+		}
+		else
+		{
+			m_iRewardAmount = Math.RandomInt(5, 15)
+		}
+	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function used to set up all the texts of the task on Init
 	void CreateDescritions(){};
@@ -331,28 +353,6 @@ class SP_Task
 	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
-		if (!e_RewardLabel)
-		{
-			SP_Task tasksample = SP_RequestManagerComponent.GetTaskSample(GetClassName());
-			if(!tasksample)
-			{
-				return false;
-			}
-			e_RewardLabel = tasksample.GetRewardLabel();
-			m_iRepReward = tasksample.GetRepReward();
-			m_iRewardAverageAmount = tasksample.GetRewardAverage();
-			if(m_iRewardAverageAmount)
-			{
-				m_iRewardAmount = Math.Ceil(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
-			}
-			else
-			{
-				m_iRewardAmount = Math.RandomInt(5, 15)
-			}
-		}
-		else
-			m_iRewardAmount = m_iRewardAverageAmount;
-		
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
@@ -491,7 +491,6 @@ class SP_Task
 		{
 			m_TaskMarker.Cancel(true);
 		}
-		SP_RequestManagerComponent.m_iassigncount -= 1;
 	}
 	void GetOnAssigneeDeath()
 	{
@@ -562,6 +561,7 @@ class SP_Task
 	//Deffining structure of Init
 	bool Init()
 	{
+		InheritFromSample();
 		//-------------------------------------------------//
 		if (!m_eTaskOwner)
 		{
@@ -589,6 +589,7 @@ class SP_Task
 				return false;
 			}
 		}
+		
 		//-------------------------------------------------//
 		if (!AssignReward())
 		{
@@ -655,7 +656,8 @@ class SCR_AIGetTaskParams : AITaskScripted
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
 		SP_Task Task;
-		if(!GetVariableIn(TASK_PORT, Task))
+		GetVariableIn(TASK_PORT, Task);
+		if(!Task)
 		{
 			NodeError(this, owner, "Invalid Task Provided!");
 			return ENodeResult.FAIL;

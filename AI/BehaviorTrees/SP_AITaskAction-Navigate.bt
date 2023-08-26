@@ -136,7 +136,7 @@ BehaviorTree {
              AbortType AbortChildrenBranch
              InEntity 16
              InPosition 18
-             DistanceThreshold 5
+             DistanceThreshold 10
             }
             AITaskMoveToEntity "Move To Entity" {
              Name "Move To Entity"
@@ -151,7 +151,7 @@ BehaviorTree {
          InEntity 17
          InPosition 4
          InDistance -1
-         DistanceThreshold 10
+         DistanceThreshold 15
         }
         Sequence Sequence {
          Name "Sequence"
@@ -223,7 +223,7 @@ BehaviorTree {
                    }
                    InEntity 6
                    InPosition 9
-                   DistanceThreshold 10
+                   DistanceThreshold 20
                    OutDistance -1
                   }
                   DecoTestDistanceToEntity "Test Distance To Entity" {
@@ -249,7 +249,7 @@ BehaviorTree {
                    NegativeCondition 1
                    InEntity 8
                    InPosition 11
-                   DistanceThreshold 15
+                   DistanceThreshold 30
                    OutDistance -1
                   }
                   AITaskMoveToEntity "Move To Entity" {
@@ -276,7 +276,7 @@ BehaviorTree {
            InEntity 2
            InPosition 7
            InDistance -1
-           DistanceThreshold 10
+           DistanceThreshold 15
            OutDistance 0
           }
           RunBT RunBT {
