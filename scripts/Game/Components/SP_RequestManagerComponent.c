@@ -734,7 +734,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				string reserved;
 				if (task.IsReserved())
 					reserved = "RESERVED";
-				infoText2 = string.Format("%1 %2 Target : %3 %4 \n", infoText2, task.GetClassName().ToString(), name, reserved);
+				string state = typename.EnumToString(ETaskState, task.GetState());
+				infoText2 = string.Format("%1 %2 Target : %3 %4 | Task State: %5 \n", infoText2, task.GetClassName().ToString(), name, reserved, state);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";
 			array <ref SP_Task> TargetedTasks = {};
@@ -745,7 +746,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				string reserved;
 				if (task.IsReserved())
 					reserved = "RESERVED";
-				infoText2 = string.Format("%1 %2 Owner : %3 %4 \n", infoText2, task.GetClassName().ToString(), name, reserved);
+				string state = typename.EnumToString(ETaskState, task.GetState());
+				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5  \n", infoText2, task.GetClassName().ToString(), name, reserved, state);
 			}
 			infoText2 = infoText2 + "Assigned Tasks: \n";
 			array <ref SP_Task> AssignedTasks = {};
@@ -756,7 +758,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				string reserved;
 				if (task.IsReserved())
 					reserved = "RESERVED";
-				infoText2 = string.Format("%1 %2 Owner : %3 %4 \n", infoText2, task.GetClassName().ToString(), name, reserved);
+				string state = typename.EnumToString(ETaskState, task.GetState());
+				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5   \n", infoText2, task.GetClassName().ToString(), name, reserved, state);
 			}
 			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Owner.FindComponent(InventoryStorageManagerComponent));		
 			if (!inv)
