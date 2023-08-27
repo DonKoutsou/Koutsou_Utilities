@@ -71,13 +71,14 @@ class SP_Task
 	int m_iRewardAmount;
 	//-------------------------------------------------//
 	// used for when an ai has started heading towards taking a task to avoid multiple AI going for same task
-	bool reserved;
+	IEntity reserved;
 	//-------------------------------------------------//
 	//Stato of task using ETaskState enum
 	protected ETaskState e_State = ETaskState.EMPTY;
 	//-------------------------------------------------//
 	//Characters assigned to this task
 	IEntity m_aTaskAssigned;
+	bool m_bOwnerAssigned;
 	//-------------------------------------------------//
 	//Character that completed this task. Filled after task is complete
 	IEntity m_eCopletionist;
@@ -88,14 +89,41 @@ class SP_Task
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
-	void SetReserved(bool res){reserved = res;};
-	bool IsReserved(){return reserved;};
+	void SetReserved(IEntity res){UnAssignOwner(); reserved = res;};
+	bool IsReserved()
+	{
+		if (reserved)
+			return true;
+		else
+			return false;
+	}
+	bool IsOwnerAssigned()
+	{
+		return m_bOwnerAssigned;
+	}
+	void ClearReserves()
+	{
+		if (IsReserved())
+		{
+			AIControlComponent comp = AIControlComponent.Cast(reserved.FindComponent(AIControlComponent));
+			AIAgent agent = comp.GetAIAgent();
+			if (agent)
+			{
+				SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+				SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
+				if (act)
+					act.SetActiveFollowing(false);
+			}	
+		}
+		SetReserved(null);
+	};
 	//Owner of task.
 	IEntity GetOwner(){return m_eTaskOwner;};
 	Faction GetOwnerFaction(){return m_OwnerFaction;};
 	//------------------------------------------------------------------------------------------------------------//
 	//Task target
 	IEntity GetTarget(){return m_eTaskTarget;};
+	IEntity GetAssignee(){return m_aTaskAssigned;};
 	//------------------------------------------------------------------------------------------------------------//
 	IEntity GetCompletionist(){return m_eCopletionist;};
 	//------------------------------------------------------------------------------------------------------------//
@@ -325,10 +353,11 @@ class SP_Task
 			m_TaskMarker.Finish(true);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 		}
+		if (GetState() == ETaskState.ASSIGNED)
+			UnAssignCharacter();
 		e_State = ETaskState.FAILED;
 		m_bMarkedForRemoval = 1;
-		if (m_aTaskAssigned)
-			UnAssignCharacter();
+		ClearReserves();
 		GetOnTaskFinished(this);
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -346,6 +375,7 @@ class SP_Task
 		m_bMarkedForRemoval = 1;
 		if (m_aTaskAssigned)
 			UnAssignCharacter();
+		ClearReserves();
 		GetOnTaskFinished(this);
 	}
 	///////////////////REWARD//////////////
@@ -395,7 +425,7 @@ class SP_Task
 	void GetOnOwnerDeath()
 	{
 		RemoveOwnerInvokers();
-		m_eTaskOwner = null;
+		//m_eTaskOwner = null;
 		//possible to fail task, if so override dis
 	}
 	void GetOnOwnerRankUp()
@@ -429,7 +459,7 @@ class SP_Task
 	void GetOnTargetDeath()
 	{
 		RemoveTargetInvokers();
-		m_eTaskTarget = null;
+		//m_eTaskTarget = null;
 		//possible to fail task, if so override dis
 	}
 	void GetOnTargetRankUp()
@@ -453,6 +483,8 @@ class SP_Task
 	//Assign character to this task
 	bool AssignCharacter(IEntity Character)
 	{
+		if (m_bOwnerAssigned)
+			UnAssignOwner();
 		//if already assigned return
 		if (m_aTaskAssigned == Character)
 			return true;
@@ -482,6 +514,16 @@ class SP_Task
 		}
 		return false;
 	}
+	//Assign character to this task
+	bool AssignOwner()
+	{
+		m_bOwnerAssigned = true;
+		return true;
+	}
+	void UnAssignOwner()
+	{
+		m_bOwnerAssigned = false;
+	}
 	void UnAssignCharacter()
 	{
 		if (!m_aTaskAssigned)
@@ -491,11 +533,13 @@ class SP_Task
 		{
 			m_TaskMarker.Cancel(true);
 		}
+		ClearReserves();
 	}
 	void GetOnAssigneeDeath()
 	{
 		RemoveAssigneeInvokers();
-		m_aTaskAssigned = null;
+		//m_aTaskAssigned = null;
+		UnAssignCharacter();
 		//Decide owner behevior
 	}
 	void AddAssigneeInvokers()
@@ -613,12 +657,22 @@ class TaskAttribute : BaseContainerCustomTitle
 	{
 		string enabled;
 		bool enable;
+		bool assign;
+		string assignable;
 		source.Get("m_bEnabled", enable);
 		if (enable)
 			enabled = "ACTIVE";
 		else
 			enabled = "INACTIVE";
-		title = source.GetClassName() + " | " + enabled;
+		
+		source.Get("m_bAssignable", assign);
+		
+		if (assign)
+			assignable = "Assignable";
+		else
+			assignable = "UnAssignable";
+		
+		title = source.GetClassName() + " | " + enabled + " | " + assignable;
 		return true;
 	}
 }
@@ -659,7 +713,7 @@ class SCR_AIGetTaskParams : AITaskScripted
 		GetVariableIn(TASK_PORT, Task);
 		if(!Task)
 		{
-			NodeError(this, owner, "Invalid Task Provided!");
+			//NodeError(this, owner, "Invalid Task Provided!");
 			return ENodeResult.FAIL;
 		}
 		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());

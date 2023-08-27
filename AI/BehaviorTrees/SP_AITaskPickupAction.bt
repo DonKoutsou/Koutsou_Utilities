@@ -15,7 +15,7 @@ BehaviorTree {
        Nodes {
         SCR_AITaskPickupParameters "SCR_AI Task Pickup Parameters" {
          Name "SCR_AI Task Pickup Parameters"
-         EditorPos -1521.73 554.273
+         EditorPos -1521.73 552.606
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
            Port 14
@@ -139,7 +139,7 @@ BehaviorTree {
          AbortType AbortChildrenBranch
          InEntity 4
          InPosition 9
-         DistanceThreshold 5
+         DistanceThreshold 10
         }
         Sequence Sequence {
          Name "Sequence"
@@ -147,7 +147,7 @@ BehaviorTree {
          Nodes {
           DecoTestDistanceToEntity "Test Distance To Entity" {
            Name "Test Distance To Entity"
-           EditorPos 1365.791 840.671
+           EditorPos 1369.124 827.338
            Nodes {
             Sequence Sequence {
              Name "Sequence"
@@ -263,7 +263,7 @@ BehaviorTree {
            AbortType AbortChildrenBranch
            InEntity 6
            InPosition 1
-           DistanceThreshold 5
+           DistanceThreshold 10
            OutDistance 0
           }
           RunBT RunBT {

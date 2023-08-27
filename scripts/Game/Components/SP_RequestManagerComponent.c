@@ -23,9 +23,6 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_ChainedTask> m_aQuestlines;
 	
-	[Attribute(defvalue: "2", desc: "Max amount of tasks that can be assigned")]
-	protected int m_iassignmax;
-	
 	[Attribute()]
 	ref array<string> m_aSpecialCars;
 	
@@ -135,6 +132,18 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return null;
 	}
+	static bool IsAssignable(typename tasktype)
+	{
+		foreach(SP_Task Task : m_aTaskSamples)
+		{
+			if(Task.GetClassName() == tasktype)
+			{
+				if (Task.m_bAssignable)
+					return true;
+			}
+		}
+		return false;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Checks if entity provided has tasks
 	static bool CharHasTask(IEntity Char)
@@ -148,6 +157,19 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	static bool CharHasOwnAssigned(IEntity Char)
+	{
+		array <ref SP_Task> tasks = {};
+		GetCharOwnedTasks(Char, tasks);
+		if (tasks.IsEmpty())
+			return false;
+		foreach (SP_Task task : tasks)
+		{
+			if (task.IsOwnerAssigned())
+			return true;
+		}
+		return false;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Checks if entity provided is target of any of the tasks
 	static bool CharIsTarget(IEntity Char)
@@ -155,6 +177,19 @@ class SP_RequestManagerComponent : ScriptComponent
 		foreach (SP_Task task : m_aTaskMap)
 		{
 			if(task.CharacterIsTarget(Char))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Checks if entity provided is target of any of the tasks
+	static bool CharIsTargetOf(IEntity Char, typename tasktype)
+	{
+		foreach (SP_Task task : m_aTaskMap)
+		{
+			if(task.GetClassName() == tasktype && task.CharacterIsTarget(Char))
 			{
 				return true;
 			}
@@ -256,6 +291,52 @@ class SP_RequestManagerComponent : ScriptComponent
 			if(task.CharacterIsTarget(Char))
 			{
 				tasks.Insert(task);
+			}
+		}
+	}
+	static bool GetCanAssignTask(IEntity Char)
+	{
+		array<ref SP_Task> assignedtasks = {};
+		GetassignedTasks(Char, assignedtasks);
+		if (!assignedtasks.IsEmpty())
+			return false;
+		array<ref SP_Task> ownedtasks = {};
+		GetCharOwnedTasks(Char, ownedtasks);
+		foreach (SP_Task task : ownedtasks)
+		{
+			if (task.GetClassName() == SP_BountyTask)
+				continue;
+			if (IsAssignable(task.GetClassName()))
+			{
+				return false;
+			}
+		}
+		array<ref SP_Task> targettasks = {};
+		GetCharTargetTasks(Char, targettasks);
+		foreach (SP_Task task : targettasks)
+		{
+			if (task.GetClassName() == SP_BountyTask)
+				continue;
+			if (IsAssignable(task.GetClassName()))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	static void AssignMyTask(IEntity Char)
+	{
+		array<ref SP_Task> tasks = {};		
+		GetCharOwnedTasks(Char, tasks);
+		if (!tasks)
+			return;
+		
+		foreach (SP_Task task : tasks)
+		{
+			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned())
+			{
+				if (task.AssignOwner())
+					return;
 			}
 		}
 	}
@@ -479,12 +560,13 @@ class SP_RequestManagerComponent : ScriptComponent
 		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Assignee.GetDamageManager());
 		if (dmg.GetIsUnconscious() || dmg.IsDestroyed())
 			return;
-		if (GetCharTaskCount(Assignee) > 0)
+		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee))
+		{
+			AssignMyTask(Assignee);
 			return;
-		array<ref SP_Task> assignedtasks = {};
-		GetassignedTasks(Assignee, assignedtasks);
-		if (!assignedtasks.IsEmpty())
-			return;
+		}
+			
+		
 		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		ChimeraCharacter CloseChar;
 		if (!m_CharacterHolder.GetUnitOfAnyFriendlyFaction(affcomp.GetAffiliatedFaction(), CloseChar))
@@ -499,12 +581,11 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		if (tasks.IsEmpty())
 			return;
-		GetassignedTasks(CloseChar, assignedtasks);
-		if (!assignedtasks.IsEmpty())
-			return;
 		for (int i = tasks.Count() - 1; i >= 0; i--)
 		{
-			SP_Task mytask = tasks.GetRandomElement();
+			ref SP_Task mytask = tasks.GetRandomElement();
+			if (!mytask)
+				continue;
 			if (mytask.GetTarget() == Assignee)
 				continue;
 			if (mytask.IsReserved())
@@ -521,7 +602,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
 			if (!group)
 				return;
-			if (group.GetAgentsCount() > 1)
+			/*if (group.GetAgentsCount() > 1)
 			{
 				group.RemoveAgent(agent);
 				Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
@@ -533,10 +614,10 @@ class SP_RequestManagerComponent : ScriptComponent
 				newgroup.AddWaypoint(group.GetCurrentWaypoint());
 			}
 			//else
-				//group.CompleteWaypoint(group.GetCurrentWaypoint());
+				//group.CompleteWaypoint(group.GetCurrentWaypoint());*/
 			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
 			utility.AddAction(action);
-			mytask.SetReserved(true);
+			mytask.SetReserved(Assignee);
 			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
 			
 			return;
@@ -638,36 +719,44 @@ class SP_RequestManagerComponent : ScriptComponent
 		vector Origin = GetGame().GetCameraManager().CurrentCamera().GetOrigin();
 		foreach (ChimeraCharacter Owner : m_CharacterHolder.GetAllAlive())
 		{
-			if (vector.Distance(Origin, Owner.GetOrigin()) > 100)
-				continue;
-			
+			//if (vector.Distance(Origin, Owner.GetOrigin()) > 100)
+				//continue;
 			array <ref SP_Task> OwnedTasks = {};
 			GetCharOwnedTasks(Owner, OwnedTasks);
-			LocalizedString infoText2 = string.Format("CharName: %1\n Owned Tasks: \n", SP_DialogueComponent.GetCharacterName(Owner));
+			string infoText2 = string.Format("CharName: %1\n Rank: %2\n Reputation: %3\nOwned Tasks: \n", SP_DialogueComponent.GetCharacterFirstName(Owner) + " " + SP_DialogueComponent.GetCharacterSurname(Owner), SP_DialogueComponent.GetCharacterRankName(Owner), SP_DialogueComponent.GetCharacterRep(Owner));
 			foreach (SP_Task task : OwnedTasks)
 			{
-				LocalizedString name;
+				string name;
 				if (task.GetTarget())
-					name = SP_DialogueComponent.GetCharacterName(task.GetTarget());
+					name = SP_DialogueComponent.GetCharacterFirstName(task.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetTarget());
 				else
-					name = SP_DialogueComponent.GetCharacterName(task.GetOwner());
-				infoText2 = string.Format("%1 %2 Target : %3 \n", infoText2, task.GetClassName().ToString(), name);
+					name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
+				string reserved;
+				if (task.IsReserved())
+					reserved = "RESERVED";
+				infoText2 = string.Format("%1 %2 Target : %3 %4 \n", infoText2, task.GetClassName().ToString(), name, reserved);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";
 			array <ref SP_Task> TargetedTasks = {};
 			GetCharTargetTasks(Owner, TargetedTasks);
 			foreach (SP_Task task : TargetedTasks)
 			{
-				LocalizedString name = SP_DialogueComponent.GetCharacterName(task.GetOwner());
-				infoText2 = string.Format("%1 %2 Owner : %3 \n", infoText2, task.GetClassName().ToString(), name);
+				string name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
+				string reserved;
+				if (task.IsReserved())
+					reserved = "RESERVED";
+				infoText2 = string.Format("%1 %2 Owner : %3 %4 \n", infoText2, task.GetClassName().ToString(), name, reserved);
 			}
 			infoText2 = infoText2 + "Assigned Tasks: \n";
 			array <ref SP_Task> AssignedTasks = {};
 			GetassignedTasks(Owner, AssignedTasks);
 			foreach (SP_Task task : AssignedTasks)
 			{
-				LocalizedString name = SP_DialogueComponent.GetCharacterName(task.GetOwner());
-				infoText2 = string.Format("%1 %2 Owner : %3 \n", infoText2, task.GetClassName().ToString(), name);
+				string name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
+				string reserved;
+				if (task.IsReserved())
+					reserved = "RESERVED";
+				infoText2 = string.Format("%1 %2 Owner : %3 %4 \n", infoText2, task.GetClassName().ToString(), name, reserved);
 			}
 			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Owner.FindComponent(InventoryStorageManagerComponent));		
 			if (!inv)
@@ -677,7 +766,9 @@ class SP_RequestManagerComponent : ScriptComponent
 			array <IEntity> items = {};
 			int amount = inv.FindItems(items, pred);
 			infoText2 = infoText2 + string.Format("Owned Currency: %1\n", amount);
-			auto origin = Owner.GetOrigin();
+			vector origin = Owner.GetOrigin();
+			vector SphereOrig = Owner.GetOrigin();
+			SphereOrig[1] = SphereOrig[1] + 5;
 			AIControlComponent comp = AIControlComponent.Cast(Owner.FindComponent(AIControlComponent));
 			if (!comp)
 				return;
@@ -690,17 +781,83 @@ class SP_RequestManagerComponent : ScriptComponent
 			SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.GetCurrentAction());
 			if (action)
 			{
-				LocalizedString name = SP_DialogueComponent.GetCharacterName(action.PickedTask.GetOwner());
+				if (!action.PickedTask)
+					continue;
+				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
 				infoText2 = infoText2 + string.Format("Heading towards %1's location to pick %2", name ,action.PickedTask.GetClassName().ToString());
+				Shape.CreateSphere(Color.WHITE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
+			}
+			SCR_AIExecuteNavigateTaskBehavior Navaction = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.GetCurrentAction());
+			if (Navaction)
+			{
+				if (!Navaction.PickedTask)
+					continue;
+				string name = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
+				string Oname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
+				if (Navaction.PickedTask.IsOwnerAssigned())
+					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
+				infoText2 = infoText2 + string.Format("Escorting %1 to %2's location", Oname ,name);
+				Shape.CreateSphere(Color.BLUE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
+			}
+			SCR_AIExecuteDeliveryTaskBehavior Delaction = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.GetCurrentAction());
+			if (Delaction)
+			{
+				if (!Delaction.PickedTask)
+					continue;
+				string name = SP_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
+				if (Delaction.PickedTask.IsOwnerAssigned())
+					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
+				infoText2 = infoText2 + string.Format("Delivering Package to %1", name);
+				Shape.CreateSphere(Color.GREEN, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
+			}
+			SCR_AIExecuteBountyTaskBehavior Bountyaction = SCR_AIExecuteBountyTaskBehavior.Cast(utility.GetCurrentAction());
+			if (Bountyaction)
+			{
+				if (!Bountyaction.PickedTask)
+					continue;
+				string name = SP_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
+				if (Bountyaction.PickedTask.IsOwnerAssigned())
+					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
+				infoText2 = infoText2 + string.Format("Going after %1's bounty.", name);
+				Shape.CreateSphere(Color.RED, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.GetCurrentAction());
 			if (followact)
 			{
-				LocalizedString name = SP_DialogueComponent.GetCharacterName(followact.Char);
+				if (!followact.Char)
+					continue;
+				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
 				infoText2 = infoText2 + string.Format("Following %1", name);
 			}
-			//SCR_AITaskPickupBehavior
+			/*int highlightRegion = -1;
+			float highlightDist = -1;
+			vector textMat[4];
+			GetGame().GetWorld().GetCurrentCamera(textMat);
+			vector camDir = textMat[2];
+			vector camPos = textMat[3];
+			vector regionPos = Owner.GetOrigin();
+			regionPos[1] = regionPos[1] + 4;
+			vector intersectScreenDiff = regionPos.InvMultiply4(textMat);
+			intersectScreenDiff[2] = 0;
+					
+			float distScale = vector.Distance(camPos, regionPos) * 0.1;
+			distScale = Math.Clamp(distScale, 0.5, 5);
+					
+			float distToCircle = intersectScreenDiff.Length() / distScale;
+			if (distToCircle < 0.75 && (distToCircle < highlightDist || highlightDist == -1))
+			{
+				highlightDist = distToCircle;
+			}
+					
+			distScale = vector.Distance(camPos, regionPos) * 0.1;
+			distScale = Math.Clamp(distScale, 0.5, 3);
+					
+			textMat[3] = textMat[1] * 0.05 * distScale + regionPos;
+			//SCR_AITaskPickupBehavior*/
 			DebugTextWorldSpace.Create(GetGame().GetWorld(), infoText2, DebugTextFlags.FACE_CAMERA | DebugTextFlags.IN_WORLD | DebugTextFlags.ONCE, origin[0], origin[1] + 4, origin[2], 0.1, 0xFFFFFFFF, Color.BLACK);
+			//CreateSimpleText(infoText2, textMat, 0.1, Color.WHITE, ShapeFlags.ONCE, null, 1, true, Color.BLACK);
+			//Shape.Create(
+			//CreateSimpleText(name, mat, SCR_UnitDisplaySettings.s_fShapeTextSize, textcolor, ShapeFlags.ONCE, null, 1, false);
 		}		
 	}
 };

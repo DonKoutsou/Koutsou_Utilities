@@ -385,7 +385,7 @@ modded class SP_DialogueComponent
 }
 modded class SP_DialogueAction
 {
-	SP_Task task;
+	ref map <IEntity,ref SP_Task> taskstogive = new map <IEntity,ref SP_Task>();
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		if (GetGame().GetPlayerController().GetControlledEntity() != pUserEntity)
@@ -394,15 +394,15 @@ modded class SP_DialogueAction
 			SP_RequestManagerComponent.GetReadyToDeliver(pOwnerEntity, taskstodeliver, pUserEntity);
 			if (!taskstodeliver.IsEmpty())
 			{
-				foreach (SP_Task task : taskstodeliver)
+				foreach (SP_Task Mytask : taskstodeliver)
 				{
-					task.CompleteTask(pUserEntity);
+					Mytask.CompleteTask(pUserEntity);
 				}
 			}
-			if (task)
+			if (taskstogive.Contains(pUserEntity))
 			{
-				task.AssignCharacter(pUserEntity);
-				task = null;
+				taskstogive.Get(pUserEntity).AssignCharacter(pUserEntity);
+				taskstogive.Remove(pUserEntity);
 			}
 			return;
 		}

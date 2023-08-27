@@ -14,7 +14,7 @@ class DialogueStageMultiResponse : DialogueStage
 				string tasktext;
 				foreach (SP_Task task : tasks)
 				{
-					if(!task.CharacterAssigned(Player))
+					if(!task.CharacterAssigned(Player) && !task.IsReserved())
 					{
 						if (!tasktext)
 							tasktext =  task.GetTaskDiag();
@@ -43,7 +43,7 @@ class DialogueStageMultiResponse : DialogueStage
 						SP_ChainedTask questlinetask = SP_ChainedTask.Cast(taskcheck);
 						if (questlinetask)
 							continue;
-						if(taskcheck.CharacterAssigned(Player) == false)
+						if(taskcheck.GetState() == ETaskState.UNASSIGNED)
 						{
 								return true;
 						}

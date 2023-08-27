@@ -187,7 +187,6 @@ class SP_DeliverTask: SP_Task
 				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(FoundPackages[0].FindComponent(InventoryItemComponent));
 				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 				Assigneeinv.TryRemoveItemFromStorage(FoundPackages[0],parentSlot.GetStorage());
-				Targetinv.TryInsertItem(FoundPackages[0]);
 				DeleteLeftovers();
 				if (m_TaskMarker)
 				{
@@ -260,6 +259,8 @@ class SP_DeliverTask: SP_Task
 					delete m_ePackage;
 				}
 			}
+			else
+				delete m_ePackage;
 		}
 		if(m_ePackage)
 		{
@@ -320,12 +321,55 @@ class SP_DeliverTask: SP_Task
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			if (!utility)
 				return false;
-			SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, m_eTaskTarget , m_eTaskOwner);
+			SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, this);
 			utility.AddAction(action);
 			return true;
 		}
 			
 		return false;
+	}
+	override bool AssignOwner()
+	{
+		IEntity Package = GetPackage();
+		if (!Package)
+		{
+			CancelTask();
+			return false;
+		}
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return false;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return false;
+		if (!super.AssignOwner())
+			return false;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return false;
+		SCR_AIExecuteDeliveryTaskBehavior action = new SCR_AIExecuteDeliveryTaskBehavior(utility, null, this);
+		utility.AddAction(action);
+		return true;
+	}
+	override void UnAssignOwner()
+	{
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return;
+		if (!super.AssignOwner())
+			return;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return;
+		SCR_AIExecuteDeliveryTaskBehavior action = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteDeliveryTaskBehavior));
+		if (action)
+			action.SetActiveFollowing(false);
+		super.UnAssignOwner();
 	}
 	override bool Init()
 	{
@@ -421,6 +465,8 @@ class SP_DeliverTask: SP_Task
 	}
 	override void UnAssignCharacter()
 	{
+		if (!m_aTaskAssigned)
+			return;
 		RemoveAssigneeInvokers();
 		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
 		if (!dmgman.IsDestroyed())
@@ -428,7 +474,7 @@ class SP_DeliverTask: SP_Task
 			AIControlComponent comp = AIControlComponent.Cast(m_aTaskAssigned.FindComponent(AIControlComponent));
 			AIAgent agent = comp.GetAIAgent();
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-			SCR_AIExecuteNavigateTaskBehavior act = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
+			SCR_AIExecuteDeliveryTaskBehavior act = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteDeliveryTaskBehavior));
 			if (act)
 				act.SetActiveFollowing(false);
 		}
@@ -471,3 +517,105 @@ class SP_PackagePredicate : InventorySearchPredicate
 	}
 }
 //------------------------------------------------------------------------------------------------------------//
+class SCR_AIGetDeliveryTaskParams : AITaskScripted
+{	
+	static const string TASK_PORT = "Task";
+	static const string TASK_OWNER_PORT		= "TaskOwner";
+	static const string TASK_TARGET_PORT				= "TaskTarget";
+	static const string PACKAGE_RADIUS_PORT				= "Package";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		TASK_PORT
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsOut = {
+		TASK_OWNER_PORT,
+		TASK_TARGET_PORT,
+		PACKAGE_RADIUS_PORT,
+	};
+
+	override TStringArray GetVariablesOut()
+    {
+			//if (!s_aVarsOut.Contains(TASK_RADIUS_PORT))
+				//s_aVarsOut.Insert(TASK_RADIUS_PORT);
+      return s_aVarsOut;
+    }
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SP_Task Task;
+		GetVariableIn(TASK_PORT, Task);
+		if (!Task)
+		{
+			NodeError(this, owner, "Invalid Task Provided!");
+			return ENodeResult.FAIL;
+		}
+		SP_DeliverTask deltask = SP_DeliverTask.Cast(Task);
+		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
+		SetVariableOut(TASK_TARGET_PORT, Task.GetTarget());
+		if (deltask)
+			SetVariableOut(PACKAGE_RADIUS_PORT, deltask.GetPackage());
+		
+		return ENodeResult.SUCCESS;
+	}	
+};
+class LootItem : AITaskScripted
+{
+	static const string ITEM_PORT = "Item";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		ITEM_PORT,
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		IEntity Item;
+		
+		GetVariableIn(ITEM_PORT, Item);
+		if(!Item)
+		{
+			NodeError(this, owner, "Invalid Item Provided!");
+			return ENodeResult.FAIL;
+		}
+		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Item.FindComponent(InventoryItemComponent));
+		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+		if(parentSlot)
+		{
+				InventoryStorageManagerComponent Myinv = InventoryStorageManagerComponent.Cast(owner.GetControlledEntity().FindComponent(InventoryStorageManagerComponent));
+				Myinv.TryRemoveItemFromStorage(Item,parentSlot.GetStorage());
+				if (Myinv.TryMoveItemToStorage(Item, Myinv.FindStorageForItem(Item)))
+					return ENodeResult.SUCCESS;
+		}
+		else
+		{
+			InventoryStorageManagerComponent Myinv = InventoryStorageManagerComponent.Cast(owner.GetControlledEntity().FindComponent(InventoryStorageManagerComponent));
+			
+			if (Myinv.TryInsertItem(Item))
+				return ENodeResult.SUCCESS;
+		}
+
+		
+		return ENodeResult.FAIL;
+	}	
+};

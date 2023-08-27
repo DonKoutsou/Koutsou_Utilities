@@ -141,10 +141,10 @@ class SP_NavigateTask: SP_Task
 						group.RemoveAgent(agent);
 						//add owner
 						Tgroup.AddAgent(agent);
-						AIWaypoint wp;
-						wp = Tgroup.GetCurrentWaypoint();
-						Tgroup.RemoveWaypoint(wp);
-						Tgroup.AddWaypoint(wp);
+						//AIWaypoint wp;
+						//wp = Tgroup.GetCurrentWaypoint();
+						//Tgroup.RemoveWaypoint(wp);
+						//Tgroup.AddWaypoint(wp);
 					}
 				}
 			}
@@ -209,7 +209,7 @@ class SP_NavigateTask: SP_Task
 			return false;
 		
 		//Check if owner is in group with more then 1 and if so make a new one for him
-		SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+		/*SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
 		if (group.GetAgentsCount() > 1)
 		{
 			group.RemoveAgent(agent);
@@ -220,7 +220,7 @@ class SP_NavigateTask: SP_Task
 			SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
 			newgroup.AddAgent(agent);
 			newgroup.AddWaypoint(group.GetCurrentWaypoint());
-		}
+		}*/
 		if (!super.AssignCharacter(Character))
 			return false;
 		//Add follow action to owner
@@ -253,6 +253,43 @@ class SP_NavigateTask: SP_Task
 		AddAssigneeInvokers();
 		return true;
 	}
+	override bool AssignOwner()
+	{
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return false;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return false;
+		if (!super.AssignOwner())
+			return false;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return false;
+		SCR_AIExecuteNavigateTaskBehavior action = new SCR_AIExecuteNavigateTaskBehavior(utility, null, this);
+		utility.AddAction(action);
+		return true;
+	}
+	override void UnAssignOwner()
+	{
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return;
+		if (!super.AssignOwner())
+			return;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return;
+		SCR_AIExecuteNavigateTaskBehavior action = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
+		if (action)
+			action.SetActiveFollowing(false);
+		super.UnAssignOwner();
+	}
 	override string GetCompletionText(IEntity Completionist)
 	{
 		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
@@ -282,20 +319,25 @@ class SP_NavigateTask: SP_Task
 	override void GetOnAssigneeDeath()
 	{
 		UnAssignCharacter();
-		SetReserved(false);
+		SetReserved(null);
 	}
 	override void UnAssignCharacter()
 	{
+		if (!m_aTaskAssigned)
+			return;
 		RemoveAssigneeInvokers();
-		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
-		if (!dmgman.IsDestroyed())
+		if (m_aTaskAssigned)
 		{
-			AIControlComponent comp = AIControlComponent.Cast(m_aTaskAssigned.FindComponent(AIControlComponent));
-			AIAgent agent = comp.GetAIAgent();
-			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-			SCR_AIExecuteNavigateTaskBehavior act = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
-			if (act)
-				act.SetActiveFollowing(false);
+			ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
+			if (!dmgman.IsDestroyed())
+			{
+				AIControlComponent comp = AIControlComponent.Cast(m_aTaskAssigned.FindComponent(AIControlComponent));
+				AIAgent agent = comp.GetAIAgent();
+				SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+				SCR_AIExecuteNavigateTaskBehavior act = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
+				if (act)
+					act.SetActiveFollowing(false);
+			}
 		}
 		super.UnAssignCharacter();
 		ScriptedDamageManagerComponent dmgmanO = ScriptedDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(ScriptedDamageManagerComponent));
@@ -323,6 +365,7 @@ class SP_NavigateTask: SP_Task
 			m_iTargetOwnerMinDistance = TaskSample.m_iTargetOwnerMinDistance;
 		}
 	}
+	
 	//------------------------------------------------------------------------------------------------------------//
 };
 class SCR_AIGetNavigateTaskParams : AITaskScripted

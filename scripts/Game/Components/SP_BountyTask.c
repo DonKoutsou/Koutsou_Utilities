@@ -40,14 +40,19 @@ class SP_BountyTask: SP_Task
 				return false;
 	
 			array <Faction> enemies = new array <Faction>();
-			FactionMan.GetEnemyFactions(Fact, enemies);
+			FactionMan.GetFactionsList(enemies);
+			if (enemies.Contains(Fact))
+				enemies.RemoveItem(Fact);
 			if (enemies.IsEmpty())
 				return false;
 			
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
+			if (!CharacterHolder.GetFarUnit(ChimeraCharacter.Cast(GetOwner()), 300, Char))
 				return false;
 		}
-		
+		if (SP_RequestManagerComponent.CharIsTargetOf(Char, GetClassName()))
+			return false;
+		if (SP_DialogueComponent.GetCharacterRep(Char) > 40)
+			return false;
 		if (Char)
 			Target = Char;
 		
@@ -125,6 +130,16 @@ class SP_BountyTask: SP_Task
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
+				if (GetGame().GetPlayerController().GetControlledEntity() != Assignee)
+				{
+					AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
+					AIAgent agent = comp.GetAIAgent();
+					SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+					SCR_AIExecuteBountyTaskBehavior act = SCR_AIExecuteBountyTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
+					if (act)
+						act.SetActiveFollowing(false);
+					UnAssignCharacter();
+				}
 				return true;
 			}
 		}
@@ -149,6 +164,105 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_BountyTask;};
 	//------------------------------------------------------------------------------------------------------------//
+	override bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
+	{
+		return true;
+	}
+	override bool AssignCharacter(IEntity Character)
+	{
+		
+		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
+		if (!comp)
+			return false;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return false;
+		if (!super.AssignCharacter(Character))
+			return false;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return false;
+		SCR_AIExecuteBountyTaskBehavior action = new SCR_AIExecuteBountyTaskBehavior(utility, null, this);
+		utility.AddAction(action);
+		//if player throw popup
+		AddAssigneeInvokers();
+		return true;
+	}
+	override bool AssignOwner()
+	{
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return false;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return false;
+		if (!super.AssignOwner())
+			return false;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return false;
+		SCR_AIExecuteBountyTaskBehavior action = new SCR_AIExecuteBountyTaskBehavior(utility, null, this);
+		utility.AddAction(action);
+		return true;
+	}
+	override void UnAssignOwner()
+	{
+		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+		if (!comp)
+			return;
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return;
+		if (!super.AssignOwner())
+			return;
+		//Add follow action to owner
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return;
+		SCR_AIExecuteBountyTaskBehavior action = SCR_AIExecuteBountyTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
+		if (action)
+			action.SetActiveFollowing(false);
+		super.UnAssignOwner();
+	}
+	override void GetOnTargetDeath()
+	{
+		//array<ref SP_Task> tasks = {};	
+		//SP_RequestManagerComponent.GetCharTargetTasks(m_eTaskTarget, tasks);
+		//foreach (SP_Task task : tasks)
+		//{
+		//	if (task != this && task.GetClassName() == GetClassName())
+		//	{
+		//		task.FailTask();
+		//	}
+		//}
+		RemoveTargetInvokers();
+		//possible to fail task, if so override dis
+	}
+	override void GetOnOwnerDeath()
+	{
+		RemoveOwnerInvokers();
+		FailTask();
+		//possible to fail task, if so override dis
+	}
+	override void UnAssignCharacter()
+	{
+		if (!m_aTaskAssigned)
+			return;
+		RemoveAssigneeInvokers();
+		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_aTaskAssigned.FindComponent(ScriptedDamageManagerComponent));
+		if (!dmgman.IsDestroyed())
+		{
+			AIControlComponent comp = AIControlComponent.Cast(m_aTaskAssigned.FindComponent(AIControlComponent));
+			AIAgent agent = comp.GetAIAgent();
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			SCR_AIExecuteBountyTaskBehavior act = SCR_AIExecuteBountyTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
+			if (act)
+				act.SetActiveFollowing(false);
+		}
+		super.UnAssignCharacter();
+	}
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_NamedTagPredicate : InventorySearchPredicate
@@ -174,3 +288,254 @@ class SP_NamedTagPredicate : InventorySearchPredicate
 	}
 }
 //------------------------------------------------------------------------------------------------------------//
+class SCR_AIGetBountyTaskParams : AITaskScripted
+{
+	static const string TASK_PORT = "Task";
+	static const string TASK_OWNER_PORT		= "TaskOwner";
+	static const string TASK_TARGET_PORT				= "TaskTarget";
+	static const string DOGTAG_PORT = "DogTag";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		TASK_PORT
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsOut = {
+		TASK_OWNER_PORT,
+		TASK_TARGET_PORT,
+		DOGTAG_PORT,
+	};
+	override TStringArray GetVariablesOut()
+    {
+        return s_aVarsOut;
+    }
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SP_Task Task;
+		IEntity Owner;
+		IEntity Target;
+		IEntity Assignee;
+		GetVariableIn(TASK_PORT, Task);
+		if(!Task)
+		{
+			NodeError(this, owner, "Invalid Task Provided!");
+			return ENodeResult.FAIL;
+		}
+		Owner = Task.GetOwner();
+		Target = Task.GetTarget();
+		Assignee = Task.GetAssignee();
+		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(SP_DialogueComponent.GetCharacterRankName(Target) + " " + SP_DialogueComponent.GetCharacterName(Target));
+		array <IEntity> FoundTags = new array <IEntity>();
+		inv.FindItems(FoundTags, TagPred);
+		if (!FoundTags.IsEmpty())
+		{
+			SetVariableOut(DOGTAG_PORT, FoundTags.GetRandomElement());
+		}
+		else
+		{
+			if (Task.GetState() == ETaskState.ASSIGNED)
+			{
+				InventoryStorageManagerComponent inv2 = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
+				inv2.FindItems(FoundTags, TagPred);
+				if (!FoundTags.IsEmpty())
+				{
+					SetVariableOut(DOGTAG_PORT, FoundTags.GetRandomElement());
+				}
+			}
+		}
+		if (FoundTags.IsEmpty() && Assignee)
+		{
+			InventoryStorageManagerComponent inv2 = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
+			inv2.FindItems(FoundTags, TagPred);
+			if (!FoundTags.IsEmpty())
+			{
+				SetVariableOut(DOGTAG_PORT, FoundTags.GetRandomElement());
+			}
+		}
+		
+		
+		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
+		SetVariableOut(TASK_TARGET_PORT, Task.GetTarget());
+		return ENodeResult.SUCCESS;
+	}	
+};
+class DecoratorScripted_FindItemInInventory : DecoratorScripted
+{
+	static const string CHAR_PORT = "Character";
+	static const string ITEM_PORT = "Item";
+	protected override bool TestFunction(AIAgent owner)
+	{
+		IEntity Char;
+		GetVariableIn(CHAR_PORT, Char);
+		if (!Char)
+			Char = owner.GetControlledEntity();
+		IEntity Item;
+		GetVariableIn(ITEM_PORT, Item);
+		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Char.FindComponent(InventoryStorageManagerComponent));
+		if (!inv.Contains(Item))
+			return true;
+		return false;
+	}
+	
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}	
+	
+	protected override string GetOnHoverDescription()
+	{
+		return "DecoratorScripted_IsEqual: Compares whether 1st variable is bigger than 2nd. Supports int-int, float-float";
+	}
+	
+	protected static ref TStringArray s_aVarsIn = {
+		CHAR_PORT, ITEM_PORT
+	};
+	protected override TStringArray GetVariablesIn()
+	{
+		return s_aVarsIn;
+	}
+};
+class LootItemFromCharacter : AITaskScripted
+{
+	static const string CHAR_PORT = "Character";
+	static const string ITEM_PORT = "Item";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		CHAR_PORT,
+		ITEM_PORT,
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		IEntity Item;
+		IEntity Char;
+		GetVariableIn(ITEM_PORT, Item);
+		GetVariableIn(CHAR_PORT, Char);
+		if(!Item || !Char)
+		{
+			NodeError(this, owner, "Invalid Task Provided!");
+			return ENodeResult.FAIL;
+		}
+		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Char.FindComponent(InventoryStorageManagerComponent));
+		if (inv.Contains(Item))
+		{
+			InventoryStorageManagerComponent Myinv = InventoryStorageManagerComponent.Cast(owner.GetControlledEntity().FindComponent(InventoryStorageManagerComponent));
+			if (inv.TryMoveItemToStorage(Item, Myinv.FindStorageForItem(Item)))
+				return ENodeResult.SUCCESS;
+		}
+		InventoryStorageManagerComponent inv2 = InventoryStorageManagerComponent.Cast(owner.GetControlledEntity().FindComponent(InventoryStorageManagerComponent));
+		if (inv2.Contains(Item))
+		{
+			return ENodeResult.SUCCESS;
+		}
+		return ENodeResult.FAIL;
+	}	
+};
+class DecoratorTestDamageIsDead: DecoratorTestScripted
+{
+	
+	//------------------------------------------------------------------------------------------------
+	protected override bool TestFunction(AIAgent agent, IEntity controlled)
+	{	
+		if (controlled)
+		{	
+			ScriptedDamageManagerComponent DMGMan = ScriptedDamageManagerComponent.Cast(controlled.FindComponent(ScriptedDamageManagerComponent));
+			if (DMGMan.IsDestroyed())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+}
+class DecoratorTestDamageIsUncon: DecoratorTestScripted
+{
+	//------------------------------------------------------------------------------------------------
+	protected override bool TestFunction(AIAgent agent, IEntity controlled)
+	{	
+		if (controlled)
+		{	
+			SCR_CharacterDamageManagerComponent DMGMan = SCR_CharacterDamageManagerComponent.Cast(controlled.FindComponent(SCR_CharacterDamageManagerComponent));
+			if (DMGMan.GetIsUnconscious())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+}
+class SCR_AIPerformCompleteMurderAction : AITaskScripted
+{
+	protected static string TARGETENTITY_IN_PORT = "TargetEntity";
+	
+	protected static string TASK_IN_PORT = "Task";
+	//------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = 
+	{
+		TARGETENTITY_IN_PORT,
+		TASK_IN_PORT
+	};
+	
+	//------------------------------------------------------------------------------------------------
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+
+	//------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		if(owner)
+		{
+			IEntity targetEntity;
+			GetVariableIn(TARGETENTITY_IN_PORT, targetEntity);
+			ref SP_Task task;
+			GetVariableIn(TASK_IN_PORT, task);
+			if (!targetEntity)
+				return ENodeResult.FAIL;
+			string userActionString = "SP_DialogueAction";
+			
+			IEntity controlledEntity = owner.GetControlledEntity();
+			if (!controlledEntity)
+				return ENodeResult.FAIL;
+			
+			//SCR_MeleeComponent MeleeComp =  SCR_MeleeComponent.Cast(controlledEntity.FindComponent(SCR_MeleeComponent));
+			SCR_CharacterControllerComponent cont = SCR_CharacterControllerComponent.Cast(targetEntity.FindComponent(SCR_CharacterControllerComponent));
+			cont.ForceDeath();
+			//MeleeComp.PerformAttack();
+			//MeleeComp.SetMeleeAttackStarted(true);
+			return ENodeResult.SUCCESS;
+		}
+		return ENodeResult.FAIL;			
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+};

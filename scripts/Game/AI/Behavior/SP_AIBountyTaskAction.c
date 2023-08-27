@@ -1,4 +1,4 @@
-class SCR_AIExecuteDeliveryTaskBehavior : SCR_AIBehaviorBase
+class SCR_AIExecuteBountyTaskBehavior : SCR_AIBehaviorBase
 {
 	protected ref SCR_BTParam<SP_Task> m_vTask = new SCR_BTParam<SP_Task>("Task");
 	
@@ -15,11 +15,11 @@ class SCR_AIExecuteDeliveryTaskBehavior : SCR_AIBehaviorBase
 	}
 	
 	// posWorld - position to observe
-	void SCR_AIExecuteDeliveryTaskBehavior(SCR_AIUtilityComponent utility, SCR_AIActivityBase groupActivity, SP_Task Task)
+	void SCR_AIExecuteBountyTaskBehavior(SCR_AIUtilityComponent utility, SCR_AIActivityBase groupActivity, SP_Task Task)
 	{
 		InitParameters(Task);
 		PickedTask = Task;	
-		m_sBehaviorTree = "{077A234FBE16E63A}AI/BehaviorTrees/SP_AITaskAction.bt";
+		m_sBehaviorTree = "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt";
 		m_bAllowLook = true; // Disable standard looking
 		m_bResetLook = true;
 		m_bActiveFollowing = true;
@@ -53,9 +53,9 @@ class SCR_AIExecuteDeliveryTaskBehavior : SCR_AIBehaviorBase
 		m_fDeleteActionTime_ms = currentTime_ms + 10 * timeout_s;
 	}
 };
-class SCR_AIDeliveryTaskParameters : SCR_AIGetActionParameters
+class SCR_AIBountyTaskParameters : SCR_AIGetActionParameters
 {
-	static ref TStringArray s_aVarsOut = (new SCR_AIExecuteDeliveryTaskBehavior(null, null, null)).GetPortNames();
+	static ref TStringArray s_aVarsOut = (new SCR_AIExecuteNavigateTaskBehavior(null, null, null)).GetPortNames();
 	override TStringArray GetVariablesOut()
 	{
 		return s_aVarsOut;

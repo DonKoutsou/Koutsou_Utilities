@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt"
+ Configurations {
+  BehaviorTreeResourceClass PC {
+  }
+  BehaviorTreeResourceClass XBOX_ONE : PC {
+  }
+  BehaviorTreeResourceClass XBOX_SERIES : PC {
+  }
+  BehaviorTreeResourceClass PS4 : PC {
+  }
+  BehaviorTreeResourceClass HEADLESS : PC {
+  }
+ }
+}

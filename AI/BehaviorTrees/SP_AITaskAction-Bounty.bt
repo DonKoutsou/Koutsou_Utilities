@@ -1,0 +1,475 @@
+BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
+ Name "AI/BehaviorTrees/SP_AITaskAction-Bounty.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -990 -28.333
+   Nodes {
+    Parallel Parallel {
+     Name "Parallel"
+     EditorPos -985.732 141.635
+     Nodes {
+      Sequence Sequence {
+       Name "Sequence"
+       EditorPos -1556.501 356.677
+       Nodes {
+        RunOnce "Run Once" {
+         Name "Run Once"
+         EditorPos -3100.836 547.155
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos -3105.895 679.921
+           Nodes {
+            AITaskIdle Idle {
+             Name "Idle"
+             EditorPos -3253.906 823.755
+             Period 3
+             PeriodRandom 0
+            }
+            SCR_AISetStance "SCR_AI Set Stance" {
+             Name "SCR_AI Set Stance"
+             EditorPos -3076.481 831.267
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
+               PortName "Stance"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+        SCR_AIBountyTaskParameters "SCR_AI Bounty Task Parameters" {
+         Name "SCR_AI Bounty Task Parameters"
+         EditorPos -2935.833 555
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 2
+           PortName "Task"
+          }
+         }
+        }
+        SCR_AIGetBountyTaskParams "SCR_AI Get Bounty Task Params" {
+         Name "SCR_AI Get Bounty Task Params"
+         EditorPos -2532.879 560.455
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 2
+           PortName "Task"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 10
+           PortName "TaskOwner"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 4
+           PortName "TaskTarget"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 12
+           PortName "DogTag"
+          }
+         }
+        }
+        SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+         Name "SCR_AI Get Entity Position"
+         EditorPos -2042.72 557.992
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 4
+           PortName "Entity"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 1
+           PortName "Position"
+          }
+         }
+        }
+        SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+         Name "SCR_AI Get Entity Position"
+         EditorPos -1616.216 554.575
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port -1
+           PortName "Entity"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 7
+           PortName "Position"
+          }
+         }
+        }
+        AITaskIdle Idle {
+         Name "Idle"
+         EditorPos -1277.687 538.833
+         Period 2
+        }
+       }
+      }
+      Parallel Parallel {
+       Name "Parallel"
+       EditorPos -545.926 395.221
+       Nodes {
+        DecoTestDistanceToEntity "Test Distance To Entity" {
+         Name "Test Distance To Entity"
+         EditorPos -1035.069 659.745
+         Nodes {
+          SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+           Name "SCR_AI Send Order_ Movement Type"
+           EditorPos -1140.39 1074.841
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "Receiver"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "MovementType"
+            }
+           }
+           m_eMovementType RUN
+          }
+         }
+         InEntity 3
+         InPosition 5
+         DistanceThreshold 20
+         OutDistance -1
+        }
+        DecoTestDistanceToEntity "Test Distance To Entity" {
+         Name "Test Distance To Entity"
+         EditorPos -670.069 668.864
+         Nodes {
+          SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+           Name "SCR_AI Send Order_ Movement Type"
+           EditorPos -703.426 1067.294
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "Receiver"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "MovementType"
+            }
+           }
+           m_eMovementType SPRINT
+          }
+         }
+         NegativeCondition 1
+         InEntity 8
+         InPosition 6
+         DistanceThreshold 30
+         OutDistance -1
+        }
+        Sequence Sequence {
+         Name "Sequence"
+         EditorPos 444 620
+         Nodes {
+          AITaskMoveToEntity "Move To Entity" {
+           Name "Move To Entity"
+           EditorPos -247.369 816.196
+           InTargetOrientation -1
+           InPrecisionXZ -1
+           PrecisionXZ 2
+           OrientationType ToPoint
+           RequestResult -1
+           InEntity 11
+          }
+          SCR_AILookAtPosition "SCR_AI Look At Position" {
+           Name "SCR_AI Look At Position"
+           EditorPos 70.833 828.667
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port 15
+             PortName "PositionIn"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "PriorityIn"
+            }
+           }
+           OutPorts {
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "PositionOut"
+            }
+           }
+          }
+          SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
+           Name "SCR_AI Set Weapon Raised"
+           EditorPos 322.143 839.964
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "Raised"
+            }
+           }
+          }
+          DecoratorEntity Entity {
+           Name "Entity"
+           EditorPos 707.262 840.548
+           Nodes {
+            Sequence Sequence {
+             Name "Sequence"
+             EditorPos 711.143 1066.429
+             Nodes {
+              SCR_AIPerformCompleteMurderAction "SCR_AI Perform Complete Murder Action" {
+               Name "SCR_AI Perform Complete Murder Action"
+               EditorPos 245.359 1201.285
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 16
+                 PortName "TargetEntity"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 17
+                 PortName "Task"
+                }
+               }
+              }
+              RunBT RunBT {
+               Name "RunBT"
+               EditorPos 698.272 1209.382
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 19
+                 PortName "targetEntity"
+                }
+               }
+               BehaviorTree "{54BF4756359E3556}AI/BehaviorTrees/Chimera/Soldier/Fire_Melee.bt"
+               AlwaysReinit 1
+               VariablesInArray {
+                "baseTarget"
+               }
+              }
+             }
+            }
+           }
+           NegativeCondition 1
+           ForceNodeResult Success
+           AbortType AbortChildrenBranch
+           InEntity 13
+           TEST {
+            DecoratorTestDamageIsDead "{5E369C5EE1B93DE2}" {
+            }
+           }
+          }
+          DecoratorEntity Entity {
+           Name "Entity"
+           EditorPos 1292.389 875.5
+           Nodes {
+            Sequence Sequence {
+             Name "Sequence"
+             EditorPos 1816.905 1499.622
+             Nodes {
+              AITaskMoveToEntity "Move To Entity" {
+               Name "Move To Entity"
+               EditorPos 923.75 1696.528
+               InEntity 14
+              }
+              LootItem "Loot Item" {
+               Name "Loot Item"
+               EditorPos 1305.972 1683.195
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 14
+                 PortName "Item"
+                }
+               }
+              }
+              AITaskMoveToEntity "Move To Entity" {
+               Name "Move To Entity"
+               EditorPos 1524.895 1652.847
+               PrecisionXZ 5
+               InEntity 18
+              }
+              SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
+               Name "SCR_AI Perform Complete Task Action"
+               EditorPos 1862.079 1678.642
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 9
+                 PortName "TargetEntity"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 0
+                 PortName "Task"
+                }
+               }
+              }
+              SCR_AISetFollowFalse "SCR_AI Set Follow False" {
+               Name "SCR_AI Set Follow False"
+               EditorPos 2211.74 1679.069
+              }
+             }
+            }
+           }
+           AbortType AbortChildrenBranch
+           InEntity 13
+           TEST {
+            DecoratorTestDamageIsDead "{5E369C5EE1B93DE2}" {
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable Task {
+   VariableName "Task"
+   VariableTypeName "SP_Task"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable CharToFollowPos {
+   VariableName "CharToFollowPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable TaskTarget {
+   VariableName "TaskTarget"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable CurrentDistance {
+   VariableName "CurrentDistance"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable SucDist {
+   VariableName "SucDist"
+   VariableTypeName "int"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable MyPos {
+   VariableName "MyPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable TaskOwner {
+   VariableName "TaskOwner"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable Distance {
+   VariableName "Distance"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable TargetInfo {
+   VariableName "TargetInfo"
+   VariableTypeName "SCR_AITargetInfo"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable DogTag {
+   VariableName "DogTag"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference Task {
+   VariableType 0
+   EditorPos 1647.728 1984.122
+  }
+  VariableReference CharToFollowPos {
+   VariableType 1
+   EditorPos -1819.966 672.548
+  }
+  VariableReference Task {
+   VariableType 0
+   EditorPos -2691.517 684.485
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos -1295.247 788.022
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos -2252.334 737.159
+  }
+  VariableReference MyPos {
+   VariableType 5
+   EditorPos -1273.64 871.968
+  }
+  VariableReference MyPos {
+   VariableType 5
+   EditorPos -811.551 971.087
+  }
+  VariableReference MyPos {
+   VariableType 5
+   EditorPos -1377.819 684.718
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos -887.444 884.284
+  }
+  VariableReference TaskOwner {
+   VariableType 6
+   EditorPos 1604.558 1884.685
+  }
+  VariableReference TaskOwner {
+   VariableType 6
+   EditorPos -2249.396 652.781
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos -405.416 1070.194
+  }
+  VariableReference DogTag {
+   VariableType 9
+   EditorPos -2270.151 834.091
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos 347.421 1057.595
+  }
+  VariableReference DogTag {
+   VariableType 9
+   EditorPos 750.801 1574.356
+  }
+  VariableReference CharToFollowPos {
+   VariableType 1
+   EditorPos -191.5 1086.286
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos 36.364 1331.481
+  }
+  VariableReference Task {
+   VariableType 0
+   EditorPos 59.221 1424.338
+  }
+  VariableReference TaskOwner {
+   VariableType 6
+   EditorPos 1237.584 1849.972
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos 470.325 1382.142
+  }
+ }
+}
