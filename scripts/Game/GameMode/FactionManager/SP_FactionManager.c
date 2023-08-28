@@ -53,7 +53,7 @@ modded class SCR_FactionManager
 		{
 			SCR_CharacterRankComponent rankComp = SCR_CharacterRankComponent.Cast(Victim.FindComponent(SCR_CharacterRankComponent));
 			int multiplier = rankComp.GetCharacterRank(Victim);
-			if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+			if (Killer == GetGame().GetPlayerController().GetControlledEntity() && SCR_EntityHelper.GetPlayer() == Killer)
 				instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty * multiplier);
 			if (multiplier > 2)
 				id.AdjustCharRep(-m_CharacterFriendlyKillRepPenalty * multiplier, Killer, "You killed a high ranking unit of you own faction.");
@@ -71,7 +71,7 @@ modded class SCR_FactionManager
 			Afflicted.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty * multiplier);
 			instigator.AdjustRelation(Afflicted, -m_FactionFriendlyKillRelationPenalty * multiplier);
 			//Adjust player goodwill, losed half from players fation
-			if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+			if (Killer == GetGame().GetPlayerController().GetControlledEntity() && SCR_EntityHelper.GetPlayer() == Killer)
 			{
 				Afflicted.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty * multiplier);
 				instigator.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2 * multiplier);
@@ -86,7 +86,7 @@ modded class SCR_FactionManager
 				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
 				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
 				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
-				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity() && SCR_EntityHelper.GetPlayer() == Killer)
 					scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2 * multiplier);
 			}
 			//Do same for enemy factions
@@ -101,7 +101,7 @@ modded class SCR_FactionManager
 				SCR_Faction scrfact = SCR_Faction.Cast(enfact);
 				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement * multiplier);
 				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement * multiplier);
-				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity() && SCR_EntityHelper.GetPlayer() == Killer)
 					scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement * multiplier);
 			}
 		}
@@ -120,7 +120,7 @@ modded class SCR_FactionManager
 				SCR_Faction scrfact = SCR_Faction.Cast(frfact);
 				scrfact.AdjustRelation(instigator, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
 				instigator.AdjustRelation(scrfact, -m_FactionFriendlyKillRelationPenalty/2 * multiplier);
-				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity() && SCR_EntityHelper.GetPlayer() == Killer)
 					scrfact.AdjustPlayerGoodwill(-m_FactionFriendlyKillGoodwillPenalty/2 * multiplier);
 			}
 			//adjust relation of faction enemy to the afflicted
@@ -135,7 +135,7 @@ modded class SCR_FactionManager
 				SCR_Faction scrfact = SCR_Faction.Cast(enfact);
 				scrfact.AdjustRelation(instigator, m_FactionFriendlyKillRelationImprovement * multiplier);
 				instigator.AdjustRelation(scrfact, m_FactionFriendlyKillRelationImprovement * multiplier);
-				if (Killer == GetGame().GetPlayerController().GetControlledEntity())
+				if (Killer == GetGame().GetPlayerController().GetControlledEntity() && SCR_EntityHelper.GetPlayer() == Killer)
 					scrfact.AdjustPlayerGoodwill(m_FactionFriendlyKillGoodwillImprovement * multiplier);
 			}
 		};
@@ -163,7 +163,8 @@ modded class SCR_FactionManager
 		//if completed task for my faction
 		if (instigatorFaction == OwnerFaction)
 		{
-			OwnerFaction.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus);
+			if (SCR_EntityHelper.GetPlayer() == Assignee)
+				OwnerFaction.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus);
 			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1.", diag.GetCharacterName(TaskOwner)));
 		}
 		//if completed taskf ro friendly faction
@@ -171,7 +172,8 @@ modded class SCR_FactionManager
 		{
 			OwnerFaction.AdjustRelation(instigatorFaction, m_TaskCompleteFactionRelationBonus);
 			instigatorFaction.AdjustRelation(OwnerFaction, m_TaskCompleteFactionRelationBonus);
-			OwnerFaction.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus);
+			if (SCR_EntityHelper.GetPlayer() == Assignee)
+				OwnerFaction.AdjustPlayerGoodwill(m_TaskCompleteGoodwillBonus);
 			id.AdjustCharRep(task.GetRepReward(), Assignee, string.Format("You completed a task for %1. The %2 forces will remember that. Your factions relations have improved", diag.GetCharacterName(TaskOwner), OwnerFaction.GetFactionKey()));
 			array <Faction> friendlyfacts = new array <Faction>();
 			OwnerFaction.GetFriendlyFactions2(friendlyfacts);
