@@ -523,8 +523,8 @@ class SCR_AIPerformCompleteMurderAction : AITaskScripted
 				return ENodeResult.FAIL;
 			
 			//SCR_MeleeComponent MeleeComp =  SCR_MeleeComponent.Cast(controlledEntity.FindComponent(SCR_MeleeComponent));
-			SCR_CharacterControllerComponent cont = SCR_CharacterControllerComponent.Cast(targetEntity.FindComponent(SCR_CharacterControllerComponent));
-			cont.ForceDeath();
+			ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(targetEntity.FindComponent(ScriptedDamageManagerComponent));
+			dmg.Kill(controlledEntity);
 			//MeleeComp.PerformAttack();
 			//MeleeComp.SetMeleeAttackStarted(true);
 			return ENodeResult.SUCCESS;
