@@ -6,7 +6,7 @@ modded class SP_DialogueComponent
 		string IndtroducionString;
 		while (!IndtroducionString)
 		{
-			int index = Math.RandomInt(0,11);
+			int index = Math.RandomInt(0,12);
 			switch (index)
 			{
 				case 0: 
@@ -98,6 +98,11 @@ modded class SP_DialogueComponent
 					IndtroducionString = LookForLostGroups(talker, Player)
 				}
 				break;
+				//Give info about current task being done by ReleaseAI
+				case 11:
+				{
+					IndtroducionString = ComposeCurrentTaskComment(talker);
+				}
 			}
 		}
 		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
@@ -333,6 +338,74 @@ modded class SP_DialogueComponent
 			break;
 		}
 		return Needstring;
+	}
+	string ComposeCurrentTaskComment(IEntity talker)
+	{
+		string CurrentTaskString;
+		AIControlComponent comp = AIControlComponent.Cast(talker.FindComponent(AIControlComponent));
+		
+		AIAgent agent = comp.GetAIAgent();
+			
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		
+		SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.GetCurrentAction());
+			
+		if (action)
+		{
+			if (action.PickedTask)
+			{
+				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
+				string taskname = action.PickedTask.GetClassName().ToString();
+				taskname = taskname.Substring(3, taskname.Length());
+				taskname.ToLower();
+				CurrentTaskString = string.Format("I'm heading towards %1's location to pick %2", name ,taskname);
+			}
+		}
+		SCR_AIExecuteNavigateTaskBehavior Navaction = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.GetCurrentAction());
+			
+		if (Navaction)
+		{
+			if (Navaction.PickedTask)
+			{
+				string name = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
+				string Oname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
+				
+				CurrentTaskString = string.Format("Escorting %1 to %2's location", Oname ,name);
+			}
+		}
+		SCR_AIExecuteDeliveryTaskBehavior Delaction = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.GetCurrentAction());
+		if (Delaction)
+		{
+			if (Delaction.PickedTask)
+			{
+				string name = SP_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
+				CurrentTaskString = string.Format("I am delivering Package to %1", name);
+			}
+			
+		}
+		SCR_AIExecuteBountyTaskBehavior Bountyaction = SCR_AIExecuteBountyTaskBehavior.Cast(utility.GetCurrentAction());
+		if (Bountyaction)
+		{
+			if (Bountyaction.PickedTask)
+			{
+				string name = SP_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
+				CurrentTaskString = string.Format("I am going after %1's bounty.", name);
+			}
+			
+		}
+		SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.GetCurrentAction());
+		if (followact)
+		{
+			if (followact.Char)
+			{
+				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
+				string Tname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
+				CurrentTaskString = string.Format("I am following %1, he is escorting me to %2's location.", name, Tname);
+			}
+		}
+		if (!CurrentTaskString)
+			CurrentTaskString = "I'm relaxing today. Managed to stack some coin so no need to go around doing work for others.";
+		return CurrentTaskString;
 	}
 	string ComposeWeatherComment(IEntity talker)
 	{

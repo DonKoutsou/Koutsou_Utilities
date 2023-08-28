@@ -13,37 +13,65 @@ BehaviorTree {
        Name "Sequence"
        EditorPos -1334.454 347.836
        Nodes {
-        SCR_AIDeliveryTaskParameters "SCR_AI Delivery Task Parameters" {
-         Name "SCR_AI Delivery Task Parameters"
-         EditorPos -2863.889 533.333
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 15
-           PortName "Task"
-          }
-         }
-        }
-        SCR_AIGetDeliveryTaskParams "SCR_AI Get Delivery Task Params" {
-         Name "SCR_AI Get Delivery Task Params"
-         EditorPos -2427.776 531.11
-         InPorts {
-          SingleInputPortContainer SingleInputPortContainer {
-           Port 15
-           PortName "Task"
-          }
-         }
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 16
-           PortName "TaskOwner"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 3
-           PortName "TaskTarget"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 17
-           PortName "Package"
+        RunOnce "Run Once" {
+         Name "Run Once"
+         EditorPos -3070.254 517.166
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos -3075.313 649.932
+           Nodes {
+            AITaskIdle Idle {
+             Name "Idle"
+             EditorPos -3223.324 793.766
+             Period 3
+             PeriodRandom 0
+            }
+            SCR_AISetStance "SCR_AI Set Stance" {
+             Name "SCR_AI Set Stance"
+             EditorPos -3045.899 801.278
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
+               PortName "Stance"
+              }
+             }
+            }
+            SCR_AIDeliveryTaskParameters "SCR_AI Delivery Task Parameters" {
+             Name "SCR_AI Delivery Task Parameters"
+             EditorPos -2891.667 806.666
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 15
+               PortName "Task"
+              }
+             }
+            }
+            SCR_AIGetDeliveryTaskParams "SCR_AI Get Delivery Task Params" {
+             Name "SCR_AI Get Delivery Task Params"
+             EditorPos -2455.554 804.443
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 15
+               PortName "Task"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 16
+               PortName "TaskOwner"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 3
+               PortName "TaskTarget"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 17
+               PortName "Package"
+              }
+             }
+            }
+           }
           }
          }
         }
@@ -157,7 +185,7 @@ BehaviorTree {
              Nodes {
               SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
                Name "SCR_AI Send Order_ Movement Type"
-               EditorPos -67.321 1558.203
+               EditorPos -340.654 1581.536
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port -1
@@ -172,9 +200,30 @@ BehaviorTree {
               }
               AITaskMoveToEntity "Move To Entity" {
                Name "Move To Entity"
-               EditorPos 314.371 1558.845
+               EditorPos 41.038 1582.178
                PrecisionXZ 2
                InEntity 7
+              }
+              SCR_AILookAtEntity "SCR_AI Look At Entity" {
+               Name "SCR_AI Look At Entity"
+               EditorPos 393.333 1605.556
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 7
+                 PortName "EntityIn"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "PriorityIn"
+                }
+               }
+               OutPorts {
+                SingleOutputPortContainer SingleOutputPortContainer {
+                 Port -1
+                 PortName "PositionOut"
+                }
+               }
+               m_fIgnoreLookDistSq 0
               }
               SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
                Name "SCR_AI Perform Complete Task Action"
@@ -426,7 +475,7 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos -2106.697 732.723
+   EditorPos -2134.475 1006.056
   }
   VariableReference MyPos {
    VariableType 3
@@ -442,7 +491,7 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos 34.014 1745.571
+   EditorPos -199.319 1803.349
   }
   VariableReference MyPos {
    VariableType 3
@@ -474,15 +523,15 @@ BehaviorTree {
   }
   VariableReference Task {
    VariableType 6
-   EditorPos -2517.777 677.777
+   EditorPos -2545.555 951.11
   }
   VariableReference TaskOwner {
    VariableType 7
-   EditorPos -2108.889 655.555
+   EditorPos -2136.667 928.888
   }
   VariableReference Package {
    VariableType 8
-   EditorPos -2114.444 846.666
+   EditorPos -2142.222 1119.999
   }
   VariableReference Task {
    VariableType 6

@@ -9,39 +9,23 @@ BehaviorTree {
      Name "Parallel"
      EditorPos -25.231 125.107
      Nodes {
-      SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
-       Name "SCR_AI Get Entity Position"
-       EditorPos -796.639 367.306
-       InPorts {
-        SingleInputPortContainer SingleInputPortContainer {
-         Port 0
-         PortName "Entity"
-        }
-       }
-       OutPorts {
-        SingleOutputPortContainer SingleOutputPortContainer {
-         Port 2
-         PortName "Position"
-        }
-       }
-      }
       Sequence Sequence {
        Name "Sequence"
-       EditorPos 214.98 331.182
+       EditorPos -254.02 331.182
        Nodes {
         AITaskMoveToEntity "Move To Entity" {
          Name "Move To Entity"
-         EditorPos -206.25 488.75
+         EditorPos -799.25 481.75
          PrecisionXZ 5
-         InEntity 1
+         InEntity 0
         }
         AITaskFire Fire {
          Name "Fire"
-         EditorPos 169 495
+         EditorPos -333 494
         }
         AITaskIdle Idle {
          Name "Idle"
-         EditorPos 339.272 490.226
+         EditorPos -129.728 490.226
          Period 0.35
          PeriodRandom 0.2
         }
@@ -49,19 +33,19 @@ BehaviorTree {
       }
       Selector Selector {
        Name "Selector"
-       EditorPos 868.384 325.96
+       EditorPos 553.384 416.96
        Nodes {
         DecoratorEntity Entity {
          Name "Entity"
-         EditorPos 630.066 466.687
+         EditorPos 315.066 557.687
          Nodes {
-          SCR_AILookAtPosition "SCR_AI Look At Position" {
-           Name "SCR_AI Look At Position"
-           EditorPos 675.538 680.743
+          SCR_AILookAtEntity "SCR_AI Look At Entity" {
+           Name "SCR_AI Look At Entity"
+           EditorPos 339 806
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
-             Port 4
-             PortName "PositionIn"
+             Port 1
+             PortName "EntityIn"
             }
             SingleInputPortContainer SingleInputPortContainer {
              Port -1
@@ -74,26 +58,24 @@ BehaviorTree {
              PortName "PositionOut"
             }
            }
-           m_fVerticalOffset 0
            m_fIgnoreLookDistSq 0
-           m_fPriority 80
           }
          }
          NegativeCondition 1
          AbortType AbortChildrenBranch
-         InEntity 3
+         InEntity 1
          TEST {
           DecoratorTestDamageIsUncon "{5E36E0537E8A3F6A}" {
           }
          }
         }
-        SCR_AILookAtPosition "SCR_AI Look At Position" {
-         Name "SCR_AI Look At Position"
-         EditorPos 1032.611 493.005
+        SCR_AILookAtEntity "SCR_AI Look At Entity" {
+         Name "SCR_AI Look At Entity"
+         EditorPos 653 567
          InPorts {
           SingleInputPortContainer SingleInputPortContainer {
-           Port 4
-           PortName "PositionIn"
+           Port 1
+           PortName "EntityIn"
           }
           SingleInputPortContainer SingleInputPortContainer {
            Port -1
@@ -106,9 +88,7 @@ BehaviorTree {
            PortName "PositionOut"
           }
          }
-         m_fVerticalOffset 1
          m_fIgnoreLookDistSq 0
-         m_fPriority 80
         }
        }
       }
@@ -134,23 +114,11 @@ BehaviorTree {
  VariablesRefs {
   VariableReference target {
    VariableType 0
-   EditorPos -911.272 517.445
+   EditorPos -985.972 594.25
   }
   VariableReference target {
    VariableType 0
-   EditorPos -386.972 597.25
-  }
-  VariableReference position {
-   VariableType 1
-   EditorPos -591.75 506.5
-  }
-  VariableReference target {
-   VariableType 0
-   EditorPos 451.705 577.159
-  }
-  VariableReference position {
-   VariableType 1
-   EditorPos 478.889 761.111
+   EditorPos 136.705 668.159
   }
  }
 }

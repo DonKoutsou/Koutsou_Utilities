@@ -37,41 +37,41 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
               }
              }
             }
+            SCR_AIBountyTaskParameters "SCR_AI Bounty Task Parameters" {
+             Name "SCR_AI Bounty Task Parameters"
+             EditorPos -2932.976 826.429
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 2
+               PortName "Task"
+              }
+             }
+            }
+            SCR_AIGetBountyTaskParams "SCR_AI Get Bounty Task Params" {
+             Name "SCR_AI Get Bounty Task Params"
+             EditorPos -2530.022 831.884
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 2
+               PortName "Task"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 10
+               PortName "TaskOwner"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 4
+               PortName "TaskTarget"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 12
+               PortName "DogTag"
+              }
+             }
+            }
            }
-          }
-         }
-        }
-        SCR_AIBountyTaskParameters "SCR_AI Bounty Task Parameters" {
-         Name "SCR_AI Bounty Task Parameters"
-         EditorPos -2935.833 555
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 2
-           PortName "Task"
-          }
-         }
-        }
-        SCR_AIGetBountyTaskParams "SCR_AI Get Bounty Task Params" {
-         Name "SCR_AI Get Bounty Task Params"
-         EditorPos -2532.879 560.455
-         InPorts {
-          SingleInputPortContainer SingleInputPortContainer {
-           Port 2
-           PortName "Task"
-          }
-         }
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 10
-           PortName "TaskOwner"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 4
-           PortName "TaskTarget"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 12
-           PortName "DogTag"
           }
          }
         }
@@ -221,9 +221,39 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
              Name "Sequence"
              EditorPos 711.143 1066.429
              Nodes {
+              AITaskMoveToEntity "Move To Entity" {
+               Name "Move To Entity"
+               EditorPos 49.107 1245.784
+               PrecisionXZ 5
+               InEntity 19
+              }
+              SCR_AILookAtEntity "SCR_AI Look At Entity" {
+               Name "SCR_AI Look At Entity"
+               EditorPos 406.923 1249.231
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 19
+                 PortName "EntityIn"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "PriorityIn"
+                }
+               }
+               OutPorts {
+                SingleOutputPortContainer SingleOutputPortContainer {
+                 Port -1
+                 PortName "PositionOut"
+                }
+               }
+              }
+              AITaskFire Fire {
+               Name "Fire"
+               EditorPos 614.86 1241.406
+              }
               SCR_AIPerformCompleteMurderAction "SCR_AI Perform Complete Murder Action" {
                Name "SCR_AI Perform Complete Murder Action"
-               EditorPos 245.359 1201.285
+               EditorPos 1010.308 1250.073
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port 16
@@ -233,21 +263,6 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
                  Port 17
                  PortName "Task"
                 }
-               }
-              }
-              RunBT RunBT {
-               Name "RunBT"
-               EditorPos 698.272 1209.382
-               InPorts {
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port 19
-                 PortName "targetEntity"
-                }
-               }
-               BehaviorTree "{54BF4756359E3556}AI/BehaviorTrees/Chimera/Soldier/Fire_Melee.bt"
-               AlwaysReinit 1
-               VariablesInArray {
-                "baseTarget"
                }
               }
              }
@@ -270,14 +285,61 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
              Name "Sequence"
              EditorPos 1816.905 1499.622
              Nodes {
+              SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
+               Name "SCR_AI Set Weapon Raised"
+               EditorPos 64.444 1714.444
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Raised"
+                }
+               }
+               m_bRaised 0
+              }
               AITaskMoveToEntity "Move To Entity" {
                Name "Move To Entity"
-               EditorPos 923.75 1696.528
-               InEntity 14
+               EditorPos 354.861 1699.861
+               InEntity 20
+              }
+              SCR_AILookAtEntity "SCR_AI Look At Entity" {
+               Name "SCR_AI Look At Entity"
+               EditorPos 692.222 1690
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 20
+                 PortName "EntityIn"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "PriorityIn"
+                }
+               }
+               OutPorts {
+                SingleOutputPortContainer SingleOutputPortContainer {
+                 Port -1
+                 PortName "PositionOut"
+                }
+               }
+              }
+              SCR_AISetStance "SCR_AI Set Stance" {
+               Name "SCR_AI Set Stance"
+               EditorPos 883.333 1687.778
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Stance"
+                }
+               }
+               m_eStance CROUCH
+              }
+              AITaskIdle Idle {
+               Name "Idle"
+               EditorPos 1027.778 1692.222
+               Period 2
               }
               LootItem "Loot Item" {
                Name "Loot Item"
-               EditorPos 1305.972 1683.195
+               EditorPos 1170.417 1694.306
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port 14
@@ -285,15 +347,46 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
                 }
                }
               }
+              SCR_AISetStance "SCR_AI Set Stance" {
+               Name "SCR_AI Set Stance"
+               EditorPos 1298.889 1697.778
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Stance"
+                }
+               }
+              }
               AITaskMoveToEntity "Move To Entity" {
                Name "Move To Entity"
-               EditorPos 1524.895 1652.847
+               EditorPos 1478.228 1702.847
                PrecisionXZ 5
                InEntity 18
               }
+              SCR_AILookAtEntity "SCR_AI Look At Entity" {
+               Name "SCR_AI Look At Entity"
+               EditorPos 1811.389 1675.667
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 9
+                 PortName "EntityIn"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "PriorityIn"
+                }
+               }
+               OutPorts {
+                SingleOutputPortContainer SingleOutputPortContainer {
+                 Port -1
+                 PortName "PositionOut"
+                }
+               }
+               m_fIgnoreLookDistSq 0
+              }
               SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
                Name "SCR_AI Perform Complete Task Action"
-               EditorPos 1862.079 1678.642
+               EditorPos 2107.635 1676.42
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port 9
@@ -307,7 +400,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
               }
               SCR_AISetFollowFalse "SCR_AI Set Follow False" {
                Name "SCR_AI Set Follow False"
-               EditorPos 2211.74 1679.069
+               EditorPos 2457.296 1676.847
               }
              }
             }
@@ -393,7 +486,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
  VariablesRefs {
   VariableReference Task {
    VariableType 0
-   EditorPos 1647.728 1984.122
+   EditorPos 1762.172 1941.9
   }
   VariableReference CharToFollowPos {
    VariableType 1
@@ -401,7 +494,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
   }
   VariableReference Task {
    VariableType 0
-   EditorPos -2691.517 684.485
+   EditorPos -2688.66 955.914
   }
   VariableReference TaskTarget {
    VariableType 2
@@ -409,7 +502,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
   }
   VariableReference TaskTarget {
    VariableType 2
-   EditorPos -2252.334 737.159
+   EditorPos -2235.191 1000.016
   }
   VariableReference MyPos {
    VariableType 5
@@ -429,11 +522,11 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
   }
   VariableReference TaskOwner {
    VariableType 6
-   EditorPos 1604.558 1884.685
+   EditorPos 1713.447 1852.463
   }
   VariableReference TaskOwner {
    VariableType 6
-   EditorPos -2249.396 652.781
+   EditorPos -2232.253 915.638
   }
   VariableReference TaskTarget {
    VariableType 2
@@ -441,7 +534,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
   }
   VariableReference DogTag {
    VariableType 9
-   EditorPos -2270.151 834.091
+   EditorPos -2253.008 1096.948
   }
   VariableReference TaskTarget {
    VariableType 2
@@ -449,7 +542,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
   }
   VariableReference DogTag {
    VariableType 9
-   EditorPos 750.801 1574.356
+   EditorPos 770.107 1906.3
   }
   VariableReference CharToFollowPos {
    VariableType 1
@@ -457,19 +550,23 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
   }
   VariableReference TaskTarget {
    VariableType 2
-   EditorPos 36.364 1331.481
+   EditorPos 747.039 1371.295
   }
   VariableReference Task {
    VariableType 0
-   EditorPos 59.221 1424.338
+   EditorPos 805.281 1466.46
   }
   VariableReference TaskOwner {
    VariableType 6
-   EditorPos 1237.584 1849.972
+   EditorPos 1097.584 1862.194
   }
   VariableReference TaskTarget {
    VariableType 2
-   EditorPos 470.325 1382.142
+   EditorPos -186.581 1419.06
+  }
+  VariableReference TaskTarget {
+   VariableType 2
+   EditorPos 115 1906.111
   }
  }
 }

@@ -312,7 +312,8 @@ class SP_RetrieveTask: SP_Task
 				GetOnTaskFinished(this);
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+				if (SCR_EntityHelper.GetPlayer() == Assignee)
+					SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 				return true;
 				
 			}

@@ -61,7 +61,8 @@ class SP_TalkTask: SP_Task
 			}
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+			if (SCR_EntityHelper.GetPlayer() == Assignee)
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 			GetOnTaskFinished(this);

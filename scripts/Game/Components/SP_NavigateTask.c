@@ -159,7 +159,7 @@ class SP_NavigateTask: SP_Task
 		GetOnTaskFinished(this);
 		//handle assignee
 		UnAssignCharacter();
-		if (GetGame().GetPlayerController().GetControlledEntity() == Assignee)
+		if (SCR_EntityHelper.GetPlayer() == Assignee)
 		{
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			return true;

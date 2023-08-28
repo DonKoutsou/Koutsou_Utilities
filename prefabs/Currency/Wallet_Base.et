@@ -1,4 +1,4 @@
-GenericEntity {
+WalletEntity {
  ID "5C78C422199A1092"
  components {
   SignalsManagerComponent "{5C78C42204C939E3}" {
@@ -46,6 +46,8 @@ GenericEntity {
    m_fMaxWeight 1
   }
   SP_UnretrievableComponent "{5E34C51884C7F460}" {
+  }
+  SCR_InventoryStorageManagerComponent "{5E38F753CF35960B}" {
   }
   ActionsManagerComponent "{5C78C42204C93AEF}" {
    ActionContexts {

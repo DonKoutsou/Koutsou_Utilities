@@ -94,8 +94,7 @@ class SP_Task
 	{
 		if (reserved)
 			return true;
-		else
-			return false;
+		return false;
 	}
 	bool IsOwnerAssigned()
 	{
@@ -262,6 +261,11 @@ class SP_Task
 		{
 			return false;
 		};
+		if (e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)
+		{
+			if (SP_RequestManagerComponent.GetCharCurrency(m_eTaskOwner) < m_iRewardAmount)
+				return false;
+		}
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -334,7 +338,8 @@ class SP_Task
 			}
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
-			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+			if (SCR_EntityHelper.GetPlayer() == Assignee)
+				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 			GetOnTaskFinished(this);
 			m_bMarkedForRemoval = 1;
 			if (m_aTaskAssigned)
@@ -395,8 +400,34 @@ class SP_Task
 	//Called when task if completed to give rewards to completionist
 	bool GiveReward(IEntity Target)
 	{
-		if (m_Reward)
+		if (Target == m_eTaskOwner)
+			return true;
+		if (e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)
 		{
+			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
+			SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+			WalletEntity wallet = Char.GetWallet();
+			WalletEntity Owallet = OChar.GetWallet();
+			
+			
+			/*int Movedamount;
+			
+			Resource cur = Resource.Load("{891BA05A96D3A0BE}prefabs/Currency/Drachma.et");
+			PrefabResource_Predicate pred = new PrefabResource_Predicate(cur.GetResource().GetResourceName());
+			array <IEntity> items = {};
+			inv.FindItems(items, pred);
+			for (int i, count = m_iRewardAmount; i < count; i++)
+			{
+				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(items[i].FindComponent(InventoryItemComponent));
+				inv.TryRemoveItemFromStorage(items[i], pInvComp.GetParentSlot().GetStorage());
+				TargetInv.TryInsertItem(items[i]);
+				Movedamount += 1;
+			}*/
+			return wallet.TakeCurrency(Owallet, m_iRewardAmount);
+		}
+		else if (m_Reward)
+		{
+			
 			EntitySpawnParams params = EntitySpawnParams();
 			params.TransformMode = ETransformMode.WORLD;
 			params.Transform[3] = m_eTaskOwner.GetOrigin();
@@ -411,9 +442,6 @@ class SP_Task
 				TargetInv.TryInsertItem(Rewardlist[i]);
 				Movedamount += 1;
 			}
-			
-			string curr = FilePath.StripPath(m_Reward);
-			curr.ToLower();
 			return true;
 		}
 		return false;
@@ -533,6 +561,7 @@ class SP_Task
 		{
 			m_TaskMarker.Cancel(true);
 		}
+		e_State = ETaskState.UNASSIGNED;
 		ClearReserves();
 	}
 	void GetOnAssigneeDeath()
@@ -606,7 +635,8 @@ class SP_Task
 	bool Init()
 	{
 		InheritFromSample();
-		//-------------------------------------------------//
+		
+		
 		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
@@ -615,11 +645,7 @@ class SP_Task
 				return false;
 			}
 			//-------------------------------------------------//
-			//function to fill to check ckaracter
-			if(!CheckOwner())
-			{
-				return false;
-			}
+			
 		}
 		//-------------------------------------------------//
 		if (!m_eTaskTarget)
@@ -628,16 +654,22 @@ class SP_Task
 			{
 				return false;
 			}
-			if(!CheckTarget())
-			{
-				return false;
-			}
+			
 		}
-		
+		//-------------------------------------------------//
 		//-------------------------------------------------//
 		if (!AssignReward())
 		{
 			DeleteLeftovers();
+			return false;
+		}
+		//function to fill to check ckaracter
+		if(!CheckOwner())
+		{
+			return false;
+		}
+		if(!CheckTarget())
+		{
 			return false;
 		}
 		//-------------------------------------------------//

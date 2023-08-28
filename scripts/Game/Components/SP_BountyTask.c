@@ -1,6 +1,8 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_BountyTask: SP_Task
 {
+	DogTagEntity Tag;
+	DogTagEntity GetTag(){return Tag;};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{
@@ -58,6 +60,15 @@ class SP_BountyTask: SP_Task
 		
 		if (Target == GetOwner())
 			return false;
+		InventoryStorageManagerComponent Targerinv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(Target) + " " + Diag.GetCharacterName(Target));
+		array <IEntity> FoundTags = new array <IEntity>();
+		Targerinv.FindItems(FoundTags, TagPred);
+		if (FoundTags.IsEmpty())
+			return false;
+		
+		Tag = DogTagEntity.Cast(FoundTags[0]);
 		
 		if(Target)
 			return true;
@@ -126,7 +137,8 @@ class SP_BountyTask: SP_Task
 				}
 				e_State = ETaskState.COMPLETED;
 				m_eCopletionist = Assignee;
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+				if (SCR_EntityHelper.GetPlayer() == Assignee)
+					SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
@@ -336,37 +348,8 @@ class SCR_AIGetBountyTaskParams : AITaskScripted
 		Owner = Task.GetOwner();
 		Target = Task.GetTarget();
 		Assignee = Task.GetAssignee();
-		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(SP_DialogueComponent.GetCharacterRankName(Target) + " " + SP_DialogueComponent.GetCharacterName(Target));
-		array <IEntity> FoundTags = new array <IEntity>();
-		inv.FindItems(FoundTags, TagPred);
-		if (!FoundTags.IsEmpty())
-		{
-			SetVariableOut(DOGTAG_PORT, FoundTags.GetRandomElement());
-		}
-		else
-		{
-			if (Task.GetState() == ETaskState.ASSIGNED)
-			{
-				InventoryStorageManagerComponent inv2 = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-				inv2.FindItems(FoundTags, TagPred);
-				if (!FoundTags.IsEmpty())
-				{
-					SetVariableOut(DOGTAG_PORT, FoundTags.GetRandomElement());
-				}
-			}
-		}
-		if (FoundTags.IsEmpty() && Assignee)
-		{
-			InventoryStorageManagerComponent inv2 = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-			inv2.FindItems(FoundTags, TagPred);
-			if (!FoundTags.IsEmpty())
-			{
-				SetVariableOut(DOGTAG_PORT, FoundTags.GetRandomElement());
-			}
-		}
-		
-		
+		SP_BountyTask Btask = SP_BountyTask.Cast(Task);
+		SetVariableOut(DOGTAG_PORT, Btask.GetTag());
 		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
 		SetVariableOut(TASK_TARGET_PORT, Task.GetTarget());
 		return ENodeResult.SUCCESS;

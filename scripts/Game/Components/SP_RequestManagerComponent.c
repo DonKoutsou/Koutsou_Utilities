@@ -333,7 +333,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 		foreach (SP_Task task : tasks)
 		{
-			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned())
+			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned() && !task.IsReserved())
 			{
 				if (task.AssignOwner())
 					return;
@@ -710,6 +710,12 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_CharacterHolder.m_aSpecialCars.Copy(m_aSpecialCars);
 		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 1000);
 	};
+	static int GetCharCurrency(IEntity Char)
+	{
+		SCR_ChimeraCharacter ChimChar = SCR_ChimeraCharacter.Cast(Char);
+		int amount = ChimChar.GetWallet().GetCurrencyAmmount();
+		return amount;
+	};
 	void CreateDebug()
 	{
 		if (m_CharacterHolder.GetAliveCount() == 0)
@@ -731,11 +737,11 @@ class SP_RequestManagerComponent : ScriptComponent
 					name = SP_DialogueComponent.GetCharacterFirstName(task.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetTarget());
 				else
 					name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
-				string reserved;
+				string reservedstring;
 				if (task.IsReserved())
-					reserved = "RESERVED";
+					reservedstring = "RESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Target : %3 %4 | Task State: %5 \n", infoText2, task.GetClassName().ToString(), name, reserved, state);
+				infoText2 = string.Format("%1 %2 Target : %3 %4 | Task State: %5 \n", infoText2, task.GetClassName().ToString(), name, reservedstring, state);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";
 			array <ref SP_Task> TargetedTasks = {};
@@ -743,11 +749,11 @@ class SP_RequestManagerComponent : ScriptComponent
 			foreach (SP_Task task : TargetedTasks)
 			{
 				string name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
-				string reserved;
+				string reservedstring;
 				if (task.IsReserved())
-					reserved = "RESERVED";
+					reservedstring = "RESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5  \n", infoText2, task.GetClassName().ToString(), name, reserved, state);
+				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5  \n", infoText2, task.GetClassName().ToString(), name, reservedstring, state);
 			}
 			infoText2 = infoText2 + "Assigned Tasks: \n";
 			array <ref SP_Task> AssignedTasks = {};
@@ -755,51 +761,58 @@ class SP_RequestManagerComponent : ScriptComponent
 			foreach (SP_Task task : AssignedTasks)
 			{
 				string name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
-				string reserved;
+				string reservedstring;
 				if (task.IsReserved())
-					reserved = "RESERVED";
+					reservedstring = "RESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5   \n", infoText2, task.GetClassName().ToString(), name, reserved, state);
+				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5   \n", infoText2, task.GetClassName().ToString(), name, reservedstring, state);
 			}
-			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Owner.FindComponent(InventoryStorageManagerComponent));		
-			if (!inv)
-				continue;
-			Resource cur = Resource.Load("{891BA05A96D3A0BE}prefabs/Currency/Drachma.et");
-			PrefabResource_Predicate pred = new PrefabResource_Predicate(cur.GetResource().GetResourceName());
-			array <IEntity> items = {};
-			int amount = inv.FindItems(items, pred);
+			int amount = GetCharCurrency(Owner);
 			infoText2 = infoText2 + string.Format("Owned Currency: %1\n", amount);
 			vector origin = Owner.GetOrigin();
 			vector SphereOrig = Owner.GetOrigin();
 			SphereOrig[1] = SphereOrig[1] + 5;
+			
 			AIControlComponent comp = AIControlComponent.Cast(Owner.FindComponent(AIControlComponent));
 			if (!comp)
 				return;
+			
 			AIAgent agent = comp.GetAIAgent();
 			if (!agent)
 				return;
+			
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			if (!utility)
 				return;
+		
 			SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.GetCurrentAction());
+			
 			if (action)
 			{
 				if (!action.PickedTask)
 					continue;
+				
 				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
+				
 				infoText2 = infoText2 + string.Format("Heading towards %1's location to pick %2", name ,action.PickedTask.GetClassName().ToString());
+				
 				Shape.CreateSphere(Color.WHITE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			SCR_AIExecuteNavigateTaskBehavior Navaction = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.GetCurrentAction());
+			
 			if (Navaction)
 			{
 				if (!Navaction.PickedTask)
 					continue;
+				
 				string name = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
 				string Oname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
+				
 				if (Navaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
+				
 				infoText2 = infoText2 + string.Format("Escorting %1 to %2's location", Oname ,name);
+				
 				Shape.CreateSphere(Color.BLUE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			SCR_AIExecuteDeliveryTaskBehavior Delaction = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.GetCurrentAction());
@@ -831,6 +844,7 @@ class SP_RequestManagerComponent : ScriptComponent
 					continue;
 				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
 				infoText2 = infoText2 + string.Format("Following %1", name);
+				Shape.CreateSphere(Color.ORANGE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			/*int highlightRegion = -1;
 			float highlightDist = -1;

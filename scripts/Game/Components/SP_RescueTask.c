@@ -60,7 +60,7 @@ class SP_RescueTask: SP_Task
 				AssignCharacter(Instigator);
 		}
 	}
-	override	bool GiveReward(IEntity Target)
+	override bool GiveReward(IEntity Target)
 	{
 		if (m_Reward)
 		{
@@ -258,7 +258,8 @@ class SP_RescueTask: SP_Task
 		}
 		e_State = ETaskState.COMPLETED;
 		GetOnTaskFinished(this);
-		SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+		if (SCR_EntityHelper.GetPlayer() == Assignee)
+			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 		//SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
 		//Diag.SendText(GetCompletionText(Assignee), Diag.m_ChatChannelUS, 0, Diag.GetCharacterName(m_eTaskOwner), Diag.GetCharacterRankName(m_eTaskOwner));
 		return true;

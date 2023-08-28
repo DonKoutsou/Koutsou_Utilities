@@ -194,7 +194,8 @@ class SP_DeliverTask: SP_Task
 				}
 				e_State = ETaskState.COMPLETED;
 				m_eCopletionist = Assignee;
-				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+				if (SCR_EntityHelper.GetPlayer() == Assignee)
+					SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
 				SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 				dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 				GetOnTaskFinished(this);
@@ -283,6 +284,8 @@ class SP_DeliverTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool AssignCharacter(IEntity Character)
 	{
+		if (Character == m_eTaskOwner)
+			return false;
 		IEntity Package = GetPackage();
 		if (!Package)
 		{
@@ -384,10 +387,7 @@ class SP_DeliverTask: SP_Task
 			}
 			//-------------------------------------------------//
 			//function to fill to check ckaracter
-			if(!CheckOwner())
-			{
-				return false;
-			}
+			
 		}
 		//-------------------------------------------------//
 		if (!m_eTaskTarget)
@@ -396,10 +396,7 @@ class SP_DeliverTask: SP_Task
 			{
 				return false;
 			}
-			if(!CheckTarget())
-			{
-				return false;
-			}
+			
 		}
 		//-------------------------------------------------//
 		//function to fill if task needs an entity, eg package for delivery
@@ -412,6 +409,14 @@ class SP_DeliverTask: SP_Task
 		if (!AssignReward())
 		{
 			DeleteLeftovers();
+			return false;
+		}
+		if (!CheckOwner())
+		{
+			return false;
+		}
+		if (!CheckTarget())
+		{
 			return false;
 		}
 		//-------------------------------------------------//

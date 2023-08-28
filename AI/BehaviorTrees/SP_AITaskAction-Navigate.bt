@@ -37,41 +37,41 @@ BehaviorTree {
               }
              }
             }
+            SCR_AINavigateTaskParameters "SCR_AI Navigate Task Parameters" {
+             Name "SCR_AI Navigate Task Parameters"
+             EditorPos -2933.622 859.341
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 12
+               PortName "Task"
+              }
+             }
+            }
+            SCR_AIGetNavigateTaskParams "SCR_AI Get Navigate Task Params" {
+             Name "SCR_AI Get Navigate Task Params"
+             EditorPos -2587.787 845.553
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 12
+               PortName "Task"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 13
+               PortName "TaskOwner"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 3
+               PortName "TaskTarget"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 14
+               PortName "successRadius"
+              }
+             }
+            }
            }
-          }
-         }
-        }
-        SCR_AINavigateTaskParameters "SCR_AI Navigate Task Parameters" {
-         Name "SCR_AI Navigate Task Parameters"
-         EditorPos -2918.622 575.591
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 12
-           PortName "Task"
-          }
-         }
-        }
-        SCR_AIGetNavigateTaskParams "SCR_AI Get Navigate Task Params" {
-         Name "SCR_AI Get Navigate Task Params"
-         EditorPos -2572.787 561.803
-         InPorts {
-          SingleInputPortContainer SingleInputPortContainer {
-           Port 12
-           PortName "Task"
-          }
-         }
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 13
-           PortName "TaskOwner"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 3
-           PortName "TaskTarget"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port 14
-           PortName "successRadius"
           }
          }
         }
@@ -138,15 +138,36 @@ BehaviorTree {
                  Name "Sequence"
                  EditorPos 15.847 1687.69
                  Nodes {
+                  SCR_AILookAtEntity "SCR_AI Look At Entity" {
+                   Name "SCR_AI Look At Entity"
+                   EditorPos -463.75 1877.75
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 15
+                     PortName "EntityIn"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "PriorityIn"
+                    }
+                   }
+                   OutPorts {
+                    SingleOutputPortContainer SingleOutputPortContainer {
+                     Port -1
+                     PortName "PositionOut"
+                    }
+                   }
+                   m_fIgnoreLookDistSq 0
+                  }
                   SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
                    Name "SCR_AI Perform Complete Task Action"
                    EditorPos -226.923 1880
                    InPorts {
-                    SingleInputPortContainer SingleInputPortContainerClass {
+                    SingleInputPortContainer SingleInputPortContainer {
                      Port 15
                      PortName "TargetEntity"
                     }
-                    SingleInputPortContainer SingleInputPortContainerClass {
+                    SingleInputPortContainer SingleInputPortContainer {
                      Port 23
                      PortName "Task"
                     }
@@ -322,24 +343,6 @@ BehaviorTree {
     }
    }
   }
-  SCR_AIDecoVectorDistance "SCR_AI Deco Vector Distance" {
-   Name "SCR_AI Deco Vector Distance"
-   EditorPos -653.333 1290
-   InPorts {
-    SingleInputPortContainer SingleInputPortContainer {
-     Port -1
-     PortName "Vector0"
-    }
-    SingleInputPortContainer SingleInputPortContainer {
-     Port -1
-     PortName "Vector1"
-    }
-    SingleInputPortContainer SingleInputPortContainer {
-     Port -1
-     PortName "Threshold"
-    }
-   }
-  }
  }
  Variables {
   Variable Distance {
@@ -424,7 +427,7 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos -2260.954 768.985
+   EditorPos -2275.954 1052.735
   }
   VariableReference MyPos {
    VariableType 3
@@ -460,19 +463,19 @@ BehaviorTree {
   }
   VariableReference Task {
    VariableType 6
-   EditorPos -2696.5 723.697
+   EditorPos -2711.5 1007.447
   }
   VariableReference TaskOwner {
    VariableType 7
-   EditorPos -2258.016 684.607
+   EditorPos -2273.016 968.357
   }
   VariableReference SucDist {
    VariableType 8
-   EditorPos -2289.833 870.06
+   EditorPos -2304.833 1153.81
   }
   VariableReference TaskOwner {
    VariableType 7
-   EditorPos -457.717 1983.186
+   EditorPos -651.467 2029.436
   }
   VariableReference TaskOwner {
    VariableType 7
@@ -504,7 +507,7 @@ BehaviorTree {
   }
   VariableReference Task {
    VariableType 6
-   EditorPos -426.154 2059.231
+   EditorPos -609.904 2105.481
   }
  }
 }
