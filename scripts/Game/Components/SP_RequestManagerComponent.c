@@ -785,7 +785,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			if (!utility)
 				return;
 		
-			SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.GetCurrentAction());
+			SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
 			
 			if (action)
 			{
@@ -798,7 +798,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				
 				Shape.CreateSphere(Color.WHITE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
-			SCR_AIExecuteNavigateTaskBehavior Navaction = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.GetCurrentAction());
+			SCR_AIExecuteNavigateTaskBehavior Navaction = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
 			
 			if (Navaction)
 			{
@@ -815,7 +815,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				
 				Shape.CreateSphere(Color.BLUE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
-			SCR_AIExecuteDeliveryTaskBehavior Delaction = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.GetCurrentAction());
+			SCR_AIExecuteDeliveryTaskBehavior Delaction = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteDeliveryTaskBehavior));
 			if (Delaction)
 			{
 				if (!Delaction.PickedTask)
@@ -826,7 +826,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				infoText2 = infoText2 + string.Format("Delivering Package to %1", name);
 				Shape.CreateSphere(Color.GREEN, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
-			SCR_AIExecuteBountyTaskBehavior Bountyaction = SCR_AIExecuteBountyTaskBehavior.Cast(utility.GetCurrentAction());
+			SCR_AIExecuteBountyTaskBehavior Bountyaction = SCR_AIExecuteBountyTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
 			if (Bountyaction)
 			{
 				if (!Bountyaction.PickedTask)
@@ -837,7 +837,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				infoText2 = infoText2 + string.Format("Going after %1's bounty.", name);
 				Shape.CreateSphere(Color.RED, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
-			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.GetCurrentAction());
+			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
 			if (followact)
 			{
 				if (!followact.Char)
