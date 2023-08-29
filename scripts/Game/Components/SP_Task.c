@@ -79,6 +79,7 @@ class SP_Task
 	//Characters assigned to this task
 	IEntity m_aTaskAssigned;
 	bool m_bOwnerAssigned;
+	bool m_bPartOfChain;
 	//-------------------------------------------------//
 	//Character that completed this task. Filled after task is complete
 	IEntity m_eCopletionist;
@@ -89,6 +90,10 @@ class SP_Task
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
+	void SetPartOfChain()
+	{
+		m_bPartOfChain = true;
+	}
 	void SetReserved(IEntity res){UnAssignOwner(); reserved = res;};
 	bool IsReserved()
 	{
@@ -112,7 +117,7 @@ class SP_Task
 				SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
 				if (act)
 					act.SetActiveFollowing(false);
-			}	
+			}
 		}
 		SetReserved(null);
 	};
@@ -394,6 +399,12 @@ class SP_Task
 		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
 		m_Reward = entry.GetPrefab();
+		if (m_bPartOfChain && e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)
+		{
+			SCR_ChimeraCharacter Character = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+			WalletEntity wallet = Character.GetWallet();
+			wallet.SpawnCurrency(m_iRewardAmount);
+		}
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -516,6 +527,7 @@ class SP_Task
 		//if already assigned return
 		if (m_aTaskAssigned == Character)
 			return true;
+		ClearReserves();
 		//If player
 		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
 		{

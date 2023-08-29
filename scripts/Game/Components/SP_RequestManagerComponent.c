@@ -304,7 +304,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		GetCharOwnedTasks(Char, ownedtasks);
 		foreach (SP_Task task : ownedtasks)
 		{
-			if (task.GetClassName() == SP_BountyTask)
+			if (task.GetClassName() == SP_BountyTask || task.IsReserved())
 				continue;
 			if (IsAssignable(task.GetClassName()))
 			{
@@ -333,7 +333,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 		foreach (SP_Task task : tasks)
 		{
-			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned() && !task.IsReserved())
+			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned() && !task.IsReserved() && task.GetState() == ETaskState.UNASSIGNED)
 			{
 				if (task.AssignOwner())
 					return;
@@ -590,6 +590,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				continue;
 			if (mytask.IsReserved())
 				continue;
+			if (mytask.GetState() == ETaskState.ASSIGNED)
+				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
 			if (!comp)
 				return;
@@ -725,8 +727,8 @@ class SP_RequestManagerComponent : ScriptComponent
 		vector Origin = GetGame().GetCameraManager().CurrentCamera().GetOrigin();
 		foreach (ChimeraCharacter Owner : m_CharacterHolder.GetAllAlive())
 		{
-			//if (vector.Distance(Origin, Owner.GetOrigin()) > 100)
-				//continue;
+			if (vector.Distance(Origin, Owner.GetOrigin()) > 300)
+				continue;
 			array <ref SP_Task> OwnedTasks = {};
 			GetCharOwnedTasks(Owner, OwnedTasks);
 			string infoText2 = string.Format("CharName: %1\n Rank: %2\n Reputation: %3\nOwned Tasks: \n", SP_DialogueComponent.GetCharacterFirstName(Owner) + " " + SP_DialogueComponent.GetCharacterSurname(Owner), SP_DialogueComponent.GetCharacterRankName(Owner), SP_DialogueComponent.GetCharacterRep(Owner));
@@ -740,8 +742,10 @@ class SP_RequestManagerComponent : ScriptComponent
 				string reservedstring;
 				if (task.IsReserved())
 					reservedstring = "RESERVED";
+				else
+					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Target : %3 %4 | Task State: %5 \n", infoText2, task.GetClassName().ToString(), name, reservedstring, state);
+				infoText2 = string.Format("%1 %2 Target : %3  | Task State: %4 : %5 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";
 			array <ref SP_Task> TargetedTasks = {};
@@ -752,8 +756,10 @@ class SP_RequestManagerComponent : ScriptComponent
 				string reservedstring;
 				if (task.IsReserved())
 					reservedstring = "RESERVED";
+				else
+					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5  \n", infoText2, task.GetClassName().ToString(), name, reservedstring, state);
+				infoText2 = string.Format("%1 %2 Owner : %3  | Task State: %4 : %5 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring);
 			}
 			infoText2 = infoText2 + "Assigned Tasks: \n";
 			array <ref SP_Task> AssignedTasks = {};
@@ -764,8 +770,10 @@ class SP_RequestManagerComponent : ScriptComponent
 				string reservedstring;
 				if (task.IsReserved())
 					reservedstring = "RESERVED";
+				else
+					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Owner : %3 %4 | Task State: %5   \n", infoText2, task.GetClassName().ToString(), name, reservedstring, state);
+				infoText2 = string.Format("%1 %2 Owner : %3  | Task State: %4 : %5 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring);
 			}
 			int amount = GetCharCurrency(Owner);
 			infoText2 = infoText2 + string.Format("Owned Currency: %1\n", amount);

@@ -69,6 +69,7 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool InitCurrentStage()
 	{
+		m_aTasks[stage].SetPartOfChain();
 		if (!m_aTasks[stage].Init())
 			return false;
 		m_aTasks[stage].OnTaskFinished().Insert(Progress);

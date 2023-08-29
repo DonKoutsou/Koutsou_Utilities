@@ -14,7 +14,7 @@ class DialogueStageMultiResponse : DialogueStage
 				string tasktext;
 				foreach (SP_Task task : tasks)
 				{
-					if(!task.CharacterAssigned(Player) && !task.IsReserved())
+					if(!task.CharacterAssigned(Player))
 					{
 						if (!tasktext)
 							tasktext =  task.GetTaskDiag();

@@ -313,7 +313,7 @@ class SP_DeliverTask: SP_Task
 				SCR_HintManagerComponent.GetInstance().ShowCustom("No space in inventory, package left on the floor");
 			return true;
 		}
-		if (super.AssignCharacter(Character))
+		if (super.AssignCharacter(Character) && SCR_EntityHelper.GetPlayer() != Character)
 		{
 			AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
 			if (!comp)
@@ -446,10 +446,10 @@ class SP_DeliverTask: SP_Task
 	}
 	override bool AssignReward()
 	{
-		if (!super.AssignReward())
-			return false;
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
+		if (!super.AssignReward())
+			return false;
 		return true;
 	};
 	override void GetOnOwnerDeath()
@@ -595,6 +595,7 @@ class LootItem : AITaskScripted
 	//-----------------------------------------------------------------------------------------------------------------------------------------
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
+		
 		IEntity Item;
 		
 		GetVariableIn(ITEM_PORT, Item);
@@ -623,4 +624,61 @@ class LootItem : AITaskScripted
 		
 		return ENodeResult.FAIL;
 	}	
+};
+class CheckForCrowd : DecoratorScripted
+{
+	[Attribute("20")]
+	int MinDistance;
+	
+	[Attribute("1", UIWidgets.ComboBox, "Projection type", "", ParamEnumArray.FromEnum(ETargetCategory))]
+	int TargetType;
+	
+	static const string EXCLUDED_CHAR_PORT = "ExcludedChar";
+	//ref array<IEntity> excluded = {};
+	
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		EXCLUDED_CHAR_PORT,
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	private bool QueryEntitiesForCharacter(IEntity e)
+	{
+		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(e);
+		if (!char)
+			return true;
+		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(e.FindComponent(ScriptedDamageManagerComponent));
+		if (dmg.GetState() == EDamageState.DESTROYED)
+			return true;
+		//if (excluded.Contains(e))
+		//	return true;
+		return false;
+	}
+	protected override bool TestFunction(AIAgent owner)
+	{
+		IEntity Char;
+		
+		GetVariableIn(EXCLUDED_CHAR_PORT, Char);
+		if(!Char)
+		{
+			Char = owner.GetControlledEntity();
+		}
+		PerceptionComponent perccomp = PerceptionComponent.Cast(Char.FindComponent(PerceptionComponent));
+		//excluded.Insert(owner.GetControlledEntity());
+		BaseTarget targ = perccomp.GetClosestTarget(TargetType, 10, 10);
+		if (!targ)
+			return true;
+		float dist = vector.Distance(targ.GetTargetEntity().GetOrigin(), Char.GetOrigin());
+		if (dist < MinDistance)
+			return false;
+		//bool peoplearround = GetGame().GetWorld().QueryEntitiesBySphere(owner.GetControlledEntity().GetOrigin(), 10, QueryEntitiesForCharacter);
+		return true;
+	}
 };

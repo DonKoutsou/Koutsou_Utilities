@@ -12,7 +12,7 @@ class DialogueStageTask : DialogueStage
 	}
 	override bool GetActionText(IEntity Character, IEntity Player, out string acttext)
 	{
-		if(t_Task && !t_Task.CharacterAssigned(Player) && t_Task.GetState() != ETaskState.ASSIGNED  && !t_Task.IsReserved())
+		if(t_Task && !t_Task.CharacterAssigned(Player) && t_Task.GetState() != ETaskState.ASSIGNED)
 		{
 			acttext = t_Task.GetAcceptText();
 			return true;

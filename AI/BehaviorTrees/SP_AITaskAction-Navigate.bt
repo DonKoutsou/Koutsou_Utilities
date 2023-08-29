@@ -238,13 +238,113 @@ BehaviorTree {
              Name "Parallel"
              EditorPos 1672.359 1487.523
              Nodes {
-              DecoTestDistanceToEntity "Test Distance To Entity" {
-               Name "Test Distance To Entity"
-               EditorPos 1183.216 1752.047
+              Selector Selector {
+               Name "Selector"
+               EditorPos 1458.333 1633.333
                Nodes {
+                CheckForCrowd "Check For Crowd" {
+                 Name "Check For Crowd"
+                 EditorPos 584.294 1859.846
+                 Nodes {
+                  SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+                   Name "SCR_AI Send Order_ Movement Type"
+                   EditorPos 362.039 2078.821
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "Receiver"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "MovementType"
+                    }
+                   }
+                   m_eMovementType WALK
+                  }
+                 }
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port -1
+                   PortName "ExcludedChar"
+                  }
+                 }
+                 AbortType AbortChildrenBranch
+                 TargetType ENEMY
+                }
+                CheckForCrowd "Check For Crowd" {
+                 Name "Check For Crowd"
+                 EditorPos 1058.821 1829.619
+                 Nodes {
+                  Selector Selector {
+                   Name "Selector"
+                   EditorPos 1071.19 2020.953
+                   Nodes {
+                    DecoTestDistanceToEntity "Test Distance To Entity" {
+                     Name "Test Distance To Entity"
+                     EditorPos 814.406 2180.142
+                     Nodes {
+                      SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+                       Name "SCR_AI Send Order_ Movement Type"
+                       EditorPos 709.085 2595.238
+                       InPorts {
+                        SingleInputPortContainer SingleInputPortContainer {
+                         Port -1
+                         PortName "Receiver"
+                        }
+                        SingleInputPortContainer SingleInputPortContainer {
+                         Port -1
+                         PortName "MovementType"
+                        }
+                       }
+                       m_eMovementType RUN
+                      }
+                     }
+                     InEntity 6
+                     InPosition 9
+                     DistanceThreshold 20
+                     OutDistance -1
+                    }
+                    DecoTestDistanceToEntity "Test Distance To Entity" {
+                     Name "Test Distance To Entity"
+                     EditorPos 1179.406 2189.261
+                     Nodes {
+                      SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+                       Name "SCR_AI Send Order_ Movement Type"
+                       EditorPos 1146.049 2587.69
+                       InPorts {
+                        SingleInputPortContainer SingleInputPortContainer {
+                         Port -1
+                         PortName "Receiver"
+                        }
+                        SingleInputPortContainer SingleInputPortContainer {
+                         Port -1
+                         PortName "MovementType"
+                        }
+                       }
+                       m_eMovementType SPRINT
+                      }
+                     }
+                     NegativeCondition 1
+                     InEntity 8
+                     InPosition 11
+                     DistanceThreshold 30
+                     OutDistance -1
+                    }
+                   }
+                  }
+                 }
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port -1
+                   PortName "ExcludedChar"
+                  }
+                 }
+                 AbortType AbortChildrenBranch
+                 TargetType FRIENDLY
+                }
                 SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
                  Name "SCR_AI Send Order_ Movement Type"
-                 EditorPos 1077.895 2167.143
+                 EditorPos 1535.167 1863.5
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
                    Port -1
@@ -258,36 +358,6 @@ BehaviorTree {
                  m_eMovementType RUN
                 }
                }
-               InEntity 6
-               InPosition 9
-               DistanceThreshold 20
-               OutDistance -1
-              }
-              DecoTestDistanceToEntity "Test Distance To Entity" {
-               Name "Test Distance To Entity"
-               EditorPos 1548.216 1761.166
-               Nodes {
-                SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
-                 Name "SCR_AI Send Order_ Movement Type"
-                 EditorPos 1514.859 2159.595
-                 InPorts {
-                  SingleInputPortContainer SingleInputPortContainer {
-                   Port -1
-                   PortName "Receiver"
-                  }
-                  SingleInputPortContainer SingleInputPortContainer {
-                   Port -1
-                   PortName "MovementType"
-                  }
-                 }
-                 m_eMovementType SPRINT
-                }
-               }
-               NegativeCondition 1
-               InEntity 8
-               InPosition 11
-               DistanceThreshold 30
-               OutDistance -1
               }
               AITaskMoveToEntity "Move To Entity" {
                Name "Move To Entity"
@@ -439,7 +509,7 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos 923.038 1880.324
+   EditorPos 554.228 2308.419
   }
   VariableReference MyPos {
    VariableType 3
@@ -447,11 +517,11 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos 1330.841 1976.586
+   EditorPos 962.031 2404.681
   }
   VariableReference MyPos {
    VariableType 3
-   EditorPos 944.645 1964.27
+   EditorPos 575.835 2392.365
   }
   VariableReference CharToFollowPos {
    VariableType 4
@@ -459,7 +529,7 @@ BehaviorTree {
   }
   VariableReference MyPos {
    VariableType 3
-   EditorPos 1406.734 2063.389
+   EditorPos 1037.924 2491.484
   }
   VariableReference Task {
    VariableType 6
