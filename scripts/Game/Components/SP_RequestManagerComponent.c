@@ -335,8 +335,9 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned() && !task.IsReserved() && task.GetState() == ETaskState.UNASSIGNED)
 			{
-				if (task.AssignOwner())
-					return;
+				if (task.GetTimeLimit() > 3)
+					continue;
+				task.AssignOwner();
 			}
 		}
 	}
@@ -565,7 +566,6 @@ class SP_RequestManagerComponent : ScriptComponent
 			AssignMyTask(Assignee);
 			return;
 		}
-			
 		
 		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		ChimeraCharacter CloseChar;
@@ -591,6 +591,8 @@ class SP_RequestManagerComponent : ScriptComponent
 			if (mytask.IsReserved())
 				continue;
 			if (mytask.GetState() == ETaskState.ASSIGNED)
+				continue;
+			if (mytask.GetTimeLimit() < 3)
 				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
 			if (!comp)
@@ -745,7 +747,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				else
 					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Target : %3  | Task State: %4 : %5 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring);
+				float TimeLimit = task.GetTimeLimit();
+				infoText2 = string.Format("%1 %2 Target : %3  | Task State: %4 : %5 TimeLimit: %6\n", infoText2, task.GetClassName().ToString(), name, state, reservedstring, TimeLimit);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";
 			array <ref SP_Task> TargetedTasks = {};
@@ -759,7 +762,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				else
 					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Owner : %3  | Task State: %4 : %5 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring);
+				float TimeLimit = task.GetTimeLimit();
+				infoText2 = string.Format("%1 %2 Owner : %3  | Task State: %4 : %5 TimeLimit: %6 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring, TimeLimit);
 			}
 			infoText2 = infoText2 + "Assigned Tasks: \n";
 			array <ref SP_Task> AssignedTasks = {};
@@ -773,7 +777,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				else
 					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
-				infoText2 = string.Format("%1 %2 Owner : %3  | Task State: %4 : %5 \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring);
+				float TimeLimit = task.GetTimeLimit();
+				infoText2 = string.Format("%1 %2 Owner : %3  | Task State: %4 : %5 TimeLimit: %6  \n", infoText2, task.GetClassName().ToString(), name, state, reservedstring, TimeLimit);
 			}
 			int amount = GetCharCurrency(Owner);
 			infoText2 = infoText2 + string.Format("Owned Currency: %1\n", amount);

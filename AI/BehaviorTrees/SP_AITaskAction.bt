@@ -305,35 +305,6 @@ BehaviorTree {
                      Nodes {
                       CheckForCrowd "Check For Crowd" {
                        Name "Check For Crowd"
-                       EditorPos 410.961 2449.846
-                       Nodes {
-                        SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
-                         Name "SCR_AI Send Order_ Movement Type"
-                         EditorPos 273.706 2720.488
-                         InPorts {
-                          SingleInputPortContainer SingleInputPortContainer {
-                           Port -1
-                           PortName "Receiver"
-                          }
-                          SingleInputPortContainer SingleInputPortContainer {
-                           Port -1
-                           PortName "MovementType"
-                          }
-                         }
-                         m_eMovementType WALK
-                        }
-                       }
-                       InPorts {
-                        SingleInputPortContainer SingleInputPortContainer {
-                         Port -1
-                         PortName "ExcludedChar"
-                        }
-                       }
-                       AbortType AbortChildrenBranch
-                       TargetType ENEMY
-                      }
-                      CheckForCrowd "Check For Crowd" {
-                       Name "Check For Crowd"
                        EditorPos 1095.957 2465.5
                        Nodes {
                         Selector Selector {
@@ -403,9 +374,39 @@ BehaviorTree {
                        AbortType AbortChildrenBranch
                        TargetType FRIENDLY
                       }
+                      CheckForCrowd "Check For Crowd" {
+                       Name "Check For Crowd"
+                       EditorPos 1582.005 2513.179
+                       Nodes {
+                        SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+                         Name "SCR_AI Send Order_ Movement Type"
+                         EditorPos 1525.497 2707.155
+                         InPorts {
+                          SingleInputPortContainer SingleInputPortContainer {
+                           Port -1
+                           PortName "Receiver"
+                          }
+                          SingleInputPortContainer SingleInputPortContainer {
+                           Port -1
+                           PortName "MovementType"
+                          }
+                         }
+                         m_eMovementType RUN
+                        }
+                       }
+                       InPorts {
+                        SingleInputPortContainer SingleInputPortContainer {
+                         Port -1
+                         PortName "ExcludedChar"
+                        }
+                       }
+                       AbortType AbortChildrenBranch
+                       MinDistance 5
+                       TargetType FRIENDLY
+                      }
                       SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
                        Name "SCR_AI Send Order_ Movement Type"
-                       EditorPos 1572.303 2499.381
+                       EditorPos 1921.504 2545.18
                        InPorts {
                         SingleInputPortContainer SingleInputPortContainer {
                          Port -1
@@ -416,7 +417,7 @@ BehaviorTree {
                          PortName "MovementType"
                         }
                        }
-                       m_eMovementType RUN
+                       m_eMovementType WALK
                       }
                      }
                     }

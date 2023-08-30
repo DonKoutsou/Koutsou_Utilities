@@ -32,7 +32,8 @@ class SP_Task
 	//-------------------------------------------------//
 	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency, keep at 1 for Distance based tasks (Navigate, Deliver), reward is calculated based on distance and multiplied to this value, so increase to increase multiplier")]
 	int m_iRewardAverageAmount;
-	
+	[Attribute(defvalue: "12", desc: "ammount of time the task will need to be completed in before penalties start appling. In Hours")]
+	float m_fTimeLimit;
 	
 	//-------------------------------------------------//
 	//Character wich created the task
@@ -70,6 +71,8 @@ class SP_Task
 	//Amount of the m_Reward resource that is going to be given to completionist. Calculated average using m_iRewardAverageAmount taken from task sample in SP_RequestManagerComponent
 	int m_iRewardAmount;
 	//-------------------------------------------------//
+	ref TaskDayTimeInfo m_TaskTimeInfo;
+	//-------------------------------------------------//
 	// used for when an ai has started heading towards taking a task to avoid multiple AI going for same task
 	IEntity reserved;
 	//-------------------------------------------------//
@@ -90,6 +93,11 @@ class SP_Task
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
+	bool TimeLimitHasPassed()
+	{
+		TaskDayTimeInfo CurrentDate = TaskDayTimeInfo.FromTimeOfTheDay();
+		return m_TaskTimeInfo.HasPassed(CurrentDate);
+	}
 	void SetPartOfChain()
 	{
 		m_bPartOfChain = true;
@@ -179,6 +187,7 @@ class SP_Task
 		{
 			m_iRewardAmount = Math.RandomInt(5, 15)
 		}
+		m_fTimeLimit = tasksample.m_fTimeLimit;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function used to set up all the texts of the task on Init
@@ -407,6 +416,16 @@ class SP_Task
 		}
 		return true;
 	};
+	void SetTimeLimit()
+	{
+		m_TaskTimeInfo = TaskDayTimeInfo.FromPointInFuture(m_fTimeLimit, ETaskTimeLimmit.HOURS);
+	}
+	float GetTimeLimit()
+	{
+		TaskDayTimeInfo info = TaskDayTimeInfo.FromTimeOfTheDay();
+		float limit = m_TaskTimeInfo.CalculateTimeDifferance(info);
+		return limit;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Called when task if completed to give rewards to completionist
 	bool GiveReward(IEntity Target)
@@ -685,6 +704,7 @@ class SP_Task
 			return false;
 		}
 		//-------------------------------------------------//
+		SetTimeLimit();
 		CreateDescritions();
 		AddOwnerInvokers();
 		AddTargetInvokers();
@@ -765,3 +785,149 @@ class SCR_AIGetTaskParams : AITaskScripted
 		return ENodeResult.SUCCESS;
 	}	
 };
+class TaskDayTimeInfo
+{
+	ref TimeContainer m_fTimeOfDay;
+	ref TaskDateInfo Date;
+	
+	void TaskDayTimeInfo(float Time, int Day, int Month, int Year)
+	{
+		Date = new TaskDateInfo(Day, Month, Year);
+		m_fTimeOfDay = TimeContainer.FromTimeOfTheDay(Time);
+	}
+	void GetDate(out float Time, out int Day, out int Month, out int Year)
+	{
+		Date.GetDate(Day, Month, Year);
+		m_fTimeOfDay = TimeContainer.FromTimeOfTheDay(Time);
+		Time = m_fTimeOfDay.ToTimeOfTheDay();
+	}
+	TimeContainer GetTime()
+	{
+		return m_fTimeOfDay;
+	};
+	TaskDateInfo GetDateInfo()
+	{
+		return Date;
+	};
+	bool HasPassed(TaskDayTimeInfo DayInfo)
+	{
+		if (Date.HasPassed(DayInfo.GetDateInfo()))
+			return true;
+		TimeContainer Time = DayInfo.GetTime();
+		if (Time.ToTimeOfTheDay() > m_fTimeOfDay.ToTimeOfTheDay())
+			return true;
+		return false;
+	}
+	float CalculateTimeDifferance(TaskDayTimeInfo Info)
+	{
+		float dif;
+		float Time = Info.GetTime().ToTimeOfTheDay();
+		dif += m_fTimeOfDay.ToTimeOfTheDay() - Time;
+		if (Date.HasPassed(Info.GetDateInfo()))
+		{
+			int DateDiff = Date.CalculateTimeDifferance(Info.GetDateInfo());
+			dif += DateDiff;
+		}
+		return dif;
+	}
+	static TaskDayTimeInfo FromTimeOfTheDay()
+	{
+		TimeAndWeatherManagerEntity timenw = GetGame().GetTimeAndWeatherManager();
+		float Time = timenw.GetTime().ToTimeOfTheDay();
+		int Day, Month, Year;
+		timenw.GetDate(Year, Month, Day);
+		return new TaskDayTimeInfo(Time ,Day, Month, Year);
+	}
+	static TaskDayTimeInfo FromPointInFuture(int Ammount, ETaskTimeLimmit TimeLimmit)
+	{
+		TimeAndWeatherManagerEntity timenw = GetGame().GetTimeAndWeatherManager();
+		float Time = timenw.GetTime().ToTimeOfTheDay();
+		int Day, Month, Year;
+		timenw.GetDate(Year, Month, Day);
+		if (TimeLimmit == ETaskTimeLimmit.HOURS)
+		{
+			Time += Ammount;
+		}
+		while (Time > 24)
+		{
+			Time -= 24;
+			Day += 1;
+		}
+		while (Day > TimeAndWeatherManagerEntity.GetAmountOfDaysInMonth(Month))
+		{
+			Day -= TimeAndWeatherManagerEntity.GetAmountOfDaysInMonth(Month);
+			Month += 1;
+		}
+		return new TaskDayTimeInfo(Time ,Day, Month, Year);
+	}
+};
+class TaskDateInfo
+{
+	int m_iDay;
+	int m_iMonth;
+	int m_iYear;
+	void TaskDateInfo(int Day, int Month, int Year)
+	{
+		m_iDay = Day;
+		m_iMonth = Month;
+		m_iYear = Year;
+	}
+	void GetDate(out int Day, out int Month, out int Year)
+	{
+		Day = m_iDay;
+		Month = m_iMonth;
+		Year = m_iYear;
+	}
+	bool HasPassed(TaskDateInfo info)
+	{
+		int Day;
+		int Month;
+		int Year;
+		info.GetDate(Day, Month, Year);
+		if (Year > m_iYear)
+			return true;
+		if (Month > m_iMonth)
+			return true;
+		if (Day > m_iDay)
+			return true;
+		return false;
+		
+	}
+	float CalculateTimeDifferance(TaskDateInfo DateInfo)
+	{
+		float dif;
+		int Day;
+		int Month;
+		int Year;
+		DateInfo.GetDate(Day, Month, Year);
+		if (Day > m_iDay)
+		{
+			for (int i, count = Day - m_iDay; i < count; i++)
+			{
+				dif += 24;
+			}
+		}
+		if (Month > m_iMonth)
+		{
+			for (int i, count = Month - m_iMonth; i < count; i++)
+			{
+				dif += 24 * TimeAndWeatherManagerEntity.GetAmountOfDaysInMonth(m_iMonth);
+			}
+		}
+		if (Year > m_iYear)
+		{
+			for (int i, count = Year - m_iYear; i < count; i++)
+			{
+				dif += 8760;
+			}
+		}
+		return dif;
+	}
+}
+enum ETaskTimeLimmit
+{
+	HOURS,
+	DAYS,
+	WEEKS,
+	YEARS,
+}

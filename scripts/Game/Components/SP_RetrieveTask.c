@@ -37,6 +37,7 @@ class SP_RetrieveTask: SP_Task
 		{
 			return false;
 		}
+		SetTimeLimit();
 		CreateDescritions();
 		AddOwnerInvokers();
 		e_State = ETaskState.UNASSIGNED;

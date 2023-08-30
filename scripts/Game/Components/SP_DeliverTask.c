@@ -420,6 +420,7 @@ class SP_DeliverTask: SP_Task
 			return false;
 		}
 		//-------------------------------------------------//
+		SetTimeLimit();
 		CreateDescritions();
 		AddOwnerInvokers();
 		AddTargetInvokers();
