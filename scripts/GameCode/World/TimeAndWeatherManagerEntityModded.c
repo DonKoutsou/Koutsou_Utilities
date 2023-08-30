@@ -76,27 +76,27 @@ modded class TimeAndWeatherManagerEntity
 			break;
 			case 8:
 			{
-				ammount = 30;
+				ammount = 31;
 			}
 			break;
 			case 9:
 			{
-				ammount = 31;
+				ammount = 30;
 			}
 			break;
 			case 10:
 			{
-				ammount = 30;
+				ammount = 31;
 			}
 			break;
 			case 11:
 			{
-				ammount = 31;
+				ammount = 30;
 			}
 			break;
 			case 12:
 			{
-				ammount = 30;
+				ammount = 31;
 			}
 			break;
 		}
