@@ -98,9 +98,9 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                  Name "Sequence"
                  EditorPos -6898.322 1904.536
                  Nodes {
-                  SCR_AIGetSmartAction "SCR_AI Get Smart Action" {
-                   Name "SCR_AI Get Smart Action"
-                   EditorPos -7601 2173
+                  SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
+                   Name "SCR_AI Get Closest Smart Action"
+                   EditorPos -7665 2173.75
                    InPorts {
                     SingleInputPortContainer SingleInputPortContainer {
                      Port -1
@@ -352,9 +352,9 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                  Name "Sequence"
                  EditorPos -3921 1939.167
                  Nodes {
-                  SCR_AIGetSmartAction "SCR_AI Get Smart Action" {
-                   Name "SCR_AI Get Smart Action"
-                   EditorPos -4593.611 2152.222
+                  SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
+                   Name "SCR_AI Get Closest Smart Action"
+                   EditorPos -4660 2131.25
                    InPorts {
                     SingleInputPortContainer SingleInputPortContainer {
                      Port -1
@@ -493,9 +493,9 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                  Name "Sequence"
                  EditorPos -582.917 2016
                  Nodes {
-                  SCR_AIGetSmartAction "SCR_AI Get Smart Action" {
-                   Name "SCR_AI Get Smart Action"
-                   EditorPos -1346.25 2193.75
+                  SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
+                   Name "SCR_AI Get Closest Smart Action"
+                   EditorPos -1433.75 2203.75
                    InPorts {
                     SingleInputPortContainer SingleInputPortContainer {
                      Port -1
@@ -988,6 +988,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                    }
                   }
                  }
+                 NegativeCondition 0
                  AbortType AbortChildrenBranch
                  InEntity 62
                  TEST {
@@ -1615,7 +1616,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
   }
   VariableReference FoundComponent {
    VariableType 9
-   EditorPos -7446.232 2387.997
+   EditorPos -7443.732 2387.997
   }
   VariableReference SAPos {
    VariableType 8
