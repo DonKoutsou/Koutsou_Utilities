@@ -505,6 +505,12 @@ modded class SP_DialogueAction
 				lookpos[1] = lookpos[1] + 1.70;
 				utility.m_LookAction.LookAt(lookpos, 1000);
 			}
+			else
+			{
+				vector lookpos = pUserEntity.GetOrigin();
+				lookpos[1] = lookpos[1] + 1.70;
+				utility.m_LookAction.LookAt(lookpos, 1000);
+			}
 			return;
 		}
 		

@@ -683,3 +683,41 @@ class CheckForCrowd : DecoratorScripted
 		return true;
 	}
 };
+class CheckIfInDialogue : DecoratorScripted
+{
+	static const string CHAR_PORT = "Char";
+	//ref array<IEntity> excluded = {};
+	
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		CHAR_PORT,
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	protected override bool TestFunction(AIAgent owner)
+	{
+		IEntity Char;
+		
+		GetVariableIn(CHAR_PORT, Char);
+		if(!Char)
+		{
+			Char = owner.GetControlledEntity();
+		}
+		AIControlComponent comp = AIControlComponent.Cast(Char.FindComponent(AIControlComponent));
+		AIAgent agent = comp.GetAIAgent();
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		SCR_AIConverseBehavior action = SCR_AIConverseBehavior.Cast(utility.FindActionOfType(SCR_AIConverseBehavior));
+		if (action)
+		{
+			return true;
+		}
+		return false;
+	}
+};

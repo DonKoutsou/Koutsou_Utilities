@@ -177,7 +177,7 @@ BehaviorTree {
          Nodes {
           DecoTestDistanceToEntity "Test Distance To Entity" {
            Name "Test Distance To Entity"
-           EditorPos 485.795 1027.405
+           EditorPos 392.938 1025.976
            Nodes {
             Sequence Sequence {
              Name "Sequence"
@@ -225,23 +225,46 @@ BehaviorTree {
                }
                m_fIgnoreLookDistSq 0
               }
-              SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
-               Name "SCR_AI Perform Complete Task Action"
-               EditorPos 666.778 1620.222
-               InPorts {
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port 10
-                 PortName "TargetEntity"
+              Selector Selector {
+               Name "Selector"
+               EditorPos 695.714 1628.571
+               Nodes {
+                CheckIfInDialogue "Check If In Dialogue" {
+                 Name "Check If In Dialogue"
+                 EditorPos 287.009 1884.976
+                 Nodes {
+                  AITaskIdle Idle {
+                   Name "Idle"
+                   EditorPos 337.248 2085.453
+                   Period 5000
+                  }
+                 }
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 10
+                   PortName "Char"
+                  }
+                 }
                 }
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port 14
-                 PortName "Task"
+                SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
+                 Name "SCR_AI Perform Complete Task Action"
+                 EditorPos 806.778 1884.507
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 10
+                   PortName "TargetEntity"
+                  }
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 14
+                   PortName "Task"
+                  }
+                 }
                 }
                }
               }
               SCR_AISetFollowFalse "SCR_AI Set Follow False" {
                Name "SCR_AI Set Follow False"
-               EditorPos 1030.714 1592.857
+               EditorPos 990.714 1617.143
               }
              }
             }
@@ -574,7 +597,7 @@ BehaviorTree {
   }
   VariableReference TaskTarget {
    VariableType 1
-   EditorPos 469.158 1784.349
+   EditorPos 50.587 2022.921
   }
   VariableReference Task {
    VariableType 6
@@ -590,7 +613,7 @@ BehaviorTree {
   }
   VariableReference Task {
    VariableType 6
-   EditorPos 525.364 1858.909
+   EditorPos 615.364 2008.91
   }
   VariableReference Package {
    VariableType 8

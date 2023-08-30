@@ -538,9 +538,18 @@ class SP_RequestManagerComponent : ScriptComponent
 				toberemoved.Insert(m_aTaskMap[i]);
 				removed += 1;
 			}
+			if (m_aTaskMap[i].m_bFailOnTimeLimit && m_aTaskMap[i].GetState() == ETaskState.UNASSIGNED)
+			{
+				if (m_aTaskMap[i].GetTimeLimit() < 0 && m_aTaskMap[i].GetTimeLimit() != -1)
+				{
+					toberemoved.Insert(m_aTaskMap[i]);
+					removed += 1;
+				}
+			}
 		}
 		for (int i = toberemoved.Count() - 1; i >= 0; i--)
 		{
+			m_aTaskMap[i].FailTask();
 			m_aTaskMap.RemoveItem(toberemoved[i]);
 		}
 		Print(string.Format("Cleanup finished, %1 tasks got cleared", removed))
@@ -592,7 +601,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				continue;
 			if (mytask.GetState() == ETaskState.ASSIGNED)
 				continue;
-			if (mytask.GetTimeLimit() < 3)
+			if (mytask.GetTimeLimit() < 3 && mytask.GetTimeLimit() != -1)
 				continue;
 			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
 			if (!comp)

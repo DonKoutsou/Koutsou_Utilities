@@ -455,17 +455,40 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
                }
                m_fIgnoreLookDistSq 0
               }
-              SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
-               Name "SCR_AI Perform Complete Task Action"
-               EditorPos 2107.635 1676.42
-               InPorts {
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port 5
-                 PortName "TargetEntity"
+              Selector Selector {
+               Name "Selector"
+               EditorPos 2182.485 1727.119
+               Nodes {
+                CheckIfInDialogue "Check If In Dialogue" {
+                 Name "Check If In Dialogue"
+                 EditorPos 1767.009 2083.548
+                 Nodes {
+                  AITaskIdle Idle {
+                   Name "Idle"
+                   EditorPos 1818.676 2246.881
+                   Period 5000
+                  }
+                 }
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 5
+                   PortName "Char"
+                  }
+                 }
                 }
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port 0
-                 PortName "Task"
+                SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
+                 Name "SCR_AI Perform Complete Task Action"
+                 EditorPos 2224.778 2093.563
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 5
+                   PortName "TargetEntity"
+                  }
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 0
+                   PortName "Task"
+                  }
+                 }
                 }
                }
               }

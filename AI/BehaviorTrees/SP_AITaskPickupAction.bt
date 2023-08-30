@@ -115,17 +115,40 @@ BehaviorTree {
              PrecisionXZ 2
              InEntity 4
             }
-            SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
-             Name "SCR_AI Perform Task Action"
-             EditorPos 191.367 1171.187
-             InPorts {
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 14
-               PortName "TargetEntity"
+            Selector Selector {
+             Name "Selector"
+             EditorPos 230.878 1181.583
+             Nodes {
+              CheckIfInDialogue "Check If In Dialogue" {
+               Name "Check If In Dialogue"
+               EditorPos -3.705 1357.833
+               Nodes {
+                AITaskIdle Idle {
+                 Name "Idle"
+                 EditorPos 47.962 1521.167
+                 Period 5000
+                }
+               }
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 14
+                 PortName "Char"
+                }
+               }
               }
-              SingleInputPortContainer SingleInputPortContainer {
-               Port 13
-               PortName "Task"
+              SCR_AIPerformTaskAction "SCR_AI Perform Task Action" {
+               Name "SCR_AI Perform Task Action"
+               EditorPos 482.617 1383.687
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 14
+                 PortName "TargetEntity"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 13
+                 PortName "Task"
+                }
+               }
               }
              }
             }
@@ -401,6 +424,12 @@ BehaviorTree {
    VariableExposedInput 0
    VariableExposedOutput 0
   }
+  Variable Task {
+   VariableName "Task"
+   VariableTypeName "SP_Task"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
  }
  VariablesRefs {
   VariableReference Distance {
@@ -457,11 +486,11 @@ BehaviorTree {
   }
   VariableReference task {
    VariableType 4
-   EditorPos -92.084 1421.666
+   EditorPos 219.166 1680.416
   }
   VariableReference TaskOwner {
    VariableType 2
-   EditorPos -92.857 1502.857
+   EditorPos -265.357 1664.107
   }
   VariableReference MyPos {
    VariableType 1

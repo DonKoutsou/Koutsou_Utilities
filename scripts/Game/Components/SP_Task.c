@@ -32,8 +32,11 @@ class SP_Task
 	//-------------------------------------------------//
 	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency, keep at 1 for Distance based tasks (Navigate, Deliver), reward is calculated based on distance and multiplied to this value, so increase to increase multiplier")]
 	int m_iRewardAverageAmount;
-	[Attribute(defvalue: "12", desc: "ammount of time the task will need to be completed in before penalties start appling. In Hours")]
+	//-------------------------------------------------//
+	[Attribute(defvalue: "12", desc: "ammount of time the task will need to be completed in before penalties start appling. In Hours. If set to -1, no limit will be set")]
 	float m_fTimeLimit;
+	[Attribute(defvalue : "0", desc : "Should Fail On Limit reaching 0")]
+	bool m_bFailOnTimeLimit;
 	
 	//-------------------------------------------------//
 	//Character wich created the task
@@ -149,7 +152,7 @@ class SP_Task
 	string GetTaskDescription(){return m_sTaskDesc;}
 	//------------------------------------------------------------------------------------------------------------//
 	//Returns dialogue of task owner when giving task
-	string GetTaskDiag(){return m_sTaskDiag;}
+	string GetTaskDiag(){return m_sTaskDiag + string.Format(" I need it done within the next %1 hours.", GetTimeLimit().ToString().ToInt());}
 	//------------------------------------------------------------------------------------------------------------//
 	//Return task title
 	string GetTaskTitle(){return m_sTaskTitle;}
@@ -188,6 +191,7 @@ class SP_Task
 			m_iRewardAmount = Math.RandomInt(5, 15)
 		}
 		m_fTimeLimit = tasksample.m_fTimeLimit;
+		m_bFailOnTimeLimit = tasksample.m_bFailOnTimeLimit;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function used to set up all the texts of the task on Init
@@ -418,10 +422,15 @@ class SP_Task
 	};
 	void SetTimeLimit()
 	{
-		m_TaskTimeInfo = TaskDayTimeInfo.FromPointInFuture(m_fTimeLimit, ETaskTimeLimmit.HOURS);
+		if (m_fTimeLimit == -1)
+			return;
+		float TimeLimit = Math.RandomFloat(m_fTimeLimit/2, m_fTimeLimit * 1.5);
+		m_TaskTimeInfo = TaskDayTimeInfo.FromPointInFuture(TimeLimit, ETaskTimeLimmit.HOURS);
 	}
 	float GetTimeLimit()
 	{
+		if (!m_TaskTimeInfo)
+			return -1;
 		TaskDayTimeInfo info = TaskDayTimeInfo.FromTimeOfTheDay();
 		float limit = m_TaskTimeInfo.CalculateTimeDifferance(info);
 		return limit;
@@ -823,9 +832,9 @@ class TaskDayTimeInfo
 		float dif;
 		float Time = Info.GetTime().ToTimeOfTheDay();
 		dif += m_fTimeOfDay.ToTimeOfTheDay() - Time;
-		if (Date.HasPassed(Info.GetDateInfo()))
+		if (Info.GetDateInfo().HasPassed(Date))
 		{
-			int DateDiff = Date.CalculateTimeDifferance(Info.GetDateInfo());
+			int DateDiff = Info.GetDateInfo().CalculateTimeDifferance(Date);
 			dif += DateDiff;
 		}
 		return dif;

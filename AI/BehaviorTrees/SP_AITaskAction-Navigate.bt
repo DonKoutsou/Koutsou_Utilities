@@ -140,7 +140,7 @@ BehaviorTree {
                  Nodes {
                   SCR_AILookAtEntity "SCR_AI Look At Entity" {
                    Name "SCR_AI Look At Entity"
-                   EditorPos -463.75 1877.75
+                   EditorPos -633.75 1869.417
                    InPorts {
                     SingleInputPortContainer SingleInputPortContainer {
                      Port 15
@@ -159,17 +159,40 @@ BehaviorTree {
                    }
                    m_fIgnoreLookDistSq 0
                   }
-                  SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
-                   Name "SCR_AI Perform Complete Task Action"
-                   EditorPos -226.923 1880
-                   InPorts {
-                    SingleInputPortContainer SingleInputPortContainer {
-                     Port 15
-                     PortName "TargetEntity"
+                  Selector Selector {
+                   Name "Selector"
+                   EditorPos -176.667 1845
+                   Nodes {
+                    CheckIfInDialogue "Check If In Dialogue" {
+                     Name "Check If In Dialogue"
+                     EditorPos -665 2130
+                     Nodes {
+                      AITaskIdle Idle {
+                       Name "Idle"
+                       EditorPos -611.666 2293.333
+                       Period 5000
+                      }
+                     }
+                     InPorts {
+                      SingleInputPortContainer SingleInputPortContainer {
+                       Port 15
+                       PortName "Char"
+                      }
+                     }
                     }
-                    SingleInputPortContainer SingleInputPortContainer {
-                     Port 23
-                     PortName "Task"
+                    SCR_AIPerformCompleteTaskAction "SCR_AI Perform Complete Task Action" {
+                     Name "SCR_AI Perform Complete Task Action"
+                     EditorPos -143.59 2120
+                     InPorts {
+                      SingleInputPortContainer SingleInputPortContainer {
+                       Port 15
+                       PortName "TargetEntity"
+                      }
+                      SingleInputPortContainer SingleInputPortContainer {
+                       Port 23
+                       PortName "Task"
+                      }
+                     }
                     }
                    }
                   }
@@ -242,6 +265,22 @@ BehaviorTree {
                Name "Selector"
                EditorPos 1458.333 1633.333
                Nodes {
+                DecoTestDistanceToEntity "Test Distance To Entity" {
+                 Name "Test Distance To Entity"
+                 EditorPos 582.75 1835.75
+                 Nodes {
+                  AITaskIdle Idle {
+                   Name "Idle"
+                   EditorPos 601.25 2121.25
+                   Period 5
+                  }
+                 }
+                 NegativeCondition 1
+                 InEntity 25
+                 InPosition 24
+                 DistanceThreshold 20
+                 OutDistance -1
+                }
                 CheckForCrowd "Check For Crowd" {
                  Name "Check For Crowd"
                  EditorPos 1058.821 1829.619
@@ -546,7 +585,7 @@ BehaviorTree {
   }
   VariableReference TaskOwner {
    VariableType 7
-   EditorPos -651.467 2029.436
+   EditorPos -999.8 2284.436
   }
   VariableReference TaskOwner {
    VariableType 7
@@ -578,7 +617,15 @@ BehaviorTree {
   }
   VariableReference Task {
    VariableType 6
-   EditorPos -609.904 2105.481
+   EditorPos -371.571 2307.148
+  }
+  VariableReference MyPos {
+   VariableType 3
+   EditorPos 233.75 2141.25
+  }
+  VariableReference TaskOwner {
+   VariableType 7
+   EditorPos 198.75 2043.75
   }
  }
 }
