@@ -265,22 +265,6 @@ BehaviorTree {
                Name "Selector"
                EditorPos 1458.333 1633.333
                Nodes {
-                DecoTestDistanceToEntity "Test Distance To Entity" {
-                 Name "Test Distance To Entity"
-                 EditorPos 582.75 1835.75
-                 Nodes {
-                  AITaskIdle Idle {
-                   Name "Idle"
-                   EditorPos 601.25 2121.25
-                   Period 5
-                  }
-                 }
-                 NegativeCondition 1
-                 InEntity 25
-                 InPosition 24
-                 DistanceThreshold 20
-                 OutDistance -1
-                }
                 CheckForCrowd "Check For Crowd" {
                  Name "Check For Crowd"
                  EditorPos 1058.821 1829.619
@@ -379,7 +363,7 @@ BehaviorTree {
                   }
                  }
                  AbortType AbortChildrenBranch
-                 MinDistance 5
+                 MinDistance 3
                  TargetType FRIENDLY
                 }
                 SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
@@ -399,15 +383,37 @@ BehaviorTree {
                 }
                }
               }
-              AITaskMoveToEntity "Move To Entity" {
-               Name "Move To Entity"
-               EditorPos 1929.13 1789.355
-               InTargetOrientation -1
-               InPrecisionXZ -1
-               PrecisionXZ 3
-               OrientationType ToPoint
-               RequestResult -1
-               InEntity 1
+              Selector Selector {
+               Name "Selector"
+               EditorPos 2218.889 1708.333
+               Nodes {
+                DecoTestDistanceToEntity "Test Distance To Entity" {
+                 Name "Test Distance To Entity"
+                 EditorPos 2055.925 1889.083
+                 Nodes {
+                  AITaskMoveToEntity "Move To Entity" {
+                   Name "Move To Entity"
+                   EditorPos 2036.59 2265.546
+                   InTargetOrientation -1
+                   InPrecisionXZ -1
+                   PrecisionXZ 3
+                   OrientationType ToPoint
+                   RequestResult -1
+                   InEntity 1
+                  }
+                 }
+                 AbortType AbortChildrenBranch
+                 InEntity 25
+                 InPosition 24
+                 DistanceThreshold 20
+                 OutDistance -1
+                }
+                AITaskIdle Idle {
+                 Name "Idle"
+                 EditorPos 2456.012 1921.251
+                 Period 3
+                }
+               }
               }
              }
             }
@@ -621,11 +627,11 @@ BehaviorTree {
   }
   VariableReference MyPos {
    VariableType 3
-   EditorPos 233.75 2141.25
+   EditorPos 1838.512 2091.726
   }
   VariableReference TaskOwner {
    VariableType 7
-   EditorPos 198.75 2043.75
+   EditorPos 1767.322 1995.02
   }
  }
 }

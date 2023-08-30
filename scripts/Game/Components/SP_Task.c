@@ -188,7 +188,7 @@ class SP_Task
 		}
 		else
 		{
-			m_iRewardAmount = Math.RandomInt(5, 15)
+			m_iRewardAmount = Math.RandomInt(m_iRewardAverageAmount/2, m_iRewardAverageAmount * 1.5)
 		}
 		m_fTimeLimit = tasksample.m_fTimeLimit;
 		m_bFailOnTimeLimit = tasksample.m_bFailOnTimeLimit;
@@ -474,8 +474,7 @@ class SP_Task
 			array<IEntity> Rewardlist = new array<IEntity>();
 			Resource RewardRes = Resource.Load(m_Reward);
 			int Movedamount;
-			for (int j = 0; j < m_iRewardAmount; j++)
-				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
+			Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
 			for (int i, count = Rewardlist.Count(); i < count; i++)
 			{
 				TargetInv.TryInsertItem(Rewardlist[i]);
@@ -674,7 +673,8 @@ class SP_Task
 	//Deffining structure of Init
 	bool Init()
 	{
-		InheritFromSample();
+		if (!m_bPartOfChain)
+			InheritFromSample();
 		
 		
 		if (!m_eTaskOwner)

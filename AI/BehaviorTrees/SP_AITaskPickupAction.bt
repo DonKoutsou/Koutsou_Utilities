@@ -315,7 +315,7 @@ BehaviorTree {
                       }
                      }
                      AbortType AbortChildrenBranch
-                     MinDistance 5
+                     MinDistance 3
                      TargetType FRIENDLY
                     }
                     SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {

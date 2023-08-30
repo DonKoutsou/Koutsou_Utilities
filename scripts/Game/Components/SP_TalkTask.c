@@ -94,7 +94,8 @@ class SP_TalkTask: SP_Task
 	}
 	override bool Init()
 	{
-		InheritFromSample();
+		if (!m_bPartOfChain)
+			InheritFromSample();
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
 		if (!m_eTaskOwner)

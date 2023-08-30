@@ -575,7 +575,14 @@ class SP_RequestManagerComponent : ScriptComponent
 			AssignMyTask(Assignee);
 			return;
 		}
-		
+		array <ref SP_Task> Astasks = {};
+		foreach (SP_Task task : m_aTaskSamples)
+		{
+			if (task.m_bAssignable)
+				GetCharOwnedTasksOfSameType(Assignee, Astasks, task.GetClassName());
+		}
+		if (!Astasks.IsEmpty())
+			return;
 		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
 		ChimeraCharacter CloseChar;
 		if (!m_CharacterHolder.GetUnitOfAnyFriendlyFaction(affcomp.GetAffiliatedFaction(), CloseChar))
@@ -859,7 +866,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				infoText2 = infoText2 + string.Format("Going after %1's bounty.", name);
 				Shape.CreateSphere(Color.RED, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
-			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
+			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
 			if (followact)
 			{
 				if (!followact.Char)

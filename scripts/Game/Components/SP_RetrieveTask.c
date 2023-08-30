@@ -18,7 +18,8 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool Init()
 	{
-		InheritFromSample();
+		if (!m_bPartOfChain)
+			InheritFromSample();
 		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
@@ -386,18 +387,30 @@ class SP_RetrieveTask: SP_Task
 	{
 		if (!rewards.IsEmpty())
 		{
-			EntitySpawnParams params = EntitySpawnParams();
-			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = m_eTaskOwner.GetOrigin();
-			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-			array<IEntity> Rewardlist = new array<IEntity>();
-			int Movedamount;
-			for (int j = 0; j < rewards.Count(); j++)
-				Rewardlist.Insert(GetGame().SpawnEntityPrefab(Resource.Load(rewards[j]), GetGame().GetWorld(), params));
-			for (int i, count = Rewardlist.Count(); i < count; i++)
+			
+			if (e_RewardLabel != EEditableEntityLabel.ITEMTYPE_CURRENCY)
 			{
-				TargetInv.TryInsertItem(Rewardlist[i]);
-				Movedamount += 1;
+				EntitySpawnParams params = EntitySpawnParams();
+				params.TransformMode = ETransformMode.WORLD;
+				params.Transform[3] = m_eTaskOwner.GetOrigin();
+				InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+				array<IEntity> Rewardlist = new array<IEntity>();
+				int Movedamount;
+				for (int j = 0; j < rewards.Count(); j++)
+					Rewardlist.Insert(GetGame().SpawnEntityPrefab(Resource.Load(rewards[j]), GetGame().GetWorld(), params));
+				for (int i, count = Rewardlist.Count(); i < count; i++)
+				{
+					TargetInv.TryInsertItem(Rewardlist[i]);
+					Movedamount += 1;
+				}
+			}
+			else
+			{
+				SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
+				SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+				WalletEntity wallet = Char.GetWallet();
+				WalletEntity Owallet = OChar.GetWallet();
+				return wallet.TakeCurrency(Owallet, rewards.Count());
 			}
 			string rewardstring;
 			map <ResourceName, int> stringarray = new map <ResourceName, int>();

@@ -220,7 +220,7 @@ BehaviorTree "{9F6E8F29FEF5C232}AI/BehaviorTrees/SP_AITaskAction-Bounty.bt" {
             }
            }
            AbortType AbortChildrenBranch
-           MinDistance 5
+           MinDistance 3
            TargetType FRIENDLY
           }
           SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
