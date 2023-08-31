@@ -6,6 +6,8 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
    Tags {
     "SwitchLight"
    }
+   ActionTest LanternSmartActionTest "{5E3EF0409B2E2BEA}" {
+   }
   }
   SCR_BaseInteractiveLightComponent "{5876E7CF88610C12}" {
    m_aLightData {

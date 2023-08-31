@@ -1,5 +1,8 @@
 class SCR_AISetActionOccupied : AITaskScripted
 {
+	[Attribute ()]
+	bool m_bShouldUnoccupyOnAbort;
+	SCR_AISmartActionComponent myaction;
 	//------------------------------------------------------------------------------------------------
 	protected static ref TStringArray s_aVarsIn = {
 		"TargetAction"
@@ -10,11 +13,16 @@ class SCR_AISetActionOccupied : AITaskScripted
     {
         return s_aVarsIn;
     }
-
+	override event void OnAbort(AIAgent owner, Node nodeCausingAbort)
+	{
+		if (m_bShouldUnoccupyOnAbort && myaction)
+		{
+			myaction.SetActionAccessible(true);
+		}
+	}
 	//------------------------------------------------------------------------------------------------
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
-		SCR_AISmartActionComponent myaction;
 		GetVariableIn("TargetAction", myaction);
 		if(myaction)
 		{

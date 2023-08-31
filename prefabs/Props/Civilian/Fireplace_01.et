@@ -15,6 +15,8 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
    Tags {
     "LightFire"
    }
+   ActionTest FireplaceSmartActionTest "{5E3EFB70FDB8234A}" {
+   }
   }
   SCR_AISmartActionSentinelComponent "{5B1EF59F9C8CE0B9}" {
    Enabled 1

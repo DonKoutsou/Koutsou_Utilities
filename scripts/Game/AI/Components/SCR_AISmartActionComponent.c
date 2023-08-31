@@ -11,18 +11,29 @@ class SCR_AISmartActionComponent : AISmartActionComponent
 {
 	[Attribute()]
 	bool OnDurringNight;
+
+	[Attribute()]
+	ref SmartActionTest ActionTest;
 	
 	ref SCR_AIActionUserInvoker Event_EOnActionEnd;	
 	
 	ref SCR_AIActionUserInvoker Event_EOnActionFailed;
 	
 	SCR_CharacterDamageManagerComponent m_pDamageManager;
-	
+	bool NeedsTest()
+	{
+		if (ActionTest)
+			return true;
+		return false;
+	}
+	bool RunTest(IEntity User)
+	{
+		return ActionTest.TestAction(GetOwner(), User);
+	}
 	bool GetDNightBool()
 	{
 		return OnDurringNight;
 	}
-	
 	//------------------------------------------------------------------------------------------------
 	void ReserveAction(AIAgent owner)
 	{

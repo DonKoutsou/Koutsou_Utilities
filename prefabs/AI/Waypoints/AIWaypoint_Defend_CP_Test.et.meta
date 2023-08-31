@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CACAE5D16B569592}prefabs/AI/Waypoints/AIWaypoint_Defend_CP_Test.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

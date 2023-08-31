@@ -8,5 +8,4 @@ SP_TPWaypoint {
  CompletionRadius 250
  Autocomplete 0
  m_fPriorityLevel 1000
- m_bFastInit 1
 }

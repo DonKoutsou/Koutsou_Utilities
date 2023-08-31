@@ -1,0 +1,708 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/SmartActions/SA_ObservationPostTest.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -1039.667 -883.667
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -1023.804 -689.516
+     Nodes {
+      RunOnce "Run Once" {
+       Name "Run Once"
+       EditorPos -1906.5 -362.5
+       Nodes {
+        Sequence Sequence {
+         Name "Sequence"
+         EditorPos -2118 -235.5
+         Nodes {
+          AITaskGetCurrentSmartAction "Get Current Smart Action" {
+           Name "Get Current Smart Action"
+           EditorPos -2452.03 -103.438
+           OutSmartAction 3
+          }
+          SCR_AIGetSmartActionSentinelParams "SCR_AI Get Smart Action Guard Params" {
+           Name "SCR_AI Get Smart Action Guard Params"
+           EditorPos -1880.989 -121.657
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port 3
+             PortName "SmartActionGuard"
+            }
+           }
+           OutPorts {
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port 0
+             PortName "OutPos"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port 1
+             PortName "LookPosition"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port 5
+             PortName "LookDirectionRange"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port 2
+             PortName "Stance"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port 4
+             PortName "UseBinoculars"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "LeaningType"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      Parallel Parallel {
+       Name "Parallel"
+       EditorPos 965.714 -321.429
+       Nodes {
+        Sequence Sequence {
+         Name "Sequence"
+         EditorPos -485.5 -130.714
+         Nodes {
+          SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
+           Name "SCR_AI Get Closest Smart Action"
+           EditorPos -805.357 28.036
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port 0
+             PortName "Possition"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "Radius"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "InTags"
+            }
+           }
+           OutPorts {
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port 8
+             PortName "OutSmartAction"
+            }
+           }
+           m_fRadius 20
+          }
+          DecoTestVariable "Test Variable" {
+           Name "Test Variable"
+           EditorPos -179.75 39.75
+           Nodes {
+            Sequence Sequence {
+             Name "Sequence"
+             EditorPos -16.786 251.786
+             Nodes {
+              SCR_AISetActionOccupied "SCR_AI Set Action Occupied" {
+               Name "SCR_AI Set Action Occupied"
+               EditorPos -1563.333 436.667
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 23
+                 PortName "TargetAction"
+                }
+               }
+              }
+              AITaskGetSmartActionParams "Get Smart Action Params" {
+               Name "Get Smart Action Params"
+               EditorPos -1284.024 434.5
+               InSmartAction 23
+               OutPos 6
+               OutSmartActionEntity 7
+              }
+              SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
+               Name "SCR_AI Send Order_ Stance"
+               EditorPos -901.529 444.582
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Receiver"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Stance"
+                }
+               }
+               m_eStance STAND
+              }
+              SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+               Name "SCR_AI Send Order_ Movement Type"
+               EditorPos -614.005 448.297
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Receiver"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "MovementType"
+                }
+               }
+               m_eMovementType WALK
+              }
+              SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
+               Name "SCR_AI Set Weapon Raised"
+               EditorPos -289.719 447.154
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Raised"
+                }
+               }
+               m_bRaised 0
+              }
+              AITaskMove Move {
+               Name "Move"
+               EditorPos -59.004 454.297
+               InTargetLocation 9
+               PrecisionXZ 3
+               PrecisionY 3
+              }
+              SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
+               Name "SCR_AI Send Order_ Stance"
+               EditorPos 235.198 453.237
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Receiver"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Stance"
+                }
+               }
+               m_eStance CROUCH
+              }
+              AITaskIdle Idle {
+               Name "Idle"
+               EditorPos 473.793 460.261
+               Period 2
+              }
+              SCR_AIPerformLightAction "SCR_AI Perform Light Action" {
+               Name "SCR_AI Perform Light Action"
+               EditorPos 613.077 457.643
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port 10
+                 PortName "TargetEntity"
+                }
+               }
+              }
+              SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
+               Name "SCR_AI Send Order_ Stance"
+               EditorPos 854.766 459.035
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Receiver"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Stance"
+                }
+               }
+              }
+              Sequence Sequence {
+               Name "Sequence"
+               EditorPos 1186.26 473.498
+               Nodes {
+                SCR_AISetActionUnOccupied "SCR_AI Set Action Un Occupied" {
+                 Name "SCR_AI Set Action Un Occupied"
+                 EditorPos 693.68 638.967
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 11
+                   PortName "TargetAction"
+                  }
+                 }
+                }
+                AITaskSetVariable "Set Variable" {
+                 Name "Set Variable"
+                 EditorPos 962.967 642.53
+                 ClearVariable 1
+                 OutVariable 11
+                }
+                AITaskSetVariable "Set Variable" {
+                 Name "Set Variable"
+                 EditorPos 1183.557 638.172
+                 ClearVariable 1
+                 OutVariable 13
+                 InVariable -1
+                }
+                AITaskSetVariable "Set Variable" {
+                 Name "Set Variable"
+                 EditorPos 1405.627 639.554
+                 SetValue "true"
+                 ClearVariable 1
+                 OutVariable 12
+                 InVariable -1
+                }
+                AITaskSetVariable "Set Variable" {
+                 Name "Set Variable"
+                 EditorPos 1626.522 641.093
+                 SetValue "false"
+                 OutVariable -1
+                }
+               }
+              }
+             }
+            }
+           }
+           AbortType AbortChildrenBranch
+           InVariable 8
+          }
+         }
+        }
+        Selector Selector {
+         Name "Selector"
+         EditorPos 2112.75 25.5
+         Nodes {
+          SCR_AIDayNightTest "SCR_AI Day Night Test" {
+           Name "SCR_AI Day Night Test"
+           EditorPos 1928.083 243.167
+           Nodes {
+            SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
+             Name "SCR_AI Toggle Flashlights On Simulate"
+             EditorPos 1805.417 461.917
+             m_bEnable 0
+            }
+           }
+          }
+          SCR_AIDayNightTest "SCR_AI Day Night Test" {
+           Name "SCR_AI Day Night Test"
+           EditorPos 2293.333 245
+           Nodes {
+            SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
+             Name "SCR_AI Toggle Flashlights On Simulate"
+             EditorPos 2246.084 477
+            }
+           }
+           NegativeCondition 1
+          }
+         }
+        }
+        DecoTestVariable "Test Variable" {
+         Name "Test Variable"
+         EditorPos 3162.167 11.667
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos 3350.101 221.571
+           Nodes {
+            SCR_AIGetRandomPoint "SCR_AI Get Random Point" {
+             Name "SCR_AI Get Random Point"
+             EditorPos 2966.441 535.596
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
+               PortName "Waypoint"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 16
+               PortName "Origin"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
+               PortName "Radius"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 18
+               PortName "ResultVector"
+              }
+             }
+             m_Radius 2
+            }
+            AITaskMove Move {
+             Name "Move"
+             EditorPos 3207.56 528.143
+             InTargetLocation 18
+            }
+            AITaskIdle Idle {
+             Name "Idle"
+             EditorPos 3561.181 547.08
+             Period 1
+             PeriodRandom 0
+            }
+            SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
+             Name "SCR_AI Send Order_ Stance"
+             EditorPos 3758.517 542.83
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
+               PortName "Receiver"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 22
+               PortName "Stance"
+              }
+             }
+            }
+            Parallel Parallel {
+             Name "Parallel"
+             EditorPos 4321.87 575.262
+             Nodes {
+              Sequence Sequence {
+               Name "Sequence"
+               EditorPos 4314.87 750.929
+               Nodes {
+                DecoTestVariable "Test Variable" {
+                 Name "Test Variable"
+                 EditorPos 3655.822 926.011
+                 Nodes {
+                  Switch Switch {
+                   Name "Switch"
+                   EditorPos 3571.37 1137.846
+                   Nodes {
+                    DecoTestVariable "Test Variable" {
+                     Name "Test Variable"
+                     EditorPos 3369.333 1299.144
+                     Nodes {
+                      Sequence Sequence {
+                       Name "Sequence"
+                       EditorPos 3421.927 1517.701
+                       Nodes {
+                        SCR_AIEquipRightHandItem "SCR_AI Equip Right Hand Item" {
+                         Name "SCR_AI Equip Right Hand Item"
+                         EditorPos 3211.913 1698.366
+                         InPorts {
+                          SingleInputPortContainer SingleInputPortContainer {
+                           Port -1
+                           PortName "ItemType"
+                          }
+                          SingleInputPortContainer SingleInputPortContainer {
+                           Port -1
+                           PortName "GadgetType"
+                          }
+                         }
+                         m_eGadgetType BINOCULARS
+                        }
+                        AITaskSetVariable "Set Variable" {
+                         Name "Set Variable"
+                         EditorPos 3472.787 1713.679
+                         SetValue "true"
+                         OutVariable 20
+                        }
+                       }
+                      }
+                     }
+                     NegativeCondition 1
+                     UseChildResult 1
+                     ForceNodeResult Success
+                     InVariable 20
+                     TestType EqualsValue
+                     TestValue "true"
+                    }
+                    DecoTestVariable "Test Variable" {
+                     Name "Test Variable"
+                     EditorPos 3744.65 1314.758
+                     Nodes {
+                      Sequence Sequence {
+                       Name "Sequence"
+                       EditorPos 3796.927 1500.701
+                       Nodes {
+                        SCR_AIUnEquipItems "SCR_AI Un Equip Items" {
+                         Name "SCR_AI Un Equip Items"
+                         EditorPos 3674.815 1729.929
+                         m_bKeepRunningUntilAborted 0
+                        }
+                        AITaskSetVariable "Set Variable" {
+                         Name "Set Variable"
+                         EditorPos 4010.537 1718.929
+                         SetValue "false"
+                         OutVariable 15
+                        }
+                       }
+                      }
+                     }
+                     UseChildResult 1
+                     ForceNodeResult Success
+                     InVariable 15
+                     TestType EqualsValue
+                     TestValue "true"
+                    }
+                   }
+                   RandomRange {
+                    1 5
+                   }
+                  }
+                 }
+                 UseChildResult 1
+                 ForceNodeResult Success
+                 InVariable 17
+                 TestType EqualsValue
+                 TestValue "true"
+                }
+                Sequence Sequence {
+                 Name "Sequence"
+                 EditorPos 4798.489 1015.619
+                 Nodes {
+                  SCR_AIGetRandomPointInCircularSector "SCR_AI Get Random Point In Circular Sector" {
+                   Name "SCR_AI Get Random Point In Circular Sector"
+                   EditorPos 4352.633 1347.04
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "OriginEntity"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 14
+                     PortName "SectorAxisPoint"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 19
+                     PortName "AngularRange"
+                    }
+                   }
+                   OutPorts {
+                    SingleOutputPortContainer SingleOutputPortContainer {
+                     Port 21
+                     PortName "PositionOut"
+                    }
+                   }
+                  }
+                  SCR_AILookAtPosition "SCR_AI Look At Position" {
+                   Name "SCR_AI Look At Position"
+                   EditorPos 5076.704 1329.191
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 21
+                     PortName "PositionIn"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "PriorityIn"
+                    }
+                   }
+                   OutPorts {
+                    SingleOutputPortContainer SingleOutputPortContainer {
+                     Port -1
+                     PortName "PositionOut"
+                    }
+                   }
+                   m_fPriority 80
+                  }
+                  AITaskIdle Idle {
+                   Name "Idle"
+                   EditorPos 5354.189 1345.963
+                   Period 2
+                   PeriodRandom 3
+                  }
+                 }
+                }
+               }
+              }
+              SCR_AIUnEquipItems "SCR_AI Un Equip Items" {
+               Name "SCR_AI Un Equip Items"
+               EditorPos 4669.745 764.715
+              }
+             }
+            }
+           }
+          }
+         }
+         NegativeCondition 1
+         AbortType AbortChildrenBranch
+         InVariable 24
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable CurrentSmartActionPos {
+   VariableName "CurrentSmartActionPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable wantedLookPosition {
+   VariableName "wantedLookPosition"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable desiredStance {
+   VariableName "desiredStance"
+   VariableTypeName "int"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable guardComponent {
+   VariableName "guardComponent"
+   VariableTypeName "SCR_AISmartActionSentinelComponent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable useBinoculars {
+   VariableName "useBinoculars"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable lookDirectionRange {
+   VariableName "lookDirectionRange"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable SAPos {
+   VariableName "SAPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable FoundEntity {
+   VariableName "FoundEntity"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable FoundComponent {
+   VariableName "FoundComponent"
+   VariableTypeName "SCR_AISmartActionComponent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable isEquipped {
+   VariableName "isEquipped"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable targetPos {
+   VariableName "targetPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable randpos {
+   VariableName "randpos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable aimAtPosition {
+   VariableName "aimAtPosition"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference CurrentSmartActionPos {
+   VariableType 0
+   EditorPos -1424.004 -74.928
+  }
+  VariableReference wantedLookPosition {
+   VariableType 1
+   EditorPos -1420.239 12.932
+  }
+  VariableReference desiredStance {
+   VariableType 2
+   EditorPos -1431.906 198.599
+  }
+  VariableReference guardComponent {
+   VariableType 3
+   EditorPos -2254.988 94.601
+  }
+  VariableReference useBinoculars {
+   VariableType 4
+   EditorPos -1441.906 291.599
+  }
+  VariableReference lookDirectionRange {
+   VariableType 5
+   EditorPos -1434.906 104.599
+  }
+  VariableReference SAPos {
+   VariableType 6
+   EditorPos -956.644 580.941
+  }
+  VariableReference FoundEntity {
+   VariableType 7
+   EditorPos -974.024 663.084
+  }
+  VariableReference FoundComponent {
+   VariableType 8
+   EditorPos -626.203 231.451
+  }
+  VariableReference SAPos {
+   VariableType 6
+   EditorPos -213.719 623.012
+  }
+  VariableReference FoundEntity {
+   VariableType 7
+   EditorPos 357.839 620.266
+  }
+  VariableReference FoundComponent {
+   VariableType 8
+   EditorPos 764.997 817.144
+  }
+  VariableReference FoundEntity {
+   VariableType 7
+   EditorPos 1601.213 770.14
+  }
+  VariableReference SAPos {
+   VariableType 6
+   EditorPos 1367.215 781.378
+  }
+  VariableReference wantedLookPosition {
+   VariableType 1
+   EditorPos 4154.275 1151.409
+  }
+  VariableReference isEquipped {
+   VariableType 9
+   EditorPos 4078.065 1504.346
+  }
+  VariableReference targetPos {
+   VariableType 10
+   EditorPos 2693.311 733.235
+  }
+  VariableReference useBinoculars {
+   VariableType 4
+   EditorPos 3340.871 1047.679
+  }
+  VariableReference randpos {
+   VariableType 11
+   EditorPos 3088.481 709.818
+  }
+  VariableReference lookDirectionRange {
+   VariableType 5
+   EditorPos 4082.962 1236.935
+  }
+  VariableReference isEquipped {
+   VariableType 9
+   EditorPos 3646.287 1615.512
+  }
+  VariableReference aimAtPosition {
+   VariableType 12
+   EditorPos 4812.954 1366.512
+  }
+  VariableReference desiredStance {
+   VariableType 2
+   EditorPos 3457.941 710.533
+  }
+  VariableReference FoundComponent {
+   VariableType 8
+   EditorPos -1770 665
+  }
+  VariableReference FoundEntity {
+   VariableType 7
+   EditorPos 2745.714 177.143
+  }
+ }
+}
