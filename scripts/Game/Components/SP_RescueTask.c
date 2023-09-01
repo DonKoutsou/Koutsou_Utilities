@@ -89,19 +89,23 @@ class SP_RescueTask: SP_Task
 		CharsToRescue = new ref array <IEntity>();
 		array <ref SP_Task> tasks = new array <ref SP_Task>();
 		SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_RescueTask);
-		SP_RescueTask tasksample = SP_RescueTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_RescueTask));
-		if(!tasksample)
-		{
-			return false;
-		}
-		m_iMaxamount = tasksample.GetMaxamount();
-		m_BleedTrigger = tasksample.m_BleedTrigger;
-		if(tasks.Count() >= m_iMaxamount)
-		{
-			return false;
-		}
+		
 		if (!m_bPartOfChain)
+		{
+			SP_RescueTask tasksample = SP_RescueTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_RescueTask));
+			if(!tasksample)
+			{
+				return false;
+			}
+			m_iMaxamount = tasksample.GetMaxamount();
+			m_BleedTrigger = tasksample.m_BleedTrigger;
+			if(tasks.Count() >= m_iMaxamount)
+			{
+				return false;
+			}
 			InheritFromSample();
+		}
+			
 		if (!m_eTaskOwner)
 		{
 			//first look for owner cause targer is usually derived from owner faction/location etc...
@@ -281,7 +285,20 @@ class SP_RescueTask: SP_Task
 	private bool CheckForCharacters(float radius, vector origin)
 	{
 		BaseWorld world = GetGame().GetWorld();
-		return GetGame().GetWorld().QueryEntitiesBySphere(origin, radius, QueryEntitiesForCharacter);
+		FactionAffiliationComponent Myaffiliation = FactionAffiliationComponent.Cast(m_eTaskOwner.FindComponent(FactionAffiliationComponent));
+		array<IEntity> entities = {};
+		GetGame().GetTagManager().GetTagsInRange(entities, origin, radius, ETagCategory.Perceivable);
+		foreach (IEntity Char : entities)
+		{
+			if (!CharsToRescue.Contains(Char))
+				return true;
+			FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(Char.FindComponent(FactionAffiliationComponent));
+			if (affiliation.GetAffiliatedFaction().IsFactionEnemy(Myaffiliation.GetAffiliatedFaction()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	bool CreateVictim(out IEntity Victim)
@@ -332,7 +349,7 @@ class SP_RescueTask: SP_Task
 		{
 			CharsToRescue.Insert(agent.GetControlledEntity());
 		}
-		if (!CheckForCharacters(400, Owner.GetOrigin()))
+		if (!m_bPartOfChain && !CheckForCharacters(400, Owner.GetOrigin()))
 			return false;
 		//if (!CheckForCharacters(400, Victim.GetOrigin()))
 			//return false;
