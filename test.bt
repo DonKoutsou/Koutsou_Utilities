@@ -1,0 +1,23 @@
+BehaviorTree {
+ Name "test.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -272 -28
+  }
+ }
+ Variables {
+  Variable searchTags {
+   VariableName "searchTags"
+   VariableTypeName "array<string>"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference searchTags {
+   VariableType 0
+   EditorPos -992.5 298.75
+  }
+ }
+}

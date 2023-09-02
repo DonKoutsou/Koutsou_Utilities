@@ -940,3 +940,12 @@ enum ETaskTimeLimmit
 	WEEKS,
 	YEARS,
 }
+enum ETaskType
+{
+	KILL,
+	DELIVER,
+	NAVIGATE,
+	RESCUE,
+	BOUNTY,
+	RETRIEVE
+}

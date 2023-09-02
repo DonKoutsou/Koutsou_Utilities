@@ -5,7 +5,6 @@ class SP_UnretrievableComponentClass : GameComponentClass
 class SP_UnretrievableComponent : GameComponent
 {
 };
-
 class SP_PackageComponentClass : SP_UnretrievableComponentClass
 {
 };

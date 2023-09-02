@@ -1,8 +1,10 @@
 class SCR_AIPerformLightAction : AITaskScripted
 {
+	protected const static string ENTITY_PORT = "TargetEntity";
+	protected const static string TAG_PORT = "Tags";
 	//------------------------------------------------------------------------------------------------
 	protected static ref TStringArray s_aVarsIn = {
-		"TargetEntity"
+		ENTITY_PORT, TAG_PORT
 	};
 	
 	//------------------------------------------------------------------------------------------------
@@ -19,26 +21,38 @@ class SCR_AIPerformLightAction : AITaskScripted
 			IEntity targetEntity;
 			string userActionString;
 			typename userAction;
-			GetVariableIn("TargetEntity", targetEntity);
+			GetVariableIn(ENTITY_PORT, targetEntity);
+			array <string> tags = {};
+			GetVariableIn(TAG_PORT, tags);
+			if (tags.IsEmpty())
+				return ENodeResult.FAIL;
+			
 			if (!targetEntity)
 				return ENodeResult.FAIL;
-			if(SCR_FireplaceComponent.Cast(targetEntity.FindComponent(SCR_FireplaceComponent)))
+			if(tags[0] == "LightFire")
 			{
 				userActionString = "SCR_LightFireplaceUserAction";
 			}
-			else if(SCR_BaseInteractiveLightComponent.Cast(targetEntity.FindComponent(SCR_BaseInteractiveLightComponent)))
+			else if(tags[0] == "SwitchLight")
 			{
 				userActionString = "SCR_SwitchLightUserAction";
 			}
-			else if(RadioBroadcastComponent.Cast(targetEntity.FindComponent(RadioBroadcastComponent)))
+			else if(tags[0] == "SwitchRadio")
 			{
 				userActionString = "SCR_TurnOnAction";
 			}
-			else if(ChimeraCharacter.Cast(targetEntity))
+			else if(tags[0] == "DeadBody")
 			{
-				userActionString = "SP_AIStab";
+				userActionString = "SP_AILootBodyAction";
 			}
-	
+			else if(tags[0] == "SmartTask")
+			{
+				userActionString = "SP_DialogueAction";
+			}
+			else if (tags[0] == "AmmoRefill")
+			{
+				
+			}
 			IEntity controlledEntity = owner.GetControlledEntity();
 			if (!controlledEntity)
 				return ENodeResult.FAIL;

@@ -1,0 +1,186 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/SmartActions/Handle_Ammo_Task.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -670 -225
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -697.429 3.571
+     Nodes {
+      SCR_AIGetCurrentWeaponProperties "SCR_AI Get Current Weapon Properties" {
+       Name "SCR_AI Get Current Weapon Properties"
+       EditorPos -1534.286 430
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "Character"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 1
+         PortName "WeaponComponent"
+        }
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "MagazineComponent"
+        }
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 2
+         PortName "MuzzleId"
+        }
+       }
+      }
+      Sequence Sequence {
+       Name "Sequence"
+       EditorPos -145.141 209.857
+       Nodes {
+        SCR_AICheckLowAmmo "SCR_AI Check Low Ammo" {
+         Name "SCR_AI Check Low Ammo"
+         EditorPos -490.88 459.19
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 1
+           PortName "WeaponComponent"
+          }
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 2
+           PortName "MuzzleId"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 0
+           PortName "LowAmmo"
+          }
+         }
+        }
+        DecoTestVariable "Test Variable" {
+         Name "Test Variable"
+         EditorPos 274.438 406.968
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos 286.5 615
+           Nodes {
+            SCR_AIGetCurrency "SCR_AI Get Currency" {
+             Name "SCR_AI Get Currency"
+             EditorPos -130 803.75
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port 5
+               PortName "Currency"
+              }
+             }
+            }
+           }
+          }
+         }
+         InVariable 0
+         TestType EqualsValue
+         TestValue "true"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  SCR_AIGetMuzzleMagazineWell "SCR_AI Get Muzzle Magazine Well" {
+   Name "SCR_AI Get Muzzle Magazine Well"
+   EditorPos -341.201 989.035
+   InPorts {
+    SingleInputPortContainer SingleInputPortContainer {
+     Port 3
+     PortName "WeaponComponent"
+    }
+    SingleInputPortContainer SingleInputPortContainer {
+     Port 4
+     PortName "MuzzleId"
+    }
+   }
+   OutPorts {
+    SingleOutputPortContainer SingleOutputPortContainer {
+     Port -1
+     PortName "MagazineWell"
+    }
+    SingleOutputPortContainer SingleOutputPortContainer {
+     Port -1
+     PortName "MagazineWellType"
+    }
+   }
+  }
+  SCR_AICreateTask "SCR_AI Create Task" {
+   Name "SCR_AI Create Task"
+   EditorPos 488.75 868.75
+   task SP_BountyTask "{5E43003D3B334DF2}" {
+   }
+  }
+ }
+ Variables {
+  Variable lowAmmo {
+   VariableName "lowAmmo"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable weaponComp {
+   VariableName "weaponComp"
+   VariableTypeName "BaseWeaponComponent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable muzzleId {
+   VariableName "muzzleId"
+   VariableTypeName "int"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable myEntity {
+   VariableName "myEntity"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable myGroup {
+   VariableName "myGroup"
+   VariableTypeName "AIGroup"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable Currency {
+   VariableName "Currency"
+   VariableTypeName "int"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference lowAmmo {
+   VariableType 0
+   EditorPos -142.388 488.794
+  }
+  VariableReference weaponComp {
+   VariableType 1
+   EditorPos -1136.627 454.926
+  }
+  VariableReference muzzleId {
+   VariableType 2
+   EditorPos -1139.506 529.11
+  }
+  VariableReference weaponComp {
+   VariableType 1
+   EditorPos -704.249 992.642
+  }
+  VariableReference muzzleId {
+   VariableType 2
+   EditorPos -492.916 1064.975
+  }
+  VariableReference Currency {
+   VariableType 5
+   EditorPos 51.25 903.75
+  }
+ }
+}

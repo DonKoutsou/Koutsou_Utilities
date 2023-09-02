@@ -5,9 +5,10 @@ class SP_CharacterAISmartActionComponentClass: SCR_AISmartActionComponentClass
 
 class SP_CharacterAISmartActionComponent : SCR_AISmartActionComponent
 {
-	override void EOnInit(IEntity owner)
+	void SP_CharacterAISmartActionComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
 	{
-		SetActionAccessible(true);
+		m_Owner = GenericEntity.Cast(ent);
 	}
+	
 };
 

@@ -242,7 +242,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Create tasks of type
-	private bool CreateTask(typename TaskType)
+	bool CreateTask(typename TaskType)
 	{
 		if(!TaskType)
 		{
@@ -276,6 +276,26 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_bQuestInited = true;
 		return true;
 	}
+	bool CreateCustomTask(typename TaskType, IEntity Owner)
+	{
+		if(!TaskType)
+		{
+			return false;
+		}
+		if (!GetTaskSample(TaskType).m_bEnabled)
+			return false;
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
+		Task.m_eTaskOwner = Owner;
+		if(Task.Init())
+		{
+			m_aTaskMap.Insert(Task);
+			Task.OnTaskFinished().Insert(OnTaskFinished);
+			return true;
+		}
+		return false;
+	}
+	
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter for tasks of provided entity
 	static void GetCharTasks(IEntity Char,out array<ref SP_Task> tasks)
@@ -294,6 +314,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//Checks if char has tasks that would require him to stay put. If he is looking for someone to do a delivery, unless he wants to do it, he would stay put so that people could find him and take said delivery, or if is target of del, so that delivery guy can find him.
 	static bool GetCanAssignTask(IEntity Char)
 	{
 		array<ref SP_Task> assignedtasks = {};
@@ -643,6 +664,53 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		}
 	}
+	/*void AssignTaskTo(SP_Task task, IEntity Char)
+	{
+		ChimeraCharacter Assignee = ChimeraCharacter.Cast(Char);
+		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee))
+		{
+			AssignMyTask(Assignee);
+			return;
+		}
+		array <ref SP_Task> Astasks = {};
+		foreach (SP_Task task : m_aTaskSamples)
+		{
+			if (task.m_bAssignable)
+				GetCharOwnedTasksOfSameType(Assignee, Astasks, task.GetClassName());
+		}
+		if (!Astasks.IsEmpty())
+			return;
+
+		/*for (int i = tasks.Count() - 1; i >= 0; i--)
+		{
+			if (task.GetTarget() == Assignee)
+				continue;
+			if (task.IsReserved())
+				continue;
+			if (task.GetState() == ETaskState.ASSIGNED)
+				continue;
+			if (task.GetTimeLimit() < 3 && mytask.GetTimeLimit() != -1)
+				continue;
+			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
+			if (!comp)
+				return;
+			AIAgent agent = comp.GetAIAgent();
+			if (!agent)
+				return;
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			if (!utility)
+				return;
+			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+			if (!group)
+				return;
+			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
+			utility.AddAction(action);
+			mytask.SetReserved(Assignee);
+			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
+			
+			return;
+		}
+	}*/
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
@@ -823,7 +891,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				
 				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
 				
-				infoText2 = infoText2 + string.Format("Heading towards %1's location to pick %2", name ,action.PickedTask.GetClassName().ToString());
+				infoText2 = infoText2 + string.Format("Heading towards %1's location to pick %2\n", name ,action.PickedTask.GetClassName().ToString());
 				
 				Shape.CreateSphere(Color.WHITE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
@@ -840,7 +908,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				if (Navaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
 				
-				infoText2 = infoText2 + string.Format("Escorting %1 to %2's location", Oname ,name);
+				infoText2 = infoText2 + string.Format("Escorting %1 to %2's location\n", Oname ,name);
 				
 				Shape.CreateSphere(Color.BLUE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
@@ -852,7 +920,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				string name = SP_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
 				if (Delaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
-				infoText2 = infoText2 + string.Format("Delivering Package to %1", name);
+				infoText2 = infoText2 + string.Format("Delivering Package to %1\n", name);
 				Shape.CreateSphere(Color.GREEN, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			SCR_AIExecuteBountyTaskBehavior Bountyaction = SCR_AIExecuteBountyTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteBountyTaskBehavior));
@@ -863,7 +931,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				string name = SP_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
 				if (Bountyaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
-				infoText2 = infoText2 + string.Format("Going after %1's bounty.", name);
+				infoText2 = infoText2 + string.Format("Going after %1's bounty.\n", name);
 				Shape.CreateSphere(Color.RED, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
@@ -872,9 +940,37 @@ class SP_RequestManagerComponent : ScriptComponent
 				if (!followact.Char)
 					continue;
 				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
-				infoText2 = infoText2 + string.Format("Following %1", name);
+				infoText2 = infoText2 + string.Format("Following %1\n", name);
 				Shape.CreateSphere(Color.ORANGE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
+			SCR_AICombatComponent m_CombatComp = SCR_AICombatComponent.Cast(Owner.FindComponent(SCR_AICombatComponent));
+			if (m_CombatComp)
+			{
+				SCR_InventoryStorageManagerComponent InvMan = SCR_InventoryStorageManagerComponent.Cast(Owner.FindComponent(SCR_InventoryStorageManagerComponent));
+				BaseWeaponComponent weaponComp;
+				BaseMagazineComponent magazineComp;
+				BaseMagazineWell iMagWell;
+				int muzzleId;
+				weaponComp = m_CombatComp.GetCurrentWeapon();
+			
+				if (weaponComp)
+				{
+					int magamount;
+					string magtype;
+					if (weaponComp.GetCurrentMagazine())
+					{
+						iMagWell = weaponComp.GetCurrentMagazine().GetMagazineWell();
+						magamount = m_CombatComp.GetMagazineCount(iMagWell.Type(), true);
+					}
+					if (iMagWell)
+					{
+						magtype = iMagWell.Type().ToString();
+					}
+					infoText2 = infoText2 + string.Format("Ammo Count: %1 of %2\n", magamount, magtype);
+				}
+				
+			}
+			
 			/*int highlightRegion = -1;
 			float highlightDist = -1;
 			vector textMat[4];
@@ -1120,6 +1216,22 @@ class CharacterHolder : ScriptAndConfig
 		for (int i = 0; i < 10; i++)
 		{
 			if (!GetUnitOfFaction(fact, CloseChar))
+				continue;
+			if (CloseChar == mychar)
+				continue;
+			float dist = vector.Distance(CloseChar.GetOrigin(), mychar.GetOrigin());
+			if (maxdistance > dist)
+				return true;
+		}
+		CloseChar = null;
+		return false;
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	static bool GetCloseUnitOfFriendlyFaction(ChimeraCharacter mychar, float maxdistance, Faction fact, out ChimeraCharacter CloseChar)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (!GetUnitOfAnyFriendlyFaction(fact, CloseChar))
 				continue;
 			if (CloseChar == mychar)
 				continue;

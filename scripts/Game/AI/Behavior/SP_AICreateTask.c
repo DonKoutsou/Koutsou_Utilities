@@ -1,0 +1,147 @@
+class SCR_AICreateTask : AITaskScripted
+{
+	[Attribute("0", UIWidgets.ComboBox, "Wanted task type", "",ParamEnumArray.FromEnum(ETaskType))]
+	ETaskType task;
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SP_RequestManagerComponent RequestComp = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		typename taskname;
+		switch (task)
+		{
+			case "KILL":
+			{
+				taskname = SP_KillTask;
+			}
+			break;
+			case "DELIVER":
+			{
+				taskname = SP_DeliverTask;
+			}
+			break;
+			case "NAVIGATE":
+			{
+				taskname = SP_NavigateTask;
+			}
+			break;
+			case "RESCUE":
+			{
+				taskname = SP_RescueTask;
+			}
+			break;
+			case "BOUNTY":
+			{
+				taskname = SP_BountyTask;
+			}
+			break;
+			case "RETRIEVE":
+			{
+				taskname = SP_RetrieveTask;
+			}
+			break;
+		}
+		if (!RequestComp.CreateCustomTask(taskname, owner.GetControlledEntity()))
+			return ENodeResult.FAIL;
+		return ENodeResult.SUCCESS;
+	}
+	override bool VisibleInPalette() { return true; }
+}
+class SCR_AIEvaluatePossibleTags : AITaskScripted
+{
+	[Attribute()]
+	bool LookforTask;
+	[Attribute()]
+	bool LookforAmmo;
+	protected const static string TAG_PORT = "Tags";
+	protected static ref TStringArray s_aVarsOut = {TAG_PORT};
+	
+	override TStringArray GetVariablesOut() { return s_aVarsOut; }
+
+	
+	ref array <string> tags;
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		tags = {};
+		if (!LookforTask && !LookforAmmo)
+		{
+			tags.Insert("LightFire");
+			tags.Insert("SwitchLight");
+			tags.Insert("SwitchRadio");
+			tags.Insert("DeadBody");
+			SetVariableOut(TAG_PORT, tags);
+		}
+		else if (LookforTask)
+		{
+			tags.Insert("SmartTask");
+			SetVariableOut(TAG_PORT, tags);
+		}
+		else if (LookforAmmo)
+		{
+			tags.Insert("AmmoRefill");
+			SetVariableOut(TAG_PORT, tags);
+		}
+		return ENodeResult.SUCCESS;
+	}
+	override bool VisibleInPalette() { return true; }
+}
+class SCR_AIPickupTask : AITaskScripted
+{
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		array <IEntity> Chars = {};
+		
+		return ENodeResult.SUCCESS;
+	}
+	
+	override bool VisibleInPalette() { return true; }
+}
+class SCR_AIGetCurrency : AITaskScripted
+{
+	protected const static string CURRENCY_PORT = "Currency";
+	
+	
+	protected static ref TStringArray s_aVarsOut = {CURRENCY_PORT};
+	
+	override TStringArray GetVariablesOut() { return s_aVarsOut; }
+	
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		
+		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(owner.GetControlledEntity());
+		if (!Char)
+			return ENodeResult.FAIL;
+		WalletEntity wallet = Char.GetWallet();
+		if (!wallet)
+			return ENodeResult.FAIL;
+		int Currency = wallet.GetCurrencyAmmount();
+		SetVariableOut(CURRENCY_PORT, Currency);
+		return ENodeResult.SUCCESS;
+	}
+	
+	override bool VisibleInPalette() { return true; }
+}
+class HasTaskSmartActionTest : SmartActionTest
+{
+	override bool TestAction(IEntity Owner, IEntity User)
+	{
+		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		if (!requestman.CharHasTask(Owner))
+		{
+			return false;
+		}
+		array <ref SP_Task> tasks = {};
+		requestman.GetCharTasks(Owner, tasks);
+		foreach (SP_Task task : tasks)
+		{
+			if (task.GetTarget() == User)
+				continue;
+			if (task.IsReserved())
+					continue;
+			if (task.GetState() == ETaskState.ASSIGNED)
+					continue;
+			if (task.GetTimeLimit() < 3 && task.GetTimeLimit() != -1)
+					continue;
+			return true;
+		}
+		return false;
+	}
+}

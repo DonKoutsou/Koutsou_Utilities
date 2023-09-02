@@ -45,8 +45,6 @@ WalletEntity {
    MaxItemSize 10 10 10
    m_fMaxWeight 1
   }
-  SP_UnretrievableComponent "{5E34C51884C7F460}" {
-  }
   SCR_InventoryStorageManagerComponent "{5E38F753CF35960B}" {
   }
   ActionsManagerComponent "{5C78C42204C93AEF}" {
