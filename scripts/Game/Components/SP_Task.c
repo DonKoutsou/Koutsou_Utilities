@@ -33,7 +33,7 @@ class SP_Task
 	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency, keep at 1 for Distance based tasks (Navigate, Deliver), reward is calculated based on distance and multiplied to this value, so increase to increase multiplier")]
 	int m_iRewardAverageAmount;
 	//-------------------------------------------------//
-	[Attribute(defvalue: "12", desc: "ammount of time the task will need to be completed in before penalties start appling. In Hours. If set to -1, no limit will be set")]
+	[Attribute(defvalue: "-1", desc: "ammount of time the task will need to be completed in before penalties start appling. In Hours. If set to -1, no limit will be set")]
 	float m_fTimeLimit;
 	[Attribute(defvalue : "0", desc : "Should Fail On Limit reaching 0")]
 	bool m_bFailOnTimeLimit;
@@ -86,6 +86,7 @@ class SP_Task
 	IEntity m_aTaskAssigned;
 	bool m_bOwnerAssigned;
 	bool m_bPartOfChain;
+	bool m_bHasReward;
 	//-------------------------------------------------//
 	//Character that completed this task. Filled after task is complete
 	IEntity m_eCopletionist;
@@ -152,7 +153,17 @@ class SP_Task
 	string GetTaskDescription(){return m_sTaskDesc;}
 	//------------------------------------------------------------------------------------------------------------//
 	//Returns dialogue of task owner when giving task
-	string GetTaskDiag(){return m_sTaskDiag + string.Format(" I need it done within the next %1 hours.", GetTimeLimit().ToString().ToInt());}
+	string GetTaskDiag()
+	{
+		if (GetTimeLimit() != -1)
+		{
+			return m_sTaskDiag + string.Format(" I need it done within the next %1 hours.", GetTimeLimit().ToString().ToInt());
+		}
+		else
+		{
+			return m_sTaskDiag;
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Return task title
 	string GetTaskTitle(){return m_sTaskTitle;}
@@ -406,6 +417,12 @@ class SP_Task
 	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
+		if (!e_RewardLabel)
+		{
+			m_bHasReward = false;
+			return true;
+			Print("Mission has no reward configured, will be created with no reward");
+		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
@@ -422,7 +439,7 @@ class SP_Task
 	};
 	void SetTimeLimit()
 	{
-		if (m_fTimeLimit == -1)
+		if (m_fTimeLimit == -1.0)
 			return;
 		float TimeLimit = Math.RandomFloat(m_fTimeLimit/2, m_fTimeLimit * 1.5);
 		m_TaskTimeInfo = TaskDayTimeInfo.FromPointInFuture(TimeLimit, ETaskTimeLimmit.HOURS);
@@ -439,6 +456,10 @@ class SP_Task
 	//Called when task if completed to give rewards to completionist
 	bool GiveReward(IEntity Target)
 	{
+		if (!m_bHasReward)
+		{
+			return true;
+		}
 		if (Target == m_eTaskOwner)
 			return true;
 		if (e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)

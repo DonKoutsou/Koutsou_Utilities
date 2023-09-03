@@ -41,6 +41,8 @@ class WalletEntity: GameEntity
 	{
 		array<IEntity> currency = {};
 		GetCurrency(currency);
+		if (currency.Count() < ammount)
+			ammount = currency.Count();
 		for (int i, count = ammount; i < count; i++)
 		{
 			m_cInventoryManager.TryRemoveItemFromInventory(currency[i]);

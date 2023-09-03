@@ -9,22 +9,23 @@ class SP_RescueTask: SP_Task
 	ResourceName m_BleedTrigger;
 	
 	
-	ref array <IEntity> CharsToRescue = ;
+	ref array <IEntity> m_aCharsToRescue = ;
+	ref array <IEntity> m_aRescued = ;
+	ref array <IEntity> m_aDeceased = ;
 	int GetMaxamount()
 	{
 		return m_iMaxamount;
 	};
-	array <IEntity> GetCharsToResc()
+	array <IEntity> GetCharsToResce()
 	{
-		return CharsToRescue;
+		return m_aCharsToRescue;
 	}
 	void OnCharacterRescued(EDamageType dType, HitZone hz)
 	{
 		if (dType != EDamageType.BLEEDING)
 			return;
 		IEntity Instigator;
-		ref array <IEntity> CharsRescued = new ref array <IEntity>();
-		foreach (IEntity Rescued : CharsToRescue)
+		foreach (IEntity Rescued : m_aCharsToRescue)
 		{
 			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Rescued.FindComponent(SCR_CharacterDamageManagerComponent));
 			array<HitZone> blhitZones = new array<HitZone>();
@@ -33,35 +34,81 @@ class SP_RescueTask: SP_Task
 			{
 				if (dmg.GetInstigator())
 					Instigator = dmg.GetInstigator();
-				CharsRescued.Insert(Rescued);
 				dmg.SetResilienceRegenScale(0.3);
 				dmg.FullHeal(false);
-				
+				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
+				dmg.GetOnDamageStateChanged().Remove(OnCharacterKilled);
+				if (!m_aRescued.Contains(Rescued))
+					m_aRescued.Insert(Rescued);
 			}
 		}
-		for (int i = CharsRescued.Count() - 1; i >= 0; --i)
+		for (int i = m_aRescued.Count() - 1; i >= 0; --i)
 		{
-			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(CharsRescued[i].FindComponent(SCR_CharacterDamageManagerComponent));
-			CharsToRescue.RemoveItem(CharsRescued[i]);
-			dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
+			m_aCharsToRescue.RemoveItem(m_aRescued[i]);
+			if (Instigator && Instigator == SCR_EntityHelper.GetPlayer())
+				SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Units rescued : %1\nUnits died : %2\nRemaining : %3", m_aRescued.Count(), m_aDeceased.Count(), m_aCharsToRescue.Count()));
+			
 		}
-		if (CharsToRescue.IsEmpty())
+		if (m_aCharsToRescue.IsEmpty())
 		{
 			if (Instigator)
-				CompleteTask(Instigator);
+				EvaluateAndFinish(Instigator);
 			else
-				CompleteTask(SCR_EntityHelper.GetPlayer());
+				EvaluateAndFinish(SCR_EntityHelper.GetPlayer());
 		}
 		else
 		{
 			if (m_TaskMarker)
-				m_TaskMarker.SetOrigin(CharsToRescue.GetRandomElement().GetOrigin());
+				m_TaskMarker.SetOrigin(m_aCharsToRescue.GetRandomElement().GetOrigin());
 			else
 				AssignCharacter(Instigator);
 		}
 	}
+	void OnCharacterKilled(EDamageState state)
+	{
+		if (state != EDamageState.DESTROYED)
+			return;
+		IEntity my_Instigator;
+		foreach (IEntity Character : m_aCharsToRescue)
+		{
+			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Character.FindComponent(SCR_CharacterDamageManagerComponent));
+			if (!dmg.IsDestroyed())
+				continue;
+			dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
+			dmg.GetOnDamageStateChanged().Remove(OnCharacterKilled);
+			m_aDeceased.Insert(Character);
+		}
+		foreach (IEntity Character : m_aDeceased)
+		{
+			if (m_aCharsToRescue.Contains(Character))
+			{
+				m_aCharsToRescue.RemoveItem(Character);
+				if (GetAssignee() && GetAssignee() == SCR_EntityHelper.GetPlayer())
+					SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Units rescued : %1\nUnits died : %2\nRemaining : %3", m_aRescued.Count(), m_aDeceased.Count(), m_aCharsToRescue.Count()));
+			}
+		}
+		if (m_aCharsToRescue.IsEmpty())
+		{
+			EvaluateAndFinish(null);
+		}
+	}
+	void EvaluateAndFinish(IEntity Completionist)
+	{
+		if (!Completionist && GetAssignee())
+		{
+			Completionist = GetAssignee();
+		}
+		if (m_aRescued.Count() > 0 && Completionist)
+			CompleteTask(Completionist);
+		else
+			FailTask();
+	}
 	override bool GiveReward(IEntity Target)
 	{
+		if (!m_bHasReward)
+		{
+			return true;
+		}
 		if (m_Reward)
 		{
 			EntitySpawnParams params = EntitySpawnParams();
@@ -78,15 +125,15 @@ class SP_RescueTask: SP_Task
 				TargetInv.TryInsertItem(Rewardlist[i]);
 				Movedamount += 1;
 			}
-			string curr = FilePath.StripPath(m_Reward);
-			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 %2 added to your inventory, and your reputation has improved", Movedamount.ToString(), curr.Substring(0, curr.Length() - 3)));
 			return true;
 		}
 		return false;
 	};
 	override bool Init()
 	{
-		CharsToRescue = new ref array <IEntity>();
+		m_aCharsToRescue = {};
+		m_aRescued = {};
+		m_aDeceased = {};
 		array <ref SP_Task> tasks = new array <ref SP_Task>();
 		SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_RescueTask);
 		
@@ -126,6 +173,7 @@ class SP_RescueTask: SP_Task
 			DeleteLeftovers();
 			return false;
 		}
+		SetTimeLimit();
 		SpawnBleedTrigger();
 		CreateDescritions();
 		AddOwnerInvokers();
@@ -172,8 +220,8 @@ class SP_RescueTask: SP_Task
 		string OName;
 		string OLoc;
 		GetInfo(OName, OLoc);
-		m_sTaskDesc = string.Format("%1's squad was ambussed, they need someone to rescuer them, they are somewhere areound %2", OName, OLoc);
-		m_sTaskDiag = string.Format("We havent been able to establish connections with %1's squad for a while, please go to %2 and look for them", OName, OLoc);
+		m_sTaskDesc = string.Format("%1's squad was ambussed, someone ought to go look for them, they are somewhere areound %2.", OName, OLoc);
+		m_sTaskDiag = string.Format("We've lost coms with %1's squad for a while, please go to %2 and look for them", OName, OLoc);
 		m_sTaskTitle = string.Format("Rescue: locate %1's squad and provide help", OName);
 		m_sTaskCompletiontext = "We owe you our lives %1, thanks for saving us.";
 	};
@@ -221,9 +269,9 @@ class SP_RescueTask: SP_Task
 	};
 	override void FailTask()
 	{
-		if (!CharsToRescue.IsEmpty())
+		if (!m_aCharsToRescue.IsEmpty())
 		{
-			foreach (IEntity Char : CharsToRescue)
+			foreach (IEntity Char : m_aCharsToRescue)
 			{
 				SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(Char.FindComponent(SCR_CharacterDamageManagerComponent));
 				if (!dmgman.IsDestroyed())
@@ -249,7 +297,7 @@ class SP_RescueTask: SP_Task
 	}
 	override bool CompleteTask(IEntity Assignee)
 	{
-		if(CharsToRescue.Count() != 0)
+		if(m_aCharsToRescue.Count() != 0)
 		{
 			return false;
 		}
@@ -278,22 +326,22 @@ class SP_RescueTask: SP_Task
 		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(e.FindComponent(ScriptedDamageManagerComponent));
 		if (dmg.GetState() == EDamageState.DESTROYED)
 			return true;
-		if (CharsToRescue.Contains(e))
+		if (m_aCharsToRescue.Contains(e))
 			return true;
 		return false;
 	}
 	private bool CheckForCharacters(float radius, vector origin)
 	{
 		BaseWorld world = GetGame().GetWorld();
-		FactionAffiliationComponent Myaffiliation = FactionAffiliationComponent.Cast(m_eTaskOwner.FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent Myaffiliation = FactionAffiliationComponent.Cast(m_aCharsToRescue[0].FindComponent(FactionAffiliationComponent));
 		array<IEntity> entities = {};
 		GetGame().GetTagManager().GetTagsInRange(entities, origin, radius, ETagCategory.Perceivable);
 		foreach (IEntity Char : entities)
 		{
-			if (!CharsToRescue.Contains(Char))
-				return true;
+			if (m_aCharsToRescue.Contains(Char))
+				continue;
 			FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(Char.FindComponent(FactionAffiliationComponent));
-			if (affiliation.GetAffiliatedFaction().IsFactionEnemy(Myaffiliation.GetAffiliatedFaction()))
+			if (affiliation.GetAffiliatedFaction().IsFactionFriendly(Myaffiliation.GetAffiliatedFaction()))
 			{
 				return true;
 			}
@@ -347,7 +395,7 @@ class SP_RescueTask: SP_Task
 		}
 		foreach(AIAgent agent : outAgents)
 		{
-			CharsToRescue.Insert(agent.GetControlledEntity());
+			m_aCharsToRescue.Insert(agent.GetControlledEntity());
 		}
 		if (!m_bPartOfChain && !CheckForCharacters(400, Owner.GetOrigin()))
 			return false;
@@ -365,10 +413,20 @@ class SP_RescueTask: SP_Task
 				}
 				dmg.SetResilienceRegenScale(0);
 				dmg.GetOnDamageOverTimeRemoved().Insert(OnCharacterRescued);
+				dmg.GetOnDamageStateChanged().Insert(OnCharacterKilled);
 			}
 		}
 		return true;
 	};
+	override void GetOnOwnerDeath()
+	{
+		RemoveOwnerInvokers();
+		if (!m_aCharsToRescue.IsEmpty())
+		{
+			m_eTaskOwner = m_aCharsToRescue[0];
+			AddOwnerInvokers();
+		}
+	}
 	override void AddTargetInvokers()
 	{
 	};
@@ -377,11 +435,14 @@ class SP_RescueTask: SP_Task
 	};
 	void SpawnBleedTrigger()
 	{
+		if (!m_BleedTrigger)
+			m_BleedTrigger = "{BB079FFC94347494}prefabs/Triggers/SP_BleedTrigger.et";
+
 		EntitySpawnParams params = EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
 		params.Transform[3] = m_eTaskOwner.GetOrigin();
 		SP_CharacterTriggerEntity trigger = SP_CharacterTriggerEntity.Cast(GetGame().SpawnEntityPrefab(Resource.Load(m_BleedTrigger), GetGame().GetWorld(), params));
-		trigger.AddCharacters(CharsToRescue);
+		trigger.AddCharacters(m_aCharsToRescue);
 		//m_eTaskOwner.AddChild(trigger, 1);
 	}
 }

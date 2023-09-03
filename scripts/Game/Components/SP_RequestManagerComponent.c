@@ -68,37 +68,45 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		return s_OnTaskComplete;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	ScriptInvoker OnTaskFail()
 	{
 		return s_OnTaskFailed;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	ScriptInvoker OnTaskCreated()
 	{
 		return s_OnTaskCreated;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	private event void OnNewChar(IEntity Char)
 	{
 		m_CharacterHolder.InserCharacter(ChimeraCharacter.Cast(Char));
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	private event void OnCharDeath(IEntity Char)
 	{
 		m_CharacterHolder.CharIsDead(ChimeraCharacter.Cast(Char));
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	private event void OnCharDel(IEntity Char)
 	{
 		m_CharacterHolder.CharIsDel(ChimeraCharacter.Cast(Char));
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	event void OnTaskCompleted(SP_Task Task)
 	{
 		m_aTaskMap.RemoveItem(Task);
 		m_aCompletedTaskMap.Insert(Task);
 		OnTaskComplete().Invoke(Task, Task.GetCompletionist());
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	event void OnTaskFailed(SP_Task Task)
 	{
 		m_aTaskMap.RemoveItem(Task);
 		OnTaskFail().Invoke(Task, Task.GetCompletionist());
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	void OnTaskFinished(SP_Task task)
 	{
 		task.OnTaskFinished().Remove(OnTaskFinished);
@@ -108,15 +116,16 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (state == ETaskState.FAILED)
 			OnTaskFailed(task);
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	int GetTasksPerCharacter()
 	{
 		return m_fTaskPerCharacter;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	int GetTasksOfSameTypePerCharacter()
 	{
 		return m_fTaskOfSameTypePerCharacter;
 	}
-	
 	//--------------------------------------------------------------------//
 	//Getter for samples
 	static SP_Task GetTaskSample(typename tasktype)
@@ -132,6 +141,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return null;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static bool IsAssignable(typename tasktype)
 	{
 		foreach(SP_Task Task : m_aTaskSamples)
@@ -157,6 +167,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static bool CharHasOwnAssigned(IEntity Char)
 	{
 		array <ref SP_Task> tasks = {};
@@ -196,6 +207,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static bool CharIsPickingTask(IEntity Char)
 	{
 		if (!Char)
@@ -261,6 +273,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	private bool CreateChainedTasks()
 	{
 		bool anyfailed;
@@ -276,6 +289,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_bQuestInited = true;
 		return true;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	bool CreateCustomTask(typename TaskType, IEntity Owner)
 	{
 		if(!TaskType)
@@ -295,7 +309,6 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
-	
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter for tasks of provided entity
 	static void GetCharTasks(IEntity Char,out array<ref SP_Task> tasks)
@@ -314,6 +327,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	//Checks if char has tasks that would require him to stay put. If he is looking for someone to do a delivery, unless he wants to do it, he would stay put so that people could find him and take said delivery, or if is target of del, so that delivery guy can find him.
 	static bool GetCanAssignTask(IEntity Char)
 	{
@@ -345,6 +359,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return true;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static void AssignMyTask(IEntity Char)
 	{
 		array<ref SP_Task> tasks = {};		
@@ -362,6 +377,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static int GetCharTaskCount(IEntity Char)
 	{
 		if (!Char)
@@ -382,6 +398,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return 0;
 		return tasks.Count();
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static void GetUnassignedCharTasks(IEntity Char, IEntity Assignee, out array<ref SP_Task> tasks)
 	{
 		if (!Char)
@@ -438,6 +455,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static void GetReadyToDeliver(IEntity Char,out array<ref SP_Task> tasks, IEntity Assignee)
 	{
 		array<ref SP_Task> Readytasks = {};
@@ -460,7 +478,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			if(task.GetClassName() == SP_RescueTask)
 			{
 				SP_RescueTask resctask = SP_RescueTask.Cast(task);
-				if(resctask.GetCharsToResc().Contains(Char))
+				if(resctask.GetCharsToResce().Contains(Char))
 					tasks.Insert(task);
 			}
 		}
@@ -476,6 +494,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static void GetTasksCompletedBy(IEntity Char, out array<ref SP_Task> tasks)
 	{
 		foreach (SP_Task task : m_aCompletedTaskMap)
@@ -508,7 +527,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				tasks.Insert(task);
 			}
 		}
-	}
+	}	
+	//------------------------------------------------------------------------------------------------------------//
 	static void GetAssignableTasks(IEntity Owner, out array<ref SP_Task> tasks,IEntity Assignee)
 	{
 		array <ref SP_Task> ownedtasks = {};
@@ -534,6 +554,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void AssignInitTasks(IEntity Char)
 	{
 		if (m_aQuestlines.IsEmpty())
@@ -583,6 +604,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		SetEventMask(owner, EntityEvent.FRAME);
 		owner.SetFlags(EntityFlags.ACTIVE, true);
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void AssignATask()
 	{
 		ChimeraCharacter Assignee;
@@ -664,6 +686,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return;
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	/*void AssignTaskTo(SP_Task task, IEntity Char)
 	{
 		ChimeraCharacter Assignee = ChimeraCharacter.Cast(Char);
@@ -727,7 +750,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			CreateDebug();
 		}
 		
-		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount();
+		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)
@@ -755,6 +778,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 		AssignATask();
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)
 	{
 		//Init arrays
@@ -798,12 +822,14 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_CharacterHolder.m_aSpecialCars.Copy(m_aSpecialCars);
 		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 1000);
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	static int GetCharCurrency(IEntity Char)
 	{
 		SCR_ChimeraCharacter ChimChar = SCR_ChimeraCharacter.Cast(Char);
 		int amount = ChimChar.GetWallet().GetCurrencyAmmount();
 		return amount;
 	};
+	//------------------------------------------------------------------------------------------------------------//
 	void CreateDebug()
 	{
 		if (m_CharacterHolder.GetAliveCount() == 0)
@@ -1027,268 +1053,3 @@ modded enum SCR_EArsenalItemMode
 	GADGET = 128
 	
 };
-//------------------------------------------------------------------//
-//Class to contain all characters
-class CharacterHolder : ScriptAndConfig
-{
-	static private ref array <ChimeraCharacter> AliveCharacters;
-	static private ref array <ChimeraCharacter> DeadCharacters;
-
-	static ref array<string> m_aSpecialCars;
-	
-	
-	array <ChimeraCharacter> GetAllAlive()
-	{
-		return AliveCharacters;
-	}
-	static void InserCharacter(ChimeraCharacter Char)
-	{
-		if (!Char)
-			return;
-		if (m_aSpecialCars.Contains(Char.GetName()))
-			return;
-		AliveCharacters.Insert(Char);
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static void CharIsDead(ChimeraCharacter Char)
-	{
-		if (!Char)
-			return;
-		AliveCharacters.RemoveItem(Char);
-		DeadCharacters.Insert(Char);
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static void CharIsDel(ChimeraCharacter Char)
-	{
-		if (!Char)
-			return;
-		if (AliveCharacters.Contains(Char))
-			AliveCharacters.RemoveItem(Char);
-		if (DeadCharacters.Contains(Char))
-			DeadCharacters.RemoveItem(Char);
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static int GetAliveCount()
-	{
-		return AliveCharacters.Count();
-	}
-	static ChimeraCharacter GetRandomDeadOfFaction(Faction fact)
-	{
-		ChimeraCharacter mychar;
-		if (DeadCharacters.IsEmpty())
-			return null;
-		for (int i = 0; i < 10; i++)
-		{
-			mychar = DeadCharacters.GetRandomElement();
-			if (!mychar)
-				continue;
-			
-			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
-			if (!Aff)
-				continue;
-			if(Aff.GetAffiliatedFaction() == fact)
-			{
-				return mychar;
-			}
-		}
-		mychar = null;
-		return mychar;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static bool GetUnitOfFaction(Faction fact, out ChimeraCharacter mychar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetRandomUnit(mychar))
-				continue;
-			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
-			if (!Aff)
-				continue;
-			if(Aff.GetAffiliatedFaction() == fact)
-			{
-				return true;
-			}
-		}
-		mychar = null;
-		return false;
-	}
-	static bool GetUnitOfAnyFriendlyFaction(Faction fact, out ChimeraCharacter mychar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetRandomUnit(mychar))
-				continue;
-			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(mychar.FindComponent(FactionAffiliationComponent));
-			if (!Aff)
-				continue;
-			if(Aff.GetAffiliatedFaction().IsFactionFriendly(fact))
-			{
-				return true;
-			}
-		}
-		mychar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static bool GetCharOfRank(SCR_CharacterRank rank, out ChimeraCharacter mychar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetRandomUnit(mychar))
-				continue;
-			SCR_CharacterRankComponent Rankcomp = SCR_CharacterRankComponent.Cast(mychar.FindComponent(SCR_CharacterRankComponent));
-			if (!Rankcomp)
-				continue;
-			if(Rankcomp.GetCharacterRankName(mychar) == rank.ToString())
-			{
-				return true;
-			}
-		}
-		mychar = null;
-		return false;	
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Get unit far form provided characters location
-	static bool GetFarUnit(ChimeraCharacter mychar, float mindistance, out ChimeraCharacter FarChar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetRandomUnit(FarChar))
-				continue;
-			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
-			if (mindistance > dist)
-				return true;
-		}
-		FarChar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Get unit far form provided location
-	static bool GetFarUnit(vector pos, float mindistance, out ChimeraCharacter FarChar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetRandomUnit(FarChar))
-				continue;
-			float dist = vector.Distance(FarChar.GetOrigin(), pos);
-			if (mindistance < dist)
-				return true;
-		}
-		FarChar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Get unit close provided location
-	static bool GetCloseUnit(vector pos, float maxdistance, out ChimeraCharacter CloseChar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetRandomUnit(CloseChar))
-				continue;
-			float dist = vector.Distance(CloseChar.GetOrigin(), pos);
-			if (maxdistance > dist)
-				return true;
-		}
-		CloseChar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Get unit of specified faction far form provided character
-	static bool GetFarUnitOfFaction(ChimeraCharacter mychar, float mindistance, Faction fact, out ChimeraCharacter FarChar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetUnitOfFaction(fact, FarChar))
-				continue;
-			if (FarChar == mychar)
-				continue;
-			float dist = vector.Distance(FarChar.GetOrigin(), mychar.GetOrigin());
-			if (mindistance < dist)
-				return true;
-		}
-		FarChar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	//Get unit of specified faction clsoe to provided character
-	static bool GetCloseUnitOfFaction(ChimeraCharacter mychar, float maxdistance, Faction fact, out ChimeraCharacter CloseChar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetUnitOfFaction(fact, CloseChar))
-				continue;
-			if (CloseChar == mychar)
-				continue;
-			float dist = vector.Distance(CloseChar.GetOrigin(), mychar.GetOrigin());
-			if (maxdistance > dist)
-				return true;
-		}
-		CloseChar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static bool GetCloseUnitOfFriendlyFaction(ChimeraCharacter mychar, float maxdistance, Faction fact, out ChimeraCharacter CloseChar)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (!GetUnitOfAnyFriendlyFaction(fact, CloseChar))
-				continue;
-			if (CloseChar == mychar)
-				continue;
-			float dist = vector.Distance(CloseChar.GetOrigin(), mychar.GetOrigin());
-			if (maxdistance > dist)
-				return true;
-		}
-		CloseChar = null;
-		return false;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	static bool GetRandomUnit(out ChimeraCharacter mychar)
-	{
-		if (AliveCharacters.IsEmpty())
-			return false;
-		mychar = AliveCharacters.GetRandomElement();
-		if (m_aSpecialCars.Contains(mychar.GetName()))
-			return false;
-		if (mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup())
-			if (m_aSpecialCars.Contains(mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup().GetName()))
-				return false;
-		if (SCR_EntityHelper.IsPlayer(mychar))
-			return false;
-		if (mychar)
-			return true;
-		return false;
-	}
-	/*bool GetStrandedGroup(out SCR_AIGroup group)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			group = SCR_AIGroup.Cast(AliveCharacters.GetRandomElement().GetParent());
-			if (!group)
-				continue;
-		
-			if (CheckForCharacters(200, group.GetOrigin()))
-				group = null;
-			if (group)
-				return true;
-		}
-		return false;
-	}*/
-	void CharacterHolder()
-	{
-		if (!AliveCharacters)
-			AliveCharacters = new ref array <ChimeraCharacter>();
-		if (!DeadCharacters)
-			DeadCharacters = new ref array <ChimeraCharacter>();
-		if (!m_aSpecialCars)
-			m_aSpecialCars = new array<string>();
-	}
-	
-	void ~CharacterHolder()
-	{
-		AliveCharacters.Clear();
-		DeadCharacters.Clear();
-		m_aSpecialCars.Clear();
-	}
-	void Init();
-}

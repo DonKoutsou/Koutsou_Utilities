@@ -15,6 +15,14 @@ class SP_NavigateTask: SP_Task
 		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 		{
 			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
+			if (!Char)
+			{
+				SCR_AIGroup group = SCR_AIGroup.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
+				if (group)
+				{
+					Char = ChimeraCharacter.Cast(group.GetLeaderEntity());
+				}
+			}
 		}
 		else
 		{
@@ -112,7 +120,10 @@ class SP_NavigateTask: SP_Task
 		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 		s_RewardName.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
-		m_sTaskDiag = string.Format("I am looking for someone to take me to %1 on %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
+		if (m_bHasReward)
+			m_sTaskDiag = string.Format("I need to go to %1 on %2. I'll give you %3 %4 if you manage to get me there in one piece.", DName, DLoc, m_iRewardAmount, s_RewardName);
+		else
+			m_sTaskDiag = string.Format("I need to go to %1 on %2.", DName, DLoc);
 		m_sTaskTitle = string.Format("Escort %1 to %2's location", OName, DName);
 		m_sAcceptTest = string.Format("Follow me. I'll take you to %1's location.", DName);
 		m_sacttext = "I've brought you where you asked.";

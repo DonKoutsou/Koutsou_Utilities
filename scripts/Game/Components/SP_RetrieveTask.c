@@ -385,6 +385,10 @@ class SP_RetrieveTask: SP_Task
 	};
 	override bool GiveReward(IEntity Target)
 	{
+		if (!m_bHasReward)
+		{
+			return true;
+		}
 		if (!rewards.IsEmpty())
 		{
 			

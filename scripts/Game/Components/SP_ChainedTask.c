@@ -99,6 +99,7 @@ class SP_ChainedTask : SP_Task
 			FailTask();
 		}
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	void SkipStage(SP_Task task)
 	{
 		if (stage + 1 == m_aTasks.Count())
@@ -137,6 +138,24 @@ class SP_ChainedTask : SP_Task
 		SP_Task task = m_aTasks[stage];
 		return task.ReadyToDeliver(TalkingChar, Assignee);
 	};
+	//------------------------------------------------------------------------------------------------------------//
+	override bool TimeLimitHasPassed()
+	{
+		SP_Task task = m_aTasks[stage];
+		return task.TimeLimitHasPassed();
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	override void SetTimeLimit()
+	{
+		SP_Task task = m_aTasks[stage];
+		task.SetTimeLimit();
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	override float GetTimeLimit()
+	{
+		SP_Task task = m_aTasks[stage];
+		return task.GetTimeLimit();
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	SP_Task GetCurrentTask()
 	{
@@ -179,12 +198,12 @@ class SP_ChainedTask : SP_Task
 		{
 			if (!m_aTasks)
 				m_aTasks = new array <ref SP_Task>();
-			SP_Task task = SP_Task.Cast(sample.GetClassName().Spawn());
-			m_aTasks.Insert(task);
-			task.m_sTaskOwnerOverride = sample.m_sTaskOwnerOverride;
-			task.m_sTaskTargetOverride = sample.m_sTaskTargetOverride;
-			task.m_iRewardAverageAmount = sample.m_iRewardAverageAmount;
-			task.e_RewardLabel = sample.e_RewardLabel;
+			//SP_Task task = SP_Task.Cast(sample.GetClassName().Spawn());
+			m_aTasks.Insert(sample);
+			//task.m_sTaskOwnerOverride = sample.m_sTaskOwnerOverride;
+			//task.m_sTaskTargetOverride = sample.m_sTaskTargetOverride;
+			//task.m_iRewardAverageAmount = sample.m_iRewardAverageAmount;
+			//task.e_RewardLabel = sample.e_RewardLabel;
 		}
 		if (!InitCurrentStage())
 			return false;

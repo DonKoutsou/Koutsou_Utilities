@@ -120,9 +120,17 @@ class SP_DeliverTask: SP_Task
 		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 		s_RewardName.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
-		m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
 		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
-		m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
+		if (m_bHasReward)
+		{
+			m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
+			m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
+		}
+		else
+		{
+			m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2.", DName, DLoc);
+			m_sTaskCompletiontext = string.Format("Thanks %1.", "%1");
+		}
 		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
 		if (!m_ePackage)
@@ -448,6 +456,12 @@ class SP_DeliverTask: SP_Task
 	}
 	override bool AssignReward()
 	{
+		if (!e_RewardLabel)
+		{
+			m_bHasReward = false;
+			return true;
+			Print("Mission has no reward configured, will be created with no reward");
+		}
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
 		if (!super.AssignReward())
