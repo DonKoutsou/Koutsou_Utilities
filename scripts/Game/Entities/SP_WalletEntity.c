@@ -1,8 +1,4 @@
-class WalletEntityClass: GameEntityClass
-{
-	
-};
-
+class WalletEntityClass: GameEntityClass{};
 class WalletEntity: GameEntity
 {
 	SCR_InventoryStorageManagerComponent m_cInventoryManager;
@@ -79,28 +75,8 @@ class WalletEntity: GameEntity
 		return false;
 	}
 };
-modded class SCR_ChimeraCharacter
-{
-	WalletEntity GetWallet()
-	{
-		SCR_InventoryStorageManagerComponent InventoryManager = SCR_InventoryStorageManagerComponent.Cast(FindComponent(SCR_InventoryStorageManagerComponent));
-		array <IEntity> wallets = {};
-		SP_WalletPredicate pred = new SP_WalletPredicate();
-		InventoryManager.FindItems(wallets, pred);
-		for (int i, count = wallets.Count(); i < count; i++)
-		{
-			WalletEntity wallet = WalletEntity.Cast(wallets[i]);
-			//if (wallet.Owner == this)
-			//{
-				return wallet;
-			//}
-		}
-		return null;
-	}
-}
 class SP_CurrencyPredicate : InventorySearchPredicate
 {
-
 	override protected bool IsMatch(BaseInventoryStorageComponent storage, IEntity item, array<GenericComponent> queriedComponents, array<BaseItemAttributeData> queriedAttributes)
 	{
 		InventoryItemComponent Inv = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
@@ -113,7 +89,6 @@ class SP_CurrencyPredicate : InventorySearchPredicate
 }
 class SP_WalletPredicate : InventorySearchPredicate
 {
-
 	override protected bool IsMatch(BaseInventoryStorageComponent storage, IEntity item, array<GenericComponent> queriedComponents, array<BaseItemAttributeData> queriedAttributes)
 	{
 		WalletEntity wallet = WalletEntity.Cast(item);

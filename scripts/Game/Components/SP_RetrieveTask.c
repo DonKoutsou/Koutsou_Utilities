@@ -7,15 +7,15 @@ class SP_RetrieveTask: SP_Task
 	int	m_iRequestedAmount;
 	//----------------------------------------//
 	//Using rewards from entity catalog in game mode
-	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(SCR_EArsenalItemType))]
-	SCR_EArsenalItemType	m_requestitemtype;
-	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(SCR_EArsenalItemMode))]
-	SCR_EArsenalItemMode	m_requestitemmode;
+	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
+	ERequestRewardItemDesctiptor	m_requestitemdescriptor;
 	
 	ref array <ResourceName>	rewards;
 	//----------------------------------------//
 	ref array <IEntity> m_aRetrievedItems;
 	//------------------------------------------------------------------------------------------------------------//
+	
+	
 	override bool Init()
 	{
 		if (!m_bPartOfChain)
@@ -34,7 +34,7 @@ class SP_RetrieveTask: SP_Task
 				return false;
 			}
 		}
-		if (!SetupRequestTypenMode())
+		if (!SetupRequestTypenMode(m_eTaskOwner))
 		{
 			return false;
 		}
@@ -49,7 +49,7 @@ class SP_RetrieveTask: SP_Task
 		string OName;
 		string OLoc;
 		GetInfo(OName, OLoc);
-		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemtype) + " " + typename.EnumToString(SCR_EArsenalItemMode, m_requestitemmode);
+		string itemdesc = typename.EnumToString(SCR_EArsenalItemType, m_requestitemdescriptor);
 		itemdesc.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for %2 %3. %1 is on %4, go meet him if you can help him.", OName, m_iRequestedAmount.ToString(), itemdesc, OLoc);
 		m_sTaskDiag = string.Format("I am looking for someone to bring me %1 %2.", m_iRequestedAmount.ToString(), itemdesc);
@@ -59,39 +59,33 @@ class SP_RetrieveTask: SP_Task
 		m_sacttext = string.Format("I've brought the %1 you asked.", itemdesc);
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	bool SetupRequestTypenMode()
+	bool SetupRequestTypenMode(IEntity Owner)
 	{
-		if (e_RewardLabel && m_requestitemtype && m_requestitemmode)
+		if (m_requestitemdescriptor)
 			return true;
-		int index = Math.RandomInt(0, 12);
+		int index = Math.RandomInt(0, 22);
 		if (index == 0)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.HEAL;
-				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
-				m_iRequestedAmount = Math.RandomInt(1, 3);
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
+				m_requestitemdescriptor = ERequestRewardItemDesctiptor.BANDAGE;
 				return true;
 			}
 		if (index == 1)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.FOOD;
-				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 2)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.DRINK;
-				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
+				m_requestitemdescriptor = SCR_EArsenalItemType.DRINK;
+				//m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 3)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.EXPLOSIVES;
-				m_requestitemmode = SCR_EArsenalItemMode.WEAPON;
+				m_requestitemdescriptor = SCR_EArsenalItemType.EXPLOSIVES;
+				//m_requestitemmode = SCR_EArsenalItemMode.WEAPON;
 				m_iRequestedAmount = Math.RandomInt(1, 10);
 				if (m_iRequestedAmount < 5)
 					e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
@@ -116,8 +110,8 @@ class SP_RetrieveTask: SP_Task
 						return false;
 					}
 				}
-				m_requestitemtype = SCR_EArsenalItemType.HEADWEAR;
-				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
+				m_requestitemdescriptor = SCR_EArsenalItemType.HEADWEAR;
+				//m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
 				return true;
 			}
@@ -132,40 +126,40 @@ class SP_RetrieveTask: SP_Task
 				{
 					return false;
 				}
-				m_requestitemtype = SCR_EArsenalItemType.BACKPACK;
-				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
+				m_requestitemdescriptor = SCR_EArsenalItemType.BACKPACK;
+				//m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 6)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.FLASHLIGHT;
-				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
+				m_requestitemdescriptor = SCR_EArsenalItemType.FLASHLIGHT;
+				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = 1;
 			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 7)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.MAP;
-				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
+				m_requestitemdescriptor = SCR_EArsenalItemType.MAP;
+				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 8)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.COMPASS;
-				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
+				m_requestitemdescriptor = SCR_EArsenalItemType.COMPASS;
+				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
 			}
 		if (index == 9)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.RADIO;
-				m_requestitemmode = SCR_EArsenalItemMode.GADGET;
+				m_requestitemdescriptor = SCR_EArsenalItemType.RADIO;
+				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
 				m_iRequestedAmount = Math.RandomInt(1, 3);
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
@@ -189,15 +183,15 @@ class SP_RetrieveTask: SP_Task
 						return false;
 					}
 				}
-				m_requestitemtype = SCR_EArsenalItemType.ARMOR;
-				m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
+				m_requestitemdescriptor = SCR_EArsenalItemType.ARMOR;
+				//m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
 				m_iRequestedAmount = 1;
 				return true;
 			}
 		if (index == 11)
 			{
-				m_requestitemtype = SCR_EArsenalItemType.SLEEPING_PILLS;
-				m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
+				m_requestitemdescriptor = SCR_EArsenalItemType.SLEEPING_PILLS;
+				//m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
 				m_iRequestedAmount = 1;
 				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
 				return true;
@@ -233,7 +227,7 @@ class SP_RetrieveTask: SP_Task
 			return false;
 		}
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemtype, m_requestitemmode);
+		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemdescriptor);
 		array <IEntity> FoundItems = new array <IEntity>();
 		inv.FindItems(FoundItems, RequestPred);
 		if (FoundItems.Count() >= m_iRequestedAmount)
@@ -262,7 +256,7 @@ class SP_RetrieveTask: SP_Task
 		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(Assignee.FindComponent(SCR_InventoryStorageManagerComponent));
 		SCR_InventoryStorageManagerComponent Ownerinv = SCR_InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
-		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemtype, m_requestitemmode);
+		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemdescriptor);
 		array <IEntity> FoundItems = new array <IEntity>();
 		inv.FindItems(FoundItems, RequestPred);
 		int amountleft = m_iRequestedAmount;
@@ -279,16 +273,16 @@ class SP_RetrieveTask: SP_Task
 				if(!eqslot)
 				{
 					inv.TryRemoveItemFromStorage(item,parentSlot.GetStorage());
-					if(m_requestitemtype == SCR_EArsenalItemType.HEADWEAR)
+					if(m_requestitemdescriptor == SCR_EArsenalItemType.HEADWEAR)
 					{
 						Ownerinv.TryInsertItem(item);
 						Ownerinv.EquipCloth(item);
 					}
-					else if(m_requestitemtype == SCR_EArsenalItemType.BACKPACK)
+					else if(m_requestitemdescriptor == SCR_EArsenalItemType.BACKPACK)
 					{
 						Ownerinv.EquipCloth(item);
 					}
-					else if(m_requestitemtype == SCR_EArsenalItemType.ARMOR)
+					else if(m_requestitemdescriptor == SCR_EArsenalItemType.ARMOR)
 					{
 						Ownerinv.EquipCloth(item);
 					}
@@ -435,17 +429,19 @@ class SP_RetrieveTask: SP_Task
 		}
 		return false;
 	};
+	
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};
 };
 //------------------------------------------------------------------------------------------------------------//
 class SP_RequestPredicate : InventorySearchPredicate
 {
-	SCR_EArsenalItemType	m_requestitemtype;
-	SCR_EArsenalItemMode	m_requestitemmode;
+	ERequestRewardItemDesctiptor	m_requestitemdescriptor;
 	//------------------------------------------------------------------------------------------------------------//
-	void SP_RequestPredicate(SCR_EArsenalItemType type, SCR_EArsenalItemMode mode){m_requestitemtype = type; m_requestitemmode = mode;};
+	//Constructor
+	void SP_RequestPredicate(ERequestRewardItemDesctiptor type){m_requestitemdescriptor = type;};
 	//------------------------------------------------------------------------------------------------------------//
+	//Check if request data exist and match ItemDesriptor
 	override protected bool IsMatch(BaseInventoryStorageComponent storage, IEntity item, array<GenericComponent> queriedComponents, array<BaseItemAttributeData> queriedAttributes)
 	{
 		EntityPrefabData prefabData = item.GetPrefabData();
@@ -457,24 +453,10 @@ class SP_RequestPredicate : InventorySearchPredicate
 		{
 			return false;
 		}
-		SCR_ArsenalItem arsenaldata = SCR_ArsenalItem.Cast(entry.GetEntityDataOfType(SCR_ArsenalItem));
-		if(m_requestitemtype && m_requestitemmode)
+		SP_RequestData Requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
+		if(m_requestitemdescriptor)
 		{
-			if (arsenaldata.GetItemType() == m_requestitemtype && arsenaldata.GetItemMode() == m_requestitemmode)
-			{
-				return true;
-			}
-		}
-		else if(m_requestitemtype && !m_requestitemmode)
-		{
-			if (arsenaldata.GetItemType() == m_requestitemtype)
-			{
-				return true;
-			}
-		}
-		else if(!m_requestitemtype && m_requestitemmode)
-		{
-			if (arsenaldata.GetItemMode() == m_requestitemmode)
+			if (Requestdata.GetRequestDescriptor() == m_requestitemdescriptor)
 			{
 				return true;
 			}

@@ -23,16 +23,13 @@ class SP_RequestManagerComponent : ScriptComponent
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_ChainedTask> m_aQuestlines;
 	
-	[Attribute()]
-	ref array<string> m_aSpecialCars;
-	
 	bool m_bQuestInited;
 	
 	//Tasks samples to set up settings for all different tasks
 	static ref array<ref SP_Task> m_aTaskSamples = null;
 	
 	//Garbage Manager
-	[Attribute(defvalue: "60", desc: "Task garbage mamager kinda. Completed task are added to their own list, failed tasks are deleted")]
+	[Attribute(defvalue: "60", desc: "Task garbage manager kinda. Completed task are added to their own list, failed tasks are deleted")]
 	float m_fTaskClearTime;
 	
 	[Attribute(defvalue:"0")]
@@ -77,21 +74,6 @@ class SP_RequestManagerComponent : ScriptComponent
 	ScriptInvoker OnTaskCreated()
 	{
 		return s_OnTaskCreated;
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	private event void OnNewChar(IEntity Char)
-	{
-		m_CharacterHolder.InserCharacter(ChimeraCharacter.Cast(Char));
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	private event void OnCharDeath(IEntity Char)
-	{
-		m_CharacterHolder.CharIsDead(ChimeraCharacter.Cast(Char));
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	private event void OnCharDel(IEntity Char)
-	{
-		m_CharacterHolder.CharIsDel(ChimeraCharacter.Cast(Char));
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	event void OnTaskCompleted(SP_Task Task)
@@ -142,6 +124,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		return null;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Checks bool inside task
 	static bool IsAssignable(typename tasktype)
 	{
 		foreach(SP_Task Task : m_aTaskSamples)
@@ -360,6 +343,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Assigning
 	static void AssignMyTask(IEntity Char)
 	{
 		array<ref SP_Task> tasks = {};		
@@ -378,6 +362,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Count of tasks of provided entity
 	static int GetCharTaskCount(IEntity Char)
 	{
 		if (!Char)
@@ -399,6 +384,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		return tasks.Count();
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Tasks owned by char that are not assigned
 	static void GetUnassignedCharTasks(IEntity Char, IEntity Assignee, out array<ref SP_Task> tasks)
 	{
 		if (!Char)
@@ -456,6 +442,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Getter get ready to deliver tasks of character provided
 	static void GetReadyToDeliver(IEntity Char,out array<ref SP_Task> tasks, IEntity Assignee)
 	{
 		array<ref SP_Task> Readytasks = {};
@@ -495,6 +482,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//
 	static void GetTasksCompletedBy(IEntity Char, out array<ref SP_Task> tasks)
 	{
 		foreach (SP_Task task : m_aCompletedTaskMap)
@@ -555,6 +543,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Questlines
 	void AssignInitTasks(IEntity Char)
 	{
 		if (m_aQuestlines.IsEmpty())
@@ -569,6 +558,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Garbage manager
 	void ClearTasks()
 	{
 		int removed;
@@ -607,17 +597,21 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	void AssignATask()
 	{
+		//Get random
 		ChimeraCharacter Assignee;
 		if (!m_CharacterHolder.GetRandomUnit(Assignee))
 			return;
+		//Check if uncon or dead to fail it
 		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Assignee.GetDamageManager());
 		if (dmg.GetIsUnconscious() || dmg.IsDestroyed())
 			return;
+		//Check 
 		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee))
 		{
 			AssignMyTask(Assignee);
 			return;
 		}
+		//
 		array <ref SP_Task> Astasks = {};
 		foreach (SP_Task task : m_aTaskSamples)
 		{
@@ -808,18 +802,19 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 		//Get game mode and hook events
+		m_CharacterHolder = new CharacterHolder ();
+		//m_CharacterHolder.SetSpecialCharacterNameList(m_aSpecialCharacterNameList);
 		if (!m_GameMode)
 		{
 			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
 			if (m_GameMode)
 			{
-				m_GameMode.GetOnControllableSpawned().Insert(OnNewChar);
-				m_GameMode.GetOnControllableDestroyed().Insert(OnCharDeath);
-				m_GameMode.GetOnControllableDeleted().Insert(OnCharDel);
+				m_GameMode.GetOnControllableSpawned().Insert(m_CharacterHolder.OnNewCharacter);
+				m_GameMode.GetOnControllableDestroyed().Insert(m_CharacterHolder.OnCharacterDeath);
+				m_GameMode.GetOnControllableDeleted().Insert(m_CharacterHolder.OnCharacterDeleted);
 			}
 		}
-		m_CharacterHolder = new CharacterHolder ();
-		m_CharacterHolder.m_aSpecialCars.Copy(m_aSpecialCars);
+		
 		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 1000);
 	};
 	//------------------------------------------------------------------------------------------------------------//
@@ -837,7 +832,9 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (!GetGame().GetCameraManager().CurrentCamera())
 			return;
 		vector Origin = GetGame().GetCameraManager().CurrentCamera().GetOrigin();
-		foreach (ChimeraCharacter Owner : m_CharacterHolder.GetAllAlive())
+		array <ChimeraCharacter> AliveCharacters = {};
+		m_CharacterHolder.GetAllAlive(AliveCharacters);
+		foreach (ChimeraCharacter Owner : AliveCharacters)
 		{
 			if (vector.Distance(Origin, Owner.GetOrigin()) > 300)
 				continue;
@@ -1030,11 +1027,6 @@ class SP_RequestManagerComponent : ScriptComponent
 	}
 };
 //------------------------------------------------------------------------------------------------------------//
-modded enum EWeaponType
-{
-	WT_KNIFE
-}
-//------------------------------------------------------------------------------------------------------------//
 modded enum SCR_EArsenalItemType
 {
 	FOOD = 262200,
@@ -1051,5 +1043,89 @@ modded enum SCR_EArsenalItemType
 modded enum SCR_EArsenalItemMode
 {
 	GADGET = 128
-	
 };
+[BaseContainerProps(configRoot: true), BaseContainerCustomCheckIntTitleField("m_bEnabled", "Request Data", "DISABLED - Request Data", 1)]
+class SP_RequestData : SCR_BaseEntityCatalogData
+{
+	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
+	ERequestRewardItemDesctiptor ItemDescriptor;
+	
+	[Attribute("1", desc: "Worth of entry")]
+	protected int m_iWorth;
+	
+	protected SCR_EntityCatalogEntry m_EntryParent;
+	protected ref Resource m_ItemResource;
+	
+	int GetWorth()
+	{
+		return m_iWorth;
+	}
+	
+	ERequestRewardItemDesctiptor GetRequestDescriptor()
+	{
+		return ItemDescriptor;
+	}
+	//--------------------------------- Init Data ---------------------------------\\
+	override void InitData(notnull SCR_EntityCatalogEntry entry)
+	{
+		m_EntryParent = entry;
+		
+		m_ItemResource = Resource.Load(m_EntryParent.GetPrefab());
+	}
+}
+enum ERequestRewardItemDesctiptor
+{
+	CURRENCY,
+	WEAPON,
+	ARMOR,
+	HELMET,
+	CONSUMABLE,
+	AMMO,
+	FOOD_RAW,
+	FOOD_COOKED,
+	DRINK,
+	GADGET,
+	MORPHINE,
+	BANDAGE,
+	SLEEPING_PILLS,
+	BOTTLE,
+	COOKING_APPLIANCE,
+	EXPLOSIVE,
+	BACKPACK,
+	LOAD_BEARING_SYSTEM,
+	WEAPON_ATATCHMENT,
+	RADIO,
+	MAP,
+	FLASHLIGHT,
+	COMPASS,
+	BINOCULARS,
+}
+[BaseContainerProps(configRoot: true), SCR_BaseContainerCustomEntityCatalogCatalog(EEntityCatalogType, "m_eEntityCatalogType", "m_aEntityEntryList", "m_aMultiLists")]
+modded class SCR_EntityCatalog
+{
+	int GetWorthOfItem(ResourceName Item)
+	{
+		int worth = -1;
+		SCR_EntityCatalogEntry entry = GetEntryWithPrefab(Item);
+		SP_RequestData Data = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
+		if (!Data)
+			return worth;
+		worth = Data.GetWorth();
+		return worth;
+	}
+	void GetRequestItems(ERequestRewardItemDesctiptor Descriptor, out array <SCR_EntityCatalogEntry>  correctentries)
+	{
+		correctentries = {};
+		foreach (SCR_EntityCatalogEntry entityEntry: m_aEntityEntryList)
+		{
+			SP_RequestData Data = SP_RequestData.Cast(entityEntry.GetEntityDataOfType(SP_RequestData));
+			if (Data)
+			{
+				if (Data.GetRequestDescriptor() == Descriptor)
+				{
+					correctentries.Insert(entityEntry);
+				}
+			}
+		}
+	}
+}

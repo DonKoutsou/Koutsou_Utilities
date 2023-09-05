@@ -116,13 +116,14 @@ class SP_DeliverTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName,OLoc, DLoc);
-		string s_RewardName = FilePath.StripPath(m_Reward);
-		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
-		s_RewardName.ToLower();
+		
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
 		if (m_bHasReward)
 		{
+			string s_RewardName = FilePath.StripPath(m_Reward);
+			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
+			s_RewardName.ToLower();
 			m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
 			m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
 		}

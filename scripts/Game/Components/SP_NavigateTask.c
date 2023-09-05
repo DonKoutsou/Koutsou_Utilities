@@ -117,11 +117,16 @@ class SP_NavigateTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		string s_RewardName = FilePath.StripPath(m_Reward);
-		s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
-		s_RewardName.ToLower();
-		m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
+		
 		if (m_bHasReward)
+		{
+			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
+			s_RewardName.ToLower();
+			m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
+			
 			m_sTaskDiag = string.Format("I need to go to %1 on %2. I'll give you %3 %4 if you manage to get me there in one piece.", DName, DLoc, m_iRewardAmount, s_RewardName);
+		}
+			
 		else
 			m_sTaskDiag = string.Format("I need to go to %1 on %2.", DName, DLoc);
 		m_sTaskTitle = string.Format("Escort %1 to %2's location", OName, DName);

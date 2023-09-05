@@ -18,13 +18,16 @@ class SCR_AIGetCurrentWeaponProperties : AITaskScripted
 		BaseMagazineComponent magazineComp;
 		int muzzleId;
 		IEntity Char;
+		
 		GetVariableIn(CHARACTER_PORT, Char);
+		
 		if (!Char)
 			Char = owner.GetControlledEntity();
 		
 		SCR_AICombatComponent m_CombatComp = SCR_AICombatComponent.Cast(Char.FindComponent(SCR_AICombatComponent));
 		if (!m_CombatComp)
 			return ENodeResult.FAIL;
+		
 		weaponComp = m_CombatComp.GetCurrentWeapon();
 	
 		if (weaponComp)
@@ -35,6 +38,7 @@ class SCR_AIGetCurrentWeaponProperties : AITaskScripted
 			}
 			muzzleId = SCR_WeaponLib.GetNextMuzzleID(weaponComp);
 		}
+		
 		if (!weaponComp || !muzzleId || !magazineComp)
 			return ENodeResult.FAIL;
 		

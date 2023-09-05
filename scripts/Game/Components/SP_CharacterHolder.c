@@ -2,57 +2,82 @@
 //Class to contain all characters
 class CharacterHolder : ScriptAndConfig
 {
-	static private ref array <ChimeraCharacter> AliveCharacters;
-	static private ref array <ChimeraCharacter> DeadCharacters;
+	static private ref array <ChimeraCharacter> m_aAliveCharacters;
+	static private ref array <ChimeraCharacter> m_aDeadCharacters;
 
-	static ref array<string> m_aSpecialCars;
-	
+	static ref array<ChimeraCharacter> m_aImportantCharacters;
 	//------------------------------------------------------------------------------------------------------------//
-	array <ChimeraCharacter> GetAllAlive()
+	//Name list, holding entity names of important story characters. Will be replaced somehow
+	/*void SetSpecialCharacterNameList(array<string> SpecialCharacterNameList)
 	{
-		return AliveCharacters;
+		if (!m_aSpecialCharacterNameList)
+		{
+			m_aSpecialCharacterNameList = {};
+		}
+		m_aSpecialCharacterNameList.Copy(SpecialCharacterNameList);
+	}*/
+	//------------------------------------------------------------------------------------------------------------//
+	//fills provided array with all alive characters
+	void GetAllAlive(out array <ChimeraCharacter> AliveCharacters)
+	{
+		AliveCharacters.Copy(m_aAliveCharacters);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	static void InserCharacter(ChimeraCharacter Char)
+	//When a new character is spawned check if he is not "special" kekw, and if not inster him in alive array
+	private event void OnNewCharacter(IEntity Char)
 	{
-		if (!Char)
+		SCR_ChimeraCharacter ChimeraChar = SCR_ChimeraCharacter.Cast(Char);
+		if (!ChimeraChar)
 			return;
-		if (m_aSpecialCars.Contains(Char.GetName()))
-			return;
-		AliveCharacters.Insert(Char);
+		if (ChimeraChar.IsImportantCharacter)
+		{
+			m_aImportantCharacters.Insert(ChimeraChar);
+		}
+		m_aAliveCharacters.Insert(ChimeraChar);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	static void CharIsDead(ChimeraCharacter Char)
+	//When a character dies make sure to remove him from alive array and put him in dead
+	private event void OnCharacterDeath(IEntity Char)
 	{
-		if (!Char)
+		ChimeraCharacter ChimeraChar = ChimeraCharacter.Cast(Char);
+		if (!ChimeraChar)
 			return;
-		AliveCharacters.RemoveItem(Char);
-		DeadCharacters.Insert(Char);
+		m_aAliveCharacters.RemoveItem(ChimeraChar);
+		m_aDeadCharacters.Insert(ChimeraChar);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	static void CharIsDel(ChimeraCharacter Char)
+	//when a character is deleted make sure to remove him of any arrays he might still be in
+	private event void OnCharacterDeleted(IEntity Char)
 	{
-		if (!Char)
+		ChimeraCharacter ChimeraChar = ChimeraCharacter.Cast(Char);
+		if (!ChimeraChar)
 			return;
-		if (AliveCharacters.Contains(Char))
-			AliveCharacters.RemoveItem(Char);
-		if (DeadCharacters.Contains(Char))
-			DeadCharacters.RemoveItem(Char);
+		if (m_aAliveCharacters.Contains(ChimeraChar))
+			m_aAliveCharacters.RemoveItem(ChimeraChar);
+		if (m_aDeadCharacters.Contains(ChimeraChar))
+			m_aDeadCharacters.RemoveItem(ChimeraChar);
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Amount of Alive characters
 	static int GetAliveCount()
 	{
-		return AliveCharacters.Count();
+		return m_aAliveCharacters.Count();
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Amount of Dead characters
+	static int GetDeadCount()
+	{
+		return m_aDeadCharacters.Count();
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	static ChimeraCharacter GetRandomDeadOfFaction(Faction fact)
 	{
 		ChimeraCharacter mychar;
-		if (DeadCharacters.IsEmpty())
+		if (m_aDeadCharacters.IsEmpty())
 			return null;
 		for (int i = 0; i < 10; i++)
 		{
-			mychar = DeadCharacters.GetRandomElement();
+			mychar = m_aDeadCharacters.GetRandomElement();
 			if (!mychar)
 				continue;
 			
@@ -201,6 +226,7 @@ class CharacterHolder : ScriptAndConfig
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//
 	static bool GetCloseUnitOfFriendlyFaction(ChimeraCharacter mychar, float maxdistance, Faction fact, out ChimeraCharacter CloseChar)
 	{
 		for (int i = 0; i < 10; i++)
@@ -217,16 +243,17 @@ class CharacterHolder : ScriptAndConfig
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
+	//Gives random unit, make sure not to get player
 	static bool GetRandomUnit(out ChimeraCharacter mychar)
 	{
-		if (AliveCharacters.IsEmpty())
+		if (m_aAliveCharacters.IsEmpty())
 			return false;
-		mychar = AliveCharacters.GetRandomElement();
-		if (m_aSpecialCars.Contains(mychar.GetName()))
-			return false;
-		if (mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup())
-			if (m_aSpecialCars.Contains(mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup().GetName()))
-				return false;
+		mychar = m_aAliveCharacters.GetRandomElement();
+		//if (m_aSpecialCharacterNameList.Contains(mychar.GetName()))
+			//return false;
+		//if (mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup())
+			//if (m_aSpecialCharacterNameList.Contains(mychar.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup().GetName()))
+				//return false;
 		if (SCR_EntityHelper.IsPlayer(mychar))
 			return false;
 		if (mychar)
@@ -238,7 +265,7 @@ class CharacterHolder : ScriptAndConfig
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			group = SCR_AIGroup.Cast(AliveCharacters.GetRandomElement().GetParent());
+			group = SCR_AIGroup.Cast(m_aAliveCharacters.GetRandomElement().GetParent());
 			if (!group)
 				continue;
 		
@@ -252,21 +279,30 @@ class CharacterHolder : ScriptAndConfig
 	//------------------------------------------------------------------------------------------------------------//
 	void CharacterHolder()
 	{
-		if (!AliveCharacters)
-			AliveCharacters = new ref array <ChimeraCharacter>();
-		if (!DeadCharacters)
-			DeadCharacters = new ref array <ChimeraCharacter>();
-		if (!m_aSpecialCars)
-			m_aSpecialCars = new array<string>();
+		Init();
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	void ~CharacterHolder()
 	{
-		AliveCharacters.Clear();
-		DeadCharacters.Clear();
-		m_aSpecialCars.Clear();
+		m_aAliveCharacters.Clear();
+		m_aDeadCharacters.Clear();
+		m_aImportantCharacters.Clear();
+	}
+	
+	//------------------------------------------------------------------------------------------------------------//
+	void Init()
+	{
+		if (!m_aAliveCharacters)
+			m_aAliveCharacters = new ref array <ChimeraCharacter>();
+		if (!m_aDeadCharacters)
+			m_aDeadCharacters = new ref array <ChimeraCharacter>();
+		if (!m_aImportantCharacters)
+			m_aImportantCharacters = new array<ChimeraCharacter>();
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	void Init();
-	//------------------------------------------------------------------------------------------------------------//
+}
+modded class SCR_ChimeraCharacter
+{
+	[Attribute("0")]
+	bool IsImportantCharacter;
 }
