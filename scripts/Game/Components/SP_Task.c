@@ -27,8 +27,8 @@ class SP_Task
 	[Attribute(desc : "Override with entity name in the world wich will become task target instead of looking for an target")]
 	string m_sTaskTargetOverride;
 	//-------------------------------------------------//
-	[Attribute("0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(EEditableEntityLabel))]
-	EEditableEntityLabel e_RewardLabel;
+	[Attribute("0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
+	ERequestRewardItemDesctiptor e_RewardLabel;
 	//-------------------------------------------------//
 	[Attribute(defvalue: "10", desc: "Reward amount if reward end up being currency, keep at 1 for Distance based tasks (Navigate, Deliver), reward is calculated based on distance and multiplied to this value, so increase to increase multiplier")]
 	int m_iRewardAverageAmount;
@@ -290,7 +290,7 @@ class SP_Task
 		{
 			return false;
 		};
-		if (e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)
+		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
 			if (SP_RequestManagerComponent.GetCharCurrency(m_eTaskOwner) < m_iRewardAmount)
 				return false;
@@ -424,12 +424,12 @@ class SP_Task
 			Print("Mission has no reward configured, will be created with no reward");
 		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
-		array<SCR_EntityCatalogEntry> Mylist = new array<SCR_EntityCatalogEntry>();
-		RequestCatalog.GetEntityListWithLabel(e_RewardLabel, Mylist);
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+		array<SCR_EntityCatalogEntry> Mylist = {};
+		RequestCatalog.GetRequestItems(e_RewardLabel, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
 		m_Reward = entry.GetPrefab();
-		if (m_bPartOfChain && e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)
+		if (m_bPartOfChain && e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
 			SCR_ChimeraCharacter Character = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
 			WalletEntity wallet = Character.GetWallet();
@@ -462,7 +462,7 @@ class SP_Task
 		}
 		if (Target == m_eTaskOwner)
 			return true;
-		if (e_RewardLabel == EEditableEntityLabel.ITEMTYPE_CURRENCY)
+		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
 			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
 			SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
@@ -487,7 +487,6 @@ class SP_Task
 		}
 		else if (m_Reward)
 		{
-			
 			EntitySpawnParams params = EntitySpawnParams();
 			params.TransformMode = ETransformMode.WORLD;
 			params.Transform[3] = m_eTaskOwner.GetOrigin();
@@ -686,7 +685,7 @@ class SP_Task
 		return null;
 	};
 	//Reward lebal deffines what kind of reward this task will provide. atm only works with EEditableEntityLabel.ITEMTYPE_ITEM and EEditableEntityLabel.ITEMTYPE_WEAPON
-	EEditableEntityLabel GetRewardLabel()
+	ERequestRewardItemDesctiptor GetRewardLabel()
 	{
 		return e_RewardLabel;
 	}

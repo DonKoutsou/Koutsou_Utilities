@@ -1113,7 +1113,7 @@ modded class SCR_EntityCatalog
 		worth = Data.GetWorth();
 		return worth;
 	}
-	void GetRequestItems(ERequestRewardItemDesctiptor Descriptor, out array <SCR_EntityCatalogEntry>  correctentries)
+	void GetRequestItems(int Descriptor, out array <SCR_EntityCatalogEntry>  correctentries)
 	{
 		correctentries = {};
 		foreach (SCR_EntityCatalogEntry entityEntry: m_aEntityEntryList)

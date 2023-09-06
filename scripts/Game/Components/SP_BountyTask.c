@@ -361,6 +361,61 @@ class SCR_AIGetBountyTaskParams : AITaskScripted
 		return ENodeResult.SUCCESS;
 	}	
 };
+class SCR_AIGetRetrieveTaskParams : AITaskScripted
+{
+	static const string TASK_PORT = "Task";
+	static const string TASK_OWNER_PORT		= "TaskOwner";
+	static const string AMMOUNT_PORT = "Ammount";
+	static const string ITEM_PORT = "Item";
+		
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		TASK_PORT
+	};
+	override TStringArray GetVariablesIn()
+    {
+        return s_aVarsIn;
+    }
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsOut = {
+		TASK_OWNER_PORT,
+		AMMOUNT_PORT,
+		ITEM_PORT,
+	};
+	override TStringArray GetVariablesOut()
+    {
+        return s_aVarsOut;
+    }
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SP_Task Task;
+		IEntity Owner;
+		IEntity Target;
+		IEntity Assignee;
+		GetVariableIn(TASK_PORT, Task);
+		if(!Task)
+		{
+			NodeError(this, owner, "Invalid Task Provided!");
+			return ENodeResult.FAIL;
+		}
+		Owner = Task.GetOwner();
+		Target = Task.GetTarget();
+		Assignee = Task.GetAssignee();
+		SP_RetrieveTask Rtask = SP_RetrieveTask.Cast(Task);
+		SetVariableOut(AMMOUNT_PORT, Rtask.GetRequestAmmount());
+		SetVariableOut(ITEM_PORT, Rtask.GetRequestDescriptor());
+		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
+		return ENodeResult.SUCCESS;
+	}	
+};
 class DecoratorScripted_FindItemInInventory : DecoratorScripted
 {
 	static const string CHAR_PORT = "Character";
