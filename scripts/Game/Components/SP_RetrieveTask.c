@@ -324,16 +324,16 @@ class SP_RetrieveTask: SP_Task
 				if(!eqslot)
 				{
 					inv.TryRemoveItemFromStorage(item,parentSlot.GetStorage());
-					if(m_requestitemdescriptor == SCR_EArsenalItemType.HEADWEAR)
+					if(m_requestitemdescriptor == ERequestRewardItemDesctiptor.HELMET)
 					{
 						Ownerinv.TryInsertItem(item);
 						Ownerinv.EquipCloth(item);
 					}
-					else if(m_requestitemdescriptor == SCR_EArsenalItemType.BACKPACK)
+					else if(m_requestitemdescriptor == ERequestRewardItemDesctiptor.BACKPACK)
 					{
 						Ownerinv.EquipCloth(item);
 					}
-					else if(m_requestitemdescriptor == SCR_EArsenalItemType.ARMOR)
+					else if(m_requestitemdescriptor == ERequestRewardItemDesctiptor.ARMOR)
 					{
 						Ownerinv.EquipCloth(item);
 					}
