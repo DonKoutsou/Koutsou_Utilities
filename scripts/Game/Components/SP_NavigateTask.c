@@ -80,8 +80,8 @@ class SP_NavigateTask: SP_Task
 	{
 		if (TalkingChar == m_eTaskTarget)
 			return false;
-		if (m_aTaskAssigned != Assignee)
-			return false;
+		//if (m_aTaskAssigned != Assignee)
+		//return false;
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), TalkingChar.GetOrigin());
 		if(!m_iSuccessDistance)
 		{
@@ -243,6 +243,19 @@ class SP_NavigateTask: SP_Task
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 		if (!utility)
 			return false;
+		array <ref SP_Task> tasks = {};
+		SP_RequestManagerComponent.GetCharOwnedTasks(m_eTaskOwner, tasks);
+		if (!tasks.IsEmpty())
+		{
+			foreach (SP_Task task : tasks)
+			{
+				if (task.IsOwnerAssigned())
+				{
+					task.UnAssignOwner();
+					break;
+				}
+			}
+		}
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, m_aTaskAssigned);
 		utility.AddAction(action);
 		//if player throw popup
@@ -323,17 +336,21 @@ class SP_NavigateTask: SP_Task
 	};
 	override void AddTargetInvokers(){};
 	override void RemoveTargetInvokers(){};
-	override void GetOnOwnerDeath()
+	override void GetOnOwnerDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveOwnerInvokers();
 		if (m_aTaskAssigned)
 			UnAssignCharacter();
 		FailTask();
 		//possible to fail task, if so override dis
 	}
-	override void GetOnTargetDeath(){};
-	override void GetOnAssigneeDeath()
+	override void GetOnTargetDeath(EDamageState state){};
+	override void GetOnAssigneeDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		UnAssignCharacter();
 		SetReserved(null);
 	}

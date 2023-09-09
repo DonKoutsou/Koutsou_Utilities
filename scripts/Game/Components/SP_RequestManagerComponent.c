@@ -164,6 +164,26 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	static bool CharFollowingAnybody(IEntity Assignee)
+	{
+		AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
+		if (!comp)
+			return false;
+			
+		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return false;
+			
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		if (!utility)
+			return false;
+		
+		SCR_AIFollowBehavior followact = SCR_AIFollowBehavior.Cast(utility.FindActionOfType(SCR_AIFollowBehavior));
+		if (followact)
+			return true;
+		
+		return false;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Checks if entity provided is target of any of the tasks
 	static bool CharIsTarget(IEntity Char)
@@ -353,7 +373,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 		foreach (SP_Task task : tasks)
 		{
-			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && !task.IsOwnerAssigned() && !task.IsReserved() && task.GetState() == ETaskState.UNASSIGNED)
+			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && task.GetClassName() != SP_RetrieveTask && !task.IsOwnerAssigned() && !task.IsReserved() && task.GetState() == ETaskState.UNASSIGNED)
 			{
 				if (task.GetTimeLimit() > 3)
 					continue;
@@ -606,7 +626,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (dmg.GetIsUnconscious() || dmg.IsDestroyed())
 			return;
 		//Check 
-		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee))
+		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee) && !CharFollowingAnybody(Assignee))
 		{
 			AssignMyTask(Assignee);
 			return;
@@ -644,6 +664,8 @@ class SP_RequestManagerComponent : ScriptComponent
 			if (mytask.IsReserved())
 				continue;
 			if (mytask.GetState() == ETaskState.ASSIGNED)
+				continue;
+			if (mytask.CanBeAssigned(CloseChar, Assignee) == false)
 				continue;
 			if (mytask.GetTimeLimit() < 3 && mytask.GetTimeLimit() != -1)
 				continue;
@@ -904,6 +926,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			if (!utility)
 				return;
+			
 		
 			SCR_AITaskPickupBehavior action = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
 			
@@ -965,6 +988,15 @@ class SP_RequestManagerComponent : ScriptComponent
 				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
 				infoText2 = infoText2 + string.Format("Following %1\n", name);
 				Shape.CreateSphere(Color.ORANGE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
+			}
+			SCR_AIExecuteRetrieveTaskBehavior Retract = SCR_AIExecuteRetrieveTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteRetrieveTaskBehavior));
+			if (Retract)
+			{
+				if (!Retract.PickedTask)
+					continue;
+				string name = SP_DialogueComponent.GetCharacterFirstName(Retract.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Retract.PickedTask.GetOwner());
+				infoText2 = infoText2 + string.Format("Following %1\n", name);
+				Shape.CreateSphere(Color.BLACK, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
 			SCR_AICombatComponent m_CombatComp = SCR_AICombatComponent.Cast(Owner.FindComponent(SCR_AICombatComponent));
 			if (m_CombatComp)
@@ -1073,6 +1105,14 @@ class SP_RequestData : SCR_BaseEntityCatalogData
 		m_ItemResource = Resource.Load(m_EntryParent.GetPrefab());
 	}
 }
+[BaseContainerProps(configRoot: true), BaseContainerCustomCheckIntTitleField("m_bEnabled", "Request Data", "DISABLED - Request Data", 1)]
+class SP_RequestAmmoData : SP_RequestData
+{
+	[Attribute("0")]
+	ref BaseMagazineWell MagType;
+	
+	BaseMagazineWell GetMagType(){return MagType;};
+}
 enum ERequestRewardItemDesctiptor
 {
 	CURRENCY,
@@ -1124,6 +1164,16 @@ modded class SCR_EntityCatalog
 				if (Data.GetRequestDescriptor() == Descriptor)
 				{
 					correctentries.Insert(entityEntry);
+					continue;
+				}
+			}
+			SP_RequestAmmoData AmmoData = SP_RequestAmmoData.Cast(entityEntry.GetEntityDataOfType(SP_RequestAmmoData));
+			if (AmmoData)
+			{
+				if (AmmoData.GetRequestDescriptor() == Descriptor)
+				{
+					correctentries.Insert(entityEntry);
+					continue;
 				}
 			}
 		}

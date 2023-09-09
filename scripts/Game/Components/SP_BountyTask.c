@@ -102,10 +102,10 @@ class SP_BountyTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
-		if(!CharacterAssigned(Assignee))
-		{
-			return false;
-		}
+		//if(!CharacterAssigned(Assignee))
+		//{
+		//	return false;
+		//}
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
@@ -207,6 +207,21 @@ class SP_BountyTask: SP_Task
 		AddAssigneeInvokers();
 		return true;
 	}
+	override void SpawnTaskMarker(IEntity Assignee)
+	{
+		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
+		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
+		m_eTaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
+		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
+		m_TaskMarker.SetTitle(m_sTaskTitle);
+		m_TaskMarker.SetDescription(m_sTaskDesc);
+		m_TaskMarker.SetTarget(m_eTaskTarget);
+		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
+		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
+		m_TaskMarker.AddAssignee(assignee, 0);
+	}
 	override bool AssignOwner()
 	{
 		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
@@ -244,8 +259,10 @@ class SP_BountyTask: SP_Task
 			action.SetActiveFollowing(false);
 		super.UnAssignOwner();
 	}
-	override void GetOnTargetDeath()
+	override void GetOnTargetDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		//array<ref SP_Task> tasks = {};	
 		//SP_RequestManagerComponent.GetCharTargetTasks(m_eTaskTarget, tasks);
 		//foreach (SP_Task task : tasks)
@@ -258,8 +275,10 @@ class SP_BountyTask: SP_Task
 		RemoveTargetInvokers();
 		//possible to fail task, if so override dis
 	}
-	override void GetOnOwnerDeath()
+	override void GetOnOwnerDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveOwnerInvokers();
 		FailTask();
 		//possible to fail task, if so override dis

@@ -114,6 +114,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
              Port 33
              PortName "Tags"
             }
+            SingleOutputPortContainer SingleOutputPortContainerClass {
+             Port 47
+             PortName "Radious"
+            }
            }
           }
           SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
@@ -125,7 +129,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
              PortName "Possition"
             }
             SingleInputPortContainer SingleInputPortContainer {
-             Port -1
+             Port 47
              PortName "Radius"
             }
             SingleInputPortContainer SingleInputPortContainer {
@@ -141,6 +145,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
             SingleOutputPortContainer SingleOutputPortContainer {
              Port 36
              PortName "OutTag"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "CROUCH_BOOL"
             }
            }
            m_fRadius 20
@@ -219,20 +227,31 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                PrecisionXZ 3
                PrecisionY 3
               }
-              SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
-               Name "SCR_AI Send Order_ Stance"
-               EditorPos -3872.882 919.031
-               InPorts {
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port -1
-                 PortName "Receiver"
-                }
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port -1
-                 PortName "Stance"
+              DecoTestVariable "Test Variable" {
+               Name "Test Variable"
+               EditorPos -3843.786 940.286
+               Nodes {
+                SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
+                 Name "SCR_AI Send Order_ Stance"
+                 EditorPos -3848.596 1284.745
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port -1
+                   PortName "Receiver"
+                  }
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port -1
+                   PortName "Stance"
+                  }
+                 }
+                 m_eStance CROUCH
                 }
                }
-               m_eStance CROUCH
+               UseChildResult 1
+               ForceNodeResult Success
+               InVariable 46
+               TestType EqualsValue
+               TestValue "true"
               }
               AITaskIdle Idle {
                Name "Idle"
@@ -729,8 +748,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                Port 38
                PortName "Tags"
               }
+              SingleOutputPortContainer SingleOutputPortContainerClass {
+               PortName "Radious"
+              }
              }
-             LookforAmmo 1
             }
             SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
              Name "SCR_AI Get Closest Smart Action"
@@ -758,6 +779,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                Port 41
                PortName "OutTag"
               }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port -1
+               PortName "CROUCH_BOOL"
+              }
              }
              m_fRadius 20
             }
@@ -780,8 +805,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                Port 32
                PortName "Tags"
               }
+              SingleOutputPortContainer SingleOutputPortContainerClass {
+               PortName "Radious"
+              }
              }
-             LookforTask 1
             }
             SCR_AIGetClosestSmartAction "SCR_AI Get Closest Smart Action" {
              Name "SCR_AI Get Closest Smart Action"
@@ -808,6 +835,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
               SingleOutputPortContainer SingleOutputPortContainer {
                Port 44
                PortName "OutTag"
+              }
+              SingleOutputPortContainer SingleOutputPortContainer {
+               Port -1
+               PortName "CROUCH_BOOL"
               }
              }
              m_fRadius 20
@@ -939,6 +970,18 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
   Variable tagstoact {
    VariableName "tagstoact"
    VariableTypeName "array<string>"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable CrouchBool {
+   VariableName "CrouchBool"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable SmartLookRad {
+   VariableName "SmartLookRad"
+   VariableTypeName "int"
    VariableExposedInput 0
    VariableExposedOutput 0
   }
@@ -1127,6 +1170,14 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
   VariableReference FoundComponent {
    VariableType 8
    EditorPos -7150 6.75
+  }
+  VariableReference CrouchBool {
+   VariableType 18
+   EditorPos -4128.571 1242.857
+  }
+  VariableReference SmartLookRad {
+   VariableType 19
+   EditorPos -5268.75 338.75
   }
  }
 }

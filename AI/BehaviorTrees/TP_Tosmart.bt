@@ -11,7 +11,7 @@ BehaviorTree {
      Nodes {
       Sequence Sequence {
        Name "Sequence"
-       EditorPos -668.5 -395
+       EditorPos -670.167 -395
        Nodes {
         SCR_AIGetPriorityFromWaypoint "SCR_AI Get Priority From Waypoint" {
          Name "SCR_AI Get Priority From Waypoint"
@@ -61,6 +61,35 @@ BehaviorTree {
            PortName "FastInit"
           }
          }
+        }
+        SCR_AITaskTimerGate "SCR_AI Task Timer Gate" {
+         Name "SCR_AI Task Timer Gate"
+         EditorPos -400 -132.857
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port -1
+           PortName "Time"
+          }
+          SingleInputPortContainer SingleInputPortContainer {
+           Port -1
+           PortName "ResetTime"
+          }
+         }
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port -1
+           PortName "Trigger"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port -1
+           PortName "ElapsedTime"
+          }
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port -1
+           PortName "ResetTimeOut"
+          }
+         }
+         m_Time 2
         }
         ForEachChild "For Each Child" {
          Name "For Each Child"
@@ -253,12 +282,6 @@ BehaviorTree {
    VariableExposedInput 0
    VariableExposedOutput 0
   }
-  Variable waypointRelated {
-   VariableName "waypointRelated"
-   VariableTypeName "bool"
-   VariableExposedInput 0
-   VariableExposedOutput 0
-  }
   Variable allwoclosespawn {
    VariableName "allwoclosespawn"
    VariableTypeName "bool"
@@ -336,7 +359,7 @@ BehaviorTree {
    EditorPos 267 71.75
   }
   VariableReference allwoclosespawn {
-   VariableType 10
+   VariableType 9
    EditorPos -485.714 47.143
   }
   VariableReference smartActionComponent {
@@ -344,7 +367,7 @@ BehaviorTree {
    EditorPos -824.5 832.559
   }
   VariableReference allwoclosespawn {
-   VariableType 10
+   VariableType 9
    EditorPos -584.444 602.222
   }
  }

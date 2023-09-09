@@ -117,6 +117,7 @@ class SCR_AIGetClosestSmartAction : AITaskScripted
 	protected static const string TAGS_PORT = "InTags";
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
 	protected static const string OUT_TAG_PORT = "OutTag";
+	protected static const string OUT_CROUCH_BOOL = "CROUCH_BOOL";
 	
 	SCR_AISmartActionComponent OutSmartAction;
 	vector Origin;
@@ -177,6 +178,7 @@ class SCR_AIGetClosestSmartAction : AITaskScripted
 		
 		if (OutSmartAction)
 		{
+			SetVariableOut(OUT_CROUCH_BOOL, OutSmartAction.ShouldCrouchWhenPerforming);
 			SetVariableOut(SMARTACTION_PORT, OutSmartAction);
 			outtags.Clear();
 			OutSmartAction.GetTags(outtags);
@@ -231,7 +233,7 @@ class SCR_AIGetClosestSmartAction : AITaskScripted
 	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT,  RADIUS_PORT, TAGS_PORT};
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT };
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT ,OUT_CROUCH_BOOL};
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 class SCR_AIGetClosestSmartActionSentinel : AITaskScripted
@@ -419,6 +421,24 @@ class FireplaceSmartActionTest : SmartActionTest
 	{
 		SCR_BaseInteractiveLightComponent m_LightComponent = SCR_BaseInteractiveLightComponent.Cast(Owner.FindComponent(SCR_BaseInteractiveLightComponent));
 		if(!m_LightComponent.IsOn())
+		{
+			return true;
+		}
+		return false;
+	}
+}
+class StoreSmartActionTest : SmartActionTest
+{
+	override bool TestAction(IEntity Owner, IEntity User)
+	{
+		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(User);
+		if (!char)
+			return false;
+		SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(Owner.FindComponent(SP_StoreAISmartActionComponent));
+		if (!storeaction)
+			return false;
+		int needamount;
+		if (storeaction.TestDescriptor(char.GetNeed(needamount)))
 		{
 			return true;
 		}

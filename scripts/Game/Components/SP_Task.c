@@ -508,8 +508,10 @@ class SP_Task
 	//invoker stuff
 	//------------------------------------------------------------------//
 	//Owner stuff
-	void GetOnOwnerDeath()
+	void GetOnOwnerDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveOwnerInvokers();
 		//m_eTaskOwner = null;
 		//possible to fail task, if so override dis
@@ -542,8 +544,10 @@ class SP_Task
 	}
 	//------------------------------------------------------------------//
 	//Target stuff
-	void GetOnTargetDeath()
+	void GetOnTargetDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveTargetInvokers();
 		//m_eTaskTarget = null;
 		//possible to fail task, if so override dis
@@ -610,6 +614,7 @@ class SP_Task
 	void UnAssignOwner()
 	{
 		m_bOwnerAssigned = false;
+		
 	}
 	void UnAssignCharacter()
 	{
@@ -623,8 +628,10 @@ class SP_Task
 		e_State = ETaskState.UNASSIGNED;
 		ClearReserves();
 	}
-	void GetOnAssigneeDeath()
+	void GetOnAssigneeDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveAssigneeInvokers();
 		//m_aTaskAssigned = null;
 		UnAssignCharacter();

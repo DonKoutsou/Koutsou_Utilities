@@ -418,8 +418,10 @@ class SP_RescueTask: SP_Task
 		}
 		return true;
 	};
-	override void GetOnOwnerDeath()
+	override void GetOnOwnerDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveOwnerInvokers();
 		if (!m_aCharsToRescue.IsEmpty())
 		{

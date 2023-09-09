@@ -10,10 +10,10 @@ typedef ScriptInvokerBase<SCR_AIActionUserInvoker_Callback> SCR_AIActionUserInvo
 class SCR_AISmartActionComponent : AISmartActionComponent
 {
 	[Attribute()]
-	bool OnDurringNight;
-
-	[Attribute()]
 	ref SmartActionTest ActionTest;
+	
+	[Attribute()]
+	bool ShouldCrouchWhenPerforming;
 	
 	ref SCR_AIActionUserInvoker Event_EOnActionEnd;	
 	
@@ -29,10 +29,6 @@ class SCR_AISmartActionComponent : AISmartActionComponent
 	bool RunTest(IEntity User)
 	{
 		return ActionTest.TestAction(GetOwner(), User);
-	}
-	bool GetDNightBool()
-	{
-		return OnDurringNight;
 	}
 	//------------------------------------------------------------------------------------------------
 	void ReserveAction(AIAgent owner)

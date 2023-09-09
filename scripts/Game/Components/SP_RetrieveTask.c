@@ -10,9 +10,11 @@ class SP_RetrieveTask: SP_Task
 	[Attribute(uiwidget: UIWidgets.SearchComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
 	ERequestRewardItemDesctiptor	m_requestitemdescriptor;
 	
-	ref array <ResourceName>	rewards;
+	ref array <IEntity>	rewards;
 	//----------------------------------------//
 	ref array <IEntity> m_aRetrievedItems;
+	//incase task is for ammo
+	BaseMagazineComponent Mag;
 	//------------------------------------------------------------------------------------------------------------//
 	ERequestRewardItemDesctiptor GetRequestDescriptor()
 	{
@@ -24,10 +26,19 @@ class SP_RetrieveTask: SP_Task
 	}
 	override bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
 	{
-		return true;
+		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(Assignee.FindComponent(SCR_InventoryStorageManagerComponent));
+		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemdescriptor);
+		array <IEntity> FoundItems = new array <IEntity>();
+		inv.FindItems(FoundItems, RequestPred);
+		if (FoundItems.Count() > m_iRequestedAmount)
+		{
+			return true;
+		}
+		return false;
 	}
 	override bool AssignCharacter(IEntity Character)
 	{
+		
 		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
 		if (!comp)
 			return false;
@@ -36,15 +47,27 @@ class SP_RetrieveTask: SP_Task
 			return false;
 		if (!super.AssignCharacter(Character))
 			return false;
+		if (SCR_EntityHelper.GetPlayer() != Character)
+		{
+			if (CompleteTask(Character))
+				return true;
+			else
+				UnAssignCharacter();
+			
+		}
 		//Add follow action to owner
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 		if (!utility)
 			return false;
-		SCR_AIExecuteBountyTaskBehavior action = new SCR_AIExecuteBountyTaskBehavior(utility, null, this);
+		SCR_AIExecuteRetrieveTaskBehavior action = new SCR_AIExecuteRetrieveTaskBehavior(utility, null, this);
 		utility.AddAction(action);
 		//if player throw popup
 		AddAssigneeInvokers();
 		return true;
+	}
+	override bool AssignOwner()
+	{
+		return false;
 	}
 	override bool Init()
 	{
@@ -79,7 +102,11 @@ class SP_RetrieveTask: SP_Task
 		string OName;
 		string OLoc;
 		GetInfo(OName, OLoc);
-		string itemdesc = typename.EnumToString(ERequestRewardItemDesctiptor, m_requestitemdescriptor);
+		string itemdesc
+		if (m_requestitemdescriptor == ERequestRewardItemDesctiptor.AMMO)
+			itemdesc = Mag.GetMagazineWell().ClassName() + " " + typename.EnumToString(ERequestRewardItemDesctiptor, m_requestitemdescriptor);
+		else
+			itemdesc = typename.EnumToString(ERequestRewardItemDesctiptor, m_requestitemdescriptor);
 		itemdesc.ToLower();
 		m_sTaskDesc = string.Format("%1 is looking for %2 %3. %1 is on %4, go meet him if you can help him.", OName, m_iRequestedAmount.ToString(), itemdesc, OLoc);
 		m_sTaskDiag = string.Format("I am looking for someone to bring me %1 %2.", m_iRequestedAmount.ToString(), itemdesc);
@@ -95,15 +122,35 @@ class SP_RetrieveTask: SP_Task
 			return true;
 		SCR_ChimeraCharacter ChimeraChar = SCR_ChimeraCharacter.Cast(Owner);
 		int ammount;
-		m_requestitemdescriptor = ChimeraChar.GetNeed(ammount);
+		
+		m_requestitemdescriptor = ChimeraChar.GetNeed(ammount, Mag);
 		if (!m_requestitemdescriptor)
 			return false;
+		
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		int money = ChimeraChar.GetWallet().GetCurrencyAmmount();
 		array<SCR_EntityCatalogEntry> Mylist = {};
 		RequestCatalog.GetRequestItems(m_requestitemdescriptor, Mylist);
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
+		SCR_EntityCatalogEntry entry;
+		if (m_requestitemdescriptor == ERequestRewardItemDesctiptor.AMMO)
+		{
+			
+			foreach (SCR_EntityCatalogEntry disentry : Mylist)
+			{
+				SP_RequestAmmoData data = SP_RequestAmmoData.Cast(disentry.GetEntityDataOfType(SP_RequestAmmoData));
+				if (data.GetMagType().ClassName() == Mag.GetMagazineWell().ClassName())
+				{
+					entry = disentry;
+					break;
+				}
+			}
+			
+		}
+		else
+			entry = Mylist.GetRandomElement();
+		if (!entry)
+				return false;
 		int worth = RequestCatalog.GetWorthOfItem(entry.GetPrefab());
 		while (worth * ammount > money)
 		{
@@ -113,6 +160,7 @@ class SP_RetrieveTask: SP_Task
 		}
 		m_iRequestedAmount = ammount;
 		return true;
+		
 		/*
 		int index = Math.RandomInt(0, 22);
 		if (index == 0)
@@ -285,15 +333,26 @@ class SP_RetrieveTask: SP_Task
 		{
 			int m_ifoundamount;
 			foreach (IEntity item : FoundItems)
+			{
+				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
+				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+				LoadoutSlotInfo eqslot = LoadoutSlotInfo.Cast(parentSlot);
+				if(!eqslot)
 				{
-					InventoryItemComponent pInvComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
-					InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
-					LoadoutSlotInfo eqslot = LoadoutSlotInfo.Cast(parentSlot);
-					if(!eqslot)
+					if (m_requestitemdescriptor == ERequestRewardItemDesctiptor.AMMO)
+					{
+						BaseMagazineComponent comp = BaseMagazineComponent.Cast(item.FindComponent(BaseMagazineComponent));
+						if (!comp)
+							continue;
+						if (comp.GetMagazineWell().ClassName() == Mag.GetMagazineWell().ClassName())
 						{
 							m_ifoundamount += 1;
 						}
+					}
+					else
+						m_ifoundamount += 1;
 				}
+			}
 			if(m_ifoundamount >= m_iRequestedAmount)
 			{
 				return true;
@@ -318,6 +377,16 @@ class SP_RetrieveTask: SP_Task
 			{
 				if (amountleft <= 0)
 					break;
+				if (m_requestitemdescriptor == ERequestRewardItemDesctiptor.AMMO)
+				{
+					BaseMagazineComponent comp = BaseMagazineComponent.Cast(item.FindComponent(BaseMagazineComponent));
+					if (!comp)
+						continue;
+					if (comp.GetMagazineWell().ClassName() != Mag.GetMagazineWell().ClassName())
+					{
+						continue;
+					}
+				}
 				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
 				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 				LoadoutSlotInfo eqslot = LoadoutSlotInfo.Cast(parentSlot);
@@ -347,6 +416,8 @@ class SP_RetrieveTask: SP_Task
 					amountleft -= 1;
 				}
 			}
+			if (amountleft != 0)
+				return false;
 			AssignReward();
 			if (GiveReward(Assignee))
 			{
@@ -381,12 +452,10 @@ class SP_RetrieveTask: SP_Task
 	};
 	override bool AssignReward()
 	{
-		rewards = new ref array <ResourceName>();
+		rewards = new ref array <IEntity>();
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
-		SCR_EntityCatalog RewardCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REWARD);
 		array<SCR_EntityCatalogEntry> Requestlist = new array<SCR_EntityCatalogEntry>();
-		array<SCR_EntityCatalogEntry> Rewardlist = new array<SCR_EntityCatalogEntry>();
 		RequestCatalog.GetEntityList(Requestlist);
 		if (m_aRetrievedItems.IsEmpty())
 			return false;
@@ -398,16 +467,33 @@ class SP_RetrieveTask: SP_Task
 			SP_RequestData requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
 			m_iRewardAmount = m_iRewardAmount + requestdata.GetWorth();
 		}
-		RewardCatalog.GetEntityList(Rewardlist);
 		while (m_iRewardAmount > 0)
 		{
-			SCR_EntityCatalogEntry entry = Rewardlist.GetRandomElement();
+			
+			SCR_EntityCatalogEntry entry = Requestlist.GetRandomElement();
 			SP_RequestData requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
-			if (requestdata.GetWorth() <= m_iRewardAmount)
+			if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 			{
-				m_iRewardAmount -= requestdata.GetWorth();
-				rewards.Insert(entry.GetPrefab());
+				SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+				WalletEntity wallet = Char.GetWallet();
+				if (wallet.GetCurrencyAmmount() > m_iRewardAmount)
+				{
+					array <IEntity> curr = {};
+					wallet.GetCurrency(curr);
+					foreach (IEntity mon : curr)
+					{
+						if (!m_iRewardAmount)
+							break;
+						rewards.Insert(mon);
+						m_iRewardAmount -= 1;
+					}
+				}
 			}
+			//else if (requestdata.GetWorth() <= m_iRewardAmount)
+			//{
+			//	m_iRewardAmount -= requestdata.GetWorth();
+			//	rewards.Insert(entry.GetPrefab());
+			//}
 		}
 		/*if (!e_RewardLabel)
 		{
@@ -425,6 +511,7 @@ class SP_RetrieveTask: SP_Task
 		}
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
 		reward = entry.GetPrefab();*/
+		m_bHasReward = true;
 		return true;
 		
 	};
@@ -439,14 +526,11 @@ class SP_RetrieveTask: SP_Task
 			
 			if (e_RewardLabel != ERequestRewardItemDesctiptor.CURRENCY)
 			{
-				EntitySpawnParams params = EntitySpawnParams();
-				params.TransformMode = ETransformMode.WORLD;
-				params.Transform[3] = m_eTaskOwner.GetOrigin();
 				InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
 				array<IEntity> Rewardlist = new array<IEntity>();
 				int Movedamount;
 				for (int j = 0; j < rewards.Count(); j++)
-					Rewardlist.Insert(GetGame().SpawnEntityPrefab(Resource.Load(rewards[j]), GetGame().GetWorld(), params));
+					Rewardlist.Insert(rewards[j]);
 				for (int i, count = Rewardlist.Count(); i < count; i++)
 				{
 					TargetInv.TryInsertItem(Rewardlist[i]);
@@ -465,10 +549,10 @@ class SP_RetrieveTask: SP_Task
 			map <ResourceName, int> stringarray = new map <ResourceName, int>();
 			for (int j = 0; j < rewards.Count(); j++)
 			{
-				if (!stringarray.Contains(rewards[j]))
-					stringarray.Insert(rewards[j], 1);
+				if (!stringarray.Contains(rewards[j].GetPrefabData().GetPrefabName()))
+					stringarray.Insert(rewards[j].GetPrefabData().GetPrefabName(), 1);
 				else
-					stringarray.Set(rewards[j], stringarray.Get(rewards[j]) + 1);
+					stringarray.Set(rewards[j].GetPrefabData().GetPrefabName(), stringarray.Get(rewards[j].GetPrefabData().GetPrefabName()) + 1);
 			}
 			for (int j = 0; j < stringarray.Count(); j++)
 			{
@@ -513,14 +597,30 @@ class SP_RequestPredicate : InventorySearchPredicate
 		{
 			return false;
 		}
-		SP_RequestData Requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
-		if(m_requestitemdescriptor)
+		if (m_requestitemdescriptor != ERequestRewardItemDesctiptor.AMMO)
 		{
-			if (Requestdata.GetRequestDescriptor() == m_requestitemdescriptor)
+			SP_RequestData Requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
+			if(Requestdata)
 			{
-				return true;
+				if (Requestdata.GetRequestDescriptor() == m_requestitemdescriptor)
+				{
+					return true;
+				}
 			}
 		}
+		else
+		{
+			SP_RequestAmmoData Requestammodata = SP_RequestAmmoData.Cast(entry.GetEntityDataOfType(SP_RequestAmmoData));
+			if(Requestammodata)
+			{
+				if (Requestammodata.GetRequestDescriptor() == m_requestitemdescriptor)
+				{
+					return true;
+				}
+			}
+		}
+		
+		
 		return false;
 	}
 	

@@ -232,6 +232,18 @@ class SP_DeliverTask: SP_Task
 		}
 		return false;
 	};
+	override void FailTask()
+	{
+		super.FailTask();
+		DeleteLeftovers();
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	//Fail task duplicate used for stuff other than character dying
+	override void CancelTask()
+	{
+		super.CancelTask();
+		DeleteLeftovers();
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Info needed for delivery mission is Names of O/T and location names of O/T
 	void GetInfo(out string OName, out string DName, out string OLoc, out string DLoc)
@@ -469,18 +481,24 @@ class SP_DeliverTask: SP_Task
 			return false;
 		return true;
 	};
-	override void GetOnOwnerDeath()
+	override void GetOnOwnerDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveOwnerInvokers();
 		//possible to fail task, if so override dis
 	}
-	override void GetOnTargetDeath()
+	override void GetOnTargetDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		RemoveTargetInvokers();
 		FailTask();
 	}
-	override void GetOnAssigneeDeath()
+	override void GetOnAssigneeDeath(EDamageState state)
 	{
+		if (state != EDamageState.DESTROYED)
+			return;
 		UnAssignCharacter();
 		//Decide owner behevior
 		//possible retrieve quest for player

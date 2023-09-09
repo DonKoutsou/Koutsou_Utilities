@@ -62,7 +62,7 @@ BehaviorTree {
                PortName "TaskOwner"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
-               Port 8
+               Port 7
                PortName "Ammount"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
@@ -86,7 +86,7 @@ BehaviorTree {
          }
          OutPorts {
           SingleOutputPortContainer SingleOutputPortContainer {
-           Port 7
+           Port 6
            PortName "Position"
           }
          }
@@ -150,7 +150,7 @@ BehaviorTree {
                  m_eMovementType RUN
                 }
                }
-               InEntity 10
+               InEntity 9
                InPosition 2
                DistanceThreshold 20
                OutDistance -1
@@ -176,7 +176,7 @@ BehaviorTree {
                 }
                }
                NegativeCondition 1
-               InEntity 11
+               InEntity 10
                InPosition 3
                DistanceThreshold 30
                OutDistance -1
@@ -249,17 +249,17 @@ BehaviorTree {
            EditorPos 682.603 771.652
            InTargetOrientation -1
            InPrecisionXZ -1
-           PrecisionXZ 2
+           PrecisionXZ 4
            OrientationType ToPoint
            RequestResult -1
-           InEntity 9
+           InEntity 8
           }
           SCR_AILookAtEntity "SCR_AI Look At Entity" {
            Name "SCR_AI Look At Entity"
            EditorPos 1111.429 774.286
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
-             Port 6
+             Port 14
              PortName "EntityIn"
             }
             SingleInputPortContainer SingleInputPortContainer {
@@ -290,7 +290,7 @@ BehaviorTree {
              }
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
-               Port 12
+               Port 11
                PortName "Char"
               }
              }
@@ -300,11 +300,11 @@ BehaviorTree {
              EditorPos 1594.75 1179.019
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
-               Port 13
+               Port 12
                PortName "TargetEntity"
               }
               SingleInputPortContainer SingleInputPortContainer {
-               Port 14
+               Port 13
                PortName "Task"
               }
              }
@@ -373,7 +373,7 @@ BehaviorTree {
   }
   VariableReference MyPos {
    VariableType 2
-   EditorPos -781.105 1342.75
+   EditorPos -757.772 1346.083
   }
   VariableReference MyPos {
    VariableType 2
@@ -389,10 +389,6 @@ BehaviorTree {
   }
   VariableReference CharToFollowPos {
    VariableType 4
-   EditorPos 765.615 1040.313
-  }
-  VariableReference CharToFollowPos {
-   VariableType 4
    EditorPos -889.994 628.004
   }
   VariableReference RequestAmmount {
@@ -405,7 +401,7 @@ BehaviorTree {
   }
   VariableReference TaskOwner {
    VariableType 1
-   EditorPos -800 1271.429
+   EditorPos -805 1274.762
   }
   VariableReference TaskOwner {
    VariableType 1
@@ -422,6 +418,10 @@ BehaviorTree {
   VariableReference Task {
    VariableType 0
    EditorPos 1438.571 1347.143
+  }
+  VariableReference TaskOwner {
+   VariableType 1
+   EditorPos 838.75 1047.5
   }
  }
 }

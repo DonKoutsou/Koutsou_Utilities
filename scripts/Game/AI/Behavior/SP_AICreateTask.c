@@ -47,39 +47,57 @@ class SCR_AICreateTask : AITaskScripted
 }
 class SCR_AIEvaluatePossibleTags : AITaskScripted
 {
-	[Attribute()]
-	bool LookforTask;
-	[Attribute()]
-	bool LookforAmmo;
 	protected const static string TAG_PORT = "Tags";
-	protected static ref TStringArray s_aVarsOut = {TAG_PORT};
+	protected const static string RADIOUS_PORT = "Radious";
+	protected static ref TStringArray s_aVarsOut = {TAG_PORT, RADIOUS_PORT};
 	
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 
 	
 	ref array <string> tags;
+	int m_iRadious = 20;
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
 		tags = {};
-		if (!LookforTask && !LookforAmmo)
+		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(owner.GetControlledEntity());
+		int ammount;
+		ERequestRewardItemDesctiptor desc = char.GetNeed(ammount);
+		if (desc)
+		{
+			int money = char.GetWallet().GetCurrencyAmmount();
+			int worth;
+			CheckNeedPrice(desc, worth);
+			if (worth * ammount < money)
+			{
+				//look for store
+				tags.Insert("Store");
+				m_iRadious = 300;
+			}
+			else
+			{
+				//look for work
+				tags.Insert("SmartTask");
+				m_iRadious = 300;
+			}
+		}
+		else
 		{
 			tags.Insert("LightFire");
 			tags.Insert("SwitchLight");
 			tags.Insert("SwitchRadio");
 			tags.Insert("DeadBody");
-			SetVariableOut(TAG_PORT, tags);
 		}
-		else if (LookforTask)
-		{
-			tags.Insert("SmartTask");
-			SetVariableOut(TAG_PORT, tags);
-		}
-		else if (LookforAmmo)
-		{
-			tags.Insert("AmmoRefill");
-			SetVariableOut(TAG_PORT, tags);
-		}
+		SetVariableOut(RADIOUS_PORT, m_iRadious);
+		SetVariableOut(TAG_PORT, tags);
 		return ENodeResult.SUCCESS;
+	}
+	void CheckNeedPrice(ERequestRewardItemDesctiptor need, out int price)
+	{
+		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+		array<SCR_EntityCatalogEntry> Mylist = {};
+		RequestCatalog.GetRequestItems(need, Mylist);
+		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
 	}
 	override bool VisibleInPalette() { return true; }
 }

@@ -13,6 +13,9 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 	[Attribute(defvalue : "0")]
 	bool m_bSpawnUncon;
 	
+	[Attribute("0")]
+	bool m_bSetCharacterImportant;
+	
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
 	{
 		if (!object)
@@ -53,6 +56,8 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(object.GetSpawnedEntity());
 		if (char)
 		{
+			if (m_bSetCharacterImportant)
+				char.IsImportantCharacter = true;
 			if (m_bSpawnUncon)
 			{
 				SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(char.FindComponent(SCR_CharacterDamageManagerComponent));

@@ -18,6 +18,13 @@ GenericEntity {
    ModelGeometry 1
    Static 1
   }
+  SP_StoreAISmartActionComponent "{5E52E4F37B3637C3}" {
+   Tags {
+    "StorePost"
+   }
+   ActionTest StoreSmartActionTest "{5E52E4F055FD3C39}" {
+   }
+  }
   ActionsManagerComponent "{5B1111371149AC02}" {
    additionalActions {
     ADM_ShopAction "{5DF4DAF647D17645}" {
