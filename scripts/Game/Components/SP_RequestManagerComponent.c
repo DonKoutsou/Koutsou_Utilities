@@ -1115,30 +1115,31 @@ class SP_RequestAmmoData : SP_RequestData
 }
 enum ERequestRewardItemDesctiptor
 {
-	CURRENCY,
-	WEAPON,
-	ARMOR,
-	HELMET,
-	CONSUMABLE,
-	AMMO,
-	FOOD_RAW,
-	FOOD_COOKED,
-	DRINK,
-	GADGET,
-	MORPHINE,
-	BANDAGE,
-	SLEEPING_PILLS,
-	BOTTLE,
-	COOKING_APPLIANCE,
-	EXPLOSIVE,
-	BACKPACK,
-	LOAD_BEARING_SYSTEM,
-	WEAPON_ATATCHMENT,
-	RADIO,
-	MAP,
-	FLASHLIGHT,
-	COMPASS,
-	BINOCULARS,
+	CURRENCY = 0,
+	WEAPON = 1,
+	ARMOR = 2,
+	HELMET = 3,
+	CONSUMABLE = 4,
+	AMMO = 5,
+	FOOD_RAW = 6,
+	FOOD_COOKED = 7,
+	DRINK = 8,
+	GADGET = 9,
+	MORPHINE = 10,
+	BANDAGE = 11,
+	SLEEPING_PILLS = 12,
+	BOTTLE = 13,
+	COOKING_APPLIANCE = 14,
+	EXPLOSIVE = 15,
+	BACKPACK = 16,
+	LOAD_BEARING_SYSTEM = 17,
+	WEAPON_ATATCHMENT = 18,
+	RADIO = 19,
+	MAP = 20,
+	FLASHLIGHT = 21,
+	COMPASS = 22,
+	BINOCULARS = 23,
+	SIDEARM = 24,
 }
 [BaseContainerProps(configRoot: true), SCR_BaseContainerCustomEntityCatalogCatalog(EEntityCatalogType, "m_eEntityCatalogType", "m_aEntityEntryList", "m_aMultiLists")]
 modded class SCR_EntityCatalog
@@ -1149,11 +1150,17 @@ modded class SCR_EntityCatalog
 		SCR_EntityCatalogEntry entry = GetEntryWithPrefab(Item);
 		SP_RequestData Data = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
 		if (!Data)
+		{
+			SP_RequestAmmoData AmmoData = SP_RequestAmmoData.Cast(entry.GetEntityDataOfType(SP_RequestAmmoData));
+			if (!AmmoData)
+				return worth;
+			worth = AmmoData.GetWorth();
 			return worth;
+		}
 		worth = Data.GetWorth();
 		return worth;
 	}
-	void GetRequestItems(int Descriptor, out array <SCR_EntityCatalogEntry>  correctentries)
+	void GetRequestItems(int Descriptor, BaseMagazineComponent mag, out array <SCR_EntityCatalogEntry>  correctentries)
 	{
 		correctentries = {};
 		foreach (SCR_EntityCatalogEntry entityEntry: m_aEntityEntryList)
@@ -1172,6 +1179,11 @@ modded class SCR_EntityCatalog
 			{
 				if (AmmoData.GetRequestDescriptor() == Descriptor)
 				{
+					if (mag)
+					{
+						if (mag.GetMagazineWell().ClassName() != AmmoData.GetMagType().ClassName())
+							continue;
+					}
 					correctentries.Insert(entityEntry);
 					continue;
 				}

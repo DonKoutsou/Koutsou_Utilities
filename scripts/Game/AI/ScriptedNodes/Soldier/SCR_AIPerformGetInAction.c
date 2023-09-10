@@ -49,9 +49,9 @@ class SCR_AIPerformLightAction : AITaskScripted
 			{
 				userActionString = "SP_DialogueAction";
 			}
-			else if (tags[0] == "AmmoRefill")
+			else if (tags[0] == "StorePost")
 			{
-				
+				userActionString = "SP_BuyStuff";
 			}
 			IEntity controlledEntity = owner.GetControlledEntity();
 			if (!controlledEntity)

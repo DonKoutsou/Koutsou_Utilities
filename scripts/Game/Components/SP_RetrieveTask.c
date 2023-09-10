@@ -131,7 +131,7 @@ class SP_RetrieveTask: SP_Task
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		int money = ChimeraChar.GetWallet().GetCurrencyAmmount();
 		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(m_requestitemdescriptor, Mylist);
+		RequestCatalog.GetRequestItems(m_requestitemdescriptor, Mag, Mylist);
 		SCR_EntityCatalogEntry entry;
 		if (m_requestitemdescriptor == ERequestRewardItemDesctiptor.AMMO)
 		{
@@ -467,26 +467,24 @@ class SP_RetrieveTask: SP_Task
 			SP_RequestData requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
 			m_iRewardAmount = m_iRewardAmount + requestdata.GetWorth();
 		}
-		while (m_iRewardAmount > 0)
+		//while (m_iRewardAmount > 0)
+		//{
+			//SCR_EntityCatalogEntry entry = Requestlist.GetRandomElement();
+			//SP_RequestData requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
+		/*if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
-			
-			SCR_EntityCatalogEntry entry = Requestlist.GetRandomElement();
-			SP_RequestData requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
-			if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
+			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+			WalletEntity wallet = Char.GetWallet();
+			if (wallet.GetCurrencyAmmount() > m_iRewardAmount)
 			{
-				SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
-				WalletEntity wallet = Char.GetWallet();
-				if (wallet.GetCurrencyAmmount() > m_iRewardAmount)
+				array <IEntity> curr = {};
+				wallet.GetCurrency(curr);
+				foreach (IEntity mon : curr)
 				{
-					array <IEntity> curr = {};
-					wallet.GetCurrency(curr);
-					foreach (IEntity mon : curr)
-					{
-						if (!m_iRewardAmount)
-							break;
-						rewards.Insert(mon);
-						m_iRewardAmount -= 1;
-					}
+					if (!m_iRewardAmount)
+						break;
+					rewards.Insert(mon);
+					m_iRewardAmount -= 1;
 				}
 			}
 			//else if (requestdata.GetWorth() <= m_iRewardAmount)
@@ -494,7 +492,7 @@ class SP_RetrieveTask: SP_Task
 			//	m_iRewardAmount -= requestdata.GetWorth();
 			//	rewards.Insert(entry.GetPrefab());
 			//}
-		}
+		}*/
 		/*if (!e_RewardLabel)
 		{
 			int index = Math.RandomInt(0,2);

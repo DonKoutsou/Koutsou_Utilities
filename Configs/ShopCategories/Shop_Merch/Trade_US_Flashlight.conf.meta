@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C9CB1C129F73B5C9}Configs/ShopCategories/Shop_Merch/Trade_US_Flashlight.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -331,7 +331,7 @@ class SP_NavigateTask: SP_Task
 			return false;
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
-		
+		m_bHasReward = true;
 		return true;
 	};
 	override void AddTargetInvokers(){};

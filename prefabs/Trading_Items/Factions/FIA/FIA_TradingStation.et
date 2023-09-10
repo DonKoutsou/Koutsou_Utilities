@@ -112,6 +112,11 @@ GenericEntity {
    coords -1.12 0 -0.094
    angleY 90.2
   }
+  GenericEntity : "{99DCCFC762D1B1D6}prefabs/Trading_Items/Factions/Factionless/TS_Factionless_Expl.et" {
+   ID "5E5498ADFB45A726"
+   coords -1.856 0 -0.003
+   angleY 0
+  }
   GenericEntity : "{9E5D9DE8AC6CDC85}prefabs/Trading_Items/FIA_Clothing_TradingStation.et" {
    ID "5B36B9A589175B80"
    components {

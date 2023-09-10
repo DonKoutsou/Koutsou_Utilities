@@ -301,8 +301,3 @@ class CharacterHolder : ScriptAndConfig
 	}
 	//------------------------------------------------------------------------------------------------------------//
 }
-modded class SCR_ChimeraCharacter
-{
-	[Attribute("0")]
-	bool IsImportantCharacter;
-}

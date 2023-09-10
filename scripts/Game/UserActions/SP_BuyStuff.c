@@ -16,15 +16,31 @@ class SP_BuyStuff : ScriptedUserAction
 		array <ref ADM_ShopMerchandise> Merchendise = shop.GetMerchandise();
 		
 		int ammount;
-		ERequestRewardItemDesctiptor need = Char.GetNeed(ammount);
+		BaseMagazineComponent mag;
+		ERequestRewardItemDesctiptor need = Char.GetNeed(ammount, mag);
+		if (!StoreSmartAction.shoplist.Contains(need))
+		{
+			foreach (ERequestRewardItemDesctiptor myneed : StoreSmartAction.shoplist)
+			{
+				array <ERequestRewardItemDesctiptor> needlist = {};
+				needlist.Insert(myneed);
+				if (Char.Checkneed(needlist ,ammount, mag))
+				{
+					need = myneed;
+					break;
+				}
+				
+			}
+		}
 		
 		//find request in catalog
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(need, Mylist);
-		int price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
+		RequestCatalog.GetRequestItems(need, mag, Mylist);
 		
+		int price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
+		array <ref ADM_ShopMerchandise> CanBuyMerchendise = {};
 		foreach (SCR_EntityCatalogEntry entry : Mylist)
 		{
 			ResourceName prefab = entry.GetPrefab();
@@ -34,19 +50,39 @@ class SP_BuyStuff : ScriptedUserAction
 				{
 					if (shop.CanPurchase(pUserEntity, merch, ammount))
 					{
-						if (shop.AskAIPurchase(pUserEntity, merch, ammount))
-							return;
+						CanBuyMerchendise.Insert(merch);
+						
 					}
 				}
 			}
 		}
+		if (CanBuyMerchendise.IsEmpty())
+			return;
+		if (need == ERequestRewardItemDesctiptor.HELMET)
+		{
+			RemoveHelmet(pUserEntity);
+		}
+		shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount);
+		return;
+		
 	}
-	void CheckNeedPrice(ERequestRewardItemDesctiptor need, out int price)
+	void RemoveHelmet(IEntity char)
+	{
+		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast(char.FindComponent(SCR_CharacterInventoryStorageComponent));
+		IEntity Hat = loadoutStorage.GetClothFromArea(LoadoutHeadCoverArea);
+		if (!Hat)
+			return;
+		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
+		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Hat.FindComponent(InventoryItemComponent));
+		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+		inv.TryRemoveItemFromStorage(Hat, parentSlot.GetStorage());
+	}
+	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)
 	{
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(need, Mylist);
+		RequestCatalog.GetRequestItems(need, mag, Mylist);
 		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
 	}
 	override event void Init(IEntity pOwnerEntity, GenericComponent pManagerComponent)

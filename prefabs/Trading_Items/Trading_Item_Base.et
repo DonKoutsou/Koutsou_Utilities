@@ -35,6 +35,11 @@ GenericEntity {
       Name "Trade"
      }
     }
+    SP_BuyStuff "{5E5452EB468BF49D}" {
+     ParentContextList {
+      "default"
+     }
+    }
    }
   }
   RplComponent "{5B11113B0FCA391F}" {

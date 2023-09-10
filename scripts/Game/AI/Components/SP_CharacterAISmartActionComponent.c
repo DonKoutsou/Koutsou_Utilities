@@ -22,17 +22,20 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 	
 	ref array <ERequestRewardItemDesctiptor> shoplist = {};
 	
-	bool TestDescriptor(ERequestRewardItemDesctiptor Descriptor)
+	bool TestNeeds(SCR_ChimeraCharacter Char)
 	{
-		if (shoplist.Contains(Descriptor))
+		int ammount;
+		BaseMagazineComponent mag;
+		if (Char.Checkneed(shoplist, ammount, mag))
+		{
 			return true;
+		}
 		return false;
 	}
-	
-	void SP_StoreAISmartActionComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
+	void Init(IEntity owner)
 	{
-		m_Owner = GenericEntity.Cast(ent);
-		Shop = ADM_ShopComponent.Cast(ent.FindComponent(ADM_ShopComponent));
+		m_Owner = GenericEntity.Cast(owner);
+		Shop = ADM_ShopComponent.Cast(owner.FindComponent(ADM_ShopComponent));
 		if (!Shop)
 			return;
 		
@@ -66,6 +69,10 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 				}
 			}
 		}
+	}
+	void SP_StoreAISmartActionComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
+	{
+		GetGame().GetCallqueue().CallLater(Init, 100, false, ent);
 	}
 	
 };

@@ -438,7 +438,11 @@ class StoreSmartActionTest : SmartActionTest
 		if (!storeaction)
 			return false;
 		int needamount;
-		if (storeaction.TestDescriptor(char.GetNeed(needamount)))
+		if (storeaction.shoplist.Contains(char.GetNeed(needamount)))
+		{
+			return true;
+		}
+		if (storeaction.TestNeeds(char))
 		{
 			return true;
 		}

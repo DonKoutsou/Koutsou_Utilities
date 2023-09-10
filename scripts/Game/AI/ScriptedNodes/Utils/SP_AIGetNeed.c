@@ -150,7 +150,7 @@ class SCR_AIGetNeed : AITaskScripted
 		
 		array <SCR_EntityCatalogEntry> entries = {};
 		
-		RequestCatalog.GetRequestItems(Desc, entries);
+		RequestCatalog.GetRequestItems(Desc, null, entries);
 		
 		SCR_InventoryStorageManagerComponent inventory = SCR_InventoryStorageManagerComponent.Cast(Char.FindComponent(SCR_InventoryStorageManagerComponent));
 		

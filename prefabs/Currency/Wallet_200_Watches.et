@@ -1,0 +1,13 @@
+WalletEntity : "{E477A369758A2B06}prefabs/Currency/Wallet_10_Watches.et" {
+ ID "5C78C422199A1092"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {
+   MultiSlots {
+    MultiSlotConfiguration "{5C7CF031EC521118}" {
+     NumSlots 200
+    }
+   }
+  }
+ }
+ coords 119.564 1 115.781
+}

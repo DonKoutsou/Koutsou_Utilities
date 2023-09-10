@@ -61,16 +61,17 @@ class SCR_AIEvaluatePossibleTags : AITaskScripted
 		tags = {};
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(owner.GetControlledEntity());
 		int ammount;
-		ERequestRewardItemDesctiptor desc = char.GetNeed(ammount);
+		BaseMagazineComponent Mag;
+		ERequestRewardItemDesctiptor desc = char.GetNeed(ammount, Mag);
 		if (desc)
 		{
 			int money = char.GetWallet().GetCurrencyAmmount();
 			int worth;
-			CheckNeedPrice(desc, worth);
+			CheckNeedPrice(desc, Mag, worth);
 			if (worth * ammount < money)
 			{
 				//look for store
-				tags.Insert("Store");
+				tags.Insert("StorePost");
 				m_iRadious = 300;
 			}
 			else
@@ -86,17 +87,21 @@ class SCR_AIEvaluatePossibleTags : AITaskScripted
 			tags.Insert("SwitchLight");
 			tags.Insert("SwitchRadio");
 			tags.Insert("DeadBody");
+			m_iRadious = 30;
 		}
+		
 		SetVariableOut(RADIOUS_PORT, m_iRadious);
 		SetVariableOut(TAG_PORT, tags);
 		return ENodeResult.SUCCESS;
 	}
-	void CheckNeedPrice(ERequestRewardItemDesctiptor need, out int price)
+	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)
 	{
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(need, Mylist);
+		RequestCatalog.GetRequestItems(need, mag, Mylist);
+		if (Mylist.IsEmpty())
+			return;
 		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
 	}
 	override bool VisibleInPalette() { return true; }

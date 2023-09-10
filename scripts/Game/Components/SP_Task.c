@@ -417,16 +417,10 @@ class SP_Task
 	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
-		if (!e_RewardLabel)
-		{
-			m_bHasReward = false;
-			return true;
-			Print("Mission has no reward configured, will be created with no reward");
-		}
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(e_RewardLabel, Mylist);
+		RequestCatalog.GetRequestItems(e_RewardLabel, null, Mylist);
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
 		m_Reward = entry.GetPrefab();
 		if (m_bPartOfChain && e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
@@ -435,6 +429,7 @@ class SP_Task
 			WalletEntity wallet = Character.GetWallet();
 			wallet.SpawnCurrency(m_iRewardAmount);
 		}
+		m_bHasReward = true;
 		return true;
 	};
 	void SetTimeLimit()

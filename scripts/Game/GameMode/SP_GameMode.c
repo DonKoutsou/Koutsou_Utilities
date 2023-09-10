@@ -55,7 +55,8 @@ class SP_GameMode : SCR_BaseGameMode
 		id.SetCharacterRep(m_iPlayerInitialRep);
 		//Assign questlines
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		ReqMan.AssignInitTasks(entity);
+		if (ReqMan)
+			ReqMan.AssignInitTasks(entity);
 		//Set GM
 		SCR_EditorManagerEntity localEditorManager = SCR_EditorManagerEntity.GetInstance();
 		SCR_VotingManagerComponent votingManager = SCR_VotingManagerComponent.GetInstance();

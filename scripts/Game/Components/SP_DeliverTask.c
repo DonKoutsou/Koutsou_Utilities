@@ -449,6 +449,56 @@ class SP_DeliverTask: SP_Task
 		e_State = ETaskState.UNASSIGNED;
 		return true;
 	};
+	//------------------------------------------------------------------------------------------------------------//
+	//Called when task if completed to give rewards to completionist
+	override bool GiveReward(IEntity Target)
+	{
+		if (!m_bHasReward)
+		{
+			return true;
+		}
+		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
+		{
+			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
+			SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskTarget);
+			WalletEntity wallet = Char.GetWallet();
+			WalletEntity Owallet = OChar.GetWallet();
+			
+			
+			/*int Movedamount;
+			
+			Resource cur = Resource.Load("{891BA05A96D3A0BE}prefabs/Currency/Drachma.et");
+			PrefabResource_Predicate pred = new PrefabResource_Predicate(cur.GetResource().GetResourceName());
+			array <IEntity> items = {};
+			inv.FindItems(items, pred);
+			for (int i, count = m_iRewardAmount; i < count; i++)
+			{
+				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(items[i].FindComponent(InventoryItemComponent));
+				inv.TryRemoveItemFromStorage(items[i], pInvComp.GetParentSlot().GetStorage());
+				TargetInv.TryInsertItem(items[i]);
+				Movedamount += 1;
+			}*/
+			return wallet.TakeCurrency(Owallet, m_iRewardAmount);
+		}
+		else if (m_Reward)
+		{
+			EntitySpawnParams params = EntitySpawnParams();
+			params.TransformMode = ETransformMode.WORLD;
+			params.Transform[3] = m_eTaskOwner.GetOrigin();
+			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+			array<IEntity> Rewardlist = new array<IEntity>();
+			Resource RewardRes = Resource.Load(m_Reward);
+			int Movedamount;
+			Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
+			for (int i, count = Rewardlist.Count(); i < count; i++)
+			{
+				TargetInv.TryInsertItem(Rewardlist[i]);
+				Movedamount += 1;
+			}
+			return true;
+		}
+		return false;
+	};
 	override void AddOwnerInvokers()
 	{
 		if (m_OwnerFaction)
@@ -469,16 +519,11 @@ class SP_DeliverTask: SP_Task
 	}
 	override bool AssignReward()
 	{
-		if (!e_RewardLabel)
-		{
-			m_bHasReward = false;
-			return true;
-			Print("Mission has no reward configured, will be created with no reward");
-		}
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
 		m_iRewardAmount = m_iRewardAmount * (dis/40);
 		if (!super.AssignReward())
 			return false;
+		m_bHasReward = true;
 		return true;
 	};
 	override void GetOnOwnerDeath(EDamageState state)
@@ -746,6 +791,8 @@ class CheckIfInDialogue : DecoratorScripted
 		}
 		AIControlComponent comp = AIControlComponent.Cast(Char.FindComponent(AIControlComponent));
 		AIAgent agent = comp.GetAIAgent();
+		if (!agent)
+			return false;
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 		SCR_AIConverseBehavior action = SCR_AIConverseBehavior.Cast(utility.FindActionOfType(SCR_AIConverseBehavior));
 		if (action)
