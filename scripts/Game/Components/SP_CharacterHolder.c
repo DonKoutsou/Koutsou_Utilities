@@ -22,6 +22,15 @@ class CharacterHolder : ScriptAndConfig
 	{
 		AliveCharacters.Copy(m_aAliveCharacters);
 	}
+	static void SetCharImportant(IEntity Char)
+	{
+		SCR_ChimeraCharacter ChimeraChar = SCR_ChimeraCharacter.Cast(Char);
+		if (m_aAliveCharacters.Contains(ChimeraChar))
+		{
+			m_aAliveCharacters.RemoveItem(ChimeraChar);
+			m_aImportantCharacters.Insert(ChimeraChar);
+		}
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//When a new character is spawned check if he is not "special" kekw, and if not inster him in alive array
 	private event void OnNewCharacter(IEntity Char)
@@ -277,20 +286,23 @@ class CharacterHolder : ScriptAndConfig
 		return false;
 	}*/
 	//------------------------------------------------------------------------------------------------------------//
-	void CharacterHolder()
+	static void CharacterHolder()
 	{
 		Init();
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	void ~CharacterHolder()
+	static void ~CharacterHolder()
 	{
-		m_aAliveCharacters.Clear();
-		m_aDeadCharacters.Clear();
-		m_aImportantCharacters.Clear();
+		if (m_aAliveCharacters)
+			m_aAliveCharacters.Clear();
+		if (m_aDeadCharacters)
+			m_aDeadCharacters.Clear();
+		if (m_aImportantCharacters)
+			m_aImportantCharacters.Clear();
 	}
 	
 	//------------------------------------------------------------------------------------------------------------//
-	void Init()
+	static void Init()
 	{
 		if (!m_aAliveCharacters)
 			m_aAliveCharacters = new ref array <ChimeraCharacter>();

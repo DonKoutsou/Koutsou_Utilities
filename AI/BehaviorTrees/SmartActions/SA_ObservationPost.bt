@@ -106,6 +106,35 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
          Name "Sequence"
          EditorPos -4764 -55
          Nodes {
+          SCR_AITaskTimerGate "SCR_AI Task Timer Gate" {
+           Name "SCR_AI Task Timer Gate"
+           EditorPos -5499.333 326
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "Time"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "ResetTime"
+            }
+           }
+           OutPorts {
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "Trigger"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "ElapsedTime"
+            }
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "ResetTimeOut"
+            }
+           }
+           m_Time 2
+          }
           SCR_AIEvaluateAndFindSmartAction "SCR_AI Evaluate And Find Smart Action" {
            Name "SCR_AI Evaluate And Find Smart Action"
            EditorPos -5110.833 315
@@ -1126,7 +1155,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
   }
   VariableReference CurrentSmartActionPos {
    VariableType 11
-   EditorPos -5537.643 413.988
+   EditorPos -5402.643 488.988
   }
   VariableReference tagstoact {
    VariableType 17

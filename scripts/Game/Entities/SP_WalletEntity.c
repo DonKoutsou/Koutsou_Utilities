@@ -10,7 +10,7 @@ class WalletEntity: GameEntity
 		m_cInventoryManager = SCR_InventoryStorageManagerComponent.Cast(owner.FindComponent(SCR_InventoryStorageManagerComponent));
 		if (!m_cInventoryManager)
 			Print("Missing inventory in your wallet cunt.");
-		SpawnCurrency(Math.RandomInt(5, 20));
+		SpawnCurrency(Math.RandomInt(30, 80));
 		if (GetParent())
 			Owner = GetParent().GetParent();
 	}

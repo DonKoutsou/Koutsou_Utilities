@@ -26,16 +26,6 @@ GenericEntity : "{084C06AFFD21AB0C}prefabs/Trading_Items/Trading_Item_Base.et" {
      }
     }
    }
-   additionalActions {
-    ADM_ShopAction "{5D98880BA276AC9C}" {
-     ParentContextList {
-      "default"
-     }
-     UIInfo UIInfo "{5D98880BA4AEAD31}" {
-      Name "Trade"
-     }
-    }
-   }
   }
  }
  coords 123.291 1.001 120.74

@@ -13,8 +13,6 @@ SP_GameMode {
    m_aEntityCatalogs {
     SCR_EntityCatalog "{5DC8E7D94F822388}" : "{C8568AE52B2C8E1F}Configs/Dilaogue_Configs/Requests/Requests.conf" {
     }
-    SCR_EntityCatalog "{5DC8E7D94F7C2B82}" : "{251BB14ECEF73562}Configs/Dilaogue_Configs/Requests/Rewards.conf" {
-    }
     SCR_EntityCatalog "{5DD0FCA5935CA2DD}" : "{B219EC028EC342D8}Configs/Dilaogue_Configs/Requests/Stashes.conf" {
     }
    }

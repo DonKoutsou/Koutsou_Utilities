@@ -118,12 +118,12 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	bool SetupRequestTypenMode(IEntity Owner)
 	{
-		if (m_requestitemdescriptor)
-			return true;
+		//if (m_requestitemdescriptor)
+			//return true;
 		SCR_ChimeraCharacter ChimeraChar = SCR_ChimeraCharacter.Cast(Owner);
-		int ammount;
+		int ammount = m_iRequestedAmount;
 		
-		m_requestitemdescriptor = ChimeraChar.GetNeed(ammount, Mag);
+		//m_requestitemdescriptor = ChimeraChar.GetNeed(ammount, Mag);
 		if (!m_requestitemdescriptor)
 			return false;
 		
@@ -145,7 +145,6 @@ class SP_RetrieveTask: SP_Task
 					break;
 				}
 			}
-			
 		}
 		else
 			entry = Mylist.GetRandomElement();
@@ -154,148 +153,19 @@ class SP_RetrieveTask: SP_Task
 		int worth = RequestCatalog.GetWorthOfItem(entry.GetPrefab());
 		while (worth * ammount > money)
 		{
-			ammount -= 1;
-			if (ammount == 0)
-				return false;
+			if (ammount == 1)
+			{
+				worth -= 1;
+				if (worth == 0)
+				{
+					return false;
+				}
+			}
+			else
+				ammount -= 1;
 		}
 		m_iRequestedAmount = ammount;
 		return true;
-		
-		/*
-		int index = Math.RandomInt(0, 22);
-		if (index == 0)
-			{
-				m_requestitemdescriptor = ERequestRewardItemDesctiptor.BANDAGE;
-				return true;
-			}
-		if (index == 1)
-			{
-				m_iRequestedAmount = Math.RandomInt(1, 3);
-				return true;
-			}
-		if (index == 2)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.DRINK;
-				//m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
-				m_iRequestedAmount = Math.RandomInt(1, 3);
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}
-		if (index == 3)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.EXPLOSIVES;
-				//m_requestitemmode = SCR_EArsenalItemMode.WEAPON;
-				m_iRequestedAmount = Math.RandomInt(1, 10);
-				if (m_iRequestedAmount < 5)
-					e_RewardLabel = EEditableEntityLabel.ITEMTYPE_WEAPON;
-				return true;
-			}
-		if (index == 4)
-			{
-				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(m_eTaskOwner.FindComponent(EquipedLoadoutStorageComponent));
-				if (!loadoutStorage)
-					return false;
-
-				IEntity Helmet = loadoutStorage.GetClothFromArea(LoadoutHeadCoverArea);
-				if (Helmet)
-				{
-					EntityPrefabData prefabData = Helmet.GetPrefabData();
-					ResourceName prefabName = prefabData.GetPrefabName();
-					SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-					SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
-					SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefabName);
-					if(entry)
-					{
-						return false;
-					}
-				}
-				m_requestitemdescriptor = SCR_EArsenalItemType.HEADWEAR;
-				//m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
-				m_iRequestedAmount = 1;
-				return true;
-			}
-		if (index == 5)
-			{
-				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(m_eTaskOwner.FindComponent(EquipedLoadoutStorageComponent));
-				if (!loadoutStorage)
-					return false;
-				
-				IEntity Backpack = loadoutStorage.GetClothFromArea(LoadoutBackpackArea);
-				if (Backpack)
-				{
-					return false;
-				}
-				m_requestitemdescriptor = SCR_EArsenalItemType.BACKPACK;
-				//m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
-				m_iRequestedAmount = 1;
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}
-		if (index == 6)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.FLASHLIGHT;
-				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
-				m_iRequestedAmount = 1;
-			e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}
-		if (index == 7)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.MAP;
-				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
-				m_iRequestedAmount = Math.RandomInt(1, 3);
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}
-		if (index == 8)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.COMPASS;
-				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
-				m_iRequestedAmount = Math.RandomInt(1, 3);
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}
-		if (index == 9)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.RADIO;
-				//m_requestitemmode = SCR_EArsenalItemMode.GADGET;
-				m_iRequestedAmount = Math.RandomInt(1, 3);
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}
-		if (index == 10)
-			{
-				EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(m_eTaskOwner.FindComponent(EquipedLoadoutStorageComponent));
-				if (!loadoutStorage)
-					return false;
-
-				IEntity Vest = loadoutStorage.GetClothFromArea(LoadoutArmoredVestSlotArea);
-				if (Vest)
-				{
-					EntityPrefabData prefabData = Vest.GetPrefabData();
-					ResourceName prefabName = prefabData.GetPrefabName();
-					SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-					SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
-					SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefabName);
-					if(entry)
-					{
-						return false;
-					}
-				}
-				m_requestitemdescriptor = SCR_EArsenalItemType.ARMOR;
-				//m_requestitemmode = SCR_EArsenalItemMode.ATTACHMENT;
-				m_iRequestedAmount = 1;
-				return true;
-			}
-		if (index == 11)
-			{
-				m_requestitemdescriptor = SCR_EArsenalItemType.SLEEPING_PILLS;
-				//m_requestitemmode = SCR_EArsenalItemMode.CONSUMABLE;
-				m_iRequestedAmount = 1;
-				e_RewardLabel = EEditableEntityLabel.ITEMTYPE_CURRENCY;
-				return true;
-			}*/
-		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	
@@ -363,7 +233,19 @@ class SP_RetrieveTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override bool CompleteTask(IEntity Assignee)
 	{
-		
+		if (Assignee == m_eTaskOwner)
+		{
+			if (m_TaskMarker)
+			{
+				m_TaskMarker.Finish(true);
+			}
+			e_State = ETaskState.COMPLETED;
+			m_eCopletionist = Assignee;
+			GetOnTaskFinished(this);
+			SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+			dmgmn.GetOnDamageStateChanged().Remove(FailTask);
+			return true;
+		}
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(Assignee.FindComponent(SCR_InventoryStorageManagerComponent));
 		SCR_InventoryStorageManagerComponent Ownerinv = SCR_InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
 		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemdescriptor);
@@ -570,7 +452,8 @@ class SP_RetrieveTask: SP_Task
 		{
 			return;
 		}
-		m_requestitemdescriptor = tasksample.m_requestitemdescriptor;
+		if (!m_requestitemdescriptor)
+			m_requestitemdescriptor = tasksample.m_requestitemdescriptor;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	override typename GetClassName(){return SP_RetrieveTask;};

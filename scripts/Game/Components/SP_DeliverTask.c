@@ -520,10 +520,9 @@ class SP_DeliverTask: SP_Task
 	override bool AssignReward()
 	{
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
-		m_iRewardAmount = m_iRewardAmount * (dis/40);
+		m_iRewardAmount = 1 * (dis/40);
 		if (!super.AssignReward())
 			return false;
-		m_bHasReward = true;
 		return true;
 	};
 	override void GetOnOwnerDeath(EDamageState state)

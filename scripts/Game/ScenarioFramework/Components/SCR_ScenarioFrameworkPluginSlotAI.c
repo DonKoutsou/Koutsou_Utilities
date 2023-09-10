@@ -57,7 +57,24 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 		if (char)
 		{
 			if (m_bSetCharacterImportant)
+			{
+				array <ref SP_Task> tasks = {};
+				SP_RequestManagerComponent.GetCharOwnedTasks(char, tasks);
+				if (!tasks.IsEmpty())
+				{
+					foreach (SP_Task task : tasks)
+					{
+						SP_ChainedTask chained = SP_ChainedTask.Cast(task);
+						if (!chained)
+						{
+							task.CancelTask();
+						}
+					}
+				}
+				SP_RequestManagerComponent.GetInstance().GetCharacterHolder().SetCharImportant(char);
 				char.IsImportantCharacter = true;
+			}
+				
 			if (m_bSpawnUncon)
 			{
 				SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(char.FindComponent(SCR_CharacterDamageManagerComponent));

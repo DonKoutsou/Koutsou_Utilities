@@ -108,6 +108,10 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		return m_fTaskOfSameTypePerCharacter;
 	}
+	CharacterHolder GetCharacterHolder()
+	{
+		return m_CharacterHolder;
+	}
 	//--------------------------------------------------------------------//
 	//Getter for samples
 	static SP_Task GetTaskSample(typename tasktype)
@@ -304,6 +308,27 @@ class SP_RequestManagerComponent : ScriptComponent
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		Task.m_eTaskOwner = Owner;
+		if(Task.Init())
+		{
+			m_aTaskMap.Insert(Task);
+			Task.OnTaskFinished().Insert(OnTaskFinished);
+			return true;
+		}
+		return false;
+	}
+	bool CreateCustomRetrieveTask(IEntity Owner, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)
+	{
+		typename TaskType = SP_RetrieveTask;
+		if (!GetTaskSample(TaskType))
+			return false;
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		SP_RetrieveTask Task = SP_RetrieveTask.Cast(TaskType.Spawn());
+		
+		Task.m_eTaskOwner = Owner;
+		Task.m_requestitemdescriptor = Need;
+		Task.m_iRequestedAmount = ammount;
+		if (Mag)
+			Task.Mag = Mag;
 		if(Task.Init())
 		{
 			m_aTaskMap.Insert(Task);
@@ -877,7 +902,14 @@ class SP_RequestManagerComponent : ScriptComponent
 					reservedstring = "UNRESERVED";
 				string state = typename.EnumToString(ETaskState, task.GetState());
 				float TimeLimit = task.GetTimeLimit();
-				infoText2 = string.Format("%1 %2 Target : %3  | Task State: %4 : %5 TimeLimit: %6\n", infoText2, task.GetClassName().ToString(), name, state, reservedstring, TimeLimit);
+				SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
+				if (rtask)
+				{
+					string itemname = string.Format("%1 x %2", rtask.m_iRequestedAmount, typename.EnumToString(ERequestRewardItemDesctiptor ,rtask.m_requestitemdescriptor));
+					infoText2 = string.Format("%1 %2 Target : %3 | Retrieve item : %4 | Task State: %5 : %6 TimeLimit: %7\n", infoText2, task.GetClassName().ToString(), name, itemname , state, reservedstring, TimeLimit);
+				}
+				else
+					infoText2 = string.Format("%1 %2 Target : %3  | Task State: %4 : %5 TimeLimit: %6\n", infoText2, task.GetClassName().ToString(), name, state, reservedstring, TimeLimit);
 			}
 			infoText2 = infoText2 + "Target of Tasks: \n";
 			array <ref SP_Task> TargetedTasks = {};
@@ -1140,6 +1172,9 @@ enum ERequestRewardItemDesctiptor
 	COMPASS = 22,
 	BINOCULARS = 23,
 	SIDEARM = 24,
+	PANTS = 25,
+	JACKET = 26,
+	SHOES = 27,
 }
 [BaseContainerProps(configRoot: true), SCR_BaseContainerCustomEntityCatalogCatalog(EEntityCatalogType, "m_eEntityCatalogType", "m_aEntityEntryList", "m_aMultiLists")]
 modded class SCR_EntityCatalog
@@ -1162,7 +1197,8 @@ modded class SCR_EntityCatalog
 	}
 	void GetRequestItems(int Descriptor, BaseMagazineComponent mag, out array <SCR_EntityCatalogEntry>  correctentries)
 	{
-		correctentries = {};
+		
+		correctentries = {};		
 		foreach (SCR_EntityCatalogEntry entityEntry: m_aEntityEntryList)
 		{
 			SP_RequestData Data = SP_RequestData.Cast(entityEntry.GetEntityDataOfType(SP_RequestData));

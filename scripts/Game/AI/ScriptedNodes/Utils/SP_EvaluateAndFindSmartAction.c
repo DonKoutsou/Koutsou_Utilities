@@ -36,49 +36,68 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(owner.GetControlledEntity());
 		int ammount;
 		BaseMagazineComponent Mag;
-		ERequestRewardItemDesctiptor desc = char.GetNeed(ammount, Mag);
-		if (desc)
-		{
-			int money = char.GetWallet().GetCurrencyAmmount();
-			int worth;
-			CheckNeedPrice(desc, Mag, worth);
-			if (worth * ammount < money)
-			{
-				//look for store
-				tags.Insert("StorePost");
-				Radious = 300;
-			}
-			else
-			{
-				//look for work
-				//tags.Insert("SmartTask");
-				//Radious = 300;
-				desc = null;
-			}
-		}
-		if (!desc)
-		{
-			tags.Insert("LightFire");
-			tags.Insert("SwitchLight");
-			tags.Insert("SwitchRadio");
-			tags.Insert("DeadBody");
-			Radious = 30;
-		}
+		array <ERequestRewardItemDesctiptor> Needs = {};
+		ERequestRewardItemDesctiptor desc;
+		char.GetAllNeeds(Needs);
+		
+		
 		GetVariableIn(POISSITION_PORT, Origin);
-		if (tags.IsEmpty() && m_aTags)
-			tags.Copy(m_aTags);
-		if (!Radious)
-			Radious = m_fRadius;
+		//if (tags.IsEmpty() && m_aTags)
+			//tags.Copy(m_aTags);
 		if (!Origin)
 			Origin = owner.GetControlledEntity().GetOrigin();
-		if (!Origin || !Radious || tags.IsEmpty())
+		if (!Origin)
 		{
 			if(m_bForceNodeSuccess)
 				return ENodeResult.SUCCESS;
 			return ENodeResult.FAIL;
 		}
 		Owner = owner.GetControlledEntity();
+		
+		if (!Needs.IsEmpty())
+		{
+			foreach (ERequestRewardItemDesctiptor need : Needs)
+			{
+				desc = need;
+				array <ERequestRewardItemDesctiptor>needstocheck = {};
+				needstocheck.Insert(need);
+				if (!char.Checkneed(needstocheck, ammount, Mag))
+				{
+					continue;
+				}
+				int money = char.GetWallet().GetCurrencyAmmount();
+				int worth;
+				CheckNeedPrice(desc, Mag, worth);
+				if (worth * ammount < money)
+				{
+					//look for store
+					tags.Insert("StorePost");
+					Radious = 300;
+					GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+					if (correctsmartacts.IsEmpty())
+					{
+						if (!HasTaskForNeed(char, desc))
+							CreateTask(char, desc, ammount, Mag);
+					}
+					tags.Clear();
+				}
+				else
+				{
+						
+					//look for work
+					//tags.Insert("SmartTask");
+					//Radious = 300;
+					desc = null;
+				}
+			}
+		}
+		Radious = 30;
+		tags.Insert("LightFire");
+		tags.Insert("SwitchLight");
+		tags.Insert("SwitchRadio");
+		tags.Insert("DeadBody");
 		GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+		
 		if (correctsmartacts.IsEmpty())
 		{
 			if(m_bForceNodeSuccess)
@@ -113,10 +132,33 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 			OutSmartAction = null;
 			return ENodeResult.SUCCESS;
 		}
-		
 		if(m_bForceNodeSuccess)
 			return ENodeResult.SUCCESS;
 		return ENodeResult.FAIL;
+	}
+	bool HasTaskForNeed(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		array <ref SP_Task> tasks = {};
+		 Requestman.GetCharTasksOfSameType(char, tasks, SP_RetrieveTask);
+		if (tasks.IsEmpty())
+			return false;
+		foreach (SP_Task task : tasks)
+		{
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
+			if (!rtask)
+				continue;
+			if (rtask.m_requestitemdescriptor == Need)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	bool CreateTask(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		return Requestman.CreateCustomRetrieveTask(char, Need, ammount, Mag);
 	}
 	private bool QueryEntitiesForSmartAction(IEntity e)
 	{

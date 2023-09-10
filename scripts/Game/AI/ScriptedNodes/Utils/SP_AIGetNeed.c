@@ -18,13 +18,14 @@ class SCR_AIGetNeed : AITaskScripted
 		if (!Char)
 			Char = owner.GetControlledEntity();
 		int ammount;
-		ERequestRewardItemDesctiptor need = GetNeed(ammount);
+		array <ERequestRewardItemDesctiptor> Needs = {};
+		/*GetNeeds(ammount);
 		if (need)
 		{
 			SetVariableOut(OUT_NEED_PORT, need);
 			SetVariableOut(OUT_NEED_AMMOUNT_PORT, ammount);
 			return ENodeResult.SUCCESS;
-		}
+		}*/
 		return ENodeResult.FAIL;
 	}
 	protected static ref TStringArray s_aVarsIn = {ENTITY_PORT};

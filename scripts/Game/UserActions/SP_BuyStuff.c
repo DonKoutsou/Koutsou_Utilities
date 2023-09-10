@@ -62,9 +62,31 @@ class SP_BuyStuff : ScriptedUserAction
 		{
 			RemoveHelmet(pUserEntity);
 		}
-		shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount);
+		if (shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount))
+		{
+			CompleteTasks(pUserEntity, need);
+		}
 		return;
 		
+	}
+	void CompleteTasks(IEntity Owner, ERequestRewardItemDesctiptor need)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		array <ref SP_Task> tasks = {};
+		Requestman.GetCharTasksOfSameType(Owner, tasks, SP_RetrieveTask);
+		if (tasks.IsEmpty())
+			return;
+		foreach (SP_Task task : tasks)
+		{
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
+			if (!rtask)
+				continue;
+			if (rtask.m_requestitemdescriptor == need)
+			{
+				task.CompleteTask(Owner);
+				return;
+			}
+		}
 	}
 	void RemoveHelmet(IEntity char)
 	{

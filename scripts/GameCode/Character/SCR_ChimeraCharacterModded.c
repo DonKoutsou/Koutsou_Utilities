@@ -98,10 +98,73 @@ modded class SCR_ChimeraCharacter
 		}
 		return false;
 	}
+	void GetAllNeeds(out array <ERequestRewardItemDesctiptor> Needs)
+	{
+		int ammount;
+		int severity;
+		BaseMagazineComponent Mag;
+		if (CheckIfMissingBandages(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.BANDAGE);
+		}
+		if (CheckIfMissingWeapon(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.WEAPON);
+		}
+		if (CheckIfMissingAmmo(ammount, severity, Mag))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.AMMO);
+		}
+		if (CheckIfMissingArmor(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.ARMOR);
+		}
+		if (CheckIfMissingHelmet(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.HELMET);
+		}
+		if (CheckIfMissingBackpack(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.BACKPACK);
+		}
+		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.DRINK, ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.DRINK);
+		}
+		if (CheckIfMissingLBS(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM);
+		}
+		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.FLASHLIGHT, ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.FLASHLIGHT);
+		}
+		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.COMPASS, ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.COMPASS);
+		}
+		if (CheckIfMissingBinoculars(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.BINOCULARS);
+		}
+		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.MAP, ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.MAP);
+		}
+		if (CheckIfMissingExplosives(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.EXPLOSIVE);
+		}
+		if (CheckIfMissingSidearm(ammount, severity))
+		{
+			Needs.Insert(ERequestRewardItemDesctiptor.SIDEARM);
+		}
+		return;
+	}
 	ERequestRewardItemDesctiptor GetNeed(out int ammount, out BaseMagazineComponent Mag = null)
 	{
-		map <ERequestRewardItemDesctiptor, int> descmap = new map <ERequestRewardItemDesctiptor, int>();
-		int severity
+		//map <ERequestRewardItemDesctiptor, int> descmap = new map <ERequestRewardItemDesctiptor, int>();
+		int severity;
 		if (CheckIfMissingBandages(ammount, severity))
 		{
 			//if (severity > 4)
@@ -273,38 +336,6 @@ modded class SCR_ChimeraCharacter
 		}
 		return false;
 	}
-	
-	bool CheckIfMissingBackpack(out int ammount, out int severity)
-	{
-		EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(FindComponent(EquipedLoadoutStorageComponent));
-		if (!loadoutStorage)
-			return false;
-				
-		IEntity Backpack = loadoutStorage.GetClothFromArea(LoadoutBackpackArea);
-		if (!Backpack)
-		{
-			ammount = 1;
-			return true;
-		}
-		return false;
-	}
-	
-	bool CheckIfMissingBinoculars(out int ammount, out int severity)
-	{
-		return false;
-		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast(FindComponent(SCR_CharacterInventoryStorageComponent));
-		if (!loadoutStorage)
-			return false;
-		LoadoutBinocularsArea type = new LoadoutBinocularsArea();
-		IEntity Binocs = loadoutStorage.GetItemFromLoadoutSlot(type).GetOwner();
-		if (!Binocs)
-		{
-			ammount = 1;
-			return true;
-		}
-		return false;
-	}
-	
 	bool CheckIfMissingLBS(out int ammount, out int severity)
 	{
 		EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(FindComponent(EquipedLoadoutStorageComponent));
@@ -319,7 +350,20 @@ modded class SCR_ChimeraCharacter
 		}
 		return false;
 	}
-	
+	bool CheckIfMissingBackpack(out int ammount, out int severity)
+	{
+		EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(FindComponent(EquipedLoadoutStorageComponent));
+		if (!loadoutStorage)
+			return false;
+				
+		IEntity Backpack = loadoutStorage.GetClothFromArea(LoadoutBackpackArea);
+		if (!Backpack)
+		{
+			ammount = 1;
+			return true;
+		}
+		return false;
+	}
 	bool CheckIfMissingArmor(out int ammount, out int severity)
 	{
 		EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(FindComponent(EquipedLoadoutStorageComponent));
@@ -347,6 +391,25 @@ modded class SCR_ChimeraCharacter
 		}
 		return false;
 	}
+	bool CheckIfMissingBinoculars(out int ammount, out int severity)
+	{
+		return false;
+		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast(FindComponent(SCR_CharacterInventoryStorageComponent));
+		if (!loadoutStorage)
+			return false;
+		LoadoutBinocularsArea type = new LoadoutBinocularsArea();
+		IEntity Binocs = loadoutStorage.GetItemFromLoadoutSlot(type).GetOwner();
+		if (!Binocs)
+		{
+			ammount = 1;
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	
 	bool CheckIfMissingWeapon(out int ammount, out int severity)
 	{
 		SCR_AICombatComponent CombatComp = SCR_AICombatComponent.Cast(FindComponent(SCR_AICombatComponent));

@@ -1,4 +1,4 @@
-BehaviorTree {
+BehaviorTree "{7AA5A74960E414B7}AI/BehaviorTrees/TP_Tosmart.bt" {
  Name "AI/BehaviorTrees/TP_Tosmart.bt"
  Nodes {
   RootNode Root {
