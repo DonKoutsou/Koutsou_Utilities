@@ -1,6 +1,7 @@
 modded class SP_DialogueComponent
 {
-	
+	//function used to generate into dialogue when talking to someone. Should be able to produce multiple lines
+	//tbi
 	void IntroducitonSting(IEntity talker, IEntity Player)
 	{
 		string IndtroducionString;
@@ -114,7 +115,9 @@ modded class SP_DialogueComponent
 		}
 		else
 			IndtroducionString = string.Format("Hello %1 %2. %3", Plrank, Plname, IndtroducionString);
+		RegisterCharInHistory(talker);
 		a_texthistory.Insert(IndtroducionString);
+		a_PLtexthistory.Insert("null");
 	}
 	string LookForLostGroups(IEntity Instigator, IEntity Player)
 	{
@@ -355,10 +358,11 @@ modded class SP_DialogueComponent
 			if (action.PickedTask)
 			{
 				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
-				string taskname = action.PickedTask.GetClassName().ToString();
-				taskname = taskname.Substring(3, taskname.Length());
-				taskname.ToLower();
-				CurrentTaskString = string.Format("I'm heading towards %1's location to pick %2", name ,taskname);
+				string taskname = action.PickedTask.ClassName();
+				int length = taskname.Length();
+				string tasksubname = taskname.Substring(3, taskname.Length() - 7) + " task";
+				tasksubname.ToLower();
+				CurrentTaskString = string.Format("I'm heading towards %1's location to pick a %2", name ,tasksubname);
 			}
 		}
 		SCR_AIExecuteNavigateTaskBehavior Navaction = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.GetCurrentAction());
