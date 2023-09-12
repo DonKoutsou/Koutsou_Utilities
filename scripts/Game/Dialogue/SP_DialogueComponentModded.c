@@ -117,6 +117,18 @@ modded class SP_DialogueComponent
 			IndtroducionString = string.Format("Hello %1 %2. %3", Plrank, Plname, IndtroducionString);
 		RegisterCharInHistory(talker);
 		a_texthistory.Insert(IndtroducionString);
+		array<BaseInfoDisplay> infoDisplays = {};
+		GetGame().GetPlayerController().GetHUDManagerComponent().GetInfoDisplays(infoDisplays);
+		foreach (BaseInfoDisplay baseInfoDisplays : infoDisplays)
+		{
+			SCR_DialogueWidget DialogueDisplay = SCR_DialogueWidget.Cast(baseInfoDisplays);
+			if (!DialogueDisplay)
+				continue;
+
+			DialogueDisplay.SetTarget(talker);
+			DialogueDisplay.SetText(IndtroducionString);
+			DialogueDisplay.ShowInspectCasualtyWidget(talker);
+		}
 		a_PLtexthistory.Insert("null");
 	}
 	string LookForLostGroups(IEntity Instigator, IEntity Player)
