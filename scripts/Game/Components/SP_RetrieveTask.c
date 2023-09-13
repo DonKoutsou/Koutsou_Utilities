@@ -401,48 +401,43 @@ class SP_RetrieveTask: SP_Task
 		{
 			return true;
 		}
-		if (!rewards.IsEmpty())
+		if (e_RewardLabel != ERequestRewardItemDesctiptor.CURRENCY)
 		{
-			
-			if (e_RewardLabel != ERequestRewardItemDesctiptor.CURRENCY)
-			{
-				InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-				array<IEntity> Rewardlist = new array<IEntity>();
-				int Movedamount;
-				for (int j = 0; j < rewards.Count(); j++)
-					Rewardlist.Insert(rewards[j]);
-				for (int i, count = Rewardlist.Count(); i < count; i++)
-				{
-					TargetInv.TryInsertItem(Rewardlist[i]);
-					Movedamount += 1;
-				}
-			}
-			else
-			{
-				SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
-				SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
-				WalletEntity wallet = Char.GetWallet();
-				WalletEntity Owallet = OChar.GetWallet();
-				return wallet.TakeCurrency(Owallet, rewards.Count());
-			}
-			string rewardstring;
-			map <ResourceName, int> stringarray = new map <ResourceName, int>();
+			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
+			array<IEntity> Rewardlist = new array<IEntity>();
+			int Movedamount;
 			for (int j = 0; j < rewards.Count(); j++)
+				Rewardlist.Insert(rewards[j]);
+			for (int i, count = Rewardlist.Count(); i < count; i++)
 			{
-				if (!stringarray.Contains(rewards[j].GetPrefabData().GetPrefabName()))
-					stringarray.Insert(rewards[j].GetPrefabData().GetPrefabName(), 1);
-				else
-					stringarray.Set(rewards[j].GetPrefabData().GetPrefabName(), stringarray.Get(rewards[j].GetPrefabData().GetPrefabName()) + 1);
+				TargetInv.TryInsertItem(Rewardlist[i]);
+				Movedamount += 1;
 			}
-			for (int j = 0; j < stringarray.Count(); j++)
-			{
-				string itemstring = FilePath.StripPath(stringarray.GetKey(j));
-				itemstring.ToLower();
-				rewardstring = rewardstring + stringarray.Get(stringarray.GetKey(j)) + " " + itemstring.Substring(0, itemstring.Length() - 3) + ", ";
-			}
-			return true;
 		}
-		return false;
+		else
+		{
+			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
+			SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+			WalletEntity wallet = Char.GetWallet();
+			WalletEntity Owallet = OChar.GetWallet();
+			return wallet.TakeCurrency(Owallet, m_iRewardAmount);
+		}
+		string rewardstring;
+		map <ResourceName, int> stringarray = new map <ResourceName, int>();
+		for (int j = 0; j < rewards.Count(); j++)
+		{
+			if (!stringarray.Contains(rewards[j].GetPrefabData().GetPrefabName()))
+				stringarray.Insert(rewards[j].GetPrefabData().GetPrefabName(), 1);
+			else
+				stringarray.Set(rewards[j].GetPrefabData().GetPrefabName(), stringarray.Get(rewards[j].GetPrefabData().GetPrefabName()) + 1);
+		}
+		for (int j = 0; j < stringarray.Count(); j++)
+		{
+			string itemstring = FilePath.StripPath(stringarray.GetKey(j));
+			itemstring.ToLower();
+			rewardstring = rewardstring + stringarray.Get(stringarray.GetKey(j)) + " " + itemstring.Substring(0, itemstring.Length() - 3) + ", ";
+		}
+		return true;
 	};
 	override void InheritFromSample()
 	{

@@ -67,6 +67,13 @@ class SP_GameMode : SCR_BaseGameMode
 		}
 		//set up initial goodwill
 		m_factionManager.SetUpPlayerGoodwill(entity);
+		
+		array <ref SP_Task> tasks = {};
+		SP_RequestManagerComponent.GetCharTasks(entity, tasks);
+		foreach (SP_Task task : tasks)
+		{
+			task.CancelTask();
+		}
 	}
 	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
 	{

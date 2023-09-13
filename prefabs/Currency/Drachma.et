@@ -12,7 +12,7 @@ GenericEntity {
   InventoryItemComponent "{5AE8A8999D0F3E50}" {
    Attributes SCR_ItemAttributeCollection "{5AE8A8999D0F3E5E}" {
     ItemDisplayName UIInfo "{5AE8A8999D0F3DE7}" {
-     Name "Drachma"
+     Name "Δραχμή"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5AE8A8999D0F3D90}" {
      Weight 0.005
