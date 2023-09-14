@@ -28,6 +28,17 @@ FrameWidgetClass {
               }
              }
             }
+            HorizontalLayoutWidgetClass "{5A8AACE485B8303E}" {
+             Prefab "{5A8AACE485B8303E}"
+             {
+              TextWidgetClass "{0000000042F965D9}" {
+               Prefab "{0000000042F965D9}"
+               FontProperties FontProperties "{5222C61204238C11}" {
+                Font "{7BDD040ECCF66BA7}UI/Fonts/GreekFull.fnt"
+               }
+              }
+             }
+            }
             HorizontalLayoutWidgetClass "{00000000A09F13EE}" {
              Prefab "{00000000A09F13EE}"
              {
