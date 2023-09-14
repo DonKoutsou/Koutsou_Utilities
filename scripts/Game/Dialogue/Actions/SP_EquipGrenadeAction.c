@@ -17,7 +17,7 @@ class SP_EquipGrenadeAction : ScriptedUserAction
 		if (!utility)
 			return;
 		
-		SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity.GetOrigin());
+		SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity.GetOrigin(), false);
 		
 		GameMode = BaseGameMode.Cast(GetGame().GetGameMode());
 		DiagComp = SP_DialogueComponent.Cast(GameMode.FindComponent(SP_DialogueComponent));

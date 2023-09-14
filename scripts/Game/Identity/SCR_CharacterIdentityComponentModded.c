@@ -1,7 +1,7 @@
 modded class SCR_CharacterIdentityComponent
 {		
 	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
-	protected SP_DialogueArchetype m_DialogueArchetype;
+	protected ref SP_DialogueArchetype m_DialogueArchetype;
 	
 	protected int m_iCharacterRep = Math.RandomInt(10, 100);
 	

@@ -478,75 +478,89 @@ modded class SP_DialogueAction
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		MenuManager menumanager = GetGame().GetMenuManager();
-		
-		AIControlComponent comp = AIControlComponent.Cast(pOwnerEntity.FindComponent(AIControlComponent));
-		if (!comp)
-			return;
-		AIAgent agent = comp.GetAIAgent();
-		if (!agent)
-			return;
-		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-		if (!utility)
-			return;
-		SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity.GetOrigin());
-		
-		if (SCR_EntityHelper.GetPlayer() != pUserEntity)
+		ChimeraCharacter Char = ChimeraCharacter.Cast(pOwnerEntity);
+		if (Char)
 		{
+			AIControlComponent comp = AIControlComponent.Cast(pOwnerEntity.FindComponent(AIControlComponent));
+			if (!comp)
+				return;
+			AIAgent agent = comp.GetAIAgent();
+			if (!agent)
+				return;
+			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+			if (!utility)
+				return;
+			SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity.GetOrigin(), false);
 			
-			array <ref SP_Task> taskstodeliver = {};
-			SP_RequestManagerComponent.GetReadyToDeliver(pOwnerEntity, taskstodeliver, pUserEntity);
-			if (!taskstodeliver.IsEmpty())
+			if (SCR_EntityHelper.GetPlayer() != pUserEntity)
 			{
-				foreach (SP_Task Mytask : taskstodeliver)
+				
+				array <ref SP_Task> taskstodeliver = {};
+				SP_RequestManagerComponent.GetReadyToDeliver(pOwnerEntity, taskstodeliver, pUserEntity);
+				if (!taskstodeliver.IsEmpty())
 				{
-					Mytask.CompleteTask(pUserEntity);
+					foreach (SP_Task Mytask : taskstodeliver)
+					{
+						Mytask.CompleteTask(pUserEntity);
+					}
 				}
-			}
-			if (taskstogive.Contains(pUserEntity))
-			{
-				taskstogive.Get(pUserEntity).AssignCharacter(pUserEntity);
-				taskstogive.Remove(pUserEntity);
-			}
-			SCR_AIConverseBehavior Oldaction = SCR_AIConverseBehavior.Cast(utility.FindActionOfType(SCR_AIConverseBehavior));
-			if (action)
-			{
-				action.SetActiveConversation(false);
-				DialogueUIClass myMenu = DialogueUIClass.Cast(menumanager.FindMenuByPreset(ChimeraMenuPreset.DialogueMenu));
-				if (myMenu && myMenu.myCallerEntity == pOwnerEntity)
+				if (taskstogive.Contains(pUserEntity))
 				{
-					SP_DialogueComponent.GetInstance().Escape(pOwnerEntity ,SCR_EntityHelper.GetPlayer());
+					taskstogive.Get(pUserEntity).AssignCharacter(pUserEntity);
+					taskstogive.Remove(pUserEntity);
 				}
-					
-				vector lookpos = pUserEntity.GetOrigin();
-				lookpos[1] = lookpos[1] + 1.70;
-				utility.m_LookAction.LookAt(lookpos, 1000);
+				SCR_AIConverseBehavior Oldaction = SCR_AIConverseBehavior.Cast(utility.FindActionOfType(SCR_AIConverseBehavior));
+				if (action)
+				{
+					action.SetActiveConversation(false);
+					DialogueUIClass myMenu = DialogueUIClass.Cast(menumanager.FindMenuByPreset(ChimeraMenuPreset.DialogueMenu));
+					if (myMenu && myMenu.myCallerEntity == pOwnerEntity)
+					{
+						SP_DialogueComponent.GetInstance().Escape(pOwnerEntity ,SCR_EntityHelper.GetPlayer());
+					}
+						
+					vector lookpos = pUserEntity.GetOrigin();
+					lookpos[1] = lookpos[1] + 1.70;
+					utility.m_LookAction.LookAt(lookpos, 1000);
+				}
+				else
+				{
+					vector lookpos = pUserEntity.GetOrigin();
+					lookpos[1] = lookpos[1] + 1.70;
+					utility.m_LookAction.LookAt(lookpos, 1000);
+				}
+				return;
 			}
-			else
+			
+			GameMode = BaseGameMode.Cast(GetGame().GetGameMode());
+			DiagComp = SP_DialogueComponent.Cast(GameMode.FindComponent(SP_DialogueComponent));
+			string NoTalkText = "Cant talk to you now";
+			FactionKey SenderFaction = DiagComp.GetCharacterFaction(pOwnerEntity).GetFactionKey();
+			BaseChatChannel Channel;
+			string name = DiagComp.GetCharacterName(pOwnerEntity);
+			if (!DiagComp.LocateDialogueArchetype(pOwnerEntity, pUserEntity))
 			{
-				vector lookpos = pUserEntity.GetOrigin();
-				lookpos[1] = lookpos[1] + 1.70;
-				utility.m_LookAction.LookAt(lookpos, 1000);
+				DiagComp.SendText(NoTalkText, Channel, 0, name, DiagComp.GetCharacterRankName(pOwnerEntity));
+				return;
 			}
-			return;
+			if (!DiagComp.a_PLcontactList.Contains(pOwnerEntity))
+					DiagComp.a_PLcontactList.Insert(pOwnerEntity);
+			utility.AddAction(action);
+			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
+			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
+			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
+			DiagComp.IntroducitonSting(pOwnerEntity, pUserEntity);
+			DiagUI.Init(pOwnerEntity, pUserEntity);
+			DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 		}
-		
-		GameMode = BaseGameMode.Cast(GetGame().GetGameMode());
-		DiagComp = SP_DialogueComponent.Cast(GameMode.FindComponent(SP_DialogueComponent));
-		string NoTalkText = "Cant talk to you now";
-		FactionKey SenderFaction = DiagComp.GetCharacterFaction(pOwnerEntity).GetFactionKey();
-		BaseChatChannel Channel;
-		string name = DiagComp.GetCharacterName(pOwnerEntity);
-		if (!DiagComp.LocateDialogueArchetype(pOwnerEntity, pUserEntity))
+		else
 		{
-			DiagComp.SendText(NoTalkText, Channel, 0, name, DiagComp.GetCharacterRankName(pOwnerEntity));
-			return;
+			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
+			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
+			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
+			//DiagComp.IntroducitonSting(pOwnerEntity, pUserEntity);
+			DiagUI.Init(pOwnerEntity, pUserEntity);
+			DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 		}
-		utility.AddAction(action);
-		MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
-		GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
-		DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
-		DiagComp.IntroducitonSting(pOwnerEntity, pUserEntity);
-		DiagUI.Init(pOwnerEntity, pUserEntity);
-		DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 	}
 }
