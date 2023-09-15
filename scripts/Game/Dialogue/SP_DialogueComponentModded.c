@@ -490,7 +490,7 @@ modded class SP_DialogueAction
 			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 			if (!utility)
 				return;
-			SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity.GetOrigin(), false);
+			SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity, false);
 			
 			if (SCR_EntityHelper.GetPlayer() != pUserEntity)
 			{

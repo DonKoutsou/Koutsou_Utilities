@@ -3,6 +3,22 @@ modded class SCR_ChimeraCharacter
 	[Attribute("0")]
 	bool IsImportantCharacter;
 	
+	[Attribute(uiwidget: UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
+	ref array <int> a_needstocheck;
+	
+	int needcheck;
+	
+	ref array <int> a_needs;
+	ref array <int> a_Unaffordableneeds;
+	//------------------------------------------------------------------------------------------------
+	override void EOnInit(IEntity owner)
+	{
+		super.EOnInit(owner);
+		if (!a_needs)
+			a_needs = {};
+		if (!a_Unaffordableneeds)
+			a_Unaffordableneeds = {};
+	}
 	WalletEntity GetWallet()
 	{
 		SCR_InventoryStorageManagerComponent InventoryManager = SCR_InventoryStorageManagerComponent.Cast(FindComponent(SCR_InventoryStorageManagerComponent));
@@ -16,239 +32,162 @@ modded class SCR_ChimeraCharacter
 		}
 		return null;
 	}
-	bool Checkneed(array <ERequestRewardItemDesctiptor> needs, out int ammount, out BaseMagazineComponent Mag = null)
+	void UpdateNeeds()
+	{
+		int ammount;
+		int severity;
+		BaseMagazineComponent Mag;
+		if (a_needstocheck.IsEmpty())
+			return;
+		int need = a_needstocheck.Get(needcheck);
+		if (Checkneed(need, ammount, Mag))
+		{
+			int money = GetWallet().GetCurrencyAmmount();
+			int worth;
+			CheckNeedPrice(need, Mag, worth);
+			if (worth * ammount < money)
+			{
+				if (!HasTaskForNeed(this, need))
+					CreateTask(this, need, ammount, Mag);
+				if (!a_needs.Contains(need))
+					a_needs.Insert(need);
+				if (a_Unaffordableneeds.Contains(need))
+					a_Unaffordableneeds.RemoveItem(need);
+			}
+			else
+			{
+				if (!a_Unaffordableneeds.Contains(need))
+					a_Unaffordableneeds.Insert(need);
+				if (a_needs.Contains(need))
+					a_needs.RemoveItem(need);
+			}
+		}
+		else if (a_needs.Contains(need))
+		{
+			if (HasTaskForNeed(this, need))
+					CompleteTasks(this, need);
+			if (a_needs.Contains(need))
+					a_needs.RemoveItem(need);
+			if (a_Unaffordableneeds.Contains(need))
+					a_Unaffordableneeds.RemoveItem(need);
+		}
+		needcheck += 1;
+		if (needcheck > a_needstocheck.Count() - 1)
+			needcheck = 0;
+		return;
+		
+	}
+	void CompleteTasks(IEntity Owner, ERequestRewardItemDesctiptor need)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		array <ref SP_Task> tasks = {};
+		Requestman.GetCharTasksOfSameType(Owner, tasks, SP_RetrieveTask);
+		if (tasks.IsEmpty())
+			return;
+		foreach (SP_Task task : tasks)
+		{
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
+			if (!rtask)
+				continue;
+			if (rtask.m_requestitemdescriptor == need)
+			{
+				task.CancelTask();
+				return;
+			}
+		}
+	}
+	bool Checkneed(ERequestRewardItemDesctiptor need, out int ammount, out BaseMagazineComponent Mag = null)
 	{
 		int severity;
-		foreach (ERequestRewardItemDesctiptor need : needs)
+		if (need == ERequestRewardItemDesctiptor.BANDAGE)
 		{
-			if (need == ERequestRewardItemDesctiptor.BANDAGE)
-			{
-				if (CheckIfMissingBandages(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.WEAPON)
-			{
-				if (CheckIfMissingWeapon(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.AMMO)
-			{
-				if (CheckIfMissingAmmo(ammount, severity, Mag))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.ARMOR)
-			{
-				if (CheckIfMissingArmor(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.HELMET)
-			{
-				if (CheckIfMissingHelmet(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.BACKPACK)
-			{
-				if (CheckIfMissingBackpack(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM)
-			{
-				if (CheckIfMissingLBS(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.SIDEARM)
-			{
-				if (CheckIfMissingSidearm(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.BINOCULARS)
-			{
-				if (CheckIfMissingBinoculars(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (need == ERequestRewardItemDesctiptor.EXPLOSIVE)
-			{
-				if (CheckIfMissingExplosives(ammount, severity))
-				{
-					return true;
-				}
-			}
-			else if (CheckIfMissingItemOfType(need, ammount, severity))
+			if (CheckIfMissingBandages(ammount, severity))
 			{
 				return true;
 			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.WEAPON)
+		{
+			if (CheckIfMissingWeapon(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.AMMO)
+		{
+			if (CheckIfMissingAmmo(ammount, severity, Mag))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.ARMOR)
+		{
+			if (CheckIfMissingArmor(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.HELMET)
+		{
+			if (CheckIfMissingHelmet(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.BACKPACK)
+		{
+			if (CheckIfMissingBackpack(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM)
+		{
+			if (CheckIfMissingLBS(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.SIDEARM)
+		{
+			if (CheckIfMissingSidearm(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.BINOCULARS)
+		{
+			if (CheckIfMissingBinoculars(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (need == ERequestRewardItemDesctiptor.EXPLOSIVE)
+		{
+			if (CheckIfMissingExplosives(ammount, severity))
+			{
+				return true;
+			}
+		}
+		else if (CheckIfMissingItemOfType(need, ammount, severity))
+		{
+			return true;
 		}
 		return false;
 	}
 	void GetAllNeeds(out array <ERequestRewardItemDesctiptor> Needs)
 	{
-		int ammount;
-		int severity;
-		BaseMagazineComponent Mag;
-		if (CheckIfMissingBandages(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.BANDAGE);
-		}
-		if (CheckIfMissingWeapon(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.WEAPON);
-		}
-		if (CheckIfMissingAmmo(ammount, severity, Mag))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.AMMO);
-		}
-		if (CheckIfMissingArmor(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.ARMOR);
-		}
-		if (CheckIfMissingHelmet(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.HELMET);
-		}
-		if (CheckIfMissingBackpack(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.BACKPACK);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.DRINK, ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.DRINK);
-		}
-		if (CheckIfMissingLBS(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.FLASHLIGHT, ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.FLASHLIGHT);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.COMPASS, ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.COMPASS);
-		}
-		if (CheckIfMissingBinoculars(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.BINOCULARS);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.MAP, ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.MAP);
-		}
-		if (CheckIfMissingExplosives(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.EXPLOSIVE);
-		}
-		if (CheckIfMissingSidearm(ammount, severity))
-		{
-			Needs.Insert(ERequestRewardItemDesctiptor.SIDEARM);
-		}
+		Needs.Copy(a_needs);
 		return;
 	}
 	ERequestRewardItemDesctiptor GetNeed(out int ammount, out BaseMagazineComponent Mag = null)
 	{
-		//map <ERequestRewardItemDesctiptor, int> descmap = new map <ERequestRewardItemDesctiptor, int>();
-		int severity;
-		if (CheckIfMissingBandages(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.BANDAGE;
-			//descmap.Insert(ERequestRewardItemDesctiptor.BANDAGE, ammount);
-		}
-		if (CheckIfMissingWeapon(ammount, severity))
-		{
-			return ERequestRewardItemDesctiptor.WEAPON;
-			//descmap.Insert(ERequestRewardItemDesctiptor.WEAPON, ammount);
-		}
-		if (CheckIfMissingAmmo(ammount, severity, Mag))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.AMMO;
-			//descmap.Insert(ERequestRewardItemDesctiptor.AMMO, ammount);
-		}
-		if (CheckIfMissingArmor(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.ARMOR;
-			//descmap.Insert(ERequestRewardItemDesctiptor.ARMOR, ammount);
-		}
-		if (CheckIfMissingHelmet(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.HELMET;
-			//descmap.Insert(ERequestRewardItemDesctiptor.HELMET, ammount);
-		}
-		if (CheckIfMissingBackpack(ammount, severity))
-		{
-		//	if (severity > 4)
-			return ERequestRewardItemDesctiptor.BACKPACK;
-			//descmap.Insert(ERequestRewardItemDesctiptor.BACKPACK, ammount);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.DRINK, ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.DRINK;
-			//descmap.Insert( ERequestRewardItemDesctiptor.DRINK, ammount);
-		}
-		if (CheckIfMissingLBS(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM;
-			//descmap.Insert(ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM, ammount);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.FLASHLIGHT, ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.FLASHLIGHT;
-			//descmap.Insert(ERequestRewardItemDesctiptor.FLASHLIGHT, ammount);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.COMPASS, ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.COMPASS;
-			//descmap.Insert(ERequestRewardItemDesctiptor.COMPASS, ammount);
-		}
-		if (CheckIfMissingBinoculars(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.BINOCULARS;
-			//descmap.Insert(ERequestRewardItemDesctiptor.BINOCULARS, ammount);
-		}
-		if (CheckIfMissingItemOfType(ERequestRewardItemDesctiptor.MAP, ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.MAP;
-			//descmap.Insert(ERequestRewardItemDesctiptor.MAP, ammount);
-		}
-		if (CheckIfMissingExplosives(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.EXPLOSIVE;
-			//descmap.Insert(ERequestRewardItemDesctiptor.EXPLOSIVE, ammount);
-		}
-		if (CheckIfMissingSidearm(ammount, severity))
-		{
-			//if (severity > 4)
-			return ERequestRewardItemDesctiptor.SIDEARM;
-			//descmap.Insert(ERequestRewardItemDesctiptor.EXPLOSIVE, ammount);
-		}
-		return null;
+		if (a_needs.IsEmpty())
+			return null;
+		ERequestRewardItemDesctiptor need = a_needs.GetRandomElement();
+		Checkneed(need, ammount, Mag);
+		return need;
+
 	}
 	
 	bool CheckIfMissingBandages(out int ammount, out int severity)
@@ -501,5 +440,39 @@ modded class SCR_ChimeraCharacter
 			}
 		} 
 		return lowAmmo;
+	}
+	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)
+	{
+		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+		array<SCR_EntityCatalogEntry> Mylist = {};
+		RequestCatalog.GetRequestItems(need, mag, Mylist);
+		if (Mylist.IsEmpty())
+			return;
+		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
+	}
+	bool HasTaskForNeed(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		array <ref SP_Task> tasks = {};
+		 Requestman.GetCharTasksOfSameType(char, tasks, SP_RetrieveTask);
+		if (tasks.IsEmpty())
+			return false;
+		foreach (SP_Task task : tasks)
+		{
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
+			if (!rtask)
+				continue;
+			if (rtask.m_requestitemdescriptor == Need)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	bool CreateTask(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		return Requestman.CreateCustomRetrieveTask(char, Need, ammount, Mag);
 	}
 }

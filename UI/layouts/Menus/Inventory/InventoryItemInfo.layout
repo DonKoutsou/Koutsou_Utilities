@@ -34,7 +34,7 @@ FrameWidgetClass {
               TextWidgetClass "{0000000042F965D9}" {
                Prefab "{0000000042F965D9}"
                FontProperties FontProperties "{5222C61204238C11}" {
-                Font "{7BDD040ECCF66BA7}UI/Fonts/GreekFull.fnt"
+                Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
                }
               }
              }
@@ -71,7 +71,7 @@ FrameWidgetClass {
                "Min Font Size" 15
                Wrap 1
                FontProperties FontProperties "{5D968C308159BDEE}" {
-                Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+                Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
                }
               }
               TextWidgetClass "{5D8ED7482FF1E6EB}" {

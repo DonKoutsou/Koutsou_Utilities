@@ -61,7 +61,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
             }
             SCR_AIGetSmartActionSentinelParams "SCR_AI Get Smart Action Guard Params" {
              Name "SCR_AI Get Smart Action Guard Params"
-             EditorPos -8622.733 86.803
+             EditorPos -8620.733 86.803
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port 14
@@ -106,35 +106,6 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
          Name "Sequence"
          EditorPos -4764 -55
          Nodes {
-          SCR_AITaskTimerGate "SCR_AI Task Timer Gate" {
-           Name "SCR_AI Task Timer Gate"
-           EditorPos -5499.333 326
-           InPorts {
-            SingleInputPortContainer SingleInputPortContainer {
-             Port -1
-             PortName "Time"
-            }
-            SingleInputPortContainer SingleInputPortContainer {
-             Port -1
-             PortName "ResetTime"
-            }
-           }
-           OutPorts {
-            SingleOutputPortContainer SingleOutputPortContainer {
-             Port -1
-             PortName "Trigger"
-            }
-            SingleOutputPortContainer SingleOutputPortContainer {
-             Port -1
-             PortName "ElapsedTime"
-            }
-            SingleOutputPortContainer SingleOutputPortContainer {
-             Port -1
-             PortName "ResetTimeOut"
-            }
-           }
-           m_Time 2
-          }
           SCR_AIEvaluateAndFindSmartAction "SCR_AI Evaluate And Find Smart Action" {
            Name "SCR_AI Evaluate And Find Smart Action"
            EditorPos -5110.833 315
@@ -356,73 +327,6 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
            }
            AbortType AbortChildrenBranch
            InVariable 33
-          }
-         }
-        }
-        Sequence Sequence {
-         Name "Sequence"
-         EditorPos -3013.667 -255.5
-         Nodes {
-          SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
-           Name "SCR_AI Get Entity Position"
-           EditorPos -3178.31 -111.929
-           InPorts {
-            SingleInputPortContainer SingleInputPortContainer {
-             Port -1
-             PortName "Entity"
-            }
-           }
-           OutPorts {
-            SingleOutputPortContainer SingleOutputPortContainer {
-             Port 25
-             PortName "Position"
-            }
-           }
-          }
-          SCR_AIDecoVectorDistance "SCR_AI Deco Vector Distance" {
-           Name "SCR_AI Deco Vector Distance"
-           EditorPos -2917 -120.916
-           Nodes {
-            Sequence Sequence {
-             Name "Sequence"
-             EditorPos -2773.714 83.786
-             Nodes {
-              SCR_AISetActionUnOccupied "SCR_AI Set Action Un Occupied" {
-               Name "SCR_AI Set Action Un Occupied"
-               EditorPos -2969.643 215.929
-               InPorts {
-                SingleInputPortContainer SingleInputPortContainer {
-                 Port 26
-                 PortName "TargetAction"
-                }
-               }
-              }
-              AITaskSetVariable "Set Variable" {
-               Name "Set Variable"
-               EditorPos -2555.631 217.714
-               ClearVariable 1
-               OutVariable 26
-              }
-             }
-            }
-           }
-           InPorts {
-            SingleInputPortContainer SingleInputPortContainer {
-             Port 28
-             PortName "Vector0"
-            }
-            SingleInputPortContainer SingleInputPortContainer {
-             Port 25
-             PortName "Vector1"
-            }
-            SingleInputPortContainer SingleInputPortContainer {
-             Port -1
-             PortName "Threshold"
-            }
-           }
-           NegativeCondition 1
-           AbortType AbortChildrenBranch
-           m_fDistanceThreshold 30
           }
          }
         }
@@ -694,6 +598,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
         }
        }
       }
+      SCR_AIUpdateNeeds "SCR_AI Update Needs" {
+       Name "SCR_AI Update Needs"
+       EditorPos 274 -704
+      }
      }
     }
    }
@@ -892,6 +800,108 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
    NegativeCondition 1
    AbortType AbortChildrenBranch
    InVariable 44
+  }
+  Sequence Sequence {
+   Name "Sequence"
+   EditorPos 669 -712.5
+   Nodes {
+    SCR_AITaskTimerGate "SCR_AI Task Timer Gate" {
+     Name "SCR_AI Task Timer Gate"
+     EditorPos 463.667 -446
+     InPorts {
+      SingleInputPortContainer SingleInputPortContainer {
+       Port -1
+       PortName "Time"
+      }
+      SingleInputPortContainer SingleInputPortContainer {
+       Port -1
+       PortName "ResetTime"
+      }
+     }
+     OutPorts {
+      SingleOutputPortContainer SingleOutputPortContainer {
+       Port -1
+       PortName "Trigger"
+      }
+      SingleOutputPortContainer SingleOutputPortContainer {
+       Port -1
+       PortName "ElapsedTime"
+      }
+      SingleOutputPortContainer SingleOutputPortContainer {
+       Port -1
+       PortName "ResetTimeOut"
+      }
+     }
+     m_Time 10
+    }
+   }
+  }
+  Sequence Sequence {
+   Name "Sequence"
+   EditorPos -3013.667 -255.5
+   Nodes {
+    SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+     Name "SCR_AI Get Entity Position"
+     EditorPos -3178.31 -111.929
+     InPorts {
+      SingleInputPortContainer SingleInputPortContainer {
+       Port -1
+       PortName "Entity"
+      }
+     }
+     OutPorts {
+      SingleOutputPortContainer SingleOutputPortContainer {
+       Port 25
+       PortName "Position"
+      }
+     }
+    }
+    SCR_AIDecoVectorDistance "SCR_AI Deco Vector Distance" {
+     Name "SCR_AI Deco Vector Distance"
+     EditorPos -2917 -120.916
+     Nodes {
+      Sequence Sequence {
+       Name "Sequence"
+       EditorPos -2773.714 83.786
+       Nodes {
+        SCR_AISetActionUnOccupied "SCR_AI Set Action Un Occupied" {
+         Name "SCR_AI Set Action Un Occupied"
+         EditorPos -2969.643 215.929
+         InPorts {
+          SingleInputPortContainer SingleInputPortContainer {
+           Port 26
+           PortName "TargetAction"
+          }
+         }
+        }
+        AITaskSetVariable "Set Variable" {
+         Name "Set Variable"
+         EditorPos -2555.631 217.714
+         ClearVariable 1
+         OutVariable 26
+        }
+       }
+      }
+     }
+     InPorts {
+      SingleInputPortContainer SingleInputPortContainer {
+       Port 28
+       PortName "Vector0"
+      }
+      SingleInputPortContainer SingleInputPortContainer {
+       Port 25
+       PortName "Vector1"
+      }
+      SingleInputPortContainer SingleInputPortContainer {
+       Port -1
+       PortName "Threshold"
+      }
+     }
+     NegativeCondition 1
+     AbortType AbortChildrenBranch
+     m_fDistanceThreshold 30
+    }
+   }
   }
  }
  Variables {

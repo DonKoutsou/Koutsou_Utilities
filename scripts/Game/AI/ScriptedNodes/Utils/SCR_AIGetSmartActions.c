@@ -438,14 +438,20 @@ class StoreSmartActionTest : SmartActionTest
 		if (!storeaction)
 			return false;
 		int needamount;
-		if (storeaction.shoplist.Contains(char.GetNeed(needamount)))
+		array <int> needs = {};
+		char.GetAllNeeds(needs);
+		foreach (int need : needs)
 		{
-			return true;
+			if (storeaction.shoplist.Contains(char.GetNeed(needamount)))
+			{
+				return true;
+			}
 		}
-		if (storeaction.TestNeeds(char))
-		{
-			return true;
-		}
+		
+		///if (storeaction.TestNeeds(char))
+		//{
+		//	return true;
+		//}
 		return false;
 	}
 }

@@ -24,11 +24,16 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 	
 	bool TestNeeds(SCR_ChimeraCharacter Char)
 	{
+		if (shoplist.IsEmpty())
+			return false;
 		int ammount;
 		BaseMagazineComponent mag;
-		if (Char.Checkneed(shoplist, ammount, mag))
+		foreach (ERequestRewardItemDesctiptor need : shoplist)
 		{
-			return true;
+			if (Char.Checkneed(need, ammount, mag))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

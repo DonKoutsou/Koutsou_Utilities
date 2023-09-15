@@ -22,9 +22,7 @@ class SP_BuyStuff : ScriptedUserAction
 		{
 			foreach (ERequestRewardItemDesctiptor myneed : StoreSmartAction.shoplist)
 			{
-				array <ERequestRewardItemDesctiptor> needlist = {};
-				needlist.Insert(myneed);
-				if (Char.Checkneed(needlist ,ammount, mag))
+				if (Char.Checkneed(myneed ,ammount, mag))
 				{
 					need = myneed;
 					break;
@@ -62,10 +60,7 @@ class SP_BuyStuff : ScriptedUserAction
 		{
 			RemoveHelmet(pUserEntity);
 		}
-		if (shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount))
-		{
-			CompleteTasks(pUserEntity, need);
-		}
+		shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount);
 		return;
 		
 	}
@@ -83,7 +78,7 @@ class SP_BuyStuff : ScriptedUserAction
 				continue;
 			if (rtask.m_requestitemdescriptor == need)
 			{
-				task.CompleteTask(Owner);
+				task.CancelTask();
 				return;
 			}
 		}
