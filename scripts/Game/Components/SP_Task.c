@@ -255,6 +255,11 @@ class SP_Task
 	//Function used to do various checks on owner character found durring initialisation
 	bool CheckOwner()
 	{
+		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+		if (Char.IsImportantCharacter)
+		{
+			return true;	
+		}
 		if (!m_eTaskOwner)
 			return false;
 		if (m_eTaskOwner == SCR_EntityHelper.GetPlayer())
@@ -301,6 +306,11 @@ class SP_Task
 	//Function used to do various checks on target character found durring initialisation
 	bool CheckTarget()
 	{
+		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+		if (Char.IsImportantCharacter)
+		{
+			return true;	
+		}
 		if (!m_eTaskTarget)
 			return false;
 		if (m_eTaskTarget == SCR_EntityHelper.GetPlayer())

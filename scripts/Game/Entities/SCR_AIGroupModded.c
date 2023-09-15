@@ -1,5 +1,74 @@
 modded class SCR_AIGroup
 {
+	bool inited;
+	override protected void SpawnGroupMember(bool snapToTerrain, int index, ResourceName res, bool editMode, bool isLast)
+	{
+		if (!GetGame().GetAIWorld().CanAICharacterBeAdded())
+		{
+			if (isLast)
+			{
+				Event_OnInit.Invoke(this);
+				inited = true;
+			}
+				
+			
+			//Event_OnLastGroupMemberSpawned.Invoke(this);
+			
+			return;
+		}
+		BaseWorld world = GetWorld();
+		AIFormationDefinition formationDefinition;
+		AIFormationComponent formationComponent = AIFormationComponent.Cast(this.FindComponent(AIFormationComponent));
+		if (formationComponent)
+			formationDefinition = formationComponent.GetFormation();
+		EntitySpawnParams spawnParams = new EntitySpawnParams;
+		spawnParams.TransformMode = ETransformMode.WORLD;
+		GetWorldTransform(spawnParams.Transform);
+		vector pos = spawnParams.Transform[3];
+		
+		if (formationDefinition)
+			pos = CoordToParent(formationDefinition.GetOffsetPosition(index));
+		else
+			pos = CoordToParent(Vector(index, 0, 0));
+		
+		
+		
+		float surfaceY = world.GetSurfaceY(pos[0], pos[2]);
+		if (snapToTerrain && pos[1] < surfaceY)
+		{
+			pos[1] = surfaceY;
+		}
+		
+		//Snap to the nearest navmesh point
+		AIPathfindingComponent pathFindindingComponent = AIPathfindingComponent.Cast(this.FindComponent(AIPathfindingComponent));
+		if (pathFindindingComponent && pathFindindingComponent.GetClosestPositionOnNavmesh(pos, "10 10 10", pos))
+		{
+			float groundHeight = world.GetSurfaceY(pos[0], pos[2]);
+			if (pos[1] < groundHeight)
+				pos[1] = groundHeight;
+		}
+		
+		spawnParams.Transform[3] = pos;
+		
+		IEntity member = GetGame().SpawnEntityPrefab(Resource.Load(res), world, spawnParams);
+		if (!member)
+			return;
+		
+		if (editMode)
+			m_aSceneGroupUnitInstances.Insert(member);
+		
+		AddAIEntityToGroup(member,index+1);
+		FactionAffiliationComponent factionAffiliation = FactionAffiliationComponent.Cast(member.FindComponent(FactionAffiliationComponent));
+		
+		if (factionAffiliation)
+			factionAffiliation.SetAffiliatedFactionByKey(m_faction);
+	
+		if (isLast)
+		{
+			Event_OnInit.Invoke(this);
+			inited = true;
+		}
+	}
 	override void OnLeaderChanged(AIAgent currentLeader, AIAgent prevLeader)
 	{
 		if (!currentLeader)

@@ -62,34 +62,9 @@ BehaviorTree "{7AA5A74960E414B7}AI/BehaviorTrees/TP_Tosmart.bt" {
           }
          }
         }
-        SCR_AITaskTimerGate "SCR_AI Task Timer Gate" {
-         Name "SCR_AI Task Timer Gate"
-         EditorPos -400 -132.857
-         InPorts {
-          SingleInputPortContainer SingleInputPortContainer {
-           Port -1
-           PortName "Time"
-          }
-          SingleInputPortContainer SingleInputPortContainer {
-           Port -1
-           PortName "ResetTime"
-          }
-         }
-         OutPorts {
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port -1
-           PortName "Trigger"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port -1
-           PortName "ElapsedTime"
-          }
-          SingleOutputPortContainer SingleOutputPortContainer {
-           Port -1
-           PortName "ResetTimeOut"
-          }
-         }
-         m_Time 2
+        SCR_AIWaitForNextChild "SCR_AI Wait For Next Child" {
+         Name "SCR_AI Wait For Next Child"
+         EditorPos -372.857 -112.857
         }
         ForEachChild "For Each Child" {
          Name "For Each Child"

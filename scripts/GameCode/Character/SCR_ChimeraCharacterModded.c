@@ -1,6 +1,6 @@
 modded class SCR_ChimeraCharacter
 {
-	[Attribute("0")]
+	[Attribute("0", desc : "")]
 	bool IsImportantCharacter;
 	
 	[Attribute(uiwidget: UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
