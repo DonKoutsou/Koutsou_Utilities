@@ -112,6 +112,7 @@ class SCR_ScenarioFrameworkSlotAI : SCR_ScenarioFrameworkSlotBase
 
 		m_AIGroup.SetFaction(facComp.GetAffiliatedFaction());
 		m_AIGroup.AddAIEntityToGroup(m_Entity, 0);
+		m_AIGroup.inited = true;
 	}
 
 	//------------------------------------------------------------------------------------------------
