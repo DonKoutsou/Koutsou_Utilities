@@ -54,6 +54,8 @@ SP_GameMode {
   }
   SCR_MapConfigComponent "{5DC8E7DEE1884961}" {
   }
+  SCR_MapMarkerManagerComponent "{5E611629A7E12482}" {
+  }
   SCR_NametagConfigComponent "{5DC8E7DEE754AF48}" {
    m_sConfigPath "{09F7AAA14A642683}Configs/NameTags/NametagFriendlies.conf"
   }

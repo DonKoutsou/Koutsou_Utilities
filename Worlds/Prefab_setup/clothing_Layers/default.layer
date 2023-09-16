@@ -46,7 +46,7 @@ GenericEntity : "{4B57C11AA5161760}Prefabs/Characters/Vests/Vest_PASGT/Vest_PASG
 GameEntity : "{604BB72BE8E023C2}Prefabs/Characters/Uniforms/Pants_US_BDU.et" {
  coords 120.618 1.71 179.852
 }
-GenericEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
+WalletEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
  components {
   SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {
    Attributes SCR_ItemAttributeCollection "{5C78C42204C93A04}" {
@@ -76,6 +76,9 @@ GameEntity : "{BBA08EC4EC40FA94}Prefabs/Characters/Uniforms/Jacket_M70.et" {
 }
 GameEntity : "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et" {
  coords 121.693 1.671 180.403
+}
+GenericEntity : "{BF8CA87A1ED79535}prefabs/Trading_Items/Factions/US/US_TradingStation_2.et" {
+ coords 128.204 1 180.391
 }
 GameEntity : "{C7861F11D5334C0E}Prefabs/Characters/Uniforms/Jacket_US_BDU.et" {
  coords 121.854 1.691 178.944

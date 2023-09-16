@@ -72,6 +72,13 @@ class SCR_AIPerformLightAction : AITaskScripted
 				if (action && userAction == action.Type() && action.CanBePerformedScript(controlledEntity))
 				{
 					action.PerformAction(targetEntity, controlledEntity);
+					ChimeraCharacter chimera = ChimeraCharacter.Cast(controlledEntity);
+					CharacterControllerComponent controller = chimera.GetCharacterController();
+					if (userActionString == "SP_BuyStuff")
+						controller.TryPlayItemGesture(EItemGesture.EItemGesturePickUp);
+					else
+						controller.TryStartCharacterGesture(ECharacterGestures.POINT_WITH_FINGER, 1000);
+					
 					return ENodeResult.SUCCESS;
 				}
 			}

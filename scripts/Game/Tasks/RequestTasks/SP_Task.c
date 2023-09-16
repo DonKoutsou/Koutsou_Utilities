@@ -59,7 +59,7 @@ class SP_Task
 	SCR_Faction m_OwnerFaction;
 	//-------------------------------------------------//
 	//Reward that is going to be handed to completionist *m_iRewardAmount
-	ResourceName m_Reward;
+	ref array <IEntity> a_Rewards = {};
 	//Used for ClearTasks function in SP_DialogueComponent used to clean completed/failed tasks from main task array
 	private bool m_bMarkedForRemoval;
 	//-------------------------------------------------//
@@ -139,6 +139,7 @@ class SP_Task
 	void DeleteLeftovers(){};
 	//------------------------------------------------------------------------------------------------------------//
 	bool MarkedForRemoval(){return m_bMarkedForRemoval;};
+	//Inherit data from sample
 	void InheritFromSample()
 	{
 		SP_Task tasksample = SP_RequestManagerComponent.GetTaskSample(GetClassName());
@@ -146,9 +147,15 @@ class SP_Task
 		{
 			return;
 		}
+		//Get reward label
 		e_RewardLabel = tasksample.GetRewardLabel();
+		
+		//Reputation reward
 		m_iRepReward = tasksample.GetRepReward();
+		
+		//Rewardammount
 		m_iRewardAverageAmount = tasksample.GetRewardAverage();
+		//Average reward ammount
 		if(m_iRewardAverageAmount)
 		{
 			m_iRewardAmount = Math.Ceil(Math.RandomFloat(m_iRewardAverageAmount/2, m_iRewardAverageAmount + m_iRewardAverageAmount/2));
@@ -157,6 +164,7 @@ class SP_Task
 		{
 			m_iRewardAmount = Math.RandomInt(m_iRewardAverageAmount/2, m_iRewardAverageAmount * 1.5)
 		}
+		//Time limit
 		m_fTimeLimit = tasksample.m_fTimeLimit;
 		m_bFailOnTimeLimit = tasksample.m_bFailOnTimeLimit;
 	};
@@ -211,83 +219,92 @@ class SP_Task
 	//Function used to do various checks on owner character found durring initialisation
 	bool CheckOwner()
 	{
-		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+		//if no owner fail
+		if (!m_eTaskOwner)
+			return false;
+		
+		//Get Chimera and check if its important character. Return true if it is
+		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast( m_eTaskOwner );
 		if (Char.IsImportantCharacter)
 		{
 			return true;	
 		}
-		if (!m_eTaskOwner)
+		
+		//if owner is player fail
+		if ( m_eTaskOwner == SCR_EntityHelper.GetPlayer() )
 			return false;
-		if (m_eTaskOwner == SCR_EntityHelper.GetPlayer())
-			return false;
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
+		
+		//if dead Fail
+		//Get damage manager
+		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast( m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent ) );
 		if (!dmg)
 			return false;
-		if (dmg.IsDestroyed())
+		
+		//check if destroyed
+		if ( dmg.IsDestroyed() )
 			return false;
+		
+		//Check if character has tasks assigned and fail if true
 		array<ref SP_Task> assignedtasks = {};
-		SP_RequestManagerComponent.GetassignedTasks(m_eTaskOwner, assignedtasks);
-		if (!assignedtasks.IsEmpty())
+		SP_RequestManagerComponent.GetassignedTasks( m_eTaskOwner, assignedtasks );
+		if ( ! assignedtasks.IsEmpty() )
 			return false;
+		
+		
+		//Check if char can get more tasks. Should get obsolete once all tasks come from needs.
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		//Check if char can get more tasks
 		SP_RequestManagerComponent.GetCharOwnedTasks(m_eTaskOwner, tasks);
 		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
 		{
 			return false;
 		}
-		//Check if char can get more tasks of same type
-		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		SP_RequestManagerComponent.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter())
+		
+		//Check if char can get more tasks of same type. Should get obsolete once all tasks come from needs.
+		array<ref SP_Task> sametasks = {};
+		SP_RequestManagerComponent.GetCharTasksOfSameType( m_eTaskOwner , sametasks , GetClassName() );
+		if( sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter() )
 		{
 			return false;
 		}
-		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
+		/*Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
 		m_OwnerFaction = SCR_Faction.Cast(senderFaction);
 		if (m_OwnerFaction.GetFactionKey() == "RENEGADE")
 		{
 			return false;
-		};
-		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
-		{
-			if (SP_RequestManagerComponent.GetCharCurrency(m_eTaskOwner) < m_iRewardAmount)
-				return false;
-		}
+		};*/
 		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function used to do various checks on target character found durring initialisation
 	bool CheckTarget()
 	{
-		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
+		//if no owner fail
+		if (!m_eTaskTarget)
+			return false;
+		
+		//Get Chimera and check if its important character. Return true if it is
+		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(m_eTaskTarget);
 		if (Char.IsImportantCharacter)
 		{
 			return true;	
 		}
-		if (!m_eTaskTarget)
-			return false;
+		
+		//if target is player fail
 		if (m_eTaskTarget == SCR_EntityHelper.GetPlayer())
 			return false;
+		
+		//if dead Fail
+		//Get damage manager
 		ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
 		if (!dmg)
 			return false;
+		
+		//check if destroyed
 		if (dmg.IsDestroyed())
 			return false;
-		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		SP_RequestManagerComponent.GetCharTargetTasks(m_eTaskTarget, tasks);
-		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
-		{
-			return false;
-		}
-		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		SP_RequestManagerComponent.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter() + 1)
-		{
-			return false;
-		}
+		
 		return true;
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -325,20 +342,34 @@ class SP_Task
 	//Manipulation of task state and results
 	bool CompleteTask(IEntity Assignee)
 	{
+		//if giving reward is unsuccesfull fail completion
 		if (GiveReward(Assignee))
 		{
+			//if player task complete marker
 			if (m_TaskMarker)
 			{
 				m_TaskMarker.Finish(true);
 			}
+			//set state
 			e_State = ETaskState.COMPLETED;
+			
+			//set completionist
 			m_eCopletionist = Assignee;
+			
+			//if player create popup
 			if (SCR_EntityHelper.GetPlayer() == Assignee)
 				SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
+			
+			//invoker
 			GetOnTaskFinished(this);
+			
+			//mark for removal
 			m_bMarkedForRemoval = 1;
+			
+			//unassign character. used to update behavior of AI
 			if (m_aTaskAssigned)
 				UnAssignCharacter();
+			
 			return true;
 		}
 		return false;
@@ -346,6 +377,7 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void FailTask()
 	{
+		//if player task complete marker
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
@@ -353,11 +385,21 @@ class SP_Task
 			m_TaskMarker.Finish(true);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 		}
+		
+		//check state and unassign char if needed
 		if (GetState() == ETaskState.ASSIGNED)
 			UnAssignCharacter();
+		
+		//update state
 		e_State = ETaskState.FAILED;
+		
+		// mark for removal
 		m_bMarkedForRemoval = 1;
+		
+		//make sure to clear behaviors of AI comming to pick up task
 		ClearReserves();
+		
+		//invoker
 		GetOnTaskFinished(this);
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -383,6 +425,10 @@ class SP_Task
 	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
+		if (!m_iRewardAmount)
+		{
+			m_iRewardAmount = Math.Ceil(Math.RandomFloat(m_iRewardAverageAmount * 0.75, m_iRewardAverageAmount * 1.25));			
+		}
 		//Get catalog
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType( EEntityCatalogType.REQUEST );
@@ -396,36 +442,110 @@ class SP_Task
 		array <IEntity > items = {};
 		//Get char inventory
 		InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
-		//itterate though list to see wich items character has;
-		foreach (SCR_EntityCatalogEntry entry : Mylist)
-		{
-			
-			
-			SCR_PrefabNamePredicate pref = new SCR_PrefabNamePredicate();
-			pref.prefabName = entry.GetPrefab();
-			TargetInv.FindItems(items, pref);
-		}
 		
-		//Get a random
-		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
-		m_Reward = entry.GetPrefab();
-		
+		//make sure that character has items needed for reward if part of chained task
 		if (m_bPartOfChain && e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
 			SCR_ChimeraCharacter Character = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
 			WalletEntity wallet = Character.GetWallet();
 			wallet.SpawnCurrency(m_iRewardAmount);
 		}
+		else if (m_bPartOfChain)
+		{
+			int acworth;
+			array <SCR_EntityCatalogEntry> acentries = {};
+			
+			foreach ( SCR_EntityCatalogEntry entry : Mylist )
+			{
+				SP_RequestData data = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
+				if (acworth < m_iRewardAmount)
+				{
+					acworth += data.GetWorth();
+					acentries.Insert(entry);
+				}
+				
+				if (data.GetWorth() > m_iRewardAmount)
+				{
+					acentries.Clear();
+					if (TargetInv.TrySpawnPrefabToStorage(entry.GetPrefab()))
+						break;
+					
+				}
+			}
+			foreach ( SCR_EntityCatalogEntry entry : acentries )
+			{
+				TargetInv.TrySpawnPrefabToStorage(entry.GetPrefab());
+			}
+		}
+		int rewardworth = m_iRewardAmount;
+		//itterate though list to see wich items character has;
+		foreach ( SCR_EntityCatalogEntry entry : Mylist )
+		{
+			//array for found items
+			array <IEntity > founditems = {};
+			
+			// setup of prefab predicate, add prefab name to it
+			SCR_PrefabNamePredicate pref = new SCR_PrefabNamePredicate();
+			pref.prefabName = entry.GetPrefab();
+			
+			//Look for items
+			TargetInv.FindItems(founditems, pref, EStoragePurpose.PURPOSE_ANY);
+			
+			//itterate though them and substract worth from rewardworth int. Once rewardworth = 0 break out, meaning we found enough items to fulfill reward
+			for (int i = founditems.Count() - 1; i >= 0; i--)
+			{
+				//Get entry data
+				SP_RequestData Data = SP_RequestData.Cast( entry.GetEntityDataOfType( SP_RequestData ) );
+				
+				if (Data.GetWorth() > m_iRewardAmount)
+				{
+					items.Clear();
+					items.Insert( founditems.Get( i ) );
+					rewardworth = 0;
+					break;
+				}
+				
+				//substract worth from rewardworth
+				rewardworth -= Data.GetWorth();
+				
+				//Insert in found item array
+				items.Insert( founditems.Get( i ) );
+				
+				//check if rewardworth reached 0 to stop looking though items 
+				if (rewardworth <= 0)
+				{
+					break;
+				}
+			}
+			if (rewardworth == 0)
+				break;
+		}
+		//if character cannot fulfill reward return false;
+		if ( rewardworth > 0 )
+		{
+			Print("Character doesent have enough to fulfill reward for task. Task creationg canceled");
+			return false;
+		}
+		
+		//assign rewards to array
+		a_Rewards.Copy(items);
+		
+		//enable rewards
 		m_bHasReward = true;
 		return true;
 	};
+	//Setter for time limit of task takes value from Attribute
 	void SetTimeLimit()
 	{
+		// -1 value is used as an off switch
 		if (m_fTimeLimit == -1.0)
 			return;
+		// Average time limit
 		float TimeLimit = Math.RandomFloat(m_fTimeLimit/2, m_fTimeLimit * 1.5);
+		//setup time container
 		m_TaskTimeInfo = TaskDayTimeInfo.FromPointInFuture(TimeLimit, ETaskTimeLimmit.HOURS);
 	}
+	//used to get time left
 	float GetTimeLimit()
 	{
 		if (!m_TaskTimeInfo)
@@ -438,53 +558,44 @@ class SP_Task
 	//Called when task if completed to give rewards to completionist
 	bool GiveReward(IEntity Target)
 	{
+		//if no reward present return true;
 		if (!m_bHasReward)
 		{
 			return true;
 		}
+		//if Target is owner no need to do transaction
 		if (Target == m_eTaskOwner)
 			return true;
+		// special logic for handling currency
 		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
+			//get character wallets
 			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
 			SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
 			WalletEntity wallet = Char.GetWallet();
 			WalletEntity Owallet = OChar.GetWallet();
 			
-			
-			/*int Movedamount;
-			
-			Resource cur = Resource.Load("{891BA05A96D3A0BE}prefabs/Currency/Drachma.et");
-			PrefabResource_Predicate pred = new PrefabResource_Predicate(cur.GetResource().GetResourceName());
-			array <IEntity> items = {};
-			inv.FindItems(items, pred);
-			for (int i, count = m_iRewardAmount; i < count; i++)
-			{
-				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(items[i].FindComponent(InventoryItemComponent));
-				inv.TryRemoveItemFromStorage(items[i], pInvComp.GetParentSlot().GetStorage());
-				TargetInv.TryInsertItem(items[i]);
-				Movedamount += 1;
-			}*/
-			return wallet.TakeCurrency(Owallet, m_iRewardAmount);
+			//complete transaction
+			return wallet.TakeCurrency(Owallet, a_Rewards.Count());
 		}
-		else if (m_Reward)
+		else if (a_Rewards.Count() > 0)
 		{
-			EntitySpawnParams params = EntitySpawnParams();
-			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = m_eTaskOwner.GetOrigin();
-			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-			array<IEntity> Rewardlist = new array<IEntity>();
-			Resource RewardRes = Resource.Load(m_Reward);
+			//Get target inventory
+			SCR_InventoryStorageManagerComponent TargetInv = SCR_InventoryStorageManagerComponent.Cast(Target.FindComponent(SCR_InventoryStorageManagerComponent));
+			SCR_InventoryStorageManagerComponent OwnerInv = SCR_InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_InventoryStorageManagerComponent));
 			int Movedamount;
-			Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
-			for (int i, count = Rewardlist.Count(); i < count; i++)
+			//itterate through reward and move them to target storage
+			for (int i = 0; i < a_Rewards.Count(); i++)
 			{
-				TargetInv.TryInsertItem(Rewardlist[i]);
+				
+				OwnerInv.TryRemoveItemFromInventory(a_Rewards.Get(i));
+				ADM_Utils.InsertAutoEquipItem(TargetInv, a_Rewards.Get(i));
+				//TargetInv.TryInsertItem(a_Rewards.Get(i));
 				Movedamount += 1;
 			}
 			return true;
 		}
-		return false;
+		return true;
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//invoker stuff
@@ -555,34 +666,45 @@ class SP_Task
 	//Assign character to this task
 	bool AssignCharacter(IEntity Character)
 	{
+		// make sure to anassign owner before
 		if (m_bOwnerAssigned)
 			UnAssignOwner();
+		
 		//if already assigned return
 		if (m_aTaskAssigned == Character)
 			return true;
+		
+		//clear reserves to clear behaviors from AI comming to pickup task
 		ClearReserves();
+		
 		//If player
-		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
+		if ( GetGame().GetPlayerController().GetControlledEntity() == Character )
 		{
 			m_aTaskAssigned = Character;
-			if(m_aTaskAssigned && e_State == ETaskState.UNASSIGNED)
+			// update state
+			if( e_State == ETaskState.UNASSIGNED )
 			{
 				e_State = ETaskState.ASSIGNED;
 			}
+			//invokers
 			AddAssigneeInvokers();
-			SpawnTaskMarker(Character);
+			//Spawn task marker for player
+			SpawnTaskMarker( Character );
+			
 			return true;
 		}
 		//if AI
 		else
 		{
 			m_aTaskAssigned = Character;
-			if(m_aTaskAssigned && e_State == ETaskState.UNASSIGNED)
+			//update state
+			if( e_State == ETaskState.UNASSIGNED )
 			{
 				e_State = ETaskState.ASSIGNED;
 			}
-			
+			//invokers
 			AddAssigneeInvokers();
+			
 			return true;
 		}
 		return false;
@@ -596,26 +718,26 @@ class SP_Task
 	void UnAssignOwner()
 	{
 		m_bOwnerAssigned = false;
-		
 	}
 	void UnAssignCharacter()
 	{
-		if (!m_aTaskAssigned)
-			return;
 		m_aTaskAssigned = null;
+		// if player remove marker
 		if (m_TaskMarker)
 		{
 			m_TaskMarker.Cancel(true);
 		}
+		//update state
 		e_State = ETaskState.UNASSIGNED;
+		
 		ClearReserves();
 	}
+	//handle death of assignee
 	void GetOnAssigneeDeath(EDamageState state)
 	{
 		if (state != EDamageState.DESTROYED)
 			return;
 		RemoveAssigneeInvokers();
-		//m_aTaskAssigned = null;
 		UnAssignCharacter();
 		//Decide owner behevior
 	}
@@ -634,6 +756,7 @@ class SP_Task
 		dmgman.GetOnDamageStateChanged().Remove(GetOnAssigneeDeath);
 	}
 	//------------------------------------------------------------------//
+	//Check updated affiliation and update task if needed
 	void CheckUpdatedAffiliations(SCR_Faction factionA, SCR_Faction factionB = null)
 	{
 		if (!factionB || !m_eTaskTarget)
@@ -649,15 +772,24 @@ class SP_Task
 	//Spawn task marker for this task, called when assigning character
 	void SpawnTaskMarker(IEntity Assignee)
 	{
-		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
+		//Get task resource
+		Resource Marker = Resource.Load( "{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et" );
+		//setup spawn params
 		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
+		//Getaffiliation of Assignee to add to marker
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast( Assignee.FindComponent( FactionAffiliationComponent ) );
+		//get spawn location from target
 		m_eTaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
+		//spawn marker
 		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(m_sTaskTitle);
-		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(m_eTaskTarget);
-		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
+		
+		//set info
+		m_TaskMarker.SetTitle( m_sTaskTitle );
+		m_TaskMarker.SetDescription( m_sTaskDesc );
+		m_TaskMarker.SetTarget( m_eTaskTarget );
+		m_TaskMarker.SetTargetFaction( Aff.GetAffiliatedFaction() );
+		
+		//assign to player
 		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
@@ -667,11 +799,7 @@ class SP_Task
 	//Getter of m_iRewardAverageAmount attribute. Used on task samples stored in SP_RequestManagerComponent.
 	int GetRewardAverage()
 	{
-		if (m_iRewardAverageAmount)
-		{
-			return m_iRewardAverageAmount;
-		}
-		return null;
+		return m_iRewardAverageAmount;
 	};
 	//Reward lebal deffines what kind of reward this task will provide. atm only works with EEditableEntityLabel.ITEMTYPE_ITEM and EEditableEntityLabel.ITEMTYPE_WEAPON
 	ERequestRewardItemDesctiptor GetRewardLabel()
@@ -703,6 +831,7 @@ class SP_Task
 	{
 		return m_bOwnerAssigned;
 	}
+	//used to clear behavior from AI on task state change
 	void ClearReserves()
 	{
 		if ( IsReserved() )

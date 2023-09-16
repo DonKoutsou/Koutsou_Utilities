@@ -20,6 +20,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
 	protected static const string OUT_TAG_PORT = "OutTag";
 	protected static const string OUT_CROUCH_BOOL = "CROUCH_BOOL";
+	protected static const string OUT_OCUPY_BOOL = "OCUPY_BOOL";
 	
 	SCR_AISmartActionComponent OutSmartAction;
 	vector Origin;
@@ -124,11 +125,18 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 				OutSmartAction = Smart;
 			}
 		}
+		
+		
+		
 		//if we have one get its variables out
 		if (OutSmartAction)
 		{
+			SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(OutSmartAction);
+			if (storeaction)
+				OutSmartAction = SCR_AISmartActionComponent.Cast(correctsmartacts.GetRandomElement());
 			//if char should crouch when using action
 			SetVariableOut( OUT_CROUCH_BOOL, OutSmartAction.ShouldCrouchWhenPerforming );
+			SetVariableOut( OUT_OCUPY_BOOL, OutSmartAction.m_bShouldOccupy );
 			//smart action
 			SetVariableOut( SMARTACTION_PORT , OutSmartAction );
 			OutSmartAction.GetTags(outtags);
@@ -189,7 +197,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT};
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT ,OUT_CROUCH_BOOL};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT ,OUT_CROUCH_BOOL, OUT_OCUPY_BOOL};
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 	

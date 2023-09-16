@@ -103,32 +103,6 @@ class SP_RescueTask: SP_Task
 		else
 			FailTask();
 	}
-	override bool GiveReward(IEntity Target)
-	{
-		if (!m_bHasReward)
-		{
-			return true;
-		}
-		if (m_Reward)
-		{
-			EntitySpawnParams params = EntitySpawnParams();
-			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = Target.GetOrigin();
-			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-			array<IEntity> Rewardlist = new array<IEntity>();
-			Resource RewardRes = Resource.Load(m_Reward);
-			int Movedamount;
-			for (int j = 0; j < m_iRewardAmount; j++)
-				Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, GetGame().GetWorld(), params));
-			for (int i, count = Rewardlist.Count(); i < count; i++)
-			{
-				TargetInv.TryInsertItem(Rewardlist[i]);
-				Movedamount += 1;
-			}
-			return true;
-		}
-		return false;
-	};
 	override bool Init()
 	{
 		m_aCharsToRescue = {};
@@ -335,7 +309,7 @@ class SP_RescueTask: SP_Task
 		BaseWorld world = GetGame().GetWorld();
 		FactionAffiliationComponent Myaffiliation = FactionAffiliationComponent.Cast(m_aCharsToRescue[0].FindComponent(FactionAffiliationComponent));
 		array<IEntity> entities = {};
-		GetGame().GetTagManager().GetTagsInRange(entities, origin, radius, ETagCategory.Perceivable);
+		GetGame().GetTagManager().GetTagsInRange(entities, origin, radius, ETagCategory.NameTag);
 		foreach (IEntity Char : entities)
 		{
 			if (m_aCharsToRescue.Contains(Char))

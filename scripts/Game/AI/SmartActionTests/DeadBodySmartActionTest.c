@@ -23,9 +23,14 @@ class DeadBodySmartActionTest : SmartActionTest
 		inv.GetItems(items);
 		foreach (IEntity item : items)
 		{
+			if (!inv.FindStorageForItem(item))
+				continue;
 			SP_UnretrievableComponent Unretr = SP_UnretrievableComponent.Cast(item.FindComponent(SP_UnretrievableComponent));
 			if (Unretr)
 			{
+				SP_PackageComponent package = SP_PackageComponent.Cast(Unretr);
+				if (package)
+					return false;
 				return true;
 			}
 			MagazineComponent mag = MagazineComponent.Cast(item.FindComponent(MagazineComponent));
@@ -115,7 +120,8 @@ class DeadBodySmartActionTest : SmartActionTest
 				{
 					needhelm = false;
 				}
-				needhelm = true;
+				else
+					needhelm = true;
 			}
 			if (needhelm)
 			{

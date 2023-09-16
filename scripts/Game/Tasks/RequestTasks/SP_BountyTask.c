@@ -86,10 +86,10 @@ class SP_BountyTask: SP_Task
 		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		if (m_bHasReward)
 		{
-			string s_RewardName = FilePath.StripPath(m_Reward);
+			string s_RewardName = FilePath.StripPath(a_Rewards.Get(0).GetPrefabData().GetPrefabName());
 			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 			s_RewardName.ToLower();
-			m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
+			m_sTaskDiag = string.Format("I've put a bounty on %1's head, last i heard he was located on %2, get me his dogtags and i'll make it worth your while. Reward is %3 %4", DName, DLoc, a_Rewards.Count(), s_RewardName);
 		}
 			
 		else

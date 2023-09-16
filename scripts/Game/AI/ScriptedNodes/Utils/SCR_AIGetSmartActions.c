@@ -69,7 +69,7 @@ class SCR_AIGetSmartAction : AITaskScripted
 		{
 			//while there are Preceivable tags out there keep itterating
 			array <IEntity> entities = {};
-			GetGame().GetTagManager().GetTagsInRange(entities, OutSmartAction.GetOwner().GetOrigin(), 25, ETagCategory.Perceivable);
+			GetGame().GetTagManager().GetTagsInRange(entities, OutSmartAction.GetOwner().GetOrigin(), 25, ETagCategory.NameTag);
 			//start itterating though the smart action we callected and if at any point entities are clear break out of the foreach
 			foreach (Managed SmartAct : correctsmartacts)
 			{
@@ -77,7 +77,7 @@ class SCR_AIGetSmartAction : AITaskScripted
 					break;
 				entities.Clear();
 				OutSmartAction = SCR_AISmartActionComponent.Cast(SmartAct);
-				GetGame().GetTagManager().GetTagsInRange(entities, OutSmartAction.GetOwner().GetOrigin(), 25, ETagCategory.Perceivable);
+				GetGame().GetTagManager().GetTagsInRange(entities, OutSmartAction.GetOwner().GetOrigin(), 25, ETagCategory.NameTag);
 					
 			}
 		}

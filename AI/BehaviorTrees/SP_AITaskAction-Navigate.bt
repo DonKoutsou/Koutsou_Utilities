@@ -436,29 +436,6 @@ BehaviorTree {
     }
    }
   }
-  Sequence Sequence {
-   Name "Sequence"
-   EditorPos 1628.629 464.744
-   Nodes {
-    RunBT RunBT {
-     Name "RunBT"
-     EditorPos 2294.62 862.737
-     InPorts {
-      SingleInputPortContainer SingleInputPortContainer {
-       Port -1
-       PortName "positionOut"
-      }
-     }
-     OutPorts {
-      SingleOutputPortContainer SingleOutputPortContainer {
-       Port -1
-       PortName "positionOut"
-      }
-     }
-     BehaviorTree "{151CFA2AE556CD71}AI/BehaviorTrees/Chimera/Soldier/LookUpdate.bt"
-    }
-   }
-  }
  }
  Variables {
   Variable Distance {
@@ -473,12 +450,6 @@ BehaviorTree {
    VariableExposedInput 0
    VariableExposedOutput 0
   }
-  Variable Agent {
-   VariableName "Agent"
-   VariableTypeName "AIAgent"
-   VariableExposedInput 0
-   VariableExposedOutput 0
-  }
   Variable MyPos {
    VariableName "MyPos"
    VariableTypeName "vector"
@@ -487,12 +458,6 @@ BehaviorTree {
   }
   Variable CharToFollowPos {
    VariableName "CharToFollowPos"
-   VariableTypeName "vector"
-   VariableExposedInput 0
-   VariableExposedOutput 0
-  }
-  Variable randomp {
-   VariableName "randomp"
    VariableTypeName "vector"
    VariableExposedInput 0
    VariableExposedOutput 0
@@ -512,12 +477,6 @@ BehaviorTree {
   Variable SucDist {
    VariableName "SucDist"
    VariableTypeName "int"
-   VariableExposedInput 0
-   VariableExposedOutput 0
-  }
-  Variable MovementType {
-   VariableName "MovementType"
-   VariableTypeName "EMovementType"
    VariableExposedInput 0
    VariableExposedOutput 0
   }
@@ -546,11 +505,11 @@ BehaviorTree {
    EditorPos -2275.954 1052.735
   }
   VariableReference MyPos {
-   VariableType 3
+   VariableType 2
    EditorPos -47.046 860.738
   }
   VariableReference MyPos {
-   VariableType 3
+   VariableType 2
    EditorPos -1386.439 716.544
   }
   VariableReference TaskTarget {
@@ -558,7 +517,7 @@ BehaviorTree {
    EditorPos 554.228 2308.419
   }
   VariableReference MyPos {
-   VariableType 3
+   VariableType 2
    EditorPos 1075.157 913.182
   }
   VariableReference TaskTarget {
@@ -566,35 +525,35 @@ BehaviorTree {
    EditorPos 962.031 2404.681
   }
   VariableReference MyPos {
-   VariableType 3
+   VariableType 2
    EditorPos 575.835 2392.365
   }
   VariableReference CharToFollowPos {
-   VariableType 4
+   VariableType 3
    EditorPos -1948.586 692.945
   }
   VariableReference MyPos {
-   VariableType 3
+   VariableType 2
    EditorPos 1037.924 2491.484
   }
   VariableReference Task {
-   VariableType 6
+   VariableType 4
    EditorPos -2711.5 1007.447
   }
   VariableReference TaskOwner {
-   VariableType 7
+   VariableType 5
    EditorPos -2273.016 968.357
   }
   VariableReference SucDist {
-   VariableType 8
+   VariableType 6
    EditorPos -2304.833 1153.81
   }
   VariableReference TaskOwner {
-   VariableType 7
+   VariableType 5
    EditorPos -999.8 2284.436
   }
   VariableReference TaskOwner {
-   VariableType 7
+   VariableType 5
    EditorPos -320.999 1306.142
   }
   VariableReference TaskTarget {
@@ -606,31 +565,31 @@ BehaviorTree {
    EditorPos 398.036 1537.143
   }
   VariableReference CharToFollowPos {
-   VariableType 4
+   VariableType 3
    EditorPos -361.25 1395
   }
   VariableReference CurrentDistance {
-   VariableType 10
+   VariableType 7
    EditorPos 226.25 1373.75
   }
   VariableReference CurrentDistance {
-   VariableType 10
+   VariableType 7
    EditorPos -373.75 1522.5
   }
   VariableReference SucDist {
-   VariableType 8
+   VariableType 6
    EditorPos -341.25 1612.5
   }
   VariableReference Task {
-   VariableType 6
+   VariableType 4
    EditorPos -371.571 2307.148
   }
   VariableReference MyPos {
-   VariableType 3
+   VariableType 2
    EditorPos 1838.512 2091.726
   }
   VariableReference TaskOwner {
-   VariableType 7
+   VariableType 5
    EditorPos 1767.322 1995.02
   }
  }

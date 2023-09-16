@@ -116,7 +116,7 @@ class SP_NavigateTask: SP_Task
 		string DLoc;
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
-		string s_RewardName = FilePath.StripPath(m_Reward);
+		string s_RewardName = FilePath.StripPath(a_Rewards.Get(0).GetPrefabData().GetPrefabName());
 		
 		if (m_bHasReward)
 		{
@@ -124,7 +124,7 @@ class SP_NavigateTask: SP_Task
 			s_RewardName.ToLower();
 			m_sTaskDesc = string.Format("%1 is looking for someone to escort him to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 			
-			m_sTaskDiag = string.Format("I need to go to %1 on %2. I'll give you %3 %4 if you manage to get me there in one piece.", DName, DLoc, m_iRewardAmount, s_RewardName);
+			m_sTaskDiag = string.Format("I need to go to %1 on %2. I'll give you %3 %4 if you manage to get me there in one piece.", DName, DLoc, a_Rewards.Count(), s_RewardName);
 		}
 			
 		else
@@ -327,11 +327,11 @@ class SP_NavigateTask: SP_Task
 	};
 	override bool AssignReward()
 	{
+		
+		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
+		m_iRewardAverageAmount = m_iRewardAverageAmount * (dis/40);
 		if (!super.AssignReward())
 			return false;
-		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
-		m_iRewardAmount = m_iRewardAmount * (dis/40);
-		m_bHasReward = true;
 		return true;
 	};
 	override void AddTargetInvokers(){};

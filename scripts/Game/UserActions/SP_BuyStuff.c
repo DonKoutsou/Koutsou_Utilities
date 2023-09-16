@@ -21,7 +21,7 @@ class SP_BuyStuff : ScriptedUserAction
 		
 		//final need to select and fulfull
 		ERequestRewardItemDesctiptor needtofulfill;
-		
+		array <int> fulfillableneeds = {};
 		//Check if any of needs can be fulfilled and get its info
 		foreach (int need : needs)
 		{
@@ -29,11 +29,16 @@ class SP_BuyStuff : ScriptedUserAction
 			{
 				if (Char.Checkneed(need ,ammount, mag))
 				{
-					needtofulfill = need;
+					fulfillableneeds.Insert( need);
 					break;
 				}
 			}
 		}
+		if ( fulfillableneeds.IsEmpty())
+			return;
+		
+		needtofulfill = fulfillableneeds.GetRandomElement();
+		
 		if (!needtofulfill)
 			return;
 		

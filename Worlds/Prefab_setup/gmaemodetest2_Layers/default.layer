@@ -26,9 +26,9 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
    m_aEntityCatalogs {
     SCR_EntityCatalog "{5DC8E7D94F822388}" {
     }
-    SCR_EntityCatalog "{5DC8E7D94F7C2B82}" : "{251BB14ECEF73562}Configs/Dilaogue_Configs/Requests/Rewards.conf" {
-    }
     SCR_EntityCatalog "{5DD0FCA5935CA2DD}" : "{B219EC028EC342D8}Configs/Dilaogue_Configs/Requests/Stashes.conf" {
+    }
+    SCR_EntityCatalog "{5DC8E7D94F7C2B82}" : "{251BB14ECEF73562}Configs/Dilaogue_Configs/Requests/Rewards.conf" {
     }
    }
   }
@@ -152,6 +152,12 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
   }
  }
  coords 107.396 1 147.418
+ {
+  TagManager {
+   ID "5DC8E7DF1BAF4559"
+   "Grid cell size" 1000
+  }
+ }
 }
 GenericEntity : "{028AAB08D4747EE8}prefabs/Items/Equipment/Accessories/Dogtags/Dog_Tag_Clutter_USSR.et" {
  coords 52.846 1 151.601
@@ -167,7 +173,7 @@ SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
  coords 169.952 1 233.899
  angleY -78.913
 }
-$grp GenericEntity : "{2F2BBFDA3A2C73D4}prefabs/Props/Civilian/RadioSmall_01_black.et" {
+$grp GenericEntity : "{2F2BBFDA3A2C73D4}prefabs/Props/RadioSmall_01_black.et" {
  {
   coords 63.83 1 174.074
  }
@@ -370,7 +376,7 @@ $grp WalletEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
 GenericEntity : "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et" {
  coords 79.879 1 124.439
 }
-$grp GenericEntity : "{B68D3829D4442F80}prefabs/Props/Civilian/RadioSmall_01_Base.et" {
+$grp GenericEntity : "{B68D3829D4442F80}prefabs/Props/RadioSmall_01_Base.et" {
  {
   coords 63.562 1 176.026
  }
@@ -403,7 +409,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       components {
        SCR_ScenarioFrameworkSlotAI "{5A22E1D67E712EC8}" {
         m_sFactionKey "US"
-        m_sObjectToSpawn "{CAD92AED899C1AB9}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Unarmed_Rich.et"
+        m_sObjectToSpawn "{58E47E5A4D599432}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_MG.et"
         m_aWaypointGroupNames {
          SCR_WaypointSet "{5DED29A03A562001}" {
           m_sName "FIAWP"
@@ -460,7 +466,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot1 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 7.311 0 -17.965
@@ -468,7 +474,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot3 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 47.366 0 -17.965
@@ -476,7 +482,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot4 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 88.288 0 -17.965
@@ -484,7 +490,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot5 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -31.844 0 -17.965
@@ -492,7 +498,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot6 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -71.555 0 -17.965
@@ -500,7 +506,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot7 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -111.248 0 -17.965
@@ -508,7 +514,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot8 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 47.366 0 -60.074
@@ -516,7 +522,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot9 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 88.288 0 -60.074
@@ -524,7 +530,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot10 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -31.844 0 -60.074
@@ -532,7 +538,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot11 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -71.555 0 -60.074
@@ -540,7 +546,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot12 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -111.248 0 -60.074
@@ -548,7 +554,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot13 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 7.311 0 -60.074
@@ -556,7 +562,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot14 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 47.366 0 -102.413
@@ -564,7 +570,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot15 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 88.288 0 -102.413
@@ -572,7 +578,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot17 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -31.844 0 -102.413
@@ -580,7 +586,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot19 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -71.555 0 -102.413
@@ -588,7 +594,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot20 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -111.248 0 -102.413
@@ -596,7 +602,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot21 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 7.311 0 -102.413
@@ -604,7 +610,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot22 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 47.366 0 24.237
@@ -612,7 +618,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot23 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 88.288 0 24.237
@@ -620,7 +626,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot24 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -31.844 0 24.237
@@ -628,7 +634,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot25 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -71.555 0 24.237
@@ -636,7 +642,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot26 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -111.248 0 24.237
@@ -644,7 +650,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot27 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 7.311 0 24.237
@@ -652,7 +658,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot28 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 47.366 0 64.056
@@ -660,7 +666,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot29 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 88.288 0 64.056
@@ -668,7 +674,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot30 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -31.844 0 64.056
@@ -676,7 +682,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot31 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -71.555 0 64.056
@@ -684,7 +690,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot32 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -111.248 0 64.056
@@ -692,7 +698,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot33 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 7.311 0 64.056
@@ -700,7 +706,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot34 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 47.366 0 103.101
@@ -708,7 +714,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot35 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 88.288 0 103.101
@@ -716,7 +722,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot36 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -31.844 0 103.101
@@ -724,7 +730,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot37 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -71.555 0 103.101
@@ -732,7 +738,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot38 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords -111.248 0 103.101
@@ -740,7 +746,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot39 {
        components {
         SCR_ScenarioFrameworkSlotBase "{5A22E1D67E712EC8}" {
-         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et"
+         m_sObjectToSpawn "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et"
         }
        }
        coords 7.311 0 103.101

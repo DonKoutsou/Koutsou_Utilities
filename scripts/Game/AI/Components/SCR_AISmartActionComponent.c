@@ -15,6 +15,9 @@ class SCR_AISmartActionComponent : AISmartActionComponent
 	[Attribute()]
 	bool ShouldCrouchWhenPerforming;
 	
+	[Attribute("1")]
+	bool m_bShouldOccupy
+	
 	ref SCR_AIActionUserInvoker Event_EOnActionEnd;	
 	
 	ref SCR_AIActionUserInvoker Event_EOnActionFailed;

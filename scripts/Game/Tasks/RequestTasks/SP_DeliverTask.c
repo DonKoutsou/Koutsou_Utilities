@@ -121,11 +121,11 @@ class SP_DeliverTask: SP_Task
 		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
 		if (m_bHasReward)
 		{
-			string s_RewardName = FilePath.StripPath(m_Reward);
+			string s_RewardName = FilePath.StripPath(a_Rewards.Get(0).GetPrefabData().GetPrefabName());
 			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
 			s_RewardName.ToLower();
-			m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2. Reward is %3 %4", DName, DLoc, m_iRewardAmount, s_RewardName);
-			m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", m_iRewardAmount, s_RewardName);
+			m_sTaskDiag = string.Format("I am looking for someone to deliver a package to %1, around %2. Reward is %3 %4", DName, DLoc, a_Rewards.Count(), s_RewardName);
+			m_sTaskCompletiontext = string.Format("Thanks %1, your %2 %3, you erned them.", "%1", a_Rewards.Count(), s_RewardName);
 		}
 		else
 		{
@@ -449,56 +449,7 @@ class SP_DeliverTask: SP_Task
 		e_State = ETaskState.UNASSIGNED;
 		return true;
 	};
-	//------------------------------------------------------------------------------------------------------------//
-	//Called when task if completed to give rewards to completionist
-	override bool GiveReward(IEntity Target)
-	{
-		if (!m_bHasReward)
-		{
-			return true;
-		}
-		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
-		{
-			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Target);
-			SCR_ChimeraCharacter OChar = SCR_ChimeraCharacter.Cast(m_eTaskTarget);
-			WalletEntity wallet = Char.GetWallet();
-			WalletEntity Owallet = OChar.GetWallet();
-			
-			
-			/*int Movedamount;
-			
-			Resource cur = Resource.Load("{891BA05A96D3A0BE}prefabs/Currency/Drachma.et");
-			PrefabResource_Predicate pred = new PrefabResource_Predicate(cur.GetResource().GetResourceName());
-			array <IEntity> items = {};
-			inv.FindItems(items, pred);
-			for (int i, count = m_iRewardAmount; i < count; i++)
-			{
-				InventoryItemComponent pInvComp = InventoryItemComponent.Cast(items[i].FindComponent(InventoryItemComponent));
-				inv.TryRemoveItemFromStorage(items[i], pInvComp.GetParentSlot().GetStorage());
-				TargetInv.TryInsertItem(items[i]);
-				Movedamount += 1;
-			}*/
-			return wallet.TakeCurrency(Owallet, m_iRewardAmount);
-		}
-		else if (m_Reward)
-		{
-			EntitySpawnParams params = EntitySpawnParams();
-			params.TransformMode = ETransformMode.WORLD;
-			params.Transform[3] = m_eTaskOwner.GetOrigin();
-			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-			array<IEntity> Rewardlist = new array<IEntity>();
-			Resource RewardRes = Resource.Load(m_Reward);
-			int Movedamount;
-			Rewardlist.Insert(GetGame().SpawnEntityPrefab(RewardRes, Target.GetWorld(), params));
-			for (int i, count = Rewardlist.Count(); i < count; i++)
-			{
-				TargetInv.TryInsertItem(Rewardlist[i]);
-				Movedamount += 1;
-			}
-			return true;
-		}
-		return false;
-	};
+
 	override void AddOwnerInvokers()
 	{
 		if (m_OwnerFaction)

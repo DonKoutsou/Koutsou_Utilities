@@ -24,6 +24,7 @@ GenericEntity {
    }
    ActionTest StoreSmartActionTest "{5E52E4F055FD3C39}" {
    }
+   m_bShouldOccupy 0
   }
   ActionsManagerComponent "{5B1111371149AC02}" {
    additionalActions {

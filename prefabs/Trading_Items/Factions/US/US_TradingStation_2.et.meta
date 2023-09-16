@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{BF8CA87A1ED79535}prefabs/Trading_Items/Factions/US/US_TradingStation_2.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

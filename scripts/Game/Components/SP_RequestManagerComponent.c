@@ -168,6 +168,14 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	static bool CharHasAssigned(IEntity Char)
+	{
+		array <ref SP_Task> tasks = {};
+		GetassignedTasks(Char, tasks);
+		if (tasks.IsEmpty())
+			return true;
+		return false;
+	}
 	static bool CharFollowingAnybody(IEntity Assignee)
 	{
 		AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
@@ -640,142 +648,6 @@ class SP_RequestManagerComponent : ScriptComponent
 		owner.SetFlags(EntityFlags.ACTIVE, true);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	void AssignATask()
-	{
-		//Get random
-		ChimeraCharacter Assignee;
-		if (!m_CharacterHolder.GetRandomUnit(Assignee))
-			return;
-		//Check if uncon or dead to fail it
-		SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Assignee.GetDamageManager());
-		if (dmg.GetIsUnconscious() || dmg.IsDestroyed())
-			return;
-		//Check 
-		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee) && !CharFollowingAnybody(Assignee))
-		{
-			AssignMyTask(Assignee);
-			return;
-		}
-		//
-		array <ref SP_Task> Astasks = {};
-		foreach (SP_Task task : m_aTaskSamples)
-		{
-			if (task.m_bAssignable)
-				GetCharOwnedTasksOfSameType(Assignee, Astasks, task.GetClassName());
-		}
-		if (!Astasks.IsEmpty())
-			return;
-		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		ChimeraCharacter CloseChar;
-		if (!m_CharacterHolder.GetUnitOfAnyFriendlyFaction(affcomp.GetAffiliatedFaction(), CloseChar))
-			return;
-		if (Assignee == CloseChar)
-			return;
-		array <ref SP_Task> tasks = {};
-		foreach (SP_Task task : m_aTaskSamples)
-		{
-			if (task.m_bAssignable)
-				GetCharOwnedTasksOfSameType(CloseChar, tasks, task.GetClassName());
-		}
-		if (tasks.IsEmpty())
-			return;
-		for (int i = tasks.Count() - 1; i >= 0; i--)
-		{
-			ref SP_Task mytask = tasks.GetRandomElement();
-			if (!mytask)
-				continue;
-			if (mytask.GetTarget() == Assignee)
-				continue;
-			if (mytask.IsReserved())
-				continue;
-			if (mytask.GetState() == ETaskState.ASSIGNED)
-				continue;
-			if (mytask.CanBeAssigned(CloseChar, Assignee) == false)
-				continue;
-			if (mytask.GetTimeLimit() < 3 && mytask.GetTimeLimit() != -1)
-				continue;
-			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
-			if (!comp)
-				return;
-			AIAgent agent = comp.GetAIAgent();
-			if (!agent)
-				return;
-			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-			if (!utility)
-				return;
-			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-			if (!group)
-				return;
-			/*if (group.GetAgentsCount() > 1)
-			{
-				group.RemoveAgent(agent);
-				Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
-				EntitySpawnParams myparams = EntitySpawnParams();
-				myparams.TransformMode = ETransformMode.WORLD;
-				myparams.Transform[3] = Assignee.GetOrigin();
-				SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
-				newgroup.AddAgent(agent);
-				newgroup.AddWaypoint(group.GetCurrentWaypoint());
-			}
-			//else
-				//group.CompleteWaypoint(group.GetCurrentWaypoint());*/
-			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
-			utility.AddAction(action);
-			mytask.SetReserved(Assignee);
-			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
-			
-			return;
-		}
-	}
-	//------------------------------------------------------------------------------------------------------------//
-	/*void AssignTaskTo(SP_Task task, IEntity Char)
-	{
-		ChimeraCharacter Assignee = ChimeraCharacter.Cast(Char);
-		if (!GetCanAssignTask(Assignee) && !CharHasOwnAssigned(Assignee))
-		{
-			AssignMyTask(Assignee);
-			return;
-		}
-		array <ref SP_Task> Astasks = {};
-		foreach (SP_Task task : m_aTaskSamples)
-		{
-			if (task.m_bAssignable)
-				GetCharOwnedTasksOfSameType(Assignee, Astasks, task.GetClassName());
-		}
-		if (!Astasks.IsEmpty())
-			return;
-
-		/*for (int i = tasks.Count() - 1; i >= 0; i--)
-		{
-			if (task.GetTarget() == Assignee)
-				continue;
-			if (task.IsReserved())
-				continue;
-			if (task.GetState() == ETaskState.ASSIGNED)
-				continue;
-			if (task.GetTimeLimit() < 3 && mytask.GetTimeLimit() != -1)
-				continue;
-			AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
-			if (!comp)
-				return;
-			AIAgent agent = comp.GetAIAgent();
-			if (!agent)
-				return;
-			SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-			if (!utility)
-				return;
-			SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-			if (!group)
-				return;
-			SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
-			utility.AddAction(action);
-			mytask.SetReserved(Assignee);
-			//if (tasks.GetRandomElement().AssignCharacter(Assignee))
-			
-			return;
-		}
-	}*/
-	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		//if (!m_bQuestInited)
@@ -816,8 +688,6 @@ class SP_RequestManagerComponent : ScriptComponent
 				}
 			}
 		}
-		
-		AssignATask();
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)

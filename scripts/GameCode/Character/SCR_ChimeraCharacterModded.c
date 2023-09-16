@@ -75,10 +75,14 @@ modded class SCR_ChimeraCharacter
 			}
 			else
 			{
+				if (!IsLookingforWork() && !IsWorking())
+					LookForWork();
 				if (!a_Unaffordableneeds.Contains(need))
 					a_Unaffordableneeds.Insert(need);
 				if (a_needs.Contains(need))
 					a_needs.RemoveItem(need);
+				if (HasTaskForNeed(this, need))
+					CompleteTasks(this, need);
 			}
 		}
 		//if need is not valid anymore but we still have it in an array we need to make sure to get rid of it
@@ -97,7 +101,79 @@ modded class SCR_ChimeraCharacter
 		if (needcheck > a_needstocheck.Count() - 1)
 			needcheck = 0;
 		return;
+	}
+	bool IsLookingforWork()
+	{
+		return SP_RequestManagerComponent.CharIsPickingTask(this);
+	}
+	bool IsWorking()
+	{
+		return SP_RequestManagerComponent.GetassignedTaskCount(this) > 0;
+	}
+	void LookForWork()
+	{
+		if (IsImportantCharacter)
+		{
+			GetWallet().SpawnCurrency(20);
+			return;
+		}
+			
 		
+		array <IEntity> chars = {};
+		if (GetGame().GetTagManager().GetTagsInRange(chars, GetOrigin(), 200, ETagCategory.NameTag))
+		{
+			for (int i; i < chars.Count(); i++;)
+			{
+				array <ref SP_Task> tasks = {};
+				SP_RequestManagerComponent.GetCharOwnedTasks(chars.Get(i), tasks);
+				if (tasks.IsEmpty())
+					continue;
+				ref SP_Task mytask = tasks.GetRandomElement();
+				if (!mytask)
+					continue;
+				if (mytask.GetTarget() == this)
+					continue;
+				if (mytask.IsReserved())
+					continue;
+				if (mytask.GetState() == ETaskState.ASSIGNED)
+					continue;
+				if (mytask.CanBeAssigned(chars.Get(i), this) == false)
+					continue;
+				if (mytask.GetTimeLimit() < 3 && mytask.GetTimeLimit() != -1)
+					continue;
+				AIControlComponent comp = AIControlComponent.Cast(FindComponent(AIControlComponent));
+				if (!comp)
+					return;
+				AIAgent agent = comp.GetAIAgent();
+				if (!agent)
+					return;
+				SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+				if (!utility)
+					return;
+				SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+				if (!group)
+					return;
+				/*if (group.GetAgentsCount() > 1)
+				{
+					group.RemoveAgent(agent);
+					Resource groupbase = Resource.Load("{000CD338713F2B5A}Prefabs/AI/Groups/Group_Base.et");
+					EntitySpawnParams myparams = EntitySpawnParams();
+					myparams.TransformMode = ETransformMode.WORLD;
+					myparams.Transform[3] = Assignee.GetOrigin();
+					SCR_AIGroup newgroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupbase, GetGame().GetWorld(), myparams));
+					newgroup.AddAgent(agent);
+					newgroup.AddWaypoint(group.GetCurrentWaypoint());
+				}
+				//else
+					//group.CompleteWaypoint(group.GetCurrentWaypoint());*/
+				SCR_AITaskPickupBehavior action = new SCR_AITaskPickupBehavior(utility, null, mytask);
+				utility.AddAction(action);
+				mytask.SetReserved(this);
+				return;
+			}
+			
+			
+		}
 	}
 	//function used to check if character has task for this need and if yes cancel it. Used when a need is fulfilled
 	void CompleteTasks(IEntity Owner, ERequestRewardItemDesctiptor need)
@@ -156,7 +232,14 @@ modded class SCR_ChimeraCharacter
 			return;
 		
 		//Return price of one of them //Need to im
-		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
+		for (int i; i < Mylist.Count(); i++;)
+		{
+			int pr = RequestCatalog.GetWorthOfItem(Mylist.Get(i).GetPrefab());
+			if (!price)
+				price = pr;
+			if (pr < price)
+				price = pr;
+		}
 	}
 	//function used to check if a character has already created a task for the need
 	bool HasTaskForNeed(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need)
@@ -249,14 +332,6 @@ modded class SCR_ChimeraCharacter
 				return true;
 			}
 		}
-		//SIDEARM
-		else if (need == ERequestRewardItemDesctiptor.SIDEARM)
-		{
-			if (CheckIfMissingSidearm(ammount, severity))
-			{
-				return true;
-			}
-		}
 		//BINOCULARS
 		else if (need == ERequestRewardItemDesctiptor.BINOCULARS)
 		{
@@ -331,7 +406,7 @@ modded class SCR_ChimeraCharacter
 		{
 			SCR_PrefabNamePredicate pred = new SCR_PrefabNamePredicate();
 			pred.prefabName = entry.GetPrefab();
-			inventory.FindItems(items, pred);
+			inventory.FindItems(items, pred, EStoragePurpose.PURPOSE_ANY);
 		}
 		if (items.Count() < 1)
 		{
@@ -462,27 +537,6 @@ modded class SCR_ChimeraCharacter
 	}
 	bool CheckIfMissingExplosives (out int ammount, out int severity)
 	{
-		return false;
-	}
-	bool CheckIfMissingSidearm(out int ammount, out int severity)
-	{
-		SCR_AICombatComponent CombatComp = SCR_AICombatComponent.Cast(FindComponent(SCR_AICombatComponent));
-		if (!CombatComp)
-			return false;
-		CharacterWeaponManagerComponent WeaponMan = CharacterWeaponManagerComponent.Cast(FindComponent(CharacterWeaponManagerComponent));
-		if (!WeaponMan)
-			return false;
-		
-		BaseWeaponComponent weaponComp;
-		int muzzleId;
-		array<WeaponSlotComponent> outSlots = {};
-		WeaponMan.GetWeaponsSlots(outSlots);
-		if (!outSlots[2].GetWeaponEntity())
-		{
-			ammount = 1;
-			return true;
-		}
-			
 		return false;
 	}
 	bool CheckIfMissingAmmo(out int ammount, out int severity, out BaseMagazineComponent magazinewell)
