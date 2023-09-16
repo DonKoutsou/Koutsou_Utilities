@@ -1,0 +1,54 @@
+GenericEntity : "{09DEA8153A0C312D}Prefabs/Characters/Core/EquipmentPart_Base.et" {
+ ID "50E0B40D7407B664"
+ components {
+  SignalsManagerComponent "{5D3CDC3BEC22A59B}" {
+  }
+  SoundComponent "{5A7C7006FF7C96D0}" {
+   Filenames {
+    "{927BE973F8A2D7FA}Sounds/Items/_SharedData/PickUp/Items_PickUp_Cloth.acp" "{F62001ED6E9FA253}Sounds/Items/_SharedData/Drop/Items_Drop_Clothes.acp"
+   }
+  }
+  MeshObject "{51EE72201CEF8651}" {
+   Object "{8DDAF91232AFF07C}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_GrenadePouch.xob"
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB03D1147687}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB03CBA95936}" {
+    ItemDisplayName UIInfo "{5222CB03C0C44D6C}" {
+     Name "#AR-LBSComponent_GrenadePouch_Soviet_Name"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 0.1
+     SizeSetupStrategy Manual
+     ItemDimensions 5 5 5
+     ItemVolume 200
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52BCBDD25D8B867D}" {
+      CameraOrbitAngles -25 25 0
+      CameraDistanceToItem 1
+      FOV 10
+     }
+    }
+   }
+   UseCapacityCoefficient 0
+   CapacityCoefficient 1
+   MaxCumulativeVolume 200
+   MaxItemSize 5 5 5
+   MultiSlots {
+    MultiSlotConfiguration "{5C50AAFC8452B75A}" {
+     SlotTemplate InventoryStorageSlot grenade {
+      Prefab "{645C73791ECA1698}Prefabs/Weapons/Grenades/Grenade_RGD5.et"
+     }
+     NumSlots 3
+    }
+   }
+   m_fMaxWeight 2
+  }
+  BaseLoadoutClothComponent "{5242D7267AE8BC4A}" : "{2B73E7D11406DC4D}Prefabs/Characters/Core/BaseLoadoutCloth_Base.ct" {
+   Animate 0
+   WornModel "{8DDAF91232AFF07C}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_GrenadePouch.xob"
+   ItemModel "{8DDAF91232AFF07C}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_GrenadePouch.xob"
+  }
+ }
+ coords 0 0 0
+}

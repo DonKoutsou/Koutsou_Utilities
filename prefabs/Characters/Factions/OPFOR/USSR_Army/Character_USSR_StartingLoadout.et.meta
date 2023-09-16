@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7175F5FC19F90948}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_StartingLoadout.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

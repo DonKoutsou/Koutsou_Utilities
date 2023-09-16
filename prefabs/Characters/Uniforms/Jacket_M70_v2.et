@@ -1,0 +1,43 @@
+GameEntity : "{CA27CA71B3AF2FCF}Prefabs/Characters/Uniforms/Jacket_M70_base.et" {
+ ID "5104869D194C6243"
+ components {
+  MeshObject "{5104869D194C6262}" {
+   Materials {
+    MaterialAssignClass "{5B1CF788D0C529E7}" {
+     SourceMaterial "Jacket_M70_01_item"
+     AssignedMaterial "{8A04399674AA9DCD}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_02_item.emat"
+    }
+   }
+  }
+  ParametricMaterialInstanceComponent "{56C6C01F261424B9}" {
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB01D5B9A306}" {
+   components {
+   }
+   Attributes SCR_ItemAttributeCollection "{5222CB01245CDF32}" {
+    ItemDisplayName UIInfo "{5222CB0109A04AB2}" {
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 1.9
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{555292467DA11B7C}" {
+      PreviewWornModel 1
+      PreviewModel "{7B65117028DECB01}Assets/Characters/Uniforms/Jacket_M70/Jacket_M70_01.xob"
+     }
+    }
+   }
+   MaxCumulativeVolume 1600
+   m_fMaxWeight 10
+  }
+  BaseLoadoutClothComponent "{5104869D194C627A}" {
+   WornMaterialsOverride {
+    "{CF71A13B474AAAD8}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_02.emat"
+   }
+   ItemMaterialsOverride {
+    "{8A04399674AA9DCD}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_02_item.emat"
+   }
+  }
+ }
+ coords 124.047 1.001 126.454
+}

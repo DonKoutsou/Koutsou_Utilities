@@ -1,0 +1,52 @@
+GenericEntity : "{09DEA8153A0C312D}Prefabs/Characters/Core/EquipmentPart_Base.et" {
+ ID "50E0B40D7407B664"
+ components {
+  SignalsManagerComponent "{5D3CDC3BE898F5D9}" {
+  }
+  SoundComponent "{5A7C7006FF7C96D0}" {
+   Filenames {
+    "{927BE973F8A2D7FA}Sounds/Items/_SharedData/PickUp/Items_PickUp_Cloth.acp" "{F62001ED6E9FA253}Sounds/Items/_SharedData/Drop/Items_Drop_Clothes.acp"
+   }
+  }
+  MeshObject "{51EE72201CEF8651}" {
+   Object "{1B8E6F92A0672A3B}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_6Sh46_item.xob"
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB03D1147687}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB03CBA95936}" {
+    ItemDisplayName UIInfo "{5222CB03C0C44D6C}" {
+     Name "#AR-LBSComponent_AmmoPouch_AK74_Name"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 0.2
+     SizeSetupStrategy Manual
+     ItemVolume 800
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52BCBDD25D8B867D}" {
+      CameraDistanceToItem 0.25
+      PreviewModel "{8C47EAF7FB46894C}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_6Sh46.xob"
+     }
+    }
+   }
+   UseCapacityCoefficient 0
+   CapacityCoefficient 1
+   MaxCumulativeVolume 800
+   MaxItemSize 10 10 10
+   MultiSlots {
+    MultiSlotConfiguration "{5C50AAFD5EF3F6BB}" {
+     SlotTemplate InventoryStorageSlot Ammo {
+      Prefab "{0A84AA5A3884176F}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Last_5Tracer.et"
+     }
+     NumSlots 2
+    }
+   }
+   m_fMaxWeight 5
+  }
+  BaseLoadoutClothComponent "{5242D72632990471}" : "{2B73E7D11406DC4D}Prefabs/Characters/Core/BaseLoadoutCloth_Base.ct" {
+   Animate 0
+   WornModel "{8C47EAF7FB46894C}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_6Sh46.xob"
+   ItemModel "{1B8E6F92A0672A3B}Assets/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_6Sh46_item.xob"
+  }
+ }
+ coords 0 0 0
+}

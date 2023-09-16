@@ -1,0 +1,12 @@
+SCR_ChimeraCharacter : "{284E735C6C70DAD2}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_BaseLoadout.et" {
+ ID "51FA8A5FA6C2005C"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5538C2998B16D40D}" {
+     TargetStorage "prefabs/Characters/Vests/Vest_M79GrenadeCarrier/Vest_M79GrenadeCarrier.et"
+    }
+   }
+  }
+ }
+}

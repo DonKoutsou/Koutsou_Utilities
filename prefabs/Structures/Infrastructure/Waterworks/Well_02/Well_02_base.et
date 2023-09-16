@@ -1,0 +1,30 @@
+StaticModelEntity : "{A52C6DE05FE53B3B}Prefabs/Structures/Core/StaticObject_base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  ActionsManagerComponent "{5C6944101D02E9CB}" {
+   ActionContexts {
+    UserActionContext "{5C6944101E2636F3}" {
+     ContextName "default"
+     Position PointInfo "{5C6944101356F4A0}" {
+      Offset 0.7742 1.1827 0
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    SP_RefillCanteensAction "{5E0EFE47C1EEB497}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5E0EFE47C4D11F1D}" {
+      Name "Refill bottles"
+     }
+     Duration 3
+    }
+   }
+  }
+  RplComponent "{5C694410183FE6C5}" {
+  }
+ }
+ coords 2048.722 0.109 2676.251
+}

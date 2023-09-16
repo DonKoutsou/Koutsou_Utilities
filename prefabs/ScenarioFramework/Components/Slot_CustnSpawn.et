@@ -1,0 +1,19 @@
+GenericEntity : "{AA01691FDC4E9167}Prefabs/ScenarioFramework/Components/Slot.et" {
+ ID "5A22E1D64BC88E05"
+ components {
+  SCR_AISmartActionSentinelComponent "{5DD6A75809FE9DEC}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "CustomPost"
+   }
+  }
+  SCR_AISmartActionSentinelComponent "{5DFC9540F097C036}" {
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ChillPost"
+   }
+  }
+ }
+ coords -2022.885 1.711 351.549
+ angleY 103.237
+}

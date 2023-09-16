@@ -1,0 +1,12 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "5246C095726F8F40"
+ components {
+  SCR_AISmartActionComponent "{5D6F24A18B443BE4}" {
+   Tags {
+    "SwitchRadio"
+   }
+   ActionTest RadioSmartActionTest "{5E3F0837A94A200A}" {
+   }
+  }
+ }
+}

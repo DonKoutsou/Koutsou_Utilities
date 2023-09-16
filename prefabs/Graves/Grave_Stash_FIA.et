@@ -1,0 +1,81 @@
+GenericEntity {
+ ID "5C78907B893E2ECD"
+ components {
+  SignalsManagerComponent "{5C789067A4C72B4A}" {
+  }
+  MeshObject "{5C789065CA78ECDB}" {
+   Object "{9F4C321E6A52E8B7}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Backpack_M70_Swiss.xob"
+  }
+  Hierarchy "{5C78906726DA5EF7}" {
+  }
+  RigidBody "{5C789067A091994B}" {
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_UniversalInventoryStorageComponent "{5C789066287F1AC0}" {
+   Attributes SCR_ItemAttributeCollection "{5C78906652DD37E3}" {
+    ItemDisplayName UIInfo "{5C789066541F8143}" {
+     Name "FIA memorial"
+     Description "Alot of the lives lost in battle will not get a proper burial. These memorials exist to pay tribiute to those unfortunate souls. Any of the personal items that were left begind or recovered are left in the memorial along with a note."
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C789066695CB8F3}" {
+      CameraOrbitAngles 0 25 0
+      CameraDistanceToItem 1.25
+      FOV 45
+      PreviewPrefab "{045739BB2108B549}prefabs/Stashes/Graves/Grave_Stash_FIA.et"
+     }
+    }
+    m_Size SLOT_2x2
+    m_SlotType SLOT_BACKPACK
+   }
+   UseCapacityCoefficient 0
+   InitialStorageSlots {
+    InventoryStorageSlot Compass {
+     Prefab "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et"
+    }
+    InventoryStorageSlot watch {
+     Prefab "{6FD6C96121905202}Prefabs/Items/Equipment/Watches/Watch_Vostok.et"
+    }
+    InventoryStorageSlot photo {
+     Prefab "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et"
+    }
+   }
+   m_fMaxWeight 10
+  }
+  SlotManagerComponent "{5C789079C30BB6D6}" {
+   Slots {
+    RegisteringComponentSlotInfo Cross {
+     Offset 0.0331 0.5933 -0.0906
+     Angles 0 0 -5.1395
+     Prefab "{AF0BBF157FA979BA}prefabs/Graves/Grave_Cross.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{5C789067BE86CF45}" {
+   ActionContexts {
+    UserActionContext "{5C789067BF9F31AD}" {
+     ContextName "default"
+     Position PointInfo "{5C789067B148BD94}" {
+      PivotID "Head"
+      Offset 0.0083 -0.1124 -0.066
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5C789067DAD3DED2}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C789067D235F381}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+    }
+   }
+  }
+  RplComponent "{5C789066CA09ECFB}" {
+  }
+ }
+ coords 2535.994 37.848 866.078
+}

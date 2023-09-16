@@ -1,24 +1,28 @@
 modded class SCR_ChimeraCharacter
 {
-	[Attribute("0", desc : "")]
+	[Attribute("0", desc : "Marks AI as important. Important characters are put into a different array than normal character in the CharacterHolder in request manager")]
 	bool IsImportantCharacter;
 	
-	[Attribute(uiwidget: UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
+	[Attribute(desc: "Needs that will be checked on this character", uiwidget: UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ERequestRewardItemDesctiptor))]
 	ref array <int> a_needstocheck;
 	
 	int needcheck;
 	
+	//needs that can be fulfilled
 	ref array <int> a_needs;
+	//needs that are too expensive to be fullfilled
 	ref array <int> a_Unaffordableneeds;
 	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
+		//Initialise all arrays
 		super.EOnInit(owner);
 		if (!a_needs)
 			a_needs = {};
 		if (!a_Unaffordableneeds)
 			a_Unaffordableneeds = {};
 	}
+	//get wallet of character. 
 	WalletEntity GetWallet()
 	{
 		SCR_InventoryStorageManagerComponent InventoryManager = SCR_InventoryStorageManagerComponent.Cast(FindComponent(SCR_InventoryStorageManagerComponent));
@@ -32,23 +36,38 @@ modded class SCR_ChimeraCharacter
 		}
 		return null;
 	}
+	//function called through BT using SCR_AIUpdateNeeds node. Itterates though needs and checks them. every time its called it checks another need.
 	void UpdateNeeds()
 	{
 		int ammount;
 		int severity;
 		BaseMagazineComponent Mag;
+		
+		//checks if there are no needs configured
 		if (a_needstocheck.IsEmpty())
+		{
+			Print("No needs configured in Chimera Character");
 			return;
+		}
+		//Get the need to be checked on this cycle
 		int need = a_needstocheck.Get(needcheck);
+		
+		//Check if need it still valid
 		if (Checkneed(need, ammount, Mag))
 		{
+			//if yes see if character can afford it
+			//Get characters money
 			int money = GetWallet().GetCurrencyAmmount();
 			int worth;
+			//Get worth of need
 			CheckNeedPrice(need, Mag, worth);
+			//multiply based on ammount needed
 			if (worth * ammount < money)
 			{
+				//if character has money for it he should set up a task for other AI to fulfill or the player
 				if (!HasTaskForNeed(this, need))
 					CreateTask(this, need, ammount, Mag);
+				//fill apropriate arrays with need
 				if (!a_needs.Contains(need))
 					a_needs.Insert(need);
 				if (a_Unaffordableneeds.Contains(need))
@@ -62,7 +81,8 @@ modded class SCR_ChimeraCharacter
 					a_needs.RemoveItem(need);
 			}
 		}
-		else if (a_needs.Contains(need))
+		//if need is not valid anymore but we still have it in an array we need to make sure to get rid of it
+		else if (a_needs.Contains(need) || a_Unaffordableneeds.Contains(need))
 		{
 			if (HasTaskForNeed(this, need))
 					CompleteTasks(this, need);
@@ -71,115 +91,47 @@ modded class SCR_ChimeraCharacter
 			if (a_Unaffordableneeds.Contains(need))
 					a_Unaffordableneeds.RemoveItem(need);
 		}
+		//progress index so next time function is called it will check for something else
 		needcheck += 1;
+		//if index progressed to much reset it
 		if (needcheck > a_needstocheck.Count() - 1)
 			needcheck = 0;
 		return;
 		
 	}
+	//function used to check if character has task for this need and if yes cancel it. Used when a need is fulfilled
 	void CompleteTasks(IEntity Owner, ERequestRewardItemDesctiptor need)
 	{
-		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		//task array
 		array <ref SP_Task> tasks = {};
-		Requestman.GetCharTasksOfSameType(Owner, tasks, SP_RetrieveTask);
-		if (tasks.IsEmpty())
+		
+		//get tasks of character
+		SP_RequestManagerComponent.GetCharTasksOfSameType( Owner , tasks , SP_RetrieveTask );
+		
+		//if no tasks on character return
+		if ( tasks.IsEmpty( ) )
 			return;
-		foreach (SP_Task task : tasks)
+		
+		//itterate through them and if need matches, cancel it and return
+		foreach ( SP_Task task : tasks )
 		{
-			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
-			if (!rtask)
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast( task );
+			if ( ! rtask )
 				continue;
-			if (rtask.m_requestitemdescriptor == need)
+			if ( rtask.m_requestitemdescriptor == need )
 			{
 				task.CancelTask();
 				return;
 			}
 		}
 	}
-	bool Checkneed(ERequestRewardItemDesctiptor need, out int ammount, out BaseMagazineComponent Mag = null)
-	{
-		int severity;
-		if (need == ERequestRewardItemDesctiptor.BANDAGE)
-		{
-			if (CheckIfMissingBandages(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.WEAPON)
-		{
-			if (CheckIfMissingWeapon(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.AMMO)
-		{
-			if (CheckIfMissingAmmo(ammount, severity, Mag))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.ARMOR)
-		{
-			if (CheckIfMissingArmor(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.HELMET)
-		{
-			if (CheckIfMissingHelmet(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.BACKPACK)
-		{
-			if (CheckIfMissingBackpack(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM)
-		{
-			if (CheckIfMissingLBS(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.SIDEARM)
-		{
-			if (CheckIfMissingSidearm(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.BINOCULARS)
-		{
-			if (CheckIfMissingBinoculars(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (need == ERequestRewardItemDesctiptor.EXPLOSIVE)
-		{
-			if (CheckIfMissingExplosives(ammount, severity))
-			{
-				return true;
-			}
-		}
-		else if (CheckIfMissingItemOfType(need, ammount, severity))
-		{
-			return true;
-		}
-		return false;
-	}
+	//Gets all needs that the UpdateNeeds function has gathered up until now
 	void GetAllNeeds(out array <ERequestRewardItemDesctiptor> Needs)
 	{
 		Needs.Copy(a_needs);
 		return;
 	}
+	// get a random need
 	ERequestRewardItemDesctiptor GetNeed(out int ammount, out BaseMagazineComponent Mag = null)
 	{
 		if (a_needs.IsEmpty())
@@ -189,7 +141,147 @@ modded class SCR_ChimeraCharacter
 		return need;
 
 	}
-	
+	//Function used to check a price of a need to decide if able to fulfill it
+	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)
+	{
+		//Get request catalog
+		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType( EEntityCatalogType.REQUEST );
+		
+		//Get items matching my need
+		array<SCR_EntityCatalogEntry> Mylist = {};
+		RequestCatalog.GetRequestItems(need, mag, Mylist);
+		
+		if (Mylist.IsEmpty())
+			return;
+		
+		//Return price of one of them //Need to im
+		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
+	}
+	//function used to check if a character has already created a task for the need
+	bool HasTaskForNeed(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need)
+	{
+		//Get all of characters tasks
+		array < ref SP_Task > tasks = {};
+		SP_RequestManagerComponent.GetCharTasksOfSameType(char, tasks, SP_RetrieveTask);
+		
+		// if no tasks then return false
+		if (tasks.IsEmpty())
+			return false;
+		
+		//itterate through tasks and if any of the retrieve tasks has the need return true
+		foreach (SP_Task task : tasks)
+		{
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
+			if (!rtask)
+				continue;
+			if (rtask.m_requestitemdescriptor == Need)
+			{
+				return true;
+			}
+		}
+		//if none matched return false
+		return false;
+	}
+	//function used to create a SP_RetrieveTask using a need
+	bool CreateTask(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)
+	{
+		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		return Requestman.CreateCustomRetrieveTask(char, Need, ammount, Mag);
+	}
+	//checks a specific need. If its still valid it will return true. Also used to retrieve ammount needed and Magazine if need is ammo
+	bool Checkneed(ERequestRewardItemDesctiptor need, out int ammount, out BaseMagazineComponent Mag = null)
+	{
+		int severity;
+		//BANDAGES
+		if (need == ERequestRewardItemDesctiptor.BANDAGE)
+		{
+			if (CheckIfMissingBandages(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//WEAPON
+		else if (need == ERequestRewardItemDesctiptor.WEAPON)
+		{
+			if (CheckIfMissingWeapon(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//AMMO
+		else if (need == ERequestRewardItemDesctiptor.AMMO)
+		{
+			if (CheckIfMissingAmmo(ammount, severity, Mag))
+			{
+				return true;
+			}
+		}
+		//ARMOR
+		else if (need == ERequestRewardItemDesctiptor.ARMOR)
+		{
+			if (CheckIfMissingArmor(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//HELMET
+		else if (need == ERequestRewardItemDesctiptor.HELMET)
+		{
+			if (CheckIfMissingHelmet(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//BACKPACK
+		else if (need == ERequestRewardItemDesctiptor.BACKPACK)
+		{
+			if (CheckIfMissingBackpack(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//LOAD_BEARING_SYSTEM
+		else if (need == ERequestRewardItemDesctiptor.LOAD_BEARING_SYSTEM)
+		{
+			if (CheckIfMissingLBS(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//SIDEARM
+		else if (need == ERequestRewardItemDesctiptor.SIDEARM)
+		{
+			if (CheckIfMissingSidearm(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//BINOCULARS
+		else if (need == ERequestRewardItemDesctiptor.BINOCULARS)
+		{
+			if (CheckIfMissingBinoculars(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//EXPLOSIVE
+		else if (need == ERequestRewardItemDesctiptor.EXPLOSIVE)
+		{
+			if (CheckIfMissingExplosives(ammount, severity))
+			{
+				return true;
+			}
+		}
+		//multipurpose
+		else if (CheckIfMissingItemOfType(need, ammount, severity))
+		{
+			return true;
+		}
+		return false;
+	}
+	//NEED CHECKING FUNCTION BELLOW HERE
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------//
 	bool CheckIfMissingBandages(out int ammount, out int severity)
 	{
 		bool missingbandages;
@@ -345,10 +437,7 @@ modded class SCR_ChimeraCharacter
 		}
 		return false;
 	}
-	
-	
-	
-	
+
 	bool CheckIfMissingWeapon(out int ammount, out int severity)
 	{
 		SCR_AICombatComponent CombatComp = SCR_AICombatComponent.Cast(FindComponent(SCR_AICombatComponent));
@@ -441,38 +530,5 @@ modded class SCR_ChimeraCharacter
 		} 
 		return lowAmmo;
 	}
-	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)
-	{
-		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
-		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(need, mag, Mylist);
-		if (Mylist.IsEmpty())
-			return;
-		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
-	}
-	bool HasTaskForNeed(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need)
-	{
-		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
-		array <ref SP_Task> tasks = {};
-		 Requestman.GetCharTasksOfSameType(char, tasks, SP_RetrieveTask);
-		if (tasks.IsEmpty())
-			return false;
-		foreach (SP_Task task : tasks)
-		{
-			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
-			if (!rtask)
-				continue;
-			if (rtask.m_requestitemdescriptor == Need)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	bool CreateTask(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)
-	{
-		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
-		return Requestman.CreateCustomRetrieveTask(char, Need, ammount, Mag);
-	}
+	
 }

@@ -1,0 +1,33 @@
+GenericEntity : "{8364151EF33B3B33}Prefabs/Structures/Core/FlagPole_Base.et" {
+ ID "50C6D20663830070"
+ components {
+  MeshObject "{5D429024B39E3283}" {
+   Object "{E9A0740046C9DFA1}Assets/Structures/Military/Flags/FlagPole_02/FlagPole_02.xob"
+  }
+  RigidBody "{5D429024B39E328B}" {
+   ResponseIndex "TinyDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_DestructionMultiPhaseComponent "{51BACBF3C4A56479}" : "{76DA308CC9E2AB84}Prefabs/Props/Core/DestructionMultiPhase_Base.ct" {
+   m_fBaseHealth 1000
+   m_DestroySpawnObjects {
+    SCR_DebrisSpawnable "{5D429024B39E328C}" {
+     m_ModelPrefabs {
+      "{180F19ED1440D32A}Assets/Structures/Military/Flags/FlagPole_01/dst/Flagpole_01_dst.xob"
+     }
+     m_fMass 50
+     m_eMaterialSoundType METAL_POLE
+    }
+   }
+  }
+  SlotManagerComponent "{5D429024B39E3291}" {
+   Slots {
+    EntitySlotInfo Flag {
+     Offset 0 4.396 -0.0832
+     Prefab "{4F2A80AEECEA822B}Prefabs/Props/Fabric/Flags/Flag_2_3_White_01.et"
+    }
+   }
+  }
+ }
+}

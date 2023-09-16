@@ -1,0 +1,12 @@
+SCR_ChimeraCharacter : "{284E735C6C70DAD2}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_BaseLoadout.et" {
+ ID "51FA8A5F10E81780"
+ components {
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Hat {
+     Prefab "{F31A715FFDB2BD8E}prefabs/Characters/HeadGear/Helmet_M1_01/Helmet_M1_01_Cover_Frogskin.et"
+    }
+   }
+  }
+ }
+}

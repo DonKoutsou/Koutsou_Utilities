@@ -1,0 +1,276 @@
+AudioClass {
+ signals {
+  SignalClass {
+   id 5133
+   name "Occlusion"
+   comment "For Interior Occlusion Filtering"
+   tl -86.258 -80.047
+   ctl 0 -21
+   res "{6DFC123D28CCC546}Sounds/_SharedData/Signals/Weapons/Weapon_Occlusion.sig"
+   inputsport {
+    1 2 8 10 35 36
+   }
+   outputsport {
+    5
+   }
+   inputvalues {
+    0 0 0 0 0 1
+   }
+   inputvaluesmin {
+    0 0 0 0 0 0
+   }
+   inputvaluesmax {
+    1 1 1 1 1 1
+   }
+  }
+ }
+ filters {
+  FilterClass : "{160595C179DA719D}Sounds/_SharedData/Configs/Filter/Weapons/Filter_Weapons_Occlusion.conf" {
+   id 6166
+   tl 96.143 14.75
+   iops {
+    IOPConnectionClass iopConnection {
+     port 0
+     conn {
+      ConnectionsClass connections {
+       id 9
+       links {
+        ConnectionClass connection {
+         id 5133
+         port 5
+        }
+       }
+      }
+     }
+    }
+   }
+   parent "{160595C179DA719D}Sounds/_SharedData/Configs/Filter/Weapons/Filter_Weapons_Occlusion.conf"
+   pi {
+    1
+   }
+  }
+ }
+ sounds {
+  SoundClass {
+   id 1033
+   name "SOUND_ANTONIS"
+   comment "Change name as you want, keep SOUND_ prefix"
+   tl 315 147
+   ctl 0 -21
+   conns {
+    ConnectionsClass connections {
+     id 14
+     links {
+      ConnectionClass connection {
+       id 2066
+       port 65
+      }
+     }
+    }
+   }
+   iops {
+    IOPConnectionClass iopConnection {
+     port 0
+     conn {
+      ConnectionsClass connections {
+       id 8
+       links {
+        ConnectionClass connection {
+         id 4108
+         port 1
+        }
+       }
+      }
+     }
+    }
+   }
+   outState 3083
+   outStatePort 181255
+  }
+ }
+ mixers {
+  MixerClass {
+   id 3083
+   name "OutputState 3"
+   tl 714.298 -293.405
+   res "{B764D803219C775E}Sounds/FinalMix.afm"
+   iops {
+    IOPConnectionClass iopConnection {
+     port 181255
+     conn {
+      ConnectionsClass connections {
+       id 5
+       links {
+        ConnectionClass connection {
+         id 1033
+         port 65
+        }
+       }
+      }
+     }
+    }
+   }
+   path "{B764D803219C775E}Sounds/FinalMix.afm"
+   inputs {
+    "ANM_Footsteps" "ANM_Voice" "WPN_Handling" "WPN_Shots" "WPN_Explosions" "WNP_BulletHits" "CHAR" "ENV_AMB_2D" "VEH_Animations" "Impacts" "Dialogue" "Music" "ENV_Doors" "UI" "VEH_Engine" "VEH_Tires" "VON" "SFX" "SFX_Reverb" "VON_Reverb" "Dialogue_Reverb" "Impacts_EXT" "ENV_AMB_3D" "WPN_SonicCracks" "CHAR_Gear" "PA" "SFX_Reverb_Exterior" "ENV_AMB_3D_Reverb_Exterior"
+   }
+  }
+ }
+ constants {
+  ConstantClass {
+   id 4108
+   name "AlwaysPlay"
+   comment "Constant Node, sends 1 to Sound's Trigger Input, allowing sound playback"
+   tl 316.5 371.5
+   ctl 0 -21
+   "Constant values" {
+    IOPConstantsValueClass "1" {
+     Key "1"
+     Value 1
+     Port 1
+    }
+   }
+  }
+ }
+ shaders {
+  ShaderClass {
+   id 2066
+   name "Shader 2"
+   comment "Deals with Sound in 3D Space"
+   tl 96.143 147
+   ctl 0 -21
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 11268
+       port 65
+      }
+     }
+    }
+   }
+   iops {
+    IOPConnectionClass iopConnection {
+     port 4
+     conn {
+      ConnectionsClass connections {
+       id 18
+       links {
+        ConnectionClass connection {
+         id 6166
+         port 65
+        }
+       }
+      }
+     }
+    }
+    IOPConnectionClass iopConnection {
+     port 0
+     conn {
+      ConnectionsClass connections {
+       id 24
+       links {
+        ConnectionClass connection {
+         id 7196
+         port 65
+        }
+       }
+      }
+     }
+    }
+    IOPConnectionClass iopConnection {
+     port 1
+     conn {
+      ConnectionsClass connections {
+       id 15
+       links {
+        ConnectionClass connection {
+         id 8211
+         port 65
+        }
+       }
+      }
+     }
+    }
+    IOPConnectionClass iopConnection {
+     port 2
+     conn {
+      ConnectionsClass connections {
+       id 17
+       links {
+        ConnectionClass connection {
+         id 9237
+         port 65
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ amplitudes {
+  AmplitudeClass {
+   id 8211
+   name "Amplitude 8"
+   comment "Volume Falloff"
+   tl 96.143 -149.083
+   ctl 0 -21
+   curve Logarithm
+   innerRange 2
+   outerRange 150
+  }
+ }
+ frequency {
+  FrequencyClass {
+   id 9237
+   name "Frequency 9"
+   comment "High Freq Falloff"
+   tl 96.143 -67.167
+   ctl 0 -21
+   enableDistanceAtt 1
+   filterStrength 2
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 11268
+   name "Test"
+   tl -85.258 170
+   "Pitch variance" 1
+   Samples {
+    AudioBankSampleClass "Sample(1)" {
+     Filename "{D26AD91F9473899E}Sounds/Weapons/Grenades/_SharedData/Samples/Impacts/Weapons_Grenade_RDG2_Hit_Generic_01.wav"
+    }
+    AudioBankSampleClass "Sample(2)" {
+     Filename "{4B7460868994B80E}Sounds/Weapons/Grenades/_SharedData/Samples/Impacts/Weapons_Grenade_RDG2_Hit_Generic_02.wav"
+     Index 1
+    }
+    AudioBankSampleClass "Sample(3)" {
+     Filename "{3C7E080E7D36577E}Sounds/Weapons/Grenades/_SharedData/Samples/Impacts/Weapons_Grenade_RDG2_Hit_Generic_03.wav"
+     Index 2
+    }
+    AudioBankSampleClass "Sample(4)" {
+     Filename "{3BB9F25F1BB0EDBD}Sounds/Weapons/Grenades/_SharedData/Samples/Impacts/Weapons_Grenade_RDG2_Hit_Generic_04.wav"
+     Index 3
+    }
+    AudioBankSampleClass "Sample(5)" {
+     Filename "{4CB39AD7EF1202CD}Sounds/Weapons/Grenades/_SharedData/Samples/Impacts/Weapons_Grenade_RDG2_Hit_Generic_05.wav"
+     Index 4
+    }
+   }
+  }
+ }
+ spatialities {
+  SpatialityClass {
+   id 7196
+   name "Spatiality 7"
+   comment "Localizeable in 3D Space"
+   tl 96.143 -231
+   ctl -2 -23
+   spatialFactor 1
+  }
+ }
+ version 1
+}

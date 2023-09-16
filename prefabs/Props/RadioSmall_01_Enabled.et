@@ -1,0 +1,9 @@
+GenericEntity : "{B68D3829D4442F80}Prefabs/Props/Civilian/RadioSmall_01_Base.et" {
+ ID "5246C095726F8F40"
+ components {
+  SCR_EnableRadioComponent "{5AF76B812E2BB87B}" {
+  }
+ }
+ coords 684.549 1.738 2258.694
+ angleY 115.44
+}

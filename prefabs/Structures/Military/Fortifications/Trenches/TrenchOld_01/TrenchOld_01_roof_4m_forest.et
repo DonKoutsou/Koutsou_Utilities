@@ -1,0 +1,23 @@
+StaticModelEntity : "{28CCAC6C30304451}Prefabs/Structures/Military/Fortifications/Trenches/TrenchOld_01/TrenchOld_01_roof_base.et" {
+ ID "5272E314F01B2DBE"
+ components {
+  MeshObject "{5272E314F6439B95}" {
+   Object "{D776696727FD21E6}Assets/Structures/Military/Fortifications/Trenches/TrenchOld_01/TrenchOld_01_roof_4m.xob"
+   Materials {
+    MaterialAssignClass "{5B309A6D9E7230C6}" {
+     SourceMaterial "Old_Trenches_roof"
+     AssignedMaterial "{63FDAB6C9F95372F}Assets/Structures/Military/Fortifications/Trenches/TrenchOld_01/Data/TrenchOld_01_roof_forest.emat"
+    }
+    MaterialAssignClass "{5B309A6D9E7230FF}" {
+     SourceMaterial "Old_Trenches_roof_MLOD"
+     AssignedMaterial "{21A5CF707512D13C}Assets/Structures/Military/Fortifications/Trenches/TrenchOld_01/Data/TrenchOld_01_roof_forest_MLOD.emat"
+    }
+   }
+  }
+  Hierarchy "{5B309A6DE4FDC674}" {
+  }
+  RigidBody "{5272E314F5AC4FE7}" {
+   Static 0
+  }
+ }
+}

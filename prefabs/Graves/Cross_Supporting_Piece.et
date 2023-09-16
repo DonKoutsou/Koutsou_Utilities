@@ -1,0 +1,35 @@
+GenericEntity : "{10C26F96EF7A8CF5}Prefabs/Props/Core/Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{8A366E939EE0AE7F}Assets/Props/Furniture/ChairRecreation_01/Dst/ChairRecreation_01_Dst_07.xob"
+   Materials {
+    MaterialAssignClass "{5C78C43570293D0F}" {
+     SourceMaterial "ChairRecreation_01"
+     AssignedMaterial "{CC4A6D49E9F96486}Assets/Structures/Walls/Wooden/Data/WoodenFence_01.emat"
+    }
+    MaterialAssignClass "{5C78C43570293D3E}" {
+     SourceMaterial "Decal_crack"
+     AssignedMaterial "{CC4A6D49E9F96486}Assets/Structures/Walls/Wooden/Data/WoodenFence_01.emat"
+    }
+   }
+  }
+  Hierarchy "{5C8AC2319A0362ED}" {
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   Mass 10
+   ModelGeometry 1
+   Static 1
+  }
+  SlotManagerComponent "{5C78C435BEF40E90}" {
+   Slots {
+    EntitySlotInfo jesus {
+     Offset 0.2238 -1.5251 -0.3162
+     Angles 0 0 -5.4611
+     Prefab "{96159C525C4B3F2B}prefabs/Graves/Wood_Jesus.et"
+    }
+   }
+  }
+ }
+ coords 2537.704 37.687 865.222
+}

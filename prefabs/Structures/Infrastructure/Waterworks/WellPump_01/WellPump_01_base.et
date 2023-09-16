@@ -1,0 +1,27 @@
+GenericEntity : "{533AC2E8A0F5272A}Prefabs/Structures/BuildingParts/BuildingParts_Base.et" {
+ ID "5272E317A914F6DB"
+ components {
+  ActionsManagerComponent "{5C694410A1A64C6C}" {
+   ActionContexts {
+    UserActionContext "{5C694410A28105DA}" {
+     ContextName "default"
+     Position PointInfo "{5C694410B8D9E244}" {
+      Offset 0.4272 0.7429 0
+     }
+     Radius 2
+    }
+   }
+   additionalActions {
+    SP_RefillCanteensAction "{5C694410B52C25CE}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C694410C8CC0993}" {
+      Name "Refill bottles"
+     }
+     Duration 3
+    }
+   }
+  }
+ }
+}

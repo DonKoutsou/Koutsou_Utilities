@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E548D7DEC7469E1C}worlds/Prefab_setup/Characters.ent"
+ Configurations {
+  ENTResourceClass PC {
+  }
+  ENTResourceClass XBOX_ONE : PC {
+  }
+  ENTResourceClass XBOX_SERIES : PC {
+  }
+  ENTResourceClass PS4 : PC {
+  }
+  ENTResourceClass HEADLESS : PC {
+  }
+ }
+}

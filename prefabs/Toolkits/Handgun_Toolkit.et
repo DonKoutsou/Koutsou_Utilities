@@ -1,0 +1,41 @@
+GenericEntity : "{08FCA23F296B2EF4}prefabs/Toolboxes/Base_Toolbox.et" {
+ ID "5C690D1F37E01559"
+ components {
+  MeshObject "{5C690D1D331A419F}" {
+   Object "{EE644BCACAF8B0A3}Assets/Props/Military/AmmoBox/AmmoBox_762x54_440rnd/AmmoBox_762x54_440rnd.xob"
+  }
+  SCR_BaseInventoryItemComponent "{5C690D1C5FE16C7C}" {
+   Attributes SCR_ItemAttributeCollection "{5C690D1C78B8AF18}" {
+    ItemDisplayName UIInfo "{5C690D1C79338CF3}" {
+     Name "Small caliber toolbox"
+     Description "Dissasembly kit used for handguns and pistol caliber firearms"
+    }
+   }
+  }
+  ActionsManagerComponent "{5C690D1CAACBC268}" {
+   additionalActions {
+    KLM_CraftAction "{5C690D1E8595ED32}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C690D1E9A38967C}" {
+      Name "Disassemble PM handgun"
+     }
+     Duration 1
+     m_WantedPay "{C0F7DD85A86B2900}Prefabs/Weapons/Handguns/PM/Handgun_PM.et"
+    }
+    KLM_CraftAction "{5C690D1E857AB9C5}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C690D1EA092A165}" {
+      Name "Disassemble M9 handgun"
+     }
+     Duration 1
+     m_WantedPay "{1353C6EAD1DCFE43}Prefabs/Weapons/Handguns/M9/Handgun_M9.et"
+    }
+   }
+  }
+ }
+ coords 126.887 1.001 133.379
+}

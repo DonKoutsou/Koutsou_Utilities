@@ -1,0 +1,73 @@
+SCR_ChimeraCharacter {
+ ID "520EC961A090B1EE"
+ components {
+  CharacterSoundComponent "{520EA1D2F659CF84}" {
+   Filenames + {
+    "{CB0646CF33012DDD}Sounds/UI/UI_Gadgets.acp"
+   }
+  }
+  ADM_ShopComponent "{5E1D14144D51240C}" {
+   m_ShopConfig "{338F686DC39801BC}Configs/Shops/Generic_Trade.conf"
+   m_Categories {
+    "{C6A3C02F85B92641}Configs/ShopCategories/AMMO.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{925A1D99A56A9DFC}Configs/ShopCategories/Equipment.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{BE1166E0199AD41D}Configs/ShopCategories/Food.conf" "{5BC6EC8022075DAF}Configs/ShopCategories/Medicals.conf" "{60AB8A8EF6031556}Configs/ShopCategories/Weapon_Atatchments.conf" "{7FABAFEE72C3295B}Configs/ShopCategories/Weapons.conf"
+   }
+  }
+  SCR_AISmartActionComponent "{5E4325C761C9C6FC}" {
+   Tags {
+    "SmartTask"
+   }
+   ActionTest HasTaskSmartActionTest "{5E4325C6CCAFC968}" {
+   }
+  }
+  SCR_AISmartActionComponent "{5E4471923208F600}" {
+   Tags {
+    "AmmoRefill"
+   }
+   ActionTest AmmoRefilSmartActionTest "{5E448049C1A1F991}" {
+   }
+  }
+  SCR_CharacterStaminaComponent "{520EA1D2F659C824}" {
+   StaminaRegainPerS 0.004
+   StaminaDrainRun -0.0016
+   StaminaDrainSprint -0.0032
+   EncumbranceMassMax 160
+   EncumbranceDrainMax -0.006
+  }
+  SP_CharacterAISmartActionComponent "{5D7D0C3C31822935}" {
+   Tags {
+    "DeadBody"
+   }
+   ActionTest DeadBodySmartActionTest "{5E3EF040F690D197}" {
+   }
+  }
+  ActionsManagerComponent "{520EA1D2F659CE02}" {
+   additionalActions {
+    SP_DialogueAction "{5D76C2C8573128D5}" {
+     ParentContextList {
+      "Chest"
+     }
+    }
+    SP_AILootBodyAction "{5E44579F53752BC5}" {
+     ParentContextList {
+      "default"
+     }
+    }
+   }
+  }
+  CharacterAnimationComponent "{520EA1D2F659C994}" {
+   components {
+    SCR_CharacterCommandHandlerComponent "{520EA1D2F659C99A}" {
+     MoveSettings ScriptCharacterCommandMoveSettings "{520EA1D2F659C99B}" {
+      MovementFilterMaxChange 32
+      LeaningSpeed 10
+      HeadingChangeSpeedMax 2000
+     }
+    }
+   }
+  }
+ }
+ coords 2941.26 67.11 1622.64
+ a_needstocheck {
+  11 1 5 2 3 16 8 17 21 22 23 20 15 24
+ }
+}

@@ -1,0 +1,18 @@
+GenericEntity : "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  ActionsManagerComponent "{508AB5952B584B2E}" {
+   additionalActions {
+    SP_FactionRelationTableAction "{5E18B871C444D2FA}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5E18B871C97080EA}" {
+      Name "Check faction relations"
+     }
+    }
+   }
+  }
+ }
+ coords 126.313 1 242.094
+}

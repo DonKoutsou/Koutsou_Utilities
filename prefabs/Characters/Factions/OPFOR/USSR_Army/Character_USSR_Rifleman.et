@@ -1,0 +1,24 @@
+SCR_ChimeraCharacter : "{3ECA3A935BC069B9}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_BaseLoadout.et" {
+ ID "200D264F0EEA1A28"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173E6675BF7}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Jacket_M88.et"
+    }
+    ItemsInitConfigurationItem "{5D7CC173E6675BF5}" {
+     TargetStorage "prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et"
+    }
+    ItemsInitConfigurationItem "{54A68D64D7F9124F}" {
+     TargetStorage "prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et"
+    }
+    ItemsInitConfigurationItem "{5A24CC173897B74F}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Pants_M88.et"
+     PrefabsToSpawn {
+      "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et"
+     }
+    }
+   }
+  }
+ }
+}

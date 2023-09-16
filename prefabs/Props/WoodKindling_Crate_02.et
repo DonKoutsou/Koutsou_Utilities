@@ -1,0 +1,55 @@
+GenericEntity : "{6FC9E85153AE41B1}Prefabs/Props/Civilian/WoodKindling_Crate_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SignalsManagerComponent "{5C731404978E1B1F}" {
+  }
+  SoundComponent "{5C731404978E1B15}" {
+  }
+  FactionAffiliationComponent "{5C731404978E1B09}" {
+   "faction affiliation" "US"
+  }
+  SCR_UniversalInventoryStorageComponent "{5C731404978E1B0B}" {
+   Attributes SCR_ItemAttributeCollection "{5C731404978E1B0C}" {
+    ItemDisplayName UIInfo "{5C731404978E1B0E}" {
+     Name "Wood Crate"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C731404978E1B00}" {
+      CameraOrbitAngles -45 25 0
+      CameraDistanceToItem 0.75
+      PreviewModel "{55991E1823C60AB3}Assets/Props/Crates/Crate_01.xob"
+     }
+    }
+    m_Size SLOT_1x1
+   }
+   Priority 100
+   InitialStorageSlots {
+    InventoryStorageSlot Wood {
+     Prefab "{6D1606775A2FBC48}prefabs/Items/Other/WoodPieces.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{5C731404978E1B3A}" {
+   ActionContexts {
+    UserActionContext "{5C731404978E1B3D}" {
+     ContextName "default"
+     Position PointInfo "{5C731404978E1B3F}" {
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5C731404978E1B31}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C731404978E1B33}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

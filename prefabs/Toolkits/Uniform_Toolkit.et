@@ -1,0 +1,17 @@
+GenericEntity : "{08FCA23F296B2EF4}prefabs/Toolkits/Base_Toolkit.et" {
+ ID "5C690D1F37E01559"
+ components {
+  MeshObject "{5C690D1D331A419F}" {
+   Object "{17AE05B2F324E70F}Assets/Items/Equipment/Accessories/Pouch_Soviet_10rnd_SVD/Pouch_Soviet_10rnd_SVD_item.xob"
+  }
+  SCR_BaseInventoryItemComponent "{5C690D1C5FE16C7C}" {
+   Attributes SCR_ItemAttributeCollection "{5C690D1C78B8AF18}" {
+    ItemDisplayName UIInfo "{5C690D1C79338CF3}" {
+     Name "Military sewing kit"
+     Description "Used to break down clothing into usable bandages"
+    }
+   }
+  }
+ }
+ coords 128.559 1.001 133.168
+}

@@ -1,0 +1,24 @@
+GenericEntity : "{59038F296FE35296}prefabs/Toolkits/Base_Toolkit.et" {
+ ID "5C690D1F37E01559"
+ components {
+  MeshObject "{5C690D1D331A419F}" {
+   Object "{17AE05B2F324E70F}Assets/Items/Equipment/Accessories/Pouch_Soviet_10rnd_SVD/Pouch_Soviet_10rnd_SVD_item.xob"
+  }
+  RigidBody "{5C690D1C99A9EB0A}" {
+   ModelGeometry 1
+  }
+  SCR_BaseInventoryItemComponent "{5C690D1C5FE16C7C}" {
+   Attributes SCR_ItemAttributeCollection "{5C690D1C78B8AF18}" {
+    ItemDisplayName UIInfo "{5C690D1C79338CF3}" {
+     Name "Rock sampling kit"
+     Description "Kit prepared for collecting rock samples from the meteors"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5C690D1C7D7473FD}" {
+     Weight 0.2
+     ItemVolume 300
+    }
+   }
+  }
+ }
+ coords 2520.633 0.699 3259.994
+}

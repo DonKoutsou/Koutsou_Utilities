@@ -1,0 +1,37 @@
+GameEntity : "{6099177EBF8A16FC}Prefabs/Characters/Uniforms/Pants_M70_base.et" {
+ ID "5104869D194C6243"
+ components {
+  MeshObject "{5104869D194C6262}" {
+   Materials {
+    MaterialAssignClass "{5B1B039EC61CBA28}" {
+     SourceMaterial "Pants_M70_01_Item"
+     AssignedMaterial "{8A04399674AA9DCD}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_02_item.emat"
+    }
+   }
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB01D5B9A306}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB01245CDF32}" {
+    ItemDisplayName UIInfo "{5222CB0109A04AB2}" {
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 1.6
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{555292467DA11B7C}" {
+      PreviewWornModel 1
+      PreviewModel "{065DC5366BA23024}Assets/Characters/Uniforms/Pants_M70/Pants_M70_01.xob"
+     }
+    }
+   }
+  }
+  BaseLoadoutClothComponent "{5104869D194C627A}" {
+   WornMaterialsOverride {
+    "{763925407D82C2FD}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_02.emat"
+   }
+   ItemMaterialsOverride {
+    "{DD4EE78E2845EAAA}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_02_Item.emat"
+   }
+  }
+ }
+ coords 124.744 1.001 126.024
+}

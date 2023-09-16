@@ -1,0 +1,14 @@
+GameEntity : "{6ED66E4BF74756C0}Prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_01_base.et" {
+ ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D6029EB6A957}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5D8856606F95EA97}" {
+      m_TemperatureIsolation 0.15
+     }
+    }
+   }
+  }
+ }
+}

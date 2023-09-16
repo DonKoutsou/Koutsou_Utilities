@@ -1,0 +1,50 @@
+SCR_DestructibleEntity {
+ ID "5C78907A3BE7ED8F"
+ components {
+  MeshObject "{5C78906619F240B7}" {
+   Object "{4DCD0D6B383DA63C}Assets/Structures/Walls/Wooden/WoodenFence_01_Pole.xob"
+   LODFactors {
+    70 50 30 10 2 1 1
+   }
+  }
+  Hierarchy "{5C8AC2303AB42BBB}" {
+  }
+  RigidBody "{5C78906619F241D6}" {
+   ResponseIndex "TinyDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SlotManagerComponent "{5C78907A9B170312}" {
+   Slots {
+    EntitySlotInfo rusted_tags {
+     Offset 0.0793 0.6051 0.0995
+     Angles 0 13.3254 0
+     Prefab "{C2A59487E2511A63}prefabs/Graves/Grave_Tags.et"
+    }
+    EntitySlotInfo Note {
+     Offset 0.0293 0.0916 0.0643
+     Angles -76.67529 90 90
+     Prefab "{65716E24ABDF111C}prefabs/Graves/Memorial_Note_Base.et"
+    }
+    EntitySlotInfo wood_Jesus {
+     Offset -0.032 0.1417 0.2786
+     Angles 0 0 6.2003
+     Prefab "{E786E7D41A30846C}prefabs/Graves/Cross_Supporting_Piece.et"
+    }
+   }
+  }
+ }
+ coords 2537.721 0.001 865.373
+ Flags 524291
+ placement slopelandcontact
+ MaxHealth 800
+ "Explosive multiplier" 100
+ DamageThreshold 50
+ FirstDestructionPhase SCR_BaseDestructionPhase "{5C78906619F242A1}" {
+  m_sPhaseModel "{A4048C2AA75EF832}Common/Models/Default.xob"
+ }
+ LastDestructionPhase SCR_BaseDestructionPhase "{5C78906619F242A6}" {
+  Threshold 0
+ }
+ m_eMaterialSoundType BREAK_WOOD_SOLID
+}

@@ -1,0 +1,54 @@
+StaticModelEntity {
+ ID "5C9920B533290FDA"
+ components {
+  MeshObject "{5C9920B5A31D3800}" {
+   Object "{B119EC6E3C59AF3B}Assets/Structures/Military/Fortifications/DirtMounds/DirtCover_01_long_01.xob"
+   LODFactors {
+    1
+   }
+   ClutterOccluder 1
+  }
+  Hierarchy "{5C9920B5ECF2BEA5}" {
+  }
+  RigidBody "{5C9920B5A31D3833}" {
+   ModelGeometry 1
+   Static 1
+  }
+  RplComponent "{5C9920B5A6735A19}" {
+  }
+ }
+ coords 27.03 0.001 246.641
+ Flags 525315
+ {
+  GenericEntity : "{084C06AFFD21AB0C}Prefabs/Trading_Items/Trading_Item_Base.et" {
+   ID "5C9920B533290FD2"
+   components {
+    ActionsManagerComponent "{5B1111371149AC02}" {
+     ActionContexts {
+      UserActionContext "{5C9920B5FB3F31FF}" {
+       ContextName "default"
+       Position PointInfo "{5C9920B5FDA203AA}" {
+       }
+      }
+     }
+     additionalActions {
+      KLM_CraftAction "{5C9920B5FF5BD276}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{5C9920B5F7BFBFB2}" {
+        Name "Mark Grave"
+       }
+       m_WantedPay "{6D1606775A2FBC48}Prefabs/Items/Other/WoodPieces.et"
+       m_MaxUses 1
+       m_CraftedObject "{68D2FADC5A366CD5}Prefabs/Stashes/Graves/Grave_Cross_notags.et"
+       m_bShouldRemoveParent 1
+      }
+     }
+    }
+   }
+   coords 1.163 0.472 0
+   angleY 0
+  }
+ }
+}

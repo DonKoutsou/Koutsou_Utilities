@@ -1,0 +1,86 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/Chimera/Soldier/Fire_Melee.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -191.667 26
+   Nodes {
+    Parallel Parallel {
+     Name "Parallel"
+     EditorPos -191.119 155.238
+     Nodes {
+      SCR_AILookAtPosition "SCR_AI Look At Position" {
+       Name "SCR_AI Look At Position"
+       EditorPos -488.783 289.699
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 0
+         PortName "PositionIn"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "PriorityIn"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "PositionOut"
+        }
+       }
+       m_fVerticalOffset 1.7
+       m_fIgnoreLookDistSq 0
+       m_fPriority 80
+      }
+      Sequence Sequence {
+       Name "Sequence"
+       EditorPos 27.554 324.39
+       Nodes {
+        AITaskMoveToEntity "Move To Entity" {
+         Name "Move To Entity"
+         EditorPos -270 515.556
+         InEntity 1
+        }
+        AITaskRequestAction "Request Action" {
+         Name "Request Action"
+         EditorPos 43.813 519.024
+         ActionName "CharacterMelee"
+         ActionValue 1
+        }
+        AITaskIdle Idle {
+         Name "Idle"
+         EditorPos 264.409 524.972
+         Period 0.35
+         PeriodRandom 0.2
+        }
+        AITaskReturnState "Return State" {
+         Name "Return State"
+         EditorPos 420 522.308
+         Result SUCCESS
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable targetEntity {
+   VariableName "targetEntity"
+   VariableTypeName "IEntity"
+   VariableExposedInput 1
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference targetEntity {
+   VariableType 0
+   EditorPos -735.775 388.095
+  }
+  VariableReference targetEntity {
+   VariableType 0
+   EditorPos -544.444 555.556
+  }
+ }
+}

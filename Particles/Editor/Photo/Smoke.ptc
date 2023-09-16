@@ -1,0 +1,70 @@
+EffectDef {
+ Version 1
+ Emitters {
+  EmitterDef smoke {
+   ShapeType Box
+   ShapeSize 15 30 20
+   ConeAngle 360 135 225
+   MaxNum 100
+   BirthRate 10
+   Offset 0 0 0
+   Material "{2DF4058A4066E031}Particles/_Materials/Fire/Base_Sparks_07.emat"
+   Prefab "{D29767595B3E2744}system/wbdata/WorldEditor/ReflectionProbe.et"
+   SizeMultiplier 0.1
+   SizeRND 0.1
+   ScaleY 0.901
+   RotMultiplier 41.6
+   RandomRotDir 1
+   RandomAngle 1
+   Velocity -1.8
+   VelocityRND 1
+   VelAffect 2.911
+   AirResistance 8.699
+   GravityMultiply -1
+   RandomFrame 1
+   Lifetime 10
+   Color {
+    0 0 1 1 1 0.231 0.231 0.231
+   }
+   Alpha {
+    0 0 0.3 0.3 1 0
+   }
+   Size {
+    0 0 1 1
+   }
+  }
+  EmitterDef sparks {
+   ShapeType Box
+   ShapeSize 10 1 10
+   ConeAngle 360 0 80
+   MaxNum 40
+   BirthRate 40
+   BirthRateRND 0
+   Offset 0 0.6 1
+   Material "{D9FC42124DBB8845}Particles/_Materials/Fire/Base_Sparks_06.emat"
+   SizeMultiplier 0.1
+   SizeRND 0.1
+   ScaleX 0.2
+   ScaleY 0.3
+   VelAngle 1
+   Velocity 0
+   AirResistanceRND 0
+   WindInfluence 0
+   GravityMultiply 0
+   GravityMultiplyRND -0.01
+   RandomFrame 1
+   Lifetime 5
+   LifetimeRND 1
+   Color {
+    0 1 1 1 0.125 0.963 0.67 0.247 1 0.986 0.415 0.415
+   }
+   Alpha {
+    0 0 0.125 0.5 1 0
+   }
+   Size {
+    0 0 0.125 1 1 0
+   }
+   EmittingTime 1
+  }
+ }
+}

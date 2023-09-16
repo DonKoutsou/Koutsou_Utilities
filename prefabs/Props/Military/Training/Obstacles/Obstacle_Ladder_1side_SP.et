@@ -1,0 +1,43 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{980AB09E48D0917F}Assets/Props/Military/Training/Obstacles/ObstacleLadder_01/ObstacleLadder_01.xob"
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "TinyDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+ }
+ coords 9797.459 2.542 4409.825
+ angleY 90
+ {
+  $grp GameEntity : "{0DB214D91960B098}Prefabs/Structures/BuildingParts/Ladders/Ladder_Metal_612_B.et" {
+   {
+    ID "5C6B02ED646D0339"
+    components {
+     LadderComponent "{588EECC514BB6DFC}" {
+      TopVariant FromFloor
+     }
+     Hierarchy "{557E8CF8B87AB6F6}" {
+      PivotID "Socket_Ladder_02"
+     }
+    }
+    coords 0 -0.315 0
+   }
+   {
+    ID "5C6B02ED646D033A"
+    components {
+     LadderComponent "{588EECC514BB6DFC}" {
+      TopVariant FromFloor
+     }
+     Hierarchy "{557E8CF8B87AB6F6}" {
+      PivotID "Socket_Ladder_04"
+     }
+    }
+    coords 0 -0.315 0
+   }
+  }
+ }
+}

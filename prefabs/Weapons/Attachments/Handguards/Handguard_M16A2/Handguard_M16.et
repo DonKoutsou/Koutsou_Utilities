@@ -1,0 +1,13 @@
+GenericEntity : "{FB1A7F5BC7D935E1}Prefabs/Weapons/Attachments/Handguards/Handguard_M16A2/Handguard_M16_base.et" {
+ ID "557E85EEE1B603F1"
+ components {
+  MeshObject "{557E85EE39CED921}" {
+   Materials {
+    MaterialAssignClass "{5C78C43DCD0387FA}" {
+     SourceMaterial "M16A2_2"
+     AssignedMaterial "{71ED92D0F443E879}Assets/Weapons/Rifles/M16A2/Data/M16A2_2_camo.emat"
+    }
+   }
+  }
+ }
+}

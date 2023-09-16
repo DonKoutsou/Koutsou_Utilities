@@ -1,0 +1,30 @@
+GenericEntity : "{8F05D427252644F8}prefabs/Props/Civilian/Suitcase_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5AEB0CE2BD35C979}" {
+   InitialStorageSlots {
+    InventoryStorageSlot ff1 {
+     Prefab "{0102CA31599E00AA}prefabs/Items/Misc/IntelligenceFolder_E_01/IntelligenceFolder_E_02.et"
+    }
+    InventoryStorageSlot ff2 {
+     Prefab ""
+    }
+    InventoryStorageSlot ff3 {
+     Prefab ""
+    }
+    InventoryStorageSlot ff4 {
+     Prefab ""
+    }
+   }
+  }
+  ActionsManagerComponent "{5AEB0CE2C40A417F}" {
+   additionalActions {
+    KLM_ConverseAction "{5C6514C0AE012A18}" {
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

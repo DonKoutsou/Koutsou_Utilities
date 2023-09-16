@@ -1,12 +1,4 @@
-//------------------------------------------------------------------------------------------------------------//
-enum ETaskState
-{
-	UNASSIGNED,
-	ASSIGNED,
-	COMPLETED,
-	FAILED,
-	EMPTY
-}
+
 //------------------------------------------------------------------------------------------------------------//
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_Task
@@ -97,42 +89,6 @@ class SP_Task
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();
 	//------------------------------------------------------------------------------------------------------------//
-	bool TimeLimitHasPassed()
-	{
-		TaskDayTimeInfo CurrentDate = TaskDayTimeInfo.FromTimeOfTheDay();
-		return m_TaskTimeInfo.HasPassed(CurrentDate);
-	}
-	void SetPartOfChain()
-	{
-		m_bPartOfChain = true;
-	}
-	void SetReserved(IEntity res){UnAssignOwner(); reserved = res;};
-	bool IsReserved()
-	{
-		if (reserved)
-			return true;
-		return false;
-	}
-	bool IsOwnerAssigned()
-	{
-		return m_bOwnerAssigned;
-	}
-	void ClearReserves()
-	{
-		if (IsReserved())
-		{
-			AIControlComponent comp = AIControlComponent.Cast(reserved.FindComponent(AIControlComponent));
-			AIAgent agent = comp.GetAIAgent();
-			if (agent)
-			{
-				SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
-				SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
-				if (act)
-					act.SetActiveFollowing(false);
-			}
-		}
-		SetReserved(null);
-	};
 	//Owner of task.
 	IEntity GetOwner(){return m_eTaskOwner;};
 	Faction GetOwnerFaction(){return m_OwnerFaction;};
@@ -427,12 +383,33 @@ class SP_Task
 	//Function used durring init to assign the rewards of the task
 	bool AssignReward()
 	{
+		//Get catalog
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType( EEntityCatalogType.REQUEST );
+		
+		//Get items with label
 		array<SCR_EntityCatalogEntry> Mylist = {};
 		RequestCatalog.GetRequestItems(e_RewardLabel, null, Mylist);
+		
+		
+		//Figure out if character has reward
+		array <IEntity > items = {};
+		//Get char inventory
+		InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
+		//itterate though list to see wich items character has;
+		foreach (SCR_EntityCatalogEntry entry : Mylist)
+		{
+			
+			
+			SCR_PrefabNamePredicate pref = new SCR_PrefabNamePredicate();
+			pref.prefabName = entry.GetPrefab();
+			TargetInv.FindItems(items, pref);
+		}
+		
+		//Get a random
 		SCR_EntityCatalogEntry entry = Mylist.GetRandomElement();
 		m_Reward = entry.GetPrefab();
+		
 		if (m_bPartOfChain && e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{
 			SCR_ChimeraCharacter Character = SCR_ChimeraCharacter.Cast(m_eTaskOwner);
@@ -701,6 +678,50 @@ class SP_Task
 	{
 		return e_RewardLabel;
 	}
+	//Checks if time limit of task has passed
+	bool TimeLimitHasPassed()
+	{
+		TaskDayTimeInfo CurrentDate = TaskDayTimeInfo.FromTimeOfTheDay();
+		return m_TaskTimeInfo.HasPassed(CurrentDate);
+	}
+	//part of chain tasks work a bit differently. Some checks are skipped and settings are kept from Attribute istead of overriden by sample check init function
+	void SetPartOfChain()
+	{
+		m_bPartOfChain = true;
+	}
+	//reserves task to not be assignable to other characters
+	void SetReserved(IEntity res){UnAssignOwner(); reserved = res;};
+	//checks if someone has reserved it
+	bool IsReserved()
+	{
+		if (reserved)
+			return true;
+		return false;
+	}
+	//if owner is attempting this task
+	bool IsOwnerAssigned()
+	{
+		return m_bOwnerAssigned;
+	}
+	void ClearReserves()
+	{
+		if ( IsReserved() )
+		{
+			//make sure to look for the behavior and complete it on the character that had this task reserved
+			AIControlComponent comp = AIControlComponent.Cast(reserved.FindComponent(AIControlComponent));
+			AIAgent agent = comp.GetAIAgent();
+			if (agent)
+			{
+				SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+				SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
+				//if following this task stop action
+				if (act.PickedTask == this)
+					act.SetActiveFollowing(false);
+			}
+		}
+		//clear reserved variable
+		SetReserved(null);
+	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Deffining structure of Init
 	bool Init()
@@ -754,6 +775,7 @@ class SP_Task
 		
 		return true;
 	};
+
 	
 };
 class TaskAttribute : BaseContainerCustomTitle
@@ -780,204 +802,4 @@ class TaskAttribute : BaseContainerCustomTitle
 		title = source.GetClassName() + " | " + enabled + " | " + assignable;
 		return true;
 	}
-}
-class SCR_AIGetTaskParams : AITaskScripted
-{
-	static const string TASK_PORT = "Task";
-	static const string TASK_OWNER_PORT		= "TaskOwner";
-	static const string TASK_TARGET_PORT				= "TaskTarget";
-		
-	protected override bool VisibleInPalette()
-	{
-		return true;
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------------------------------------
-	protected static ref TStringArray s_aVarsIn = {
-		TASK_PORT
-	};
-	override TStringArray GetVariablesIn()
-    {
-        return s_aVarsIn;
-    }
-	
-	//-----------------------------------------------------------------------------------------------------------------------------------------
-	protected static ref TStringArray s_aVarsOut = {
-		TASK_OWNER_PORT,
-		TASK_TARGET_PORT,
-	};
-	override TStringArray GetVariablesOut()
-    {
-        return s_aVarsOut;
-    }
-
-	//-----------------------------------------------------------------------------------------------------------------------------------------
-	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
-	{
-		SP_Task Task;
-		GetVariableIn(TASK_PORT, Task);
-		if(!Task)
-		{
-			//NodeError(this, owner, "Invalid Task Provided!");
-			return ENodeResult.FAIL;
-		}
-		SetVariableOut(TASK_OWNER_PORT, Task.GetOwner());
-		SetVariableOut(TASK_TARGET_PORT, Task.GetTarget());
-		return ENodeResult.SUCCESS;
-	}	
-};
-class TaskDayTimeInfo
-{
-	ref TimeContainer m_fTimeOfDay;
-	ref TaskDateInfo Date;
-	
-	void TaskDayTimeInfo(float Time, int Day, int Month, int Year)
-	{
-		Date = new TaskDateInfo(Day, Month, Year);
-		m_fTimeOfDay = TimeContainer.FromTimeOfTheDay(Time);
-	}
-	void GetDate(out float Time, out int Day, out int Month, out int Year)
-	{
-		Date.GetDate(Day, Month, Year);
-		m_fTimeOfDay = TimeContainer.FromTimeOfTheDay(Time);
-		Time = m_fTimeOfDay.ToTimeOfTheDay();
-	}
-	TimeContainer GetTime()
-	{
-		return m_fTimeOfDay;
-	};
-	TaskDateInfo GetDateInfo()
-	{
-		return Date;
-	};
-	bool HasPassed(TaskDayTimeInfo DayInfo)
-	{
-		if (Date.HasPassed(DayInfo.GetDateInfo()))
-			return true;
-		TimeContainer Time = DayInfo.GetTime();
-		if (Time.ToTimeOfTheDay() > m_fTimeOfDay.ToTimeOfTheDay())
-			return true;
-		return false;
-	}
-	float CalculateTimeDifferance(TaskDayTimeInfo Info)
-	{
-		float dif;
-		float Time = Info.GetTime().ToTimeOfTheDay();
-		dif += m_fTimeOfDay.ToTimeOfTheDay() - Time;
-		if (Info.GetDateInfo().HasPassed(Date))
-		{
-			int DateDiff = Info.GetDateInfo().CalculateTimeDifferance(Date);
-			dif += DateDiff;
-		}
-		return dif;
-	}
-	static TaskDayTimeInfo FromTimeOfTheDay()
-	{
-		TimeAndWeatherManagerEntity timenw = GetGame().GetTimeAndWeatherManager();
-		float Time = timenw.GetTime().ToTimeOfTheDay();
-		int Day, Month, Year;
-		timenw.GetDate(Year, Month, Day);
-		return new TaskDayTimeInfo(Time ,Day, Month, Year);
-	}
-	static TaskDayTimeInfo FromPointInFuture(int Ammount, ETaskTimeLimmit TimeLimmit)
-	{
-		TimeAndWeatherManagerEntity timenw = GetGame().GetTimeAndWeatherManager();
-		float Time = timenw.GetTime().ToTimeOfTheDay();
-		int Day, Month, Year;
-		timenw.GetDate(Year, Month, Day);
-		if (TimeLimmit == ETaskTimeLimmit.HOURS)
-		{
-			Time += Ammount;
-		}
-		while (Time > 24)
-		{
-			Time -= 24;
-			Day += 1;
-		}
-		while (Day > TimeAndWeatherManagerEntity.GetAmountOfDaysInMonth(Month))
-		{
-			Day -= TimeAndWeatherManagerEntity.GetAmountOfDaysInMonth(Month);
-			Month += 1;
-		}
-		return new TaskDayTimeInfo(Time ,Day, Month, Year);
-	}
-};
-class TaskDateInfo
-{
-	int m_iDay;
-	int m_iMonth;
-	int m_iYear;
-	void TaskDateInfo(int Day, int Month, int Year)
-	{
-		m_iDay = Day;
-		m_iMonth = Month;
-		m_iYear = Year;
-	}
-	void GetDate(out int Day, out int Month, out int Year)
-	{
-		Day = m_iDay;
-		Month = m_iMonth;
-		Year = m_iYear;
-	}
-	bool HasPassed(TaskDateInfo info)
-	{
-		int Day;
-		int Month;
-		int Year;
-		info.GetDate(Day, Month, Year);
-		if (Year > m_iYear)
-			return true;
-		if (Month > m_iMonth)
-			return true;
-		if (Day > m_iDay)
-			return true;
-		return false;
-		
-	}
-	float CalculateTimeDifferance(TaskDateInfo DateInfo)
-	{
-		float dif;
-		int Day;
-		int Month;
-		int Year;
-		DateInfo.GetDate(Day, Month, Year);
-		if (Day > m_iDay)
-		{
-			for (int i, count = Day - m_iDay; i < count; i++)
-			{
-				dif += 24;
-			}
-		}
-		if (Month > m_iMonth)
-		{
-			for (int i, count = Month - m_iMonth; i < count; i++)
-			{
-				dif += 24 * TimeAndWeatherManagerEntity.GetAmountOfDaysInMonth(m_iMonth);
-			}
-		}
-		if (Year > m_iYear)
-		{
-			for (int i, count = Year - m_iYear; i < count; i++)
-			{
-				dif += 8760;
-			}
-		}
-		return dif;
-	}
-}
-enum ETaskTimeLimmit
-{
-	HOURS,
-	DAYS,
-	WEEKS,
-	YEARS,
-}
-enum ETaskType
-{
-	KILL,
-	DELIVER,
-	NAVIGATE,
-	RESCUE,
-	BOUNTY,
-	RETRIEVE
 }

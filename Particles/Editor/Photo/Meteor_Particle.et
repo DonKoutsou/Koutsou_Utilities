@@ -1,0 +1,9 @@
+SCR_ParticleEmitter {
+ ID "5D3D577B6F3EB5A1"
+ components {
+  Hierarchy "{5D43061A8720B569}" {
+  }
+ }
+ coords 2750.777 73.762 1715.834
+ m_EffectPath "{7B4A41DA320475FF}Particles/Editor/Photo/Smoke.ptc"
+}

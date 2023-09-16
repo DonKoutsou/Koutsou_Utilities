@@ -1,44 +1,55 @@
+//action to be used by AI to buy stuff, based on their needs wich should be configured in the smart action component of the store
 class SP_BuyStuff : ScriptedUserAction
 {
-	
+	SP_StoreAISmartActionComponent StoreSmartAction;
+	ADM_ShopComponent shop;
+	ref array <ref ADM_ShopMerchandise> Merchendise
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(pUserEntity);
-		if (!Char)
-			return;
-		SP_StoreAISmartActionComponent StoreSmartAction = SP_StoreAISmartActionComponent.Cast(pOwnerEntity.FindComponent(SP_StoreAISmartActionComponent));
-		if (!StoreSmartAction)
-			return;
+		//Get chimera
+		SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast( pUserEntity );
 		
-		ADM_ShopComponent shop = ADM_ShopComponent.Cast(pOwnerEntity.FindComponent(ADM_ShopComponent));
-		if (!shop)
+		if ( ! Char )
 			return;
-		array <ref ADM_ShopMerchandise> Merchendise = shop.GetMerchandise();
 		
 		int ammount;
 		BaseMagazineComponent mag;
-		ERequestRewardItemDesctiptor need = Char.GetNeed(ammount, mag);
-		if (!StoreSmartAction.shoplist.Contains(need))
+		array <int> needs = {};
+		
+		//Gather needs of character
+		Char.GetAllNeeds(needs);
+		
+		//final need to select and fulfull
+		ERequestRewardItemDesctiptor needtofulfill;
+		
+		//Check if any of needs can be fulfilled and get its info
+		foreach (int need : needs)
 		{
-			foreach (ERequestRewardItemDesctiptor myneed : StoreSmartAction.shoplist)
+			if (StoreSmartAction.shoplist.Contains(need))
 			{
-				if (Char.Checkneed(myneed ,ammount, mag))
+				if (Char.Checkneed(need ,ammount, mag))
 				{
-					need = myneed;
+					needtofulfill = need;
 					break;
 				}
-				
 			}
 		}
+		if (!needtofulfill)
+			return;
 		
 		//find request in catalog
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
-		array<SCR_EntityCatalogEntry> Mylist = {};
-		RequestCatalog.GetRequestItems(need, mag, Mylist);
 		
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType( EEntityCatalogType.REQUEST );
+		
+		array < SCR_EntityCatalogEntry > Mylist = {};
+		//Get items that match my need
+		RequestCatalog.GetRequestItems(needtofulfill, mag, Mylist);
+		//Get worth of any of those items
 		int price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
+		// array to fill with stuff character can afford
 		array <ref ADM_ShopMerchandise> CanBuyMerchendise = {};
+		//itterate through list and check wich of the items can be purchased
 		foreach (SCR_EntityCatalogEntry entry : Mylist)
 		{
 			ResourceName prefab = entry.GetPrefab();
@@ -49,61 +60,111 @@ class SP_BuyStuff : ScriptedUserAction
 					if (shop.CanPurchase(pUserEntity, merch, ammount))
 					{
 						CanBuyMerchendise.Insert(merch);
-						
 					}
 				}
 			}
 		}
+		//none return
 		if (CanBuyMerchendise.IsEmpty())
 			return;
-		if (need == ERequestRewardItemDesctiptor.HELMET)
+		//make sure to remove headgear when buying helmet so that helmet can be equipped instantly
+		if (needtofulfill == ERequestRewardItemDesctiptor.HELMET)
 		{
-			RemoveHelmet(pUserEntity);
+			RemoveHeadgear(pUserEntity);
 		}
+		// make purchase
 		shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount);
 		return;
 		
 	}
+	//function used to check if character has task for this need and if yes cancel it. Used when a need is fulfilled
 	void CompleteTasks(IEntity Owner, ERequestRewardItemDesctiptor need)
 	{
-		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
+		//task array
 		array <ref SP_Task> tasks = {};
-		Requestman.GetCharTasksOfSameType(Owner, tasks, SP_RetrieveTask);
-		if (tasks.IsEmpty())
+		
+		//get tasks of character
+		SP_RequestManagerComponent.GetCharTasksOfSameType( Owner , tasks , SP_RetrieveTask );
+		
+		//if no tasks on character return
+		if ( tasks.IsEmpty( ) )
 			return;
-		foreach (SP_Task task : tasks)
+		
+		//itterate through them and if need matches, cancel it and return
+		foreach ( SP_Task task : tasks )
 		{
-			SP_RetrieveTask rtask = SP_RetrieveTask.Cast(task);
-			if (!rtask)
+			SP_RetrieveTask rtask = SP_RetrieveTask.Cast( task );
+			if ( ! rtask )
 				continue;
-			if (rtask.m_requestitemdescriptor == need)
+			if ( rtask.m_requestitemdescriptor == need )
 			{
 				task.CancelTask();
 				return;
 			}
 		}
 	}
-	void RemoveHelmet(IEntity char)
+	//function used to remove headgear when buying a helmet
+	void RemoveHeadgear(IEntity char)
 	{
-		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast(char.FindComponent(SCR_CharacterInventoryStorageComponent));
-		IEntity Hat = loadoutStorage.GetClothFromArea(LoadoutHeadCoverArea);
+		//Get inventory of character
+		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast( char.FindComponent( SCR_CharacterInventoryStorageComponent ) );
+		
+		//Get headgear cloth
+		IEntity Hat = loadoutStorage.GetClothFromArea( LoadoutHeadCoverArea );
+		
+		//return if none
 		if (!Hat)
 			return;
-		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
-		InventoryItemComponent pInvComp = InventoryItemComponent.Cast(Hat.FindComponent(InventoryItemComponent));
+		
+		// get inventory manager
+		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast( char.FindComponent( SCR_InventoryStorageManagerComponent ) );
+		
+		//Get inventory component of headgear
+		InventoryItemComponent pInvComp = InventoryItemComponent.Cast( Hat.FindComponent( InventoryItemComponent ) );
+		
+		// get storage its in
 		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+		
+		//try to remove it
 		inv.TryRemoveItemFromStorage(Hat, parentSlot.GetStorage());
 	}
+	//Function used to check a price of a need to decide if able to fulfill it
 	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)
 	{
+		//Get request catalog
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
-		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
+		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType( EEntityCatalogType.REQUEST );
+		
+		//Get items matching my need
 		array<SCR_EntityCatalogEntry> Mylist = {};
 		RequestCatalog.GetRequestItems(need, mag, Mylist);
+		
+		if (Mylist.IsEmpty())
+			return;
+		
+		//Return price of one of them //Need to im
 		price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
 	}
+	
 	override event void Init(IEntity pOwnerEntity, GenericComponent pManagerComponent)
 	{
+		//Get smart action component from store
+		StoreSmartAction = SP_StoreAISmartActionComponent.Cast(	pOwnerEntity.FindComponent( SP_StoreAISmartActionComponent ) );
+		
+		if ( ! StoreSmartAction )
+			return;
+		
+		//find shop component
+		shop = ADM_ShopComponent.Cast( pOwnerEntity.FindComponent( ADM_ShopComponent ) );
+		
+		if ( ! shop )
+			return;
+		
+		//Get merchendise
+		if (!Merchendise)
+			Merchendise = {};
+		
+		Merchendise = shop.GetMerchandise();
 	};
 	//------------------------------------------------------------------//
 	override bool CanBeShownScript(IEntity user)
@@ -121,66 +182,4 @@ class SP_BuyStuff : ScriptedUserAction
 	{ 
 		return false; 
 	};
-}
-modded class ADM_ShopBaseComponent
-{
-	bool AskAIPurchase(IEntity player, ADM_ShopMerchandise merchandise, int quantity)
-	{
-		if (!player)
-			return false;
-		
-		bool canPay = CanPurchase(player, merchandise, quantity);
-		if (!canPay) 
-		{
-			return false;
-		}
-		
-		bool canDeliver = merchandise.GetMerchandise().CanDeliver(player, this, quantity);
-		if (!canDeliver) 
-		{
-			return false;
-		}
-		
-		if (!merchandise.GetMerchandise().CanPurchaseMultiple() && quantity > 1)
-			quantity = 1;
-		
-		array<ADM_PaymentMethodBase> collectedPaymentMethods = {};
-		array<bool> didCollectPayments = {};
-		
-		array<ref ADM_PaymentMethodBase> requiredPayment = merchandise.GetRequiredPayment();
-		foreach (ADM_PaymentMethodBase paymentMethod : requiredPayment) 
-		{
-			bool didCollectPayment = paymentMethod.CollectPayment(player, quantity);
-			didCollectPayments.Insert(didCollectPayment);
-			
-			if (didCollectPayment) 
-				collectedPaymentMethods.Insert(paymentMethod);
-		}
-		
-		if (didCollectPayments.Contains(false))
-		{
-			foreach (ADM_PaymentMethodBase paymentMethod : collectedPaymentMethods)
-			{
-				bool returnedPayment = paymentMethod.ReturnPayment(player, quantity);
-				if (!returnedPayment) 
-					PrintFormat("Error returning payment! %s", paymentMethod.Type().ToString());
-			}
-			
-			return false;
-		}
-		
-		bool deliver = merchandise.GetMerchandise().Deliver(player, this, quantity);
-		if (!deliver) 
-		{
-			foreach (ADM_PaymentMethodBase paymentMethod : collectedPaymentMethods)
-			{
-				bool returnedPayment = paymentMethod.ReturnPayment(player, quantity);
-				if (!returnedPayment) 
-					PrintFormat("Error returning payment! %1", paymentMethod.Type().ToString());
-			}
-			
-			return false;
-		}
-		return true;	
-	}
 }

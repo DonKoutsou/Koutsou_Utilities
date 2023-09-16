@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B3E10DC6FC0E527D}worlds/Prefab_setup/clothing.ent"
+ Configurations {
+  ENTResourceClass PC {
+  }
+  ENTResourceClass XBOX_ONE : PC {
+  }
+  ENTResourceClass XBOX_SERIES : PC {
+  }
+  ENTResourceClass PS4 : PC {
+  }
+  ENTResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,55 @@
+GenericEntity {
+ ID "5C690D1F37E01559"
+ components {
+  MeshObject "{5C690D1D331A419F}" {
+   Materials {
+    MaterialAssignClass "{5C690D1D567D3C4A}" {
+     SourceMaterial "AmmoBox_762x54_Decals"
+     AssignedMaterial ""
+    }
+   }
+  }
+  Hierarchy "{5C690D1C85551B52}" {
+  }
+  RigidBody "{5C690D1C99A9EB0A}" {
+  }
+  SCR_BaseInventoryItemComponent "{5C690D1C5FE16C7C}" {
+   Attributes SCR_ItemAttributeCollection "{5C690D1C78B8AF18}" {
+    ItemDisplayName UIInfo "{5C690D1C79338CF3}" {
+     Name "Sniper Toolkit"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5C690D1C7D7473FD}" {
+     Weight 3
+     SizeSetupStrategy Manual
+     ItemDimensions 20 20 20
+     ItemVolume 5000
+    }
+    m_SlotType SLOT_BACKPACK
+   }
+  }
+  ActionsManagerComponent "{5C690D1CAACBC268}" {
+   ActionContexts {
+    UserActionContext "{5C690D1F80C6B3A7}" {
+     ContextName "default"
+     Position PointInfo "{5C690D1F84239B49}" {
+      Offset 0 0.1105 0
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5C690D1F9E78079B}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C690D1F912D8CB0}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  RplComponent "{5C690D1C9E8B4D9F}" {
+  }
+ }
+ coords 128.211 1.001 132.776
+}

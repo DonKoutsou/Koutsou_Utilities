@@ -1,0 +1,21 @@
+GenericEntity {
+ ID "5B22D08A7F2C179A"
+ coords 133.956 1.001 132.456
+ {
+  GameEntity : "{06BC3F18B47799AE}Prefabs/Characters/Uniforms/Pants_M70.et" {
+   ID "5B22D08A7F2C17E5"
+   coords -0.014 0.096 -0.048
+   angleX -0.035
+   angleY 90.264
+   angleZ 7.586
+  }
+  GameEntity : "{B02281435AED8274}Prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01.et" {
+   ID "5B22D08A7F2C17EA"
+   coords 0 0.168 0
+  }
+  GameEntity : "{BBA08EC4EC40FA94}Prefabs/Characters/Uniforms/Jacket_M70.et" {
+   ID "5B22D08A7F2C17E7"
+   coords 0 -0.016 0
+  }
+ }
+}

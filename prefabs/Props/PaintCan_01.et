@@ -1,0 +1,62 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SignalsManagerComponent "{5AE9076349448C9D}" {
+  }
+  SoundComponent "{5AE907634C380B1D}" {
+  }
+  SCR_FactionAffiliationComponent "{5AE9076341126CA2}" {
+   "faction affiliation" "US"
+  }
+  SCR_UniversalInventoryStorageComponent "{5AE907635A167E79}" {
+   Attributes SCR_ItemAttributeCollection "{5AE907609B39E487}" {
+    ItemDisplayName UIInfo "{5AE907609F57BE31}" {
+     Name "Paintcan"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5AE90760978C52C0}" {
+      CameraDistanceToItem 0.75
+      ItemRenderRotation 15 0 0
+      FOV 35
+     }
+    }
+    m_Size SLOT_1x1
+   }
+   Priority 100
+   InitialStorageSlots {
+    InventoryStorageSlot watch_1 {
+     Prefab "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
+    }
+    InventoryStorageSlot watch_2 {
+     Prefab "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et"
+    }
+   }
+  }
+  SCR_ArsenalInventoryStorageManagerComponent "{5AE907635E590D35}" {
+  }
+  ActionsManagerComponent "{5AE907635486AAE6}" {
+   ActionContexts {
+    UserActionContext "{5AE907636C67E69A}" {
+     ContextName "default"
+     Position PointInfo "{5AE90763647CFF76}" {
+      Offset 0 0.1318 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5AE9076372A88DCB}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5AE907608876F223}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+ coords 3066.482 72.313 1593.322
+}

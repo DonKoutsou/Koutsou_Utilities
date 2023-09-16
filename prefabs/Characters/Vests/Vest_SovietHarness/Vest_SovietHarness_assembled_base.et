@@ -1,0 +1,12 @@
+GenericEntity : "{E05D296E39EC9E00}Prefabs/Characters/Vests/Vest_SovietHarness/Vest_SovietHarness_base.et" {
+ ID "50D8C49B3558F152"
+ components {
+  BaseLoadoutClothComponent "{5312D798A71DFBB1}" {
+   Slots {
+    LoadoutSlotInfo Bayonet {
+     Prefab "{5490FDEE87450C53}Prefabs/Items/Equipment/Accessories/Scabbard_Bayonet_6Kh4/Scabbard_Bayonet_6Kh4_base.et"
+    }
+   }
+  }
+ }
+}

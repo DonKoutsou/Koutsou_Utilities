@@ -1,0 +1,21 @@
+SCR_ChimeraCharacter : "{3ECA3A935BC069B9}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_BaseLoadout.et" {
+ ID "522AAC667BF61423"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173E6675BF7}" {
+     TargetStorage "prefabs/Characters/Uniforms/Jacket_M88_rolledup.et"
+    }
+    ItemsInitConfigurationItem "{5D7CC173E6675BF5}" {
+     TargetStorage "prefabs/Characters/Uniforms/Jacket_M88_rolledup.et"
+    }
+    ItemsInitConfigurationItem "{54A68D6519318E4B}" {
+     TargetStorage "prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et"
+    }
+    ItemsInitConfigurationItem "{554AE55DB4147348}" {
+     TargetStorage "prefabs/Characters/Uniforms/Pants_M88.et"
+    }
+   }
+  }
+ }
+}

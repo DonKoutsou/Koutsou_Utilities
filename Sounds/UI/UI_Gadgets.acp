@@ -1,0 +1,260 @@
+AudioClass {
+ sounds {
+  SoundClass {
+   id 2057
+   name "SOUND_RADIO_CHANGEFREQUENCY"
+   version 2
+   tl -3 222
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 4100
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    48
+   }
+   outState 3083
+   outStatePort 26631
+  }
+  SoundClass {
+   id 5129
+   name "SOUND_RADIO_CHANGEFREQUENCY_ERROR"
+   version 2
+   tl -3 352
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 7172
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    48
+   }
+   volume_dB 21
+   outState 3083
+   outStatePort 26631
+  }
+  SoundClass {
+   id 8201
+   name "SOUND_RADIO_TURN_ON"
+   version 2
+   tl -6.727 494.273
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 10244
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    48
+   }
+   outState 3083
+   outStatePort 26631
+  }
+  SoundClass {
+   id 9225
+   name "SOUND_RADIO_TURN_OFF"
+   version 2
+   tl -4 619.727
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 11268
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    48
+   }
+   outState 3083
+   outStatePort 26631
+  }
+  SoundClass {
+   id 12297
+   name "SOUND_RADIO_SIGNAL_GAIN"
+   version 2
+   tl -1.636 744.727
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 14340
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    48
+   }
+   outState 3083
+   outStatePort 26631
+  }
+  SoundClass {
+   id 13321
+   name "SOUND_RADIO_SIGNAL_LOST"
+   version 2
+   tl 3.636 875.273
+   conns {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 15364
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    48
+   }
+   outState 3083
+   outStatePort 26631
+  }
+ }
+ mixers {
+  MixerClass {
+   id 3083
+   name "OutputState"
+   tl 229.386 -137.432
+   res "{B764D803219C775E}Sounds/FinalMix.afm"
+   iops {
+    IOPConnectionClass iopConnection {
+     port 26631
+     conn {
+      ConnectionsClass connections {
+       id 5
+       links {
+        ConnectionClass connection {
+         id 2057
+         port 65
+        }
+        ConnectionClass connection {
+         id 5129
+         port 65
+        }
+        ConnectionClass connection {
+         id 8201
+         port 65
+        }
+        ConnectionClass connection {
+         id 9225
+         port 65
+        }
+        ConnectionClass connection {
+         id 12297
+         port 65
+        }
+        ConnectionClass connection {
+         id 13321
+         port 65
+        }
+       }
+      }
+     }
+    }
+   }
+   pi {
+    67108864
+   }
+   path "{B764D803219C775E}Sounds/FinalMix.afm"
+   inputs {
+    "ANM_Footsteps" "ANM_Voice" "WPN_Handling" "WPN_Shots" "WPN_Explosions" "WNP_BulletHits" "CHAR" "ENV_AMB_2D" "VEH_Animations" "Impacts" "Dialogue" "Music" "ENV_Doors" "VEH_Engine" "VEH_Tires" "VON" "SFX" "SFX_Reverb" "VON_Reverb" "Dialogue_Reverb" "Impacts_EXT" "ENV_AMB_3D" "WPN_SonicCracks" "CHAR_Gear" "PA" "SFX_Reverb_Exterior" "UI" "ENV_AMB_3D_Reverb_Exterior"
+   }
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 4100
+   name "Radio Switch"
+   tl -315.884 224.765
+   Volume -22
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{FA9F77FCD451C867}Sounds/UI/Samples/Gadgets/UI_Radio_Switch.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 7172
+   name "Radio Error"
+   tl -318.964 352.49
+   Volume -17
+   "Volume variance" 1
+   Selection Random
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{546DFE666B1052EE}Sounds/UI/Samples/Gadgets/UI_Radio_Switch_Error.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 10244
+   name "Radio Turn On"
+   tl -316.572 491.659
+   Volume -16
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{3FB2ABFE3D592C86}Sounds/UI/Samples/Gadgets/UI_Radio_Turn_On_01.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 11268
+   name "Radio Turn Off"
+   tl -312.894 614.896
+   Volume -16
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{3BFF5131379FA04A}Sounds/UI/Samples/Gadgets/UI_Radio_Turn_Off_01.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 14340
+   name "Radio Signal Gain"
+   tl -312.914 744.688
+   Volume -15
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{3BDDFC98F1647718}Sounds/UI/Samples/Gadgets/UI_Radio_Signal_Gain.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 15364
+   name "Radio Signal Lost"
+   tl -314.999 875.473
+   Volume -16
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{6C1C73ED71245078}Sounds/UI/Samples/Gadgets/UI_Radio_Signal_Lost.wav"
+    }
+   }
+  }
+ }
+ version 1
+ sourcesLimit 1
+}

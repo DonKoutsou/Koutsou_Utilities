@@ -1,0 +1,12 @@
+GenericEntity {
+ ID "5AFAC4259E4F6EA1"
+ components {
+  SoundComponent "{5AFAC0D06070D8D8}" {
+   Filenames {
+    ""
+   }
+   IncludeInactive 1
+  }
+ }
+ coords 124.043 1.001 124.72
+}

@@ -1,0 +1,44 @@
+GenericEntity : "{08FCA23F296B2EF4}prefabs/Toolkits/Base_Toolkit.et" {
+ ID "5C690D1F37E01559"
+ components {
+  MeshObject "{5C690D1D331A419F}" {
+   Object "{BA3D1F376A1BCFDF}Assets/Props/Military/AmmoBox/AmmoBox_82mm_mortar_3rnd/AmmoBox_82mm_mortar_3rnd.xob"
+  }
+  Hierarchy "{5C690D1C85551B52}" {
+  }
+  RigidBody "{5C690D1C99A9EB0A}" {
+  }
+  SCR_BaseInventoryItemComponent "{5C690D1C5FE16C7C}" {
+   Attributes SCR_ItemAttributeCollection "{5C690D1C78B8AF18}" {
+    ItemDisplayName UIInfo "{5C690D1C79338CF3}" {
+     Name "Sniper Toolkit"
+    }
+   }
+  }
+  ActionsManagerComponent "{5C690D1CAACBC268}" {
+   ActionContexts {
+    UserActionContext "{5C690D1F80C6B3A7}" {
+     ContextName "default"
+     Position PointInfo "{5C690D1F84239B49}" {
+      Offset 0 0.1105 0
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5C690D1F9E78079B}" {
+     ParentContextList +{
+     }
+     UIInfo UIInfo "{5C690D1F912D8CB0}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+    KLM_CraftAction "{5C690D0C987721EF}" {
+    }
+   }
+  }
+  RplComponent "{5C690D1C9E8B4D9F}" {
+  }
+ }
+ coords 126.601 1.001 132.656
+}

@@ -1,0 +1,23 @@
+Vehicle : "{E03D5609EEA6E03D}Prefabs/Vehicles/Core/Wheeled_Truck_Base.et" {
+ ID "BBCBA43A9778AE21"
+ components {
+  SCR_BaseCompartmentManagerComponent "{20FB66C5DCB8DF72}" {
+   CompartmentSlots {
+    CargoCompartmentSlot Passenger_r01 {
+     JumpOutAction SCR_JumpOutAction "{5D0B1D46E1FC958A}" {
+      ParentContextList {
+       "door_l01_int"
+      }
+     }
+    }
+    CargoCompartmentSlot Passenger_m01 {
+     JumpOutAction SCR_JumpOutAction "{5D0B1D46E1FC958A}" {
+      ParentContextList {
+       "door_r01_int" "door_l01_int"
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{14220B5472C90DAE}Worlds/Prefab_setup/gmaemodetest2.ent"
+ Configurations {
+  ENTResourceClass PC {
+  }
+  ENTResourceClass XBOX_ONE : PC {
+  }
+  ENTResourceClass XBOX_SERIES : PC {
+  }
+  ENTResourceClass PS4 : PC {
+  }
+  ENTResourceClass HEADLESS : PC {
+  }
+ }
+}

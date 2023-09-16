@@ -1,0 +1,21 @@
+SP_CharacterTriggerEntity {
+ ID "5E12F16F6E9DAEFE"
+ components {
+  Hierarchy "{5E210EC39D2046A5}" {
+  }
+  RplComponent "{5E12F16F4BCA9AB1}" {
+  }
+ }
+ coords 1507.366 0.373 3537.586
+ TriggerShapeType Sphere
+ SphereRadius 100
+ DrawShape 1
+ ShapeColor 0.441 0.845 0.439 0.494
+ TriggerActivationType "Every query"
+ PeriodicQueries 1
+ UpdatePeriod 5
+ ClassesFilter {
+  "SCR_ChimeraCharacter"
+ }
+ AutoPlacementCorrection 1
+}

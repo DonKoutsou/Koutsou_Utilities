@@ -1,0 +1,14 @@
+GenericEntity : "{80C8C9227D2C7CF5}prefabs/Characters/Core/Footwear_Base.et" {
+ ID "51A4D7EC51788198"
+ components {
+  InventoryItemComponent "{5244C46AD695742D}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D60112379774}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5DF8D017882E48E0}" {
+      m_TemperatureIsolation 0.1
+     }
+    }
+   }
+  }
+ }
+}

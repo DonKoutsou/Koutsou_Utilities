@@ -1,0 +1,72 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SignalsManagerComponent "{5AEB0CE2A3CC3AE3}" {
+  }
+  SoundComponent "{5AEB0CE2A76AD48C}" {
+  }
+  SCR_FactionAffiliationComponent "{5AEB0CE2B2FAA4EA}" {
+   "faction affiliation" "US"
+  }
+  SCR_UniversalInventoryStorageComponent "{5AEB0CE2BD35C979}" {
+   Attributes SCR_ItemAttributeCollection "{5AEB0CE2669195A7}" {
+    ItemDisplayName UIInfo "{5AEB0CE26754C0B4}" {
+     Name "SuitCase"
+     Description "Suicase usually used to store clothing"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5AEB0CE27CA46CEE}" {
+      CameraOrbitAngles 10 0 0
+      CameraDistanceToItem 0.5
+      CameraOffset 0.1 -0.2 0
+      ItemRenderRotation -75 15 0
+      FOV 45
+     }
+     ItemPhysicalAttributes "{5AF50BA13C15B8FD}" {
+      Weight 1.5
+      SizeSetupStrategy Volume
+      ItemVolume 1000
+     }
+    }
+   }
+   Priority 100
+   InitialStorageSlots {
+    InventoryStorageSlot ff1 {
+     Prefab "{B02281435AED8274}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01.et"
+    }
+    InventoryStorageSlot ff2 {
+     Prefab "{BBA08EC4EC40FA94}Prefabs/Characters/Uniforms/Jacket_M70.et"
+    }
+    InventoryStorageSlot ff3 {
+     Prefab "{06BC3F18B47799AE}Prefabs/Characters/Uniforms/Pants_M70.et"
+    }
+    InventoryStorageSlot ff4 {
+     Prefab "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{5AEB0CE2C40A417F}" {
+   ActionContexts {
+    UserActionContext "{5AEB0CE2DE8E20ED}" {
+     ContextName "default"
+     Position PointInfo "{5AEB0CE2D66EF3AB}" {
+      Offset 0 0.2765 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5AEB0CE2FA13D80E}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5AEB0CE2F79A61EC}" {
+      Name "#AR-Inventory_OpenStorage"
+     }
+    }
+   }
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+   Enabled 1
+  }
+ }
+}

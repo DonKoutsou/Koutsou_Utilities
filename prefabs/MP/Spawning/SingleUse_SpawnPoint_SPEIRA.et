@@ -1,0 +1,23 @@
+SP_SingleUseSpawnPoint {
+ ID "5D4EC1012138E91D"
+ components {
+  MapDescriptorComponent "{5D4EC10168632035}" {
+  }
+  Hierarchy "{5D4EC101642D3AC3}" {
+  }
+  RplComponent "{5D4EC10118CE3516}" {
+   "Self Insert" 0
+   Streamable Disabled
+  }
+ }
+ coords 1362.231 2.102 1063.413
+ m_fSpawnRadius 10
+ m_fNoPlayerRadius 2
+ m_fNoSightRadius 0
+ m_sFaction "SPEIRA"
+ m_bShowInDeployMapOnly 1
+ m_Info SCR_UIInfo "{5D4EC10109971A06}" {
+  Name "SPEIRA Point"
+  Icon "{CEAC8771342689C5}Assets/Data/Faction_SPEIRA.edds"
+ }
+}

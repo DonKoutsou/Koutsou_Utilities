@@ -1,0 +1,14 @@
+GenericEntity : "{C7923961D7235D70}prefabs/Characters/Footwear/CombatBoots_Soviet_01.et" {
+ ID "521A80AC387D2829"
+ components {
+  InventoryItemComponent "{5244C46AD695742D}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D602AF3FC0D9}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5D8856604F6AAA4E}" {
+      m_TemperatureIsolation 0.3
+     }
+    }
+   }
+  }
+ }
+}

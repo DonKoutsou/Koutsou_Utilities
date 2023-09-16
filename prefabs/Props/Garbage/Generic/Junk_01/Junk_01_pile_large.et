@@ -1,0 +1,9 @@
+GenericEntity : "{31D79930D33ABC77}Prefabs/Props/Garbage/Generic/Junk_01/Junk_01_pile_base.et" {
+ ID "F0DBA538AC2A0552"
+ {
+  SCR_PrefabSpawnPoint : "{79AF19675B3C1B71}prefabs/PrefabSpawner.et" {
+   ID "5DD0FCA354E8790B"
+   coords 0.895 0.359 -0.666
+  }
+ }
+}

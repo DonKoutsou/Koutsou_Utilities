@@ -1,0 +1,111 @@
+$grp GameEntity {
+ {
+  coords 118.727 1.601 178.78
+ }
+ {
+  coords 121.723 1.693 178.627
+ }
+ {
+  coords 119.807 1.675 178.077
+ }
+ {
+  coords 122.235 1.685 179.734
+ }
+}
+$grp GenericEntity {
+ {
+  coords 121.635 1.694 179.743
+ }
+ {
+  coords 122.222 1.685 179.008
+ }
+}
+$grp SCR_ChimeraCharacter {
+ {
+  coords 122.367 1.678 177.675
+ }
+ {
+  coords 120.826 1.686 177.813
+ }
+}
+GameEntity : "{06BC3F18B47799AE}Prefabs/Characters/Uniforms/Pants_M70.et" {
+ coords 122.678 1.678 179.731
+}
+Vehicle UAZ469_uncovered1 : "{16A674FE31B0921C}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469_uncovered.et" {
+ coords 115.571 1 172.836
+}
+DogTagEntity : "{24F00E8AC2AC66DA}prefabs/Items/Equipment/Accessories/Dogtags/Dog_Tags_Base.et" {
+ coords 101.66 1 193.278
+}
+GenericEntity : "{4068E1DFB7A1D377}prefabs/Trading_Items/Factions/USSR/USSR_TradingStation.et" {
+ coords 124.833 1 181.063
+}
+GenericEntity : "{4B57C11AA5161760}Prefabs/Characters/Vests/Vest_PASGT/Vest_PASGT.et" {
+ coords 121.174 1.701 179.276
+}
+GameEntity : "{604BB72BE8E023C2}Prefabs/Characters/Uniforms/Pants_US_BDU.et" {
+ coords 120.618 1.71 179.852
+}
+GenericEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
+ components {
+  SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {
+   Attributes SCR_ItemAttributeCollection "{5C78C42204C93A04}" {
+    CustomAttributes {
+     PreviewRenderAttributes "{5C78C42204C93A02}" {
+     }
+    }
+   }
+  }
+ }
+ coords 121.479 1.062 149.288
+}
+GenericEntity : "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et" {
+ coords 121.288 1 180.591
+}
+GameEntity : "{9F546CCA2582D16F}Prefabs/Characters/Uniforms/Jacket_M88.et" {
+ coords 120.769 1.7 178.762
+}
+GameEntity : "{A7E6D7ECD5F684D7}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et" {
+ coords 120.515 1.662 180.791
+}
+GameEntity : "{B74A4FF0DD8BB116}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01.et" {
+ coords 121.781 1.676 180.304
+}
+GameEntity : "{BBA08EC4EC40FA94}Prefabs/Characters/Uniforms/Jacket_M70.et" {
+ coords 123.997 1.657 178.959
+}
+GameEntity : "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et" {
+ coords 121.693 1.671 180.403
+}
+GameEntity : "{C7861F11D5334C0E}Prefabs/Characters/Uniforms/Jacket_US_BDU.et" {
+ coords 121.854 1.691 178.944
+}
+GenericEntity : "{C7923961D7235D70}prefabs/Characters/Footwear/CombatBoots_Soviet_01.et" {
+ coords 120.133 1.709 179.317
+}
+GameEntity : "{D262D2102B9931C6}prefabs/Characters/Uniforms/Jacket_M88_rolledup.et" {
+ coords 119.671 1.675 178.812
+}
+GenericEntity : "{D3B39C54FAC5D456}prefabs/Trading_Items/Factions/US/US_TradingStation.et" {
+ coords 121.705 1 181.021
+}
+GenericEntity : "{DAAFD15478BDE1C3}prefabs/Characters/Footwear/CombatBoots_US_01.et" {
+ components {
+  InventoryItemComponent "{5244C46AD695742D}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D60112379774}" {
+    CustomAttributes {
+     SP_ClothAttributes "{5D88DD39A904D499}" {
+      m_TemperatureIsolation 0.25
+     }
+    }
+   }
+  }
+ }
+ coords 120.476 1.709 179.3
+}
+GameEntity : "{DCF980831E880F6A}Prefabs/Characters/Uniforms/Pants_M88.et" {
+ coords 120.115 1.686 178.732
+}
+GameEntity : "{E685A8D337D36204}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover_w_goggles.et" {
+ coords 120.767 1.706 179.106
+}

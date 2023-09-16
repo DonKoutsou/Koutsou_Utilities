@@ -1,0 +1,18 @@
+GenericEntity : "{B6B2AD00E71AD0B5}Prefabs/Props/Industrial/BarrelMetal_01_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{BF5E471276FA8986}Assets/Props/Industrial/BarrelMetal_01/BarrelMetal_01_Cover.xob"
+   Materials {
+    MaterialAssignClass "{5B3AC9B21994DB2F}" {
+     SourceMaterial "BarrelMetal_01"
+     AssignedMaterial "{FE51B3D1D089F4A0}Assets/Props/Industrial/BarrelMetal_01/Data/BarrelMetal_01_yellow.emat"
+    }
+   }
+  }
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "HugeDestructible"
+  }
+ }
+ coords 130.301 1.001 132.777
+}

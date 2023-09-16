@@ -1,0 +1,15 @@
+GameEntity : "{10C26F96EF7A8CF5}Prefabs/Props/Core/Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SCR_AISmartActionComponent "{5D6AC2A4638C1607}" {
+   Tags {
+    "SwitchLight"
+   }
+   ActionTest LanternSmartActionTest "{5E3EFB7466C50782}" {
+   }
+  }
+  SCR_BaseInteractiveLightComponent "{587E9C1D47ACAF0D}" {
+   m_eInitialLightState OFF
+  }
+ }
+}

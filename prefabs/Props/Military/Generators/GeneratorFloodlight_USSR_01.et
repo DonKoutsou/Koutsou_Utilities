@@ -1,0 +1,16 @@
+GameEntity : "{10C26F96EF7A8CF5}Prefabs/Props/Core/Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SCR_AISmartActionComponent "{5D6AB733C9E5CBB4}" {
+   AIBehaviorTree "{F719FAF7D4C883D9}AI/BehaviorTrees/SmartActions/LightFire.bt"
+   Tags {
+    "SwitchLight"
+   }
+   ActionTest LanternSmartActionTest "{5E3EFB747CA7A69C}" {
+   }
+  }
+  SCR_BaseInteractiveLightComponent "{5882B9E6B4EFC9DF}" {
+   m_eInitialLightState OFF
+  }
+ }
+}

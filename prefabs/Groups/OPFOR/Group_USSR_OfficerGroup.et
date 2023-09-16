@@ -1,0 +1,7 @@
+SCR_AIGroup : "{30ED11AA4F0D41E5}Prefabs/Groups/OPFOR/Group_USSR_FireGroup.et" {
+ ID "0000000000000001"
+ coords 2753.357 72.615 1722.657
+ m_aUnitPrefabSlots {
+  "{5117311FB822FD1F}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Officer.et" "{23ADBBC31B6A3DC6}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AR.et" "{1C78331E156A3D65}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AT.et" "{631158F6898738A4}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AAT.et" "{631158F6898738A4}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AAT.et" "{E9AEEF2D9E41321B}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AMG.et" "{976AC400219898FA}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Sharpshooter.et" "{612F43A4D5AE765F}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_RTO.et" "{AB9726163EC1BD81}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Medic.et" "{23ADBBC31B6A3DC6}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AR.et" "{976AC400219898FA}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Sharpshooter.et" "{5436629450D8387A}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_SL.et"
+ }
+}

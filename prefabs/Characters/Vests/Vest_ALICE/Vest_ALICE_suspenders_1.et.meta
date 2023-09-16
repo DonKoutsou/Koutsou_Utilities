@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{51545851688567F1}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_suspenders_1.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

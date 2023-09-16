@@ -1,0 +1,19 @@
+SCR_DestructibleEntity : "{FBDCA11BD8FB4220}Prefabs/Structures/Walls/Wooden/WoodenFence_01/WoodenFence_01_Pole.et" {
+ ID "02B3A76696565391"
+ components {
+  SignalsManagerComponent "{5C8AC23107489F63}" {
+  }
+  MeshObject "{56DE7C8DCD0F4E0A}" {
+   Object "{3C4F053A42BDB84D}Assets/Structures/Cultural/Cemeteries/Tombstones/CrossSmall_E_01/Dst/CrossSmall_E_01_Dst_05.xob"
+   Materials {
+    MaterialAssignClass "{5C78907AF1A9F0FF}" {
+     SourceMaterial "CrossSmall_E_01"
+     AssignedMaterial "{CC4A6D49E9F96486}Assets/Structures/Walls/Wooden/Data/WoodenFence_01.emat"
+    }
+   }
+  }
+  Hierarchy "{5C8AC2304C074F5B}" {
+  }
+ }
+ coords 162.259 0.001 118.573
+}

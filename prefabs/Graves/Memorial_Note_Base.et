@@ -1,0 +1,53 @@
+GenericEntity {
+ ID "5C7890725C1D8336"
+ components {
+  MeshObject "{5C789072FDED126F}" {
+   Object "{AD43BB12137D68D9}Assets/Props/Commercial/Posters/PostersGround_01_Single.xob"
+   Materials {
+    MaterialAssignClass "{5C78C434DF470B8E}" {
+     SourceMaterial "PosterSet_01"
+     AssignedMaterial "{77C8114043ECEC5B}Assets/Structures/Signs/Traffic/SignBusStop_01/Data/SignBusStop_01_Paper.emat"
+    }
+   }
+  }
+  Hierarchy "{5C8AC23037F52F1D}" {
+  }
+  SCR_BaseInventoryItemComponent "{5C789072283FDD46}" {
+   Attributes SCR_ItemAttributeCollection "{5C7890722ADB5961}" {
+    ItemDisplayName UIInfo "{5C7890722DFC0AE1}" {
+     Name "Note"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5C78907226ABE357}" {
+      CameraPreset Top
+     }
+    }
+    m_Size SLOT_1x1
+    m_bDraggable 0
+   }
+  }
+  ActionsManagerComponent "{5C78C43428F98D1F}" {
+   ActionContexts {
+    UserActionContext "{5C78C43429D1C906}" {
+     ContextName "default"
+     Position PointInfo "{5C78C4342C2D87BE}" {
+     }
+    }
+   }
+   additionalActions {
+    SCR_OpenStorageAction "{5C78C43421E15398}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5C78C434273BDED1}" {
+      Name "Examine note"
+     }
+    }
+   }
+  }
+  RplComponent "{5C78907254EE8C40}" {
+  }
+ }
+ coords 153.346 1.001 108.061
+ Flags 1027
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{37948103A66BDE7B}Prefabs/Vehicles/Wheeled/Ural4320/CargoCompartment_Ural4320.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}
