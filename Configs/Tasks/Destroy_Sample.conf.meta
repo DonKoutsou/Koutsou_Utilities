@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{3ED53742159DC37F}Configs/Tasks/Destroy_Sample.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -21,7 +21,7 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 	ADM_ShopComponent Shop;
 	
 	ref array <ERequestRewardItemDesctiptor> shoplist = {};
-	
+	ref array <ref BaseMagazineWell > MagList = {};
 	bool TestNeeds(SCR_ChimeraCharacter Char)
 	{
 		if (shoplist.IsEmpty())
@@ -67,6 +67,8 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 				if (ammodata)
 				{
 					descr = ammodata.GetRequestDescriptor();
+					if (!MagList.Contains(ammodata.GetMagType()))
+						MagList.Insert(ammodata.GetMagType());
 				}
 				if (!shoplist.Contains(descr))
 				{

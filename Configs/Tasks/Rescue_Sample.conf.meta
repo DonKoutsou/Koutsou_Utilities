@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{AB2F393182A5DB08}Configs/Tasks/Rescue_Sample.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

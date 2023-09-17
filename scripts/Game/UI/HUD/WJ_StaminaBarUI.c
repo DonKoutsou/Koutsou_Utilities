@@ -1,4 +1,4 @@
-class SP_StaminaBarUI: SCR_InfoDisplay
+class SP_StaminaBarUI: ScriptedWidgetComponent
 {
 	private ProgressBarWidget m_wStaminaBar = null;
 	private ProgressBarWidget m_wHungerBar = null;
@@ -10,11 +10,12 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 	private SP_CharacterStatsComponent CharStats = null;
 	private int maxtemp;
 	private int mintemp;
+	Widget m_widget;
 	void OnStaminaChange(float value)
 	{
 		if (!m_wStaminaBar)
 		{
-			m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wStaminaBar"));
+			m_wStaminaBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wStaminaBar"));
 			if (!m_wStaminaBar) return;
 		};
 		
@@ -24,11 +25,11 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 	{
 		if (!m_wHungerBar)
 		{
-			m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wHungerBar"));
+			m_wHungerBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wHungerBar"));
 			if (!m_wHungerBar) return;
 		};
-		Widget m_wHungertDown = m_wRoot.FindAnyWidget("m_wHungertDown");
-		Widget m_wHungertUp = m_wRoot.FindAnyWidget("m_wHungertUp");
+		Widget m_wHungertDown = m_widget.FindAnyWidget("m_wHungertDown");
+		Widget m_wHungertUp = m_widget.FindAnyWidget("m_wHungertUp");
 		if (value > m_wHungerBar.GetCurrent())
 		{
 			m_wHungertDown.SetOpacity(0);
@@ -45,11 +46,11 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 	{
 		if (!m_wThirstBar)
 		{
-			m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
+			m_wThirstBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wThirstBar"));
 			if (!m_wThirstBar) return;
 		};
-		Widget m_wThirstDown = m_wRoot.FindAnyWidget("m_wThirstDown");
-		Widget m_wThirstUp = m_wRoot.FindAnyWidget("m_wThirstUp");
+		Widget m_wThirstDown = m_widget.FindAnyWidget("m_wThirstDown");
+		Widget m_wThirstUp = m_widget.FindAnyWidget("m_wThirstUp");
 		if (value > m_wThirstBar.GetCurrent())
 		{
 			m_wThirstDown.SetOpacity(0);
@@ -66,11 +67,11 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 	{
 		if (!m_wEnergyBar)
 		{
-			m_wEnergyBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
+			m_wEnergyBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wThirstBar"));
 			if (!m_wEnergyBar) return;
 		};
-		Widget m_wEnergyDown = m_wRoot.FindAnyWidget("m_wEnergyDown");
-		Widget m_wEnergyUp = m_wRoot.FindAnyWidget("m_wEnergyUp");
+		Widget m_wEnergyDown = m_widget.FindAnyWidget("m_wEnergyDown");
+		Widget m_wEnergyUp = m_widget.FindAnyWidget("m_wEnergyUp");
 		if (value > m_wEnergyBar.GetCurrent())
 		{
 			m_wEnergyDown.SetOpacity(0);
@@ -91,7 +92,7 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		float g = 0;
 		if (!m_wTemp)
 		{
-			m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wTemp"));
+			m_wTemp = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wTemp"));
 			if (!m_wTemp) return;
 		};
 		float temp = Math.InverseLerp(mintemp, maxtemp, value);
@@ -122,8 +123,8 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		string val = value.ToString();
 		string tempnumber = val.Substring(0,Math.Min(val.Length(), 5)) + "C";
 		m_sTempnumber.SetText(tempnumber);
-		Widget m_wTempDown = m_wRoot.FindAnyWidget("m_wTempDown");
-		Widget m_wTempUp = m_wRoot.FindAnyWidget("m_wTempUp");
+		Widget m_wTempDown = m_widget.FindAnyWidget("m_wTempDown");
+		Widget m_wTempUp = m_widget.FindAnyWidget("m_wTempUp");
 		if (value > m_wTemp.GetCurrent())
 		{
 			m_wTempDown.SetOpacity(0);
@@ -137,15 +138,16 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		m_wTemp.SetCurrent(value);
 		
 	}
-	override event void OnStartDraw(IEntity owner)
+	override void HandlerAttached(Widget w)
 	{
-		super.OnStartDraw(owner);
-		m_wTemp = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wTemp"));
-		m_wStaminaBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wStaminaBar"));
-		m_wHungerBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wHungerBar"));
-		m_wThirstBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wThirstBar"));
-		m_wEnergyBar = ProgressBarWidget.Cast(m_wRoot.FindAnyWidget("m_wEnergyBar"));
-		m_sTempnumber = TextWidget.Cast(m_wRoot.FindAnyWidget("m_sTempnumber"));
+		super.HandlerAttached(w);
+		m_widget = w;
+		m_wTemp = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wTemp"));
+		m_wStaminaBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wStaminaBar"));
+		m_wHungerBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wHungerBar"));
+		m_wThirstBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wThirstBar"));
+		m_wEnergyBar = ProgressBarWidget.Cast(m_widget.FindAnyWidget("m_wEnergyBar"));
+		m_sTempnumber = TextWidget.Cast(m_widget.FindAnyWidget("m_sTempnumber"));
 		IEntity player = GetGame().GetPlayerController();
 		if (!player) {
 			Print("no player found");
@@ -154,12 +156,13 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		m_cCharacterController = SCR_CharacterControllerComponent.Cast(player.FindComponent(SCR_CharacterControllerComponent));
 		if (m_cCharacterController) Print("Found character controllerc omponent");
 		CharStats = SP_CharacterStatsComponent.Cast(player.FindComponent(SP_CharacterStatsComponent));
-		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
+		SCR_PlayerController cont = SCR_PlayerController.Cast(player);
 		maxtemp = CharStats.m_fMaxTemperature;
 		mintemp = CharStats.m_fUnconsciousTemperature;
 		if (!cont)
 			return;
 		cont.m_OnControlledEntityChanged.Insert(UpdateChar);
+		UpdateValues(player);
 	}
 	void UpdateChar(IEntity from, IEntity to)
 	{
@@ -168,7 +171,7 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		m_cCharacterController = SCR_CharacterControllerComponent.Cast(GetGame().GetPlayerController().FindComponent(SCR_CharacterControllerComponent));
 		CharStats = SP_CharacterStatsComponent.Cast(GetGame().GetPlayerController().FindComponent(SP_CharacterStatsComponent));
 	}
-	override event void UpdateValues(IEntity owner, float timeSlice)
+	void UpdateValues(IEntity owner)
 	{
 		if (!m_cCharacterController)
 		{

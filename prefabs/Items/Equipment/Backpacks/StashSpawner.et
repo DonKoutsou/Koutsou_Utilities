@@ -1,0 +1,10 @@
+SCR_PrefabSpawnPoint {
+ ID "5E62CAE8EC822059"
+ components {
+  RplComponent "{5E0F3C2510E99681}" {
+   Streamable Disabled
+  }
+ }
+ coords 2581.257 8.558 3171.644
+ angleY -12.655
+}

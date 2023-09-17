@@ -7,5 +7,6 @@ SP_TPWaypoint {
  AIBehaviorTreeMoveTo "{62D36413D46F02A6}AI/BehaviorTrees/Waypoints/WP_Patrol.bt"
  CompletionRadius 250
  Autocomplete 0
- m_fPriorityLevel 1000
+ m_fPriorityLevel 80
+ m_bFastInit 1
 }

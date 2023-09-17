@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{42B21E3EB51FB09D}Configs/Tasks/Deliver_Sample.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -206,27 +206,30 @@ class SCR_ScenarioFrameworkSlotAI : SCR_ScenarioFrameworkSlotBase
 		if (!m_aWaypointGroupNames.IsEmpty())
 		{
 			//Select random layer which holds the waypoints (defined in the layer setting)
-
-			SCR_WaypointSet wrapper = m_aWaypointGroupNames.GetRandomElement();
-			IEntity entity = GetGame().GetWorld().FindEntityByName(wrapper.m_sName);
-			if (entity)
+			for (int i; i < m_aWaypointGroupNames.Count(); i++)
 			{
-
-				SCR_ScenarioFrameworkSlotBase waypoint = SCR_ScenarioFrameworkSlotBase.Cast(entity.FindComponent(SCR_ScenarioFrameworkSlotBase));
-				if (waypoint)
+				SCR_WaypointSet wrapper = m_aWaypointGroupNames.Get(i);
+				IEntity entity = GetGame().GetWorld().FindEntityByName(wrapper.m_sName);
+				if (entity)
 				{
-					if (AIWaypoint.Cast(waypoint.GetSpawnedEntity()))
-						m_aWaypoints.Insert(AIWaypoint.Cast(waypoint.GetSpawnedEntity()));
+	
+					SCR_ScenarioFrameworkSlotBase waypoint = SCR_ScenarioFrameworkSlotBase.Cast(entity.FindComponent(SCR_ScenarioFrameworkSlotBase));
+					if (waypoint)
+					{
+						if (AIWaypoint.Cast(waypoint.GetSpawnedEntity()))
+							m_aWaypoints.Insert(AIWaypoint.Cast(waypoint.GetSpawnedEntity()));
+					}
+					else
+					{
+						SCR_ScenarioFrameworkLayerBase WPGroupLayer = SCR_ScenarioFrameworkLayerBase.Cast(entity.FindComponent(SCR_ScenarioFrameworkLayerBase));
+						if (WPGroupLayer)
+							GetWaypointsFromLayer(WPGroupLayer, wrapper.m_bUseRandomOrder);
+					}
+					if (wrapper.m_bCycleWaypoints && !m_aWaypoints.IsEmpty())
+						AddCycleWaypoint();
 				}
-				else
-				{
-					SCR_ScenarioFrameworkLayerBase WPGroupLayer = SCR_ScenarioFrameworkLayerBase.Cast(entity.FindComponent(SCR_ScenarioFrameworkLayerBase));
-					if (WPGroupLayer)
-						GetWaypointsFromLayer(WPGroupLayer, wrapper.m_bUseRandomOrder);
-				}
-				if (wrapper.m_bCycleWaypoints && !m_aWaypoints.IsEmpty())
-					AddCycleWaypoint();
 			}
+			
 		}
 		else
 		{

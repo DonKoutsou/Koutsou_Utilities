@@ -13,9 +13,24 @@ class StoreSmartActionTest : SmartActionTest
 		char.GetAllNeeds(needs);
 		foreach (int need : needs)
 		{
+			
 			if (storeaction.shoplist.Contains(need))
 			{
-				return true;
+				if (need == ERequestRewardItemDesctiptor.AMMO)
+				{
+					int ammount;
+					BaseMagazineComponent mag;
+					char.Checkneed(need, ammount, mag);
+					if (mag)
+					{
+						if (storeaction.MagList.Contains(mag.GetMagazineWell()))
+						{
+							return true;
+						}
+					}
+				}
+				else
+					return true;
 			}
 		}
 		

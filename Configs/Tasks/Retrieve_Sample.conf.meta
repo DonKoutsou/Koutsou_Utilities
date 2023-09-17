@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{FCDC6BCA89224BE4}Configs/Tasks/Retrieve_Sample.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}
