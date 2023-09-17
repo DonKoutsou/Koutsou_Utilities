@@ -8,22 +8,25 @@ class DialogueStageMultiResponse : DialogueStage
 			SP_RequestManagerComponent TaskMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			
 			array <ref SP_Task> tasks = new array <ref SP_Task>();
-			TaskMan.GetUnassignedCharTasks(Character, Player, tasks);
+			TaskMan.GetCharOwnedTasks(Character, tasks);
 			if(tasks.Count() > 0)
 			{
 				string tasktext;
 				foreach (SP_Task task : tasks)
 				{
-					if(!task.CharacterAssigned(Player))
-					{
-						if (!tasktext)
-							tasktext =  task.GetTaskDiag();
-						else
-							tasktext =  tasktext + " And also, " + task.GetTaskDiag();
-					}
+					if ( task.IsReserved())
+						continue;
+					if( task.GetState() == ETaskState.ASSIGNED)
+						continue;
+					if ( ! task.CanBeAssigned(Character, Player) )
+						continue;
+					if (!tasktext)
+						tasktext =  task.GetTaskDiag();
+					else
+						tasktext =  tasktext + " \n " + task.GetTaskDiag();
 				}
 				if (tasktext)
-					tasktext = DialogueText + " " + tasktext;
+					tasktext = DialogueText + " \n " + tasktext;
 				return tasktext;
 				
 			}
@@ -34,6 +37,7 @@ class DialogueStageMultiResponse : DialogueStage
 			SP_RequestManagerComponent taskman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 			if(Character)
 			{
+				
 				array <ref SP_Task> tasks = new array <ref SP_Task>();
 				taskman.GetCharOwnedTasks(Character, tasks);
 				if(tasks.Count() > 0)
@@ -43,10 +47,15 @@ class DialogueStageMultiResponse : DialogueStage
 						SP_ChainedTask questlinetask = SP_ChainedTask.Cast(taskcheck);
 						if (questlinetask)
 							continue;
+						if ( taskcheck.IsReserved())
+							continue;
+						if ( ! taskcheck .CanBeAssigned(Character, Player) )
+							continue;
 						if(taskcheck.GetState() == ETaskState.UNASSIGNED)
 						{
-								return true;
+							return true;
 						}
+						
 					}
 				}
 			}

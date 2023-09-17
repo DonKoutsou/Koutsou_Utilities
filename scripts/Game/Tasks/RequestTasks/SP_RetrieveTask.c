@@ -26,6 +26,8 @@ class SP_RetrieveTask: SP_Task
 	}
 	override bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
 	{
+		if ( SCR_EntityHelper.IsPlayer(Assignee))
+			return true;
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(Assignee.FindComponent(SCR_InventoryStorageManagerComponent));
 		SP_RequestPredicate RequestPred = new SP_RequestPredicate(m_requestitemdescriptor);
 		array <IEntity> FoundItems = new array <IEntity>();
@@ -347,7 +349,13 @@ class SP_RetrieveTask: SP_Task
 			ResourceName prefabName = prefabData.GetPrefabName();
 			SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefabName);
 			SP_RequestData requestdata = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
-			m_iRewardAmount = m_iRewardAmount + requestdata.GetWorth();
+			if (requestdata)
+				m_iRewardAmount = m_iRewardAmount + requestdata.GetWorth();
+			else
+			{
+				SP_RequestAmmoData requestammodata = SP_RequestAmmoData.Cast(entry.GetEntityDataOfType(SP_RequestAmmoData));
+				m_iRewardAmount = m_iRewardAmount + requestammodata.GetWorth();
+			}
 		}
 		//while (m_iRewardAmount > 0)
 		//{

@@ -327,7 +327,7 @@ $grp GenericEntity {
    GenericEntity : "{1C571A35EF9F2217}Prefabs/Props/Furniture/BarTap_01.et" {
     coords -9.67 0.098 -5.583
    }
-   GameEntity : "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et" {
+   GameEntity : "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01_base.et" {
     coords -10.725 1.115 -5.286
    }
    GenericEntity : "{1D2BBC06E656974F}Prefabs/Structures/BuildingParts/Misc/TvAntenna_01.et" {
@@ -599,7 +599,7 @@ $grp GenericEntity {
     coords -3.477 0 7.435
     angleY -180
    }
-   GenericEntity : "{8F05D427252644F8}prefabs/Props/Civilian/Suitcase_01.et" {
+   GenericEntity : "{8F05D427252644F8}prefabs/Props/Suitcase_01.et" {
     coords 5.191 2.441 4.521
     angleX 90
     angleY -180
@@ -933,7 +933,7 @@ $grp GenericEntity {
      angleY 5.953
     }
    }
-   $grp GameEntity : "{EC645B2E2123131F}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_blue.et" {
+   $grp GameEntity : "{EC645B2E2123131F}prefabs/Props/Civilian/LampKerosene_01_blue.et" {
     {
      coords 3.086 0.75 9.476
     }
@@ -1604,6 +1604,9 @@ SCR_ChimeraCharacter : "{854C04F0EA2129CC}Prefabs/Characters/Factions/INDFOR/FIA
  coords 129.406 1.001 253.066
  angleY -180
 }
+GenericEntity : "{891BA05A96D3A0BE}prefabs/Currency/Drachma.et" {
+ coords 122.453 1 246.872
+}
 SCR_ChimeraCharacter : "{8E0FE664CE7D1CA9}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_GL.et" {
  coords 145.063 1.001 253.936
  angleY -180
@@ -1624,12 +1627,18 @@ $grp DogTagEntity : "{9D8E818461216F56}prefabs/Items/Equipment/Accessories/Dogta
   coords 124.123 1.001 248.342
  }
 }
-GenericEntity : "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotFlatLarge/LivingArea_L_US_01.et" {
+GenericEntity : "{9FDEDDF92C5D7408}prefabs/Compositions/Slotted/SlotRoadLarge/LivingArea_L_US_01.et" {
  coords 108.79 1.001 199.562
 }
 SCR_ChimeraCharacter : "{AB9726163EC1BD81}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Medic.et" {
  coords 144.241 1.001 253.936
  angleY -180
+}
+GenericEntity : "{B0E67230AEEE2DF3}Prefabs/Items/Wallet.et" {
+ coords 122.622 1 246.885
+ angleX 0
+ angleY 0
+ angleZ 0
 }
 WalletEntity : "{B6C7499C8D4F61FC}prefabs/Currency/Wallet_US_10_Watches.et" {
  coords 168.252 1 247.279

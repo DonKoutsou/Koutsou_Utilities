@@ -88,7 +88,7 @@ class SP_NavigateTask: SP_Task
 			SP_NavigateTask tasksample = SP_NavigateTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_NavigateTask));
 			m_iSuccessDistance = tasksample.GetSuccessDistance();
 		}
-		if(dis <= m_iSuccessDistance)
+		if(dis <= m_iSuccessDistance + 10)
 		{
 			return true;
 		}
@@ -140,29 +140,9 @@ class SP_NavigateTask: SP_Task
 		//check if assigne is owner meaning owner navigated himself most likely cause last assignee died
 		if (Assignee != m_eTaskOwner)
 		{
-			if (GiveReward(Assignee))
+			if (!GiveReward(Assignee))
 			{
-				//check if task target is alive so we can assign the owner to that goup
-				SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
-				if (!dmgman.IsDestroyed())
-				{
-					AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
-					AIAgent Tagent = Tcomp.GetAIAgent();
-					SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
-					if (Tgroup)
-					{
-						AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
-						AIAgent agent = comp.GetAIAgent();
-						SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
-						group.RemoveAgent(agent);
-						//add owner
-						Tgroup.AddAgent(agent);
-						//AIWaypoint wp;
-						//wp = Tgroup.GetCurrentWaypoint();
-						//Tgroup.RemoveWaypoint(wp);
-						//Tgroup.AddWaypoint(wp);
-					}
-				}
+				return false;
 			}
 		}
 		if (m_TaskMarker)
@@ -175,6 +155,27 @@ class SP_NavigateTask: SP_Task
 		GetOnTaskFinished(this);
 		//handle assignee
 		UnAssignCharacter();
+		//check if task target is alive so we can assign the owner to that goup
+		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
+		if (!dmgman.IsDestroyed())
+		{
+			AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
+			AIAgent Tagent = Tcomp.GetAIAgent();
+			SCR_AIGroup Tgroup = SCR_AIGroup.Cast(Tagent.GetParentGroup());
+			if (Tgroup)
+			{
+				AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
+				AIAgent agent = comp.GetAIAgent();
+				SCR_AIGroup group = SCR_AIGroup.Cast(agent.GetParentGroup());
+				group.RemoveAgent(agent);
+				//add owner
+				Tgroup.AddAgent(agent);
+				//AIWaypoint wp;
+				//wp = Tgroup.GetCurrentWaypoint();
+				//Tgroup.RemoveWaypoint(wp);
+				//Tgroup.AddWaypoint(wp);
+			}
+		}
 		if (SCR_EntityHelper.GetPlayer() == Assignee)
 		{
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
@@ -182,7 +183,6 @@ class SP_NavigateTask: SP_Task
 		}
 		else
 		{
-			SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 			if (!dmgman.IsDestroyed())
 			{
 				AIControlComponent Tcomp = AIControlComponent.Cast(m_eTaskTarget.FindComponent(AIControlComponent));
@@ -329,7 +329,7 @@ class SP_NavigateTask: SP_Task
 	{
 		
 		float dis = vector.Distance(m_eTaskTarget.GetOrigin(), m_eTaskOwner.GetOrigin());
-		m_iRewardAverageAmount = m_iRewardAverageAmount * (dis/40);
+		m_iRewardAmount = m_iRewardAmount * (dis/40);
 		if (!super.AssignReward())
 			return false;
 		return true;
@@ -386,7 +386,12 @@ class SP_NavigateTask: SP_Task
 	}
 	override bool CanBeAssigned(IEntity TalkingChar, IEntity Assignee)
 	{
-		return true;
+			SCR_ChimeraCharacter Chimera = SCR_ChimeraCharacter.Cast(TalkingChar);
+			if (Chimera.IsLookingforWork() || Chimera.IsWorking() || Chimera.IsFollowing())
+			{
+					return false;
+			}
+			return true;
 	};
 	override void InheritFromSample()
 	{

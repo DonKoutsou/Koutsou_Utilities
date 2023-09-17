@@ -97,7 +97,7 @@ class SP_DeliverTask: SP_Task
 		{
 			m_ePackage = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
 			InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
-			if (inv.TryInsertItem(m_ePackage) == false)
+			if ( ! inv.TryInsertItem(m_ePackage) )
 			{
 				delete m_ePackage;
 				return false;
@@ -420,13 +420,7 @@ class SP_DeliverTask: SP_Task
 			}
 			
 		}
-		//-------------------------------------------------//
-		//function to fill if task needs an entity, eg package for delivery
-		if (!SetupTaskEntity())
-		{
-			DeleteLeftovers();
-			return false;
-		}
+		
 		//-------------------------------------------------//
 		if (!AssignReward())
 		{
@@ -439,6 +433,13 @@ class SP_DeliverTask: SP_Task
 		}
 		if (!CheckTarget())
 		{
+			return false;
+		}
+		//-------------------------------------------------//
+		//function to fill if task needs an entity, eg package for delivery
+		if (!SetupTaskEntity())
+		{
+			DeleteLeftovers();
 			return false;
 		}
 		//-------------------------------------------------//

@@ -110,6 +110,10 @@ modded class SCR_ChimeraCharacter
 	{
 		return SP_RequestManagerComponent.GetassignedTaskCount(this) > 0;
 	}
+	bool IsFollowing()
+	{
+		return SP_RequestManagerComponent.CharFollowingAnybody(this);
+	}
 	void LookForWork()
 	{
 		if (IsImportantCharacter)
@@ -117,7 +121,8 @@ modded class SCR_ChimeraCharacter
 			GetWallet().SpawnCurrency(20);
 			return;
 		}
-			
+		if (IsFollowing())
+			return;	
 		
 		array <IEntity> chars = {};
 		if (GetGame().GetTagManager().GetTagsInRange(chars, GetOrigin(), 200, ETagCategory.NameTag))
@@ -128,8 +133,12 @@ modded class SCR_ChimeraCharacter
 				SP_RequestManagerComponent.GetCharOwnedTasks(chars.Get(i), tasks);
 				if (tasks.IsEmpty())
 					continue;
-				ref SP_Task mytask = tasks.GetRandomElement();
+				SP_Task mytask = tasks.GetRandomElement();
 				if (!mytask)
+					continue;
+				
+				SP_Task sample = SP_RequestManagerComponent.GetTaskSample(mytask.GetClassName());
+				if (!sample || !sample.m_bAssignable)
 					continue;
 				if (mytask.GetTarget() == this)
 					continue;
