@@ -252,12 +252,12 @@ class SP_Task
 		
 		
 		//Check if char can get more tasks. Should get obsolete once all tasks come from needs.
-		array<ref SP_Task> tasks = new array<ref SP_Task>();
+		/*array<ref SP_Task> tasks = new array<ref SP_Task>();
 		SP_RequestManagerComponent.GetCharOwnedTasks(m_eTaskOwner, tasks);
 		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
 		{
 			return false;
-		}
+		}*/
 		
 		//Check if char can get more tasks of same type. Should get obsolete once all tasks come from needs.
 		array<ref SP_Task> sametasks = {};

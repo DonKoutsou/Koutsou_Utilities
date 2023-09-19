@@ -166,12 +166,6 @@ class SP_RescueTask: SP_Task
 		if (dmg.IsDestroyed())
 			return false;
 		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		//Check if char can get more tasks
-		SP_RequestManagerComponent.GetCharOwnedTasks(m_eTaskOwner, tasks);
-		if(tasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksPerCharacter())
-		{
-			return false;
-		}
 		//Check if char can get more tasks of same type
 		array<ref SP_Task> sametasks = new array<ref SP_Task>();
 		SP_RequestManagerComponent.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());

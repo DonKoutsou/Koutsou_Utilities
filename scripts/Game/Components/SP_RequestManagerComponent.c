@@ -11,8 +11,8 @@ class SP_RequestManagerComponent : ScriptComponent
 	
 	protected int m_iMinTaskAmount;
 	
-	[Attribute(defvalue: "3", desc: "Max amount of tasks a character can be requesting at the same time")]
-	protected int m_fTaskPerCharacter;
+	//[Attribute(defvalue: "3", desc: "Max amount of tasks a character can be requesting at the same time")]
+	//protected int m_fTaskPerCharacter;
 	
 	[Attribute(defvalue: "2", desc: "Max amount of tasks of sametype a character can be requesting at the same time")]
 	protected int m_fTaskOfSameTypePerCharacter;
@@ -99,10 +99,10 @@ class SP_RequestManagerComponent : ScriptComponent
 			OnTaskFailed(task);
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	int GetTasksPerCharacter()
+	/*int GetTasksPerCharacter()
 	{
 		return m_fTaskPerCharacter;
-	}
+	}*/
 	//------------------------------------------------------------------------------------------------------------//
 	int GetTasksOfSameTypePerCharacter()
 	{
@@ -126,6 +126,16 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 		return null;
+	}
+	static array <SP_Task> GetActiveSamples()
+	{
+		array <SP_Task> ActiveTaskList = {};
+		for (int i; i < m_aTaskSamples.Count(); i++)
+		{
+			if (m_aTaskSamples[i].m_bEnabled)
+				ActiveTaskList.Insert(m_aTaskSamples[i]);
+		}
+		return ActiveTaskList;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Checks bool inside task
@@ -275,8 +285,6 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			return false;
 		}
-		if (!GetTaskSample(TaskType).m_bEnabled)
-			return false;
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		if(Task.Init())
@@ -663,7 +671,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			CreateDebug();
 		}
 		
-		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
+		/*m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)
@@ -672,12 +680,18 @@ class SP_RequestManagerComponent : ScriptComponent
 			CreateTask(Task);
 		}
 		else
-		{
+		{*/
 			m_fTaskRespawnTimer += timeSlice;
 			if(m_fTaskRespawnTimer > m_fTaskGenTime)
 			{
 				typename Task;
-				Task = m_aTaskSamples.GetRandomElement().GetClassName();
+				array <SP_Task> activetasks = GetActiveSamples();
+				if (!activetasks || activetasks.IsEmpty())
+				{
+					Print("None of the tasks samples have been marked as enabled");
+					return;
+				}
+				Task = activetasks.GetRandomElement().GetClassName();
 				if(CreateTask(Task))
 				{
 					m_fTaskRespawnTimer = 0;
@@ -687,7 +701,7 @@ class SP_RequestManagerComponent : ScriptComponent
 					m_fTaskRespawnTimer -= 1;
 				}
 			}
-		}
+		//}
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)

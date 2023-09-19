@@ -1306,6 +1306,7 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
    }
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
+   m_fTaskGenTime 3
    m_fTaskPerCharacter 3
    m_aTasksToSpawn {
     SP_DestroyTask "{5E352BDDCD3B6930}" {
