@@ -131,11 +131,11 @@ modded class SP_DialogueComponent
 		}
 		a_PLtexthistory.Insert("null");
 	}
-	string LookForLostGroups(IEntity Instigator, IEntity Player)
+	string LookForLostGroups(IEntity instigator, IEntity Player)
 	{
 		//look for lost groups
 		string Taskstring;
-		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(instigator.FindComponent(FactionAffiliationComponent));
 		array <ref SP_Task> tasks = new array <ref SP_Task> ();
 		SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_RescueTask);
 		if (tasks.IsEmpty())
@@ -157,14 +157,14 @@ modded class SP_DialogueComponent
 		}
 		return Taskstring;
 	}
-	string ComposeFriendlyTaskString(IEntity Instigator, IEntity Player)
+	string ComposeFriendlyTaskString(IEntity instigator, IEntity Player)
 	{
 		//look for task of friendly unit
 		string FriendlyTaskString;
 		ChimeraCharacter Friendly;
-		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(instigator.FindComponent(FactionAffiliationComponent));
 		CharacterHolder.GetUnitOfFaction(Affiliation.GetAffiliatedFaction(), Friendly);
-		if (Friendly == Instigator && Friendly == Player)
+		if (Friendly == instigator && Friendly == Player)
 			return FriendlyTaskString;
 		array <ref SP_Task> tasks = new array <ref SP_Task> ();
 		SP_RequestManagerComponent.GetCharOwnedTasks(Friendly, tasks);
@@ -173,10 +173,10 @@ modded class SP_DialogueComponent
 		FriendlyTaskString = "You arent looking for any work, are you?" + tasks.GetRandomElement().GetTaskDescription();
 		return FriendlyTaskString;
 	}
-	string ComposeFriendlyBountyString(IEntity Instigator, IEntity Player)
+	string ComposeFriendlyBountyString(IEntity instigator, IEntity Player)
 	{
 		string FriendlyBountyString;
-		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(instigator.FindComponent(FactionAffiliationComponent));
 		array <ref SP_Task> tasks = new array <ref SP_Task> ();
 		SP_RequestManagerComponent.GetTasksOfSameType(tasks, SP_BountyTask);
 		if (tasks.IsEmpty())
@@ -184,7 +184,7 @@ modded class SP_DialogueComponent
 		foreach (SP_Task task : tasks)
 		{
 			IEntity target = task.GetTarget();
-			if (target == Instigator)
+			if (target == instigator)
 			break;
 			FactionAffiliationComponent targetaffiliation = FactionAffiliationComponent.Cast(target.FindComponent(FactionAffiliationComponent));
 			if (targetaffiliation.GetAffiliatedFaction() != Affiliation.GetAffiliatedFaction())
@@ -194,12 +194,12 @@ modded class SP_DialogueComponent
 		}
 		return FriendlyBountyString;
 	}
-	string ComposeEnemyWarningString(IEntity Instigator, IEntity Player)
+	string ComposeEnemyWarningString(IEntity instigator, IEntity Player)
 	{
 		//look for enemy units and report location
 		string WarningString;
 		SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(instigator.FindComponent(FactionAffiliationComponent));
 		ChimeraCharacter Enemy;
 		array <Faction> enemFactions = new array <Faction>();
 		factman.GetEnemyFactions(Affiliation.GetAffiliatedFaction(), enemFactions);
@@ -211,10 +211,10 @@ modded class SP_DialogueComponent
 		WarningString = string.Format("We have reports of %1 units in %2. Take care if you are thinking of heading that direction", enemFaction.GetFactionKey(), GetCharacterLocation(Enemy));
 		return WarningString;
 	}
-	string ComposeDeadFriendlyString(IEntity Instigator, IEntity Player)
+	string ComposeDeadFriendlyString(IEntity instigator, IEntity Player)
 	{
 		string DeadFriendlyString;
-		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(Instigator.FindComponent(FactionAffiliationComponent));
+		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(instigator.FindComponent(FactionAffiliationComponent));
 		ChimeraCharacter deadchar = CharacterHolder.GetRandomDeadOfFaction(Affiliation.GetAffiliatedFaction());
 		if (deadchar)
 		{
