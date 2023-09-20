@@ -518,11 +518,9 @@ class SP_AIDirector : SCR_AIGroup
 					IEntity entity = slot.GetOwner();
 					if (!m_FactionsToApear.IsEmpty())
 						slot.SetFactionKey(m_FactionsToApear.GetRandomElement());
-					slot.m_eEntityCatalogType = m_eEntityCatalogType;
-					slot.m_aIncludedEditableEntityLabels.Clear();
-					slot.m_aIncludedEditableEntityLabels.Copy(m_aIncludedEditableEntityLabels);
-					slot.m_aExcludedEditableEntityLabels.Clear();
-					slot.m_aExcludedEditableEntityLabels.Copy(m_aExcludedEditableEntityLabels);
+					slot.SetEntityCatalogueType(m_eEntityCatalogType);
+					slot.ClearEntityLabels();
+					slot.SetEntityLabels(m_aIncludedEditableEntityLabels, m_aExcludedEditableEntityLabels);
 					//if (!m_aQueriedSentinels.IsEmpty())
 						//entity.SetOrigin(m_aQueriedSentinels.GetRandomElement().GetOrigin());
 					slot.SelectRandomSlot();
