@@ -106,7 +106,12 @@ modded class SP_DialogueComponent
 				}
 			}
 		}
-		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
+		ChimeraWorld world = Player.GetWorld();
+		if (!world)
+			return;
+		TimeAndWeatherManagerEntity TnWman = world.GetTimeAndWeatherManager();
+		if (!TnWman)
+			return;
 		string Plname = SP_DialogueComponent.GetCharacterSurname(Player);
 		string Plrank = SP_DialogueComponent.GetCharacterRankNameFull(Player);
 		if (TnWman.GetTimeOfTheDay() > 4.0 && TnWman.GetTimeOfTheDay() < 12.0)
@@ -425,7 +430,8 @@ modded class SP_DialogueComponent
 	}
 	string ComposeWeatherComment(IEntity talker)
 	{
-		TimeAndWeatherManagerEntity TnWman = GetGame().GetTimeAndWeatherManager();
+		ChimeraWorld world = talker.GetWorld();
+		TimeAndWeatherManagerEntity TnWman = world.GetTimeAndWeatherManager();
 		string weathercomment;
 		int index = Math.RandomInt(0,3);
 		ref LocalWeatherSituation Weather = new LocalWeatherSituation();

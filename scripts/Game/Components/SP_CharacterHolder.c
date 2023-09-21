@@ -33,7 +33,7 @@ class CharacterHolder : ScriptAndConfig
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//When a new character is spawned check if he is not "special" kekw, and if not inster him in alive array
-	private event void OnNewCharacter(IEntity Char)
+	event void OnNewCharacter(IEntity Char)
 	{
 		SCR_ChimeraCharacter ChimeraChar = SCR_ChimeraCharacter.Cast(Char);
 		if (!ChimeraChar)
@@ -46,7 +46,7 @@ class CharacterHolder : ScriptAndConfig
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//When a character dies make sure to remove him from alive array and put him in dead
-	private event void OnCharacterDeath(IEntity Char)
+	event void OnCharacterDeath(IEntity Char)
 	{
 		ChimeraCharacter ChimeraChar = ChimeraCharacter.Cast(Char);
 		if (!ChimeraChar)
@@ -56,7 +56,7 @@ class CharacterHolder : ScriptAndConfig
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//when a character is deleted make sure to remove him of any arrays he might still be in
-	private event void OnCharacterDeleted(IEntity Char)
+	event void OnCharacterDeleted(IEntity Char)
 	{
 		ChimeraCharacter ChimeraChar = ChimeraCharacter.Cast(Char);
 		if (!ChimeraChar)

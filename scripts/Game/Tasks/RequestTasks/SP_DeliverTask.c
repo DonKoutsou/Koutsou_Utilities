@@ -119,7 +119,7 @@ class SP_DeliverTask: SP_Task
 		
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
-		if (m_bHasReward)
+		if (m_bHasReward && a_Rewards.Get(0))
 		{
 			string s_RewardName = FilePath.StripPath(a_Rewards.Get(0).GetPrefabData().GetPrefabName());
 			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
@@ -136,12 +136,16 @@ class SP_DeliverTask: SP_Task
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
 		if (!m_ePackage)
 			CancelTask();
-		SP_PackageComponent PackageComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
-		
-		if (PackageComp)
+		if (m_ePackage)
 		{
-			PackageComp.SetInfo(OName, DName, DLoc);
+			SP_PackageComponent PackageComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
+		
+			if (PackageComp)
+			{
+				PackageComp.SetInfo(OName, DName, DLoc);
+			}
 		}
+		
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task

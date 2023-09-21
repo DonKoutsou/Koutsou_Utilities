@@ -42,7 +42,7 @@ class SCR_ConsumableEffectHealthItems : SCR_ConsumableEffectBase
  	 	if (itemComp)
  	 		itemComp.RequestUserLock(user, false);
 		SCR_CharacterDamageManagerComponent damageMgr = SCR_CharacterDamageManagerComponent.Cast(target.FindComponent(SCR_CharacterDamageManagerComponent));
-		damageMgr.SetInstigator(item.GetParent());
+		damageMgr.SetInstigator(Instigator.CreateInstigator(item.GetParent()));
 	}
 	
 	//------------------------------------------------------------------------------------------------

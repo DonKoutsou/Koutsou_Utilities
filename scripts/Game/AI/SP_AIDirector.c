@@ -520,11 +520,13 @@ class SP_AIDirector : SCR_AIGroup
 						slot.SetFactionKey(m_FactionsToApear.GetRandomElement());
 					slot.SetEntityCatalogueType(m_eEntityCatalogType);
 					slot.ClearEntityLabels();
+					slot.ClearPrefabtoSpawn();
+					slot.ClearRandomPrefab();
 					slot.SetEntityLabels(m_aIncludedEditableEntityLabels, m_aExcludedEditableEntityLabels);
 					//if (!m_aQueriedSentinels.IsEmpty())
 						//entity.SetOrigin(m_aQueriedSentinels.GetRandomElement().GetOrigin());
 					slot.SelectRandomSlot();
-					slot.SpawnAsset();
+					slot.SetSpawnedEnt(slot.SpawnAsset());
 					slot.InitEnt();
 					slot.SetWPGroup();
 					OnSpawn(slot.GetSpawnedEntity());
@@ -535,7 +537,7 @@ class SP_AIDirector : SCR_AIGroup
 				}	
 			}
 		}
-		super.EOnFrame(owner, timeSlice);
+		//super.EOnFrame(owner, timeSlice);
 	}
 	bool Spawn()
 	{	
@@ -814,7 +816,6 @@ class SP_AIDirector : SCR_AIGroup
 					SCR_TerrainHelper.SnapAndOrientToTerrain(spawnpos, GetGame().GetWorld());
 				PrefabspawnParams.Transform = spawnpos;
 				IEntity Entity = GetGame().SpawnEntityPrefab(prefabtospawn, GetGame().GetWorld(), PrefabspawnParams);
-				GetGame().GetGarbageManager().Withdraw(Entity);
 			}
 			m_aQueriedPrefabSpawnP.RemoveItem(Pspawn);
 			delete Pspawn;

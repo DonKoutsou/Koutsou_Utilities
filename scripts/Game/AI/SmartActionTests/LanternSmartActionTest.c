@@ -3,10 +3,12 @@ class LanternSmartActionTest : SmartActionTest
 	override bool TestAction(IEntity Owner, IEntity User)
 	{
 		bool LightShouldBe;
-		float currenttime = GetGame().GetTimeAndWeatherManager().GetTime().ToTimeOfTheDay();
+		ChimeraWorld world = Owner.GetWorld();
+		TimeAndWeatherManagerEntity TnMmanager = world.GetTimeAndWeatherManager();
+		float currenttime = TnMmanager.GetTime().ToTimeOfTheDay();
 		float Sunset, Sunrise;
-		GetGame().GetTimeAndWeatherManager().GetSunsetHour(Sunset);
-		GetGame().GetTimeAndWeatherManager().GetSunriseHour(Sunrise);
+		TnMmanager.GetSunsetHour(Sunset);
+		TnMmanager.GetSunriseHour(Sunrise);
 		if (Sunset < currenttime || Sunrise > currenttime)
 			LightShouldBe = true;
 		

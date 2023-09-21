@@ -337,7 +337,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		typename TaskType = SP_RetrieveTask;
 		if (!GetTaskSample(TaskType))
 			return false;
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
 		SP_RetrieveTask Task = SP_RetrieveTask.Cast(TaskType.Spawn());
 		
 		Task.m_eTaskOwner = Owner;

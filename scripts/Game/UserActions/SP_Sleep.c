@@ -4,7 +4,8 @@ class SP_SleepAction : ScriptedUserAction
 	float m_Sleepamount;
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		TimeAndWeatherManagerEntity TnWManager = GetGame().GetTimeAndWeatherManager();
+		ChimeraWorld world = pOwnerEntity.GetWorld();
+		TimeAndWeatherManagerEntity TnWManager = world.GetTimeAndWeatherManager();
 		int TimeToWakeUP = TnWManager.GetTime().m_iHours + m_Sleepamount;
 		int DayToWakeUp = TnWManager.GetDay();
 		if(TimeToWakeUP > 24)

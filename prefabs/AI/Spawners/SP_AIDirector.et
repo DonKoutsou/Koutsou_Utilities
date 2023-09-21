@@ -1,6 +1,8 @@
 SP_AIDirector {
  ID "5D3AE1C46DB8E548"
  components {
+  AIFormationComponent "{5E68F2ED68EA4992}" {
+  }
   SCR_EditableCommentComponent "{5D3D4C14530572B1}" {
    m_EntityType COMMENT
    m_UIInfo SCR_BlockUIInfo "{5D3D4C145CE44991}" {

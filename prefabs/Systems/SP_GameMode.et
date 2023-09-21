@@ -94,11 +94,7 @@ SP_GameMode {
   }
   SCR_SpawnerAIGroupManagerComponent "{5DEAF6D7C9F77D88}" {
   }
-  SCR_TimeAndWeatherHandlerComponent "{5DC8E7DF962CC37D}" {
-   m_iStartingHours 5
-   m_iStartingMinutes 30
-   m_bRandomStartingDaytime 1
-   m_bRandomStartingWeather 1
+  SCR_SupportStationManagerComponent "{5E6A7958A7084609}" {
   }
   SCR_VotingManagerComponent "{5E112C4A070FAD30}" {
    m_aVotingTemplates {
@@ -130,7 +126,6 @@ SP_GameMode {
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 300
-   m_fTaskPerCharacter 1
    m_fTaskOfSameTypePerCharacter 1
   }
   RplComponent "{5DC8E7DFE3D28994}" {
@@ -162,8 +157,6 @@ SP_GameMode {
     }
     SCR_Faction "{5E2D07F617C45CD4}" : "{09727032415AC39B}Configs/Factions/USSR.conf" {
     }
-    SCR_Faction "{5E2D07F6194A30ED}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
-    }
    }
    m_bCanChangeFactionsPlayable 0
   }
@@ -175,14 +168,6 @@ SP_GameMode {
    ID "5DC8E7DF1BAF4558"
    coords 494.886 -100.712 -531.978
    m_bIsUnlimitedEditorLegal 1
-  }
-  SCR_GarbageManager {
-   ID "5DC8E7DF1BAF39E0"
-   coords 493.03 -101.072 -532.048
-   CharacterLifetime 985.071
-   VehicleLifetime 1040.252
-   ItemLifetime 599.863
-   m_bOnlyDestroyed 1
   }
   SCR_LoadoutManager {
    ID "5DC8E7DF1BA0C1B0"

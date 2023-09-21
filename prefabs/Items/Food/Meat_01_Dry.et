@@ -26,6 +26,8 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
      SCR_ItemOfInterestAttribute "{5E18850BF70ACFFF}" {
       m_InterestType FOOD
      }
+     PreviewRenderAttributes "{5E690E2E12159E24}" {
+     }
      CharacterModifierAttributes "{5E18850BFBDACE51}" {
       SpeedLimit 4
       ADSSpeedLimit 4
@@ -42,8 +44,6 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
   }
   MeshObject "{74D3E741994A4A00}" {
    Object "{6073CC0058821B73}Assets/Items/Food/Meat_01_Dry.xob"
-  }
-  Hierarchy "{5D88A7E74959BDEE}" {
   }
   RigidBody "{74D3E7414740ED9A}" {
    Mass 5

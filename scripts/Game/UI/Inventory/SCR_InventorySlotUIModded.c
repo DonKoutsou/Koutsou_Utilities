@@ -12,7 +12,8 @@ modded class SCR_InventorySlotUI
 			if( bVisible )
 			{
 				m_wPreviewImage = RenderTargetWidget.Cast( m_widget.FindAnyWidget( "item" ) );
-				ItemPreviewManagerEntity manager = GetGame().GetItemPreviewManager();
+				ChimeraWorld world = GetGame().GetWorld();
+				ItemPreviewManagerEntity manager = world.GetItemPreviewManager();
 				if (manager)
 				{
 					ItemPreviewWidget renderPreview = ItemPreviewWidget.Cast( m_wPreviewImage );

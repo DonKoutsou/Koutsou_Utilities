@@ -35,7 +35,7 @@ class SP_KillTask: SP_Task
 			m_TaskMarker.Finish(true);
 			Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
 			EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(dmgman.GetInstigator().FindComponent(FactionAffiliationComponent));
+			FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(dmgman.GetInstigator().GetInstigatorEntity().FindComponent(FactionAffiliationComponent));
 			m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 			m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 			m_TaskMarker.SetTitle("Return");

@@ -13,6 +13,14 @@ modded class SCR_ScenarioFrameworkSlotAI
 		m_aIncludedEditableEntityLabels.Clear();
 		m_aExcludedEditableEntityLabels.Clear();
 	}
+	void ClearPrefabtoSpawn()
+	{
+		m_sObjectToSpawn = STRING_EMPTY;
+	}
+	void ClearRandomPrefab()
+	{
+		m_sRandomlySpawnedObject = STRING_EMPTY;
+	}
 	void SetEntityLabels(array<EEditableEntityLabel> Included, array<EEditableEntityLabel> Excluded)
 	{
 		m_aIncludedEditableEntityLabels.Copy(Included);
@@ -43,19 +51,15 @@ modded class SCR_ScenarioFrameworkSlotAI
 		if (!m_aWaypointGroupNames.IsEmpty())
 		{
 			//Select random layer which holds the waypoints (defined in the layer setting)
+		for (int i; i < m_aWaypointGroupNames.Count(); i++)
+		{
 			Math.Randomize(-1);
-			SCR_WaypointSet wrapper = m_aWaypointGroupNames.GetRandomElement();
+			SCR_WaypointSet wrapper = m_aWaypointGroupNames.Get(i);
 			IEntity entity = GetGame().GetWorld().FindEntityByName(wrapper.m_sName);
 			if (entity)
 			{
 				SCR_ScenarioFrameworkLayerBase waypointLayer = SCR_ScenarioFrameworkLayerBase.Cast(entity.FindComponent(SCR_ScenarioFrameworkLayerBase));
 				if (waypointLayer)
-				 
-	 
-													  
-																		
-	 
-		
 				{
 					SCR_ScenarioFrameworkSlotBase waypointSlot = SCR_ScenarioFrameworkSlotBase.Cast(waypointLayer);
 					if (waypointSlot)
@@ -91,6 +95,7 @@ modded class SCR_ScenarioFrameworkSlotAI
 															 
 						
 			}
+		}
 		}
 		else
 		{

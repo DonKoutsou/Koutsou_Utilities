@@ -24,7 +24,7 @@ class SP_RescueTask: SP_Task
 	{
 		if (dType != EDamageType.BLEEDING)
 			return;
-		IEntity Instigator;
+		IEntity instigator;
 		foreach (IEntity Rescued : m_aCharsToRescue)
 		{
 			SCR_CharacterDamageManagerComponent dmg = SCR_CharacterDamageManagerComponent.Cast(Rescued.FindComponent(SCR_CharacterDamageManagerComponent));
@@ -33,7 +33,7 @@ class SP_RescueTask: SP_Task
 			if(blhitZones.IsEmpty())
 			{
 				if (dmg.GetInstigator())
-					Instigator = dmg.GetInstigator();
+					instigator = dmg.GetInstigator().GetInstigatorEntity();
 				dmg.SetResilienceRegenScale(0.3);
 				dmg.FullHeal(false);
 				dmg.GetOnDamageOverTimeRemoved().Remove(OnCharacterRescued);
@@ -45,14 +45,14 @@ class SP_RescueTask: SP_Task
 		for (int i = m_aRescued.Count() - 1; i >= 0; --i)
 		{
 			m_aCharsToRescue.RemoveItem(m_aRescued[i]);
-			if (Instigator && Instigator == SCR_EntityHelper.GetPlayer())
+			if (instigator && instigator == SCR_EntityHelper.GetPlayer())
 				SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("Units rescued : %1\nUnits died : %2\nRemaining : %3", m_aRescued.Count(), m_aDeceased.Count(), m_aCharsToRescue.Count()));
 			
 		}
 		if (m_aCharsToRescue.IsEmpty())
 		{
-			if (Instigator)
-				EvaluateAndFinish(Instigator);
+			if (instigator)
+				EvaluateAndFinish(instigator);
 			else
 				EvaluateAndFinish(SCR_EntityHelper.GetPlayer());
 		}
@@ -61,7 +61,7 @@ class SP_RescueTask: SP_Task
 			if (m_TaskMarker)
 				m_TaskMarker.SetOrigin(m_aCharsToRescue.GetRandomElement().GetOrigin());
 			else
-				AssignCharacter(Instigator);
+				AssignCharacter(instigator);
 		}
 	}
 	void OnCharacterKilled(EDamageState state)
@@ -300,10 +300,10 @@ class SP_RescueTask: SP_Task
 	}
 	private bool CheckForCharacters(float radius, vector origin)
 	{
-		BaseWorld world = GetGame().GetWorld();
+		ChimeraWorld world = GetGame().GetWorld();
 		FactionAffiliationComponent Myaffiliation = FactionAffiliationComponent.Cast(m_aCharsToRescue[0].FindComponent(FactionAffiliationComponent));
 		array<IEntity> entities = {};
-		GetGame().GetTagManager().GetTagsInRange(entities, origin, radius, ETagCategory.NameTag);
+		world.GetTagManager().GetTagsInRange(entities, origin, radius, ETagCategory.NameTag);
 		foreach (IEntity Char : entities)
 		{
 			if (m_aCharsToRescue.Contains(Char))

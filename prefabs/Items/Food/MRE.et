@@ -39,8 +39,6 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
     m_SlotType SLOT_VEST
    }
   }
-  Hierarchy "{5D88A7E771D1777A}" {
-  }
   SCR_ConsumableItemComponent "{5D3307D08E595F1C}" {
    m_eAnimVariable ADRIANOV
    m_ConsumableEffect SP_ConsumableEffectEat "{5D830E0F81411835}" {

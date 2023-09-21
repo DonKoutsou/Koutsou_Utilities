@@ -26,7 +26,7 @@ class SCR_ScenarioFrameworkPluginDefWaypoint: SCR_ScenarioFrameworkPlugin
 	float m_fRadius;
 	
 	[Attribute()]
-	SCR_DefendWaypointPreset defpreset;
+	ref SCR_DefendWaypointPreset defpreset;
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
 	{
 		if (!object)

@@ -13,6 +13,11 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
     coords 2.42 0.095 0.15
    }
    {
+    ID "5C7315DAF4555477"
+    coords -0.548 0.084 -1.357
+    angleY -180
+   }
+   {
     ID "5C7315DAF45584DC"
     components {
      MeshObject "{5B22A231824DEE3B}" {
@@ -35,8 +40,6 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
    {
     ID "5C7315DAF455BD8D"
     components {
-     Hierarchy "{5B248C394F98BF78}" {
-     }
      ActionsManagerComponent "{5B248C39E8D76353}" {
       ActionContexts {
        UserActionContext "{5B248C39EC5DE202}" {
@@ -63,6 +66,8 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
       }
      }
      RplComponent "{5B248C394AE0F125}" {
+     }
+     Hierarchy "{5B248C394F98BF78}" {
      }
     }
     coords 0.817 1.013 1.355
@@ -124,11 +129,6 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
    coords 1.788 1.032 1.493
    angleY 20.707
   }
-  GenericEntity : "{11B99AAA62B2AC4A}prefabs/Props/Furniture/Chest_Storage.et" {
-   ID "5C7315DAF4555477"
-   coords -0.548 0.084 -1.357
-   angleY -180
-  }
   GenericEntity : "{13891AA1F5833C4A}Prefabs/Props/Civilian/Notebook_01_Double.et" {
    ID "5C7315DAF4555471"
    coords 1.835 0.995 1.467
@@ -138,7 +138,7 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
    ID "5C7315DAF4555473"
    coords -3.554 -0.001 -1.588
   }
-  $grp GenericEntity : "{261F10BDC068BB35}prefabs/Props/Furniture/ChairOld_01.et" {
+  $grp GenericEntity : "{261F10BDC068BB35}Prefabs/Props/Furniture/ChairOld_01.et" {
    {
     ID "5C7315DAF45513FC"
     coords -2.035 0 -3.265
@@ -150,7 +150,7 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
     angleY 60.856
    }
   }
-  GenericEntity : "{2F2BBFDA3A2C73D4}prefabs/Props/Civilian/RadioSmall_01_black.et" {
+  GenericEntity : "{2F2BBFDA3A2C73D4}prefabs/Props/RadioSmall_01_black.et" {
    ID "5C7315DAF45513FE"
    coords 2.276 0.424 0.652
    angleY -124.557
@@ -162,10 +162,6 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
   }
   GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
    ID "5C7315DAF4551381"
-   components {
-    SCR_BaseInteractiveLightComponent "{5876E7CF88610C12}" {
-    }
-   }
    coords 0.24 0.098 -1.623
   }
   $grp GenericEntity : "{894A1AFDCB71CD0D}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_02.et" {
@@ -195,8 +191,6 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
    components {
     ActionsManagerComponent "{5B22A239E459334E}" {
      Enabled 0
-    }
-    RplComponent "{5624A88DC2D9928D}" {
     }
    }
    coords -2.101 -0.139 -0.587
@@ -324,11 +318,6 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
   GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
    ID "5C7315DAF456BF5F"
    coords -1.453 -0.002 -4.478
-  }
-  GenericEntity "FIA_TradingStation.et2" : "{DA4353EEE7006DD8}prefabs/Trading_Items/FIA_TradingStation.et" {
-   ID "5C7315DAF456BF5C"
-   coords -0.547 0.092 0.509
-   angleY -90
   }
   GenericEntity : "{E56F1B739B9792C4}Prefabs/Props/Civilian/Ashtray_01_Full_green.et" {
    ID "5C7315DAF456BF44"

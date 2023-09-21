@@ -45,7 +45,8 @@ class TaskDayTimeInfo
 	}
 	static TaskDayTimeInfo FromTimeOfTheDay()
 	{
-		TimeAndWeatherManagerEntity timenw = GetGame().GetTimeAndWeatherManager();
+		ChimeraWorld world = GetGame().GetWorld();
+		TimeAndWeatherManagerEntity timenw = world.GetTimeAndWeatherManager();
 		float Time = timenw.GetTime().ToTimeOfTheDay();
 		int Day, Month, Year;
 		timenw.GetDate(Year, Month, Day);
@@ -53,7 +54,8 @@ class TaskDayTimeInfo
 	}
 	static TaskDayTimeInfo FromPointInFuture(int Ammount, ETaskTimeLimmit TimeLimmit)
 	{
-		TimeAndWeatherManagerEntity timenw = GetGame().GetTimeAndWeatherManager();
+		ChimeraWorld world = GetGame().GetWorld();
+		TimeAndWeatherManagerEntity timenw = world.GetTimeAndWeatherManager();
 		float Time = timenw.GetTime().ToTimeOfTheDay();
 		int Day, Month, Year;
 		timenw.GetDate(Year, Month, Day);

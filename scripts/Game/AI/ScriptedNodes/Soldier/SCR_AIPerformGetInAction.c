@@ -77,7 +77,7 @@ class SCR_AIPerformLightAction : AITaskScripted
 					if (userActionString == "SP_BuyStuff")
 						controller.TryPlayItemGesture(EItemGesture.EItemGesturePickUp);
 					else
-						controller.TryStartCharacterGesture(ECharacterGestures.POINT_WITH_FINGER, 1000);
+						controller.TryStartCharacterGesture(ECharacterGestures.POINT_WITH_FINGER, 2000);
 					
 					return ENodeResult.SUCCESS;
 				}

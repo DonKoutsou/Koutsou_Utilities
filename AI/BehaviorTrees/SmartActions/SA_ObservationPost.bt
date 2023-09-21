@@ -549,151 +549,58 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                Nodes {
                 Sequence Sequence {
                  Name "Sequence"
-                 EditorPos -326.209 602.723
+                 EditorPos -305.59 606.746
                  Nodes {
-                  DecoTestVariable "Test Variable" {
-                   Name "Test Variable"
-                   EditorPos -592.257 741.805
-                   Nodes {
-                    Switch Switch {
-                     Name "Switch"
-                     EditorPos -676.709 953.64
-                     Nodes {
-                      DecoTestVariable "Test Variable" {
-                       Name "Test Variable"
-                       EditorPos -878.746 1114.938
-                       Nodes {
-                        Sequence Sequence {
-                         Name "Sequence"
-                         EditorPos -826.152 1333.495
-                         Nodes {
-                          SCR_AIEquipRightHandItem "SCR_AI Equip Right Hand Item" {
-                           Name "SCR_AI Equip Right Hand Item"
-                           EditorPos -1036.166 1514.159
-                           InPorts {
-                            SingleInputPortContainer SingleInputPortContainer {
-                             Port -1
-                             PortName "ItemType"
-                            }
-                            SingleInputPortContainer SingleInputPortContainer {
-                             Port -1
-                             PortName "GadgetType"
-                            }
-                           }
-                           m_eGadgetType BINOCULARS
-                          }
-                          AITaskSetVariable "Set Variable" {
-                           Name "Set Variable"
-                           EditorPos -775.292 1529.472
-                           SetValue "true"
-                           OutVariable 18
-                          }
-                         }
-                        }
-                       }
-                       NegativeCondition 1
-                       UseChildResult 1
-                       ForceNodeResult Success
-                       InVariable 18
-                       TestType EqualsValue
-                       TestValue "true"
-                      }
-                      DecoTestVariable "Test Variable" {
-                       Name "Test Variable"
-                       EditorPos -503.429 1130.552
-                       Nodes {
-                        Sequence Sequence {
-                         Name "Sequence"
-                         EditorPos -451.152 1316.495
-                         Nodes {
-                          SCR_AIUnEquipItems "SCR_AI Un Equip Items" {
-                           Name "SCR_AI Un Equip Items"
-                           EditorPos -573.264 1545.722
-                           m_bKeepRunningUntilAborted 0
-                          }
-                          AITaskSetVariable "Set Variable" {
-                           Name "Set Variable"
-                           EditorPos -237.542 1534.722
-                           SetValue "false"
-                           OutVariable 22
-                          }
-                         }
-                        }
-                       }
-                       UseChildResult 1
-                       ForceNodeResult Success
-                       InVariable 22
-                       TestType EqualsValue
-                       TestValue "true"
-                      }
-                     }
-                     RandomRange {
-                      1 5
-                     }
+                  SCR_AIGetRandomPointInCircularSector "SCR_AI Get Random Point In Circular Sector" {
+                   Name "SCR_AI Get Random Point In Circular Sector"
+                   EditorPos 174.554 1124.834
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "OriginEntity"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 0
+                     PortName "SectorAxisPoint"
+                    }
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 9
+                     PortName "AngularRange"
                     }
                    }
-                   UseChildResult 1
-                   ForceNodeResult Success
-                   InVariable 16
-                   TestType EqualsValue
-                   TestValue "true"
+                   OutPorts {
+                    SingleOutputPortContainer SingleOutputPortContainer {
+                     Port 1
+                     PortName "PositionOut"
+                    }
+                   }
                   }
-                  Sequence Sequence {
-                   Name "Sequence"
-                   EditorPos -175.59 743.413
-                   Nodes {
-                    SCR_AIGetRandomPointInCircularSector "SCR_AI Get Random Point In Circular Sector" {
-                     Name "SCR_AI Get Random Point In Circular Sector"
-                     EditorPos 174.554 1124.834
-                     InPorts {
-                      SingleInputPortContainer SingleInputPortContainer {
-                       Port -1
-                       PortName "OriginEntity"
-                      }
-                      SingleInputPortContainer SingleInputPortContainer {
-                       Port 0
-                       PortName "SectorAxisPoint"
-                      }
-                      SingleInputPortContainer SingleInputPortContainer {
-                       Port 9
-                       PortName "AngularRange"
-                      }
-                     }
-                     OutPorts {
-                      SingleOutputPortContainer SingleOutputPortContainer {
-                       Port 1
-                       PortName "PositionOut"
-                      }
-                     }
+                  SCR_AILookAtPosition "SCR_AI Look At Position" {
+                   Name "SCR_AI Look At Position"
+                   EditorPos 898.625 1106.985
+                   InPorts {
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port 1
+                     PortName "PositionIn"
                     }
-                    SCR_AILookAtPosition "SCR_AI Look At Position" {
-                     Name "SCR_AI Look At Position"
-                     EditorPos 898.625 1106.985
-                     InPorts {
-                      SingleInputPortContainer SingleInputPortContainer {
-                       Port 1
-                       PortName "PositionIn"
-                      }
-                      SingleInputPortContainer SingleInputPortContainer {
-                       Port -1
-                       PortName "PriorityIn"
-                      }
-                     }
-                     OutPorts {
-                      SingleOutputPortContainer SingleOutputPortContainer {
-                       Port -1
-                       PortName "PositionOut"
-                      }
-                     }
-                     m_fPriority 80
-                    }
-                    AITaskIdle Idle {
-                     Name "Idle"
-                     EditorPos 1176.109 1123.757
-                     Period 2
-                     PeriodRandom 3
+                    SingleInputPortContainer SingleInputPortContainer {
+                     Port -1
+                     PortName "PriorityIn"
                     }
                    }
+                   OutPorts {
+                    SingleOutputPortContainer SingleOutputPortContainer {
+                     Port -1
+                     PortName "PositionOut"
+                    }
+                   }
+                   m_fPriority 80
+                  }
+                  AITaskIdle Idle {
+                   Name "Idle"
+                   EditorPos 1176.109 1123.757
+                   Period 2
+                   PeriodRandom 3
                   }
                  }
                 }
@@ -749,6 +656,84 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
        }
       }
      }
+    }
+   }
+  }
+  Sequence Sequence {
+   Name "Sequence"
+   EditorPos -442.876 629.39
+   Nodes {
+    DecoTestVariable "Test Variable" {
+     Name "Test Variable"
+     EditorPos -592.257 741.805
+     Nodes {
+      Switch Switch {
+       Name "Switch"
+       EditorPos -676.709 953.64
+       Nodes {
+        DecoTestVariable "Test Variable" {
+         Name "Test Variable"
+         EditorPos -878.746 1114.938
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos -826.152 1333.495
+           Nodes {
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos -775.292 1529.472
+             SetValue "true"
+             OutVariable 18
+            }
+           }
+          }
+         }
+         NegativeCondition 1
+         UseChildResult 1
+         ForceNodeResult Success
+         InVariable 18
+         TestType EqualsValue
+         TestValue "true"
+        }
+        DecoTestVariable "Test Variable" {
+         Name "Test Variable"
+         EditorPos -503.429 1130.552
+         Nodes {
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos -451.152 1316.495
+           Nodes {
+            SCR_AIUnEquipItems "SCR_AI Un Equip Items" {
+             Name "SCR_AI Un Equip Items"
+             EditorPos -573.264 1545.722
+             m_bKeepRunningUntilAborted 0
+            }
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos -237.542 1534.722
+             SetValue "false"
+             OutVariable 22
+            }
+           }
+          }
+         }
+         UseChildResult 1
+         ForceNodeResult Success
+         InVariable 22
+         TestType EqualsValue
+         TestValue "true"
+        }
+       }
+       RandomRange {
+        1 5
+       }
+      }
+     }
+     UseChildResult 1
+     ForceNodeResult Success
+     InVariable 16
+     TestType EqualsValue
+     TestValue "true"
     }
    }
   }

@@ -84,7 +84,7 @@ class SP_BountyTask: SP_Task
 		string OLoc;
 		GetInfo(OName, DName, OLoc, DLoc);
 		m_sTaskDesc = string.Format("%1 has put a bounty on %2's head. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
-		if (m_bHasReward)
+		if (m_bHasReward && a_Rewards.Get(0))
 		{
 			string s_RewardName = FilePath.StripPath(a_Rewards.Get(0).GetPrefabData().GetPrefabName());
 			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
@@ -587,7 +587,7 @@ class SCR_AIPerformCompleteMurderAction : AITaskScripted
 			
 			//SCR_MeleeComponent MeleeComp =  SCR_MeleeComponent.Cast(controlledEntity.FindComponent(SCR_MeleeComponent));
 			ScriptedDamageManagerComponent dmg = ScriptedDamageManagerComponent.Cast(targetEntity.FindComponent(ScriptedDamageManagerComponent));
-			dmg.Kill(controlledEntity);
+			dmg.Kill(Instigator.CreateInstigator(controlledEntity));
 			//MeleeComp.PerformAttack();
 			//MeleeComp.SetMeleeAttackStarted(true);
 			return ENodeResult.SUCCESS;

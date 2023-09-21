@@ -94,4 +94,41 @@ class SCR_AILookAtEntity: AITaskScripted
 		return "Look at position setter for execution inside tree LookAction.bt, the position may be corrected by terrain";
 	}
 };
+class SCR_AISaluteEachother: AITaskScripted
+{
+
+	protected static const string ENTITY_PORT = "EntityIn";
+	
+	//-----------------------------------------------------------------------------------------------
+	override bool VisibleInPalette() {return true;}
+	
+	//-----------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		ENTITY_PORT
+	};
+	override array<string> GetVariablesIn()
+	{
+		return s_aVarsIn;
+	}
+	
+	//-----------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		ChimeraCharacter Chimera = ChimeraCharacter.Cast(owner.GetControlledEntity());
+		CharacterControllerComponent Controller = Chimera.GetCharacterController();
+		
+		IEntity ent;
+		
+		if (!GetVariableIn(ENTITY_PORT,ent))
+			return ENodeResult.FAIL;
+		
+		ChimeraCharacter DChimera = ChimeraCharacter.Cast(ent);
+		CharacterControllerComponent DController = DChimera.GetCharacterController();
+		
+		Controller.TryStartCharacterGesture(15, 2000);
+		DController.TryStartCharacterGesture(15, 2000);
+		
+		return ENodeResult.SUCCESS;
+    }
+}
 

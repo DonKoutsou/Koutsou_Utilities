@@ -57,7 +57,7 @@ modded class SCR_AIGroup
 		if (editMode)
 			m_aSceneGroupUnitInstances.Insert(member);
 		
-		AddAIEntityToGroup(member,index+1);
+		AddAIEntityToGroup(member);
 		FactionAffiliationComponent factionAffiliation = FactionAffiliationComponent.Cast(member.FindComponent(FactionAffiliationComponent));
 		
 		if (factionAffiliation)

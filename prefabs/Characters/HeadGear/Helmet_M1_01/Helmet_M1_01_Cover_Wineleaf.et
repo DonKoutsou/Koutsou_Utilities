@@ -3,7 +3,7 @@ GameEntity : "{40A02836B851AD5C}Prefabs/Characters/HeadGear/Helmet_M1_01/Helmet_
  components {
   BaseLoadoutClothComponent "{5112706CD4157AF8}" {
    WornMaterialsOverride {
-    "{B7B0D209AA80CF23}Assets/Characters/HeadGear/Helmet_M1/Data/Helmet_M1_Wineleaf_Cover.emat"
+    "{91A77E902DB1255A}Assets/Characters/HeadGear/Helmet_M1/Data/Helmet_M1.emat"
    }
    ItemMaterialsOverride {
     "{B7B0D209AA80CF23}Assets/Characters/HeadGear/Helmet_M1/Data/Helmet_M1_Wineleaf_Cover.emat"

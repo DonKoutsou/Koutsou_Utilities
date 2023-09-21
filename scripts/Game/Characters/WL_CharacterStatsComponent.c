@@ -234,11 +234,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 		}
 		if (m_fTemperature <= m_fDeathTemperature)
 		{
-			m_pDamage.Kill();
+			m_pDamage.Kill(Instigator.CreateInstigator(m_pChar));
 		}
 		if (m_fTemperature >= m_fMaxTemperature)
 		{
-			m_pDamage.Kill();
+			m_pDamage.Kill(Instigator.CreateInstigator(m_pChar));
 		}
 	}
 	void CheckEnergy()
@@ -652,7 +652,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 			{
 				if (m_pDamage && !m_pDamage.IsDestroyed())
 				{
-					m_pDamage.Kill();
+					m_pDamage.Kill(Instigator.CreateInstigator(m_pChar));
 				}
 			}
 		}
@@ -685,7 +685,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_pEventHandlerManager = EventHandlerManagerComponent.Cast(owner.FindComponent(EventHandlerManagerComponent));
 		SCR_CharacterStaminaComponent Stam = SCR_CharacterStaminaComponent.Cast(owner.FindComponent(SCR_CharacterStaminaComponent));
 		Stam.GetOnStaminaDrain().Insert(SetStaminDrain);
-		m_pWeather = GetGame().GetTimeAndWeatherManager();
+		ChimeraWorld world = GetGame().GetWorld();
+		m_pWeather = world.GetTimeAndWeatherManager();
 		m_pChar = ChimeraCharacter.Cast(owner);
 		m_pDamage = m_pChar.GetDamageManager();
 		//m_pLoadout = BaseLoadoutManagerComponent.Cast(m_pChar.FindComponent(BaseLoadoutManagerComponent));

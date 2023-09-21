@@ -35,8 +35,6 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
     m_SlotType SLOT_VEST
    }
   }
-  Hierarchy "{5E1A8627F969DF31}" {
-  }
   SCR_ConsumableItemComponent "{5E1A86388172BD87}" {
    m_eAnimVariable ADRIANOV
    m_ConsumableEffect SP_ConsumableEffectPills "{5E1A8627CDADB687}" {

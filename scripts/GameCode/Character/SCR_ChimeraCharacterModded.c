@@ -124,8 +124,9 @@ modded class SCR_ChimeraCharacter
 		if (IsFollowing())
 			return;	
 		
+		ChimeraWorld world = GetWorld();
 		array <IEntity> chars = {};
-		if (GetGame().GetTagManager().GetTagsInRange(chars, GetOrigin(), 200, ETagCategory.NameTag))
+		if (world.GetTagManager().GetTagsInRange(chars, GetOrigin(), 200, ETagCategory.NameTag))
 		{
 			for (int i; i < chars.Count(); i++;)
 			{

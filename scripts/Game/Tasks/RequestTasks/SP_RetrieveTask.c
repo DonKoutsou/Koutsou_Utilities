@@ -104,7 +104,7 @@ class SP_RetrieveTask: SP_Task
 		string OName;
 		string OLoc;
 		GetInfo(OName, OLoc);
-		string itemdesc
+		string itemdesc;
 		if (m_requestitemdescriptor == ERequestRewardItemDesctiptor.AMMO)
 			itemdesc = Mag.GetMagazineWell().ClassName() + " " + typename.EnumToString(ERequestRewardItemDesctiptor, m_requestitemdescriptor);
 		else
@@ -329,7 +329,7 @@ class SP_RetrieveTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
 		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
