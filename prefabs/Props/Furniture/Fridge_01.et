@@ -1,8 +1,6 @@
 GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
  ID "6093E737E30F72A1"
  components {
-  Hierarchy "{5D88A7E7E0E236F3}" {
-  }
   UniversalInventoryStorageComponent "{5D8707709C5FEF84}" {
    Attributes SCR_ItemAttributeCollection "{5D8707709F1EA1E2}" {
     ItemDisplayName UIInfo "{5D8707709E7784FA}" {
@@ -41,6 +39,8 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
   }
   RplComponent "{5624A88DC2D9928D}" {
    Enabled 1
+  }
+  Hierarchy "{5D88A7E7E0E236F3}" {
   }
  }
 }

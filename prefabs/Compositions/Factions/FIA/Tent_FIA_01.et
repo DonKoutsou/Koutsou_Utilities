@@ -29,12 +29,12 @@ GenericEntity : "{6212FEC7A3E08995}prefabs/Compositions/Factions/FIA/TentBase_FI
    coords 0.345 0.096 0.494
    angleY 1.461
   }
-  GenericEntity : "{B17411929589C43C}prefabs/MP/Campaign/Assets/CampaignHQRadioEast.et" {
+  GenericEntity : "{B17411929589C43C}Prefabs/MP/Campaign/Assets/CampaignHQRadioEast.et" {
    ID "5CFD42CE1E2960AD"
    coords -0.109 0.996 0.514
    angleY 144.963
   }
-  GenericEntity : "{B68D3829D4442F80}Prefabs/Props/Civilian/RadioSmall_01_Base.et" {
+  GenericEntity : "{B68D3829D4442F80}prefabs/Props/RadioSmall_01_Base.et" {
    ID "5CFD42CE1E2960A8"
    coords -0.478 0.975 -1.436
    angleY 80.249

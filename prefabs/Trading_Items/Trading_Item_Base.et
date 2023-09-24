@@ -12,8 +12,6 @@ GenericEntity {
   MeshObject "{58C4C15098F109F6}" {
    Object ""
   }
-  Hierarchy "{58C4C1517B819CF1}" {
-  }
   RigidBody "{5B11113AE9F696A6}" {
    ModelGeometry 1
    Static 1
@@ -44,6 +42,8 @@ GenericEntity {
    }
   }
   RplComponent "{5B11113B0FCA391F}" {
+  }
+  Hierarchy "{58C4C1517B819CF1}" {
   }
  }
  coords -0.151 0.885 -0.199

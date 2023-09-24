@@ -41,7 +41,7 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
      Prefab "{06BC3F18B47799AE}Prefabs/Characters/Uniforms/Pants_M70.et"
     }
     InventoryStorageSlot ff4 {
-     Prefab "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01.et"
+     Prefab "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et"
     }
    }
   }

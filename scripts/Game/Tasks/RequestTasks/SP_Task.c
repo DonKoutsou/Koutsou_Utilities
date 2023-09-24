@@ -192,10 +192,16 @@ class SP_Task
 	bool FindOwner(out IEntity Owner)
 	{
 		ChimeraCharacter Char;
-		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
+		if (m_bPartOfChain)
 		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
+			if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
+			{
+				Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
+			}
+			else
+				return false;
 		}
+		
 		else
 		{
 			if(!CharacterHolder.GetRandomUnit(Char))

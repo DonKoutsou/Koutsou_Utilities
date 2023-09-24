@@ -26,6 +26,30 @@ modded class SCR_ScenarioFrameworkSlotAI
 		m_aIncludedEditableEntityLabels.Copy(Included);
 		m_aExcludedEditableEntityLabels.Copy(Excluded);
 	}
+	override protected void CreateAIGroup()
+	{
+		EntitySpawnParams paramsPatrol = new EntitySpawnParams();
+		paramsPatrol.TransformMode = ETransformMode.WORLD;
+		
+		paramsPatrol.Transform[3] = m_Entity.GetOrigin();
+		Resource groupResource = Resource.Load(m_sGroupPrefab);
+		if (!groupResource.IsValid())
+			return;
+		
+		m_AIGroup = SCR_AIGroup.Cast(GetGame().SpawnEntityPrefab(groupResource, GetGame().GetWorld(), paramsPatrol));
+		if (!m_AIGroup)
+			return;
+		
+		FactionAffiliationComponent facComp = FactionAffiliationComponent.Cast(m_Entity.FindComponent(FactionAffiliationComponent));
+		if (!facComp)
+			return;
+
+		m_AIGroup.SetFaction(facComp.GetAffiliatedFaction());
+		m_AIGroup.moddedAddAIEntityToGroup(m_Entity, true);
+		
+		if (m_vPosition != vector.Zero)
+			m_Entity.SetOrigin(m_vPosition);
+	}
 	void InitEnt()
 	{
 		if (!m_Entity)

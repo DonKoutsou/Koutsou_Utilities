@@ -1,10 +1,7 @@
 SP_AIDirector : "{B14AC474A6E7BB8A}prefabs/AI/Spawners/SP_AIDirector_Base.et" {
  ID "5D42AA2A8C40E9C7"
- components {
- }
  coords 116.628 1.001 248.992
  DangerEventRange 200
- DynamicSim_Lod1_distance 500
  m_eEntityCatalogType GROUP
  m_FactionsToApear {
   "FIA"

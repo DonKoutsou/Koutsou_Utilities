@@ -1,8 +1,6 @@
 GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
  ID "F0DBA538AC2A0552"
  components {
-  Hierarchy "{5D42C14445AF3252}" {
-  }
   SCR_AISmartActionComponent "{5D68C508AA42C672}" {
    AIBehaviorTree ""
   }
@@ -25,6 +23,8 @@ GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
   SCR_AISmartActionSentinelComponent "{5D68B95625C1144A}" {
    ActionOffset -0.499 0 4.113
    m_iCharacterStance STAND
+  }
+  Hierarchy "{5D42C14445AF3252}" {
   }
  }
  coords 1393.892 37.022 2680.135

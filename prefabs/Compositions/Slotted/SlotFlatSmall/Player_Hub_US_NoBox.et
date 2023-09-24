@@ -7,6 +7,28 @@ GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.
  }
  coords 3118.667 15.266 2702.742
  {
+  $grp StaticModelEntity {
+   {
+    ID "5D7CE39A3D4E8306"
+    coords -1.23 0 0.704
+    angleY 115.514
+   }
+   {
+    ID "5D7CE39A3D4E8307"
+    coords 0.229 0 -1.257
+    angleY -12.235
+   }
+   {
+    ID "5D7CE39A3D4EC616"
+    coords 0.69 0 1.588
+    angleY -155.523
+   }
+   {
+    ID "5D7CE39A3D4F3429"
+    coords 1.483 0 0.762
+    angleY -113.264
+   }
+  }
   $grp StaticModelEntity : "{01AE5FD77A9A4C21}Prefabs/Structures/Military/Camps/TentSmallUS_01/TentSmallUS_01.et" {
    {
     ID "5D7CE39A3D41B069"
@@ -180,28 +202,6 @@ GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.
     }
    }
    coords 0 0.001 0
-  }
-  $grp StaticModelEntity : "{DC5F4442B971CCEE}prefabs/Props/Military/Furniture/ChairMilitary_US_03.et" {
-   {
-    ID "5D7CE39A3D4E8306"
-    coords -1.23 0 0.704
-    angleY 115.514
-   }
-   {
-    ID "5D7CE39A3D4E8307"
-    coords 0.229 0 -1.257
-    angleY -12.235
-   }
-   {
-    ID "5D7CE39A3D4EC616"
-    coords 0.69 0 1.588
-    angleY -155.523
-   }
-   {
-    ID "5D7CE39A3D4F3429"
-    coords 1.483 0 0.762
-    angleY -113.264
-   }
   }
   GenericEntity : "{E51E2E1D77B54223}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_01.et" {
    ID "5D7CE39A3D4F3403"

@@ -11,8 +11,6 @@ GenericEntity {
   MeshObject "{5B10F8A099B7FDA7}" {
    Object "{EB3FA38F920D4615}Assets/Weapons/Rifles/VZ58/VZ58_body.xob"
   }
-  Hierarchy "{5B10F8A099B7FE50}" {
-  }
   RigidBody "{5B10F8A099B7FE4D}" {
    ModelGeometry 1
   }
@@ -76,19 +74,6 @@ GenericEntity {
         }
        }
       }
-      "LEFT HAND TARGET" DeploymentPointInfo lht {
-       PivotID "snap_hand_left"
-       Offset -0.05 -0.03 -0.03
-       Angles -45 -80 90
-      }
-      RIGHT_HAND_TARGET DeploymentPointInfo rht {
-       PivotID "snap_hand_right"
-      }
-      BUTSTOCK_TRANSFORMATION DeploymentPointInfo bt {
-       PivotID "Scene_Root"
-       Offset -0.0031 -0.0106 -0.3249
-      }
-      ButstockRadius 0.05
      }
      SCR_RecoilCameraShakeParams "{5B10F8A099B7FFC7}" {
       m_fBlendOutTime 0.089
@@ -160,12 +145,6 @@ GenericEntity {
         PivotID "barrel_muzzle"
         Offset 0 0 0
        }
-       m_vCol 0.835 0.667 0.38
-       m_fRadiusOfFlash 3.5
-       m_fLV -3
-       m_fEVClip -10
-       m_fMaxTimeOfFlash 0.05
-       m_vOffset 0 0 0
       }
      }
      MuzzleEndPositions {
@@ -496,6 +475,8 @@ GenericEntity {
    }
   }
   RplComponent "{5B10F8A099B8DFE6}" {
+  }
+  Hierarchy "{5B10F8A099B7FE50}" {
   }
  }
  coords 128.389 1.001 133.634

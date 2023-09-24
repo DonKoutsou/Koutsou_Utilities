@@ -1241,11 +1241,11 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
   SCR_GameOverScreenManagerComponent "{5DC8E7D96AC61234}" {
    m_GameOverScreenConfig SCR_GameOverScreenConfig "{5DC8E7DE92B37D05}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
     m_aGameOverScreens {
-     SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
-      m_GameOverScreenId UNKNOWN
-     }
      SCR_BaseGameOverScreenInfo "{5DC8E7DE9CEB2F9B}" {
       m_GameOverScreenId DEATH
+     }
+     SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
+      m_GameOverScreenId UNKNOWN
      }
     }
    }
@@ -1304,6 +1304,8 @@ SP_GameMode SP_GameMode1 : "{88229DCF1A3ED798}prefabs/Systems/SP_GameMode.et" {
      ArchetypeIdentifier Name
     }
    }
+   m_aWorldDirections SCR_MapLocationQuadHint "{5E6ECA193C6BB50F}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+   }
   }
   SP_RequestManagerComponent "{5DC8E7DFE86F4615}" {
    m_fTaskGenTime 3
@@ -1355,9 +1357,6 @@ GenericEntity : "{1DC14FBC7DB6C73B}prefabs/Test/FactionRelationTest.et" {
 GenericEntity : "{2294CC66E7E31A17}prefabs/Trading_Items/Factions/Factionless/Factionless_TradingStation.et" {
  coords 254.31 1 254.789
 }
-SCR_DefendWaypoint : "{2A81753527971941}prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et" {
- coords 88.48 44.166 17.665
-}
 SCR_SpawnPoint : "{2B1758F237E4820E}Prefabs/MP/Spawning/SpawnPoint_FIA.et" {
  coords 169.952 1 233.899
  angleY -78.913
@@ -1384,152 +1383,6 @@ GenericEntity : "{4068E1DFB7A1D377}prefabs/Trading_Items/Factions/USSR/USSR_Trad
 }
 GenericEntity : "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" {
  coords 48.864 0.999 156.166
-}
-$grp GameEntity : "{4604B1E65929F633}prefabs/Compositions/Slotted/SlotRoadSmall/Chill_Zone_S.et" {
- {
-  coords 233.402 1 171.091
-  angleY 0
- }
- {
-  coords 233.402 1 130.498
-  angleY 0
- }
- {
-  coords 233.402 1 86.317
-  angleY 0
- }
- {
-  coords 233.402 1 45.238
-  angleY 0
- }
- {
-  coords 233.402 1 209.849
-  angleY 0
- }
- {
-  coords 233.402 1 247.106
-  angleY 0
- }
- {
-  coords 192.899 1 130.498
-  angleY 0
- }
- {
-  coords 192.899 1 86.317
-  angleY 0
- }
- {
-  coords 192.899 1 45.238
-  angleY 0
- }
- {
-  coords 192.899 1 209.849
-  angleY 0
- }
- {
-  coords 192.899 1 247.106
-  angleY 0
- }
- {
-  coords 192.899 1 171.091
-  angleY 0
- }
- {
-  coords 152.71 1 130.498
-  angleY 0
- }
- {
-  coords 152.71 1 86.317
-  angleY 0
- }
- {
-  coords 152.71 1 45.238
-  angleY 0
- }
- {
-  coords 152.71 1 209.849
-  angleY 0
- }
- {
-  coords 152.71 1 247.106
-  angleY 0
- }
- {
-  coords 152.71 1 171.091
-  angleY 0
- }
- {
-  coords 114.527 1 130.498
-  angleY 0
- }
- {
-  coords 114.527 1 86.317
-  angleY 0
- }
- {
-  coords 114.527 1 45.238
-  angleY 0
- }
- {
-  coords 114.527 1 209.849
-  angleY 0
- }
- {
-  coords 114.527 1 247.106
-  angleY 0
- }
- {
-  coords 114.527 1 171.091
-  angleY 0
- }
- {
-  coords 74.292 1 130.498
-  angleY 0
- }
- {
-  coords 74.292 1 86.317
-  angleY 0
- }
- {
-  coords 74.292 1 45.238
-  angleY 0
- }
- {
-  coords 74.292 1 209.849
-  angleY 0
- }
- {
-  coords 74.292 1 247.106
-  angleY 0
- }
- {
-  coords 74.292 1 171.091
-  angleY 0
- }
- {
-  coords 35.059 1 130.498
-  angleY 0
- }
- {
-  coords 35.059 1 86.317
-  angleY 0
- }
- {
-  coords 35.059 1 45.238
-  angleY 0
- }
- {
-  coords 35.059 1 209.849
-  angleY 0
- }
- {
-  coords 35.059 1 247.106
-  angleY 0
- }
- {
-  coords 35.059 1 171.091
-  angleY 0
- }
 }
 SCR_SpawnPoint : "{4FEA25583D0975F7}Prefabs/MP/Spawning/SpawnPoint_USSR.et" {
  coords 14.326 1 65.795
@@ -1610,11 +1463,11 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
          m_sFactionKey "FIA"
          m_aPlugins {
           SCR_ScenarioFrameworkPluginDirector "{5DEB37B5F024E223}" {
+           m_eEntityCatalogType CHARACTER
            m_aIncludedEditableEntityLabels {
-            72
            }
            m_aExcludedEditableEntityLabels {
-            70 71
+            22
            }
            m_FactionsToApear {
             "FIA"
@@ -1637,7 +1490,6 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
           }
          }
          m_bSpawnAIOnWPPos 0
-         m_sWPToSpawn "{2A81753527971941}prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et"
         }
        }
        coords 10.693 -0.001 12.183
@@ -1646,6 +1498,7 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
       Slot40 {
        components {
         SCR_ScenarioFrameworkSlotAI "{5A22E1D67E712EC8}" {
+         Enabled 0
          m_sFactionKey "US"
          m_aPlugins {
           SCR_ScenarioFrameworkPluginDirector "{5DEB37B5F024E223}" {
@@ -1676,7 +1529,6 @@ GenericEntity Area1 : "{C72F956E4AC6A6E7}Prefabs/ScenarioFramework/Components/Ar
           }
          }
          m_bSpawnAIOnWPPos 0
-         m_sWPToSpawn "{2A81753527971941}prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et"
         }
        }
        coords 10.693 -0.001 12.183

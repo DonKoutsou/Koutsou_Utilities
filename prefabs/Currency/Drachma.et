@@ -46,8 +46,6 @@ GenericEntity {
     1
    }
   }
-  Hierarchy "{5C954B303B21A979}" {
-  }
   RigidBody "{5AE8A8999D0F3E79}" {
    ModelGeometry 1
    Static 1
@@ -74,6 +72,8 @@ GenericEntity {
    }
   }
   RplComponent "{5AE8A8999D0F3EF5}" {
+  }
+  Hierarchy "{5C954B303B21A979}" {
   }
  }
  coords 2079.541 52.506 2995.593

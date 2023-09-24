@@ -1,4 +1,4 @@
-GenericEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
+WalletEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
  ID "5C78C422199A1092"
  coords 126.943 1.001 108.577
 }

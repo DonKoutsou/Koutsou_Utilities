@@ -210,6 +210,10 @@ class SP_RescueTask: SP_Task
 	}
 	void GetInfo(out string OName, out string OLoc)
 	{
+		if (!m_eTaskOwner)
+		{
+			return;
+		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		if (m_eTaskOwner)

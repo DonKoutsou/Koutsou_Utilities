@@ -18,6 +18,25 @@ SP_AIDirector {
    MainType "Name Settlement"
    Scale 0
   }
+  SCR_ResourceComponent "{5E6ED54E67028FAD}" {
+   m_aGenerators {
+    SCR_ResourceGenerator "{5E6ED54E162CD14E}" {
+     m_sDebugName "DisGem"
+     m_eResourceRights SELF
+     m_fStorageRange 500
+     m_bIsIgnoringItself 1
+     m_ContainerQueue SCR_ResourceGeneratorContainerQueue "{5E6ED54E0496C9D2}" {
+      m_StoragePolicies {
+       SCR_ResourceGeneratorStoragePolicy "{5E6ED54E0B3FBE6B}" {
+        m_StorageQueue SCR_ResourceGeneratorContainerStorageQueue "{5E6ED54E0C3046BA}" {
+        }
+       }
+      }
+     }
+    }
+   }
+   m_bEnableDebugVisualization 1
+  }
   RplComponent "{5D42902F42C75668}" {
   }
  }
@@ -27,4 +46,5 @@ SP_AIDirector {
   "FIA" "USSR" "US"
  }
  m_fRadius 500
+ m_bVisualize 0
 }

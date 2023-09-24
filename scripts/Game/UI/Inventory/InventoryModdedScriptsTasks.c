@@ -109,7 +109,14 @@ modded class SCR_InventoryMenuUI : UIInfo
 		if ( !itemInfo )
 			HideItemInfo();
 		else
-			ShowItemInfo( itemInfo.GetName(), itemInfo.GetDescription(), invItemComp.GetTotalWeight(), SCR_InventoryUIInfo.Cast(itemInfo) );
+		{
+			SCR_InventoryUIInfo inventoryInfo = SCR_InventoryUIInfo.Cast(itemInfo);
+			
+			if (inventoryInfo)
+				ShowItemInfo( inventoryInfo.GetInventoryItemName(invItemComp), inventoryInfo.GetInventoryItemDescription(invItemComp), invItemComp.GetTotalWeight(), inventoryInfo);
+			else 
+				ShowItemInfo( itemInfo.GetName(), itemInfo.GetDescription(), invItemComp.GetTotalWeight(), null);
+		}
 	
 		//show the weight on the progressbar
 		//TODO: overlap or add on the end, depending on if the item is already in the storage or is going to be added
@@ -129,7 +136,7 @@ modded class SCR_InventoryItemInfoUI
 	
 	void SetInsulation( string insulation )
 	{
-		if( insulation != "" )
+		if( insulation != STRING_EMPTY )
 		{
 			m_wTextInsulation.SetEnabled( true );
 			m_wTextInsulation.SetVisible( true );
@@ -143,7 +150,7 @@ modded class SCR_InventoryItemInfoUI
 	}
 	void SetOptDesc(string desc)
 	{
-		if( desc != "" )
+		if( desc != STRING_EMPTY )
 		{
 			m_wTextOptDesc.SetEnabled( true );
 			m_wTextOptDesc.SetVisible( true );
@@ -159,18 +166,8 @@ modded class SCR_InventoryItemInfoUI
 	{
 		if( !w )
 			return;
-		m_infoWidget		= w;
-		m_wTextName 		= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_name" ) );
-		m_wTextDescription 	= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_description" ) );
-		m_wTextWeight 		= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_weight" ) );
-		m_wTextWeightUnit	= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_weightUnit" ) );
-		m_wTextInsulation	= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_insulationUnit" ) );
+		super.HandlerAttached(w);
 		m_wTextOptDesc		= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_OptDesc0" ) );
-		m_wTextCharName		= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_CharName" ) );
-		m_wItemIcon 		= ImageWidget.Cast(w.FindAnyWidget("ItemInfo_icon"));
-		Widget wItemInfo	= m_infoWidget.FindAnyWidget( "ItemInfo" );
-		if ( !wItemInfo )
-			return;
-		m_pFrameSlotUI 		= SCR_SlotUIComponent.Cast( wItemInfo.FindHandler( SCR_SlotUIComponent ) );
+		m_wTextInsulation	= TextWidget.Cast( w.FindAnyWidget( "ItemInfo_insulationUnit" ) );
 	}
 }

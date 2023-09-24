@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------------------------
-class SP_BaseTaskClass: SCR_BaseTaskClass
+class SP_BaseTaskClass: SCR_ScenarioFrameworkTaskClass
 {
 };
-class SP_BaseTask : SCR_BaseTask
+class SP_BaseTask : SCR_ScenarioFrameworkTask
 {
 	[Attribute()]
 	FactionKey m_faction;

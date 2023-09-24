@@ -1,4 +1,4 @@
-GenericEntity : "{AE300E34EA8FF40C}Prefabs/Props/Wrecks/Ural4320_wreck_static.et" {
+GenericEntity : "{AE300E34EA8FF40C}prefabs/Props/Wrecks/Ural4320_wreck_static.et" {
  ID "F0DBA538AC2A0552"
  components {
   MeshObject "{5872F0EB7FA40561}" {

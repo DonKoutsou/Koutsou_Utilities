@@ -4,9 +4,6 @@ GenericEntity {
   FactionAffiliationComponent "{5D88A7E2692F60BD}" {
    "faction affiliation" "USSR"
   }
-  Hierarchy "{5D88A7E2692F609D}" {
-   Enabled 1
-  }
   SCR_AISmartActionSentinelComponent "{5D88A7E2692F60DE}" {
    AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
    Tags {
@@ -44,10 +41,23 @@ GenericEntity {
   RplComponent "{5D88A7E2692F6101}" {
    Streamable Disabled
   }
+  Hierarchy "{5D88A7E2692F609D}" {
+   Enabled 1
+  }
  }
  coords 121.379 1.509 168.992
  Flags 1027
  {
+  $grp GenericEntity {
+   {
+    ID "5D88A7E1D7BE54FD"
+    coords 1.199 0 -0.499
+   }
+   {
+    ID "5D88A7E1D7BE705C"
+    coords -0.626 0 -0.668
+   }
+  }
   SCR_DestructibleEntity : "{15B364C10D53C789}Prefabs/Props/Furniture/TableRecreation_01_redyellow.et" {
    ID "5D88A7E1D7BE705A"
    coords 0.079 0 0.588
@@ -65,22 +75,6 @@ GenericEntity {
   GenericEntity : "{9B7F08BF4C938AD2}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Medium_Soviet.et" {
    ID "5D88A7E1D7BE704E"
    coords 0 0 0
-  }
-  $grp GenericEntity : "{C606F9422D9C3778}prefabs/Props/Furniture/ChairOld_01_2.et" {
-   {
-    ID "5D88A7E1D7BE54FD"
-    coords 1.199 0 -0.499
-    angleX 0
-    angleY 0
-    angleZ 0
-   }
-   {
-    ID "5D88A7E1D7BE705C"
-    coords -0.626 0 -0.668
-    angleX 0
-    angleY 0
-    angleZ 0
-   }
   }
   GenericEntity : "{E56F1B739B9792C4}Prefabs/Props/Civilian/Ashtray_01_Full_green.et" {
    ID "5D88A7E1D7BE54F2"

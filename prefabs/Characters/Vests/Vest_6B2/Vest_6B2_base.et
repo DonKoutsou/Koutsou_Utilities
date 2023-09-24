@@ -1,4 +1,4 @@
-GenericEntity : "{93690AE7A4BAD926}Prefabs/Characters/Core/Vest_Base.et" {
+GenericEntity : "{AA074754692261B1}Prefabs/Characters/Core/VestArmored_Base.et" {
  ID "50D8C49B3558F152"
  components {
   InventoryItemComponent "{5B189416D721A6DE}" {

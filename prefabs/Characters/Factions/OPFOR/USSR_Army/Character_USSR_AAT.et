@@ -9,16 +9,16 @@ SCR_ChimeraCharacter : "{3ECA3A935BC069B9}prefabs/Characters/Factions/OPFOR/USSR
     ItemsInitConfigurationItem "{5D7CC173E6675BF5}" {
      TargetStorage "prefabs/Characters/Uniforms/Jacket_M88_rolledup.et"
     }
+    ItemsInitConfigurationItem "{5E1AECEFD3938640}" {
+     PrefabsToSpawn + {
+      "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et" "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et"
+     }
+    }
     ItemsInitConfigurationItem "{54A68D62E0E53CA5}" {
      TargetStorage "prefabs/Items/Equipment/Backpacks/Backpack_RPG_Assistant.et"
     }
     ItemsInitConfigurationItem "{568AD28065623400}" {
      TargetStorage "prefabs/Characters/Uniforms/Pants_M88.et"
-    }
-    ItemsInitConfigurationItem "{5E1AECEFD3938640}" {
-     PrefabsToSpawn + {
-      "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et" "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et"
-     }
     }
    }
   }

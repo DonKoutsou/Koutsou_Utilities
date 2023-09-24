@@ -1,4 +1,4 @@
-GenericEntity : "{FD0890CE5C6D26CB}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_assembled_base.et" {
+GenericEntity : "{FD0890CE5C6D26CB}prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_assembled_base.et" {
  ID "50D8C49B3558F152"
  components {
   BaseLoadoutClothComponent "{5312D798A71DFBB1}" {

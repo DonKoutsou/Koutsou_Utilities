@@ -1,4 +1,4 @@
-GameEntity : "{17F335BF60DD2550}prefabs/Characters/Core/Headgear_Base.et" {
+GameEntity : "{EC0071079B219026}Prefabs/Characters/Core/Headgear_Helmet_Base.et" {
  ID "50D485E1435D6C72"
  components {
   InventoryItemComponent "{5244E4431E28A759}" {

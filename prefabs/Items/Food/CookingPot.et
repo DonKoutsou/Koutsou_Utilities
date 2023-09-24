@@ -4,8 +4,6 @@ GenericEntity {
   MeshObject "{5D867CC73525351C}" {
    Object "{E6F9E95BCFF8613D}Assets/Props/Industrial/PotIndustrialSet_01/PotIndustrialSet_01_Small_pot.xob"
   }
-  Hierarchy "{5D868960EF926191}" {
-  }
   RigidBody "{5D867CC4C2BF4A47}" {
    ModelGeometry 1
    Static 1
@@ -45,6 +43,8 @@ GenericEntity {
    }
   }
   RplComponent "{5D867CC4CBA9103E}" {
+  }
+  Hierarchy "{5D868960EF926191}" {
   }
  }
  coords 119.893 0.839 132.573

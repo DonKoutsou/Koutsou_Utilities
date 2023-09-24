@@ -16,6 +16,10 @@ class SCR_AIWaitForNextChild : AITaskScripted
 		{
 			return ENodeResult.RUNNING;
 		}
+		if (group.GetAgentsCount() == 0)
+		{
+			return ENodeResult.RUNNING;
+		}
 		return ENodeResult.SUCCESS;
 		
 	}

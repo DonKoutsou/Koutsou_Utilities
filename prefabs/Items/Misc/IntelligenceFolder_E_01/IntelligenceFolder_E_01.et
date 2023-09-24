@@ -15,8 +15,6 @@ GenericEntity : "{5CF603986376EAA9}Prefabs/Items/Misc/IntelligenceFolder_E_01/In
     }
    }
   }
-  RigidBody "{5AB0B9C3C3E4A158}" {
-  }
   SP_UnretrievableComponent "{5D4EC118478765E6}" {
   }
  }

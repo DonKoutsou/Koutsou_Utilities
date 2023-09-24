@@ -3,13 +3,13 @@ SCR_ChimeraCharacter : "{3ECA3A935BC069B9}prefabs/Characters/Factions/OPFOR/USSR
  components {
   SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
    InitialInventoryItems {
-    ItemsInitConfigurationItem "{568AD286A60FCA13}" {
-     TargetStorage ""
-    }
     ItemsInitConfigurationItem "{5E1AECEFD3938640}" {
      PrefabsToSpawn + {
       "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et" "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et"
      }
+    }
+    ItemsInitConfigurationItem "{568AD286A60FCA13}" {
+     TargetStorage ""
     }
    }
   }

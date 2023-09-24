@@ -23,8 +23,6 @@ GenericEntity : "{6D56FED1E55A8F84}prefabs/Items/Misc/IntelligenceFolder_E_01/In
     }
    }
   }
-  RigidBody "{5AB0B9C3C3E4A158}" {
-  }
  }
  coords 2691.683 77.412 1674.572
 }

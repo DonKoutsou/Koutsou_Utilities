@@ -85,7 +85,7 @@ modded enum EGameOverTypes
 {
 	DEATH = 3000,
 }
-modded class SCR_ArsenalComponent
+/*modded class SCR_ArsenalComponent
 {
 	override protected void OnPostInit(IEntity owner)
 	{

@@ -4,8 +4,6 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
   MeshObject "{5872F0EB7FA40561}" {
    Object "{FC330655F95CF82F}Assets/Props/Furniture/FridgeSmall_01/FridgeSmall_01.xob"
   }
-  Hierarchy "{5D88A7E7E866D77A}" {
-  }
   RigidBody "{5872F0EB7DFB5A9D}" {
    ResponseIndex "HugeDestructible"
    ModelGeometry 1
@@ -55,6 +53,8 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
   }
   RplComponent "{5624A88DC2D9928D}" {
    Enabled 1
+  }
+  Hierarchy "{5D88A7E7E866D77A}" {
   }
  }
 }

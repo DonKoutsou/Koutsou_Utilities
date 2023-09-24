@@ -16,15 +16,15 @@ GenericEntity {
    LODFactors {
    }
   }
-  Hierarchy "{5C96A26713BDE9A5}" {
-   Enabled 1
-  }
   RigidBody "{5C96A26713BDE9A2}" {
    Mass 10
    ModelGeometry 1
    Static 1
   }
   RplComponent "{5C96A26713BDE9A0}" {
+   Enabled 1
+  }
+  Hierarchy "{5C96A26713BDE9A5}" {
    Enabled 1
   }
  }
@@ -49,13 +49,13 @@ GenericEntity {
      LODFactors {
      }
     }
-    Hierarchy "{5C96A26713BDE9A5}" {
-     Enabled 1
-    }
     RigidBody "{5C96A26713BDE9A2}" {
      Mass 10
      ModelGeometry 1
      Static 1
+    }
+    Hierarchy "{5C96A26713BDE9A5}" {
+     Enabled 1
     }
    }
    coords 1.215 0 0

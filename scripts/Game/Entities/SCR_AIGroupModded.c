@@ -1,6 +1,29 @@
 modded class SCR_AIGroup
 {
 	bool inited;
+	//------------------------------------------------------------------------------------------------
+	bool moddedAddAIEntityToGroup(IEntity entity, bool islast = 0)
+	{
+		if (!entity) return false;
+		
+		AIControlComponent control = AIControlComponent.Cast(entity.FindComponent(AIControlComponent));
+		if (!control) return false;
+		
+		AIAgent agent = control.GetControlAIAgent();
+		if (!agent) return false;
+		
+		control.ActivateAI();
+		
+		if (!agent.GetParentGroup())
+			AddAgent(agent); //--- Add to group only if some other system (e.g., component on the group member) wasn't faster
+		
+		if (islast)
+		{
+			inited = true;
+		}
+		
+		return true;
+	}
 	override protected void SpawnGroupMember(bool snapToTerrain, int index, ResourceName res, bool editMode, bool isLast)
 	{
 		if (!GetGame().GetAIWorld().CanAICharacterBeAdded())
@@ -57,7 +80,7 @@ modded class SCR_AIGroup
 		if (editMode)
 			m_aSceneGroupUnitInstances.Insert(member);
 		
-		AddAIEntityToGroup(member);
+		moddedAddAIEntityToGroup(member, isLast);
 		FactionAffiliationComponent factionAffiliation = FactionAffiliationComponent.Cast(member.FindComponent(FactionAffiliationComponent));
 		
 		if (factionAffiliation)
@@ -69,6 +92,7 @@ modded class SCR_AIGroup
 			inited = true;
 		}
 	}
+	
 	override void OnLeaderChanged(AIAgent currentLeader, AIAgent prevLeader)
 	{
 		if (!currentLeader)

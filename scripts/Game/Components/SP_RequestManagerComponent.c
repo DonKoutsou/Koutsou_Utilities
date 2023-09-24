@@ -302,15 +302,23 @@ class SP_RequestManagerComponent : ScriptComponent
 		bool anyfailed;
 		foreach (SP_ChainedTask qLine : m_aQuestlines)
 		{
-			if (m_aTaskMap.Contains(qLine))
-				continue;
-			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
-			qLine.Init();
-			m_aTaskMap.Insert(qLine);
-			qLine.OnTaskFinished().Insert(OnTaskFinished);
+			InitChainedTask(qLine);
 		}
 		m_bQuestInited = true;
 		return true;
+	}
+	void InitChainedTask(SP_ChainedTask qline)
+	{
+		if (m_aTaskMap.Contains(qline))
+				return;
+		if (qline.Init())
+		{
+			m_aTaskMap.Insert(qline);
+			qline.OnTaskFinished().Insert(OnTaskFinished);
+		}
+		else
+			GetGame().GetCallqueue().CallLater(InitChainedTask, 1000, false, qline);
+			
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	bool CreateCustomTask(typename TaskType, IEntity Owner)
@@ -607,15 +615,29 @@ class SP_RequestManagerComponent : ScriptComponent
 	//Questlines
 	void AssignInitTasks(IEntity Char)
 	{
-		if (m_aQuestlines.IsEmpty())
-			return;
-		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Char.FindComponent(FactionAffiliationComponent));
-		foreach (SP_ChainedTask chain : m_aQuestlines)
+		array<ref SP_Task> qlines = {};		
+		GetTasksOfSameType(qlines, SP_ChainedTask);
+		bool assigned;
+		if (!qlines.IsEmpty())
 		{
-			if (chain.AssignOnInit && affcomp.GetAffiliatedFaction().GetFactionKey() == chain.key)
+			FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(Char.FindComponent(FactionAffiliationComponent));
+			
+			foreach (SP_Task task : qlines)
 			{
-				chain.AssignCharacter(Char);
+				SP_ChainedTask chain = SP_ChainedTask.Cast(task);
+				if (!chain)
+					continue;
+				if (chain.AssignOnInit && affcomp.GetAffiliatedFaction().GetFactionKey() == chain.key)
+				{
+					chain.AssignCharacter(Char);
+					assigned = true;
+				}
 			}
+		}
+		
+		if (!assigned)
+		{
+			GetGame().GetCallqueue().CallLater(AssignInitTasks, 1000, false, Char);
 		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
@@ -706,6 +728,8 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)
 	{
+		if (!GetGame().InPlayMode())
+			return;
 		//Init arrays
 		if (!m_aTasksToSpawn)
 		{

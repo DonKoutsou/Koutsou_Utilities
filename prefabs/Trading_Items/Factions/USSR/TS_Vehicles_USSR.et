@@ -11,11 +11,11 @@ GenericEntity : "{CDFE78D42C3A6396}Prefabs/Compositions/Misc/SubCompositions/Wor
     }
    }
    additionalActions {
-    KLM_ConverseAction "{5C97162F3757BD14}" : "{BCD54EEDDD2AEF57}Prefabs/Trading_Items/Configs/Vehicles/B_UAZ.conf" {
+    KLM_ConverseAction "{5C97162F3757BD14}" : "{BCD54EEDDD2AEF57}prefabs/Trading_Items/Configs/Vehicles/B_UAZ.conf" {
     }
-    KLM_ConverseAction "{5C97162F49E50F5B}" : "{8E88277A278285D9}Prefabs/Trading_Items/Configs/Vehicles/B_Ural.conf" {
+    KLM_ConverseAction "{5C97162F49E50F5B}" : "{8E88277A278285D9}prefabs/Trading_Items/Configs/Vehicles/B_Ural.conf" {
     }
-    KLM_ConverseAction "{5C97162F4AABD9E8}" : "{0003C461380C780E}Prefabs/Trading_Items/Configs/Vehicles/B_Ural_Transport.conf" {
+    KLM_ConverseAction "{5C97162F4AABD9E8}" : "{0003C461380C780E}prefabs/Trading_Items/Configs/Vehicles/B_Ural_Transport.conf" {
     }
    }
   }

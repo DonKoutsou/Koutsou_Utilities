@@ -16,15 +16,15 @@ GenericEntity {
    LODFactors {
    }
   }
-  Hierarchy "{5C96A2673B6D0C6B}" {
-   Enabled 1
-  }
   RigidBody "{5C96A2673B6D0C68}" {
    Mass 10
    ModelGeometry 1
    Static 1
   }
   RplComponent "{5C96A2673B6D0C64}" {
+   Enabled 1
+  }
+  Hierarchy "{5C96A2673B6D0C6B}" {
    Enabled 1
   }
  }
@@ -49,7 +49,7 @@ GenericEntity {
    coords -0.732 -0.002 -1.599
    angleY -43.2
   }
-  GenericEntity : "{0BB4B21E4F560431}Prefabs/Props/Furniture/Chest_01.et" {
+  GenericEntity : "{0BB4B21E4F560431}prefabs/Props/Furniture/Chest_01.et" {
    ID "5DF4DAF57C8ACA27"
    coords -1.833 0 0
    angleY -90

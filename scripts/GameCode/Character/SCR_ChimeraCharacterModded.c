@@ -454,13 +454,23 @@ modded class SCR_ChimeraCharacter
 	}
 	bool CheckIfMissingLBS(out int ammount, out int severity)
 	{
-		EquipedLoadoutStorageComponent loadoutStorage = EquipedLoadoutStorageComponent.Cast(FindComponent(EquipedLoadoutStorageComponent));
+		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast(FindComponent(SCR_CharacterInventoryStorageComponent));
 		if (!loadoutStorage)
 			return false;
 				
 		IEntity LBS = loadoutStorage.GetClothFromArea(LoadoutVestArea);
 		if (!LBS)
 		{
+			array<typename> blockedSlots = {};
+			loadoutStorage.GetBlockedSlots(blockedSlots);
+			if (!blockedSlots.IsEmpty())
+			{
+				if (blockedSlots.Contains(LoadoutVestArea))
+				{
+					return false;
+				}
+			}
+			
 			ammount = 1;
 			return true;
 		}

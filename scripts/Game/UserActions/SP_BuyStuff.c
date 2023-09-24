@@ -77,6 +77,10 @@ class SP_BuyStuff : ScriptedUserAction
 		{
 			RemoveHeadgear(pUserEntity);
 		}
+		if (needtofulfill == ERequestRewardItemDesctiptor.HELMET)
+		{
+			RemoveVest(pUserEntity);
+		}
 		// make purchase
 		shop.AskAIPurchase(pUserEntity, CanBuyMerchendise.GetRandomElement(), ammount);
 		return;
@@ -132,6 +136,45 @@ class SP_BuyStuff : ScriptedUserAction
 		
 		//try to remove it
 		inv.TryRemoveItemFromStorage(Hat, parentSlot.GetStorage());
+	}
+	//function used to remove headgear when buying a helmet
+	void RemoveVest(IEntity char)
+	{
+		//Get inventory of character
+		SCR_CharacterInventoryStorageComponent loadoutStorage = SCR_CharacterInventoryStorageComponent.Cast( char.FindComponent( SCR_CharacterInventoryStorageComponent ) );
+		
+		//Get vest cloth
+		IEntity Vest = loadoutStorage.GetClothFromArea( LoadoutArmoredVestSlotArea );
+		
+		//return if none
+		if (!Vest)
+			return;
+		
+		// get inventory manager
+		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast( char.FindComponent( SCR_InventoryStorageManagerComponent ) );
+		
+		//Get inventory component of headgear
+		BaseInventoryStorageComponent pInvComp = BaseInventoryStorageComponent.Cast( Vest.FindComponent( BaseInventoryStorageComponent ) );
+		
+		if (!pInvComp)
+			return;
+		//try to get the items from inside
+		array<InventoryItemComponent> outItemsComponents = {};
+		pInvComp.GetOwnedItems(outItemsComponents);
+		if (!outItemsComponents.IsEmpty())
+		{
+			foreach ( InventoryItemComponent item : outItemsComponents )
+			{
+				inv.TryInsertItem(item.GetOwner(), EStoragePurpose.PURPOSE_ANY);
+			}
+		}
+		
+		// get storage its in
+		InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
+		
+		//try to remove it
+		inv.TryRemoveItemFromStorage(Vest, parentSlot.GetStorage());
+		
 	}
 	//Function used to check a price of a need to decide if able to fulfill it
 	void CheckNeedPrice(ERequestRewardItemDesctiptor need, BaseMagazineComponent mag, out int price)

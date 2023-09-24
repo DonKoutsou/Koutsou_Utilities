@@ -4,8 +4,6 @@ GenericEntity : "{50801280D56B67A1}Prefabs/Props/Services/Healthcare/BedMedical_
   MeshObject "{5872F0EB7FA40561}" {
    Object "{8CA54B7C3503C854}Assets/Props/Furniture/BedDouble_02/Dst/BedDouble_02_dst_02.xob"
   }
-  Hierarchy "{5B22A239ECB5CA82}" {
-  }
   ActionsManagerComponent "{5D4D351C0D356923}" {
    ActionContexts {
     UserActionContext "{5D4D351C0C77182F}" {
@@ -41,6 +39,8 @@ GenericEntity : "{50801280D56B67A1}Prefabs/Props/Services/Healthcare/BedMedical_
   }
   RplComponent "{5624A88DC2D9928D}" {
    Enabled 1
+  }
+  Hierarchy "{5B22A239ECB5CA82}" {
   }
  }
  coords 55.16 1.001 53.856

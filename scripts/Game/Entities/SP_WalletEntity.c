@@ -7,6 +7,8 @@ class WalletEntity: GameEntity
 	SCR_InventoryStorageManagerComponent GetInventoryManager(){return m_cInventoryManager;}
 	override event protected void EOnInit(IEntity owner)
 	{
+		if (!GetGame().InPlayMode())
+			return;
 		m_cInventoryManager = SCR_InventoryStorageManagerComponent.Cast(owner.FindComponent(SCR_InventoryStorageManagerComponent));
 		if (!m_cInventoryManager)
 			Print("Missing inventory in your wallet cunt.");

@@ -1,4 +1,4 @@
-GenericEntity : "{41A9C55B61F375F0}prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et" {
+GenericEntity : "{41A9C55B61F375F0}Prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et" {
  ID "511E9C6ADE70F798"
  components {
   SignalsManagerComponent "{5D3CDC3BCC90FFDE}" {
@@ -8,7 +8,7 @@ GenericEntity : "{41A9C55B61F375F0}prefabs/Items/Equipment/Backpacks/Backpack_Ko
    MaxItemSize 30 30 30
    InitialStorageSlots {
     InventoryStorageSlot AK {
-     Prefab "{FA5C25BF66A53DCF}prefabs/Weapons/Rifles/AK74/Rifle_AK74.et"
+     Prefab "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et"
     }
    }
    MultiSlots {

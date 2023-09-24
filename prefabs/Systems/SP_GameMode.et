@@ -15,6 +15,8 @@ SP_GameMode {
     }
     SCR_EntityCatalog "{5DD0FCA5935CA2DD}" : "{B219EC028EC342D8}Configs/Dilaogue_Configs/Requests/Stashes.conf" {
     }
+    SCR_EntityCatalog "{5E709DB7C663A019}" : "{B80293331FB7BFCF}Configs/EntityCatalog/FactionLess/EntityCatalog_SupplyContainerItems.conf" {
+    }
    }
   }
   SCR_GameModeHealthSettings "{5DC8E7D95C0C2D67}" {
@@ -34,11 +36,11 @@ SP_GameMode {
   SCR_GameOverScreenManagerComponent "{5DC8E7D96AC61234}" {
    m_GameOverScreenConfig SCR_GameOverScreenConfig "{5DC8E7DE92B37D05}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
     m_aGameOverScreens {
-     SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
-      m_GameOverScreenId UNKNOWN
-     }
      SCR_BaseGameOverScreenInfo "{5DC8E7DE9CEB2F9B}" {
       m_GameOverScreenId DEATH
+     }
+     SCR_BaseGameOverScreenInfo "{5DC8E7DE9A21BB69}" {
+      m_GameOverScreenId UNKNOWN
      }
     }
    }
@@ -86,10 +88,8 @@ SP_GameMode {
     SCR_SpawnPointSpawnHandlerComponent "{5DD6DD6E1DEC1E56}" {
     }
    }
-   m_SpawnLogic SP_SpawnLogic "{5DD6E5249CE50C2A}" {
+   m_SpawnLogic SCR_MenuSpawnLogic "{5DD6E5249CE50C2A}" {
     m_sForcedFaction ""
-    m_sForcedLoadout ""
-    Lives 2
    }
   }
   SCR_SpawnerAIGroupManagerComponent "{5DEAF6D7C9F77D88}" {
@@ -109,18 +109,6 @@ SP_GameMode {
     SP_DialogueArchetype "{5DF31169EC5E94AB}" : "{EBDA2467806C6197}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Private.conf" {
     }
     SP_DialogueArchetype "{5DF31169EFDEEC58}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
-    }
-   }
-   m_ChatChannelFIA FIAChatChannel "{5DEC870D24A9390E}" {
-    Style BaseChatChannelStyle "{5DEC870D2DC8FF78}" {
-    }
-   }
-   m_ChatChannelUSSR USSRChatChannel "{5DEC870D286061F6}" {
-    Style BaseChatChannelStyle "{5DEC870D2C522E1C}" {
-    }
-   }
-   m_ChatChannelUS USChatChannel "{5DEC870D2BB64921}" {
-    Style BaseChatChannelStyle "{5DEC870D2C2847BA}" {
     }
    }
   }
