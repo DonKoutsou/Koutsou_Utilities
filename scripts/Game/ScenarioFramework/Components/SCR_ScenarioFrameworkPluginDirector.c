@@ -50,7 +50,7 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 		SP_AIDirector director;
 		IEntity entity = object.GetSpawnedEntity();
 		
-		SCR_ScenarioFrameworkSlotAI slot = SCR_ScenarioFrameworkSlotAI.Cast(object);
+		SCR_ScenarioFrameworkSlotAI Parentslot = SCR_ScenarioFrameworkSlotAI.Cast(object);
 		
 		director = SP_AIDirector.Cast(entity);
 		
@@ -75,10 +75,10 @@ class SCR_ScenarioFrameworkPluginDirector: SCR_ScenarioFrameworkPlugin
 			else
 			{
 				director.m_FactionsToApear.Clear();
-				director.m_FactionsToApear.Insert(slot.GetFactionKey());
+				director.m_FactionsToApear.Insert(Parentslot.GetFactionKey());
 			}
 			
-			director.slot = slot;
+			director.SetParentSlot(Parentslot);
 			director.Init();
 		}
 		

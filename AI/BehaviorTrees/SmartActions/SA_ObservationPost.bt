@@ -649,10 +649,6 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
           }
          }
         }
-        SCR_AIUpdateNeeds "SCR_AI Update Needs" {
-         Name "SCR_AI Update Needs"
-         EditorPos 274 -704
-        }
        }
       }
      }

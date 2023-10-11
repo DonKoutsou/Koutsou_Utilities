@@ -6,8 +6,6 @@ GenericEntity {
   MeshObject "{5C789065CA78ECDB}" {
    Object "{9F4C321E6A52E8B7}Assets/Items/Equipment/Backpacks/Backpack_M70_Swiss/Backpack_M70_Swiss.xob"
   }
-  Hierarchy "{5C78906726DA5EF7}" {
-  }
   RigidBody "{5C789067A091994B}" {
    ModelGeometry 1
    Static 1
@@ -35,7 +33,7 @@ GenericEntity {
      Prefab "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et"
     }
     InventoryStorageSlot watch {
-     Prefab "{6FD6C96121905202}Prefabs/Items/Equipment/Watches/Watch_Vostok.et"
+     Prefab "{6FD6C96121905202}prefabs/Items/Equipment/Watches/Watch_Vostok.et"
     }
     InventoryStorageSlot photo {
      Prefab "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et"
@@ -75,6 +73,8 @@ GenericEntity {
    }
   }
   RplComponent "{5C789066CA09ECFB}" {
+  }
+  Hierarchy "{5C78906726DA5EF7}" {
   }
  }
  coords 2535.994 37.848 866.078

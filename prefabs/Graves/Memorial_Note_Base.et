@@ -10,8 +10,6 @@ GenericEntity {
     }
    }
   }
-  Hierarchy "{5C8AC23037F52F1D}" {
-  }
   SCR_BaseInventoryItemComponent "{5C789072283FDD46}" {
    Attributes SCR_ItemAttributeCollection "{5C7890722ADB5961}" {
     ItemDisplayName UIInfo "{5C7890722DFC0AE1}" {
@@ -46,6 +44,8 @@ GenericEntity {
    }
   }
   RplComponent "{5C78907254EE8C40}" {
+  }
+  Hierarchy "{5C8AC23037F52F1D}" {
   }
  }
  coords 153.346 1.001 108.061

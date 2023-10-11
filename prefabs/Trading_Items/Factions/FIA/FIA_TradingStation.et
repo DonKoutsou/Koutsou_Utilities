@@ -16,15 +16,15 @@ GenericEntity {
    LODFactors {
    }
   }
-  Hierarchy "{5B1111248AF396F9}" {
-   Enabled 1
-  }
   RigidBody "{5B1111248AF3969F}" {
    Mass 10
    ModelGeometry 1
    Static 1
   }
   RplComponent "{5B1111248AF3886B}" {
+   Enabled 1
+  }
+  Hierarchy "{5B1111248AF396F9}" {
    Enabled 1
   }
  }

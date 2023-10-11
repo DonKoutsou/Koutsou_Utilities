@@ -136,6 +136,11 @@ GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Cove
   }
   GenericEntity : "{160E4E4110803F26}Prefabs/Structures/Military/Flags/FlagPole_02/FlagPole_02_V1_FIA.et" {
    ID "5C7315DAF4555473"
+   components {
+    SCR_FlagComponent "{5E3C95A1E1EE9681}" {
+     m_sDefaultMaterial "{9BE1341F99D33483}Assets/Props/Fabric/Flags/Data/Flag_1_2_EVERON.emat"
+    }
+   }
    coords -3.554 -0.001 -1.588
   }
   $grp GenericEntity : "{261F10BDC068BB35}Prefabs/Props/Furniture/ChairOld_01.et" {

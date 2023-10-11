@@ -10,8 +10,6 @@ GenericEntity {
     }
    }
   }
-  Hierarchy "{5C8AC23031C023DC}" {
-  }
   SlotManagerComponent "{5C7F06E0BF289DB5}" {
    Slots {
     EntitySlotInfo tag {
@@ -20,6 +18,8 @@ GenericEntity {
      Prefab "{3A85B25FB0660C27}prefabs/Items/Equipment/Accessories/Dogtags/Rusted_Tag_Item.et"
     }
    }
+  }
+  Hierarchy "{5C8AC23031C023DC}" {
   }
  }
  coords 135.99 1.049 99.991

@@ -14,8 +14,6 @@ GenericEntity : "{10C26F96EF7A8CF5}Prefabs/Props/Core/Props_Base.et" {
     }
    }
   }
-  Hierarchy "{5C8AC2319A0362ED}" {
-  }
   RigidBody "{5872F0EB7DFB5A9D}" {
    Mass 10
    ModelGeometry 1
@@ -29,6 +27,8 @@ GenericEntity : "{10C26F96EF7A8CF5}Prefabs/Props/Core/Props_Base.et" {
      Prefab "{96159C525C4B3F2B}prefabs/Graves/Wood_Jesus.et"
     }
    }
+  }
+  Hierarchy "{5C8AC2319A0362ED}" {
   }
  }
  coords 2537.704 37.687 865.222

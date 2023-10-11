@@ -7,8 +7,6 @@ SCR_DestructibleEntity {
     70 50 30 10 2 1 1
    }
   }
-  Hierarchy "{5C8AC2303AB42BBB}" {
-  }
   RigidBody "{5C78906619F241D6}" {
    ResponseIndex "TinyDestructible"
    ModelGeometry 1
@@ -32,6 +30,8 @@ SCR_DestructibleEntity {
      Prefab "{E786E7D41A30846C}prefabs/Graves/Cross_Supporting_Piece.et"
     }
    }
+  }
+  Hierarchy "{5C8AC2303AB42BBB}" {
   }
  }
  coords 2537.721 0.001 865.373

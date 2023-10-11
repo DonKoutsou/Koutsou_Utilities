@@ -6,40 +6,38 @@ class SP_RequestManagerComponentClass : ScriptComponentClass
 [BaseContainerProps(configRoot: true)]
 class SP_RequestManagerComponent : ScriptComponent
 {
+	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(defvalue : "3", desc: "Cooldown for task generation")]
 	float m_fTaskGenTime;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	protected int m_iMinTaskAmount;
-	
-	//[Attribute(defvalue: "3", desc: "Max amount of tasks a character can be requesting at the same time")]
-	//protected int m_fTaskPerCharacter;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(defvalue: "2", desc: "Max amount of tasks of sametype a character can be requesting at the same time")]
 	protected int m_fTaskOfSameTypePerCharacter;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_Task> m_aTasksToSpawn;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_ChainedTask> m_aQuestlines;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	bool m_bQuestInited;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	//Tasks samples to set up settings for all different tasks
 	static ref array<ref SP_Task> m_aTaskSamples = null;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	//Garbage Manager
 	[Attribute(defvalue: "60", desc: "Task garbage manager kinda. Completed task are added to their own list, failed tasks are deleted")]
 	float m_fTaskClearTime;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(defvalue:"0")]
 	bool m_bShowDebug;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	protected float m_fTaskRespawnTimer;
 	protected float m_fTaskClearTimer;
 	protected float m_fDebugTimer;
 	SP_GameMode m_GameMode;
-	
+	//------------------------------------------------------------------------------------------------------------//
 	protected ref CharacterHolder m_CharacterHolder;
 	//------------------------------------------------------------------------------------------------------------//
 	//Array of existing tasks
@@ -178,6 +176,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static bool CharHasAssigned(IEntity Char)
 	{
 		array <ref SP_Task> tasks = {};
@@ -186,6 +185,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			return true;
 		return false;
 	}
+	//------------------------------------------------------------------------------------------------------------//
 	static bool CharFollowingAnybody(IEntity Assignee)
 	{
 		AIControlComponent comp = AIControlComponent.Cast(Assignee.FindComponent(AIControlComponent));
@@ -963,38 +963,9 @@ class SP_RequestManagerComponent : ScriptComponent
 					}
 					infoText2 = infoText2 + string.Format("Ammo Count: %1 of %2\n", magamount, magtype);
 				}
-				
 			}
 			
-			/*int highlightRegion = -1;
-			float highlightDist = -1;
-			vector textMat[4];
-			GetGame().GetWorld().GetCurrentCamera(textMat);
-			vector camDir = textMat[2];
-			vector camPos = textMat[3];
-			vector regionPos = Owner.GetOrigin();
-			regionPos[1] = regionPos[1] + 4;
-			vector intersectScreenDiff = regionPos.InvMultiply4(textMat);
-			intersectScreenDiff[2] = 0;
-					
-			float distScale = vector.Distance(camPos, regionPos) * 0.1;
-			distScale = Math.Clamp(distScale, 0.5, 5);
-					
-			float distToCircle = intersectScreenDiff.Length() / distScale;
-			if (distToCircle < 0.75 && (distToCircle < highlightDist || highlightDist == -1))
-			{
-				highlightDist = distToCircle;
-			}
-					
-			distScale = vector.Distance(camPos, regionPos) * 0.1;
-			distScale = Math.Clamp(distScale, 0.5, 3);
-					
-			textMat[3] = textMat[1] * 0.05 * distScale + regionPos;
-			//SCR_AITaskPickupBehavior*/
 			DebugTextWorldSpace.Create(GetGame().GetWorld(), infoText2, DebugTextFlags.FACE_CAMERA | DebugTextFlags.IN_WORLD | DebugTextFlags.ONCE, origin[0], origin[1] + 4, origin[2], 0.1, 0xFFFFFFFF, Color.BLACK);
-			//CreateSimpleText(infoText2, textMat, 0.1, Color.WHITE, ShapeFlags.ONCE, null, 1, true, Color.BLACK);
-			//Shape.Create(
-			//CreateSimpleText(name, mat, SCR_UnitDisplaySettings.s_fShapeTextSize, textcolor, ShapeFlags.ONCE, null, 1, false);
 		}		
 	}
 };

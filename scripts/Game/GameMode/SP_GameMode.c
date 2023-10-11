@@ -1,9 +1,9 @@
 //------------------------------------------------------------------//
-class SP_GameModeClass: SCR_BaseGameModeClass
+class SP_GameModeClass: SCR_GameModeCampaignClass
 {
 };
 //------------------------------------------------------------------//
-class SP_GameMode : SCR_BaseGameMode
+class SP_GameMode : SCR_GameModeCampaign
 {
 	//------------------------------------------------------------------//
 	[Attribute(UIWidgets.CheckBox, desc: "If true, it will override any previously set game over type with selected one down bellow")];
@@ -57,14 +57,6 @@ class SP_GameMode : SCR_BaseGameMode
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		if (ReqMan)
 			ReqMan.AssignInitTasks(entity);
-		//Set GM
-		SCR_EditorManagerEntity localEditorManager = SCR_EditorManagerEntity.GetInstance();
-		SCR_VotingManagerComponent votingManager = SCR_VotingManagerComponent.GetInstance();
-		if (votingManager)
-		{
-			votingManager.StartVoting(EVotingType.EDITOR_IN, localEditorManager.GetPlayerID());
-			votingManager.EndVoting(EVotingType.EDITOR_IN, localEditorManager.GetPlayerID(), EVotingOutcome.FORCE_WIN);
-		}
 		//set up initial goodwill
 		m_factionManager.SetUpPlayerGoodwill(entity);
 		
@@ -78,6 +70,45 @@ class SP_GameMode : SCR_BaseGameMode
 	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
 	{
 		plfact = faction;
+	}
+	override bool RplLoad(ScriptBitReader reader)
+	{
+		// Sync respawn radios & control points amount
+		int activeBasesTotal;
+
+		reader.ReadInt(activeBasesTotal);
+
+		m_BaseManager.SetTargetActiveBasesCount(activeBasesTotal);
+
+		if (m_BaseManager.GetActiveBasesCount() == activeBasesTotal)
+			m_BaseManager.OnAllBasesInitialized();
+
+		int respawnRadiosBLUFOR, respawnRadiosOPFOR, respawnRadiosINFOR, controlPointsHeldBLUFOR, controlPointsHeldOPFOR, controlPointsHeldINFOR, primaryTargetBLUFOR, primaryTargetOPFOR, primaryTargetINFOR;
+
+		reader.ReadInt(respawnRadiosBLUFOR);
+		reader.ReadInt(respawnRadiosOPFOR);
+		reader.ReadInt(respawnRadiosINFOR);
+
+		reader.ReadInt(controlPointsHeldBLUFOR);
+		reader.ReadInt(controlPointsHeldOPFOR);
+		reader.ReadInt(controlPointsHeldINFOR);
+
+		reader.ReadInt(primaryTargetBLUFOR);
+		reader.ReadInt(primaryTargetOPFOR);
+		reader.ReadInt(primaryTargetINFOR);
+
+		GetFactionByEnum(SCR_ECampaignFaction.BLUFOR).SetActiveRespawnRadios(respawnRadiosBLUFOR);
+		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetActiveRespawnRadios(respawnRadiosOPFOR);
+		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetActiveRespawnRadios(respawnRadiosINFOR);
+
+		GetFactionByEnum(SCR_ECampaignFaction.BLUFOR).SetControlPointsHeld(controlPointsHeldBLUFOR);
+		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetControlPointsHeld(controlPointsHeldOPFOR);
+		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetControlPointsHeld(controlPointsHeldINFOR);
+
+		GetFactionByEnum(SCR_ECampaignFaction.BLUFOR).SetPrimaryTarget(SCR_CampaignMilitaryBaseComponent.Cast(Replication.FindItem(primaryTargetBLUFOR)));
+		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetPrimaryTarget(SCR_CampaignMilitaryBaseComponent.Cast(Replication.FindItem(primaryTargetOPFOR)));
+
+		return true;
 	}
 };
 //------------------------------------------------------------------//

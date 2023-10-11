@@ -52,8 +52,6 @@ GenericEntity {
   MeshObject "{5C7D11CAD4E6F39C}" {
    Object "{3A1BADCAE99125E4}Assets/Items/Misc/Photo/Loved_Photo.xob"
   }
-  Hierarchy "{5C7D32C1484807D2}" {
-  }
   RigidBody "{5C7D11CAD4E6F38F}" {
    Mass 1
    LinearDamping 0.5
@@ -87,6 +85,8 @@ GenericEntity {
    }
   }
   RplComponent "{5C7D11CAD4E6F4DC}" {
+  }
+  Hierarchy "{5C7D32C1484807D2}" {
   }
  }
  coords 118.242 1.404 150.867
