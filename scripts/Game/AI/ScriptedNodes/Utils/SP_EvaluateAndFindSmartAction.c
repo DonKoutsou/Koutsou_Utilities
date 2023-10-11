@@ -4,9 +4,6 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	[Attribute()]
 	protected ref array <string> m_aTags;
 	
-	[Attribute()]
-	protected bool m_bForceNodeSuccess;
-	
 	[Attribute("StorePost")]
 	protected string m_sStoreTag;
 	
@@ -15,6 +12,12 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	
 	[Attribute("300")]
 	float m_fStoreSearchRadius;
+	
+	[Attribute(defvalue : "GatePost")]
+	string m_sGateTag;
+	
+	[Attribute(defvalue : "LoiterPost")]
+	string m_sIdleActionTag;
 
 	protected static const string POISSITION_PORT = "Possition";
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
@@ -28,7 +31,9 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	bool CloseSpawn;
 	IEntity m_Owner;
 	ref array <string> tags = {};
-	ref array <Managed> correctsmartacts = {};
+	ref array <Managed> a_CorrectSmartActs = {};
+	ref array <Managed> a_GateSmartActions = {};
+	ref array <Managed> a_IdleSmartActions = {};
 	ref array <string> outtags = {};
 	override bool VisibleInPalette() { return true; }
 	
@@ -40,7 +45,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
 		//make sure arrays are empty for new cycle
-		correctsmartacts.Clear();
+		a_CorrectSmartActs.Clear();
 		tags.Clear();
 		outtags.Clear();
 		OutSmartAction = null;
@@ -71,9 +76,6 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		//if no origin still fail
 		if ( ! Origin )
 		{
-			if( m_bForceNodeSuccess )
-				return ENodeResult.SUCCESS;
-			
 			return ENodeResult.FAIL;
 		}
 		//if there are needs
@@ -88,8 +90,8 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 			//Clear tags so that next seach doesent look for store again
 			tags.Clear();
 		}
-		//if correctsmartacts it means that char either has no needs or cant find store for needs so look for the normal tags
-		if (correctsmartacts.IsEmpty())
+		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
+		if (a_CorrectSmartActs.IsEmpty())
 		{
 			//apply radius for seatch
 			Radious = m_fRadius;
@@ -97,32 +99,67 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 			tags.Copy(m_aTags);
 			//Do the query
 			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
-			//if none fail
-			if (correctsmartacts.IsEmpty())
+			float dist;
+			//find out the closest one out of found smart action
+			if (!a_CorrectSmartActs.IsEmpty())
 			{
-				if(m_bForceNodeSuccess)
-					return ENodeResult.SUCCESS;
-				return ENodeResult.FAIL;
+				foreach (Managed SmartA : a_CorrectSmartActs)
+				{
+					dist = 0;
+					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
+					//set up first distance
+					if ( ! dist )
+					{
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
+						OutSmartAction = Smart;
+					}
+					// if any of the next smart actions has smaller distance and set it as the one to use
+					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() ) )
+					{
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
+						OutSmartAction = Smart;
+					}
+				}
 			}
-		}
-		
-		float dist;
-		//find out the closest one out of found smart action
-		foreach (Managed SmartA : correctsmartacts)
-		{
-			
-			SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
-			//set up first distance
-			if ( ! dist )
+			else if (!a_GateSmartActions.IsEmpty())
 			{
-				dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
-				OutSmartAction = Smart;
+				dist = 0;
+				foreach (Managed SmartA : a_GateSmartActions)
+				{
+					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
+					//set up first distance
+					if ( ! dist )
+					{
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
+						OutSmartAction = Smart;
+					}
+					// if any of the next smart actions has smaller distance and set it as the one to use
+					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() ) )
+					{
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
+						OutSmartAction = Smart;
+					}
+				}
 			}
-			// if any of the next smart actions has smaller distance and set it as the one to use
-			else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() ) )
+			else if (!a_IdleSmartActions.IsEmpty())
 			{
-				dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
-				OutSmartAction = Smart;
+				dist = 0;
+				foreach (Managed SmartA : a_IdleSmartActions)
+				{
+					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
+					//set up first distance
+					if ( ! dist )
+					{
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
+						OutSmartAction = Smart;
+					}
+					// if any of the next smart actions has smaller distance and set it as the one to use
+					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() ) )
+					{
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
+						OutSmartAction = Smart;
+					}
+				}
 			}
 		}
 		
@@ -133,7 +170,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		{
 			SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(OutSmartAction);
 			if (storeaction)
-				OutSmartAction = SCR_AISmartActionComponent.Cast(correctsmartacts.GetRandomElement());
+				OutSmartAction = SCR_AISmartActionComponent.Cast(a_CorrectSmartActs.GetRandomElement());
 			//if char should crouch when using action
 			SetVariableOut( OUT_CROUCH_BOOL, OutSmartAction.ShouldCrouchWhenPerforming );
 			SetVariableOut( OUT_OCUPY_BOOL, OutSmartAction.m_bShouldOccupy );
@@ -144,8 +181,6 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 			SetVariableOut(OUT_TAG_PORT, outtags);
 			return ENodeResult.SUCCESS;
 		}
-		if(m_bForceNodeSuccess)
-			return ENodeResult.SUCCESS;
 		return ENodeResult.FAIL;
 	}
 	//special querry looks for smart action, doese the test on them to determine if "can be performed"
@@ -183,12 +218,19 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 						if (smatcomp.NeedsTest())
 						{
 							if (smatcomp.RunTest(m_Owner))
-								correctsmartacts.Insert(Smart);
+								a_CorrectSmartActs.Insert(Smart);
 						}
 						else
-							correctsmartacts.Insert(Smart);
+							a_CorrectSmartActs.Insert(Smart);
 					}
-						
+					else if (tg == m_sGateTag)
+					{
+						a_GateSmartActions.Insert(Smart);
+					}
+					else if (tg == m_sIdleActionTag)
+					{
+						a_IdleSmartActions.Insert(Smart);
+					}
 				}
 			}
 		}
