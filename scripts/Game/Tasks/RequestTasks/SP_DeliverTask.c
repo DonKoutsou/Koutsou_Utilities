@@ -164,7 +164,7 @@ class SP_DeliverTask: SP_Task
 			return false;
 		}
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SP_PackagePredicate PackPred = new SP_PackagePredicate(Diag.GetCharacterRankName(TalkingChar) + " " + Diag.GetCharacterName(TalkingChar));
 		array <IEntity> FoundPackages = new array <IEntity>();
 		inv.FindItems(FoundPackages, PackPred);
@@ -187,7 +187,7 @@ class SP_DeliverTask: SP_Task
 		
 		InventoryStorageManagerComponent Assigneeinv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
 		InventoryStorageManagerComponent Targetinv = InventoryStorageManagerComponent.Cast(m_eTaskTarget.FindComponent(InventoryStorageManagerComponent));
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SP_PackagePredicate PackPred = new SP_PackagePredicate(Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget));
 		array <IEntity> FoundPackages = new array <IEntity>();
 		Assigneeinv.FindItems(FoundPackages, PackPred);
@@ -256,7 +256,10 @@ class SP_DeliverTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SCR_GameModeCampaign GM = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
+		if (!GM)
+			return;
+		SP_DialogueComponent Diag = GM.GetDialogueComponent();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
 		DName = Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
@@ -382,13 +385,14 @@ class SP_DeliverTask: SP_Task
 	}
 	override void UnAssignOwner()
 	{
+		super.UnAssignOwner();
+		if (!m_eTaskOwner)
+			return;
 		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
 		if (!comp)
 			return;
 		AIAgent agent = comp.GetAIAgent();
 		if (!agent)
-			return;
-		if (!super.AssignOwner())
 			return;
 		//Add follow action to owner
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
@@ -397,7 +401,7 @@ class SP_DeliverTask: SP_Task
 		SCR_AIExecuteDeliveryTaskBehavior action = SCR_AIExecuteDeliveryTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteDeliveryTaskBehavior));
 		if (action)
 			action.SetActiveFollowing(false);
-		super.UnAssignOwner();
+		
 	}
 	override bool Init()
 	{

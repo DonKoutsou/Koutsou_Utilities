@@ -27,10 +27,10 @@ modded class SCR_InventoryMenuUI : UIInfo
 		m_pItemInfo.Show( 0.6, w, m_bIsUsingGamepad );
 		m_pItemInfo.SetName( sName );
 		m_pItemInfo.SetDescription( sDescr );
-		m_pItemInfo.SetCharName(m_sCharName);
+		//m_pItemInfo.SetCharName(m_sCharName);
 		m_pItemInfo.SetWeight( sWeight );
 		m_pItemInfo.SetInsulation(m_sInsulation);
-		m_pItemInfo.SetCharName(m_sCharName);
+		//m_pItemInfo.SetCharName(m_sCharName);
 		m_pItemInfo.SetOptDesc(m_sMyDesc);
 		if (uiInfo && uiInfo.IsIconVisible())
 			m_pItemInfo.SetIcon(uiInfo.GetIconPath(), uiInfo.GetIconColor());
@@ -58,7 +58,7 @@ modded class SCR_InventoryMenuUI : UIInfo
 		
 		m_sMyDesc = STRING_EMPTY;
 		m_sInsulation = STRING_EMPTY;
-		m_sCharName = STRING_EMPTY;
+		//m_sCharName = STRING_EMPTY;
 	}
 	override protected void SetFocusedSlotEffects()
 	{
@@ -78,12 +78,12 @@ modded class SCR_InventoryMenuUI : UIInfo
 		if ( !attribs )
 			return;
 		UIInfo itemInfo = attribs.GetUIInfo();
-		DogTagEntity tag = DogTagEntity.Cast(invItemComp.GetOwner());
-		if(tag)
-		{
-			tag.GetCname(m_sCharName);
-			m_sCharName = "TagOwner: " + m_sCharName
-		}
+		//DogTagEntity tag = DogTagEntity.Cast(invItemComp.GetOwner());
+		//if(tag)
+		//{
+		//	tag.GetCname(m_sCharName);
+		//	m_sCharName = "TagOwner: " + m_sCharName
+		//}
 		m_sInsulation = attribs.GetInsulation();
 		string cname;
 		string tname;

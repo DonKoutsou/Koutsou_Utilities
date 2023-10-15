@@ -10,7 +10,7 @@ WalletEntity {
    DistanceManagement 0
   }
   MeshObject "{5E0EFE4578D0CBC8}" {
-   Object "{402839377B0ADE78}Assets/Wallet/Wallet.xob"
+   Object "{01D3DD5E5B983C18}Assets/Props/Industrial/ToolBox_02/ToolBox_02.xob"
   }
   RigidBody "{5C78C42204C93A50}" {
    ModelGeometry 1

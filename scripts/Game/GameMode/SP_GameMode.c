@@ -1,9 +1,5 @@
 //------------------------------------------------------------------//
-class SP_GameModeClass: SCR_GameModeCampaignClass
-{
-};
-//------------------------------------------------------------------//
-class SP_GameMode : SCR_GameModeCampaign
+modded class SCR_GameModeCampaign
 {
 	//------------------------------------------------------------------//
 	[Attribute(UIWidgets.CheckBox, desc: "If true, it will override any previously set game over type with selected one down bellow")];
@@ -17,12 +13,6 @@ class SP_GameMode : SCR_GameModeCampaign
 	protected SP_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
 	protected SCR_FactionManager m_factionManager;
-	protected Faction plfact;
-	
-	Faction GetPlFaction()
-	{
-		return plfact;
-	}
 	//------------------------------------------------------------------//
 	SP_DialogueComponent GetDialogueComponent()
 	{
@@ -67,48 +57,45 @@ class SP_GameMode : SCR_GameModeCampaign
 			task.CancelTask();
 		}
 	}
-	override void OnPlayerFactionSet_S(SCR_PlayerFactionAffiliationComponent factionComponent, Faction faction)
+	//------------------------------------------------------------------------------------------------
+	override protected void OnRankChanged(SCR_ECharacterRank oldRank, SCR_ECharacterRank newRank, notnull IEntity owner, bool silent)
 	{
-		plfact = faction;
-	}
-	override bool RplLoad(ScriptBitReader reader)
-	{
-		// Sync respawn radios & control points amount
-		int activeBasesTotal;
+		if (silent)
+			return;
+		SCR_CampaignFaction faction;
+		int playerId;
+		if (SCR_EntityHelper.IsPlayer(owner))
+		{
+			playerId = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(owner);
+			faction = SCR_CampaignFaction.Cast(SCR_FactionManager.SGetPlayerFaction(playerId));
+		}
+		else
+		{
+			FactionAffiliationComponent AffComp = FactionAffiliationComponent.Cast(owner.FindComponent(FactionAffiliationComponent));
+			faction = SCR_CampaignFaction.Cast(AffComp.GetAffiliatedFaction());
+		}
 
-		reader.ReadInt(activeBasesTotal);
+		if (!faction)
+			return;
 
-		m_BaseManager.SetTargetActiveBasesCount(activeBasesTotal);
+		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 
-		if (m_BaseManager.GetActiveBasesCount() == activeBasesTotal)
-			m_BaseManager.OnAllBasesInitialized();
+		if (!factionManager)
+			return;
 
-		int respawnRadiosBLUFOR, respawnRadiosOPFOR, respawnRadiosINFOR, controlPointsHeldBLUFOR, controlPointsHeldOPFOR, controlPointsHeldINFOR, primaryTargetBLUFOR, primaryTargetOPFOR, primaryTargetINFOR;
+		SCR_RankIDCampaign rank = SCR_RankIDCampaign.Cast(factionManager.GetRankByID(newRank));
 
-		reader.ReadInt(respawnRadiosBLUFOR);
-		reader.ReadInt(respawnRadiosOPFOR);
-		reader.ReadInt(respawnRadiosINFOR);
+		if (!rank)
+			return;
 
-		reader.ReadInt(controlPointsHeldBLUFOR);
-		reader.ReadInt(controlPointsHeldOPFOR);
-		reader.ReadInt(controlPointsHeldINFOR);
+		SCR_ERadioMsg radio;
 
-		reader.ReadInt(primaryTargetBLUFOR);
-		reader.ReadInt(primaryTargetOPFOR);
-		reader.ReadInt(primaryTargetINFOR);
-
-		GetFactionByEnum(SCR_ECampaignFaction.BLUFOR).SetActiveRespawnRadios(respawnRadiosBLUFOR);
-		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetActiveRespawnRadios(respawnRadiosOPFOR);
-		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetActiveRespawnRadios(respawnRadiosINFOR);
-
-		GetFactionByEnum(SCR_ECampaignFaction.BLUFOR).SetControlPointsHeld(controlPointsHeldBLUFOR);
-		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetControlPointsHeld(controlPointsHeldOPFOR);
-		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetControlPointsHeld(controlPointsHeldINFOR);
-
-		GetFactionByEnum(SCR_ECampaignFaction.BLUFOR).SetPrimaryTarget(SCR_CampaignMilitaryBaseComponent.Cast(Replication.FindItem(primaryTargetBLUFOR)));
-		GetFactionByEnum(SCR_ECampaignFaction.OPFOR).SetPrimaryTarget(SCR_CampaignMilitaryBaseComponent.Cast(Replication.FindItem(primaryTargetOPFOR)));
-
-		return true;
+		if (newRank < oldRank && !rank.IsRankRenegade())
+			radio = SCR_ERadioMsg.DEMOTION;
+		else
+			radio = rank.GetRadioMsg();
+		if (playerId)
+			faction.SendHQMessage(radio, calledID: playerId, public: false, param: newRank)
 	}
 };
 //------------------------------------------------------------------//

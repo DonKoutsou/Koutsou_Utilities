@@ -22,14 +22,14 @@ modded class SCR_GameModeSFManager
 
 		LoadHeaderSettings();
 		
-		SP_GameMode Gamemod = SP_GameMode.Cast(GetGame().GetGameMode());
+		SCR_GameModeCampaign Gamemod = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
 		InitAreas();
 		
 		return true;
 	}
 	protected bool InitAreas()
 	{
-		SP_GameMode Gamemod = SP_GameMode.Cast(GetGame().GetGameMode());
+		SCR_GameModeCampaign Gamemod = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
  		// Spawn everything inside the Area except the task layers
 		SCR_FactionManager factman = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 		//m_fFactionsToAppear.RemoveItem(Gamemod.GetPlFaction().GetFactionKey());
@@ -41,7 +41,7 @@ modded class SCR_GameModeSFManager
 				{
 					if (area.m_bUsePlayerFaction)
 					{
-						area.SetFactionKey(Gamemod.GetPlFaction().GetFactionKey());
+						//area.SetFactionKey(Gamemod.GetPlFaction().GetFactionKey());
 						
 					}
 					else

@@ -1,9 +1,9 @@
 //action to be used by AI to buy stuff, based on their needs wich should be configured in the smart action component of the store
-class SP_BuyStuff : ScriptedUserAction
+/*class SP_BuyStuff : ScriptedUserAction
 {
 	SP_StoreAISmartActionComponent StoreSmartAction;
-	ADM_ShopComponent shop;
-	ref array <ref ADM_ShopMerchandise> Merchendise
+	SCR_ArsenalComponent shop;
+	ref array <ref SCR_ArsenalItem> Merchendise
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		//Get chimera
@@ -53,14 +53,14 @@ class SP_BuyStuff : ScriptedUserAction
 		//Get worth of any of those items
 		int price = RequestCatalog.GetWorthOfItem(Mylist.GetRandomElement().GetPrefab());
 		// array to fill with stuff character can afford
-		array <ref ADM_ShopMerchandise> CanBuyMerchendise = {};
+		array <ref SCR_ArsenalItem> CanBuyMerchendise = {};
 		//itterate through list and check wich of the items can be purchased
 		foreach (SCR_EntityCatalogEntry entry : Mylist)
 		{
 			ResourceName prefab = entry.GetPrefab();
-			foreach (ADM_ShopMerchandise merch : Merchendise)
+			foreach (SCR_ArsenalItem merch : Merchendise)
 			{
-				if (prefab == merch.GetMerchandise().GetPrefab())
+				if (prefab == merch.GetItemResourceName())
 				{
 					if (shop.CanPurchase(pUserEntity, merch, ammount))
 					{

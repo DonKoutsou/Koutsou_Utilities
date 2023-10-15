@@ -11,6 +11,7 @@ class SP_CharacterAISmartActionComponent : SCR_AISmartActionComponent
 	}
 	
 };
+
 class SP_StoreAISmartActionComponentClass: SCR_AISmartActionComponentClass
 {
 };
@@ -18,7 +19,7 @@ class SP_StoreAISmartActionComponentClass: SCR_AISmartActionComponentClass
 
 class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 {
-	ADM_ShopComponent Shop;
+	SCR_ArsenalComponent Shop;
 	
 	ref array <ERequestRewardItemDesctiptor> shoplist = {};
 	ref array <ref BaseMagazineWell > MagList = {};
@@ -40,24 +41,24 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 	void Init(IEntity owner)
 	{
 		m_Owner = GenericEntity.Cast(owner);
-		Shop = ADM_ShopComponent.Cast(owner.FindComponent(ADM_ShopComponent));
+		Shop = SCR_ArsenalComponent.Cast(owner.FindComponent(SCR_ArsenalComponent));
 		if (!Shop)
 			return;
 		
-		array <ref ADM_ShopMerchandise> Merchandise = Shop.GetMerchandise();
+		array <SCR_ArsenalItem> Merchandise = {};
+		Shop.GetFilteredArsenalItems(Merchandise);
 		if (Merchandise.IsEmpty())
 			return;
 		
 		SCR_EntityCatalogManagerComponent Catalog = SCR_EntityCatalogManagerComponent.GetInstance();
 		SCR_EntityCatalog RequestCatalog = Catalog.GetEntityCatalogOfType(EEntityCatalogType.REQUEST);
 		
-		foreach (ADM_ShopMerchandise merch : Merchandise)
+		foreach (SCR_ArsenalItem merch : Merchandise)
 		{
-			ResourceName prefab = merch.GetMerchandise().GetPrefab();
+			ResourceName prefab = merch.GetItemResourceName();
 			SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefab);
 			if (entry)
-			{
-				ERequestRewardItemDesctiptor descr;
+			{				ERequestRewardItemDesctiptor descr;
 				SP_RequestData data = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
 				if (data)
 				{

@@ -36,7 +36,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	protected float m_fTaskRespawnTimer;
 	protected float m_fTaskClearTimer;
 	protected float m_fDebugTimer;
-	SP_GameMode m_GameMode;
+	SCR_GameModeCampaign m_GameMode;
 	//------------------------------------------------------------------------------------------------------------//
 	protected ref CharacterHolder m_CharacterHolder;
 	//------------------------------------------------------------------------------------------------------------//
@@ -238,7 +238,10 @@ class SP_RequestManagerComponent : ScriptComponent
 		if (!Char)
 			return false;
 		AIControlComponent comp = AIControlComponent.Cast(Char.FindComponent(AIControlComponent));
+		
 		AIAgent agent = comp.GetAIAgent();
+		if ( !agent )
+			return true;
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
 		SCR_AITaskPickupBehavior act = SCR_AITaskPickupBehavior.Cast(utility.FindActionOfType(SCR_AITaskPickupBehavior));
 		if (act)
@@ -391,8 +394,8 @@ class SP_RequestManagerComponent : ScriptComponent
 		GetCharOwnedTasks(Char, ownedtasks);
 		foreach (SP_Task task : ownedtasks)
 		{
-			if (task.GetClassName() == SP_BountyTask || task.IsReserved())
-				continue;
+			//if (task.GetClassName() == SP_BountyTask || task.IsReserved())
+				//continue;
 			if (IsAssignable(task.GetClassName()))
 			{
 				return false;
@@ -402,8 +405,8 @@ class SP_RequestManagerComponent : ScriptComponent
 		GetCharTargetTasks(Char, targettasks);
 		foreach (SP_Task task : targettasks)
 		{
-			if (task.GetClassName() == SP_BountyTask)
-				continue;
+			//if (task.GetClassName() == SP_BountyTask)
+				//continue;
 			if (IsAssignable(task.GetClassName()))
 			{
 				return false;
@@ -422,7 +425,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 		foreach (SP_Task task : tasks)
 		{
-			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_BountyTask && task.GetClassName() != SP_RetrieveTask && !task.IsOwnerAssigned() && !task.IsReserved() && task.GetState() == ETaskState.UNASSIGNED)
+			if (IsAssignable(task.GetClassName()) && task.GetClassName() != SP_RetrieveTask && !task.IsOwnerAssigned() && !task.IsReserved() && task.GetState() == ETaskState.UNASSIGNED)
 			{
 				if (task.GetTimeLimit() > 3)
 					continue;
@@ -761,7 +764,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		//m_CharacterHolder.SetSpecialCharacterNameList(m_aSpecialCharacterNameList);
 		if (!m_GameMode)
 		{
-			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
+			m_GameMode = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
 			if (m_GameMode)
 			{
 				m_GameMode.GetOnControllableSpawned().Insert(m_CharacterHolder.OnNewCharacter);

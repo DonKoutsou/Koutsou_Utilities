@@ -2,7 +2,7 @@ class SP_IDPackageAction : ScriptedUserAction
 {
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		SP_DialogueComponent DiagComp = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_DialogueComponent DiagComp = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SP_PackageComponent Pac = SP_PackageComponent.Cast(pOwnerEntity.FindComponent(SP_PackageComponent));
 		string OName;
 		string DName;

@@ -302,13 +302,14 @@ class SP_NavigateTask: SP_Task
 	}
 	override void UnAssignOwner()
 	{
+		super.UnAssignOwner();
+		if (!m_eTaskOwner)
+			return;
 		AIControlComponent comp = AIControlComponent.Cast(m_eTaskOwner.FindComponent(AIControlComponent));
 		if (!comp)
 			return;
 		AIAgent agent = comp.GetAIAgent();
 		if (!agent)
-			return;
-		if (!super.AssignOwner())
 			return;
 		//Add follow action to owner
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
@@ -317,7 +318,7 @@ class SP_NavigateTask: SP_Task
 		SCR_AIExecuteNavigateTaskBehavior action = SCR_AIExecuteNavigateTaskBehavior.Cast(utility.FindActionOfType(SCR_AIExecuteNavigateTaskBehavior));
 		if (action)
 			action.SetActiveFollowing(false);
-		super.UnAssignOwner();
+		
 	}
 	override string GetCompletionText(IEntity Completionist)
 	{

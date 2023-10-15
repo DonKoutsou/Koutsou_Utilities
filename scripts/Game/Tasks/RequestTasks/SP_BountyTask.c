@@ -1,4 +1,4 @@
-[BaseContainerProps(configRoot:true), TaskAttribute()]
+/*[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_BountyTask: SP_Task
 {
 	DogTagEntity Tag;

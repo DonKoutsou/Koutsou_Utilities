@@ -1,4 +1,4 @@
-SCR_DefendWaypoint : "{A33AF7FC5004F294}prefabs/AI/Waypoints/AIWaypoint_Defend_Large_CO.et" {
+SCR_DefendWaypoint : "{A33AF7FC5004F294}Prefabs/AI/Waypoints/AIWaypoint_Defend_Large_CO.et" {
  ID "5CA07E9823A76129"
  coords 3237.194 41.952 2435.615
  CompletionRadius 250

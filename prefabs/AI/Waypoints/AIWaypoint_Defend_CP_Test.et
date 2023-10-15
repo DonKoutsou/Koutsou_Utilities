@@ -1,10 +1,10 @@
-SCR_DefendWaypoint : "{2A81753527971941}Prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et" {
+SCR_DefendWaypoint : "{2A81753527971941}prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et" {
  ID "5A5E8832CED378BA"
  CompletionRadius 250
  m_DefendPresets {
   SCR_DefendWaypointPreset "{5A5E8832CED378A7}" {
-   m_aTagsForSearch {
-    "ChillPost" "ObservationPost" "GatePost"
+   m_aTagsForSearch + {
+    "ObservationPost" "GatePost"
    }
   }
   SCR_DefendWaypointPreset "{5A5E8832CED378AF}" {

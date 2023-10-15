@@ -1,4 +1,4 @@
-GenericEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
+WalletEntity : "{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et" {
  ID "5C78C422199A1092"
  components {
   SCR_UniversalInventoryStorageComponent "{5C78C42204C93A3C}" {

@@ -16,9 +16,9 @@ FrameWidgetClass {
            Prefab "{000000008568C576}"
            {
             VerticalLayoutWidgetClass "{5E709A59C8B021B8}" {
-             Prefab "{5E709A59C8B021B8}"
-             "Z Order" 1
-             "Fill Origin" Bottom
+             Name "VerticalLayout0"
+             Slot LayoutSlot "{5E709A59C8B0219F}" {
+             }
              {
               TextWidgetClass "{5E709A5824B16C12}" {
                Name "ItemInfo_OptDesc0"
@@ -32,9 +32,6 @@ FrameWidgetClass {
                "Min Font Size" 15
                Wrap 1
                "No Localization" 1
-               FontProperties FontProperties "{5D885C38D4DBEAF1}" {
-                Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
-               }
               }
               TextWidgetClass "{5D885C3B1CA56424}" {
                Name "ItemInfo_insulationUnit"
@@ -48,9 +45,6 @@ FrameWidgetClass {
                "Min Font Size" 15
                Wrap 1
                "No Localization" 1
-               FontProperties FontProperties "{5D885C38D4DBEAF1}" {
-                Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
-               }
               }
              }
             }
@@ -60,21 +54,6 @@ FrameWidgetClass {
               TextWidgetClass "{0000000042F965D9}" {
                Prefab "{0000000042F965D9}"
                FontProperties FontProperties "{5222C61204238C11}" {
-                Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
-               }
-              }
-             }
-            }
-            HorizontalLayoutWidgetClass "{00000000A09F13EE}" {
-             Prefab "{00000000A09F13EE}"
-             {
-              TextWidgetClass "{5D8ED749BCA21140}" {
-               Prefab "{0000000087778265}"
-               Slot LayoutSlot "{5D8ED7481E7ACD23}" {
-                SizeMode Fill
-               }
-               Color 0.651 0.651 0.651 1
-               FontProperties FontProperties "{5E709814AD1B0E79}" {
                 Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
                }
               }

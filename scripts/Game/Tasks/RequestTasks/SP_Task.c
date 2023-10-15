@@ -593,9 +593,8 @@ class SP_Task
 			//itterate through reward and move them to target storage
 			for (int i = 0; i < a_Rewards.Count(); i++)
 			{
-				
 				OwnerInv.TryRemoveItemFromInventory(a_Rewards.Get(i));
-				ADM_Utils.InsertAutoEquipItem(TargetInv, a_Rewards.Get(i));
+				//ADM_Utils.InsertAutoEquipItem(TargetInv, a_Rewards.Get(i));
 				//TargetInv.TryInsertItem(a_Rewards.Get(i));
 				Movedamount += 1;
 			}

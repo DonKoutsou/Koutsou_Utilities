@@ -3,7 +3,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 {
 	override void Perform(IEntity Character, IEntity Player)
 	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		if(SP_RequestManagerComponent.CharHasTask(Character))
 		{
 			array<ref SP_Task> MyTasks = new array<ref SP_Task>();

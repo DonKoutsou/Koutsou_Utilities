@@ -24,7 +24,7 @@ class DialogueStageFollowAction : DialogueStage
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Player);
 		utility.AddAction(action);
 		*/
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		Diag.Escape(Character, Player);
 		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
 		AIAgent agent = comp.GetAIAgent();

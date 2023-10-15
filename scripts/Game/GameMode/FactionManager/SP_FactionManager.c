@@ -21,7 +21,7 @@ modded class SCR_FactionManager
 	[Attribute("15", desc: "Bonus to relation of 2 factions when task of friendly faction is completed.")]
 	int m_TaskCompleteFactionRelationBonus;
 	
-	private SP_GameMode m_GameMode;
+	private SCR_GameModeCampaign m_GameMode;
 
 	EFactionRelationState GetFactionRelationState(SCR_Faction Faction1, SCR_Faction Faction2)
 	{
@@ -193,7 +193,7 @@ modded class SCR_FactionManager
 	{
 		super.EOnInit(owner);
 		if (!m_GameMode)
-			m_GameMode = SP_GameMode.Cast(GetGame().GetGameMode());
+			m_GameMode = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
 		if (!m_GameMode)
 			return;
 		SP_RequestManagerComponent requestman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));

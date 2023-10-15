@@ -1,17 +1,10 @@
-modded class DogTagEntity: GameEntity
+/*modded class DogTagEntity: GameEntity
 {
 	override event protected void EOnFrame(IEntity owner, float timeSlice)
 	{
 		if(!charname)
 		{
 			IEntity parent = owner.GetParent();
-			/*if(parent && EntityUtils.IsPlayer(parent))
-			{
-				PlayerManager mngr = GetGame().GetPlayerManager();
-				int pid = mngr.GetPlayerIdFromControlledEntity(parent);
-				charname = mngr.GetPlayerName(pid);
-				return;
-			}*/
 			parent = ChimeraCharacter.Cast(parent);
 			if(parent)
 			{

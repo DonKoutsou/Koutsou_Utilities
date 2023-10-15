@@ -88,19 +88,19 @@ modded class SP_DialogueComponent
 				}
 				break;
 				//look for bounties on friendly units
-				case 9:
-				{
-					IndtroducionString = ComposeFriendlyBountyString(talker, Player)
-				}
+				//case 9:
+				//{
+				//	IndtroducionString = ComposeFriendlyBountyString(talker, Player)
+				//}
 				break;
 				//look for lost groups
-				case 10:
+				case 9:
 				{
 					IndtroducionString = LookForLostGroups(talker, Player)
 				}
 				break;
 				//Give info about current task being done by ReleaseAI
-				case 11:
+				case 10:
 				{
 					IndtroducionString = ComposeCurrentTaskComment(talker);
 				}
@@ -178,7 +178,7 @@ modded class SP_DialogueComponent
 		FriendlyTaskString = "You arent looking for any work, are you?" + tasks.GetRandomElement().GetTaskDescription();
 		return FriendlyTaskString;
 	}
-	string ComposeFriendlyBountyString(IEntity instigator, IEntity Player)
+	/*string ComposeFriendlyBountyString(IEntity instigator, IEntity Player)
 	{
 		string FriendlyBountyString;
 		FactionAffiliationComponent Affiliation = FactionAffiliationComponent.Cast(instigator.FindComponent(FactionAffiliationComponent));
@@ -198,7 +198,7 @@ modded class SP_DialogueComponent
 			break;
 		}
 		return FriendlyBountyString;
-	}
+	}*/
 	string ComposeEnemyWarningString(IEntity instigator, IEntity Player)
 	{
 		//look for enemy units and report location

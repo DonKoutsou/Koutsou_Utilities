@@ -2,7 +2,7 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
  ID "F0DBA538AC2A0552"
  components {
   SCR_AISmartActionComponent "{5D68E80198B93487}" {
-   AIBehaviorTree "{F719FAF7D4C883D9}AI/BehaviorTrees/SmartActions/LightFire.bt"
+   AIBehaviorTree "{4C972D0E3CA70BE7}AI/BehaviorTrees/SmartActions/LightLight.bt"
    Tags {
     "SwitchLight"
    }

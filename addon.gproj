@@ -3,18 +3,18 @@ GameProject {
  GUID "5DD6C05282B7AD55"
  TITLE "Koutsou_Utilities"
  Dependencies {
-  "5CEB3355D6F27906" "5C7AECFA99A4BF99" "5D2D1436D1FA5A13"
+  "5CEB3355D6F27906"
  }
  Configurations {
   GameProjectConfig PC {
-  }
-  GameProjectConfig HEADLESS {
   }
   GameProjectConfig XBOX_ONE {
   }
   GameProjectConfig XBOX_SERIES {
   }
   GameProjectConfig PS4 {
+  }
+  GameProjectConfig HEADLESS {
   }
  }
 }

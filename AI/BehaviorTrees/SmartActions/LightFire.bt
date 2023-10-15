@@ -1,0 +1,148 @@
+BehaviorTree "{F719FAF7D4C883D9}AI/BehaviorTrees/SmartActions/LightFire.bt" {
+ Name "AI/BehaviorTrees/SmartActions/LightFire.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -50 -45
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -80.25 115.286
+     Nodes {
+      AITaskGetCurrentSmartAction "Get Current Smart Action" {
+       Name "Get Current Smart Action"
+       EditorPos -1024.75 357.786
+       OutSmartAction 0
+      }
+      AITaskGetSmartActionParams "Get Smart Action Params" {
+       Name "Get Smart Action Params"
+       EditorPos -652.25 362.786
+       InSmartAction 0
+       OutPos 2
+       OutSmartActionEntity 1
+      }
+      AITaskCharacterSetMovementSpeed "Character Set Movement Speed" {
+       Name "Character Set Movement Speed"
+       EditorPos -271.972 368.897
+       "Movement speed" RUN
+      }
+      AITaskMove Move {
+       Name "Move"
+       EditorPos 79 377.786
+       InTargetLocation 2
+       PrecisionXZ 2.5
+       PrecisionY 2.5
+      }
+      AITaskChangeStance "Change Stance" {
+       Name "Change Stance"
+       EditorPos 379.893 411.357
+       Stance CROUCH
+      }
+      SCR_AIPlayItemGesture "SCR_AI Play Item Gesture" {
+       Name "SCR_AI Play Item Gesture"
+       EditorPos 586 409
+       m_eGesture EItemGesturePickUp
+      }
+      SCR_AILookAtEntity "SCR_AI Look At Entity" {
+       Name "SCR_AI Look At Entity"
+       EditorPos 855.416 414.119
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 1
+         PortName "EntityIn"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "PriorityIn"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "PositionOut"
+        }
+       }
+       m_fVerticalOffset 0
+      }
+      AITaskIdle Idle {
+       Name "Idle"
+       EditorPos 1060.655 415.786
+      }
+      AITaskChangeStance "Change Stance" {
+       Name "Change Stance"
+       EditorPos 1202.084 417.452
+      }
+      SCR_AIPerformLightActionV2 "SCR_AI Perform Light Action V2" {
+       Name "SCR_AI Perform Light Action V2"
+       EditorPos 1392.917 425.786
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 1
+         PortName "TargetEntity"
+        }
+       }
+      }
+      SCR_AILookAtEntity "SCR_AI Look At Entity" {
+       Name "SCR_AI Look At Entity"
+       EditorPos 1757.917 437.453
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 1
+         PortName "EntityIn"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "PriorityIn"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "PositionOut"
+        }
+       }
+      }
+      SCR_AICompleteAction "SCR_AI Complete Action" {
+       Name "SCR_AI Complete Action"
+       EditorPos 1958.571 437.143
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable SmartAction {
+   VariableName "SmartAction"
+   VariableTypeName "AISmartActionComponent"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable entity {
+   VariableName "entity"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable Pos {
+   VariableName "Pos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference SmartAction {
+   VariableType 0
+   EditorPos -982.25 507.786
+  }
+  VariableReference entity {
+   VariableType 1
+   EditorPos -213.203 657.548
+  }
+  VariableReference Pos {
+   VariableType 2
+   EditorPos -193.778 560.841
+  }
+ }
+}

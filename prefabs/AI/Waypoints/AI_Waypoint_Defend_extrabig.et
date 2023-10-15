@@ -5,8 +5,8 @@ SCR_DefendWaypoint : "{9468A0EEBC5A74B9}prefabs/AI/Waypoints/AIWaypoint_Defend_H
  m_holdingTime 1000
  m_DefendPresets {
   SCR_DefendWaypointPreset "{5CA07E9823A76151}" {
-   m_aTagsForSearch {
-    "ChillPost" "ObservationPost"
+   m_aTagsForSearch + {
+    "ObservationPost"
    }
   }
  }

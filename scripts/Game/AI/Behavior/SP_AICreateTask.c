@@ -28,11 +28,11 @@ class SCR_AICreateTask : AITaskScripted
 				taskname = SP_RescueTask;
 			}
 			break;
-			case "BOUNTY":
-			{
-				taskname = SP_BountyTask;
-			}
-			break;
+			//case "BOUNTY":
+			//{
+			//	taskname = SP_BountyTask;
+			//}
+			//break;
 			case "RETRIEVE":
 			{
 				taskname = SP_RetrieveTask;

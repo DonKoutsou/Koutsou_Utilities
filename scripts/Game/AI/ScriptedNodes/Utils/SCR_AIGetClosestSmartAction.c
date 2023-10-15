@@ -14,7 +14,6 @@ class SCR_AIGetClosestSmartAction : AITaskScripted
 	protected static const string TAGS_PORT = "InTags";
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
 	protected static const string OUT_TAG_PORT = "OutTag";
-	protected static const string OUT_CROUCH_BOOL = "CROUCH_BOOL";
 	
 	SCR_AISmartActionComponent OutSmartAction;
 	vector Origin;
@@ -75,7 +74,6 @@ class SCR_AIGetClosestSmartAction : AITaskScripted
 		
 		if (OutSmartAction)
 		{
-			SetVariableOut(OUT_CROUCH_BOOL, OutSmartAction.ShouldCrouchWhenPerforming);
 			SetVariableOut(SMARTACTION_PORT, OutSmartAction);
 			outtags.Clear();
 			OutSmartAction.GetTags(outtags);
@@ -130,6 +128,6 @@ class SCR_AIGetClosestSmartAction : AITaskScripted
 	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT,  RADIUS_PORT, TAGS_PORT};
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT ,OUT_CROUCH_BOOL};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT};
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
