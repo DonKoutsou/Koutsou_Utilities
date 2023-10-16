@@ -7,6 +7,11 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     }
    }
   }
+  SCR_GameModeSFManager "{5EA105ECD4388559}" {
+   m_fFactionsToAppear {
+    "FIA" "USSR" "US"
+   }
+  }
   SP_DialogueComponent "{5D1547897BFE725A}" {
    m_CharacterArchetypeList {
     SP_DialogueArchetype "{5E9E986CB2F67E8F}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {

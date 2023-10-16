@@ -76,7 +76,9 @@ modded class SCR_GameModeSFManager
 	{
 		if (!task) 
 			return;
-
+		SCR_ScenarioFrameworkTask SFTask = SCR_ScenarioFrameworkTask.Cast(task);
+		if (!SFTask) 
+			return;
 		Faction faction =  task.GetTargetFaction();
 		
 		if (task.GetTaskState() == SCR_TaskState.FINISHED)

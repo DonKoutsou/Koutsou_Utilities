@@ -58,7 +58,8 @@ class SP_StoreAISmartActionComponent : SCR_AISmartActionComponent
 			ResourceName prefab = merch.GetItemResourceName();
 			SCR_EntityCatalogEntry entry = RequestCatalog.GetEntryWithPrefab(prefab);
 			if (entry)
-			{				ERequestRewardItemDesctiptor descr;
+			{	
+				ERequestRewardItemDesctiptor descr;
 				SP_RequestData data = SP_RequestData.Cast(entry.GetEntityDataOfType(SP_RequestData));
 				if (data)
 				{

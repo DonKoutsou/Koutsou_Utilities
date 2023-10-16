@@ -779,7 +779,10 @@ class SP_RequestManagerComponent : ScriptComponent
 	static int GetCharCurrency(IEntity Char)
 	{
 		SCR_ChimeraCharacter ChimChar = SCR_ChimeraCharacter.Cast(Char);
-		int amount = ChimChar.GetWallet().GetCurrencyAmmount();
+		WalletEntity wallet = ChimChar.GetWallet();
+		if (!wallet)
+			return 0;
+		int amount = wallet.GetCurrencyAmmount();
 		return amount;
 	};
 	//------------------------------------------------------------------------------------------------------------//
