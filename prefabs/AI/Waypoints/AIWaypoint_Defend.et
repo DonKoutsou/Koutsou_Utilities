@@ -3,7 +3,7 @@ SCR_DefendWaypoint {
  m_DefendPresets {
   SCR_DefendWaypointPreset "{58D6884489389713}" {
    m_aTagsForSearch {
-    "ObservationPost" "GatePost"
+    "LoiterPost" "GatePost"
    }
   }
  }
