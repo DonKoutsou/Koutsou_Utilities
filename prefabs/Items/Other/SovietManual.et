@@ -1,7 +1,7 @@
 GenericEntity : "{642101F827FFA52D}Prefabs/Props/Military/Manuals/Manual_Soviet_01.et" {
  ID "F0DBA538AC2A0552"
  components {
-  InventoryItemComponent "{589173C71A0697EC}" : "{C656F7A7CAFCA59E}Prefabs/ComponentPrefabs/InventoryItem.ct" {
+  InventoryItemComponent "{589173C71A0697EC}" {
    Attributes SCR_ItemAttributeCollection "{589173C7CBB7866C}" {
     ItemDisplayName UIInfo "{589173C7CBB78665}" {
      Name "Soviet Manual"
@@ -16,7 +16,7 @@ GenericEntity : "{642101F827FFA52D}Prefabs/Props/Military/Manuals/Manual_Soviet_
   RigidBody "{5872F0EB7DFB5A9D}" {
    LayerPreset "Interaction"
   }
-  ActionsManagerComponent "{589173C71AD26C1A}" : "{85D7D4C78B24078B}Prefabs/ComponentPrefabs/ItemActionsManager.ct" {
+  ActionsManagerComponent "{589173C71AD26C1A}" {
    additionalActions {
     SCR_PickUpItemAction "{5890A83705CAF9EB}" {
     }

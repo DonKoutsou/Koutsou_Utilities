@@ -1,4 +1,4 @@
-GenericEntity : "{8F05D427252644F8}prefabs/Props/Civilian/Suitcase_01.et" {
+GenericEntity : "{8F05D427252644F8}prefabs/Props/Suitcase_01.et" {
  ID "F0DBA538AC2A0552"
  components {
   SCR_UniversalInventoryStorageComponent "{5AEB0CE2BD35C979}" {

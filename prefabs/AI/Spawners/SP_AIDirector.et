@@ -18,6 +18,8 @@ SP_AIDirector {
    MainType "Name Settlement"
    Scale 0
   }
+  RplComponent "{5D42902F42C75668}" {
+  }
   SCR_ResourceComponent "{5E6ED54E67028FAD}" {
    m_aGenerators {
     SCR_ResourceGenerator "{5E6ED54E162CD14E}" {
@@ -36,8 +38,6 @@ SP_AIDirector {
     }
    }
    m_bEnableDebugVisualization 1
-  }
-  RplComponent "{5D42902F42C75668}" {
   }
  }
  coords 692.935 1.501 2258.046

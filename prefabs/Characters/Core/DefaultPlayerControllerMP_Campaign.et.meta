@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{5D91308C543D1376}prefabs/Props/Fire_Barrel.et"
+ Name "{D39FCAB93FC4FB02}Prefabs/Characters/Core/DefaultPlayerControllerMP_Campaign.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

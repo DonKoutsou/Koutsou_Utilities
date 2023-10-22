@@ -588,7 +588,7 @@ modded class SCR_ChimeraCharacter
 				magazinewell = weaponComp.GetCurrentMagazine();
 			}
 			muzzleId = SCR_WeaponLib.GetNextMuzzleID(weaponComp);
-			if (weaponComp && muzzleId != -1)
+			if (weaponComp && muzzleId != -1 && magazinewell)
 			{
 				lowAmmo = CombatComp.EvaluateLowAmmo(weaponComp, muzzleId);
 				SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(FindComponent(SCR_InventoryStorageManagerComponent));

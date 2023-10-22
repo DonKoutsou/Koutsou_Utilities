@@ -463,18 +463,11 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 	
 	[Attribute("300")]
 	float m_fStoreSearchRadius;
-	
-	[Attribute(defvalue : "GatePost")]
-	string m_sGateTag;
-	
-	[Attribute(defvalue : "LoiterPost")]
-	string m_sIdleActionTag;
+
 
 	protected static const string POISSITION_PORT = "Possition";
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
 	protected static const string OUT_TAG_PORT = "OutTag";
-	protected static const string OUT_CROUCH_BOOL = "CROUCH_BOOL";
-	protected static const string OUT_OCUPY_BOOL = "OCUPY_BOOL";
 	
 	SCR_AISmartActionComponent OutSmartAction;
 	vector Origin;
@@ -483,8 +476,6 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 	IEntity m_Owner;
 	ref array <string> tags = {};
 	ref array <Managed> a_CorrectSmartActs = {};
-	ref array <Managed> a_GateSmartActions = {};
-	ref array <Managed> a_IdleSmartActions = {};
 	ref array <string> outtags = {};
 	override bool VisibleInPalette() { return true; }
 	
@@ -572,59 +563,13 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 					}
 				}
 			}
-			else if (!a_GateSmartActions.IsEmpty())
-			{
-				dist = 0;
-				foreach (Managed SmartA : a_GateSmartActions)
-				{
-					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
-					//set up first distance
-					if ( ! dist )
-					{
-						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
-						OutSmartAction = Smart;
-					}
-					// if any of the next smart actions has smaller distance and set it as the one to use
-					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() ) )
-					{
-						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
-						OutSmartAction = Smart;
-					}
-				}
-			}
-			else if (!a_IdleSmartActions.IsEmpty())
-			{
-				dist = 0;
-				foreach (Managed SmartA : a_IdleSmartActions)
-				{
-					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
-					//set up first distance
-					if ( ! dist )
-					{
-						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
-						OutSmartAction = Smart;
-					}
-					// if any of the next smart actions has smaller distance and set it as the one to use
-					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() ) )
-					{
-						dist = vector.Distance( Smart.m_Owner.GetOrigin() , owner.GetControlledEntity().GetOrigin() );
-						OutSmartAction = Smart;
-					}
-				}
-			}
 		}
-		
-		
-		
 		//if we have one get its variables out
 		if (OutSmartAction)
 		{
-			SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(OutSmartAction);
-			if (storeaction)
-				OutSmartAction = SCR_AISmartActionComponent.Cast(a_CorrectSmartActs.GetRandomElement());
-			//if char should crouch when using action
-			//SetVariableOut( OUT_CROUCH_BOOL, OutSmartAction.ShouldCrouchWhenPerforming );
-			//SetVariableOut( OUT_OCUPY_BOOL, OutSmartAction.m_bShouldOccupy );
+			//SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(OutSmartAction);
+			//if (storeaction)
+				//OutSmartAction = SCR_AISmartActionComponent.Cast(a_CorrectSmartActs.GetRandomElement());
 			//smart action
 			SetVariableOut( SMARTACTION_PORT , OutSmartAction );
 			OutSmartAction.GetTags(outtags);
@@ -674,14 +619,6 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 						else
 							a_CorrectSmartActs.Insert(Smart);
 					}
-					else if (tg == m_sGateTag)
-					{
-						a_GateSmartActions.Insert(Smart);
-					}
-					//else if (tg == m_sIdleActionTag)
-					//{
-					//	a_IdleSmartActions.Insert(Smart);
-					//}
 				}
 			}
 		}
@@ -690,7 +627,7 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT};
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT ,OUT_CROUCH_BOOL, OUT_OCUPY_BOOL};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT};
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 	

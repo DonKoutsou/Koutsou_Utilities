@@ -6,9 +6,9 @@ GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
   }
   SCR_AISmartActionSentinelComponent "{5B1EF58065C69B1E}" {
    Enabled 1
-   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   AIBehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt"
    Tags {
-    "ChillPost"
+    "LoiterPost"
    }
    ActionOffset -1.085 0 -2.028
    m_fLookDirectionRange 180
@@ -16,13 +16,16 @@ GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
   }
   SCR_AISmartActionSentinelComponent "{5B1EF59F9C8CE0B9}" {
    Enabled 1
-   ActionOffset 0.516 0 -2.218
+   ActionOffset 1.996 0.295 -0.188
    m_fLookDirectionRange 180
    m_iCharacterStance CROUCH
   }
   SCR_AISmartActionSentinelComponent "{5D68B95625C1144A}" {
-   ActionOffset -0.499 0 4.113
+   ActionOffset -1.798 0.318 2.222
    m_iCharacterStance STAND
+  }
+  SCR_AISmartActionSentinelComponent "{5E14E6EFA5C5144C}" {
+   ActionOffset 0.559 0.127 2.924
   }
   Hierarchy "{5D42C14445AF3252}" {
   }

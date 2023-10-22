@@ -1,4 +1,4 @@
-GenericEntity : "{B68D3829D4442F80}Prefabs/Props/Civilian/RadioSmall_01_Base.et" {
+GenericEntity : "{B68D3829D4442F80}prefabs/Props/RadioSmall_01_Base.et" {
  ID "5246C095726F8F40"
  components {
   SCR_EnableRadioComponent "{5AF76B812E2BB87B}" {

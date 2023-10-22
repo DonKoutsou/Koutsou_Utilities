@@ -1,0 +1,12 @@
+GenericEntity {
+ ID "56F2C6D6F7C6DAFA"
+ components {
+  SCR_ResupplySupportStationComponent "{5E2CE1BAE058CADC}" {
+   m_eFactionUsageCheck 17
+  }
+  UniversalInventoryStorageComponent "{56F2C6D15FE6C4CE}" {
+   Attributes SCR_ItemAttributeCollection "{56F2C6D6A36680FB}" {
+   }
+  }
+ }
+}

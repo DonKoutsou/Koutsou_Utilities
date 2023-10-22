@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et"
+ Name "{54986385A6AF77B2}Prefabs/Props/Military/Arsenal/ArsenalBoxes/ArsenalBox_Base.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }
