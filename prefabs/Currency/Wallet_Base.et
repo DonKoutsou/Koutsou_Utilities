@@ -30,9 +30,7 @@ WalletEntity {
     }
     CustomAttributes {
      PreviewRenderAttributes "{5C78C42204C93A02}" {
-      CameraOrbitAngles 0 25 0
-      CameraDistanceToItem 0.1
-      FOV 45
+      FOV 60
      }
     }
     CommonItemType "WALLET"

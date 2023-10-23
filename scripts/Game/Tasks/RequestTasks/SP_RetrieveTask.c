@@ -409,6 +409,8 @@ class SP_RetrieveTask: SP_Task
 		{
 			return true;
 		}
+		SCR_XPHandlerComponent comp = SCR_XPHandlerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_XPHandlerComponent));
+		comp.AwardXP(GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(Target), SCR_EXPRewards.CUSTOM_1, 1.0, false, m_iXPReward);
 		if (e_RewardLabel != ERequestRewardItemDesctiptor.CURRENCY)
 		{
 			InventoryStorageManagerComponent TargetInv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));

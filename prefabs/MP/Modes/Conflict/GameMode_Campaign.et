@@ -7,11 +7,6 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     }
    }
   }
-  SCR_GameModeSFManager "{5EA105ECD4388559}" {
-   m_fFactionsToAppear {
-    "FIA" "USSR" "US"
-   }
-  }
   SP_DialogueComponent "{5D1547897BFE725A}" {
    m_CharacterArchetypeList {
     SP_DialogueArchetype "{5E9E986CB2F67E8F}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {
@@ -19,6 +14,8 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     SP_DialogueArchetype "{5E9E986CB4B45767}" : "{EBDA2467806C6197}Configs/Dilaogue_Configs/US_Units/DialogueConf_US_Private.conf" {
     }
     SP_DialogueArchetype "{5E9E986CB6A0E7FE}" : "{5598C834512501C4}Configs/Dilaogue_Configs/USSR_Units/DialogueConf_USSR_Private.conf" {
+    }
+    SP_DialogueArchetype "{5EAF46D6ABAC888F}" : "{250DD2218B6EC3DF}Configs/Dilaogue_Configs/INDFOR/DialogueConf_IND_Private.conf" {
     }
    }
    m_aWorldDirections SCR_MapLocationQuadHint "{5E9E9AA7793EAAA1}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {

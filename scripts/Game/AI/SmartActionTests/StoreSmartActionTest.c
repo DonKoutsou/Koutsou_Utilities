@@ -6,7 +6,8 @@ class StoreSmartActionTest : SmartActionTest
 		if (!char)
 			return false;
 		SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(Owner.FindComponent(SP_StoreAISmartActionComponent));
-		if (!storeaction)
+		SCR_ResupplySupportStationComponent Resupplycomp = SCR_ResupplySupportStationComponent.Cast(Owner.FindComponent(SCR_ResupplySupportStationComponent));
+		if (!storeaction || !Resupplycomp)
 			return false;
 		int needamount;
 		array <int> needs = {};

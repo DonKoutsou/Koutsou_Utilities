@@ -26,9 +26,24 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
              EditorPos -5426.667 1421.667
              OutSmartAction 20
             }
+            SCR_AIGetMyWaypointRadius "SCR_AI Get My Waypoint Radius" {
+             Name "SCR_AI Get My Waypoint Radius"
+             EditorPos -4980 1450
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainerClass {
+               PortName "WaypointIn"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainerClass {
+               Port 32
+               PortName "RadiusOut"
+              }
+             }
+            }
             SCR_AIGetSmartActionSentinelParams "SCR_AI Get Smart Action Guard Params" {
              Name "SCR_AI Get Smart Action Guard Params"
-             EditorPos -4665.902 1371.395
+             EditorPos -4483.045 1421.395
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port 20
@@ -75,11 +90,15 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
          Nodes {
           SCR_AIEvaluateAndFindSmartActionV2 "SCR_AI Evaluate And Find Smart Action V2" {
            Name "SCR_AI Evaluate And Find Smart Action V2"
-           EditorPos -3048.168 1366.259
+           EditorPos -3048.168 1365.009
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
              Port 27
              PortName "Possition"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port 33
+             PortName "Radius"
             }
            }
            OutPorts {
@@ -593,6 +612,12 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
    VariableExposedInput 0
    VariableExposedOutput 0
   }
+  Variable Radius {
+   VariableName "Radius"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
  }
  VariablesRefs {
   VariableReference FoundComponent {
@@ -601,7 +626,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference desiredStance {
    VariableType 7
-   EditorPos -4218.82 1691.651
+   EditorPos -4035.963 1743.08
   }
   VariableReference SAPos {
    VariableType 3
@@ -629,7 +654,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference useBinoculars {
    VariableType 12
-   EditorPos -4228.82 1784.651
+   EditorPos -4045.963 1836.08
   }
   VariableReference SAPos {
    VariableType 3
@@ -653,7 +678,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference lookDirectionRange {
    VariableType 4
-   EditorPos -4221.82 1597.651
+   EditorPos -4038.963 1649.08
   }
   VariableReference Ocupy_bool {
    VariableType 2
@@ -669,7 +694,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference wantedLookPosition {
    VariableType 13
-   EditorPos -4207.152 1505.984
+   EditorPos -4024.295 1557.413
   }
   VariableReference FoundEntity {
    VariableType 8
@@ -677,7 +702,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference guardComponent {
    VariableType 5
-   EditorPos -5181.188 1608.685
+   EditorPos -5094.581 1649.578
   }
   VariableReference guardComponent {
    VariableType 5
@@ -701,11 +726,11 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference CurrentSmartActionPos {
    VariableType 10
-   EditorPos -4210.918 1418.124
+   EditorPos -4028.061 1469.553
   }
   VariableReference CurrentSmartActionPos {
    VariableType 10
-   EditorPos -3359.479 1525.247
+   EditorPos -3376.979 1493.997
   }
   VariableReference SAPos {
    VariableType 3
@@ -722,6 +747,14 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   VariableReference guardComponent {
    VariableType 5
    EditorPos 618 2834
+  }
+  VariableReference Radius {
+   VariableType 14
+   EditorPos -4692.5 1562.5
+  }
+  VariableReference Radius {
+   VariableType 14
+   EditorPos -3200 1582.5
   }
  }
 }

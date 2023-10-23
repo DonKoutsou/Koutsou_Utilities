@@ -1,0 +1,9 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/Waypoints/WP_Loiter.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -50 -45
+  }
+ }
+}

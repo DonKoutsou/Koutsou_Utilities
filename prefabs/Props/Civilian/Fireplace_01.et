@@ -57,6 +57,26 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
    m_BurnedMeatPrefab "{5AC9346AB70F4959}prefabs/Items/Food/Burned_Meat.et"
   }
   ActionsManagerComponent "{5876E7F5CCE95371}" {
+   ActionContexts {
+    UserActionContext "{5EAEFEB49F0FFFBF}" {
+     ContextName "SM1"
+     Position PointInfo "{5EAEFEB485830C44}" {
+      Offset 2.232 0 -0.151
+     }
+    }
+    UserActionContext "{5EAEFEB4887A8E6D}" {
+     ContextName "SM2"
+     Position PointInfo "{5EAEFEB48E5BABF9}" {
+      Offset -0.632 0 2.751
+     }
+    }
+    UserActionContext "{5EAEFEB4B580DF7F}" {
+     ContextName "SM3"
+     Position PointInfo "{5EAEFEB4B90B75FC}" {
+      Offset -1.587 0 -3.317
+     }
+    }
+   }
    additionalActions {
     SP_PlaceEntityToSlot "{5D868960DFA7657F}" {
      ParentContextList {
@@ -70,18 +90,18 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
     }
     SCR_LoiterUserAction "{5E9EE10AACD2196E}" {
      ParentContextList {
-      "fireplace"
+      "SM1"
      }
     }
     SCR_LoiterUserAction "{5E9EE10A7766D77B}" {
      ParentContextList {
-      "fireplace"
+      "SM2"
      }
      m_iSmartActionId 1
     }
     SCR_LoiterUserAction "{5E9EE10A7C897E44}" {
      ParentContextList {
-      "fireplace"
+      "SM3"
      }
      m_iSmartActionId 2
     }

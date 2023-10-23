@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{250DD2218B6EC3DF}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_IND_Private.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

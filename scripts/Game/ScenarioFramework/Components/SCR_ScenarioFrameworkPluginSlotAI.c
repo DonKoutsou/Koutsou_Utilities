@@ -4,6 +4,15 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 	[Attribute(uiwidget: UIWidgets.ResourceAssignArray, desc: "Entities in group non-ai included", params: "et", category: "Group Members")]
 	ref array<ResourceName> m_aUnitPrefabSlots;
 	
+	[Attribute()]
+	string m_sFirstNameOverride;
+	
+	[Attribute()]
+	string m_sMiddleNameOverride;
+	
+	[Attribute()]
+	string m_sLastNameOverride;
+	
 	[Attribute(defvalue : "-1", category: "Player settings", params: "-1 100 1")]
 	protected int m_iMaxMembers;
 	
@@ -90,7 +99,25 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 				SCR_CharacterRankComponent rankcomp = SCR_CharacterRankComponent.Cast(char.FindComponent(SCR_CharacterRankComponent));
 				rankcomp.SetCharacterRank(m_iRank);
 			}
+			if (m_sFirstNameOverride || m_sMiddleNameOverride || m_sLastNameOverride)
+			{
+				SCR_CharacterIdentityComponent IDComp = SCR_CharacterIdentityComponent.Cast(char.FindComponent(SCR_CharacterIdentityComponent));
+				Identity ID = IDComp.GetIdentity();
+				if (m_sFirstNameOverride)
+				{
+					ID.SetName(m_sFirstNameOverride);	
+				}
+				if (m_sMiddleNameOverride)
+				{
+					ID.SetAlias(m_sMiddleNameOverride);
+				}
+				if (m_sLastNameOverride)
+				{
+					ID.SetSurname(m_sLastNameOverride);
+				}
+			}
 		}
+		
 	}
 }
 //------------------------------------------------------------------------------------------------

@@ -466,6 +466,7 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 
 
 	protected static const string POISSITION_PORT = "Possition";
+	protected static const string RADIUS_PORT = "Radius";
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
 	protected static const string OUT_TAG_PORT = "OutTag";
 	
@@ -535,8 +536,12 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
 		if (a_CorrectSmartActs.IsEmpty())
 		{
-			//apply radius for seatch
-			Radious = m_fRadius;
+			if (!GetVariableIn( RADIUS_PORT , Radious ))
+			{
+				//apply radius for seatch
+				Radious = m_fRadius;
+			}
+			
 			//Get tags from Attribute
 			tags.Copy(m_aTags);
 			//Do the query
@@ -624,7 +629,7 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 		}
 		return true;
 	}
-	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT};
+	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT, RADIUS_PORT};
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
 	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT};

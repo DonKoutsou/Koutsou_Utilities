@@ -23,16 +23,31 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
            Nodes {
             AITaskGetCurrentSmartAction "Get Current Smart Action" {
              Name "Get Current Smart Action"
-             EditorPos -7678.333 288.333
+             EditorPos -7921.667 311.666
              OutSmartAction 11
             }
             SCR_AISetActionOccupied "SCR_AI Set Action Occupied" {
              Name "SCR_AI Set Action Occupied"
-             EditorPos -7242 312
+             EditorPos -7485.333 335.333
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port 11
                PortName "TargetAction"
+              }
+             }
+            }
+            SCR_AIGetMyWaypointRadius "SCR_AI Get My Waypoint Radius" {
+             Name "SCR_AI Get My Waypoint Radius"
+             EditorPos -7248.75 323.75
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainerClass {
+               PortName "WaypointIn"
+              }
+             }
+             OutPorts {
+              SingleOutputPortContainer SingleOutputPortContainerClass {
+               Port 44
+               PortName "RadiusOut"
               }
              }
             }
@@ -90,6 +105,10 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
             SingleInputPortContainer SingleInputPortContainer {
              Port 21
              PortName "Possition"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port 43
+             PortName "Radius"
             }
            }
            OutPorts {
@@ -793,6 +812,12 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
    VariableExposedInput 0
    VariableExposedOutput 0
   }
+  Variable Radius {
+   VariableName "Radius"
+   VariableTypeName "float"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
  }
  VariablesRefs {
   VariableReference desiredStance {
@@ -841,7 +866,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
   }
   VariableReference guardComponent {
    VariableType 0
-   EditorPos -7441.019 504.093
+   EditorPos -7684.353 527.426
   }
   VariableReference FoundEntity {
    VariableType 9
@@ -966,6 +991,14 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
   VariableReference aimAtPosition {
    VariableType 5
    EditorPos 2717.924 1977.042
+  }
+  VariableReference Radius {
+   VariableType 15
+   EditorPos -5448.333 503.333
+  }
+  VariableReference Radius {
+   VariableType 15
+   EditorPos -6937.143 554.286
   }
  }
 }

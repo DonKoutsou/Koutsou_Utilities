@@ -13,6 +13,9 @@ class SP_Task
 	[Attribute(defvalue : "5", desc : "Amount of rep + when completing this task")]
 	int m_iRepReward;
 	//-------------------------------------------------//
+	[Attribute(defvalue : "60", desc : "Amount of XP + when completing this task")]
+	int m_iXPReward;
+	//-------------------------------------------------//
 	[Attribute(desc : "Override with entity name in the world wich will become task owner instead of looking for an owner")]
 	string m_sTaskOwnerOverride;
 	//-------------------------------------------------//
@@ -572,6 +575,10 @@ class SP_Task
 		//if Target is owner no need to do transaction
 		if (Target == m_eTaskOwner)
 			return true;
+		
+		SCR_XPHandlerComponent comp = SCR_XPHandlerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_XPHandlerComponent));
+		comp.AwardXP(GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(Target), SCR_EXPRewards.CUSTOM_1, 1.0, false, m_iXPReward);
+		
 		// special logic for handling currency
 		if (e_RewardLabel == ERequestRewardItemDesctiptor.CURRENCY)
 		{

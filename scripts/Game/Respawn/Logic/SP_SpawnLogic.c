@@ -1,18 +1,12 @@
 [BaseContainerProps(category: "Respawn")]
-class SP_SpawnLogic : SCR_AutoSpawnLogic
+modded class SCR_MenuSpawnLogic
 {
 	[Attribute("1")]
 	int Lives;
-	override protected void DoSpawn(int playerId, SCR_SpawnData data)
+	override void OnPlayerKilled_S(int playerId, IEntity playerEntity, IEntity killerEntity, notnull Instigator killer)
 	{
+		super.OnPlayerKilled_S(playerId, playerEntity, killerEntity, killer);
 		Lives -= 1;
-		if (!GetPlayerRespawnComponent_S(playerId).RequestSpawn(data))
-		{
-			// Try again later
-		}
-	}
-	override protected void Spawn(int playerId)
-	{
 		if (Lives == 0)
 		{
 			SCR_GameModeSFManager manager = SCR_GameModeSFManager.Cast(GetGame().GetGameMode().FindComponent(SCR_GameModeSFManager));
@@ -22,8 +16,6 @@ class SP_SpawnLogic : SCR_AutoSpawnLogic
 			manager.Finish();
 			return;
 		}
-			
-		super.Spawn(playerId);
 		
 	}
 };

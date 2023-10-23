@@ -55,3 +55,32 @@ class SCR_AIGetTPWaypoint : SCR_AIGetWaypoint
 		return "Returns defend waypoint parameters";
 	}
 };
+class SCR_AIGetMyWaypointRadius : SCR_AIGetWaypoint
+{
+	//------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		AIGroup group = AIGroup.Cast(owner);
+		if (!group)
+		{
+			group = owner.GetParentGroup();
+		}
+		
+		if (!GetVariableIn(WAYPOINT_PORT,m_Waypoint))
+			m_Waypoint = group.GetCurrentWaypoint();
+		if (!m_Waypoint)
+		{
+			ClearVariable(RADIUS_PORT);
+			return ENodeResult.FAIL;
+		}
+		
+		SetVariableOut(RADIUS_PORT, m_Waypoint.GetCompletionRadius());		
+		return ENodeResult.SUCCESS;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+};
