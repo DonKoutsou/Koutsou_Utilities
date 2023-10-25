@@ -52,7 +52,7 @@ class TaskDayTimeInfo
 		timenw.GetDate(Year, Month, Day);
 		return new TaskDayTimeInfo(Time ,Day, Month, Year);
 	}
-	static TaskDayTimeInfo FromPointInFuture(int Ammount, ETaskTimeLimmit TimeLimmit)
+	static TaskDayTimeInfo FromPointInFuture(int Ammount, ETaskTimeLimmit TimeLimmit = ETaskTimeLimmit.HOURS)
 	{
 		ChimeraWorld world = GetGame().GetWorld();
 		TimeAndWeatherManagerEntity timenw = world.GetTimeAndWeatherManager();
