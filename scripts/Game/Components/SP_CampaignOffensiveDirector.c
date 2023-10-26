@@ -53,7 +53,22 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 				continue;
 			GroupToAtack = Base.GetDefendersGroup();
 			if (!GroupToAtack)
+			{
+				SCR_ServicePointComponent Baracks = Base.GetServiceByType(SCR_EServicePointType.BARRACKS);
+				if (!Baracks)
+					continue;
+				SCR_DefenderSpawnerComponent DeffenderSpawner = SCR_DefenderSpawnerComponent.Cast(Baracks);
+				if (!DeffenderSpawner)
+					continue;
+				DeffenderSpawner.SpawnGroupExtrarnal();
+				
+				GroupToAtack = Base.GetDefendersGroup();
+			}
+			if (!GroupToAtack)
+			{
 				continue;
+			}
+			
 			AtackerBase = Base;
 			break;
 		}
@@ -94,12 +109,20 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 		Atack.AtackerBase = AtackerBase;
 		Atack.BaseToAtack = BaseToAtack;
 		Atack.AtackWP = AtackWP;
+		Atack.RegroupWP = RegroupWP;
 		m_aOrganisedAtacks.Insert(Atack);
 	}
 	
 	void CommenceAtack(OrganisedAtack Atack)
 	{
-		
+		SCR_AIGroup Group =  Atack.GroupToAtack;
+		if (!Group)
+		{
+			m_aOrganisedAtacks.RemoveItem(Atack);
+			return;
+		}
+		Group.CompleteWaypoint(Atack.RegroupWP);
+		Group.AddWaypointAt(Atack.AtackWP, 0);
 	}
 	
 	void CheckForAnTack()
@@ -152,6 +175,7 @@ class OrganisedAtack
 	SCR_CampaignMilitaryBaseComponent BaseToAtack;
 	SCR_AIGroup GroupToAtack;
 	AIWaypoint AtackWP;
+	AIWaypoint RegroupWP;
 	
 	TaskDayTimeInfo TimeInfo;
 	
@@ -159,6 +183,13 @@ class OrganisedAtack
 	{
 		TaskDayTimeInfo now = TaskDayTimeInfo.FromTimeOfTheDay();
 		return TimeInfo.HasPassed(now);
+	}
+	void ~OrganisedAtack ()
+	{
+		if (AtackWP)
+			delete AtackWP;
+		if (RegroupWP)
+			delete RegroupWP;
 	}
 }
 class AtackPointClass : GenericEntityClass
