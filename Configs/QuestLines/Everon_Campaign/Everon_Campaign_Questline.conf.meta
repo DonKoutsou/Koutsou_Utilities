@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F5EA37544DFD9394}Configs/QuestLines/Everon_Campaign_Questline.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{6832C94403B61C1F}Configs/Item_Hints/Drink/HydrationSource.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -522,17 +522,17 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 			return ENodeResult.FAIL;
 		}
 		//if there are needs
-		if (!Needs.IsEmpty())
-		{
+		//if (!Needs.IsEmpty())
+		//{
 			//add store tag in tags to search
-			tags.Insert(m_sStoreTag);
+		//	tags.Insert(m_sStoreTag);
 			//apply radius for seatch
-			Radious = m_fStoreSearchRadius;
+		//	Radious = m_fStoreSearchRadius;
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+		//	GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
 			//Clear tags so that next seach doesent look for store again
-			tags.Clear();
-		}
+		//	tags.Clear();
+		//}
 		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
 		if (a_CorrectSmartActs.IsEmpty())
 		{

@@ -30,12 +30,13 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
              Name "SCR_AI Get My Waypoint Radius"
              EditorPos -4980 1450
              InPorts {
-              SingleInputPortContainer SingleInputPortContainerClass {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port -1
                PortName "WaypointIn"
               }
              }
              OutPorts {
-              SingleOutputPortContainer SingleOutputPortContainerClass {
+              SingleOutputPortContainer SingleOutputPortContainer {
                Port 32
                PortName "RadiusOut"
               }
@@ -112,7 +113,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
             }
            }
            m_aTags {
-            "LightFire" "SwitchRadio" "SwitchLight"
+            "LightFire" "SwitchRadio" "SwitchLight" "DeadBody"
            }
            m_fRadius 100
           }

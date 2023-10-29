@@ -3,8 +3,14 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
      Name "Raw meat"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBAE563CD57682C}" : "{49FF59DB2CA8EA11}Configs/Item_Hints/FoodSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBAE563CE633A47}" : "{A6C0619921C30EE7}Configs/Item_Hints/CookIntructions.conf" {
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      SizeSetupStrategy Manual

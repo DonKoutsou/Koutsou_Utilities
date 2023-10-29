@@ -3,9 +3,15 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
      Name "MRE"
      Description "restores hunger"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC654E09931}" : "{49FF59DB2CA8EA11}Configs/Item_Hints/FoodSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC6576FD5BE}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      SizeSetupStrategy Manual
@@ -33,6 +39,10 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
       AllowMovementDuringAction 1
      }
      CharacterModifierAttributes "{5E1845F44F03A61D}" {
+     }
+     PreviewRenderAttributes "{5EBAE563E7CDB963}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 25 45
      }
     }
     CommonItemType "FOOD"

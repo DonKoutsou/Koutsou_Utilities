@@ -282,11 +282,11 @@ class SP_RequestManagerComponent : ScriptComponent
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Create tasks of type
-	bool CreateTask(typename TaskType)
+	SP_Task CreateTask(typename TaskType)
 	{
 		if(!TaskType)
 		{
-			return false;
+			return null;
 		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
@@ -295,9 +295,9 @@ class SP_RequestManagerComponent : ScriptComponent
 			IEntity Owner = Task.GetOwner();
 			m_aTaskMap.Insert(Task);
 			Task.OnTaskFinished().Insert(OnTaskFinished);
-			return true;
+			return Task;
 		}
-		return false;
+		return null;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	private bool CreateChainedTasks()
@@ -773,7 +773,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 		
-		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 1000);
+		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 10000);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	static int GetCharCurrency(IEntity Char)

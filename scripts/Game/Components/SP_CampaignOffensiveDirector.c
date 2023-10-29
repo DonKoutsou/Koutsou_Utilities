@@ -4,20 +4,20 @@ class SP_CampaignOffensiveDirectorClass : ScriptComponentClass
 }
 class SP_CampaignOffensiveDirector : ScriptComponent
 {
-	[Attribute("10", desc : "How many atacks will happen durring a day")]
-	int m_iBaseAtacksPerDay;
+	[Attribute("1000", desc : "How many atacks will happen durring a day")]
+	int m_iAtackPer;
 	
-	[Attribute(desc: "Default waypoint if any WP group is defined", "{750A8D1695BD6998}Prefabs/AI/Waypoints/AIWaypoint_Move.et", category: "Waypoints")]
+	[Attribute(desc: "Default waypoint if any WP group is defined", defvalue: "{750A8D1695BD6998}Prefabs/AI/Waypoints/AIWaypoint_Move.et", category: "Waypoints")]
 	protected ResourceName 						m_sAtackWP;
 	
-	[Attribute(desc: "Default waypoint if any WP group is defined", "{B3E7B8DC2BAB8ACC}Prefabs/AI/Waypoints/AIWaypoint_SearchAndDestroy.et", category: "Waypoints")]
+	[Attribute(desc: "Default waypoint if any WP group is defined", defvalue:"{B3E7B8DC2BAB8ACC}Prefabs/AI/Waypoints/AIWaypoint_SearchAndDestroy.et", category: "Waypoints")]
 	protected ResourceName 						m_sRegroupWP;
 	
 	int factioncount;
 	protected ref array<SCR_CampaignFaction> m_aFactions = {};
 	protected ref array <ref OrganisedAtack> m_aOrganisedAtacks = {};
 	AtackPoint m_APoint;
-	
+	float m_fTimePassed;
 	//------------------------------------------------------------------------------------------------------------//
 	override void OnPostInit(IEntity owner)
 	{
@@ -25,7 +25,7 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 		SetEventMask(owner, EntityEvent.INIT);
 		owner.SetFlags(EntityFlags.ACTIVE, true);
 	}
-	void OrganiseAtack()
+	bool OrganiseAtack()
 	{
 		//pick a faction to atack randomly
 		int index = Math.RandomInt(0, factioncount);
@@ -33,6 +33,14 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 		
 		//Get their primary target
 		SCR_CampaignMilitaryBaseComponent BaseToAtack = FactionToAtack.GetPrimaryTarget();
+		if (!BaseToAtack)
+			return false;
+		
+		foreach (OrganisedAtack AtackToCheck : m_aOrganisedAtacks)
+		{
+			if (AtackToCheck.BaseToAtack == BaseToAtack)
+				return false;
+		}
 		vector BaseToAtackLocation = BaseToAtack.GetOwner().GetOrigin();
 		
 		//Get the faction that is going to be atacked
@@ -60,7 +68,7 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 				SCR_DefenderSpawnerComponent DeffenderSpawner = SCR_DefenderSpawnerComponent.Cast(Baracks);
 				if (!DeffenderSpawner)
 					continue;
-				DeffenderSpawner.SpawnGroupExtrarnal();
+				Base.SetDefendersGroup( DeffenderSpawner.SpawnGroupExtrarnal());
 				
 				GroupToAtack = Base.GetDefendersGroup();
 			}
@@ -73,13 +81,13 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 			break;
 		}
 		if (!AtackerBase || !GroupToAtack)
-			return;
+			return false;
 		//find an atacking point close to that base
 		
 		GetGame().GetWorld().QueryEntitiesBySphere(BaseToAtackLocation, 500, QueryforAtackPoint);
 		
 		if (!m_APoint)
-			return;
+			return false;
 		
 		//Spawn waypoints
 		//Regroup WP
@@ -111,6 +119,7 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 		Atack.AtackWP = AtackWP;
 		Atack.RegroupWP = RegroupWP;
 		m_aOrganisedAtacks.Insert(Atack);
+		return true;
 	}
 	
 	void CommenceAtack(OrganisedAtack Atack)
@@ -143,7 +152,11 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 			return;
 		SCR_CampaignFactionManager FactionMan = SCR_CampaignFactionManager.Cast(Gamemode.GetFactionManager());
 		if (!FactionMan)
+		{
+			GetGame().GetCallqueue().CallLater(EOnInit, 1000, false, owner);
 			return;
+		}
+		
 		
 		array<Faction> Factions = {};
 		FactionMan.GetFactionsList(Factions);
@@ -157,6 +170,19 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 		}
 		factioncount = m_aFactions.Count();
 		SetEventMask(owner, EntityEvent.FRAME);
+	}
+	override void EOnFrame(IEntity owner, float timeSlice)
+	{
+		if (m_fTimePassed > 0)
+		{
+			CheckForAnTack();
+			m_fTimePassed -= timeSlice;
+			return;
+		}
+		if (OrganiseAtack())
+			m_fTimePassed = m_iAtackPer;
+		
+		
 	}
 	private bool QueryforAtackPoint(IEntity e)
 	{
@@ -177,12 +203,12 @@ class OrganisedAtack
 	AIWaypoint AtackWP;
 	AIWaypoint RegroupWP;
 	
-	TaskDayTimeInfo TimeInfo;
+	ref TaskDayTimeInfo TimeInfo;
 	
 	bool IsItTime()
 	{
 		TaskDayTimeInfo now = TaskDayTimeInfo.FromTimeOfTheDay();
-		return TimeInfo.HasPassed(now);
+		return now.HasPassed(TimeInfo);
 	}
 	void ~OrganisedAtack ()
 	{

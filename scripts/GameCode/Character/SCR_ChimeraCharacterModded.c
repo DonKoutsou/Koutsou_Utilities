@@ -65,7 +65,7 @@ modded class SCR_ChimeraCharacter
 			if (worth * ammount < money)
 			{
 				//if character has money for it he should set up a task for other AI to fulfill or the player
-				if (!HasTaskForNeed(this, need))
+				if (!HasTask(this))
 					CreateTask(this, need, ammount, Mag);
 				//fill apropriate arrays with need
 				if (!a_needs.Contains(need))
@@ -261,7 +261,8 @@ modded class SCR_ChimeraCharacter
 		// if no tasks then return false
 		if (tasks.IsEmpty())
 			return false;
-		
+		else
+			return true;
 		//itterate through tasks and if any of the retrieve tasks has the need return true
 		foreach (SP_Task task : tasks)
 		{
@@ -275,6 +276,18 @@ modded class SCR_ChimeraCharacter
 		}
 		//if none matched return false
 		return false;
+	}
+	bool HasTask(SCR_ChimeraCharacter char)
+	{
+		//Get all of characters tasks
+		array < ref SP_Task > tasks = {};
+		SP_RequestManagerComponent.GetCharTasksOfSameType(char, tasks, SP_RetrieveTask);
+		
+		// if no tasks then return false
+		if (tasks.IsEmpty())
+			return false;
+		else
+			return true;
 	}
 	//function used to create a SP_RetrieveTask using a need
 	bool CreateTask(SCR_ChimeraCharacter char, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)

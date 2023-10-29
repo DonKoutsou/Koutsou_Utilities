@@ -74,10 +74,9 @@ class SP_TalkTask: SP_Task
 	//Info needed for delivery mission is Names of O/T and location names of O/T
 	void GetInfo(out string OName, out string OLoc)
 	{
-		if (!m_eTaskOwner)
-		{
+		SCR_GameModeCampaign GM = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
+		if (!GM)
 			return;
-		}
 		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);

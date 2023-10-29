@@ -3,8 +3,14 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-     Name "Dried meat"
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
+     Name "Cooked meat"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC6A9481B4E}" : "{49FF59DB2CA8EA11}Configs/Item_Hints/FoodSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC6A9836CBD}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      SizeSetupStrategy Manual
@@ -27,6 +33,8 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
       m_InterestType FOOD
      }
      PreviewRenderAttributes "{5E690E2E12159E24}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 25 45
      }
      CharacterModifierAttributes "{5E18850BFBDACE51}" {
       SpeedLimit 4

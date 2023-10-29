@@ -18,7 +18,7 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     SP_DialogueArchetype "{5EAF46D6ABAC888F}" : "{250DD2218B6EC3DF}Configs/Dilaogue_Configs/INDFOR/DialogueConf_IND_Private.conf" {
     }
    }
-   m_aWorldDirections SCR_MapLocationQuadHint "{5E9E9AA7793EAAA1}" : "{C1534F222D0F74D2}Configs/Map/MapLocatorHints/LocationHintsArland.conf" {
+   m_aWorldDirections SCR_MapLocationQuadHint "{5EBA708C23DCA71E}" : "{ABA21F381437DFE8}Configs/Map/MapLocatorHints/LocationHintsEveron.conf" {
    }
   }
   SP_RequestManagerComponent "{5E9E986CBDBDB7EA}" {

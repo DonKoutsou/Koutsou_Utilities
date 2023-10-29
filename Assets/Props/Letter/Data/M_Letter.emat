@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{D0631DB89EDBF15D}Assets/Props/Letter/Data/Letter_BCR.edds"
+ NMOMap "{E8BBA62A47ACA3C3}Assets/Props/Letter/Data/Letter_NMO.edds"
+}

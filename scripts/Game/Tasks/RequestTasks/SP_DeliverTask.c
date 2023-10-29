@@ -87,12 +87,19 @@ class SP_DeliverTask: SP_Task
 		if (OName == " " || DName == " " || DLoc == " ")
 		{
 			return false;
-		} 
-		SP_DeliverTask tasksample = SP_DeliverTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_DeliverTask));
+		}
+		Resource res;
+		if (!m_bPartOfChain)
+		{
+			SP_DeliverTask tasksample = SP_DeliverTask.Cast(SP_RequestManagerComponent.GetTaskSample(SP_DeliverTask));
+			res = Resource.Load(tasksample.m_pPackage);
+		}
+		else
+			res = Resource.Load(m_pPackage);
 		EntitySpawnParams params = EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
 		params.Transform[3] = vector.Zero;
-		Resource res = Resource.Load(tasksample.m_pPackage);
+		
 		if (res)
 		{
 			m_ePackage = GetGame().SpawnEntityPrefab(res, GetGame().GetWorld(), params);
@@ -134,17 +141,6 @@ class SP_DeliverTask: SP_Task
 		}
 		m_sAcceptTest = string.Format("Give me the delivery to %1.", DName);
 		m_sacttext = string.Format("I have a delivery for you from %1.", OName);
-		if (!m_ePackage)
-			CancelTask();
-		if (m_ePackage)
-		{
-			SP_PackageComponent PackageComp = SP_PackageComponent.Cast(m_ePackage.FindComponent(SP_PackageComponent));
-		
-			if (PackageComp)
-			{
-				PackageComp.SetInfo(OName, DName, DLoc);
-			}
-		}
 		
 	};
 	//------------------------------------------------------------------------------------------------------------//

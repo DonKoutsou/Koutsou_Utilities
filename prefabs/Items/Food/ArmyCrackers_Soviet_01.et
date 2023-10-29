@@ -3,9 +3,15 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
      Name "Army Crackers"
      Description "restores hunger"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC6517EC7BF}" : "{49FF59DB2CA8EA11}Configs/Item_Hints/FoodSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC651FDB341}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      SizeSetupStrategy Manual
@@ -35,6 +41,11 @@ FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
       SpeedLimit 4
       ADSSpeedLimit 4
       SpeedLimitHighready 4
+     }
+     PreviewRenderAttributes "{5EBAE563B554F323}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 25 45
+      LodModel 0
      }
     }
     CommonItemType "FOOD"

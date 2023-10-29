@@ -99,3 +99,55 @@ modded enum EEntityCatalogType
 	SPAWNPOINT						= 1500,
 	DIRECTOR						= 1600,
 }
+[BaseContainerProps()]
+class SCR_PackageInventoryItemHintUIInfo : SCR_InventoryItemHintUIInfo
+{
+	//------------------------------------------------------------------------------------------------
+	override bool SetItemHintNameTo(InventoryItemComponent item, TextWidget textWidget)
+	{
+		if (!textWidget)
+			return false;
+		SP_PackageComponent package = SP_PackageComponent.Cast(item.GetOwner().FindComponent(SP_PackageComponent));
+		string cname;
+		string tname;
+		string loc;
+		package.GetInfo(cname, tname, loc);
+		Name = string.Format("Deliver to %1, located on %2", tname, loc);
+		textWidget.SetText(GetItemHintName(item));
+		return true;
+	}
+}
+[BaseContainerProps()]
+class SCR_CanteenInventoryItemHintUIInfo : SCR_InventoryItemHintUIInfo
+{
+	//------------------------------------------------------------------------------------------------
+	override bool SetItemHintNameTo(InventoryItemComponent item, TextWidget textWidget)
+	{
+		if (!textWidget)
+			return false;
+		string text;
+		SCR_ConsumableItemComponent Canteen = SCR_ConsumableItemComponent.Cast(item.GetOwner().FindComponent(SCR_ConsumableItemComponent));
+		int initcap = Canteen.GetInitialCapacity();
+		float currentcap = Canteen.GetCurrentCapacity();
+		
+		if (currentcap == 0)
+		{
+			text = "Empty";
+		}
+		else if ( initcap == currentcap)
+		{
+			text = "Full";
+		}
+		else if (initcap/2 > currentcap)
+		{
+			text = "More than half";
+		}
+		else
+		{
+			text = "Less than half";
+		}
+		Name = text;
+		textWidget.SetText(GetItemHintName(item));
+		return true;
+	}
+}

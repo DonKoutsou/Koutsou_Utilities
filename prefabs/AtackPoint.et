@@ -1,0 +1,13 @@
+AtackPoint {
+ ID "5EB8DDBF86B71F59"
+ components {
+  SCR_EditableCommentComponent "{5EB8DDBF5377CABB}" {
+   m_UIInfo SCR_EditableCommentUIInfo "{5EB8DDBF4D7DF603}" {
+    Name "Atack Point"
+   }
+  }
+  RplComponent "{5EB8DDBFA038FB8C}" {
+  }
+ }
+ coords 1163.721 33.544 6323.206
+}

@@ -1,10 +1,16 @@
-FoodEntity : "{C22A2F123CD609FC}Prefabs/Items/Food/Meat_01_Dry.et" {
+FoodEntity : "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et" {
  ID "74D3E7415542DA9C"
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
      Name "BurnedMeat"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC6A9481B4E}" : "{49FF59DB2CA8EA11}Configs/Item_Hints/FoodSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC6A9836CBD}" : "{D03D6C573F7DE509}Configs/Item_Hints/RuinedFood.conf" {
+      }
+     }
     }
    }
   }

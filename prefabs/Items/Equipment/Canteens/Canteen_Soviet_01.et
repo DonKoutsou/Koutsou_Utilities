@@ -3,9 +3,17 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName UIInfo "{5E1836CE84C3E238}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5E1836CE84C3E238}" {
      Name "#AR-Item_CanteenUSSR_Name"
      Description "#AR-Item_CanteenUSSR_Description"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC69DA978AF}" : "{6832C94403B61C1F}Configs/Item_Hints/HydrationSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC69CCDACAB}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+      }
+      SCR_CanteenInventoryItemHintUIInfo "{5EBAE5626A6D8768}" : "{BABBFA99D346156F}Configs/Item_Hints/CanteenCapacity.conf" {
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      ItemDimensions 10 10 10
@@ -23,6 +31,9 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
      }
     }
     CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E3E3A95631}" {
+      LodModel 1
+     }
      ItemActionAnimAttributes "{5E171B4330C445FC}" {
       AnimationGraphTemplate "{DFFC0A34A77ADCB4}anims/workspaces/player/player_main.agr"
       ActionAnimationCommandName "CMD_HealSelf"

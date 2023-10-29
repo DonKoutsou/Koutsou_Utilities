@@ -1,5 +1,5 @@
 [BaseContainerProps(category: "Respawn")]
-modded class SCR_MenuSpawnLogic
+modded class SCR_AutoSpawnLogic
 {
 	[Attribute("1")]
 	int Lives;
@@ -17,5 +17,16 @@ modded class SCR_MenuSpawnLogic
 			return;
 		}
 		
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override void OnPlayerSpawned_S(int playerId, IEntity entity)
+	{
+		super.OnPlayerSpawned_S(playerID, entiry);
+		SCR_CampaignFactionManager factman = SCR_CampaignFactionManager.Cast(GetGame().GetFactionManager());
+		FactionAffiliationComponent affcomp = FactionAffiliationComponent.Cast(entity.FindComponent(FactionAffiliationComponent));
+		affcomp.SetAffiliatedFaction(factman.GetFactionByKey("CIV"));
+		SCR_PlayerFactionAffiliationComponent playerFactionAffiliation = GetPlayerFactionComponent_S(playerId);
+		GetGame().GetCallqueue().CallLater( playerFactionAffiliation.RequestFaction , 1000, false, factman.GetFactionByKey("CIV"));
 	}
 };

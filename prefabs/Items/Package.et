@@ -26,9 +26,16 @@ GenericEntity {
   }
   SCR_UniversalInventoryStorageComponent "{5D650185143A790F}" {
    Attributes SCR_ItemAttributeCollection "{5D650185143A796F}" {
-    ItemDisplayName UIInfo "{5D650185143A797D}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5D650185143A797D}" {
      Name "Package"
      Description "you were given this package with a name to who you should deliver it to. Drop it to the floor to check the destrionation."
+     m_aItemHints {
+      SCR_PackageInventoryItemHintUIInfo "{5EB8AC61599D2801}" {
+       Name "Test"
+       Icon "{889DEEAE12D64559}UI/Imagesets/SupportStations/InventoryHints.imageset"
+       IconSetName "repair-1"
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5D6501852E9DCF0C}" {
      Weight 0.4
@@ -46,6 +53,7 @@ GenericEntity {
     }
     m_Size SLOT_2x2
     m_SlotType SLOT_ANY
+    m_bStackable 0
    }
    CapacityCoefficient 0
   }

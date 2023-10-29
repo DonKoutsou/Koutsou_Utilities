@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{166590CE9DA4DD09}Configs/Item_Hints/CookingAplieanceInstructions.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

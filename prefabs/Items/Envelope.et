@@ -1,0 +1,79 @@
+GenericEntity {
+ ID "5EB8AC75DB9F7161"
+ components {
+  MeshObject "{5EB8AC75DB9F7172}" {
+   Object "{1F27AB334D3C510A}Assets/Props/Letter/Letter.xob"
+   LODFactors {
+   }
+  }
+  RigidBody "{5EB8AC75DB9F717B}" {
+   Mass 10
+   ResponseIndex "TinyDestructible"
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_SoundDataComponent "{5EB8AC75DB9F7179}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5EB8AC75DB9F717C}" {
+     m_sSoundProject "{2285D7ED0CE3463E}Sounds/Props/Military/AmmoBoxes/AmmoBox_Small_Wooden/Props_AmmoBox_Small_Wooden.acp"
+     m_sSoundEventName "SOUND_CONTAINER_OPEN"
+    }
+    SCR_AudioSourceConfiguration "{5EB8AC75DB9F7143}" {
+     m_sSoundProject "{2285D7ED0CE3463E}Sounds/Props/Military/AmmoBoxes/AmmoBox_Small_Wooden/Props_AmmoBox_Small_Wooden.acp"
+     m_sSoundEventName "SOUND_CONTAINER_CLOSE"
+    }
+   }
+  }
+  SCR_UniversalInventoryStorageComponent "{5EB8AC75DB9F7142}" {
+   Attributes SCR_ItemAttributeCollection "{5EB8AC75DB9F7146}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5EB8AC75DB9F7144}" {
+     Name "Letter"
+     Description "you were given this letter with a name to who you should deliver it to. Drop it to the floor to check the destrionation."
+     m_aItemHints {
+      SCR_PackageInventoryItemHintUIInfo "{5EB8AC75DB9F7149}" {
+       Name "Test"
+       Icon "{889DEEAE12D64559}UI/Imagesets/SupportStations/InventoryHints.imageset"
+       IconSetName "put-down"
+      }
+     }
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5EB8AC75DB9F714F}" {
+     Weight 0.4
+     SizeSetupStrategy Manual
+     ItemDimensions 4 4 4
+     ItemVolume 4
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5EB8AC75DB9F7153}" {
+      CameraOrbitAngles -25 25 0
+      FOV 35
+     }
+    }
+    m_Size SLOT_1x1
+    m_SlotType SLOT_ANY
+    m_bStackable 0
+   }
+   CapacityCoefficient 0
+   InitialStorageSlots {
+    InventoryStorageSlot Letter {
+     Prefab "{2366EF898F87916B}prefabs/Items/Misc/IntelligenceFolder_E_01/Letter.et"
+    }
+   }
+  }
+  SP_PackageComponent "{5EB8AC75DB9F7150}" {
+  }
+  ActionsManagerComponent "{5D650185538C0F90}" : "{366E157111FAB76C}Prefabs/Characters/Core/Actions/ActionsManager_PickUp.ct" {
+   additionalActions {
+    SCR_PickUpItemAction "{52A690747B542687}" {
+     ParentContextList {
+      "default"
+     }
+    }
+   }
+  }
+  RplComponent "{5EB8AC75DB9F715B}" {
+  }
+ }
+ coords 1363.992 39.011 2172.479
+ Flags 1027
+}

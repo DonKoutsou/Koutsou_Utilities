@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D03D6C573F7DE509}Configs/Item_Hints/RuinedFood.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -3,6 +3,18 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  components {
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
+     Name "Canteen"
+     Description ""
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC6843E26AE}" : "{6832C94403B61C1F}Configs/Item_Hints/HydrationSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC68764C9E9}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+      }
+      SCR_CanteenInventoryItemHintUIInfo "{5EBAE8C1CCFBBE3D}" : "{BABBFA99D346156F}Configs/Item_Hints/CanteenCapacity.conf" {
+      }
+     }
+    }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
      ItemDimensions 10 10 10
      ItemVolume 100
@@ -19,6 +31,9 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
      }
     }
     CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      LodModel 1
+     }
      SCR_ItemOfInterestAttribute "{5D84D824EDD83EBE}" {
       m_InterestType FOOD
      }

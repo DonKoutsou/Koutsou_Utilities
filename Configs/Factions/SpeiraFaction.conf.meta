@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{6D1DC960D66B2EB3}Configs/SpeiraFaction.conf"
+ Name "{6D1DC960D66B2EB3}Configs/Factions/SpeiraFaction.conf"
  Configurations {
   CONFResourceClass PC {
   }

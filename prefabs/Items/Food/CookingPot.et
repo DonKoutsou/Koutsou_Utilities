@@ -10,8 +10,14 @@ GenericEntity {
   }
   SCR_UniversalInventoryStorageComponent "{5D867CC4BC4F256E}" {
    Attributes SCR_ItemAttributeCollection "{5D867CC4A3D99E12}" {
-    ItemDisplayName UIInfo "{5D867CC4A2A0F9B6}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5D867CC4A2A0F9B6}" {
      Name "Cooking pot"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5EBADCC6322EAA9F}" : "{272F39FBC74E500A}Configs/Item_Hints/CookingAplieance.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5EBADCC63524EB58}" : "{166590CE9DA4DD09}Configs/Item_Hints/CookingAplieanceInstructions.conf" {
+      }
+     }
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5D867CC4A9BA2602}" {
      Weight 0.2
@@ -19,6 +25,12 @@ GenericEntity {
      ItemDimensions 20 20 20
      ItemVolume 200
     }
+    CustomAttributes {
+     PreviewRenderAttributes "{5EBADCC0F3D9EBBB}" {
+      CameraDistanceToItem 0.5
+     }
+    }
+    m_Size SLOT_2x2
    }
    MaxItemSize 10 10 10
    m_fMaxWeight 20
