@@ -70,6 +70,9 @@ SCR_ChimeraCharacter : "{1623EA3AEFACA0E4}prefabs/Characters/Factions/BLUFOR/US_
  coords 161.507 1.001 253.393
  angleY -180
 }
+SCR_ChimeraCharacter : "{18DD298B3DF9050C}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_NonCombatMedic.et" {
+ coords 130.101 1 241.053
+}
 SCR_ChimeraCharacter : "{1C78331E156A3D65}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AT.et" {
  coords 151.377 1.001 253.936
  angleY -180
@@ -360,9 +363,15 @@ SCR_ChimeraCharacter : "{7264E0358A002EFA}prefabs/Characters/Factions/INDFOR/FIA
 WalletEntity : "{753C737CB3CDED15}prefabs/Currency/Wallet_2_Watches.et" {
  coords 136.469 1 249.954
 }
+GameEntity : "{7F44A37BB64B8842}Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et" {
+ coords 131.087 1 242.671
+}
 SCR_ChimeraCharacter : "{8975B1600F25A80E}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Marksman.et" {
  coords 136.658 1 251.052
  angleY 165
+}
+GenericEntity : "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et" {
+ coords 131.974 1 242.254
 }
 $grp SCR_ChimeraCharacter : "{AF343EDC3C5C7A1B}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Sabatour .et" {
  {

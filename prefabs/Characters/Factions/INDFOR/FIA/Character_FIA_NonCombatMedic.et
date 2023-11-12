@@ -1,0 +1,42 @@
+SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Medic.et" {
+ ID "520EC961A090B1EE"
+ components {
+  CharacterGrenadeSlotComponent "{520EA1D2F659CE6E}" {
+   WeaponTemplate ""
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
+   WeaponTemplate ""
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Hat {
+     Prefab "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et"
+    }
+    LoadoutSlotInfo Jacket {
+     Prefab "{7F44A37BB64B8842}Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"
+    }
+    LoadoutSlotInfo ArmoredVest {
+     Prefab "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et"
+    }
+    LoadoutSlotInfo Vest {
+     Prefab ""
+    }
+   }
+  }
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173FAA7C00C}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"
+    }
+    ItemsInitConfigurationItem "{5A24CC1119A46C9F}" {
+     TargetStorage ""
+    }
+    ItemsInitConfigurationItem "{55709017677CEFCD}" {
+     PrefabsToSpawn {
+      "{77EAE5E07DC4678A}Prefabs/Weapons/Grenades/Smoke_RDG2.et"
+     }
+    }
+   }
+  }
+ }
+}
