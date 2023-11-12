@@ -31,6 +31,10 @@ modded class SCR_GameModeCampaign
 			{
 				return m_sINDFOR2FactionKey;
 			};
+			case SCR_ECampaignFaction.RENEGADE:
+			{
+				return "RENEGADE";
+			};
 		}
 
 		return FactionKey.Empty;
@@ -39,4 +43,5 @@ modded class SCR_GameModeCampaign
 modded enum SCR_ECampaignFaction
 {
 	INDFOR2,
+	RENEGADE,
 }

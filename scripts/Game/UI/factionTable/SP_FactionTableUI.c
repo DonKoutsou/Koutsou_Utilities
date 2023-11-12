@@ -3,7 +3,8 @@ class FactionTableUI : ChimeraMenuBase
 	ref array <Faction> m_aFactions = {};
 	ref map <Faction, int> m_mGoodwillMap;
 	
-	protected Widget 						m_wRoot; 
+	protected Widget 						m_wRoot;
+	protected ButtonWidget			m_wCloseButton;
 	protected ButtonWidget 			m_wTextButton;
 	bool ShowText = 1;
 	
@@ -13,11 +14,17 @@ class FactionTableUI : ChimeraMenuBase
 		factionMan.GetFactionsList(m_aFactions);
 		m_wRoot = GetRootWidget();
 		m_wTextButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("TextButton"));
+		m_wCloseButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("Close"));
 		ScriptInvoker onPressed = ButtonActionComponent.GetOnAction(m_wTextButton);
+		ScriptInvoker onPressedClose = ButtonActionComponent.GetOnAction(m_wCloseButton);
 		if (onPressed) 
 			onPressed.Insert(ToggleText);
+		if (onPressedClose) 
+			onPressedClose.Insert(Close);
 		SetValuesVertically();
-		GetGame().GetInputManager().AddActionListener("MenuBack", EActionTrigger.DOWN, Close);
+		GetGame().GetInputManager().AddActionListener("Escape", EActionTrigger.DOWN, Close);
+		GetGame().GetInputManager().AddActionListener("SwitchText", EActionTrigger.DOWN, ToggleText);
+		
 	}
 	void Update()
 	{
@@ -109,5 +116,5 @@ class FactionTableUI : ChimeraMenuBase
 };
 modded enum ChimeraMenuPreset
 {
-	FactionRelationTable
+	FactionRelationTable,
 }

@@ -1,0 +1,48 @@
+SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Scout.et" {
+ ID "520EC961A090B1EE"
+ components {
+  SCR_CharacterInventoryStorageComponent "{520EA1D2DB118DAC}" {
+   components {
+    SCR_EquipmentStorageComponent "{56B49DA9722B635D}" {
+     InitialStorageSlots {
+      SCR_EquipmentStorageSlot BinocularSlot {
+       Prefab ""
+      }
+     }
+    }
+   }
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
+   WeaponTemplate ""
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFDC}" {
+   WeaponTemplate "{C0F7DD85A86B2900}Prefabs/Weapons/Handguns/PM/Handgun_PM.et"
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Jacket {
+     Prefab "{983A71A4BAE74507}Prefabs/Characters/Uniforms/Tops/tank_top_white.et"
+    }
+    LoadoutSlotInfo Vest {
+     Prefab ""
+    }
+   }
+  }
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173FAA7C00C}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Tops/tank_top_white.et"
+    }
+    ItemsInitConfigurationItem "{557090118458BF2F}" {
+     PrefabsToSpawn {
+     }
+    }
+    ItemsInitConfigurationItem "{5984BDEFE1673DD0}" {
+     PrefabsToSpawn {
+     }
+    }
+   }
+  }
+ }
+ coords 2763.526 10.873 3965.343
+}

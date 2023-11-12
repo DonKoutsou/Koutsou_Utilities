@@ -3,9 +3,6 @@ class DialogueStageRumor : DialogueStage
 {
 	ref array <int> usedindex = new array<int>();
 	
-	override void Perform(IEntity Character, IEntity Player)
-	{
-	};
 	override bool CanBePerformed(IEntity Character, IEntity Player)
 	{
 		return true;

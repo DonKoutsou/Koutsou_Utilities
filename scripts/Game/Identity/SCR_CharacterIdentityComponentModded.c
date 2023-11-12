@@ -14,6 +14,10 @@ modded class SCR_CharacterIdentityComponent
 			return true;
 		return false;
 	}
+	void SetCarArch(SP_DialogueArchetype Arch)
+	{
+		m_DialogueArchetype = Arch;
+	}
 	void SetCharacterRep(int newrep)
 	{
 		m_iCharacterRep = newrep;

@@ -8,6 +8,8 @@ modded class SCR_ChimeraCharacter
 	
 	int needcheck;
 	
+	IEntity m_eCallendar;
+	
 	//needs that can be fulfilled
 	ref array <int> a_needs;
 	//needs that are too expensive to be fullfilled
@@ -33,6 +35,20 @@ modded class SCR_ChimeraCharacter
 		{
 			WalletEntity wallet = WalletEntity.Cast(wallets[i]);
 				return wallet;
+		}
+		return null;
+	}
+	//get wallet of character. 
+	SP_CallendarComponent GetCallendar()
+	{
+		SCR_InventoryStorageManagerComponent InventoryManager = SCR_InventoryStorageManagerComponent.Cast(FindComponent(SCR_InventoryStorageManagerComponent));
+		array <IEntity> Callendars = {};
+		SP_CallendarPredicate pred = new SP_CallendarPredicate();
+		InventoryManager.FindItems(Callendars, pred);
+		for (int i, count = Callendars.Count(); i < count; i++)
+		{
+			SP_CallendarComponent callendar = SP_CallendarComponent.Cast(Callendars[i].FindComponent(SP_CallendarComponent));
+				return callendar;
 		}
 		return null;
 	}

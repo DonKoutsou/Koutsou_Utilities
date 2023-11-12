@@ -1,0 +1,15 @@
+SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Scout.et" {
+ ID "520EC961A090B1EE"
+ components {
+  FactionAffiliationComponent "{555C98D1CD949F3E}" {
+   "faction affiliation" "RENEGADE"
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Jacket {
+     Prefab "{494706283AF39DFA}Prefabs/Characters/Uniforms/Tops/flannel_brown.et"
+    }
+   }
+  }
+ }
+}

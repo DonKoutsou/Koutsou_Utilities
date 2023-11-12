@@ -1,6 +1,9 @@
 //------------------------------------------------------------------------------------------------
 modded class SCR_Faction
 {
+	[Attribute("-1")]
+	int m_iStartingPlayerGoodwill;
+	
 	//Relations map
 	protected ref map<Faction, int> m_FriendlyMap;
 	//Playergoodwill

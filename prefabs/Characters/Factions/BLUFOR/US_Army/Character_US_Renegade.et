@@ -1,0 +1,18 @@
+SCR_ChimeraCharacter : "{26A9756790131354}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et" {
+ ID "52092032B0E62200"
+ components {
+  FactionAffiliationComponent "{520EC961FB0A2E90}" {
+   "faction affiliation" "RENEGADE"
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Jacket {
+     Prefab "{5F310D795D4ED30C}Prefabs/Characters/Uniforms/Tops/flannel_blue.et"
+    }
+    LoadoutSlotInfo ArmoredVest {
+     Prefab "{F9ACDDE62D906D61}Prefabs/Characters/Vests/Vest_M69/Vest_M69_olive.et"
+    }
+   }
+  }
+ }
+}

@@ -25,6 +25,9 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 	[Attribute("0")]
 	bool m_bSetCharacterImportant;
 	
+	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
+	protected ref SP_DialogueArchetype m_DialogueArchetype;
+	
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
 	{
 		if (!object)
@@ -99,7 +102,7 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 				SCR_CharacterRankComponent rankcomp = SCR_CharacterRankComponent.Cast(char.FindComponent(SCR_CharacterRankComponent));
 				rankcomp.SetCharacterRank(m_iRank);
 			}
-			if (m_sFirstNameOverride || m_sMiddleNameOverride || m_sLastNameOverride)
+			if (m_sFirstNameOverride || m_sMiddleNameOverride || m_sLastNameOverride || m_DialogueArchetype)
 			{
 				SCR_CharacterIdentityComponent IDComp = SCR_CharacterIdentityComponent.Cast(char.FindComponent(SCR_CharacterIdentityComponent));
 				Identity ID = IDComp.GetIdentity();
@@ -114,6 +117,10 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 				if (m_sLastNameOverride)
 				{
 					ID.SetSurname(m_sLastNameOverride);
+				}
+				if (m_DialogueArchetype)
+				{
+					IDComp.SetCarArch(m_DialogueArchetype);
 				}
 			}
 		}

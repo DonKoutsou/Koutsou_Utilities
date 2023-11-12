@@ -1,0 +1,20 @@
+GenericEntity : "{4C2FBD539384CBD4}prefabs/Items/NoteBook.et" {
+ ID "5ED6820191BD8F8F"
+ components {
+  InventoryItemComponent "{5ED6820191BD8FF4}" {
+   Attributes SCR_ItemAttributeCollection "{5ED6820191BD8FFA}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5ED6820191BD8FF8}" {
+     Name "Callendar"
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5ED8A607467DEEBA}" {
+       Name "Keep in invetory to record events."
+      }
+     }
+    }
+   }
+  }
+  SP_CallendarComponent "{5ED6820191BD8FC4}" {
+  }
+ }
+ coords 131.075 1 241.076
+}

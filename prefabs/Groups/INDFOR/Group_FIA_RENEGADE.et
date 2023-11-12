@@ -1,0 +1,7 @@
+SCR_AIGroup : "{5BEA04939D148B1D}Prefabs/Groups/INDFOR/Group_FIA_FireTeam.et" {
+ ID "0000000000000001"
+ m_faction "RENEGADE"
+ m_aUnitPrefabSlots {
+  "{7735A4A6FC3041D2}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_RENEGADE.et"
+ }
+}

@@ -253,6 +253,10 @@ modded class SCR_FactionManager
 		foreach (Faction faction : factions)
 		{
 			SCR_Faction scrfact = SCR_Faction.Cast(faction);
+			if (scrfact.m_iStartingPlayerGoodwill != -1 )
+			{
+				scrfact.SetPlayerGoodwill(scrfact.m_iStartingPlayerGoodwill);
+			}
 			if (scrfact == myfaction)
 			{
 				scrfact.SetPlayerGoodwill(1000);

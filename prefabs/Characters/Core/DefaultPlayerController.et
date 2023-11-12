@@ -9,6 +9,9 @@ SCR_PlayerController {
     SCR_IDWidget "{5E590183FEA45115}" {
      m_LayoutPath "{7E4E75B13F626B88}UI/layouts/Damage/IDMenu.layout"
     }
+    SP_StaminaBarUI "{5ED30428BCBEF24F}" {
+     m_LayoutPath "{8C65180B05811316}scripts/Game/UI/HUD/StaminaBar.layout"
+    }
    }
   }
   SP_CharacterStatsComponent "{5DF4F669AC20CEBD}" {

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{8FC101E63ED44A29}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Mechanic.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

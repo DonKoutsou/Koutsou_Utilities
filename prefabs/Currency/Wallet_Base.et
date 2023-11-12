@@ -36,6 +36,7 @@ WalletEntity {
     CommonItemType "WALLET"
     m_Size SLOT_1x1
     m_SlotType SLOT_BACKPACK
+    m_bStackable 0
    }
    Priority 9
    StoragePurpose 9

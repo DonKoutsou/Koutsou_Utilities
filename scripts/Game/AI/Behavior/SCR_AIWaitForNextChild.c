@@ -12,10 +12,10 @@ class SCR_AIWaitForNextChild : AITaskScripted
 		SCR_AIGroup group = SCR_AIGroup.Cast(owner);
 		if (!group)
 			return ENodeResult.SUCCESS;
-		if (!group.inited)
-		{
-			return ENodeResult.RUNNING;
-		}
+		//if (!group.inited)
+		//{
+		//	return ENodeResult.RUNNING;
+		//}
 		if (group.GetAgentsCount() == 0)
 		{
 			return ENodeResult.RUNNING;

@@ -1,5 +1,5 @@
 SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/GameMode_Plain.et" {
- coords 135.735 1.001 254.555
+ coords 129.762 1 241.399
 }
 SCR_CampaignFactionManager CampaignFactionManager1 : "{F1AC26310BAE3788}prefabs/MP/Campaign/CampaignFactionManager.et" {
  coords 160.579 1.001 249.195
@@ -44,22 +44,27 @@ $grp FoodEntity : "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et" {
   coords 114.298 1 249.155
  }
 }
-GenericEntity : "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et" {
- components {
-  ActionsManagerComponent "{508AB5952B584B2E}" {
-   additionalActions {
-    SP_FactionRelationTableAction "{5E18B871C444D2FA}" {
-     ParentContextList {
-      "default"
-     }
-     UIInfo UIInfo "{5E18B871C97080EA}" {
-      Name "Check faction relations"
+$grp GenericEntity : "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et" {
+ {
+  components {
+   ActionsManagerComponent "{508AB5952B584B2E}" {
+    additionalActions {
+     SP_FactionRelationTableAction "{5E18B871C444D2FA}" {
+      ParentContextList {
+       "default"
+      }
+      UIInfo UIInfo "{5E18B871C97080EA}" {
+       Name "Check faction relations"
+      }
      }
     }
    }
   }
+  coords 126.313 1 242.094
  }
- coords 126.313 1 242.094
+ {
+  coords 131.39 1 241.113
+ }
 }
 SCR_ChimeraCharacter : "{1623EA3AEFACA0E4}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_MG.et" {
  coords 161.507 1.001 253.393
@@ -114,93 +119,166 @@ SCR_ChimeraCharacter : "{3726077BE60962FF}prefabs/Characters/Factions/BLUFOR/US_
 WalletEntity : "{378FFB5CAAEEB75B}prefabs/Currency/Wallet_US_5_Watches.et" {
  coords 166.564 1 249.201
 }
-GenericEntity : "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" {
- components {
-  InventoryItemComponent "{5222EB4D0C73006B}" {
-   Enabled 1
-   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
-     Name "Water bottle"
-     Description "Take into hands and press R to replanish thirst, refill in taps and wells"
-     m_aItemHints {
-      SCR_InventoryItemHintUIInfo "{5EBADCC69857B7C5}" : "{6832C94403B61C1F}Configs/Item_Hints/HydrationSource.conf" {
-      }
-      SCR_InventoryItemHintUIInfo "{5EBADCC698882EDF}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
-      }
-     }
-    }
-    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
-     ItemDimensions 5 5 5
-     ItemVolume 100
-    }
-    ItemAnimationAttributes ItemAnimationAttributes "{5D38EB800D2CA94B}" {
-     AnimationAttachments {
-      AnimationAttachmentInfo "{5D38EB803ADB5F44}" {
-       AnimGraph "{103E57FDB3E71B27}Assets/Items/Medicine/Workspaces/CanteenDrink_01.agr"
+$grp GenericEntity : "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" {
+ {
+  components {
+   InventoryItemComponent "{5222EB4D0C73006B}" {
+    Enabled 1
+    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+     ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
+      Name "Water bottle"
+      Description "Take into hands and press R to replanish thirst, refill in taps and wells"
+      m_aItemHints {
+       SCR_InventoryItemHintUIInfo "{5EBADCC69857B7C5}" : "{6832C94403B61C1F}Configs/Item_Hints/HydrationSource.conf" {
+       }
+       SCR_InventoryItemHintUIInfo "{5EBADCC698882EDF}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+       }
       }
      }
-     HandAdditiveRotation 0 0 0
-     HandAdditiveTranslation 0 0 0
+     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+      ItemDimensions 5 5 5
+      ItemVolume 100
+     }
+     ItemAnimationAttributes ItemAnimationAttributes "{5D38EB800D2CA94B}" {
+      AnimationAttachments {
+       AnimationAttachmentInfo "{5D38EB803ADB5F44}" {
+        AnimGraph "{103E57FDB3E71B27}Assets/Items/Medicine/Workspaces/CanteenDrink_01.agr"
+       }
+      }
+      HandAdditiveRotation 0 0 0
+      HandAdditiveTranslation 0 0 0
+     }
+     CustomAttributes {
+      PreviewRenderAttributes "{52D4E9E3E3A95631}" {
+       CameraOrbitAngles -35 0 -25
+       CameraDistanceToItem 1
+       CameraOffset 0 -0.005 0
+      }
+      ItemActionAnimAttributes "{5E171B4330C445FC}" {
+      }
+      CharacterModifierAttributes "{5E182DD35615CB46}" {
+      }
+     }
     }
-    CustomAttributes {
-     PreviewRenderAttributes "{52D4E9E3E3A95631}" {
-      CameraOrbitAngles -35 0 -25
-      CameraDistanceToItem 1
-      CameraOffset 0 -0.005 0
+   }
+   MeshObject "{3703E72BAA1A42DD}" {
+    Object "{15FF1BAEA3B87082}Assets/Items/Misc/Bottle/Water_Bottle.xob"
+   }
+   RigidBody "{2829E7297110F493}" {
+    ResponseIndex "HugeDestructible"
+   }
+   SCR_ConsumableItemComponent "{5D7D438BC9A7504F}" {
+    m_eAnimVariable ADRIANOV
+    m_ConsumableEffect SP_ConsumableEffectDrink "{5D830CF3EFFF3F7E}" {
+     m_bDeleteOnUse 0
+    }
+    m_bIsDrinkable 1
+    m_fInitContainerCapacity 30
+    m_fUseAmount 10
+   }
+   SCR_SoundDataComponent "{5B18D20ED0099A17}" {
+    m_aAudioSourceConfiguration {
+     SCR_AudioSourceConfiguration "{5B18D209080A5D15}" {
+      m_sSoundProject "{D7CE99AA2FB40C31}Sounds/Items/_SharedData/PickUp/Items_PickUp_Canteen.acp"
      }
-     ItemActionAnimAttributes "{5E171B4330C445FC}" {
+     SCR_AudioSourceConfiguration "{5B18D2091B885AE6}" {
+      m_sSoundProject "{D7CE99AA2FB40C31}Sounds/Items/_SharedData/PickUp/Items_PickUp_Canteen.acp"
      }
-     CharacterModifierAttributes "{5E182DD35615CB46}" {
+     SCR_AudioSourceConfiguration "{5B18D20930D9E274}" {
+      m_sSoundProject "{C9A9B77442AA824A}Sounds/Items/_SharedData/Drop/Items_Drop_Canteen.acp"
+     }
+    }
+   }
+   BaseLoadoutClothComponent "{54E6E41D1C6CC4E8}" {
+    Enabled 0
+   }
+   ActionsManagerComponent "{508AB5952B584B2E}" {
+    ActionContexts {
+     UserActionContext "{508AC2ABEC97066C}" {
+      Position PointInfo "{508AC2ABEAC4A0F5}" {
+       Offset 0 0.1 0
+      }
      }
     }
    }
   }
-  MeshObject "{3703E72BAA1A42DD}" {
-   Object "{15FF1BAEA3B87082}Assets/Items/Misc/Bottle/Water_Bottle.xob"
-  }
-  RigidBody "{2829E7297110F493}" {
-   ResponseIndex "HugeDestructible"
-  }
-  SCR_ConsumableItemComponent "{5D7D438BC9A7504F}" {
-   m_eAnimVariable ADRIANOV
-   m_ConsumableEffect SP_ConsumableEffectDrink "{5D830CF3EFFF3F7E}" {
-    m_bDeleteOnUse 0
-   }
-   m_bIsDrinkable 1
-   m_fInitContainerCapacity 30
-   m_fUseAmount 10
-  }
-  SCR_SoundDataComponent "{5B18D20ED0099A17}" {
-   m_aAudioSourceConfiguration {
-    SCR_AudioSourceConfiguration "{5B18D209080A5D15}" {
-     m_sSoundProject "{D7CE99AA2FB40C31}Sounds/Items/_SharedData/PickUp/Items_PickUp_Canteen.acp"
-    }
-    SCR_AudioSourceConfiguration "{5B18D2091B885AE6}" {
-     m_sSoundProject "{D7CE99AA2FB40C31}Sounds/Items/_SharedData/PickUp/Items_PickUp_Canteen.acp"
-    }
-    SCR_AudioSourceConfiguration "{5B18D20930D9E274}" {
-     m_sSoundProject "{C9A9B77442AA824A}Sounds/Items/_SharedData/Drop/Items_Drop_Canteen.acp"
-    }
-   }
-  }
-  BaseLoadoutClothComponent "{54E6E41D1C6CC4E8}" {
-   Enabled 0
-  }
-  ActionsManagerComponent "{508AB5952B584B2E}" {
-   ActionContexts {
-    UserActionContext "{508AC2ABEC97066C}" {
-     Position PointInfo "{508AC2ABEAC4A0F5}" {
-      Offset 0 0.1 0
-     }
-    }
-   }
-  }
+  coords 124.92 1.001 246.922
  }
- coords 124.92 1.001 246.922
+ {
+  coords 131.234 1 241.213
+ }
 }
 SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Medic.et" {
  coords 136.627 1.001 253.84
  angleY -180
+}
+$grp GenericEntity : "{4C2FBD539384CBD4}prefabs/Items/NoteBook.et" {
+ {
+  components {
+   InventoryItemComponent "{5ED6820191BD8FF4}" {
+    Attributes SCR_ItemAttributeCollection "{5ED6820191BD8FFA}" {
+     ItemDisplayName UIInfo "{5ED6820191BD8FF8}" {
+      Name "Callendar"
+      Description ""
+     }
+     m_SlotType SLOT_VEST
+     m_bStackable 0
+    }
+   }
+   SP_CallendarComponent "{5ED6820191BD8FC4}" {
+    a_Pages {
+     SP_CalendarPage "{5ED6BDEB927736B9}" {
+      m_aParagraphs {
+       "stuffity stuf" "test"
+      }
+      Date PageDateInfo "{5ED6D1CDC08F70FB}" {
+       m_iDay 3
+       m_iMonth 4
+      }
+     }
+     SP_CalendarPage "{5ED6C734DED51810}" {
+      m_aParagraphs {
+       "afwe" "afwf" "afwaf" "afwafaww"
+      }
+      Date PageDateInfo "{5ED6D1CDCC6423BD}" {
+       m_iDay 6
+       m_iMonth 6
+      }
+     }
+    }
+   }
+  }
+  coords 131.075 1 241.076
+ }
+ {
+  components {
+   SP_NotebookComponent "{5ED6820191BD8FC4}" {
+    a_Pages {
+     SP_NotebookPage "{5ED6BDEB927736B9}" {
+      m_aParagraphs {
+       "atast" "stegesgsesg" "agaeggeg"
+      }
+     }
+     SP_NotebookPage "{5ED6C734DED51810}" {
+      m_aParagraphs {
+       "This is a test to check how whell the books work" "this is page number 2 hopefully and with this we know that text from config matches" "ageageag Random stuff to fill the lines" "ageagage and some more"
+      }
+     }
+     SP_NotebookPage "{5ED6D1C547169613}" {
+      m_aParagraphs {
+       "awfwaf" "awfawf" "afawfw"
+      }
+     }
+     SP_NotebookPage "{5ED877D5531B0760}" {
+      m_aParagraphs {
+       "\"Lorem ipsum dolor sit amet" "consectetur adipiscing elit" "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam" "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident" "sunt in culpa qui officia deserunt mollit anim id est laborum.\""
+      }
+     }
+    }
+   }
+  }
+  coords 130.774 1 241.071
+ }
 }
 $grp FoodEntity : "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" {
  {
@@ -275,18 +353,18 @@ $grp GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen
   coords 113.959 1 249.266
  }
 }
-SCR_ChimeraCharacter : "{7264E0358A002EFA}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_AT.et" {
+SCR_ChimeraCharacter : "{7264E0358A002EFA}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_AT.et" {
  coords 133.906 1 251.169
  angleY -180
 }
 WalletEntity : "{753C737CB3CDED15}prefabs/Currency/Wallet_2_Watches.et" {
  coords 136.469 1 249.954
 }
-SCR_ChimeraCharacter : "{8975B1600F25A80E}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Marksman.et" {
+SCR_ChimeraCharacter : "{8975B1600F25A80E}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Marksman.et" {
  coords 136.658 1 251.052
  angleY 165
 }
-$grp SCR_ChimeraCharacter : "{AF343EDC3C5C7A1B}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Sabatour .et" {
+$grp SCR_ChimeraCharacter : "{AF343EDC3C5C7A1B}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Sabatour .et" {
  {
   coords 138.378 1 251.034
   angleY -165
@@ -295,9 +373,12 @@ $grp SCR_ChimeraCharacter : "{AF343EDC3C5C7A1B}Prefabs/Characters/Factions/INDFO
   coords 134.274 1 250.295
  }
 }
-SCR_ChimeraCharacter : "{B6F310AC154FB81B}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_ATAssist.et" {
+SCR_ChimeraCharacter : "{B6F310AC154FB81B}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_ATAssist.et" {
  coords 135.257 1 251.106
  angleY 165
+}
+GenericEntity : "{BBE7C64037883FD3}prefabs/Items/Callendar.et" {
+ coords 131.039 1 240.18
 }
 SCR_ChimeraCharacter : "{BCFCA10B53CE481F}prefabs/Characters/Factions/Civ/Character_CIV_Player.et" {
  coords 137.98 1 249.928
@@ -310,7 +391,7 @@ $grp FoodEntity : "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et" {
   coords 114.844 1 249.342
  }
 }
-SCR_ChimeraCharacter : "{DBCE4C3387A56519}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Radioman.et" {
+SCR_ChimeraCharacter : "{DBCE4C3387A56519}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Radioman.et" {
  coords 133.034 1 250.427
  angleY 136.032
 }
@@ -322,7 +403,7 @@ $grp FoodEntity : "{EB21D26B8D5A3232}prefabs/Items/Food/MRE.et" {
   coords 114.575 1 249.521
  }
 }
-SCR_ChimeraCharacter : "{EF76C772871A10D9}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MGAssist.et" {
+SCR_ChimeraCharacter : "{EF76C772871A10D9}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MGAssist.et" {
  coords 140.078 1 250.467
  angleY -158.054
 }
@@ -334,6 +415,6 @@ $grp GenericEntity : "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et" {
   coords 114.974 1 249.511
  }
 }
-SCR_ChimeraCharacter : "{FB56F4745760A036}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MG_.et" {
+SCR_ChimeraCharacter : "{FB56F4745760A036}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MG_.et" {
  coords 137.083 1 251.495
 }

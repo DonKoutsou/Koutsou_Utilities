@@ -5,6 +5,7 @@ class DialogueStageTask : DialogueStage
 	override void Perform(IEntity Character, IEntity Player)
 	{
 		t_Task.AssignCharacter(Player);
+		super.Perform(Character, Player);
 	};
 	void SetupTask(SP_Task task)
 	{

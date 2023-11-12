@@ -114,8 +114,14 @@ class SCR_AISaluteEachother: AITaskScripted
 	//-----------------------------------------------------------------------------------------------
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
+		
+		
 		ChimeraCharacter Chimera = ChimeraCharacter.Cast(owner.GetControlledEntity());
 		CharacterControllerComponent Controller = Chimera.GetCharacterController();
+		
+		//SCR_CharacterCommandHandlerComponent handler = SCR_CharacterCommandHandlerComponent.Cast(Controller.GetAnimationComponent().GetCommandHandler());
+		//if (handler.IsLoitering())
+		//	return ENodeResult.SUCCESS;
 		
 		IEntity ent;
 		
@@ -127,6 +133,47 @@ class SCR_AISaluteEachother: AITaskScripted
 		
 		Controller.TryStartCharacterGesture(15, 2000);
 		DController.TryStartCharacterGesture(15, 2000);
+		
+		return ENodeResult.SUCCESS;
+    }
+}
+class SCR_AIStartDialogue: AITaskScripted
+{
+
+	protected static const string ENTITY_PORT = "EntityIn";
+	
+	//-----------------------------------------------------------------------------------------------
+	override bool VisibleInPalette() {return true;}
+	
+	//-----------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		ENTITY_PORT
+	};
+	override array<string> GetVariablesIn()
+	{
+		return s_aVarsIn;
+	}
+	
+	//-----------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		ChimeraCharacter Chimera = ChimeraCharacter.Cast(owner.GetControlledEntity());
+		CharacterControllerComponent Controller = Chimera.GetCharacterController();
+		
+		IEntity ent;
+		
+		if (!GetVariableIn(ENTITY_PORT,ent))
+			return ENodeResult.FAIL;
+		
+		ChimeraCharacter DChimera = ChimeraCharacter.Cast(ent);
+		MenuManager menumanager = GetGame().GetMenuManager();
+		MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
+		GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
+		DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
+		SP_DialogueComponent DiagComp = SP_DialogueComponent.GetInstance();
+		DiagComp.IntroducitonSting(Chimera, DChimera);
+		DiagUI.Init(Chimera, DChimera);
+		DiagUI.UpdateEntries(Chimera, DChimera);
 		
 		return ENodeResult.SUCCESS;
     }

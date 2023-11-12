@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C9016A188E665AC2}Configs/Dilaogue_Configs/Generic/BuyCar_Convo.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

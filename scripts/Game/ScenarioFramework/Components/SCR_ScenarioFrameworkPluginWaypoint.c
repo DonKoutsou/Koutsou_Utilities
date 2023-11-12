@@ -87,3 +87,28 @@ class SCR_ScenarioFrameworkPluginTPWaypoint: SCR_ScenarioFrameworkPlugin
 		//src.Set("m_sAreaName", m_fAreaRadius);
 	}
 }
+[BaseContainerProps(), SCR_ContainerActionTitle()]
+class SCR_ScenarioFrameworkPluginNotebook: SCR_ScenarioFrameworkPlugin
+{
+	[Attribute()]
+	ref array <ref SP_NotebookPage> a_Pages;
+
+	
+	override void Init(SCR_ScenarioFrameworkLayerBase object)
+	{
+		if (!object)
+			return;
+
+		super.Init(object);
+		if (!a_Pages || a_Pages.IsEmpty())
+			return;
+		SP_NotebookComponent Notebook = SP_NotebookComponent.Cast(object.GetSpawnedEntity().FindComponent(SP_NotebookComponent));
+		if (!Notebook)
+			return;
+		for (int i; i < a_Pages.Count(); i++)
+		{
+			Notebook.AddPage(a_Pages[i]);
+		}
+			
+	}
+}

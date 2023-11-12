@@ -48,6 +48,7 @@ modded class SCR_DefenderSpawnerComponent
 		//waypoint handling
 		if (m_Waypoint)
 		{
+			m_Waypoint.SetCompletionRadius(150);
 			group.AddWaypoint(m_Waypoint);
 			return;
 		}
@@ -75,9 +76,6 @@ modded class SCR_DefenderSpawnerComponent
 		wp.SetCompletionRadius(150);
 
 		group.AddWaypoint(wp);
-		
-		
-		
 		ReinforceGroup();
 	}
 	SCR_AIGroup SpawnGroupExtrarnal()

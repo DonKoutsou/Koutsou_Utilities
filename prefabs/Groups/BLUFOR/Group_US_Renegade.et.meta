@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E8AB7603F3CA7367}Prefabs/Groups/BLUFOR/Group_US_Renegade.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

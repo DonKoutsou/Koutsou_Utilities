@@ -1,0 +1,387 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  ImageWidgetClass "{5ED529331AA4389B}" {
+   Name "Image0"
+   Slot FrameWidgetSlot "{5ED529331AA438F1}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    PositionY -1.505
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+    Alignment 0 0
+   }
+   Texture "{3497CC61DCCCC2A6}Assets/Items/Notebook.edds"
+  }
+  FrameWidgetClass "{5ED5293F25C7A9E4}" {
+   Name "Frame1"
+   Slot FrameWidgetSlot "{5ED5293F25C7A9F9}" {
+    Anchor 0.5 0 0.5 0
+    OffsetLeft 0
+    PositionY 100
+    OffsetTop 100
+    SizeX 1050
+    OffsetRight -1050
+    SizeY 40
+    OffsetBottom -140
+    Alignment 0.5 0
+   }
+   {
+    TextWidgetClass "{5ED5293EF26AFE89}" {
+     Name "w_Date1"
+     Slot FrameWidgetSlot "{5ED5293EF26AFE3D}" {
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 300
+      OffsetRight -300
+      OffsetBottom -30
+     }
+     Color 0 0 0 1
+     Text "Date: 18/09/83"
+     "Font Size" 32
+     "Min Font Size" 32
+     "Vertical Alignment" Center
+     FontProperties FontProperties "{5ED5293E96741A63}" {
+      Font "{5C1C48521BB6023F}UI/Fonts/Handwriten2.fnt"
+      Bold 1
+     }
+    }
+    TextWidgetClass "{5ED6D1CB177DEAD2}" {
+     Name "w_Date2"
+     Slot FrameWidgetSlot "{5ED5293EF26AFE3D}" {
+      Anchor 0.5 0 0.5 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 300
+      OffsetRight -300
+      SizeY 30
+      OffsetBottom -30
+      Alignment 0 0
+     }
+     Color 0 0 0 1
+     Text "Date: 18/09/83"
+     "Font Size" 32
+     "Min Font Size" 32
+     "Vertical Alignment" Center
+     FontProperties FontProperties "{5ED5293E96741A63}" {
+      Font "{5C1C48521BB6023F}UI/Fonts/Handwriten2.fnt"
+      Bold 1
+     }
+    }
+   }
+  }
+  FrameWidgetClass "{5ED5293C33A3B408}" {
+   Name "Pages"
+   Slot FrameWidgetSlot "{5ED5293C33A3B461}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX -1820
+    OffsetRight 0
+    SizeY -1050
+    OffsetBottom 0
+   }
+   {
+    FrameWidgetClass "{5ED5293C3D2B3216}" {
+     Name "Frame0"
+     Slot FrameWidgetSlot "{5ED5293C3D2B3269}" {
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX -70
+      OffsetLeft -70
+      PositionY -20
+      OffsetTop -20
+      SizeX 440
+      OffsetRight -370
+      SizeY 750
+      OffsetBottom -730
+      Alignment 1 0.5
+     }
+     {
+      TextWidgetClass "{5ED6820EBD7A24F0}" {
+       Name "Entry1"
+       Slot FrameWidgetSlot "{5ED6820EBD7A24DB}" {
+        Anchor 0 0 1 1
+        PositionX 225
+        PositionY 25
+        SizeX -350
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+        Alignment 0 0
+       }
+       Color 0 0 0 1
+       Text "geughaeigeahuo9gaehugaeuhgae ooeug0ei8awfwafawfwafwafwaap gaeioaejgpoiaejgaejgo aejgaeopgjaeo gjaeogoeage"
+       "Font Size" 40
+       "Min Font Size" 32
+       Wrap 1
+       FontProperties FontProperties "{5ED6820EACA71349}" {
+        Font "{5C1C48521BB6023F}UI/Fonts/Handwriten2.fnt"
+       }
+       Offset 0 0
+       "Line Spacing" 0
+      }
+     }
+    }
+    FrameWidgetClass "{5ED5293FE2391E27}" {
+     Name "Frame1"
+     Slot FrameWidgetSlot "{5ED5293C3D2B3269}" {
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX 70
+      OffsetLeft 70
+      PositionY -20
+      OffsetTop -20
+      SizeX 440
+      OffsetRight -510
+      SizeY 750
+      OffsetBottom -730
+      Alignment 0 0.5
+     }
+     {
+      TextWidgetClass "{5ED6820E63AD0A5F}" {
+       Name "Entry2"
+       Slot FrameWidgetSlot "{5ED6820EBD7A24DB}" {
+        Anchor 0 0 1 1
+        PositionX 225
+        PositionY 25
+        SizeX -350
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+        Alignment 0 0
+       }
+       Color 0 0 0 1
+       Text "geughaeig eahuo9ga ehugaeuhgaeooeug0ei8 awfwafawfwafwafwaa pigaeioaejgpoiaejg aejgoaejgaeopgj aeogjaeogoeage"
+       "Font Size" 40
+       "Min Font Size" 32
+       Wrap 1
+       FontProperties FontProperties "{5ED6820EACA71349}" {
+        Font "{5C1C48521BB6023F}UI/Fonts/Handwriten2.fnt"
+       }
+       "Line Spacing" 0
+      }
+     }
+    }
+   }
+  }
+  FrameWidgetClass "{5ED6820E1BE62380}" {
+   Name "Frame0"
+   Slot FrameWidgetSlot "{5ED6820E1BE623E5}" {
+    Anchor 0.5 0.5 0.5 0.5
+    OffsetLeft 0
+    OffsetTop 0
+    SizeX 1150
+    OffsetRight -1150
+    SizeY 880
+    OffsetBottom -880
+    Alignment 0.5 0.5
+   }
+   Clipping False
+   {
+    FrameWidgetClass "{5ED68208D034D170}" {
+     Name "Frame2"
+     Slot FrameWidgetSlot "{5ED68208D034D15B}" {
+      Anchor 1 0 1 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 50
+      OffsetRight -50
+      SizeY 50
+      OffsetBottom -50
+      Alignment 1 0
+     }
+     {
+      ButtonWidgetClass "{5ED68208CE46FA02}" {
+       Name "Close"
+       Slot FrameWidgetSlot "{5ED68208CE46FA63}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 50
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+       }
+       Color 0.078 0.107 0.107 1
+       components {
+        ButtonActionComponent "{5ED6821C8EC9079A}" {
+        }
+       }
+       style debugUI
+       {
+        ImageWidgetClass "{5ED68208E14DB9B6}" {
+         Name "Image1"
+         Slot ButtonWidgetSlot "{5ED6821CE5760115}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding -10 -10 -10 -10
+         }
+         Texture "{315B40BD3EF4F92A}UI/Textures/Notifications/Notification_Save_Failed.edds"
+         Size 64 64
+         "Flip Horizontally" 1
+        }
+       }
+      }
+     }
+    }
+    FrameWidgetClass "{5ED6820E3284871D}" {
+     Name "Frame0"
+     Slot FrameWidgetSlot "{5ED6820E3284877F}" {
+      Anchor 0 0.5 0 0.5
+      PositionX 0
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 50
+      OffsetRight -50
+      SizeY 50
+      OffsetBottom -50
+      Alignment 0 0.5
+     }
+     Clipping False
+     {
+      ButtonWidgetClass "{5ED682096189281C}" {
+       Name "w_bPageBackward"
+       Slot FrameWidgetSlot "{5ED6820961892874}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 50
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+       }
+       Color 0.131 0.175 0.178 1
+       components {
+        ButtonActionComponent "{5ED8D30834BACBB4}" {
+        }
+       }
+       style debugUI
+       {
+        ImageWidgetClass "{5ED68209F2C44E95}" {
+         Name "Image1"
+         Slot ButtonWidgetSlot "{5ED8F1712E2CA3A1}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding 10 10 10 10
+         }
+         Texture "{BBBA870598CED29B}UI/Textures/PlayMenu/ArrowLeft_UI.edds"
+         Size 38 48
+         "Flip Horizontally" 1
+        }
+       }
+      }
+     }
+    }
+    FrameWidgetClass "{5ED6820E270D9484}" {
+     Name "Frame1"
+     Slot FrameWidgetSlot "{5ED6820E3284877F}" {
+      Anchor 1 0.5 1 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 50
+      OffsetRight -50
+      SizeY 50
+      OffsetBottom -50
+      Alignment 1 0.5
+     }
+     {
+      ButtonWidgetClass "{5ED68209225E466D}" {
+       Name "w_bPageForward"
+       Slot FrameWidgetSlot "{5ED6820961892874}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 50
+        OffsetRight 0
+        SizeY -20
+        OffsetBottom 0
+       }
+       Color 0.131 0.175 0.178 1
+       components {
+        ButtonActionComponent "{5ED8D3083B4B72FB}" {
+        }
+       }
+       style debugUI
+       {
+        ImageWidgetClass "{5ED68209D93A9669}" {
+         Name "Image0"
+         Slot ButtonWidgetSlot "{5ED8F1712E2CA3F3}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding 10 10 10 10
+         }
+         Pivot 0 0
+         Texture "{BBBA870598CED29B}UI/Textures/PlayMenu/ArrowLeft_UI.edds"
+         Size 38 48
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  FrameWidgetClass "{5ED6D1CA8D5A22ED}" {
+   Name "Frame2"
+   Slot FrameWidgetSlot "{5ED5293F25C7A9F9}" {
+    Anchor 0.5 1 0.5 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY -200
+    OffsetTop -200
+    SizeX 1050
+    OffsetRight -1050
+    OffsetBottom 170
+    Alignment 0.5 0
+   }
+   {
+    TextWidgetClass "{5ED6D1CA8D5A22EC}" {
+     Name "w_Pagenum1"
+     Slot FrameWidgetSlot "{5ED5293EF26AFE3D}" {
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 50
+      OffsetRight -50
+      OffsetBottom -30
+     }
+     Color 0 0 0 1
+     Text "1"
+     "Font Size" 32
+     "Min Font Size" 32
+     "Horizontal Alignment" Center
+     "Vertical Alignment" Center
+    }
+    TextWidgetClass "{5ED6D1CA8D5A22F2}" {
+     Name "w_Pagenum2"
+     Slot FrameWidgetSlot "{5ED5293EF26AFE3D}" {
+      Anchor 1 0 1 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 50
+      OffsetRight -50
+      SizeY 30
+      OffsetBottom -30
+      Alignment 1 0
+     }
+     Color 0 0 0 1
+     Text "2"
+     "Font Size" 32
+     "Min Font Size" 32
+     "Horizontal Alignment" Center
+     "Vertical Alignment" Center
+    }
+   }
+  }
+ }
+}

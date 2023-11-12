@@ -7,9 +7,6 @@ class DialogueStageShareLocation : DialogueStage
 	protected const float angleA = 0.775;
 	protected const float angleB = 0.325;
 	
-	override void Perform(IEntity Character, IEntity Player)
-	{
-	};
 	override bool CanBePerformed(IEntity Character, IEntity Player)
 	{
 		return true;
@@ -20,8 +17,7 @@ class DialogueStageShareLocation : DialogueStage
 	}
 	override string GetStageDialogueText(IEntity Character, IEntity Player)
 	{
-		SCR_GameModeCampaign Gamemode =  SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(Gamemode.GetDialogueComponent());
+		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
 		
 	 	return DialogueText + " " + Diag.GetCharacterLocation(Player, true);
 	};
@@ -48,3 +44,15 @@ class SP_DialogueDirectionHint
 		return m_aQuadHints[index];
 	}
 };
+[BaseContainerProps(configRoot:true)]
+class DateEventContainer : BaseEventContainer
+{
+	[Attribute(desc: "text override ", defvalue : "I asked around for directions and i've been told i am")]
+	string text;
+	override string GetString(IEntity Player, IEntity Char)
+	{
+		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
+	 	string loc = Diag.GetCharacterLocation(Player, true);
+		return text + " " + loc;
+	}
+}

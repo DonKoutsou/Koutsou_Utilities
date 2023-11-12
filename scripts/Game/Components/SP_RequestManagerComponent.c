@@ -797,6 +797,8 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_CharacterHolder.GetAllAlive(AliveCharacters);
 		foreach (ChimeraCharacter Owner : AliveCharacters)
 		{
+			if (!Owner)
+				return;
 			if (vector.Distance(Origin, Owner.GetOrigin()) > 300)
 				continue;
 			array <ref SP_Task> OwnedTasks = {};

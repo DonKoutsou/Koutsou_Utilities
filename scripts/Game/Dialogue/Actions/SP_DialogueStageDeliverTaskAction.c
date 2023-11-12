@@ -38,6 +38,7 @@ class DialogueStageDeliverTaskAction : DialogueStage
 				}
 			}
 		}
+		super.Perform(Character, Player);
 	};
 	override bool CanBeShown(IEntity Character, IEntity Player)
 	{

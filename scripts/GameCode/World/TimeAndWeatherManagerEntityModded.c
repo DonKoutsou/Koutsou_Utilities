@@ -1,18 +1,21 @@
 modded class TimeAndWeatherManagerEntity
 {	
+	[Attribute("8")]
+	float m_fDayTemp;
+	
+	[Attribute("2")]
+	float m_fNightTemp;
+	
 	float CalculateFeelsLikeTemperature(IEntity entity)
 	{
 		float timeOfDay = GetTimeOfTheDay();
 		float sunrise, sunset;
 		GetSunriseHour(sunrise);
-		GetSunsetHour(sunset);
+		GetSunsetHour(sunset);	
 			
-		const float dayTemp = 18.0;
-		const float nightTemp = 10.0;		
-			
-		float outsideTemperature = dayTemp;
+		float outsideTemperature = m_fDayTemp;
 		if (timeOfDay < sunrise || timeOfDay > sunset)
-			outsideTemperature = nightTemp;
+			outsideTemperature = m_fNightTemp;
 		float alt = GetPlayerAltitude(entity) * 0.0065;
 		outsideTemperature -=  alt;
 	   // Wind chill formula for temperatures above 10 degrees Celsius
@@ -33,6 +36,16 @@ modded class TimeAndWeatherManagerEntity
 		vector pos = Player.GetOrigin();
 		float alt = pos[1];
 		return alt;
+	}
+	int GetDayIndex(int Day, int Month)
+	{
+		int Index;
+		for (int i = 1; i < Month; i++)
+		{
+			Index = Index + GetAmountOfDaysInMonth(i);
+		}
+		Index = Index + Day;
+		return Index;
 	}
 	static int GetAmountOfDaysInMonth(int Month)
 	{

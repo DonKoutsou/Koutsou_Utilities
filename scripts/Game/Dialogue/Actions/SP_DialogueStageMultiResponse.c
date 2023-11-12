@@ -85,5 +85,6 @@ class DialogueStageMultiResponse : DialogueStage
 					StageTask.SetupTask(null);
 				}
 			}
+			super.Perform(Character, Player);
 		};
 }

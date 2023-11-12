@@ -1,0 +1,205 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/FindAndTalk.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -50 -45
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -59.913 74.536
+     Nodes {
+      SCR_AIGetTalkParameters "SCR_AI Get Talk Parameters" {
+       Name "SCR_AI Get Talk Parameters"
+       EditorPos -1221.714 291.143
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainerClass {
+         Port 2
+         PortName "Entity"
+        }
+        SingleOutputPortContainer SingleOutputPortContainerClass {
+         PortName "Duration"
+        }
+        SingleOutputPortContainer SingleOutputPortContainerClass {
+         PortName "Radius"
+        }
+        SingleOutputPortContainer SingleOutputPortContainerClass {
+         Port 1
+         PortName "UseRadio"
+        }
+       }
+      }
+      SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
+       Name "SCR_AI Get Entity Position"
+       EditorPos -706.619 320.179
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 2
+         PortName "Entity"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 4
+         PortName "Position"
+        }
+       }
+      }
+      SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
+       Name "SCR_AI Set Weapon Raised"
+       EditorPos -342.734 298.215
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "Raised"
+        }
+       }
+      }
+      Selector Selector {
+       Name "Selector"
+       EditorPos 24.587 299.286
+       Nodes {
+        DecoTestVariable "Test Variable" {
+         Name "Test Variable"
+         EditorPos -140.413 503.036
+         Nodes {
+          Parallel Parallel {
+           Name "Parallel"
+           EditorPos -45.663 730.036
+           Nodes {
+            Sequence Sequence {
+             Name "Sequence"
+             EditorPos -314.663 916.036
+             Nodes {
+              AITaskIdle Idle {
+               Name "Idle"
+               EditorPos -101.663 1080.036
+               Period 500
+              }
+             }
+            }
+            SCR_AIToggleUnEquipRadioOnAbort "SCR_AI Toggle Un Equip Radio On Abort" {
+             Name "SCR_AI Toggle Un Equip Radio On Abort"
+             EditorPos 80.337 1029.036
+            }
+           }
+          }
+         }
+         NegativeCondition 1
+         AbortType AbortChildrenBranch
+         InVariable 1
+         TestType EqualsValue
+         TestValue "1"
+        }
+        Parallel Parallel {
+         Name "Parallel"
+         EditorPos 370 437
+         Nodes {
+          SCR_AILookAtPosition "SCR_AI Look At Position" {
+           Name "SCR_AI Look At Position"
+           EditorPos 271.58 616.937
+           InPorts {
+            SingleInputPortContainer SingleInputPortContainer {
+             Port 4
+             PortName "PositionIn"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "PriorityIn"
+            }
+           }
+           OutPorts {
+            SingleOutputPortContainer SingleOutputPortContainer {
+             Port -1
+             PortName "PositionOut"
+            }
+           }
+           m_bSuccessWhenClose 0
+           m_fVerticalOffset 1.7
+           m_fIgnoreLookDistSq 0
+           m_fPriority 80
+          }
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos 630.587 625.036
+           Nodes {
+            AITaskMoveToEntity "Move To Entity" {
+             Name "Move To Entity"
+             EditorPos 775.706 868.072
+             PrecisionXZ 3
+             InEntity 0
+            }
+            AITaskIdle Idle {
+             Name "Idle"
+             EditorPos 1099.619 867.226
+             Period 1
+            }
+            SCR_AIStartDialogue "SCR_AI Start Dialogue" {
+             Name "SCR_AI Start Dialogue"
+             EditorPos 1271.429 878.572
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 3
+               PortName "EntityIn"
+              }
+             }
+            }
+            AITaskIdle Idle {
+             Name "Idle"
+             EditorPos 1465.207 870.656
+             Period 500
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable CharToTalk {
+   VariableName "CharToTalk"
+   VariableTypeName "IEntity"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable UseRadio {
+   VariableName "UseRadio"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable posToLook {
+   VariableName "posToLook"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference CharToTalk {
+   VariableType 0
+   EditorPos 506.238 1064.464
+  }
+  VariableReference UseRadio {
+   VariableType 1
+   EditorPos -673.663 858.036
+  }
+  VariableReference CharToTalk {
+   VariableType 0
+   EditorPos -820.905 542.464
+  }
+  VariableReference CharToTalk {
+   VariableType 0
+   EditorPos 990.333 1038.893
+  }
+  VariableReference posToLook {
+   VariableType 2
+   EditorPos 139.602 750.27
+  }
+ }
+}

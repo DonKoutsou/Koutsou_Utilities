@@ -47,6 +47,7 @@ class DialogueStageFollowAction : DialogueStage
 		m_Waypoint.SetEntity(SCR_ChimeraCharacter.Cast(Player));
 		Player.AddChild(m_Waypoint, -1);
 		newgroup.AddWaypointAt(m_Waypoint, 0);
+		super.Perform(Character, Player);
 	}
 	override bool CanBePerformed(IEntity Character, IEntity Player)
 	{

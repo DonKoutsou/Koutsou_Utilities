@@ -126,6 +126,13 @@ modded class SP_DialogueComponent
 		GetGame().GetPlayerController().GetHUDManagerComponent().GetInfoDisplays(infoDisplays);
 		foreach (BaseInfoDisplay baseInfoDisplays : infoDisplays)
 		{
+			SCR_IDWidget idw = SCR_IDWidget.Cast(baseInfoDisplays);
+			if (idw)
+			{
+				idw.SetTarget(talker);
+				idw.ShowInspectCasualtyWidget(talker);
+				continue;
+			}
 			SCR_DialogueWidget DialogueDisplay = SCR_DialogueWidget.Cast(baseInfoDisplays);
 			if (!DialogueDisplay)
 				continue;
@@ -497,8 +504,14 @@ modded class SP_DialogueAction
 			if (!utility)
 				return;
 			SCR_AIConverseBehavior action = new SCR_AIConverseBehavior(utility, null, pUserEntity, false);
-			
-			if (SCR_EntityHelper.GetPlayer() != pUserEntity)
+			if (SCR_EntityHelper.IsPlayer(pUserEntity))
+			{
+				SCR_CharacterControllerComponent cont = SCR_CharacterControllerComponent.Cast(Char.GetCharacterController());
+				cont.OnDialogueBegan(pUserEntity, pOwnerEntity);
+				DiagComp.AddToContactList(pOwnerEntity);
+			}
+			/////if not player immitate dialogue and initialise or complete tasks
+			else
 			{
 				
 				array <ref SP_Task> taskstodeliver = {};
@@ -537,9 +550,8 @@ modded class SP_DialogueAction
 				}
 				return;
 			}
-			
-			GameMode = BaseGameMode.Cast(GetGame().GetGameMode());
-			DiagComp = SP_DialogueComponent.Cast(GameMode.FindComponent(SP_DialogueComponent));
+			/////
+			DiagComp = SP_DialogueComponent.GetInstance();
 			string NoTalkText = "Cant talk to you now";
 			FactionKey SenderFaction = DiagComp.GetCharacterFaction(pOwnerEntity).GetFactionKey();
 			BaseChatChannel Channel;
@@ -556,7 +568,6 @@ modded class SP_DialogueAction
 			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
 			DiagComp.IntroducitonSting(pOwnerEntity, pUserEntity);
-			DiagUI.Init(pOwnerEntity, pUserEntity);
 			DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 		}
 		else
@@ -564,8 +575,6 @@ modded class SP_DialogueAction
 			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
 			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
-			//DiagComp.IntroducitonSting(pOwnerEntity, pUserEntity);
-			DiagUI.Init(pOwnerEntity, pUserEntity);
 			DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 		}
 	}

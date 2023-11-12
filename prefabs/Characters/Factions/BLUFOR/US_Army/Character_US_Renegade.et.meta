@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{929AAAE8D0F59033}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Renegade.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}
