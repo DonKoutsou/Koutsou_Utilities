@@ -54,6 +54,8 @@ class FactionTableUI : ChimeraMenuBase
 		{
 			string widgetname = string.Format("UG_%1_%2", Row, i);
 			TextWidget widget = TextWidget.Cast(m_wRoot.FindAnyWidget(widgetname));
+			if (!widget)
+				continue;
 			if (i == 0)
 			{
 				int goodwill = SCRFact.GetPlayerGoodwill();
@@ -109,8 +111,10 @@ class FactionTableUI : ChimeraMenuBase
 		string widgetnameH = string.Format("UG_H_Fact_%1", value);
 		TextWidget widgetV = TextWidget.Cast(m_wRoot.FindAnyWidget(widgetnameV));
 		TextWidget widgetH = TextWidget.Cast(m_wRoot.FindAnyWidget(widgetnameH));
-		widgetV.SetText(m_aFactions[value].GetFactionKey());
-		widgetH.SetText(m_aFactions[value].GetFactionKey());
+		if (widgetV)
+			widgetV.SetText(m_aFactions[value].GetFactionKey());
+		if (widgetH)	
+			widgetH.SetText(m_aFactions[value].GetFactionKey());
 	}
 	
 };

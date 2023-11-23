@@ -42,6 +42,7 @@ class SCR_AILookAtEntity: AITaskScripted
 	//-----------------------------------------------------------------------------------------------
 	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
 	{
+		
 		IEntity ent;
 		vector lookPosition;
 		float priority;
@@ -93,6 +94,45 @@ class SCR_AILookAtEntity: AITaskScripted
 	{
 		return "Look at position setter for execution inside tree LookAction.bt, the position may be corrected by terrain";
 	}
+};
+class SCR_AIAddOffsetToPosition: AITaskScripted
+{
+	[Attribute("1.5", UIWidgets.EditBox, "Vertical offset to add to position" )]
+	protected float m_fVerticalOffset;
+	protected static const string POSITION_CORRECTION_PORT = "PositionOut";
+	protected static const string POSITION_PORT = "PositionIn";
+	//-----------------------------------------------------------------------------------------------
+	override bool VisibleInPalette() {return true;}
+	
+	//-----------------------------------------------------------------------------------------------
+	protected static ref TStringArray s_aVarsIn = {
+		POSITION_PORT
+	};
+	override array<string> GetVariablesIn()
+	{
+		return s_aVarsIn;
+	}
+	
+	protected static ref TStringArray s_aVarsOut = {
+		POSITION_CORRECTION_PORT
+	};
+	override array<string> GetVariablesOut()
+	{
+		return s_aVarsOut;
+	}
+	
+	//-----------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		
+		vector lookPosition;
+		
+		GetVariableIn(POSITION_PORT, lookPosition);
+		lookPosition[1] = lookPosition[1] + m_fVerticalOffset;
+		
+		SetVariableOut(POSITION_CORRECTION_PORT,lookPosition);
+		return ENodeResult.SUCCESS;
+    }
 };
 class SCR_AISaluteEachother: AITaskScripted
 {
