@@ -288,7 +288,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			return null;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		if(Task.Init())
 		{
@@ -332,7 +332,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		if (!GetTaskSample(TaskType).m_bEnabled)
 			return false;
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		Task.m_eTaskOwner = Owner;
 		if(Task.Init())
@@ -348,7 +348,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		typename TaskType = SP_RetrieveTask;
 		if (!GetTaskSample(TaskType))
 			return false;
-		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SP_RetrieveTask Task = SP_RetrieveTask.Cast(TaskType.Spawn());
 		
 		Task.m_eTaskOwner = Owner;
@@ -803,14 +803,14 @@ class SP_RequestManagerComponent : ScriptComponent
 				continue;
 			array <ref SP_Task> OwnedTasks = {};
 			GetCharOwnedTasks(Owner, OwnedTasks);
-			string infoText2 = string.Format("CharName: %1\n Rank: %2\n Reputation: %3\nOwned Tasks: \n", SP_DialogueComponent.GetCharacterFirstName(Owner) + " " + SP_DialogueComponent.GetCharacterSurname(Owner), SP_DialogueComponent.GetCharacterRankName(Owner), SP_DialogueComponent.GetCharacterRep(Owner));
+			string infoText2 = string.Format("CharName: %1\n Rank: %2\n Reputation: %3\nOwned Tasks: \n", DS_DialogueComponent.GetCharacterFirstName(Owner) + " " + DS_DialogueComponent.GetCharacterSurname(Owner), DS_DialogueComponent.GetCharacterRankName(Owner), DS_DialogueComponent.GetCharacterRep(Owner));
 			foreach (SP_Task task : OwnedTasks)
 			{
 				string name;
 				if (task.GetTarget())
-					name = SP_DialogueComponent.GetCharacterFirstName(task.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetTarget());
+					name = DS_DialogueComponent.GetCharacterFirstName(task.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(task.GetTarget());
 				else
-					name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
+					name = DS_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(task.GetOwner());
 				string reservedstring;
 				if (task.IsReserved())
 					reservedstring = "RESERVED";
@@ -832,7 +832,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			GetCharTargetTasks(Owner, TargetedTasks);
 			foreach (SP_Task task : TargetedTasks)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(task.GetOwner());
 				string reservedstring;
 				if (task.IsReserved())
 					reservedstring = "RESERVED";
@@ -847,7 +847,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			GetassignedTasks(Owner, AssignedTasks);
 			foreach (SP_Task task : AssignedTasks)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(task.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(task.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(task.GetOwner());
 				string reservedstring;
 				if (task.IsReserved())
 					reservedstring = "RESERVED";
@@ -883,7 +883,7 @@ class SP_RequestManagerComponent : ScriptComponent
 				if (!action.PickedTask)
 					continue;
 				
-				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
 				
 				infoText2 = infoText2 + string.Format("Heading towards %1's location to pick %2\n", name ,action.PickedTask.GetClassName().ToString());
 				
@@ -896,8 +896,8 @@ class SP_RequestManagerComponent : ScriptComponent
 				if (!Navaction.PickedTask)
 					continue;
 				
-				string name = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
-				string Oname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
+				string Oname = DS_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
 				
 				if (Navaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
@@ -911,7 +911,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			{
 				if (!Delaction.PickedTask)
 					continue;
-				string name = SP_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
 				if (Delaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
 				infoText2 = infoText2 + string.Format("Delivering Package to %1\n", name);
@@ -922,7 +922,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			{
 				if (!Bountyaction.PickedTask)
 					continue;
-				string name = SP_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
 				if (Bountyaction.PickedTask.IsOwnerAssigned())
 					infoText2 = infoText2 + " | PERFORMING OWNED TASK | ";
 				infoText2 = infoText2 + string.Format("Going after %1's bounty.\n", name);
@@ -933,7 +933,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			{
 				if (!followact.Char)
 					continue;
-				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
+				string name = DS_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + DS_DialogueComponent.GetCharacterSurname(followact.Char);
 				infoText2 = infoText2 + string.Format("Following %1\n", name);
 				Shape.CreateSphere(Color.ORANGE, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}
@@ -942,7 +942,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			{
 				if (!Retract.PickedTask)
 					continue;
-				string name = SP_DialogueComponent.GetCharacterFirstName(Retract.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Retract.PickedTask.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Retract.PickedTask.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(Retract.PickedTask.GetOwner());
 				infoText2 = infoText2 + string.Format("Following %1\n", name);
 				Shape.CreateSphere(Color.BLACK, ShapeFlags.DEFAULT | ShapeFlags.ONCE, SphereOrig, 1);
 			}

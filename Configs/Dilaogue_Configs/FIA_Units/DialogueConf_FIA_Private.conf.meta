@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/DialogueConf_FIA_Private.conf"
+ Name "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf"
  Configurations {
   CONFResourceClass PC {
   }

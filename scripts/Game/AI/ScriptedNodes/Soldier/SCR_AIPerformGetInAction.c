@@ -47,7 +47,7 @@ class SCR_AIPerformLightAction : AITaskScripted
 			}
 			else if(tags[0] == "SmartTask")
 			{
-				userActionString = "SP_DialogueAction";
+				userActionString = "DS_DialogueAction";
 			}
 			else if (tags[0] == "StorePost")
 			{
@@ -217,7 +217,7 @@ class SCR_AIPerformTaskAction : AITaskScripted
 			GetVariableIn(TASK_IN_PORT, task);
 			if (!targetEntity)
 				return ENodeResult.FAIL;
-			string userActionString = "SP_DialogueAction";
+			string userActionString = "DS_DialogueAction";
 			
 			IEntity controlledEntity = owner.GetControlledEntity();
 			if (!controlledEntity)
@@ -229,11 +229,11 @@ class SCR_AIPerformTaskAction : AITaskScripted
 				return ENodeResult.FAIL;
 	
 			array<BaseUserAction> outActions = {};
-			SP_DialogueAction action;
+			DS_DialogueAction action;
 			GetActions(targetEntity, outActions);
 			foreach (BaseUserAction baseAction : outActions)
 			{
-				action = SP_DialogueAction.Cast(baseAction);
+				action = DS_DialogueAction.Cast(baseAction);
 				if (action && userAction == action.Type() && action.CanBePerformedScript(controlledEntity))
 				{
 					if (task)
@@ -297,7 +297,7 @@ class SCR_AIPerformCompleteTaskAction : AITaskScripted
 			GetVariableIn(TASK_IN_PORT, task);
 			if (!targetEntity)
 				return ENodeResult.FAIL;
-			string userActionString = "SP_DialogueAction";
+			string userActionString = "DS_DialogueAction";
 			
 			IEntity controlledEntity = owner.GetControlledEntity();
 			if (!controlledEntity)
@@ -309,11 +309,11 @@ class SCR_AIPerformCompleteTaskAction : AITaskScripted
 				return ENodeResult.FAIL;
 	
 			array<BaseUserAction> outActions = {};
-			SP_DialogueAction action;
+			DS_DialogueAction action;
 			GetActions(targetEntity, outActions);
 			foreach (BaseUserAction baseAction : outActions)
 			{
-				action = SP_DialogueAction.Cast(baseAction);
+				action = DS_DialogueAction.Cast(baseAction);
 				if (action && userAction == action.Type() && action.CanBePerformedScript(controlledEntity))
 				{
 					///if (task)

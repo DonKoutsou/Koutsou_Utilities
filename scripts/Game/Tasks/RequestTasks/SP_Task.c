@@ -63,7 +63,7 @@ class SP_Task
 	//-------------------------------------------------//
 	//Reward that is going to be handed to completionist *m_iRewardAmount
 	ref array <IEntity> a_Rewards = {};
-	//Used for ClearTasks function in SP_DialogueComponent used to clean completed/failed tasks from main task array
+	//Used for ClearTasks function in DS_DialogueComponent used to clean completed/failed tasks from main task array
 	private bool m_bMarkedForRemoval;
 	//-------------------------------------------------//
 	//Amount of the m_Reward resource that is going to be given to completionist. Calculated average using m_iRewardAverageAmount taken from task sample in SP_RequestManagerComponent
@@ -103,7 +103,7 @@ class SP_Task
 	IEntity GetCompletionist(){return m_eCopletionist;};
 	//------------------------------------------------------------------------------------------------------------//
 	//adds the completioninst's name to the m_sTaskCompletiontext
-	string GetCompletionText(IEntity Completionist){return string.Format(m_sTaskCompletiontext, SP_DialogueComponent.GetCharacterRankName(Completionist) + " " + SP_DialogueComponent.GetCharacterSurname(Completionist));};
+	string GetCompletionText(IEntity Completionist){return string.Format(m_sTaskCompletiontext, DS_DialogueComponent.GetCharacterRankName(Completionist) + " " + DS_DialogueComponent.GetCharacterSurname(Completionist));};
 	//------------------------------------------------------------------------------------------------------------//
 	//Returns state of task
 	ETaskState GetState(){return e_State;};
@@ -275,7 +275,7 @@ class SP_Task
 		{
 			return false;
 		}
-		/*Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
+		/*Faction senderFaction = DS_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
 		m_OwnerFaction = SCR_Faction.Cast(senderFaction);
@@ -392,7 +392,7 @@ class SP_Task
 			m_TaskMarker.Fail(true);
 			m_TaskMarker.RemoveAllAssignees();
 			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", DS_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 		}
 		
 		//check state and unassign char if needed
@@ -420,7 +420,7 @@ class SP_Task
 			m_TaskMarker.Fail(true);
 			m_TaskMarker.RemoveAllAssignees();
 			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", DS_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 		}
 		e_State = ETaskState.FAILED;
 		m_bMarkedForRemoval = 1;

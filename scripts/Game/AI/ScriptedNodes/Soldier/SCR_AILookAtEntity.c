@@ -210,7 +210,7 @@ class SCR_AIStartDialogue: AITaskScripted
 		MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
 		GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 		DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
-		SP_DialogueComponent DiagComp = SP_DialogueComponent.GetInstance();
+		DS_DialogueComponent DiagComp = DS_DialogueComponent.GetInstance();
 		DiagComp.IntroducitonSting(Chimera, DChimera);
 		DiagUI.Init(Chimera, DChimera);
 		DiagUI.UpdateEntries(Chimera, DChimera);

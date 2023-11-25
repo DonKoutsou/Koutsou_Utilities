@@ -32,7 +32,7 @@ class SP_DestroyTask: SP_Task
 			m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
 			m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
 			m_TaskMarker.SetTitle("Return");
-			m_TaskMarker.SetDescription(string.Format("Return to %1 %2 to claim your reward.", SP_DialogueComponent.GetCharacterRankName(m_eTaskOwner), SP_DialogueComponent.GetCharacterName(m_eTaskOwner)));
+			m_TaskMarker.SetDescription(string.Format("Return to %1 %2 to claim your reward.", DS_DialogueComponent.GetCharacterRankName(m_eTaskOwner), DS_DialogueComponent.GetCharacterName(m_eTaskOwner)));
 			m_TaskMarker.SetTarget(m_eTaskOwner);
 			m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
 			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
@@ -113,10 +113,10 @@ class SP_DestroyTask: SP_Task
 		{
 			return;
 		}
-		OName = SCR_CharacterRankComponent.GetCharacterRankName(m_eTaskOwner) + " " + SP_DialogueComponent.GetCharacterName(m_eTaskOwner);
-		DName = SP_DialogueComponent.GetEditableEntName(m_eTaskTarget);
-		OLoc = SP_DialogueComponent.GetCharacterLocation(m_eTaskOwner);
-		DLoc = SP_DialogueComponent.GetCharacterLocation(m_eTaskTarget);
+		OName = SCR_CharacterRankComponent.GetCharacterRankName(m_eTaskOwner) + " " + DS_DialogueComponent.GetCharacterName(m_eTaskOwner);
+		DName = DS_DialogueComponent.GetEditableEntName(m_eTaskTarget);
+		OLoc = DS_DialogueComponent.GetCharacterLocation(m_eTaskOwner);
+		DLoc = DS_DialogueComponent.GetCharacterLocation(m_eTaskTarget);
 	};
 	override void AddOwnerInvokers()
 	{

@@ -1,18 +1,12 @@
 [BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
-class DialogueStageRumor : DialogueStage
+class DialogueStageRumor : DS_BaseDialogueText
 {
-	ref array <int> usedindex = new array<int>();
-	
-	override bool CanBePerformed(IEntity Character, IEntity Player)
+	override string GetText(IEntity Character, IEntity Player)
 	{
-		return true;
-	};
-	override string GetStageDialogueText(IEntity Character, IEntity Player)
-	{
-			SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+			DS_DialogueComponent Diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
 			string TextToSend;
 			//while (TextToSend.IsEmpty())
-			//	TextToSend = Diag.GenerateRummor(Character, Player);
+				//TextToSend = Diag.GenerateRummor(Character, Player);
 			return TextToSend;
 	};
 	/*string GetRandomLocationPopulation(Faction key, IEntity Player)
@@ -70,7 +64,7 @@ class DialogueStageRumor : DialogueStage
 		{
 			usedindex.Clear();
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));		
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));		
 		string TextToSend = string.Format(DialogueText, FactioReadble, Diag.GetCharacterLocation(RandomDirector));
 		return TextToSend;
 	}*/

@@ -1,11 +1,11 @@
 modded class SCR_CharacterIdentityComponent
 {		
 	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
-	protected ref SP_DialogueArchetype m_DialogueArchetype;
+	protected ref DS_DialogueArchetype m_DialogueArchetype;
 	
 	protected int m_iCharacterRep = Math.RandomInt(10, 100);
 	
-	SP_DialogueArchetype GetArchetype()
+	DS_DialogueArchetype GetArchetype()
 		return m_DialogueArchetype;
 	
 	bool HasArchetype()
@@ -14,7 +14,7 @@ modded class SCR_CharacterIdentityComponent
 			return true;
 		return false;
 	}
-	void SetCarArch(SP_DialogueArchetype Arch)
+	void SetCarArch(DS_DialogueArchetype Arch)
 	{
 		m_DialogueArchetype = Arch;
 	}

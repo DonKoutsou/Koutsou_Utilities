@@ -173,7 +173,7 @@ class SP_RescueTask: SP_Task
 		{
 			return false;
 		}
-		Faction senderFaction = SP_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
+		Faction senderFaction = DS_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;
 		m_OwnerFaction = SCR_Faction.Cast(senderFaction);
@@ -214,7 +214,7 @@ class SP_RescueTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		if (m_eTaskOwner)
 		{
@@ -285,7 +285,7 @@ class SP_RescueTask: SP_Task
 		GetOnTaskFinished(this);
 		if (SCR_EntityHelper.GetPlayer() == Assignee)
 			SCR_PopUpNotification.GetInstance().PopupMsg("Completed", text2: m_sTaskTitle);
-		//SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		//DS_DialogueComponent Diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
 		//Diag.SendText(GetCompletionText(Assignee), Diag.m_ChatChannelUS, 0, Diag.GetCharacterName(m_eTaskOwner), Diag.GetCharacterRankName(m_eTaskOwner));
 		return true;
 	};

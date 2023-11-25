@@ -2,7 +2,7 @@
 {
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		DS_DialogueComponent diag = DS_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SP_FactionManager factman = SP_FactionManager.Cast(GetGame().GetFactionManager());
 		SCR_Faction senderFaction =  SCR_Faction.Cast(diag.GetCharacterFaction(pOwnerEntity));
 		FactionKey senderFactionkey = senderFaction.GetFactionKey();

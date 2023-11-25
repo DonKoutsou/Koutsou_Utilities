@@ -3,12 +3,6 @@ SCR_PlayerController {
  components {
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
-    SCR_NearbyContextDisplay "{54EED98126B92A63}" {
-     m_fWidgetMaximumRange 100
-    }
-    SCR_IDWidget "{5E590183FEA45115}" {
-     m_LayoutPath "{7E4E75B13F626B88}UI/layouts/Damage/IDMenu.layout"
-    }
     SP_StaminaBarUI "{5ED30428BCBEF24F}" {
      m_LayoutPath "{8C65180B05811316}scripts/Game/UI/HUD/StaminaBar.layout"
     }

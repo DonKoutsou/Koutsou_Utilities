@@ -1,32 +1,30 @@
 [BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
-modded class DialogueStage
+modded class DS_DialogueStage
 {
 	[Attribute(desc: "Event to be recorded on notebook")]
 	protected ref BaseEventContainer m_sEventString;
-	
-	protected bool m_bEventRecorded;
+
 	//------------------------------------------------------------------//
 	bool GetEvent(out string eventString)
 	{
-		if (!m_sCantBePerformedReason)
+		if (!m_DialogueActionCondition)
 			return false;
 		else
 		{
-			eventString = m_sCantBePerformedReason;
+			m_DialogueActionCondition.GetCannotPerformReason(eventString);
 			return true;
 		}
 	}
 	//------------------------------------------------------------------//
 	override void Perform(IEntity Character, IEntity Player)
 	{
-		if (m_sEventString && !m_bEventRecorded)
+		if (m_sEventString)
 		{
 			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Player);
 			SP_CallendarComponent Callendar = Char.GetCallendar();
 			if (Callendar)
 			{
 				Callendar.RecordEvent(m_sEventString.GetString(Player, Character));
-				m_bEventRecorded = true;
 			}
 		}
 		

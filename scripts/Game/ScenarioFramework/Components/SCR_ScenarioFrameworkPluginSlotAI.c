@@ -26,7 +26,7 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 	bool m_bSetCharacterImportant;
 	
 	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
-	protected ref SP_DialogueArchetype m_DialogueArchetype;
+	protected ref DS_DialogueArchetype m_DialogueArchetype;
 	
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
 	{

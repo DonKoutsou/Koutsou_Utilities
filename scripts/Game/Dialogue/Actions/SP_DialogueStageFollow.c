@@ -1,5 +1,5 @@
 [BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
-class DialogueStageFollowAction : DialogueStage
+class SP_DialogueStageFollowAction : DS_BaseDialogueStageAction
 {
 	[Attribute()]
 	ResourceName m_WaypointType;
@@ -9,7 +9,7 @@ class DialogueStageFollowAction : DialogueStage
 	override void Perform(IEntity Character, IEntity Player)
 	{
 		/*
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
 		Diag.Escape(Character, Player);
 		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
 		if (!comp)
@@ -24,7 +24,7 @@ class DialogueStageFollowAction : DialogueStage
 		SCR_AIFollowBehavior action = new SCR_AIFollowBehavior(utility, null, Player);
 		utility.AddAction(action);
 		*/
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		Diag.Escape(Character, Player);
 		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
 		AIAgent agent = comp.GetAIAgent();
@@ -49,8 +49,4 @@ class DialogueStageFollowAction : DialogueStage
 		newgroup.AddWaypointAt(m_Waypoint, 0);
 		super.Perform(Character, Player);
 	}
-	override bool CanBePerformed(IEntity Character, IEntity Player)
-	{
-		return true;
-	};
 }

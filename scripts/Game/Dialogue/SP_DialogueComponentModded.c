@@ -1,4 +1,4 @@
-modded class SP_DialogueComponent
+modded class DS_DialogueComponent
 {
 	//----------------------------------------------------------------------------------------------------------------//
 	static string GetCharacterLocation(IEntity Character, bool unlockloc = 0)
@@ -195,8 +195,8 @@ modded class SP_DialogueComponent
 		TimeAndWeatherManagerEntity TnWman = world.GetTimeAndWeatherManager();
 		if (!TnWman)
 			return;
-		string Plname = SP_DialogueComponent.GetCharacterSurname(Player);
-		string Plrank = SP_DialogueComponent.GetCharacterRankNameFull(Player);
+		string Plname = DS_DialogueComponent.GetCharacterSurname(Player);
+		string Plrank = DS_DialogueComponent.GetCharacterRankNameFull(Player);
 		if (TnWman.GetTimeOfTheDay() > 4.0 && TnWman.GetTimeOfTheDay() < 12.0)
 		{
 			IndtroducionString = string.Format("Good morning %1 %2. %3", Plrank, Plname, IndtroducionString);
@@ -413,7 +413,7 @@ modded class SP_DialogueComponent
 	string ComposeNeedString(IEntity Player, int reasonindex)
 	{
 		string Needstring;
-		string Plname = SP_DialogueComponent.GetCharacterSurname(Player);
+		string Plname = DS_DialogueComponent.GetCharacterSurname(Player);
 		switch (reasonindex)
 		{
 			//temp low
@@ -464,7 +464,7 @@ modded class SP_DialogueComponent
 		{
 			if (action.PickedTask)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(action.PickedTask.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(action.PickedTask.GetOwner());
 				string taskname = action.PickedTask.ClassName();
 				int length = taskname.Length();
 				string tasksubname = taskname.Substring(3, taskname.Length() - 7) + " task";
@@ -478,8 +478,8 @@ modded class SP_DialogueComponent
 		{
 			if (Navaction.PickedTask)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
-				string Oname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
+				string Oname = DS_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetOwner()) + " " + DS_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetOwner());
 				
 				CurrentTaskString = string.Format("Escorting %1 to %2's location", Oname ,name);
 			}
@@ -489,7 +489,7 @@ modded class SP_DialogueComponent
 		{
 			if (Delaction.PickedTask)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Delaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Delaction.PickedTask.GetTarget());
 				CurrentTaskString = string.Format("I am delivering Package to %1", name);
 			}
 			
@@ -499,7 +499,7 @@ modded class SP_DialogueComponent
 		{
 			if (Bountyaction.PickedTask)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
+				string name = DS_DialogueComponent.GetCharacterFirstName(Bountyaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Bountyaction.PickedTask.GetTarget());
 				CurrentTaskString = string.Format("I am going after %1's bounty.", name);
 			}
 			
@@ -509,8 +509,8 @@ modded class SP_DialogueComponent
 		{
 			if (followact.Char)
 			{
-				string name = SP_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + SP_DialogueComponent.GetCharacterSurname(followact.Char);
-				string Tname = SP_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + SP_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
+				string name = DS_DialogueComponent.GetCharacterFirstName(followact.Char) + " " + DS_DialogueComponent.GetCharacterSurname(followact.Char);
+				string Tname = DS_DialogueComponent.GetCharacterFirstName(Navaction.PickedTask.GetTarget()) + " " + DS_DialogueComponent.GetCharacterSurname(Navaction.PickedTask.GetTarget());
 				CurrentTaskString = string.Format("I am following %1, he is escorting me to %2's location.", name, Tname);
 			}
 		}
@@ -568,7 +568,7 @@ modded class SP_DialogueComponent
 		return weathercomment;
 	}
 }
-modded class SP_DialogueAction
+modded class DS_DialogueAction
 {
 	ref map <IEntity,ref SP_Task> taskstogive = new map <IEntity,ref SP_Task>();
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
@@ -618,7 +618,7 @@ modded class SP_DialogueAction
 					DialogueUIClass myMenu = DialogueUIClass.Cast(menumanager.FindMenuByPreset(ChimeraMenuPreset.DialogueMenu));
 					if (myMenu && myMenu.myCallerEntity == pOwnerEntity)
 					{
-						SP_DialogueComponent.GetInstance().Escape(pOwnerEntity ,SCR_EntityHelper.GetPlayer());
+						DS_DialogueComponent.GetInstance().Escape(pOwnerEntity ,SCR_EntityHelper.GetPlayer());
 					}
 						
 					vector lookpos = pUserEntity.GetOrigin();
@@ -634,7 +634,7 @@ modded class SP_DialogueAction
 				return;
 			}
 			/////
-			DiagComp = SP_DialogueComponent.GetInstance();
+			DiagComp = DS_DialogueComponent.GetInstance();
 			string NoTalkText = "Cant talk to you now";
 			FactionKey SenderFaction = DiagComp.GetCharacterFaction(pOwnerEntity).GetFactionKey();
 			BaseChatChannel Channel;

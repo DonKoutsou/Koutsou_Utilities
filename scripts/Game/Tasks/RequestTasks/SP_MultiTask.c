@@ -110,7 +110,7 @@ class SP_MultiTask: SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override void FailTask()
 	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(GetOwner().FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		e_State = ETaskState.FAILED;
@@ -138,7 +138,7 @@ class SP_MultiTask: SP_Task
 		SCR_GameModeCampaign GM = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
 		if (!GM)
 			return;
-		SP_DialogueComponent Diag = GM.GetDialogueComponent();
+		DS_DialogueComponent Diag = GM.GetDialogueComponent();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
 		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);

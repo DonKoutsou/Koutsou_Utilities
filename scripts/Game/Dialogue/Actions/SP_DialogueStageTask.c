@@ -1,27 +1,18 @@
 [BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
-class DialogueStageTask : DialogueStage
+class SP_DialogueStageTaskAction : DS_BaseDialogueStageAction
 {
-	SP_Task t_Task;
 	override void Perform(IEntity Character, IEntity Player)
 	{
+		SP_RequestManagerComponent TaskMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		SP_Task t_Task;
+		array<ref SP_Task> tasks = new array<ref SP_Task>();
+		TaskMan.GetCharOwnedTasks(Character, tasks);
+		if (tasks.Count() >= m_iIndex)
+		{
+			return;
+		}
+		t_Task = tasks.Get(m_iIndex);
 		t_Task.AssignCharacter(Player);
 		super.Perform(Character, Player);
 	};
-	void SetupTask(SP_Task task)
-	{
-		t_Task = task;
-	}
-	override bool GetActionText(IEntity Character, IEntity Player, out string acttext)
-	{
-		if(t_Task && !t_Task.CharacterAssigned(Player) && t_Task.GetState() != ETaskState.ASSIGNED)
-		{
-			acttext = t_Task.GetAcceptText();
-			return true;
-		}
-		return false;
-	}
-	override string GetStageDialogueText(IEntity Character, IEntity Player)
-		{
-			return "Thanks alot. Good luck!";
-		}
 }

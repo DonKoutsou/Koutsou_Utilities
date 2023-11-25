@@ -101,7 +101,7 @@ class SP_NavigateTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
 		DName = CharRank.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
@@ -261,7 +261,7 @@ class SP_NavigateTask: SP_Task
 		//if player throw popup
 		if (GetGame().GetPlayerController().GetControlledEntity() == Character)
 		{
-			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", SP_DialogueComponent.GetCharacterName(Character)));
+			SCR_HintManagerComponent.GetInstance().ShowCustom(string.Format("%1 started to follow you", DS_DialogueComponent.GetCharacterName(Character)));
 		}
 		//if not player add task action
 		else
@@ -322,7 +322,7 @@ class SP_NavigateTask: SP_Task
 	}
 	override string GetCompletionText(IEntity Completionist)
 	{
-		SP_DialogueComponent diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		DS_DialogueComponent diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
 		string TaskCompletiontext = string.Format("Glad we made it in one piece, thanks alot %1 %2, hope the reward is suficient.", diag.GetCharacterRankName(Completionist), diag.GetCharacterSurname(Completionist));
 		return TaskCompletiontext;
 	};

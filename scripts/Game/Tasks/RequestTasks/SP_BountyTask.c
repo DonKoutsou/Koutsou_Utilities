@@ -53,7 +53,7 @@ class SP_BountyTask: SP_Task
 		}
 		if (SP_RequestManagerComponent.CharIsTargetOf(Char, GetClassName()))
 			return false;
-		if (SP_DialogueComponent.GetCharacterRep(Char) > 40)
+		if (DS_DialogueComponent.GetCharacterRep(Char) > 40)
 			return false;
 		if (Char)
 			Target = Char;
@@ -61,7 +61,7 @@ class SP_BountyTask: SP_Task
 		if (Target == GetOwner())
 			return false;
 		InventoryStorageManagerComponent Targerinv = InventoryStorageManagerComponent.Cast(Target.FindComponent(InventoryStorageManagerComponent));
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(Target) + " " + Diag.GetCharacterName(Target));
 		array <IEntity> FoundTags = new array <IEntity>();
 		Targerinv.FindItems(FoundTags, TagPred);
@@ -107,7 +107,7 @@ class SP_BountyTask: SP_Task
 		//	return false;
 		//}
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		if (dmgman.IsDestroyed())
 			return true;
@@ -125,7 +125,7 @@ class SP_BountyTask: SP_Task
 	{
 		InventoryStorageManagerComponent Assigneeinv = InventoryStorageManagerComponent.Cast(Assignee.FindComponent(InventoryStorageManagerComponent));
 		InventoryStorageManagerComponent Ownerinv = InventoryStorageManagerComponent.Cast(m_eTaskOwner.FindComponent(InventoryStorageManagerComponent));
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(SP_GameMode.Cast(GetGame().GetGameMode()).GetDialogueComponent());
 		SP_NamedTagPredicate TagPred = new SP_NamedTagPredicate(Diag.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget));
 		array <IEntity> FoundTags = new array <IEntity>();
 		Assigneeinv.FindItems(FoundTags, TagPred);
@@ -170,7 +170,7 @@ class SP_BountyTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
 		DName = CharRank.GetCharacterRankName(m_eTaskTarget) + " " + Diag.GetCharacterName(m_eTaskTarget);
@@ -579,7 +579,7 @@ class SCR_AIPerformCompleteMurderAction : AITaskScripted
 			GetVariableIn(TASK_IN_PORT, task);
 			if (!targetEntity)
 				return ENodeResult.FAIL;
-			string userActionString = "SP_DialogueAction";
+			string userActionString = "DS_DialogueAction";
 			
 			IEntity controlledEntity = owner.GetControlledEntity();
 			if (!controlledEntity)

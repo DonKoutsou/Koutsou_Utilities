@@ -168,7 +168,7 @@ class SP_ChainedTask : SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	override void FailTask()
 	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(SP_DialogueComponent));
+		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(GetCurrentTask().GetOwner().FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		e_State = ETaskState.FAILED;

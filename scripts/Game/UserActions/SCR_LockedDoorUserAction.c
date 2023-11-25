@@ -11,7 +11,7 @@ class SCR_LockedDoorUserAction : SCR_DoorUserAction
 		if (!inv)
 			return false;	
 		
-		SP_PrefabResource_Predicate pred = new SP_PrefabResource_Predicate(m_Key);
+		DS_PrefabResource_Predicate pred = new DS_PrefabResource_Predicate(m_Key);
 		array<IEntity> entitiesToDrop = new array<IEntity>;
 		if(!inv.FindItems(entitiesToDrop, pred))
 		{

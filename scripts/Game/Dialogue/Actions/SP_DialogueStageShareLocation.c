@@ -1,26 +1,16 @@
 [BaseContainerProps(configRoot:true), DialogueStageTitleAttribute()]
-class DialogueStageShareLocation : DialogueStage
+class DialogueStageShareLocationAction : DS_BaseDialogueStageAction
 {
 	protected int m_iGridSizeX;
 	protected int m_iGridSizeY;
 	
 	protected const float angleA = 0.775;
 	protected const float angleB = 0.325;
-	
-	override bool CanBePerformed(IEntity Character, IEntity Player)
-	{
-		return true;
-	};
+
 	protected int GetGridIndex(int x, int y)
 	{
 		return 3*y + x;
 	}
-	override string GetStageDialogueText(IEntity Character, IEntity Player)
-	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
-		
-	 	return DialogueText + " " + Diag.GetCharacterLocation(Player, true);
-	};
 };
 [BaseContainerProps(configRoot: true)]
 class SP_DialogueDirectionHint
@@ -51,7 +41,7 @@ class DateEventContainer : BaseEventContainer
 	string text;
 	override string GetString(IEntity Player, IEntity Char)
 	{
-		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 	 	string loc = Diag.GetCharacterLocation(Player, true);
 		return text + " " + loc;
 	}

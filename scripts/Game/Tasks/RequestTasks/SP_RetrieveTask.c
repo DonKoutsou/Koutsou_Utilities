@@ -329,7 +329,7 @@ class SP_RetrieveTask: SP_Task
 		{
 			return;
 		}
-		SP_DialogueComponent Diag = SP_DialogueComponent.GetInstance();
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
 		OName = CharRank.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
 		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
