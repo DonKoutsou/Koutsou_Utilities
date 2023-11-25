@@ -19,7 +19,7 @@ modded class DS_DialogueComponent
 		SCR_EditableEntityCore core = SCR_EditableEntityCore.Cast(SCR_EditableEntityCore.GetInstance(SCR_EditableEntityCore));
 		vector posPlayer = Character.GetOrigin();
 		
-		SCR_CampaignMilitaryBaseManager BaseMan = GameMode.GetBaseManager();
+		SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GameMode).GetBaseManager();
 		SCR_CampaignMilitaryBaseComponent nearest = BaseMan.GetClosestBase(Character.GetOrigin());
 		if (!nearest)
 			return STRING_EMPTY;

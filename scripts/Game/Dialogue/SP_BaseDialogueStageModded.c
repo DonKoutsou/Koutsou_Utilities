@@ -18,6 +18,9 @@ modded class DS_DialogueStage
 	//------------------------------------------------------------------//
 	override void Perform(IEntity Character, IEntity Player)
 	{
+		super.Perform(Character, Player);
+		if (m_iTimesPerformed > 1)
+			return;
 		if (m_sEventString)
 		{
 			SCR_ChimeraCharacter Char = SCR_ChimeraCharacter.Cast(Player);
