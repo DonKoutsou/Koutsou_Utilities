@@ -42,6 +42,10 @@ class SP_NavigateTask: SP_Task
 		}
 		return false;
 	};
+	override int GetTaskType()
+	{
+		return ETaskType.NAVIGATE;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Target needs to be from same faction
 	override bool FindTarget(out IEntity Target)

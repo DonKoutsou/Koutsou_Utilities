@@ -1,6 +1,10 @@
 /*[BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_BountyTask: SP_Task
 {
+	override int GetTaskType()
+	{
+		return ETaskType.BOUNTY;
+	}
 	DogTagEntity Tag;
 	DogTagEntity GetTag(){return Tag;};
 	//------------------------------------------------------------------------------------------------------------//

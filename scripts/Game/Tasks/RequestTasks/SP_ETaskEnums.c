@@ -9,6 +9,7 @@ enum ETaskTimeLimmit
 //------------------------------------------------------------------------------------------------------------//
 enum ETaskType
 {
+	none,
 	KILL,
 	DELIVER,
 	NAVIGATE,
@@ -19,9 +20,9 @@ enum ETaskType
 //------------------------------------------------------------------------------------------------------------//
 enum ETaskState
 {
+	EMPTY,
 	UNASSIGNED,
 	ASSIGNED,
 	COMPLETED,
 	FAILED,
-	EMPTY
 }

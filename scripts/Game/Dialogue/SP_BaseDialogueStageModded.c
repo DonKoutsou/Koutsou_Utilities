@@ -7,11 +7,11 @@ modded class DS_DialogueStage
 	//------------------------------------------------------------------//
 	bool GetEvent(out string eventString)
 	{
-		if (!m_DialogueActionCondition)
+		if (!a_DialogueActionConditions)
 			return false;
 		else
 		{
-			m_DialogueActionCondition.GetCannotPerformReason(eventString);
+			eventString = m_sCantBePerformedReason;
 			return true;
 		}
 	}

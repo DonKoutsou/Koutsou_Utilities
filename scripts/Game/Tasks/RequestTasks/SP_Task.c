@@ -88,6 +88,12 @@ class SP_Task
 	//-------------------------------------------------//
 	//task marker
 	SP_BaseTask m_TaskMarker;
+	//task type ETaskType
+	int GetTaskType()
+	{
+		return 0;
+	}
+	
 	//-------------------------------------------------//
 	//Invoker for task finished
 	private ref ScriptInvoker s_OnTaskFinished = new ref ScriptInvoker();

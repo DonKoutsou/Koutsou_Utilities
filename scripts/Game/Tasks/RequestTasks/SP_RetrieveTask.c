@@ -20,6 +20,10 @@ class SP_RetrieveTask: SP_Task
 	{
 		return m_requestitemdescriptor;
 	}
+	override int GetTaskType()
+	{
+		return ETaskType.RETRIEVE;
+	}
 	int GetRequestAmmount()
 	{
 		return m_iRequestedAmount;
@@ -49,7 +53,7 @@ class SP_RetrieveTask: SP_Task
 			return false;
 		if (!super.AssignCharacter(Character))
 			return false;
-		if (SCR_EntityHelper.GetPlayer() != Character)
+		/*if (SCR_EntityHelper.GetPlayer() != Character)
 		{
 			if (CompleteTask(Character))
 				return true;
@@ -62,7 +66,7 @@ class SP_RetrieveTask: SP_Task
 		if (!utility)
 			return false;
 		SCR_AIExecuteRetrieveTaskBehavior action = new SCR_AIExecuteRetrieveTaskBehavior(utility, null, this);
-		utility.AddAction(action);
+		utility.AddAction(action);*/
 		//if player throw popup
 		AddAssigneeInvokers();
 		return true;

@@ -11,6 +11,11 @@ class SP_DeliverTask: SP_Task
 	//----------------------------------------------------------------------------------//
 	//Package that needs to be delivered
 	IEntity m_ePackage;
+	
+	override int GetTaskType()
+	{
+		return ETaskType.DELIVER;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	//Delivery mission is looking for a random owner.
 	override bool FindOwner(out IEntity Owner)

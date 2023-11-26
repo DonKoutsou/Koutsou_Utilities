@@ -1,6 +1,10 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_KillTask: SP_Task
 {
+	override int GetTaskType()
+	{
+		return ETaskType.KILL;
+	}
 	//------------------------------------------------------------------------------------------------------------//
 	override bool FindOwner(out IEntity Owner)
 	{

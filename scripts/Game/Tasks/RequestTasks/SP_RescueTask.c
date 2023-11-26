@@ -12,6 +12,11 @@ class SP_RescueTask: SP_Task
 	ref array <IEntity> m_aCharsToRescue = ;
 	ref array <IEntity> m_aRescued = ;
 	ref array <IEntity> m_aDeceased = ;
+	
+	override int GetTaskType()
+	{
+		return ETaskType.RESCUE;
+	}
 	int GetMaxamount()
 	{
 		return m_iMaxamount;

@@ -28,6 +28,12 @@ class SP_TaskEntryText : DS_BaseDialogueText
 	bool m_bGetTargetTasks;
 	[Attribute(defvalue: "1")]
 	bool m_bGetAssignedTasks;
+	[Attribute(defvalue: "1")]
+	bool m_bGetReadyToDeliver;
+	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskType))]
+	int m_iGetTasksOfType;
+	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskState))]
+	int m_iGetTasksWithState;
 	[Attribute(desc: "Show player tasks")]
 	bool m_bUsePlayer;
 	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskInfoType))]
@@ -35,20 +41,15 @@ class SP_TaskEntryText : DS_BaseDialogueText
 	override string GetText(IEntity Character, IEntity Player)
 	{
 		IEntity CharToCheck = Character;
+		IEntity CharToAssign = Player;
 		if (m_bUsePlayer)
+		{
 			CharToCheck = Player;
+			CharToAssign = Character;
+		}
 		SP_RequestManagerComponent Reqman = SP_RequestManagerComponent.GetInstance();
 		array <ref SP_Task> tasklist = {};
-		if (m_bGetOwnedTasks)
-			Reqman.GetCharOwnedTasks(CharToCheck, tasklist);
-		if (m_bGetTargetTasks)
-			Reqman.GetCharTargetTasks(CharToCheck, tasklist);
-		if (m_bGetAssignedTasks)
-			Reqman.GetassignedTasks(CharToCheck, tasklist);
-		if (tasklist.Count() >= m_iIndex)
-		{
-			return STRING_EMPTY;
-		}
+		GatherTasks(CharToCheck, CharToAssign, tasklist);
 		if (m_iTaskTextToShow == ETaskInfoType.TaskState)
 			m_sActionText = typename.EnumToString(ETaskState, tasklist[m_iIndex].GetState());
 		if (m_iTaskTextToShow == ETaskInfoType.TaskDialogue)
@@ -63,6 +64,51 @@ class SP_TaskEntryText : DS_BaseDialogueText
 			m_sActionText = tasklist[m_iIndex].GetCompletionText(Player);
 		return super.GetText(Character, Player);
 	}
+	void GatherTasks(IEntity Character, IEntity Player, array <ref SP_Task> tasklist)
+	{
+		SP_RequestManagerComponent Reqman = SP_RequestManagerComponent.GetInstance();
+		
+		if (m_bGetOwnedTasks)
+			Reqman.GetCharOwnedTasks(Character, tasklist);
+		if (m_bGetTargetTasks)
+			Reqman.GetCharTargetTasks(Character, tasklist);
+		if (m_bGetAssignedTasks)
+			Reqman.GetassignedTasks(Character, tasklist);
+		if (m_bGetReadyToDeliver)
+			Reqman.GetReadyToDeliver(Character, tasklist, Player);
+		if (m_iGetTasksOfType)
+		{
+			for (int i = tasklist.Count() - 1; i >= 0; i--;)
+			{
+				if (tasklist[i].GetTaskType() != m_iGetTasksOfType)
+					tasklist.Remove(i);
+			}
+		}
+		if (m_iGetTasksWithState)
+		{
+			for (int i = tasklist.Count() - 1; i >= 0; i--;)
+			{
+				if (tasklist[i].GetState() != m_iGetTasksWithState)
+					tasklist.Remove(i);
+			}
+		}
+	}
+}
+[BaseContainerProps(configRoot:true)]
+class SP_AvailableTasksEntryText : SP_TaskEntryText
+{
+	override string GetText(IEntity Character, IEntity Player)
+	{
+		array <ref SP_Task> tasklist = {};
+		GatherTasks(Character, Player, tasklist);
+		m_sActionText = "Here is what i have. \n ";
+		foreach (SP_Task task : tasklist)
+		{
+			m_sActionText = m_sActionText + task.GetTaskDiag() + "\n";
+		};
+		return super.GetText(Character, Player);
+	}
+	
 }
 enum ETaskInfoType
 {

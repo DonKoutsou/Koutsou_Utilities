@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{8FC101E63ED44A29}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Mechanic.conf"
+ Name "{168C357237819A64}Configs/Dilaogue_Configs/Generic/Task_Entries/Assigned_Task_Entry.conf"
  Configurations {
   CONFResourceClass PC {
   }
