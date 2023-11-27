@@ -7,6 +7,10 @@ SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA
   CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
    WeaponTemplate ""
   }
+  SCR_CharacterIdentityComponent "{5584CBC63E092DBC}" {
+   m_DialogueArchetype DS_DialogueArchetype "{5EF4D3BAF1B7CA03}" : "{5E9325AA03F7E23A}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_MECH.conf" {
+   }
+  }
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Hat {
@@ -25,11 +29,14 @@ SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA
   }
   SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
    InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173FAA7C00E}" {
+     TargetStorage "prefabs/Characters/Uniforms/Pants_M70.et"
+    }
     ItemsInitConfigurationItem "{5D7CC173FAA7C00C}" {
      TargetStorage "Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"
     }
     ItemsInitConfigurationItem "{5A24CC1119A46C9F}" {
-     TargetStorage ""
+     TargetStorage "Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"
     }
     ItemsInitConfigurationItem "{55709017677CEFCD}" {
      PrefabsToSpawn {

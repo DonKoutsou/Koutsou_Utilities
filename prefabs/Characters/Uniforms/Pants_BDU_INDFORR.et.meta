@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{6AFA2EEFE43C9AE5}Prefabs/Characters/Uniforms/Pants_BDU_INDFORR.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

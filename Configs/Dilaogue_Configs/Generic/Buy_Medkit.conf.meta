@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B8E85E952EB3ED9F}Configs/Dilaogue_Configs/Generic/Buy_Medkit.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

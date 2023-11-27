@@ -35,10 +35,10 @@ GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et
      Prefab "{B02281435AED8274}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01.et"
     }
     InventoryStorageSlot ff2 {
-     Prefab "{BBA08EC4EC40FA94}Prefabs/Characters/Uniforms/Jacket_M70.et"
+     Prefab "{BBA08EC4EC40FA94}prefabs/Characters/Uniforms/Jacket_M70.et"
     }
     InventoryStorageSlot ff3 {
-     Prefab "{06BC3F18B47799AE}Prefabs/Characters/Uniforms/Pants_M70.et"
+     Prefab "{06BC3F18B47799AE}prefabs/Characters/Uniforms/Pants_M70.et"
     }
     InventoryStorageSlot ff4 {
      Prefab "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et"

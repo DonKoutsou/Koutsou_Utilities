@@ -4,7 +4,7 @@ SCR_PlayerController {
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
     SP_StaminaBarUI "{5ED30428BCBEF24F}" {
-     m_LayoutPath "{8C65180B05811316}scripts/Game/UI/HUD/StaminaBar.layout"
+     m_LayoutPath "{7AC5D0CA25916B05}scripts/Game/UI/HUD/SurvivalBars.layout"
     }
    }
   }

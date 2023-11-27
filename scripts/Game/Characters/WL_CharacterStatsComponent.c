@@ -665,6 +665,12 @@ class SP_CharacterStatsComponent : ScriptComponent
 		if (!cont)
 			return;
 		cont.m_OnControlledEntityChanged.Insert(Init);
+		SCR_RespawnSystemComponent respawn = SCR_RespawnSystemComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_RespawnSystemComponent));
+		if (respawn)
+		{
+			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetDiss.Insert(Stop);
+			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetEna.Insert(Start);
+		}
 		
 	}
 	void Init(IEntity from, IEntity to)
@@ -695,6 +701,14 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_fThirst = Math.RandomInt(70, 100);
 		m_fEnergy = Math.RandomInt(70, 100);
 		m_fTemperature = 36.6;
+	}
+	void Stop()
+	{
+		ClearEventMask(GetOwner(), EntityEvent.FIXEDFRAME);
+	}
+	void Start()
+	{
+		SetEventMask(GetOwner(), EntityEvent.FIXEDFRAME);
 	}
 	void SetStaminDrain(float Drain)
 	{

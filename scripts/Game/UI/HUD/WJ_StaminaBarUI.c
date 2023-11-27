@@ -161,6 +161,13 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 		if (!cont)
 			return;
 		cont.m_OnControlledEntityChanged.Insert(UpdateChar);
+		SCR_RespawnSystemComponent respawn = SCR_RespawnSystemComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_RespawnSystemComponent));
+		if (respawn)
+		{
+			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetDiss.Insert(Stop);
+			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetEna.Insert(Start);
+		}
+
 	}
 	void UpdateChar(IEntity from, IEntity to)
 	{
@@ -168,6 +175,14 @@ class SP_StaminaBarUI: SCR_InfoDisplay
 			return;
 		m_cCharacterController = SCR_CharacterControllerComponent.Cast(GetGame().GetPlayerController().FindComponent(SCR_CharacterControllerComponent));
 		CharStats = SP_CharacterStatsComponent.Cast(GetGame().GetPlayerController().FindComponent(SP_CharacterStatsComponent));
+	}
+	void Stop()
+	{
+		Show(false);
+	}
+	void Start()
+	{
+		Show(true);
 	}
 	override event void UpdateValues(IEntity owner, float timeSlice)
 	{

@@ -179,8 +179,8 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 			m_fTimePassed -= timeSlice;
 			return;
 		}
-		if (OrganiseAtack())
-			m_fTimePassed = m_iAtackPer;
+		//if (OrganiseAtack())
+			//m_fTimePassed = m_iAtackPer;
 		
 		
 	}

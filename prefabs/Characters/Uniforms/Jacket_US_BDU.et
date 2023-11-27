@@ -1,0 +1,16 @@
+GameEntity : "{8A5424D1A2AA6595}prefabs/Characters/Uniforms/Jacket_US_BDU_base.et" {
+ ID "521AC0404EA16568"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5222CB01D5B9A306}" {
+   Attributes SCR_ItemAttributeCollection "{5222CB01245CDF32}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222CB0109A04AB2}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6E50B11A0F4D6}" {
+       Icon "{92245C15E122EDB2}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Jackets.edds"
+      }
+     }
+    }
+   }
+  }
+ }
+}

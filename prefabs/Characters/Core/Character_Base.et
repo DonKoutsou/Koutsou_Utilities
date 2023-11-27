@@ -47,11 +47,6 @@ SCR_ChimeraCharacter {
   }
   ActionsManagerComponent "{520EA1D2F659CE02}" {
    additionalActions {
-    SP_DialogueAction "{5D76C2C8573128D5}" {
-     ParentContextList {
-      "Chest"
-     }
-    }
     SP_AILootBodyAction "{5E44579F53752BC5}" {
      ParentContextList {
       "default"

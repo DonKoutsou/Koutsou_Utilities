@@ -118,6 +118,17 @@ class SCR_PackageInventoryItemHintUIInfo : SCR_InventoryItemHintUIInfo
 	}
 }
 [BaseContainerProps()]
+class SCR_ClothItemHintUIInfo : SCR_InventoryItemHintUIInfo
+{
+	//------------------------------------------------------------------------------------------------
+	override bool SetItemHintNameTo(InventoryItemComponent item, TextWidget textWidget)
+	{
+		SP_ClothAttributes at = SP_ClothAttributes.Cast(item.FindAttribute(SP_ClothAttributes));
+		textWidget.SetText(string.Format("Cloth Insulation : %1", at.GetTemperatureIsolation().ToString()));
+		return true;
+	}
+}
+[BaseContainerProps()]
 class SCR_CanteenInventoryItemHintUIInfo : SCR_InventoryItemHintUIInfo
 {
 	//------------------------------------------------------------------------------------------------

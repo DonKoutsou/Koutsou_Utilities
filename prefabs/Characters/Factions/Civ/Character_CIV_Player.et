@@ -10,10 +10,10 @@ SCR_ChimeraCharacter : "{99F600AD4C6BA6A4}prefabs/Characters/Factions/Civ/Charac
      Prefab "{F075FC8DB1FEB159}Prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_INDFORR.et"
     }
     LoadoutSlotInfo Jacket {
-     Prefab "{C774B58537027ADA}Prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et"
+     Prefab "{C774B58537027ADA}prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et"
     }
     LoadoutSlotInfo Pants {
-     Prefab "{90A4C5B46D3E6AEA}Prefabs/Characters/Uniforms/Pants_BDU_INDFORR_Olive.et"
+     Prefab "{90A4C5B46D3E6AEA}prefabs/Characters/Uniforms/Pants_BDU_INDFORR_Olive.et"
     }
     LoadoutSlotInfo Boots {
      Prefab "{C7923961D7235D70}prefabs/Characters/Footwear/CombatBoots_Soviet_01.et"

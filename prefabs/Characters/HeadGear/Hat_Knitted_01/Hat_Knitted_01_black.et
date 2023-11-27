@@ -1,0 +1,16 @@
+GameEntity : "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et" {
+ ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{552CCA09F70E8E9A}" {
+    ItemDisplayName SCR_InventoryUIInfo "{552CCA09F70E8E97}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6ED0191C7617A}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+   }
+  }
+ }
+}

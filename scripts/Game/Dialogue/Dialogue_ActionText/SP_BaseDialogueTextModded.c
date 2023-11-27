@@ -30,9 +30,9 @@ class SP_TaskEntryText : DS_BaseDialogueText
 	bool m_bGetAssignedTasks;
 	[Attribute(defvalue: "1")]
 	bool m_bGetReadyToDeliver;
-	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskType))]
+	[Attribute("0", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskType))]
 	int m_iGetTasksOfType;
-	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskState))]
+	[Attribute("0", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskState))]
 	int m_iGetTasksWithState;
 	[Attribute(desc: "Show player tasks")]
 	bool m_bUsePlayer;
@@ -50,6 +50,8 @@ class SP_TaskEntryText : DS_BaseDialogueText
 		SP_RequestManagerComponent Reqman = SP_RequestManagerComponent.GetInstance();
 		array <ref SP_Task> tasklist = {};
 		GatherTasks(CharToCheck, CharToAssign, tasklist);
+		if (m_iIndex >= tasklist.Count())
+			return STRING_EMPTY;
 		if (m_iTaskTextToShow == ETaskInfoType.TaskState)
 			m_sActionText = typename.EnumToString(ETaskState, tasklist[m_iIndex].GetState());
 		if (m_iTaskTextToShow == ETaskInfoType.TaskDialogue)

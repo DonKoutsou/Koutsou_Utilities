@@ -1,0 +1,16 @@
+GameEntity : "{AE74155267C3D5BB}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_cover_base.et" {
+ ID "511A2721D065476F"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D60155B2B512}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D6014BB412DD}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD658EB136DE}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+   }
+  }
+ }
+}

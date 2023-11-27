@@ -28,7 +28,7 @@ class SP_DialogueStageBaseTaskActionCondition : DS_BaseDialogueStageActionCondit
 		if (m_bGetAssignedTasks)
 			Reqman.GetassignedTasks(Character, tasklist);
 		if (m_bGetReadyToDeliver)
-			Reqman.GetReadyToDeliver(Character, tasklist, Character);
+			Reqman.GetReadyToDeliver(Character, tasklist, Player);
 		if (m_iGetTasksOfType)
 		{
 			for (int i = tasklist.Count() - 1; i >= 0; i--;)
@@ -50,6 +50,8 @@ class SP_DialogueStageBaseTaskActionCondition : DS_BaseDialogueStageActionCondit
 [BaseContainerProps(configRoot:true)]
 class SP_DialogueStageAvailableTaskActionCondition : SP_DialogueStageBaseTaskActionCondition
 {
+	[Attribute()]
+	bool m_bUseIndex;
 	override bool CanBePerformed(IEntity Character, IEntity Player)
 	{
 		IEntity CharToCheck = Character;
@@ -61,8 +63,14 @@ class SP_DialogueStageAvailableTaskActionCondition : SP_DialogueStageBaseTaskAct
 		}
 		array <ref SP_Task> tasklist = {};
 		GatherTasks(CharToCheck, CharToAssign, tasklist);
-		if (m_iIndex >= tasklist.Count())
-			return false;
+		if (m_bUseIndex)
+		{
+			if (m_iIndex >= tasklist.Count())
+				return false;
+		}
+		else
+			if (tasklist.IsEmpty())
+				return false;
 		return true;
 	};
 }

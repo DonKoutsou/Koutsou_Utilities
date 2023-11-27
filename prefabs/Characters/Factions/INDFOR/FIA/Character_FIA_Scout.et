@@ -1,3 +1,15 @@
 SCR_ChimeraCharacter : "{DE3786C0C6C978D4}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_BaseLoadout.et" {
  ID "520EC961A090B1EE"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173FAA7C00E}" {
+     TargetStorage "prefabs/Characters/Uniforms/Jacket_M70.et"
+    }
+    ItemsInitConfigurationItem "{5984BDEFE1673DD0}" {
+     TargetStorage "prefabs/Characters/Uniforms/Pants_M70.et"
+    }
+   }
+  }
+ }
 }

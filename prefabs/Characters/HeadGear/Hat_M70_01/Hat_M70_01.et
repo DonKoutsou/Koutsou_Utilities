@@ -1,3 +1,16 @@
 GameEntity : "{C09D8024295E1D09}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01_base.et" {
  ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{55468BEE3B337324}" {
+    ItemDisplayName SCR_InventoryUIInfo "{55468BEE3B337321}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD6655A26F8C}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+   }
+  }
+ }
 }

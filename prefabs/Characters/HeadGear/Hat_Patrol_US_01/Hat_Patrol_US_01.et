@@ -1,0 +1,21 @@
+GameEntity : "{F516AD5284661632}Prefabs/Characters/HeadGear/Hat_Patrol_US_01/Hat_Patrol_US_01_base.et" {
+ ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D601606EB93C}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D6016792E1B8}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6E96B68A16DEC}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+    CustomAttributes {
+     SP_ClothAttributes "{5EF6DD6605A1CB6E}" {
+      m_TemperatureIsolation 0.05
+     }
+    }
+   }
+  }
+ }
+}

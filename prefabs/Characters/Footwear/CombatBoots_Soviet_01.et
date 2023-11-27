@@ -3,8 +3,15 @@ GenericEntity : "{80C8C9227D2C7CF5}prefabs/Characters/Core/Footwear_Base.et" {
  components {
   InventoryItemComponent "{5244C46AD695742D}" {
    Attributes SCR_ItemAttributeCollection "{52C8D602AF3FC0D9}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D602AE50B330}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD67F3891804}" {
+       Icon "{AC6095E11A1E4144}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Footware.edds"
+      }
+     }
+    }
     CustomAttributes {
-     SP_ClothAttributes "{5DF8D0147F1107F0}" {
+     SP_ClothAttributes "{5EF6DD67E124E34D}" {
       m_TemperatureIsolation 0.1
      }
     }

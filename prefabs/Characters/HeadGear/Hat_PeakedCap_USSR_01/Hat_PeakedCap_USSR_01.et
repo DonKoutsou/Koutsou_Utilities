@@ -1,0 +1,21 @@
+GameEntity : "{F721E7D9C0C733D4}Prefabs/Characters/HeadGear/Hat_PeakedCap_USSR_01/Hat_PeakedCap_USSR_01_base.et" {
+ ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{5ADCE287C02F8F9E}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5ADCE287C02F8F96}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD663875AF0A}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+    CustomAttributes {
+     SP_ClothAttributes "{5EF6DD66326ABD42}" {
+      m_TemperatureIsolation 0.05
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,11 @@
+GameEntity : "{FE5C49069C2499D9}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover.et" {
+ ID "50D49DC5BC0CD17E"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D601873E6784}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D60185955516}" {
+    }
+   }
+  }
+ }
+}

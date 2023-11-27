@@ -104,7 +104,7 @@ class SP_DialogueStageCompleteTaskAction : SP_DialogueStageBaseTaskAction
 					tasklist.Remove(i);
 			}
 		}
-		if (tasklist.Count() >= m_iIndex)
+		if (m_iIndex >= tasklist.Count())
 		{
 			return;
 		}

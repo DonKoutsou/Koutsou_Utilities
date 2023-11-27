@@ -36,7 +36,9 @@ modded class SCR_ChimeraCharacter
 			WalletEntity wallet = WalletEntity.Cast(wallets[i]);
 				return wallet;
 		}
-		return null;
+		
+		InventoryManager.TrySpawnPrefabToStorage("{7B6802E9AD265A57}prefabs/Currency/Wallet_Base.et");
+		return GetWallet();
 	}
 	//get wallet of character. 
 	SP_CallendarComponent GetCallendar()
@@ -73,7 +75,10 @@ modded class SCR_ChimeraCharacter
 		{
 			//if yes see if character can afford it
 			//Get characters money
-			int money = GetWallet().GetCurrencyAmmount();
+			int money
+			WalletEntity wallet = GetWallet();
+			if (wallet)
+			 	money = wallet.GetCurrencyAmmount();
 			int worth;
 			//Get worth of need
 			CheckNeedPrice(need, Mag, worth);

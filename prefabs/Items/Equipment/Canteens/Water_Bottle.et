@@ -8,9 +8,9 @@ GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen_Sovi
      Name "Water bottle"
      Description "Take into hands and press R to replanish thirst, refill in taps and wells"
      m_aItemHints {
-      SCR_InventoryItemHintUIInfo "{5EBADCC69857B7C5}" : "{6832C94403B61C1F}Configs/Item_Hints/Drink/HydrationSource.conf" {
+      SCR_InventoryItemHintUIInfo "{5EBADCC69857B7C5}" : "{6832C94403B61C1F}Configs/Item_Hints/HydrationSource.conf" {
       }
-      SCR_InventoryItemHintUIInfo "{5EBADCC698882EDF}" : "{54F8B9CAFB904A75}Configs/Item_Hints/Drink/HydrationIntructions.conf" {
+      SCR_InventoryItemHintUIInfo "{5EBADCC698882EDF}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
       }
      }
     }

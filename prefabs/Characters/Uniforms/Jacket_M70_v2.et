@@ -1,4 +1,4 @@
-GameEntity : "{CA27CA71B3AF2FCF}Prefabs/Characters/Uniforms/Jacket_M70_base.et" {
+GameEntity : "{CA27CA71B3AF2FCF}prefabs/Characters/Uniforms/Jacket_M70_base.et" {
  ID "5104869D194C6243"
  components {
   MeshObject "{5104869D194C6262}" {
@@ -9,11 +9,7 @@ GameEntity : "{CA27CA71B3AF2FCF}Prefabs/Characters/Uniforms/Jacket_M70_base.et" 
     }
    }
   }
-  ParametricMaterialInstanceComponent "{56C6C01F261424B9}" {
-  }
   SCR_UniversalInventoryStorageComponent "{5222CB01D5B9A306}" {
-   components {
-   }
    Attributes SCR_ItemAttributeCollection "{5222CB01245CDF32}" {
     ItemDisplayName UIInfo "{5222CB0109A04AB2}" {
     }

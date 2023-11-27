@@ -3,6 +3,8 @@ SCR_ChimeraCharacter : "{DE3786C0C6C978D4}prefabs/Characters/Factions/INDFOR/FIA
  components {
   SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
    InitialInventoryItems {
+    ItemsInitConfigurationItem "{5D7CC173FAA7C00E}" {
+    }
     ItemsInitConfigurationItem "{5A24CC1119A46C9F}" {
      TargetStorage "Prefabs/Characters/Uniforms/Jacket_M70.et"
     }

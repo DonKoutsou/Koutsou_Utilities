@@ -3,6 +3,13 @@ GameEntity : "{6ED66E4BF74756C0}Prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_0
  components {
   InventoryItemComponent "{5244E4431E28A759}" {
    Attributes SCR_ItemAttributeCollection "{52C8D6029EB6A957}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D6029DC1C3CB}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD6642E75564}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
     CustomAttributes {
      SP_ClothAttributes "{5D8856606F95EA97}" {
       m_TemperatureIsolation 0.15

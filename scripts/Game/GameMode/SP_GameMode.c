@@ -56,6 +56,14 @@ modded class SCR_GameModeCampaign
 		{
 			task.CancelTask();
 		}
+		SCR_RespawnSystemComponent respawn = SCR_RespawnSystemComponent.Cast(FindComponent(SCR_RespawnSystemComponent));
+		if (respawn)
+		{
+			SCR_AutoSpawnLogic logic = SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic());
+			logic.DestroyLoadingPlaceholder();
+			logic.OpenStartingScreenUI();
+		}
+		
 	}
 	//------------------------------------------------------------------------------------------------
 	override protected void OnRankChanged(SCR_ECharacterRank oldRank, SCR_ECharacterRank newRank, notnull IEntity owner, bool silent)

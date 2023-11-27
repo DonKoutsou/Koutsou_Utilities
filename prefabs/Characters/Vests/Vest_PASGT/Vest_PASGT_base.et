@@ -1,0 +1,21 @@
+GenericEntity : "{AA074754692261B1}Prefabs/Characters/Core/VestArmored_Base.et" {
+ ID "50D8C49B3558F152"
+ components {
+  InventoryItemComponent "{5DF2CE902E1EB161}" {
+   Attributes SCR_ItemAttributeCollection "{5DF2CE902E1EB16A}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5DF2CE902E1EB170}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6C5ECED16C244}" {
+       Icon "{2DCA69EEB8628C06}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Vests.edds"
+      }
+     }
+    }
+    CustomAttributes {
+     SP_ClothAttributes "{5EF6DD64D3BBD83F}" {
+      m_TemperatureIsolation 0.1
+     }
+    }
+   }
+  }
+ }
+}

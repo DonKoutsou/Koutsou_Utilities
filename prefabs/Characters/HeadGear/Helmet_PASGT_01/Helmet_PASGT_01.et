@@ -1,0 +1,16 @@
+GameEntity : "{8A2B2A544F3ED831}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_base.et" {
+ ID "50B0A3042139DAF9"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D601873E6784}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D60185955516}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD65DDD49A9E}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F5ADD3BAA3D76643}Prefabs/Characters/Uniforms/M70_Jacket_Lizard/Jacket_M70_lizard.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

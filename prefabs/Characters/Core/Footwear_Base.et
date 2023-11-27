@@ -3,6 +3,13 @@ GenericEntity {
  components {
   InventoryItemComponent "{5244C46AD695742D}" {
    Attributes ItemAttributeCollection "{5244C46AC92BD944}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5244C46ACC7BFE40}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6C5EB0A66B815}" {
+       Icon "{AC6095E11A1E4144}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Footware.edds"
+      }
+     }
+    }
     CustomAttributes {
      SP_ClothAttributes "{5DF4F66845825A11}" {
       m_TemperatureIsolation 0.1

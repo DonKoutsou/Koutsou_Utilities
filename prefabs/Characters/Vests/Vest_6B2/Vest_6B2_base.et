@@ -3,6 +3,13 @@ GenericEntity : "{AA074754692261B1}Prefabs/Characters/Core/VestArmored_Base.et" 
  components {
   InventoryItemComponent "{5B189416D721A6DE}" {
    Attributes SCR_ItemAttributeCollection "{5B189416D721A6C7}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5B189416D721A6C9}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6C5ECD0733E99}" {
+       Icon "{2DCA69EEB8628C06}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Vests.edds"
+      }
+     }
+    }
     CustomAttributes {
      SP_ClothAttributes "{5DF4F66876FC5BE9}" {
       m_TemperatureIsolation 0.1

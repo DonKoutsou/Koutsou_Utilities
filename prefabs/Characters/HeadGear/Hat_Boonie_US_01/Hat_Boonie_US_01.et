@@ -1,0 +1,21 @@
+GameEntity : "{D4BC1F7EC5C290A3}Prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_US_01_base.et" {
+ ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{52C8D6017C371EA6}" {
+    ItemDisplayName SCR_InventoryUIInfo "{52C8D60173B1164A}" {
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5EF6DD66E3D301A0}" {
+       Icon "{F349167C49E996FB}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Headwear.edds"
+      }
+     }
+    }
+    CustomAttributes {
+     SP_ClothAttributes "{5EF6DD669AE05E5A}" {
+      m_TemperatureIsolation 0.05
+     }
+    }
+   }
+  }
+ }
+}

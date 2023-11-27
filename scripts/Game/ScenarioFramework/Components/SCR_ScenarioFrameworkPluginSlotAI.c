@@ -149,4 +149,36 @@ class SP_ScenarioFrameworkActionBleedChar : SCR_ScenarioFrameworkActionBase
 		}
 	}
 }
+[BaseContainerProps(), SCR_ContainerActionTitle()]
+class SCR_ScenarioFrameworkPluginSlotVehicle: SCR_ScenarioFrameworkPlugin
+{
+	override void Init(SCR_ScenarioFrameworkLayerBase object)
+	{
+		SCR_HelicopterDamageManagerComponent Helidamage = SCR_HelicopterDamageManagerComponent.Cast(object.GetSpawnedEntity().FindComponent(SCR_HelicopterDamageManagerComponent));
+		SlotManagerComponent Slots = SlotManagerComponent.Cast(object.GetSpawnedEntity().FindComponent(SlotManagerComponent));
+		IEntity rotor = Slots.GetSlotByName("RotorMain").GetAttachedEntity();
+		SCR_RotorDamageManagerComponent rotordamage = SCR_RotorDamageManagerComponent.Cast(rotor.FindComponent(SCR_RotorDamageManagerComponent));
+		SCR_RotorHitZone rotorHitZone = SCR_RotorHitZone.Cast(rotordamage.GetDefaultHitZone());
+		rotordamage.GetHitZoneByName("RotorMain", true).SetHealth(1);
+		rotordamage.GetHitZoneByName("RotorMain", true).HandleDamage(10, 1, object.GetSpawnedEntity());
+		rotorHitZone.SetHealth(1);
+		rotorHitZone.HandleDamage(10, 1, object.GetSpawnedEntity());
+		//vector or = object.GetOwner().GetOrigin();
+		//vector or2 = or[3];
+		//rotorHitZone.PassDamageToRoot(EDamageType.KINETIC, 10, Instigator.CreateInstigator(object.GetSpawnedEntity()), or2);
+		
+	}
+}
+[BaseContainerProps(), SCR_ContainerActionTitle()]
+class SCR_ScenarioFrameworkPluginSlotGrenade: SCR_ScenarioFrameworkPlugin
+{
+	override void Init(SCR_ScenarioFrameworkLayerBase object)
+	{
+		TimerTriggerComponent trigger = TimerTriggerComponent.Cast(object.GetSpawnedEntity().FindComponent(TimerTriggerComponent));
+		trigger.SetLive();
+		WeaponComponent wp = WeaponComponent.Cast(object.GetSpawnedEntity().FindComponent(WeaponComponent));
+		wp.ActivateAttachments(true);
+	}
+}
+
 
