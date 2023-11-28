@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{1E2ECF8A712192D1}Configs/Callendars/Player/Page_7_8_89.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

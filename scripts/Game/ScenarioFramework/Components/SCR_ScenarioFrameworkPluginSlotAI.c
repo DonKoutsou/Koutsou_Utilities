@@ -159,14 +159,7 @@ class SCR_ScenarioFrameworkPluginSlotVehicle: SCR_ScenarioFrameworkPlugin
 		IEntity rotor = Slots.GetSlotByName("RotorMain").GetAttachedEntity();
 		SCR_RotorDamageManagerComponent rotordamage = SCR_RotorDamageManagerComponent.Cast(rotor.FindComponent(SCR_RotorDamageManagerComponent));
 		SCR_RotorHitZone rotorHitZone = SCR_RotorHitZone.Cast(rotordamage.GetDefaultHitZone());
-		rotordamage.GetHitZoneByName("RotorMain", true).SetHealth(1);
-		rotordamage.GetHitZoneByName("RotorMain", true).HandleDamage(10, 1, object.GetSpawnedEntity());
-		rotorHitZone.SetHealth(1);
-		rotorHitZone.HandleDamage(10, 1, object.GetSpawnedEntity());
-		//vector or = object.GetOwner().GetOrigin();
-		//vector or2 = or[3];
-		//rotorHitZone.PassDamageToRoot(EDamageType.KINETIC, 10, Instigator.CreateInstigator(object.GetSpawnedEntity()), or2);
-		
+		rotorHitZone.SetHealth(0);
 	}
 }
 [BaseContainerProps(), SCR_ContainerActionTitle()]
