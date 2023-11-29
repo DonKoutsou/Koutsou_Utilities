@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{86FADA27FA6EDCB3}Assets/Items/Equipment/Kits/RearmingKit_01/Data/RepairKit_02.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

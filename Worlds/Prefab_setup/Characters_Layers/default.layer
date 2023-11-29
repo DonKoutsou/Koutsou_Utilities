@@ -135,8 +135,13 @@ SCR_ChimeraCharacter : "{2F912ED6E399FF47}Prefabs/Characters/Factions/BLUFOR/US_
  coords 165.767 1.001 252.158
  angleY -180
 }
-GenericEntity : "{33B2DFDCD0EBA3DB}Prefabs/Items/Equipment/Kits/RepairKit_01/RepairKit_01_wrench_base.et" {
- coords 125.589 1 248.085
+$grp GenericEntity : "{33B2DFDCD0EBA3DB}Prefabs/Items/Equipment/Kits/RepairKit_01/RepairKit_01_wrench_base.et" {
+ {
+  coords 125.589 1 248.085
+ }
+ {
+  coords 82.658 1 236.193
+ }
 }
 GameEntity : "{3523CB7D5961246B}prefabs/Characters/HeadGear/Hat_PeakedCap_USSR_01/Hat_PeakedCap_USSR_01.et" {
  coords 114.477 1 244.803
@@ -373,6 +378,14 @@ SCR_ChimeraCharacter : "{612F43A4D5AE765F}prefabs/Characters/Factions/OPFOR/USSR
  coords 148.022 1.001 253.936
  angleY -180
 }
+$grp GenericEntity : "{624714B94284F1D9}prefabs/Items/Equipment/Kits/RepairKit_01/RepairKit_01_Kit.et" {
+ {
+  coords 114.119 1 246.885
+ }
+ {
+  coords 83.468 1 237.094
+ }
+}
 $grp GenericEntity : "{630FB4AD4A735264}prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {
  {
   coords 124.907 1 246.757
@@ -406,7 +419,7 @@ GameEntity : "{6835DAF42A09E23C}prefabs/Characters/Uniforms/Jacket_Pilot_USSR_01
 GameEntity : "{6852E0D026AA8F79}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Hat_Panama_Soviet_01_v2.et" {
  coords 113.434 1 243.901
 }
-GameEntity : "{6AFA2EEFE43C9AE5}Prefabs/Characters/Uniforms/Pants_BDU_INDFORR.et" {
+GameEntity : "{6AFA2EEFE43C9AE5}prefabs/Characters/Uniforms/Pants_BDU_INDFORR.et" {
  coords 116.343 1 246.05
 }
 GameEntity : "{6B2256EBB8E267DD}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_blue.et" {
@@ -433,7 +446,7 @@ SCR_ChimeraCharacter : "{7264E0358A002EFA}prefabs/Characters/Factions/INDFOR/FIA
 WalletEntity : "{753C737CB3CDED15}prefabs/Currency/Wallet_2_Watches.et" {
  coords 136.469 1 249.954
 }
-GameEntity : "{786F028F2DC247D4}Prefabs/Characters/Uniforms/M70_Jacket_Lizard/Pants_M70_Lizard.et" {
+GameEntity : "{786F028F2DC247D4}prefabs/Characters/Uniforms/M70_Jacket_Lizard/Pants_M70_Lizard.et" {
  coords 116.998 1 245.994
 }
 GameEntity : "{793EEE2C133176F9}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Hat_Panama_Soviet_01_v1.et" {
@@ -449,11 +462,25 @@ SCR_ChimeraCharacter : "{8975B1600F25A80E}prefabs/Characters/Factions/INDFOR/FIA
  coords 136.658 1 251.052
  angleY 165
 }
-GameEntity : "{90A4C5B46D3E6AEA}Prefabs/Characters/Uniforms/Pants_BDU_INDFORR_Olive.et" {
+GameEntity : "{90A4C5B46D3E6AEA}prefabs/Characters/Uniforms/Pants_BDU_INDFORR_Olive.et" {
  coords 117.089 1 245.152
+}
+$grp GenericEntity : "{92897DAEE45937D9}prefabs/Items/Equipment/Kits/MedicalKit_01/MedicalKit_Stored_FIA.et" {
+ {
+  coords 114.516 1 247.095
+ }
+ {
+  coords 59.551 1 192.005
+ }
 }
 GenericEntity : "{9713FE6DDCC9510D}prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et" {
  coords 126.972 1 245.243
+}
+Vehicle Mi8MTC_A_LowFuel1 : "{99F19672B763CF11}prefabs/Vehicles/Helicopters/Mi8MT/Mi8MTC-A_LowFuel.et" {
+ coords 76.541 1 235.135
+}
+GenericEntity : "{9F0C54A3740F7FC9}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyContainerGeneric.et" {
+ coords 81.955 1 236.485
 }
 GameEntity : "{9F546CCA2582D16F}prefabs/Characters/Uniforms/Jacket_M88.et" {
  coords 115.709 1 244.636
@@ -512,7 +539,10 @@ $grp FoodEntity : "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et" {
   coords 114.844 1 249.342
  }
 }
-$grp GameEntity : "{C774B58537027ADA}Prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et" {
+GenericEntity : "{C74EA351062C4CBB}Prefabs/Compositions/Slotted/SlotFlatSmall/SupplyCache_S_FIA_02.et" {
+ coords 84.661 1 243.51
+}
+$grp GameEntity : "{C774B58537027ADA}prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et" {
  {
   coords 134.536 1 245.614
  }
@@ -555,7 +585,7 @@ GameEntity : "{DCF980831E880F6A}prefabs/Characters/Uniforms/Pants_M88.et" {
  }
  coords 115.244 1 242.405
 }
-GameEntity : "{DDAA76A98D19F597}Prefabs/Characters/Uniforms/Pants/jeans_Holes_Black.et" {
+GameEntity : "{DDAA76A98D19F597}prefabs/Characters/Uniforms/Pants/jeans_Holes_Black.et" {
  coords 116.321 1 245.254
 }
 GameEntity : "{E12126CDE731EED5}prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_US_01.et" {
@@ -581,7 +611,7 @@ $grp FoodEntity : "{EB21D26B8D5A3232}prefabs/Items/Food/MRE.et" {
   coords 114.575 1 249.521
  }
 }
-GameEntity : "{EC92867922927AC2}Prefabs/Characters/Uniforms/Jacket__BDU_rolledup_INDFOR_Olive.et" {
+GameEntity : "{EC92867922927AC2}prefabs/Characters/Uniforms/Jacket__BDU_rolledup_INDFOR_Olive.et" {
  coords 115.601 1 245.432
 }
 SCR_ChimeraCharacter : "{EF76C772871A10D9}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MGAssist.et" {
@@ -605,7 +635,7 @@ GameEntity : "{F545C1BE7C99954A}prefabs/Characters/HeadGear/Hat_Patrol_US_01/Hat
  }
  coords 115.015 1 243.492
 }
-GameEntity : "{F5ADD3BAA3D76643}Prefabs/Characters/Uniforms/M70_Jacket_Lizard/Jacket_M70_lizard.et" {
+GameEntity : "{F5ADD3BAA3D76643}prefabs/Characters/Uniforms/M70_Jacket_Lizard/Jacket_M70_lizard.et" {
  coords 115.529 1 246.047
 }
 $grp GenericEntity : "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et" {
