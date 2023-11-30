@@ -1,9 +1,6 @@
 modded class SCR_DefenderSpawnerComponent
 {
-	//------------------------------------------------------------------------------------------------
-	//! Spawn defender AI group from faction prefab. Also handles price per spawned unit.
-	//! Should some units be despawned because of player distance, spawn price will be reduced by it
-	
+
 	SCR_AIGroup SpawnGroupExtrarnal()
 	{
 		if (IsProxy())

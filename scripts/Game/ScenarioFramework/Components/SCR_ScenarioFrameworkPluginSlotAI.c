@@ -152,6 +152,30 @@ class SP_ScenarioFrameworkActionBleedChar : SCR_ScenarioFrameworkActionBase
 [BaseContainerProps(), SCR_ContainerActionTitle()]
 class SCR_ScenarioFrameworkPluginSlotVehicle: SCR_ScenarioFrameworkPlugin
 {
+	[Attribute(defvalue: "2")]
+	int m_iAmountofHZtoDamage;
+	
+	override void Init(SCR_ScenarioFrameworkLayerBase object)
+	{
+		SCR_VehicleDamageManagerComponent dmgman = SCR_VehicleDamageManagerComponent.Cast(object.GetSpawnedEntity().FindComponent(SCR_VehicleDamageManagerComponent));
+		if (dmgman)
+		{
+			array<HitZone> hitzones = {};
+			dmgman.GetAllHitZones(hitzones);
+			if (hitzones.Count() > 0)
+			{
+				for (int i; i < m_iAmountofHZtoDamage; i++)
+				{
+					HitZone randhit = hitzones.GetRandomElement();
+					randhit.SetHealth(0);
+				}
+			}
+		}
+	}
+}
+[BaseContainerProps(), SCR_ContainerActionTitle()]
+class SCR_ScenarioFrameworkPluginSlotDamageHeliRotor: SCR_ScenarioFrameworkPlugin
+{
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
 	{
 		SCR_HelicopterDamageManagerComponent Helidamage = SCR_HelicopterDamageManagerComponent.Cast(object.GetSpawnedEntity().FindComponent(SCR_HelicopterDamageManagerComponent));

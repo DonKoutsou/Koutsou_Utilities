@@ -4,6 +4,9 @@ modded class SCR_AutoSpawnLogic
 	[Attribute("1")]
 	int m_iLives;
 	
+	[Attribute("FIA")]
+	string m_sFactionBaseToSpawnAt;
+	
 	[Attribute("{A1CE9D1EC16DA9BE}UI/layouts/Menus/MainMenu/SplashScreen.layout", desc: "Layout shown before deploy menu opens on client")]
 	protected ResourceName m_sLoadingLayout;
 
@@ -96,7 +99,7 @@ modded class SCR_AutoSpawnLogic
 			return;
 		}
 
-		SCR_SpawnPoint point = SCR_SpawnPoint.GetRandomSpawnPointForFactionNFriends(faction.GetFactionKey());
+		SCR_SpawnPoint point = SCR_SpawnPoint.GetRandomSpawnPointForFaction(m_sFactionBaseToSpawnAt);
 		if (!point)
 		{
 			OnPlayerSpawnFailed_S(playerId);

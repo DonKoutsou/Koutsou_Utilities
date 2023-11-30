@@ -323,15 +323,19 @@ class SP_RequestManagerComponent : ScriptComponent
 			GetGame().GetCallqueue().CallLater(InitChainedTask, 1000, false, qline);
 			
 	}
+	void InsertTask(SP_Task task)
+	{
+		
+	}
 	//------------------------------------------------------------------------------------------------------------//
-	bool CreateCustomTask(typename TaskType, IEntity Owner)
+	SP_Task CreateCustomTask(typename TaskType, IEntity Owner)
 	{
 		if(!TaskType)
 		{
-			return false;
+			return null;
 		}
 		if (!GetTaskSample(TaskType).m_bEnabled)
-			return false;
+			return null;
 		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		Task.m_eTaskOwner = Owner;
@@ -339,9 +343,9 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			m_aTaskMap.Insert(Task);
 			Task.OnTaskFinished().Insert(OnTaskFinished);
-			return true;
+			return Task;
 		}
-		return false;
+		return null;
 	}
 	bool CreateCustomRetrieveTask(IEntity Owner, ERequestRewardItemDesctiptor Need, int ammount, BaseMagazineComponent Mag = null)
 	{

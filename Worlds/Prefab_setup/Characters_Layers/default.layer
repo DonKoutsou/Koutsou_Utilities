@@ -84,6 +84,9 @@ SCR_ChimeraCharacter : "{1623EA3AEFACA0E4}prefabs/Characters/Factions/BLUFOR/US_
  coords 161.507 1.001 253.393
  angleY -180
 }
+GenericEntity : "{174E332EF84362B2}Prefabs/Props/Industrial/ToolBox_01/ToolBox_01_base.et" {
+ coords 118.407 1 168.38
+}
 SCR_ChimeraCharacter : "{18DD298B3DF9050C}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_NonCombatMedic.et" {
  coords 130.101 1 241.053
 }
@@ -384,6 +387,19 @@ $grp GenericEntity : "{624714B94284F1D9}prefabs/Items/Equipment/Kits/RepairKit_0
  }
  {
   coords 83.468 1 237.094
+ }
+ {
+  components {
+   InventoryItemComponent "{5222EB4D0C73006B}" {
+    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+     CustomAttributes {
+      PreviewRenderAttributes "{5E0282EAD947229C}" {
+      }
+     }
+    }
+   }
+  }
+  coords 117.633 1 168.414
  }
 }
 $grp GenericEntity : "{630FB4AD4A735264}prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {

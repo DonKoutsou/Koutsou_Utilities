@@ -22,7 +22,15 @@ modded class SCR_FactionManager
 	int m_TaskCompleteFactionRelationBonus;
 	
 	private SCR_GameModeCampaign m_GameMode;
-
+	
+	bool m_bShouldAdjustRelations;
+	
+	void SetShouldAdjustRel(bool Adjust)
+	{
+		m_bShouldAdjustRelations = Adjust;
+	}
+	
+	
 	EFactionRelationState GetFactionRelationState(SCR_Faction Faction1, SCR_Faction Faction2)
 	{
 		int relation1 = Faction1.GetFactionRep(Faction2);
@@ -41,8 +49,12 @@ modded class SCR_FactionManager
 	//If there was kill of friendly faction takes away goodwill and reputation of killer, and degrades relation of 2 factions
 	void HandleDeath(IEntity Victim, IEntity Killer)
 	{
+		if (!m_bShouldAdjustRelations)
+			return;
+		
 		if(!Killer)
 			return;
+		
 		FactionAffiliationComponent FactionComp = FactionAffiliationComponent.Cast(Killer.FindComponent(FactionAffiliationComponent));
 		FactionAffiliationComponent FactionCompVictim = FactionAffiliationComponent.Cast(Victim.FindComponent(FactionAffiliationComponent));
 		SCR_Faction instigator = SCR_Faction.Cast(FactionComp.GetAffiliatedFaction());
