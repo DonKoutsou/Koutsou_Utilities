@@ -1,2 +1,3 @@
-RainEffect : "{FA4DE95A7276143D}Common/Postprocess/rain.emat" {
+RainEffect : "{D3E32E11C5116D9E}Common/Postprocess/rainLow.emat" {
+ RainDensity 0.152
 }

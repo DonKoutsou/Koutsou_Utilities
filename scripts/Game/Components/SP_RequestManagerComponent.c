@@ -687,6 +687,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
+		/*
 		//if (!m_bQuestInited)
 			//return;
 		m_fTaskClearTimer += timeSlice;
@@ -700,7 +701,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			CreateDebug();
 		}
 		
-		/*m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
+		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
 		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
 			return;
 		if (GetInProgressTaskCount() < m_iMinTaskAmount)
@@ -709,7 +710,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			CreateTask(Task);
 		}
 		else
-		{*/
+		{
 			m_fTaskRespawnTimer += timeSlice;
 			if(m_fTaskRespawnTimer > m_fTaskGenTime)
 			{
@@ -730,7 +731,7 @@ class SP_RequestManagerComponent : ScriptComponent
 					m_fTaskRespawnTimer -= 1;
 				}
 			}
-		//}
+		}*/
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)

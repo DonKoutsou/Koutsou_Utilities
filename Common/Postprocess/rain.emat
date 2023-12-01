@@ -1,11 +1,15 @@
 RainEffect : "{FA4DE95A7276143D}Common/Postprocess/rain.emat" {
+ RainDensity 0.051
  RefractionStrength 1
  RefractionZeroDist 500
  RainColorCoef 1 1 1 1
- RainColorIntensity 2
- Speed 1.562
- MaxDivergence 0.076
+ RainColorIntensity 0.687
+ Speed 4
+ MinDivergence 0
+ MaxDivergence 0.05
  SunRaysIntensity 0
+ RipplesNewEnabled 0
+ RipplesNewUseNewSim 0
  RipplesNewMaxDistance 0
  RipplesNewCountMin 0
  RipplesNewCountMax 0
@@ -15,7 +19,7 @@ RainEffect : "{FA4DE95A7276143D}Common/Postprocess/rain.emat" {
  RipplesNewSpeed 1
  WetnessOverride 0
  SplashesEnabled 0
- CloseRainMaxDropCount 20773
+ CloseRainMaxDropCount 3511
  CloseSpeedCoef 1
  CloseRandomizeDirMax 0.04
  CloseRandomizeDirWindSpeedMax 2.7
