@@ -549,11 +549,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 			return;
 		
 		if (state == EDamageState.DESTROYED)
-			ClearEventMask(GetOwner(), EntityEvent.FIXEDFRAME);
+			ClearEventMask(GetOwner(), EntityEvent.FRAME);
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	override void EOnFixedFrame(IEntity owner, float timeSlice)
+	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		m_fTime += timeSlice;
 		
@@ -681,7 +681,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 		m_pRplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
 		if (!m_pRplComponent || !m_pRplComponent.IsProxy())
 		{
-			SetEventMask(owner, EntityEvent.FIXEDFRAME);
+			SetEventMask(owner, EntityEvent.FRAME);
 			
 			ScriptedDamageManagerComponent damageManagerComponent = ScriptedDamageManagerComponent.Cast(owner.FindComponent(ScriptedDamageManagerComponent));
 			if (damageManagerComponent)
@@ -704,11 +704,11 @@ class SP_CharacterStatsComponent : ScriptComponent
 	}
 	void Stop()
 	{
-		ClearEventMask(GetOwner(), EntityEvent.FIXEDFRAME);
+		ClearEventMask(GetOwner(), EntityEvent.FRAME);
 	}
 	void Start()
 	{
-		SetEventMask(GetOwner(), EntityEvent.FIXEDFRAME);
+		SetEventMask(GetOwner(), EntityEvent.FRAME);
 	}
 	void SetStaminDrain(float Drain)
 	{
@@ -719,7 +719,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 	{
 		m_fTemperature = m_fHealthyTemperature;
 		SetEventMask(owner, EntityEvent.INIT);
-		SetEventMask(owner, EntityEvent.FIXEDFRAME);
+		SetEventMask(owner, EntityEvent.FRAME);
 	}
 
 	//------------------------------------------------------------------------------------------------

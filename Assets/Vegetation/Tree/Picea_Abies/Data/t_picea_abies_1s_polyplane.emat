@@ -1,3 +1,4 @@
 MatPBRTreeCrown : "{84351A3EB459EA08}Assets/Vegetation/Tree/Picea_Abies/Data/t_picea_abies_1s_polyplane.emat" {
+ OpacityMap "{5390E4F90B769B77}Assets/Vegetation/Tree/Carpinus_Betulus/Data/Black_Texture.edds"
  WorldColorizeMapSize 726.857
 }

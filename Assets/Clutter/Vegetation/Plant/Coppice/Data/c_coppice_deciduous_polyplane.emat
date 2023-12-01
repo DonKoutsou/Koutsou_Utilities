@@ -1,5 +1,0 @@
-MatPBRTreeCrown : "{2633E9A64363D82F}Assets/Clutter/Vegetation/Plant/Coppice/Data/c_coppice_deciduous_polyplane.emat" {
- Color 0.827 0.827 0.827 1
- BCRMap
- EnableColorization 0
-}

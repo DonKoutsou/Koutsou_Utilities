@@ -1,3 +1,13 @@
 RainEffect : "{D3E32E11C5116D9E}Common/Postprocess/rainLow.emat" {
  RainDensity 0.152
+ WetnessFadeStart 0
+ WetnessFadeSize 0
+ WetnessAlbedoChangeStart 1
+ WetnessAlbedoChangeEnd 1
+ WetnessRoughnessChangeStart 1
+ WetnessNormalLimitMin 1
+ WetnessRoughnessNormalLimitMin 1
+ WetnessAccumNormalLimitMin 1
+ DropSizeX 0.05
+ DropSizeY 0.05
 }
