@@ -1,0 +1,14 @@
+StaticModelEntity : "{EEE62BE393A2AD4A}Prefabs/Structures/Military/Fortifications/DirtCover_01/DirtCover_01_long_base.et" {
+ ID "5272E314F01B2DBE"
+ components {
+  MeshObject "{5272E314F6439B95}" {
+   Object "{B119EC6E3C59AF3B}Assets/Structures/Military/Fortifications/DirtMounds/DirtCover_01_long_01.xob"
+   Materials {
+    MaterialAssignClass "{5F02C969F1176F18}" {
+     SourceMaterial "DirtCover_01"
+     AssignedMaterial "{67E2B0CDA01DA181}Assets/Structures/Military/Fortifications/DirtMounds/Data/SnowCover_01.emat"
+    }
+   }
+  }
+ }
+}

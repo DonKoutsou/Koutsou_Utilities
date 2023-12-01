@@ -1,0 +1,4 @@
+MatPBRTreeCrown : "{3E047C9FA440EEAA}Assets/Vegetation/Tree/Carpinus_Betulus/Data/t_carpinus_betulus_0_polyplane.emat" {
+ Sort translucent
+ OpacityMap "{5390E4F90B769B77}Assets/Vegetation/Tree/Carpinus_Betulus/Data/Black_Texture.edds"
+}

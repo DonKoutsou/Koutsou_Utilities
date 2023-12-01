@@ -58,6 +58,8 @@ class SP_RefillCanteensAction : ScriptedUserAction
 	event override bool CanBePerformedScript(IEntity user) 
 	{ 
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(user.FindComponent(SCR_InventoryStorageManagerComponent));
+		if (!inv)
+			return false;
 		array<IEntity> items = new array<IEntity>();
 		inv.GetItems(items);
 		foreach (IEntity item : items)

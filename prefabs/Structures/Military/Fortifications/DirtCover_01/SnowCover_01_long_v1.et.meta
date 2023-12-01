@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{9E60FC50316EBC17}Prefabs/Structures/Military/Fortifications/DirtCover_01/SnowCover_01_long_v1.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}
