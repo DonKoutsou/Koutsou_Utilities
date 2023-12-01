@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{505378E31272E615}Assets/Props/Forest/FeedRack_02/Data/FeedRack_02_DryGrass.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+ }
+}
