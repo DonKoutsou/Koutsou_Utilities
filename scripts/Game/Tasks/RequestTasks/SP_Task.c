@@ -16,6 +16,19 @@ class SP_Task
 	[Attribute(defvalue : "60", desc : "Amount of XP + when completing this task")]
 	int m_iXPReward;
 	//-------------------------------------------------//
+	[Attribute()]
+	bool m_bUseBaseCharacterForOwner;
+	[Attribute()]
+	string m_sTaskBaseName;
+	//-------------------------------------------------//
+	[Attribute("20",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SCR_ECharacterRank) ,params:  "20 23 1")]
+	SCR_ECharacterRank m_BaseTaskOwnerOverride;
+	[Attribute()]
+	bool m_bUseBaseCharacterForTarget;
+	//-------------------------------------------------//
+	[Attribute("20",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SCR_ECharacterRank) ,params:  "20 23 1")]
+	SCR_ECharacterRank m_BaseTaskTargetOverride;
+	//-------------------------------------------------//
 	[Attribute(desc : "Override with entity name in the world wich will become task owner instead of looking for an owner")]
 	string m_sTaskOwnerOverride;
 	//-------------------------------------------------//
@@ -198,19 +211,30 @@ class SP_Task
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function to hold logic of what owner should be for each task
-	bool FindOwner(out IEntity Owner)
+	sealed bool FindOwner(out IEntity Owner)
 	{
 		ChimeraCharacter Char;
 		if (m_bPartOfChain)
 		{
-			if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
+			if (m_bUseBaseCharacterForOwner)
+			{
+				SCR_GameModeCampaign gm = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
+				SCR_CampaignMilitaryBaseManager man = gm.GetBaseManager();
+				SCR_CampaignMilitaryBaseComponent base = man.GetNamedBase(m_sTaskBaseName);
+				IEntity postchar;
+				base.GetCharacterOfPost(m_BaseTaskOwnerOverride, postchar);
+				if (postchar)
+				{
+					Char = ChimeraCharacter.Cast(postchar);
+				}
+			}
+			else if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
 			{
 				Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
 			}
 			else
 				return false;
 		}
-		
 		else
 		{
 			if(!CharacterHolder.GetRandomUnit(Char))
@@ -226,7 +250,36 @@ class SP_Task
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	//Function to hold logic of what tarket should be for each task
-	bool FindTarget(out IEntity Target){return true;};
+	sealed bool FindTarget(out IEntity Target)
+	{
+		if (m_bPartOfChain)
+		{
+			if (m_bUseBaseCharacterForTarget)
+			{
+				SCR_GameModeCampaign gm = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
+				SCR_CampaignMilitaryBaseManager man = gm.GetBaseManager();
+				SCR_CampaignMilitaryBaseComponent base = man.GetNamedBase(m_sTaskBaseName);
+				IEntity postchar;
+				base.GetCharacterOfPost(m_BaseTaskTargetOverride, postchar);
+				if (postchar)
+				{
+					Target = ChimeraCharacter.Cast(postchar);
+				}
+			}
+			else if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
+			{
+				Target = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
+			}
+			else
+				return false;
+		}
+		if(Target)
+		{
+			return true;
+		}
+		return false;
+	};
+
 	//------------------------------------------------------------------------------------------------------------//
 	//Returns class name of task
 	typename GetClassName(){return SP_Task;}
@@ -275,12 +328,7 @@ class SP_Task
 		}*/
 		
 		//Check if char can get more tasks of same type. Should get obsolete once all tasks come from needs.
-		array<ref SP_Task> sametasks = {};
-		SP_RequestManagerComponent.GetCharTasksOfSameType( m_eTaskOwner , sametasks , GetClassName() );
-		if( sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter() )
-		{
-			return false;
-		}
+
 		/*Faction senderFaction = DS_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
 		if (!senderFaction)
 			return false;

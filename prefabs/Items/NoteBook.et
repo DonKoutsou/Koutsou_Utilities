@@ -40,11 +40,11 @@ GenericEntity {
    CanBeGarbaged 0
   }
   MeshObject "{5ED6820191BD8F94}" {
-   Object "{E443663E5241622A}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_folded.xob"
+   Object "{789311902B5FF0FF}Assets/Props/Civilian/Notebook_01/Notebook_01_Single.xob"
    Materials {
-    MaterialAssignClass "{5ED6820191BD8FE1}" {
-     SourceMaterial "01__Default"
-     AssignedMaterial "{1017672F5890B96D}Assets/Items/Equipment/Maps/Map_Paper_01/Data/Paper_01_Item.emat"
+    MaterialAssignClass "{5F049E6EC99E4913}" {
+     SourceMaterial "Notebook_01"
+     AssignedMaterial "{6DBA359EA58C72E1}Assets/Props/Civilian/Notebook_01/Data/Notebook_01_Orange.emat"
     }
    }
    LODFactors {

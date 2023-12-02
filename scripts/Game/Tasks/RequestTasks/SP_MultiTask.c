@@ -139,15 +139,18 @@ class SP_MultiTask: SP_Task
 		if (!GM)
 			return;
 		DS_DialogueComponent Diag = GM.GetDialogueComponent();
-		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
-		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
-		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
+
 		for (int i = 0, count = m_aTasks.Count(); i  < count; i++)
 		{
+			if (!m_eTaskOwner)
+				m_eTaskOwner = m_aTasks[i].GetOwner();
 			IEntity Target = m_aTasks[i].GetTarget();
 			string Tname = m_aTasks[i].GetTaskDescription();
 			taskDesc.Insert(Tname);
 		}
+		SCR_CharacterRankComponent CharRank = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
+		OName = Diag.GetCharacterRankName(m_eTaskOwner) + " " + Diag.GetCharacterName(m_eTaskOwner);
+		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool Init()
@@ -177,11 +180,6 @@ class SP_MultiTask: SP_Task
 		}
 		if (!InitTasks())
 			return false;
-		if (!AssignReward())
-		{
-			DeleteLeftovers();
-			return false;
-		}
 		CreateDescritions();
 		AddOwnerInvokers();
 		//-------------------------------------------------//

@@ -1,0 +1,439 @@
+AudioClass {
+ sounds {
+  SoundClass : "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf" {
+   id 4105
+   name "Voice_HM"
+   version 0
+   tl -101.295 -41.007
+   parent "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf"
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 2066
+       port 65
+      }
+     }
+    }
+   }
+  }
+  SoundClass : "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf" {
+   id 19465
+   name "Voice_Yes"
+   version 0
+   tl -100.714 95
+   parent "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf"
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 15378
+       port 65
+      }
+     }
+    }
+   }
+   outState 3083
+   outStatePort 282631
+   boneName ""
+  }
+  SoundClass : "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf" {
+   id 21513
+   name "Voice_NO"
+   version 0
+   tl -99.286 217.143
+   parent "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf"
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 16402
+       port 65
+      }
+     }
+    }
+   }
+   outState 3083
+   outStatePort 282631
+  }
+  SoundClass : "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf" {
+   id 28681
+   name "VOICE_PRIVYET"
+   version 0
+   tl -101.111 333.333
+   parent "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf"
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 25618
+       port 65
+      }
+     }
+    }
+   }
+   volume_dB -9
+   outState 3083
+   outStatePort 282631
+   boneName ""
+  }
+  SoundClass : "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf" {
+   id 29705
+   name "VOICE_AHOJ"
+   version 0
+   tl -104.444 453.333
+   parent "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf"
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 26642
+       port 65
+      }
+     }
+    }
+   }
+   volume_dB 3
+   outState 3083
+   outStatePort 282631
+  }
+  SoundClass : "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf" {
+   id 30729
+   name "VOICE_HEY"
+   version 0
+   tl -106.556 567.778
+   parent "{F15CE4B7EFD759CD}Sounds/_SharedData/Configs/Sound/RadioProtocol/Sound_RadioProtocol_AI.conf"
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 27666
+       port 65
+      }
+     }
+    }
+   }
+   volume_dB -6
+   outState 3083
+   outStatePort 282631
+  }
+ }
+ mixers {
+  MixerClass {
+   id 3083
+   name "OutputState 6"
+   version 4
+   tl 313.445 88.02
+   res "{B764D803219C775E}Sounds/FinalMix.afm"
+   ins {
+    ConnectionsClass connections {
+     id 282631
+     links {
+      ConnectionClass connection {
+       id 4105
+       port 65
+      }
+      ConnectionClass connection {
+       id 19465
+       port 65
+      }
+      ConnectionClass connection {
+       id 21513
+       port 65
+      }
+      ConnectionClass connection {
+       id 28681
+       port 65
+      }
+      ConnectionClass connection {
+       id 29705
+       port 65
+      }
+      ConnectionClass connection {
+       id 30729
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    268435456
+   }
+   path "{B764D803219C775E}Sounds/FinalMix.afm"
+   inputs {
+    "ANM_Footsteps" "ANM_Voice" "WPN_Handling" "WPN_Shots" "WPN_Explosions" "WNP_BulletHits" "CHAR" "ENV_AMB_2D" "VEH_Animations" "Impacts" "Dialogue" "Music" "ENV_Doors" "VEH_Engine" "VEH_Tires" "VON" "SFX" "SFX_Reverb" "VON_Reverb" "Dialogue_Reverb" "Impacts_EXT" "ENV_AMB_3D" "WPN_SonicCracks" "CHAR_Gear" "PA" "SFX_Reverb_Exterior" "UI" "ENV_AMB_3D_Reverb_Exterior" "SFX_Direct"
+   }
+  }
+ }
+ shaders {
+  ShaderClass {
+   id 2066
+   name "Shader 5"
+   version 5
+   tl -331.338 -38.864
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 5148
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 20484
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+  ShaderClass {
+   id 15378
+   name "Shader 5"
+   version 5
+   tl -335.714 85
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 5148
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 11268
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+  ShaderClass {
+   id 16402
+   name "Shader 5"
+   version 5
+   tl -340.595 204.405
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 5148
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 12292
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+  ShaderClass {
+   id 25618
+   name "Shader 5"
+   version 5
+   tl -334.889 326.889
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 5148
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 22532
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+  ShaderClass {
+   id 26642
+   name "Shader 5"
+   version 5
+   tl -335.556 451.111
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 5148
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 23556
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+  ShaderClass {
+   id 27666
+   name "Shader 5"
+   version 5
+   tl -342.444 576.556
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 5148
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 24580
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 11268
+   name "Voice_Yes"
+   version 0
+   tl -589.286 80
+   Volume -10
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{46C24BC09EBDACBB}Sounds/voice/voice2.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 12292
+   name "Voice_NO"
+   version 0
+   tl -579.286 179.286
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{31C823486A1F43CB}Sounds/voice/voice3.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 20484
+   name "Voice_HM"
+   version 0
+   tl -584.286 -23.571
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{DFDCF259835A9D2B}Sounds/voice/voice1.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{360FD9190C99F908}Sounds/voice/voice4.wav"
+     Index 1
+    }
+    AudioBankSampleClass Sample {
+     Filename "{4105B191F83B1678}Sounds/voice/voice5.wav"
+     Index 2
+    }
+   }
+  }
+  BankLocalClass {
+   id 22532
+   name "Voice_Privyet"
+   version 0
+   tl -581 310.111
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{AB3127209B0492DB}Sounds/voice/Voice_Soviet.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 23556
+   name "Voice_Ahoj"
+   version 0
+   tl -577 395.222
+   Pitch 1.856
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{E529851FE51EC3FB}Sounds/voice/AHOJ _Voice.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 24580
+   name "Voice_Hey"
+   version 0
+   tl -578 497
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{EC1C38FA4E3619CD}Sounds/voice/HeyVoice.wav"
+    }
+   }
+  }
+ }
+ spatialities {
+  SpatialityClass {
+   id 5148
+   name "Spatiality 7"
+   version 5
+   tl -335.192 -194.14
+   spatialFactor 1
+  }
+ }
+ version 1
+ sourcesLimit 1
+}

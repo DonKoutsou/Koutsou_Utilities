@@ -1,22 +1,7 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_DestroyTask: SP_Task
 {
-	//------------------------------------------------------------------------------------------------------------//
-	override bool FindOwner(out IEntity Owner)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
-		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
-		}
-		if (Char)
-			Owner = Char;
-		if(Owner)
-		{
-			return true;
-		}
-		return false;
-	};
+
 	void UpdateTaskPointer(EDamageState state)
 	{
 		if (state != EDamageState.DESTROYED)
@@ -55,19 +40,6 @@ class SP_DestroyTask: SP_Task
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssignee(assignee, 0);
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	override bool FindTarget(out IEntity Target)
-	{
-		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
-		{
-			Target = GetGame().FindEntity(m_sTaskTargetOverride);
-		}
-		if(Target)
-		{
-			return true;
-		}
-		return false;
-	};
 	override bool CheckTarget()
 	{
 		if (!m_eTaskTarget)

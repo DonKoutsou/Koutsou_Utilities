@@ -225,6 +225,7 @@ modded class DS_DialogueComponent
 			DialogueDisplay.ShowInspectCasualtyWidget(talker);
 		}
 		a_PLtexthistory.Insert("null");
+		
 	}
 	string LookForLostGroups(IEntity instigator, IEntity Player)
 	{

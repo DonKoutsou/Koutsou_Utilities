@@ -117,9 +117,9 @@ modded class SCR_AutoSpawnLogic
 	//------------------------------------------------------------------------------------------------
 	protected void CreateLoadingPlaceholder()
 	{
-		m_wLoadingPlaceholder = GetGame().GetWorkspace().CreateWidgets(m_sLoadingLayout);
-		if (!m_wLoadingPlaceholder)
-			return;
+		//m_wLoadingPlaceholder = GetGame().GetWorkspace().CreateWidgets(m_sLoadingLayout);
+		//if (!m_wLoadingPlaceholder)
+			//return;
 		
 	}
 	//------------------------------------------------------------------------------------------------

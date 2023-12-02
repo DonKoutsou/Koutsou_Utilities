@@ -5,28 +5,7 @@ class SP_KillTask: SP_Task
 	{
 		return ETaskType.KILL;
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	override bool FindOwner(out IEntity Owner)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
-		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
-		}
-		else
-		{
-			if(!CharacterHolder.GetRandomUnit(Char))
-				return false;
-		}
-		
-		if (Char)
-			Owner = Char;
-		if(Owner)
-		{
-			return true;
-		}
-		return false;
-	};
+
 	void UpdateTaskPointer(EDamageState state)
 	{
 		if (state != EDamageState.DESTROYED)
@@ -51,45 +30,7 @@ class SP_KillTask: SP_Task
 			m_TaskMarker.AddAssignee(assignee, 0);
 		}
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	override bool FindTarget(out IEntity Target)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
-		{
-			SCR_AIGroup group = SCR_AIGroup.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
-			if (group)
-				Char = ChimeraCharacter.Cast(group.GetLeaderEntity());
-			else
-				Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
-		}
-		else
-		{
-			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-			SCR_FactionManager FactionMan = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-			Faction Fact = AffiliationComp.GetAffiliatedFaction();
-			if (!Fact)
-				return false;
-	
-			array <Faction> enemies = new array <Faction>();
-			FactionMan.GetEnemyFactions(Fact, enemies);
-			if (enemies.IsEmpty())
-				return false;
-			
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), 300, enemies.GetRandomElement(), Char))
-				return false;
-		}
-		
-		if (Char)
-			Target = Char;
-		
-		if (Target == GetOwner())
-			return false;
-		if(Target)
-			return true;
-		
-		return false;
-	};
+
 	//------------------------------------------------------------------------------------------------------------//
 	override void CreateDescritions()
 	{

@@ -1,3 +1,4 @@
 MatPBRTreeCrown : "{9C5E9DF1770C1F77}Assets/Vegetation/Tree/Carpinus_Betulus/Data/t_carpinus_betulus_atlas_MLOD.emat" {
- OpacityMap "{5390E4F90B769B77}Assets/Vegetation/Tree/Carpinus_Betulus/Data/Black_Texture.edds"
+ OpacityMap "{53118DA314DCE497}Assets/Vegetation/Tree/Carpinus_Betulus/Data/treemask2.edds"
+ EnableColorization 0
 }

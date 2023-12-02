@@ -11,70 +11,8 @@ class SP_MultiDeliverTask: SP_Task
 	//----------------------------------------------------------------------------------//
 	//Package that needs to be delivered
 	ref array <IEntity> m_ePackage = {};
-	//------------------------------------------------------------------------------------------------------------//
-	//Delivery mission is looking for a random owner.
-	override bool FindOwner(out IEntity Owner)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskOwnerOverride && GetGame().FindEntity(m_sTaskOwnerOverride))
-		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskOwnerOverride));
-		}
-		else
-		{
-			if(!CharacterHolder.GetRandomUnit(Char))
-				return false;
-		}
-		if (Char)
-			Owner = Char;
-		if(Owner)
-		{
-			//if someone is doing a task, they should be looking to be escorted somewhere.
-			if (SP_RequestManagerComponent.GetassignedTaskCount(Owner) > 0)
-				return false;
-			if (SP_RequestManagerComponent.CharIsPickingTask(Owner))
-				return false;
-			return true;
-		}
-		return false;
-	};
-	//------------------------------------------------------------------------------------------------------------//
-	//then look for a target with same faction
-	override bool FindTarget(out IEntity Target)
-	{
-		ChimeraCharacter Char;
-		if (m_sTaskTargetOverride && GetGame().FindEntity(m_sTaskTargetOverride))
-		{
-			Char = ChimeraCharacter.Cast(GetGame().FindEntity(m_sTaskTargetOverride));
-		}
-		else
-		{
-			FactionAffiliationComponent AffiliationComp = FactionAffiliationComponent.Cast(GetOwner().FindComponent(FactionAffiliationComponent));
-			SCR_FactionManager FactionMan = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-			Faction Fact = AffiliationComp.GetAffiliatedFaction();
-			if (!Fact)
-				return false;
-	
-			array <Faction> enemies = new array <Faction>();
-			FactionMan.GetFriendlyFactions(Fact, enemies);
-			if (enemies.IsEmpty())
-				return false;
-			
-			if (!CharacterHolder.GetFarUnitOfFaction(ChimeraCharacter.Cast(GetOwner()), m_iTargetOwnerMinDistance, enemies.GetRandomElement(), Char))
-				return false;
-		}
 
-		if (Char)
-			Target = Char;
-		
-		if (Target == GetOwner())
-			return false;
-		
-		if(Target)
-			return true;
-		
-		return false;
-	};
+
 	//------------------------------------------------------------------------------------------------------------//
 	//Setup delivery package
 	override bool SetupTaskEntity()

@@ -7,14 +7,6 @@ class SP_RequestManagerComponentClass : ScriptComponentClass
 class SP_RequestManagerComponent : ScriptComponent
 {
 	//------------------------------------------------------------------------------------------------------------//
-	[Attribute(defvalue : "3", desc: "Cooldown for task generation")]
-	float m_fTaskGenTime;
-	//------------------------------------------------------------------------------------------------------------//
-	protected int m_iMinTaskAmount;
-	//------------------------------------------------------------------------------------------------------------//
-	[Attribute(defvalue: "2", desc: "Max amount of tasks of sametype a character can be requesting at the same time")]
-	protected int m_fTaskOfSameTypePerCharacter;
-	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(desc: "Type of tasks that will be created by request manager. Doesent stop from creating different type of task wich doesent exist here.")]
 	ref array<ref SP_Task> m_aTasksToSpawn;
 	//------------------------------------------------------------------------------------------------------------//
@@ -101,11 +93,7 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		return m_fTaskPerCharacter;
 	}*/
-	//------------------------------------------------------------------------------------------------------------//
-	int GetTasksOfSameTypePerCharacter()
-	{
-		return m_fTaskOfSameTypePerCharacter;
-	}
+
 	CharacterHolder GetCharacterHolder()
 	{
 		return m_CharacterHolder;
@@ -302,7 +290,6 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	private bool CreateChainedTasks()
 	{
-		bool anyfailed;
 		foreach (SP_ChainedTask qLine : m_aQuestlines)
 		{
 			InitChainedTask(qLine);
@@ -310,10 +297,24 @@ class SP_RequestManagerComponent : ScriptComponent
 		m_bQuestInited = true;
 		return true;
 	}
+	bool CreateChainedBaseTask(string Basename)
+	{
+		foreach (SP_ChainedTask qLine : m_aQuestlines)
+		{
+			if (qLine.m_sTaskBaseName == Basename)
+			{
+				InitChainedTask(qLine);
+				m_aQuestlines.RemoveItem(qLine);
+				return true;
+			}
+		}
+		return false;
+	}
 	void InitChainedTask(SP_ChainedTask qline)
 	{
 		if (m_aTaskMap.Contains(qline))
 				return;
+		
 		if (qline.Init())
 		{
 			m_aTaskMap.Insert(qline);
@@ -778,7 +779,7 @@ class SP_RequestManagerComponent : ScriptComponent
 			}
 		}
 		
-		GetGame().GetCallqueue().CallLater(CreateChainedTasks, 10000);
+		//GetGame().GetCallqueue().CallLater(CreateChainedTasks, 10000);
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	static int GetCharCurrency(IEntity Char)

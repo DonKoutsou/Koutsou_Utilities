@@ -2,12 +2,9 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_RescueTask: SP_Task
 {
-	[Attribute(defvalue: "2", desc: "Max amount of rescue tasks that can exist")]
-	int m_iMaxamount;
-	
+
 	[Attribute()]
 	ResourceName m_BleedTrigger;
-	
 	
 	ref array <IEntity> m_aCharsToRescue = ;
 	ref array <IEntity> m_aRescued = ;
@@ -17,10 +14,6 @@ class SP_RescueTask: SP_Task
 	{
 		return ETaskType.RESCUE;
 	}
-	int GetMaxamount()
-	{
-		return m_iMaxamount;
-	};
 	array <IEntity> GetCharsToResce()
 	{
 		return m_aCharsToRescue;
@@ -123,12 +116,7 @@ class SP_RescueTask: SP_Task
 			{
 				return false;
 			}
-			m_iMaxamount = tasksample.GetMaxamount();
 			m_BleedTrigger = tasksample.m_BleedTrigger;
-			if(tasks.Count() >= m_iMaxamount)
-			{
-				return false;
-			}
 			InheritFromSample();
 		}
 			
@@ -170,22 +158,7 @@ class SP_RescueTask: SP_Task
 			return false;
 		if (dmg.IsDestroyed())
 			return false;
-		array<ref SP_Task> tasks = new array<ref SP_Task>();
-		//Check if char can get more tasks of same type
-		array<ref SP_Task> sametasks = new array<ref SP_Task>();
-		SP_RequestManagerComponent.GetCharTasksOfSameType(m_eTaskOwner, sametasks, GetClassName());
-		if(sametasks.Count() >= SP_RequestManagerComponent.GetInstance().GetTasksOfSameTypePerCharacter())
-		{
-			return false;
-		}
-		Faction senderFaction = DS_DialogueComponent.GetCharacterFaction(m_eTaskOwner);
-		if (!senderFaction)
-			return false;
-		m_OwnerFaction = SCR_Faction.Cast(senderFaction);
-		if (m_OwnerFaction.GetFactionKey() == "RENEGADE")
-		{
-			return false;
-		};
+
 		return true;
 	};
 	override void CreateDescritions()
@@ -227,7 +200,7 @@ class SP_RescueTask: SP_Task
 			OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 		}
 	};
-	override bool FindOwner(out IEntity Owner)
+	/*override bool FindOwner(out IEntity Owner)
 	{
 		if (!CreateVictim(Owner))
 		{
@@ -243,7 +216,7 @@ class SP_RescueTask: SP_Task
 			return true;
 		}
 		return false;
-	};
+	};*/
 	override void FailTask()
 	{
 		if (!m_aCharsToRescue.IsEmpty())

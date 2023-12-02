@@ -67,6 +67,8 @@ modded class SCR_CampaignFeedbackComponent
 		{
 			return;
 		}
+		SP_RequestManagerComponent Rman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		Rman.CreateChainedBaseTask(base.GetBaseName());
 		SCR_AIGroup group = base.GetDefendersGroup();
 		if (group)
 		{

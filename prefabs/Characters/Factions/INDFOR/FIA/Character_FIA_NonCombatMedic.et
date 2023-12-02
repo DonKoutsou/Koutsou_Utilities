@@ -8,7 +8,7 @@ SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA
    WeaponTemplate ""
   }
   SCR_CharacterIdentityComponent "{5584CBC63E092DBC}" {
-   m_DialogueArchetype DS_DialogueArchetype "{5EF4D3BAF1B7CA03}" : "{5E9325AA03F7E23A}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_MECH.conf" {
+   m_DialogueArchetype DS_DialogueArchetype "{5EF4D3BAF1B7CA03}" : "{5E9325AA03F7E23A}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_MEDIC.conf" {
    }
   }
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {

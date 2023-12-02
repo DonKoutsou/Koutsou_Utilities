@@ -34,20 +34,7 @@ class SP_ChainedTask : SP_Task
 	override string GetActionText(){return GetCurrentTask().GetActionText();}
 	//------------------------------------------------------------------------------------------------------------//
 	override ETaskState GetState(){return e_State;};
-	//------------------------------------------------------------------------------------------------------------//
-	override bool FindOwner(out IEntity Owner)
-	{
-		ChimeraCharacter Char;
-		if (!CharacterHolder.GetRandomUnit(Char))
-			return false;
-		if (Char)
-			Owner = Char;
-		if(Owner)
-		{
-			return true;
-		}
-		return false;
-	};
+
 	//------------------------------------------------------------------------------------------------------------//
 	void GetTasklist(out array <ref SP_Task> OutTasklist)
 	{

@@ -28,6 +28,12 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
 	protected ref DS_DialogueArchetype m_DialogueArchetype;
 	
+	[Attribute()]
+	bool m_bRegisterInBase;
+	
+	[Attribute()]
+	string m_sBaseNameToRegister;
+	
 	override void Init(SCR_ScenarioFrameworkLayerBase object)
 	{
 		if (!object)
@@ -123,6 +129,25 @@ class SCR_ScenarioFrameworkPluginSlotAI: SCR_ScenarioFrameworkPlugin
 					IDComp.SetCarArch(m_DialogueArchetype);
 				}
 			}
+			if (m_bRegisterInBase)
+			{
+				SCR_CampaignMilitaryBaseComponent nearest;
+				SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
+				if (!m_sBaseNameToRegister)
+				{
+					
+					nearest = BaseMan.GetClosestBase(char.GetOrigin());
+				}
+				else
+				{
+					nearest = BaseMan.GetNamedBase(m_sBaseNameToRegister);
+				}
+				if (nearest)
+				{
+					nearest.RegisterCharacter(char, m_iRank);
+				}
+				
+			}
 		}
 		
 	}
@@ -167,7 +192,7 @@ class SCR_ScenarioFrameworkPluginSlotVehicle: SCR_ScenarioFrameworkPlugin
 				for (int i; i < m_iAmountofHZtoDamage; i++)
 				{
 					HitZone randhit = hitzones.GetRandomElement();
-					randhit.SetHealth(0);
+					randhit.SetHealth(Math.RandomFloat(1, (randhit.GetMaxHealth()/2)));
 				}
 			}
 		}
