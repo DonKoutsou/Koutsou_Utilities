@@ -408,7 +408,7 @@ $grp GenericEntity : "{624714B94284F1D9}prefabs/Items/Equipment/Kits/RepairKit_0
   coords 117.633 1 168.414
  }
  {
-  coords 58.27 1.029 190.547
+  coords 58.924 1.029 191.094
  }
 }
 $grp GenericEntity : "{630FB4AD4A735264}prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {
@@ -515,6 +515,9 @@ GameEntity : "{9F546CCA2582D16F}prefabs/Characters/Uniforms/Jacket_M88.et" {
 }
 GameEntity : "{A7E6D7ECD5F684D7}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et" {
  coords 115.709 1 244.033
+}
+GenericEntity : "{A8B7AD5DBDCF22C2}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_large_item.et" {
+ coords 59.525 1 190.588
 }
 GenericEntity : "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et" {
  coords 131.974 1 242.254

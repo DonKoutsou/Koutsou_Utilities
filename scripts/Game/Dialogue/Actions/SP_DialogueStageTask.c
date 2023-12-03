@@ -113,3 +113,14 @@ class SP_DialogueStageCompleteTaskAction : SP_DialogueStageBaseTaskAction
 		super.Perform(Character, Player);
 	};
 };
+[BaseContainerProps(configRoot:true)]
+class SP_DialogueStageCreateTaskAction : DS_BaseDialogueStageAction
+{
+	[Attribute()]
+	ref SP_Task m_Task;
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
+		ReqMan.CreateCustomTask(m_Task);
+	};
+};

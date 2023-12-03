@@ -8,7 +8,7 @@ class SP_DestroyTask: SP_Task
 			return;
 		ScriptedDamageManagerComponent dmgman = ScriptedDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(ScriptedDamageManagerComponent));
 		dmgman.GetOnDamageStateChanged().Remove(UpdateTaskPointer);
-		if (m_TaskMarker)
+		/*if (m_TaskMarker)
 		{
 			m_TaskMarker.Finish(true);
 			Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
@@ -23,22 +23,7 @@ class SP_DestroyTask: SP_Task
 			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 			SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 			m_TaskMarker.AddAssignee(assignee, 0);
-		}
-	}
-	override void SpawnTaskMarker(IEntity Assignee)
-	{
-		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
-		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		m_eTaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
-		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(m_sTaskTitle);
-		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(m_eTaskTarget);
-		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
-		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
-		m_TaskMarker.AddAssignee(assignee, 0);
+		}*/
 	}
 	override bool CheckTarget()
 	{

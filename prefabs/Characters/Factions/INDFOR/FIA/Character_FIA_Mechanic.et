@@ -18,10 +18,6 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
   CharacterWeaponSlotComponent "{520EA1D2F659CFDC}" {
    WeaponTemplate "{C0F7DD85A86B2900}Prefabs/Weapons/Handguns/PM/Handgun_PM.et"
   }
-  SCR_CharacterIdentityComponent "{5584CBC63E092DBC}" {
-   m_DialogueArchetype DS_DialogueArchetype "{5EFB031B6B9BE358}" : "{F4734B71B1A70441}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_MECH.conf" {
-   }
-  }
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Jacket {

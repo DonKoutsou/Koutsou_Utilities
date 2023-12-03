@@ -18,8 +18,8 @@ class SP_Task
 	//-------------------------------------------------//
 	[Attribute()]
 	bool m_bUseBaseCharacterForOwner;
-	[Attribute()]
-	string m_sTaskBaseName;
+	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
+	SP_BaseEn m_TaskBaseName;
 	//-------------------------------------------------//
 	[Attribute("20",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SCR_ECharacterRank) ,params:  "20 23 1")]
 	SCR_ECharacterRank m_BaseTaskOwnerOverride;
@@ -100,7 +100,7 @@ class SP_Task
 	IEntity m_eCopletionist;
 	//-------------------------------------------------//
 	//task marker
-	SP_BaseTask m_TaskMarker;
+	//SP_BaseTask m_TaskMarker;
 	//task type ETaskType
 	int GetTaskType()
 	{
@@ -220,7 +220,8 @@ class SP_Task
 			{
 				SCR_GameModeCampaign gm = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
 				SCR_CampaignMilitaryBaseManager man = gm.GetBaseManager();
-				SCR_CampaignMilitaryBaseComponent base = man.GetNamedBase(m_sTaskBaseName);
+				string name = SP_BaseNames.Get(m_TaskBaseName);
+				SCR_CampaignMilitaryBaseComponent base = man.GetNamedBase(name);
 				IEntity postchar;
 				base.GetCharacterOfPost(m_BaseTaskOwnerOverride, postchar);
 				if (postchar)
@@ -258,7 +259,8 @@ class SP_Task
 			{
 				SCR_GameModeCampaign gm = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
 				SCR_CampaignMilitaryBaseManager man = gm.GetBaseManager();
-				SCR_CampaignMilitaryBaseComponent base = man.GetNamedBase(m_sTaskBaseName);
+				string name = SP_BaseNames.Get(m_TaskBaseName);
+				SCR_CampaignMilitaryBaseComponent base = man.GetNamedBase(name);
 				IEntity postchar;
 				base.GetCharacterOfPost(m_BaseTaskTargetOverride, postchar);
 				if (postchar)
@@ -409,10 +411,7 @@ class SP_Task
 		if (GiveReward(Assignee))
 		{
 			//if player task complete marker
-			if (m_TaskMarker)
-			{
-				m_TaskMarker.Finish(true);
-			}
+
 			//set state
 			e_State = ETaskState.COMPLETED;
 			
@@ -440,14 +439,7 @@ class SP_Task
 	//------------------------------------------------------------------------------------------------------------//
 	void FailTask()
 	{
-		//if player task complete marker
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Fail(true);
-			m_TaskMarker.RemoveAllAssignees();
-			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("%1 has died, task failed", DS_DialogueComponent.GetCharacterName(m_eTaskOwner)));
-		}
+
 		
 		//check state and unassign char if needed
 		if (GetState() == ETaskState.ASSIGNED)
@@ -469,13 +461,7 @@ class SP_Task
 	//Fail task duplicate used for stuff other than character dying
 	void CancelTask()
 	{
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Fail(true);
-			m_TaskMarker.RemoveAllAssignees();
-			m_TaskMarker.Finish(true);
-			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Faction relations have shifted and %1 has withdrawn his task.", DS_DialogueComponent.GetCharacterName(m_eTaskOwner)));
-		}
+
 		e_State = ETaskState.FAILED;
 		m_bMarkedForRemoval = 1;
 		if (m_aTaskAssigned)
@@ -499,8 +485,7 @@ class SP_Task
 		//Get items with label
 		array<SCR_EntityCatalogEntry> Mylist = {};
 		RequestCatalog.GetRequestItems(e_RewardLabel, null, Mylist);
-		
-		
+
 		//Figure out if character has reward
 		array <IEntity > items = {};
 		//Get char inventory
@@ -755,7 +740,7 @@ class SP_Task
 			//invokers
 			AddAssigneeInvokers();
 			//Spawn task marker for player
-			SpawnTaskMarker( Character );
+			//SpawnTaskMarker( Character );
 			
 			return true;
 		}
@@ -788,11 +773,6 @@ class SP_Task
 	void UnAssignCharacter()
 	{
 		m_aTaskAssigned = null;
-		// if player remove marker
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Cancel(true);
-		}
 		//update state
 		e_State = ETaskState.UNASSIGNED;
 		
@@ -834,32 +814,7 @@ class SP_Task
 			CancelTask();
 	}
 	
-	//------------------------------------------------------------------------------------------------------------//
-	//Spawn task marker for this task, called when assigning character
-	void SpawnTaskMarker(IEntity Assignee)
-	{
-		//Get task resource
-		Resource Marker = Resource.Load( "{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et" );
-		//setup spawn params
-		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		//Getaffiliation of Assignee to add to marker
-		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast( Assignee.FindComponent( FactionAffiliationComponent ) );
-		//get spawn location from target
-		m_eTaskTarget.GetWorldTransform(PrefabspawnParams.Transform);
-		//spawn marker
-		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		
-		//set info
-		m_TaskMarker.SetTitle( m_sTaskTitle );
-		m_TaskMarker.SetDescription( m_sTaskDesc );
-		m_TaskMarker.SetTarget( m_eTaskTarget );
-		m_TaskMarker.SetTargetFaction( Aff.GetAffiliatedFaction() );
-		
-		//assign to player
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
-		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
-		m_TaskMarker.AddAssignee(assignee, 0);
-	}
+
 	
 	//------------------------------------------------------------------------------------------------------------//
 	//Getter of m_iRewardAverageAmount attribute. Used on task samples stored in SP_RequestManagerComponent.
@@ -998,3 +953,38 @@ class TaskAttribute : BaseContainerCustomTitle
 		return true;
 	}
 }
+class SP_BaseNames
+{
+	static const string ERQUY_FIA_OUTPOST = "Erquy FIA Outpost";
+	static const string NORTHEAST_BARACKS = "Northeast baracks";
+	static const string ANDRES_BEACON = "#AR-MapLocation_AndresBeacon";
+	static const string TOWN_BASE_CHOTAIN = "#AR-MapLocation_Chotain";
+	static const string MIL_BASE_CHOTAIN = "#AR-Campaign_MapLocation_Coastal_Chotain";
+	
+	static string Get(SP_BaseEn en)
+	{
+		if (en == SP_BaseEn.ERQUY_FIA_OUTPOST)
+			return ERQUY_FIA_OUTPOST;
+		if (en == SP_BaseEn.NORTHEAST_BARACKS)
+			return NORTHEAST_BARACKS;
+		if (en == SP_BaseEn.ANDRES_BEACON)
+			return ANDRES_BEACON;
+		if (en == SP_BaseEn.TOWN_BASE_CHOTAIN)
+			return TOWN_BASE_CHOTAIN;
+		if (en == SP_BaseEn.MIL_BASE_CHOTAIN)
+			return MIL_BASE_CHOTAIN;
+		return STRING_EMPTY;
+	}
+}
+enum SP_BaseEn
+{
+	ERQUY_FIA_OUTPOST,
+	NORTHEAST_BARACKS,
+	ANDRES_BEACON,
+	TOWN_BASE_CHOTAIN,
+	MIL_BASE_CHOTAIN,
+}
+modded enum EVehicleType
+{
+	HELICOPTER = 1024,
+};

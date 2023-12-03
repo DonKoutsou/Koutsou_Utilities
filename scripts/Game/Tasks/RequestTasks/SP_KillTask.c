@@ -13,7 +13,7 @@ class SP_KillTask: SP_Task
 		SCR_CharacterDamageManagerComponent dmgman = SCR_CharacterDamageManagerComponent.Cast(m_eTaskTarget.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgman.GetOnDamageStateChanged().Remove(UpdateTaskPointer);
 		DS_DialogueComponent diag = DS_DialogueComponent.Cast(GetGame().GetGameMode().FindComponent(DS_DialogueComponent));
-		if (m_TaskMarker)
+		/*if (m_TaskMarker)
 		{
 			m_TaskMarker.Finish(true);
 			Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
@@ -28,7 +28,7 @@ class SP_KillTask: SP_Task
 			int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
 			SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 			m_TaskMarker.AddAssignee(assignee, 0);
-		}
+		}*/
 	}
 
 	//------------------------------------------------------------------------------------------------------------//

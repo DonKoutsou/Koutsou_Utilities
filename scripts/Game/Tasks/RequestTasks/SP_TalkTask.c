@@ -2,21 +2,6 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_TalkTask: SP_Task
 {
-	override void SpawnTaskMarker(IEntity Assignee)
-	{
-		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
-		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
-		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(m_sTaskTitle);
-		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(m_eTaskOwner);
-		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
-		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
-		m_TaskMarker.AddAssignee(assignee, 0);
-	}
 	//------------------------------------------------------------------------------------------------------------//
 	override void CreateDescritions()
 	{
@@ -55,10 +40,7 @@ class SP_TalkTask: SP_Task
 	{
 		if (GiveReward(Assignee))
 		{
-			if (m_TaskMarker)
-			{
-				m_TaskMarker.Finish(true);
-			}
+
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
 			if (SCR_EntityHelper.GetPlayer() == Assignee)

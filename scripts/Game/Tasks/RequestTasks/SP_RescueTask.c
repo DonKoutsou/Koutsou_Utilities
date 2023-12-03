@@ -56,9 +56,9 @@ class SP_RescueTask: SP_Task
 		}
 		else
 		{
-			if (m_TaskMarker)
-				m_TaskMarker.SetOrigin(m_aCharsToRescue.GetRandomElement().GetOrigin());
-			else
+			///if (m_TaskMarker)
+				//m_TaskMarker.SetOrigin(m_aCharsToRescue.GetRandomElement().GetOrigin());
+			//else
 				AssignCharacter(instigator);
 		}
 	}
@@ -171,21 +171,6 @@ class SP_RescueTask: SP_Task
 		m_sTaskTitle = string.Format("Rescue: locate %1's squad and provide help", OName);
 		m_sTaskCompletiontext = "We owe you our lives %1, thanks for saving us.";
 	};
-	override void SpawnTaskMarker(IEntity Assignee)
-	{
-		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
-		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
-		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(m_sTaskTitle);
-		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(m_eTaskOwner);
-		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
-		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
-		m_TaskMarker.AddAssignee(assignee, 0);
-	}
 	void GetInfo(out string OName, out string OLoc)
 	{
 		if (!m_eTaskOwner)
@@ -230,13 +215,13 @@ class SP_RescueTask: SP_Task
 				}
 			}
 		}
-		if (m_TaskMarker)
+		/*if (m_TaskMarker)
 		{
 			m_TaskMarker.Fail(true);
 			m_TaskMarker.RemoveAllAssignees();
 			m_TaskMarker.Finish(true);
 			SCR_PopUpNotification.GetInstance().PopupMsg("Failed", text2: string.Format("Rescue targets have died, task failed"));
-		}
+		}*/
 		SCR_CharacterDamageManagerComponent dmgmn = SCR_CharacterDamageManagerComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterDamageManagerComponent));
 		dmgmn.GetOnDamageStateChanged().Remove(FailTask);
 		SCR_CharacterRankComponent RankCo = SCR_CharacterRankComponent.Cast(m_eTaskOwner.FindComponent(SCR_CharacterRankComponent));
@@ -255,10 +240,10 @@ class SP_RescueTask: SP_Task
 		{
 				m_eCopletionist = Assignee;
 		}
-		if (m_TaskMarker)
+		/*if (m_TaskMarker)
 		{
 			m_TaskMarker.Finish(true);
-		}
+		}*/
 		e_State = ETaskState.COMPLETED;
 		GetOnTaskFinished(this);
 		if (SCR_EntityHelper.GetPlayer() == Assignee)

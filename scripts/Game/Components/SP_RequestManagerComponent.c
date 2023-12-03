@@ -301,7 +301,8 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		foreach (SP_ChainedTask qLine : m_aQuestlines)
 		{
-			if (qLine.m_sTaskBaseName == Basename)
+			string name = SP_BaseNames.Get(qLine.m_TaskBaseName);
+			if (name == Basename)
 			{
 				InitChainedTask(qLine);
 				m_aQuestlines.RemoveItem(qLine);
@@ -327,6 +328,22 @@ class SP_RequestManagerComponent : ScriptComponent
 	void InsertTask(SP_Task task)
 	{
 		
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	bool CreateCustomTask(SP_Task Task)
+	{
+		if(!Task)
+		{
+			return false;
+		}
+
+		if(Task.Init())
+		{
+			m_aTaskMap.Insert(Task);
+			Task.OnTaskFinished().Insert(OnTaskFinished);
+			return true;
+		}
+		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	SP_Task CreateCustomTask(typename TaskType, IEntity Owner)

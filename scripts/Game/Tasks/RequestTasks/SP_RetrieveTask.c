@@ -173,23 +173,7 @@ class SP_RetrieveTask: SP_Task
 		m_iRequestedAmount = ammount;
 		return true;
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	
-	override void SpawnTaskMarker(IEntity Assignee)
-	{
-		Resource Marker = Resource.Load("{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et");
-		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
-		m_eTaskOwner.GetWorldTransform(PrefabspawnParams.Transform);
-		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast(Assignee.FindComponent(FactionAffiliationComponent));
-		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
-		m_TaskMarker.SetTitle(m_sTaskTitle);
-		m_TaskMarker.SetDescription(m_sTaskDesc);
-		m_TaskMarker.SetTarget(m_eTaskOwner);
-		m_TaskMarker.SetTargetFaction(Aff.GetAffiliatedFaction());
-		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(m_aTaskAssigned);
-		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
-		m_TaskMarker.AddAssignee(assignee, 0);
-	}
+
 	//------------------------------------------------------------------------------------------------------------//
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
@@ -241,10 +225,7 @@ class SP_RetrieveTask: SP_Task
 	{
 		if (Assignee == m_eTaskOwner)
 		{
-			if (m_TaskMarker)
-			{
-				m_TaskMarker.Finish(true);
-			}
+
 			e_State = ETaskState.COMPLETED;
 			m_eCopletionist = Assignee;
 			GetOnTaskFinished(this);
@@ -309,10 +290,7 @@ class SP_RetrieveTask: SP_Task
 			AssignReward();
 			if (GiveReward(Assignee))
 			{
-				if (m_TaskMarker)
-				{
-					m_TaskMarker.Finish(true);
-				}
+
 				e_State = ETaskState.COMPLETED;
 				m_eCopletionist = Assignee;
 				GetOnTaskFinished(this);

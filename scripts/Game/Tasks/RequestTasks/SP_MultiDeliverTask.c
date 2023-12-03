@@ -143,10 +143,10 @@ class SP_MultiDeliverTask: SP_Task
 				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 				Assigneeinv.TryRemoveItemFromStorage(FoundPackages[0],parentSlot.GetStorage());
 				DeleteLeftovers();
-				if (m_TaskMarker)
-				{
-					m_TaskMarker.Finish(true);
-				}
+				//if (m_TaskMarker)
+				//{
+				//	m_TaskMarker.Finish(true);
+				//}
 				e_State = ETaskState.COMPLETED;
 				m_eCopletionist = Assignee;
 				if (SCR_EntityHelper.GetPlayer() == Assignee)

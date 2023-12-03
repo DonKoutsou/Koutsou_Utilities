@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{0B9AE78BC730E361}Configs/Dilaogue_Configs/FIA_Units/Enq_Character/DialogueConfig_EnqBase_COMMANDER.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -83,10 +83,10 @@ class SP_NavigateTask: SP_Task
 				return false;
 			}
 		}
-		if (m_TaskMarker)
-		{
-			m_TaskMarker.Finish(true);
-		}
+		//if (m_TaskMarker)
+		//{
+		//	m_TaskMarker.Finish(true);
+		//}
 		e_State = ETaskState.COMPLETED;
 		m_eCopletionist = Assignee;
 		RemoveOwnerInvokers();

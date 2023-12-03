@@ -2,8 +2,7 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_DeliverTask: SP_Task
 {
-	[Attribute(defvalue: "300", desc: "Min distance for task to be valid")]
-	int m_iTargetOwnerMinDistance;
+
 	[Attribute(defvalue : "{057AEFF961B81816}prefabs/Items/Package.et")]
 	ResourceName m_pPackage;
 	//----------------------------------------------------------------------------------//
@@ -69,7 +68,7 @@ class SP_DeliverTask: SP_Task
 		
 		m_sTaskDesc = string.Format("%1 is looking for someone to deliver a package to %2. %1 is on %3, go meet him to give you more details if you are interested", OName, DName, OLoc);
 		m_sTaskTitle = string.Format("Deliver %1's package to %2.", OName, DName);
-		if (m_bHasReward && a_Rewards.Get(0))
+		if (m_bHasReward && a_Rewards.Count() > 0)
 		{
 			string s_RewardName = FilePath.StripPath(a_Rewards.Get(0).GetPrefabData().GetPrefabName());
 			s_RewardName = s_RewardName.Substring(0, s_RewardName.Length() - 3);
@@ -140,10 +139,10 @@ class SP_DeliverTask: SP_Task
 				InventoryStorageSlot parentSlot = pInvComp.GetParentSlot();
 				Assigneeinv.TryRemoveItemFromStorage(FoundPackages[0],parentSlot.GetStorage());
 				DeleteLeftovers();
-				if (m_TaskMarker)
-				{
-					m_TaskMarker.Finish(true);
-				}
+				//if (m_TaskMarker)
+				//{
+				//	m_TaskMarker.Finish(true);
+				//}
 				e_State = ETaskState.COMPLETED;
 				m_eCopletionist = Assignee;
 				if (SCR_EntityHelper.GetPlayer() == Assignee)
@@ -462,15 +461,6 @@ class SP_DeliverTask: SP_Task
 				act.SetActiveFollowing(false);
 		}
 		super.UnAssignCharacter();
-	}
-	override void InheritFromSample()
-	{
-		super.InheritFromSample();
-		SP_DeliverTask TaskSample = SP_DeliverTask.Cast(SP_RequestManagerComponent.GetTaskSample(GetClassName()));
-		if (TaskSample)
-		{
-			m_iTargetOwnerMinDistance = TaskSample.m_iTargetOwnerMinDistance;
-		}
 	}
 	//------------------------------------------------------------------------------------------------------------//
 };
