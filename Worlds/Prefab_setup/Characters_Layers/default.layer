@@ -134,6 +134,9 @@ SCR_ChimeraCharacter : "{27BF1FF235DD6036}prefabs/Characters/Factions/BLUFOR/US_
 GameEntity : "{2B29B7E1C6BD1048}prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_01_v1.et" {
  coords 115.062 1 244.792
 }
+GenericEntity : "{2F2BBFDA3A2C73D4}prefabs/Props/RadioSmall_01_black.et" {
+ coords 58.429 1 190.135
+}
 SCR_ChimeraCharacter : "{2F912ED6E399FF47}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Unarmed.et" {
  coords 165.767 1.001 252.158
  angleY -180

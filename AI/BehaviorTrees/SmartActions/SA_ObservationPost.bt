@@ -123,7 +123,7 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
             }
            }
            m_aTags {
-            "LightFire" "SwitchRadio" "SwitchLight" "DeadBody"
+            "LightFire" "SwitchLight" "DeadBody"
            }
            m_fRadius 100
           }
@@ -558,6 +558,11 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                               SCR_AITakeGadgetInLeftHand "SCR_AI Take Gadget In Left Hand" {
                                Name "SCR_AI Take Gadget In Left Hand"
                                EditorPos 1029.715 2315.697
+                               OutPorts {
+                                SingleOutputPortContainer SingleOutputPortContainerClass {
+                                 PortName "ItemOut"
+                                }
+                               }
                                m_eGadgetType BINOCULARS
                               }
                               AITaskSetVariable "Set Variable" {

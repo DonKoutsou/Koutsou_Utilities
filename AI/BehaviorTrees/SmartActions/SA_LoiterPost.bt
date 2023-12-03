@@ -113,7 +113,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
             }
            }
            m_aTags {
-            "LightFire" "SwitchRadio" "SwitchLight" "DeadBody"
+            "LightFire" "SwitchLight" "DeadBody"
            }
            m_fRadius 100
           }

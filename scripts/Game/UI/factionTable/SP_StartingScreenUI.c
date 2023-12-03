@@ -34,6 +34,10 @@ class SP_StartingScreenUI : ChimeraMenuBase
 			{
 				logic.SetLives(-1);
 			}
+			else
+			{
+				logic.SetLives(1);
+			}
 			if (!m_wSurvivalCheckbox.IsChecked())
 			{
 				logic.OnMetDissabled();
