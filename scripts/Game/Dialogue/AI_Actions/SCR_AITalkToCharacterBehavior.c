@@ -27,13 +27,12 @@ class SCR_AITalkToCharacterBehavior : SCR_AIBehaviorBase
 	// posWorld - position to observe
 	void SCR_AITalkToCharacterBehavior(SCR_AIUtilityComponent utility, SCR_AIActivityBase groupActivity, IEntity Char, bool useradio)
 	{
-		
-		
+		InitParameters(Char);
 		m_buseradio = useradio;
 		m_sBehaviorTree = "{D3CB46095A5E9CB4}AI/BehaviorTrees/FindAndTalk.bt";
 		m_bAllowLook = true; // Disable standard looking
 		m_bResetLook = true;
-		InitParameters(Char);
+		
 		if (!utility)
 			return;
 		//m_bUniqueInActionQueue = true;
@@ -72,7 +71,7 @@ class SCR_AITalkToCharacterBehavior : SCR_AIBehaviorBase
 
 class SCR_AIGetTalkParameters : SCR_AIGetActionParameters
 {
-	static ref TStringArray s_aVarsOut = (new SCR_AIConverseBehavior(null, null, null, 0)).GetPortNames();
+	static ref TStringArray s_aVarsOut = (new SCR_AITalkToCharacterBehavior(null, null, null, 0)).GetPortNames();
 	override TStringArray GetVariablesOut()
 	{
 		return s_aVarsOut;

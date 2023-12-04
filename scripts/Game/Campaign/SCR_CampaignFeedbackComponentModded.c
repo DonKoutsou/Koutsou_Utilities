@@ -47,7 +47,7 @@ modded class SCR_CampaignFeedbackComponent
 		
 		PlayerController playerController = GetGame().GetPlayerController();
 		
-		RecordBaseEnteredEvent(base, playerController.GetControlledEntity());
+		
 		if (playerController)
 		{
 			SCR_CampaignNetworkComponent campaignNetworkComponent = SCR_CampaignNetworkComponent.Cast(playerController.FindComponent(SCR_CampaignNetworkComponent));
@@ -69,11 +69,26 @@ modded class SCR_CampaignFeedbackComponent
 		}
 		SP_RequestManagerComponent Rman = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		Rman.CreateChainedBaseTask(base.GetBaseName());
-		SCR_AIGroup group = base.GetDefendersGroup();
-		if (group)
+		
+		if (!base.m_bVisited)
 		{
-			SendGuardToPlayer(group);
+				SCR_AIGroup group = base.GetDefendersGroup();
+			if (!group)
+			{
+				array <IEntity> BaseGuards = {};
+				base.GetGuards(BaseGuards);
+				if (!BaseGuards.IsEmpty())
+				{
+					group = SCR_AIGroup.Cast( ChimeraCharacter.Cast( BaseGuards.GetRandomElement() ).GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup() );
+					
+				}
+			}
+			if (group)
+			{
+				SendGuardToPlayer(group);
+			}
 		}
+		RecordBaseEnteredEvent(base, playerController.GetControlledEntity());
 		/*
 		SCR_CampaignSeizingComponent seizingComponent = SCR_CampaignSeizingComponent.Cast(m_BaseWithPlayer.GetOwner().FindComponent(SCR_CampaignSeizingComponent));
 
@@ -135,14 +150,14 @@ modded class SCR_CampaignFeedbackComponent
 	}
 	void RecordBaseEnteredEvent(SCR_CampaignMilitaryBaseComponent base, IEntity Char)
 	{
-		if (base.m_bFirstVisit)
+		if (!base.m_bVisited)
 		{
 			SCR_ChimeraCharacter ChimChar = SCR_ChimeraCharacter.Cast(Char);
 			SP_CallendarComponent Callendar = ChimChar.GetCallendar();
 			if (Callendar)
 			{
 				Callendar.RecordEvent("I arrived at " + base.GetAreaDesc());
-				base.m_bFirstVisit = false;
+				base.m_bVisited = true;
 			}
 		}
 		else
@@ -188,5 +203,6 @@ modded class SCR_CampaignFeedbackComponent
 		if (!utility)
 			return;
 		SCR_AITalkToCharacterBehavior action = new SCR_AITalkToCharacterBehavior(utility, null, playerController.GetControlledEntity(), false);
+		utility.AddAction(action);
 	}
 }

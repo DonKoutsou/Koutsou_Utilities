@@ -122,6 +122,14 @@ class SCR_AIStartDialogue: AITaskScripted
 		
 		if (!GetVariableIn(ENTITY_PORT,ent))
 			return ENodeResult.FAIL;
+		SCR_EditableEntityComponent editable = SCR_EditableEntityComponent.Cast(ent.FindComponent(SCR_EditableEntityComponent));
+		if (editable)
+		{
+			vector mat[4];
+			mat[3] = ent.GetOrigin();
+			SCR_Math3D.LookAt(ent.GetOrigin(), Chimera.GetOrigin(), vector.Up, mat);
+			editable.SetTransform(mat);
+		}
 		
 		ChimeraCharacter DChimera = ChimeraCharacter.Cast(ent);
 		MenuManager menumanager = GetGame().GetMenuManager();

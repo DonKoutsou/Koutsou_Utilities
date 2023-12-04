@@ -7,23 +7,25 @@ BehaviorTree {
    Nodes {
     Sequence Sequence {
      Name "Sequence"
-     EditorPos -59.913 74.536
+     EditorPos -57.913 74.536
      Nodes {
       SCR_AIGetTalkParameters "SCR_AI Get Talk Parameters" {
        Name "SCR_AI Get Talk Parameters"
        EditorPos -1221.714 291.143
        OutPorts {
-        SingleOutputPortContainer SingleOutputPortContainerClass {
+        SingleOutputPortContainer SingleOutputPortContainer {
          Port 2
          PortName "Entity"
         }
-        SingleOutputPortContainer SingleOutputPortContainerClass {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
          PortName "Duration"
         }
-        SingleOutputPortContainer SingleOutputPortContainerClass {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
          PortName "Radius"
         }
-        SingleOutputPortContainer SingleOutputPortContainerClass {
+        SingleOutputPortContainer SingleOutputPortContainer {
          Port 1
          PortName "UseRadio"
         }
@@ -93,11 +95,11 @@ BehaviorTree {
         }
         Parallel Parallel {
          Name "Parallel"
-         EditorPos 370 437
+         EditorPos 810 482.714
          Nodes {
           SCR_AILookAtPosition "SCR_AI Look At Position" {
            Name "SCR_AI Look At Position"
-           EditorPos 271.58 616.937
+           EditorPos 373.009 708.366
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
              Port 4
@@ -119,24 +121,55 @@ BehaviorTree {
            m_fIgnoreLookDistSq 0
            m_fPriority 80
           }
+          DecoTestDistanceToEntity "Test Distance To Entity" {
+           Name "Test Distance To Entity"
+           EditorPos 761.429 690
+           Nodes {
+            Sequence Sequence {
+             Name "Sequence"
+             EditorPos 808.286 919.286
+             Nodes {
+              SP_AITalk "SP_AI Talk" {
+               Name "SP_AI Talk"
+               EditorPos 691.429 1057.143
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "SpeakerIn"
+                }
+               }
+               m_sSoundEventName "Voice_HEY"
+               m_DialogTexttoshow "You there, stop !"
+              }
+              AITaskIdle Idle {
+               Name "Idle"
+               EditorPos 908.571 1058.572
+               Period 5000
+              }
+             }
+            }
+           }
+           InEntity 5
+           DistanceThreshold 10
+          }
           Sequence Sequence {
            Name "Sequence"
-           EditorPos 630.587 625.036
+           EditorPos 1593.444 718.132
            Nodes {
             AITaskMoveToEntity "Move To Entity" {
              Name "Move To Entity"
-             EditorPos 775.706 868.072
+             EditorPos 1224.277 926.643
              PrecisionXZ 3
              InEntity 0
             }
             AITaskIdle Idle {
              Name "Idle"
-             EditorPos 1099.619 867.226
+             EditorPos 1548.19 925.797
              Period 1
             }
             SCR_AIStartDialogue "SCR_AI Start Dialogue" {
              Name "SCR_AI Start Dialogue"
-             EditorPos 1271.429 878.572
+             EditorPos 1720 937.143
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port 3
@@ -146,8 +179,8 @@ BehaviorTree {
             }
             AITaskIdle Idle {
              Name "Idle"
-             EditorPos 1465.207 870.656
-             Period 500
+             EditorPos 1930.238 941.904
+             Period 5000
             }
            }
           }
@@ -183,7 +216,7 @@ BehaviorTree {
  VariablesRefs {
   VariableReference CharToTalk {
    VariableType 0
-   EditorPos 506.238 1064.464
+   EditorPos 1026.238 1103.035
   }
   VariableReference UseRadio {
    VariableType 1
@@ -195,11 +228,15 @@ BehaviorTree {
   }
   VariableReference CharToTalk {
    VariableType 0
-   EditorPos 990.333 1038.893
+   EditorPos 1438.904 1097.464
   }
   VariableReference posToLook {
    VariableType 2
-   EditorPos 139.602 750.27
+   EditorPos 241.031 841.699
+  }
+  VariableReference CharToTalk {
+   VariableType 0
+   EditorPos 437.143 920
   }
  }
 }
