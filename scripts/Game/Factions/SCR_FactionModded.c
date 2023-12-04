@@ -3,10 +3,7 @@ modded class SCR_Faction
 {
 	[Attribute("-1")]
 	int m_iStartingPlayerGoodwill;
-	
-	[Attribute("VOICE_AHOJ")]
-	string m_sGreetName;
-	
+
 	//Relations map
 	protected ref map<Faction, int> m_FriendlyMap;
 	//Playergoodwill
@@ -15,11 +12,7 @@ modded class SCR_Faction
 	//---------------------------------------------------------------------//
 	protected ref ScriptInvoker s_OnRelationLow = new ref ScriptInvoker();
 	protected ref ScriptInvoker s_OnRelationHigh = new ref ScriptInvoker();
-	//---------------------------------------------------------------------//
-	string GetGreetName()
-	{
-		return m_sGreetName;
-	}
+
 	ScriptInvoker OnRelationDropped()
 	{
 		return s_OnRelationLow;
