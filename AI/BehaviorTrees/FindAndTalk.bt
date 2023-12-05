@@ -29,6 +29,10 @@ BehaviorTree {
          Port 1
          PortName "UseRadio"
         }
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 6
+         PortName "AllowLook"
+        }
        }
       }
       SCR_AIGetEntityPosition "SCR_AI Get Entity Position" {
@@ -47,15 +51,20 @@ BehaviorTree {
         }
        }
       }
-      SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
-       Name "SCR_AI Set Weapon Raised"
-       EditorPos -342.734 298.215
+      SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+       Name "SCR_AI Send Order_ Movement Type"
+       EditorPos -375.286 315.643
        InPorts {
         SingleInputPortContainer SingleInputPortContainer {
          Port -1
-         PortName "Raised"
+         PortName "Receiver"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "MovementType"
         }
        }
+       m_eMovementType RUN
       }
       Selector Selector {
        Name "Selector"
@@ -67,22 +76,22 @@ BehaviorTree {
          Nodes {
           Parallel Parallel {
            Name "Parallel"
-           EditorPos -45.663 730.036
+           EditorPos -101.377 725.75
            Nodes {
             Sequence Sequence {
              Name "Sequence"
-             EditorPos -314.663 916.036
+             EditorPos -436.092 907.465
              Nodes {
               AITaskIdle Idle {
                Name "Idle"
-               EditorPos -101.663 1080.036
+               EditorPos -223.092 1071.465
                Period 500
               }
              }
             }
             SCR_AIToggleUnEquipRadioOnAbort "SCR_AI Toggle Un Equip Radio On Abort" {
              Name "SCR_AI Toggle Un Equip Radio On Abort"
-             EditorPos 80.337 1029.036
+             EditorPos -101.092 953.322
             }
            }
           }
@@ -129,9 +138,34 @@ BehaviorTree {
              Name "Sequence"
              EditorPos 808.286 919.286
              Nodes {
+              SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
+               Name "SCR_AI Send Order_ Movement Type"
+               EditorPos 289 1062.786
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Receiver"
+                }
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "MovementType"
+                }
+               }
+               m_eMovementType WALK
+              }
+              SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
+               Name "SCR_AI Set Weapon Raised"
+               EditorPos 631.552 1063.929
+               InPorts {
+                SingleInputPortContainer SingleInputPortContainer {
+                 Port -1
+                 PortName "Raised"
+                }
+               }
+              }
               SP_AITalk "SP_AI Talk" {
                Name "SP_AI Talk"
-               EditorPos 691.429 1057.143
+               EditorPos 868.572 1067.143
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port -1
@@ -143,7 +177,7 @@ BehaviorTree {
               }
               AITaskIdle Idle {
                Name "Idle"
-               EditorPos 908.571 1058.572
+               EditorPos 1085.714 1068.572
                Period 5000
               }
              }
@@ -162,18 +196,17 @@ BehaviorTree {
              PrecisionXZ 3
              InEntity 0
             }
-            AITaskIdle Idle {
-             Name "Idle"
-             EditorPos 1548.19 925.797
-             Period 1
-            }
             SCR_AIStartDialogue "SCR_AI Start Dialogue" {
              Name "SCR_AI Start Dialogue"
-             EditorPos 1720 937.143
+             EditorPos 1640 960.476
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
                Port 3
                PortName "EntityIn"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 7
+               PortName "AllowLeaveIn"
               }
              }
             }
@@ -212,11 +245,17 @@ BehaviorTree {
    VariableExposedInput 0
    VariableExposedOutput 0
   }
+  Variable AllowLeave {
+   VariableName "AllowLeave"
+   VariableTypeName "bool"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
  }
  VariablesRefs {
   VariableReference CharToTalk {
    VariableType 0
-   EditorPos 1026.238 1103.035
+   EditorPos 1023.381 1165.892
   }
   VariableReference UseRadio {
    VariableType 1
@@ -228,7 +267,7 @@ BehaviorTree {
   }
   VariableReference CharToTalk {
    VariableType 0
-   EditorPos 1438.904 1097.464
+   EditorPos 1358.904 1120.797
   }
   VariableReference posToLook {
    VariableType 2
@@ -237,6 +276,14 @@ BehaviorTree {
   VariableReference CharToTalk {
    VariableType 0
    EditorPos 437.143 920
+  }
+  VariableReference AllowLeave {
+   VariableType 3
+   EditorPos -687 941
+  }
+  VariableReference AllowLeave {
+   VariableType 3
+   EditorPos 1384.445 1220
   }
  }
 }

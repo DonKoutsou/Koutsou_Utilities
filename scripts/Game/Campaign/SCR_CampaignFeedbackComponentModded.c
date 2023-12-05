@@ -1,6 +1,6 @@
 modded class SCR_CampaignFeedbackComponent
 {
-	
+	SCR_CampaignMilitaryBaseComponent m_CurrentBase;
 	//------------------------------------------------------------------------------------------------
 	override protected void CheckPlayerInsideRadioRange()
 	{
@@ -72,15 +72,31 @@ modded class SCR_CampaignFeedbackComponent
 		
 		if (!base.m_bVisited)
 		{
-				SCR_AIGroup group = base.GetDefendersGroup();
+			SCR_AIGroup group = base.GetDefendersGroup();
 			if (!group)
 			{
+				float dist;
 				array <IEntity> BaseGuards = {};
 				base.GetGuards(BaseGuards);
-				if (!BaseGuards.IsEmpty())
+				IEntity closestguard;
+				foreach (IEntity guard : BaseGuards)
 				{
-					group = SCR_AIGroup.Cast( ChimeraCharacter.Cast( BaseGuards.GetRandomElement() ).GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup() );
-					
+					if (!dist)
+					{
+						dist = vector.Distance(playerController.GetControlledEntity().GetOrigin(), guard.GetOrigin());
+						closestguard = guard;
+					}
+					float newdist = vector.Distance(playerController.GetControlledEntity().GetOrigin(), guard.GetOrigin());
+					if (newdist < dist)
+					{
+						dist = newdist;
+						closestguard = guard;
+					}
+				}
+				
+				if (closestguard)
+				{
+					group = SCR_AIGroup.Cast( ChimeraCharacter.Cast( closestguard ).GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup() );
 				}
 			}
 			if (group)
@@ -184,7 +200,6 @@ modded class SCR_CampaignFeedbackComponent
 		PlayerController playerController = GetGame().GetPlayerController();
 		foreach (AIAgent agent : chars)
 		{
-			
 			if (!dist)
 			{
 				dist = vector.Distance(playerController.GetControlledEntity().GetOrigin(), agent.GetControlledEntity().GetOrigin());
@@ -202,7 +217,14 @@ modded class SCR_CampaignFeedbackComponent
 		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(closestguard.FindComponent(SCR_AIUtilityComponent));
 		if (!utility)
 			return;
-		SCR_AITalkToCharacterBehavior action = new SCR_AITalkToCharacterBehavior(utility, null, playerController.GetControlledEntity(), false);
+		
+		Resource holder = BaseContainerTools.LoadContainer("{957693511DBC034C}Configs/Dilaogue_Configs/Generic/Intruder_Dialogue.conf");
+		DS_DialogueArchetype arch = DS_DialogueArchetype.Cast(BaseContainerTools.CreateInstanceFromContainer(holder.GetResource().ToBaseContainer()));
+		arch.Init();
+		SCR_AITalkToCharacterBehavior action = new SCR_AITalkToCharacterBehavior(utility, null, playerController.GetControlledEntity(), false, arch);
 		utility.AddAction(action);
+
 	}
+
+	
 }

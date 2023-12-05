@@ -1,4 +1,4 @@
-modded class SCR_AISetFollowFalse : SCR_AIActionTask
+/*modded class SCR_AISetFollowFalse : SCR_AIActionTask
 {
 
 	//------------------------------------------------------------------------------------------------

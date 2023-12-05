@@ -124,3 +124,101 @@ class SP_DialogueStageCreateTaskAction : DS_BaseDialogueStageAction
 		ReqMan.CreateCustomTask(m_Task);
 	};
 };
+[BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
+class SP_DialogueStageAssignBaseWPAction : DS_BaseDialogueStageAction
+{
+	[Attribute(defvalue: "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et", UIWidgets.ResourceNamePicker, desc: "Default waypoint prefab", "et", category: "Defender Spawner")]
+	ResourceName m_sDefaultWaypointPrefab;
+	
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		vector spawnpos;
+		Resource wpRes;
+		SCR_AIWaypoint wp;
+		EntitySpawnParams params = new EntitySpawnParams();
+		params.TransformMode = ETransformMode.WORLD;
+		SCR_GameModeCampaign gamemod = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
+		SCR_CampaignMilitaryBaseManager Baseman = gamemod.GetBaseManager();
+		vector pos = Character.GetOrigin();
+		SCR_CampaignMilitaryBaseComponent base = Baseman.FindClosestBase(pos);
+		if (!base)
+			return;
+		base.GetOwner().GetTransform(params.Transform);
+		
+		wpRes = Resource.Load(m_sDefaultWaypointPrefab);
+		if (!wpRes.IsValid())
+			return;
+		wp = SCR_AIWaypoint.Cast(GetGame().SpawnEntityPrefabLocal(wpRes, null, params));
+		if (!wp)
+			return;
+		ChimeraCharacter char = ChimeraCharacter.Cast(Character);
+		
+		SCR_AIGroup group = SCR_AIGroup.Cast(char.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup());
+		
+		group.AddWaypoint(wp);
+	};
+};
+[BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
+class SP_DialogueStageStopTalkAction : DS_BaseDialogueStageAction
+{
+	
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		super.Perform(Character, Player);
+		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
+		AIAgent agent = comp.GetAIAgent();
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		SCR_AITalkToCharacterBehavior act = SCR_AITalkToCharacterBehavior.Cast(utility.FindActionOfType(SCR_AITalkToCharacterBehavior));
+		if (act)
+			act.SetActiveConversation(false);
+
+	};
+};
+class SCR_AISetConverseFalse : SCR_AIActionTask
+{
+
+	//------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		SCR_AIActionBase action = GetExecutedAction();
+		
+		if (!action)
+			return ENodeResult.FAIL;
+		SCR_AILeadCharacterOutOfBaseBehavior follow = SCR_AILeadCharacterOutOfBaseBehavior.Cast(action);
+		if (follow){follow.SetActiveConversation(false)};
+		return ENodeResult.SUCCESS;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}	
+
+	//------------------------------------------------------------------------------------------------
+	protected override string GetOnHoverDescription()
+	{
+		return "Completes action specified in input or current action";
+	}		
+
+};
+
+[BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
+class SP_DialogueStageStartEvacBehAction : DS_BaseDialogueStageAction
+{
+	
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		super.Perform(Character, Player);
+		AIControlComponent comp = AIControlComponent.Cast(Character.FindComponent(AIControlComponent));
+		AIAgent agent = comp.GetAIAgent();
+		SCR_AIUtilityComponent utility = SCR_AIUtilityComponent.Cast(agent.FindComponent(SCR_AIUtilityComponent));
+		
+		SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
+		SCR_CampaignMilitaryBaseComponent nearest = BaseMan.GetClosestBase(Character.GetOrigin());		
+		
+		SCR_AILeadCharacterOutOfBaseBehavior act = new SCR_AILeadCharacterOutOfBaseBehavior(utility, null, Player, nearest.GetOwner().GetOrigin(), nearest.GetRadius());
+		
+		utility.AddAction(act);
+	};
+};

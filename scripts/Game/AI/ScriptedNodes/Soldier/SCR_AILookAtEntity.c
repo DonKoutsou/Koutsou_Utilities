@@ -97,15 +97,20 @@ class SCR_AILookAtEntity: AITaskScripted
 };
 class SCR_AIStartDialogue: AITaskScripted
 {
+	[Attribute("Who are you ?")]
+	string m_IntroString;
 
+	private bool m_bAllowLeave = 1;
+	
 	protected static const string ENTITY_PORT = "EntityIn";
+	protected static const string ALLOWLEAVE_PORT = "AllowLeaveIn";
 	
 	//-----------------------------------------------------------------------------------------------
 	override bool VisibleInPalette() {return true;}
 	
 	//-----------------------------------------------------------------------------------------------
 	protected static ref TStringArray s_aVarsIn = {
-		ENTITY_PORT
+		ENTITY_PORT, ALLOWLEAVE_PORT
 	};
 	override array<string> GetVariablesIn()
 	{
@@ -122,6 +127,8 @@ class SCR_AIStartDialogue: AITaskScripted
 		
 		if (!GetVariableIn(ENTITY_PORT,ent))
 			return ENodeResult.FAIL;
+		GetVariableIn(ALLOWLEAVE_PORT, m_bAllowLeave);
+		
 		SCR_EditableEntityComponent editable = SCR_EditableEntityComponent.Cast(ent.FindComponent(SCR_EditableEntityComponent));
 		if (editable)
 		{
@@ -137,9 +144,24 @@ class SCR_AIStartDialogue: AITaskScripted
 		GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 		DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
 		DS_DialogueComponent DiagComp = DS_DialogueComponent.GetInstance();
-		DiagComp.IntroducitonSting(Chimera, DChimera);
+		//DiagComp.IntroductionSting(Chimera, DChimera);
+		if (m_IntroString)
+		{
+			array<BaseInfoDisplay> infoDisplays = {};
+			GetGame().GetPlayerController().GetHUDManagerComponent().GetInfoDisplays(infoDisplays);
+			foreach (BaseInfoDisplay baseInfoDisplays : infoDisplays)
+			{
+				SCR_DialogueWidget DialogueDisplay = SCR_DialogueWidget.Cast(baseInfoDisplays);
+				if (!DialogueDisplay)
+					continue;
+		
+				DialogueDisplay.SetTarget(Chimera);
+				DialogueDisplay.SetText(m_IntroString);
+				DialogueDisplay.ShowInspectCasualtyWidget(Chimera);
+			}
+		}
 		DiagUI.Init(Chimera, DChimera);
-		DiagUI.UpdateEntries(Chimera, DChimera);
+		DiagUI.UpdateEntries(Chimera, DChimera, m_bAllowLeave);
 		
 		return ENodeResult.SUCCESS;
     }

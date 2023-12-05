@@ -85,7 +85,7 @@ modded class DS_DialogueComponent
 	}
 	//function used to generate into dialogue when talking to someone. Should be able to produce multiple lines
 	//tbi
-	void IntroducitonSting(IEntity talker, IEntity Player)
+	void IntroductionSting(IEntity talker, IEntity Player)
 	{
 		string IndtroducionString;
 		while (!IndtroducionString)
@@ -570,6 +570,7 @@ modded class DS_DialogueComponent
 	}
 }
 modded class DS_DialogueAction
+
 {
 	ref map <IEntity,ref SP_Task> taskstogive = new map <IEntity,ref SP_Task>();
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
@@ -651,7 +652,7 @@ modded class DS_DialogueAction
 			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
 			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
-			DiagComp.IntroducitonSting(pOwnerEntity, pUserEntity);
+			DiagComp.IntroductionSting(pOwnerEntity, pUserEntity);
 			DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 		}
 		else
