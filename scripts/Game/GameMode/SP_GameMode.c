@@ -63,7 +63,6 @@ modded class SCR_GameModeCampaign
 			logic.DestroyLoadingPlaceholder();
 			logic.OpenStartingScreenUI();
 		}
-		
 	}
 	//------------------------------------------------------------------------------------------------
 	override protected void OnRankChanged(SCR_ECharacterRank oldRank, SCR_ECharacterRank newRank, notnull IEntity owner, bool silent)

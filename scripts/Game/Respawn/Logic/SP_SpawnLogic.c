@@ -28,7 +28,11 @@ modded class SCR_AutoSpawnLogic
 	{
 		m_iLives = amount;
 	}
-	
+	void EnablePost()
+	{
+		GetGame().GetWorld().SetCameraPostProcessEffect(0, 15, PostProcessEffectType.HDR, "{9E4227906BE39169}Common/Postprocess/HDR_Effecty.emat");
+		GetGame().GetWorld().SetCameraPostProcessEffect(0, 16, PostProcessEffectType.FilmGrain, "{0640A45321D6D9B9}Common/Postprocess/HDR_EffectyFGrain.emat");
+	}
 	//------------------------------------------------------------------------------------------------
 	override void OnInit(SCR_RespawnSystemComponent owner)
 	{

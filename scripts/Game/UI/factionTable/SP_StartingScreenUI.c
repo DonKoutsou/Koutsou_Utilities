@@ -7,6 +7,7 @@ class SP_StartingScreenUI : ChimeraMenuBase
 	protected ButtonWidget			m_wCloseButton;
 	protected CheckBoxWidget		m_wSurvivalCheckbox;
 	protected CheckBoxWidget		m_wHardcorCheckbox;
+	protected CheckBoxWidget		m_wPPCheckbox;
 	void Init()
 	{
 		ChimeraWorld world = GetGame().GetWorld();
@@ -17,6 +18,7 @@ class SP_StartingScreenUI : ChimeraMenuBase
 		m_wCloseButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("Close"));
 		m_wSurvivalCheckbox = CheckBoxWidget.Cast(m_wRoot.FindAnyWidget("Survival_CheckBox"));
 		m_wHardcorCheckbox = CheckBoxWidget.Cast(m_wRoot.FindAnyWidget("Hardcore_CheckBox"));
+		m_wPPCheckbox = CheckBoxWidget.Cast(m_wRoot.FindAnyWidget("PP_CheckBox"));
 		ScriptInvoker onPressedClose = ButtonActionComponent.GetOnAction(m_wCloseButton);
 		if (onPressedClose)
 			onPressedClose.Insert(CloseStartingScreen);
@@ -45,6 +47,10 @@ class SP_StartingScreenUI : ChimeraMenuBase
 			else
 			{
 				logic.OnMetEnabled();
+			}
+			if (m_wPPCheckbox.IsChecked())
+			{
+				logic.EnablePost();
 			}
 		}
 		

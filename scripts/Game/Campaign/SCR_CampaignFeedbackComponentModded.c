@@ -221,7 +221,7 @@ modded class SCR_CampaignFeedbackComponent
 		Resource holder = BaseContainerTools.LoadContainer("{957693511DBC034C}Configs/Dilaogue_Configs/Generic/Intruder_Dialogue.conf");
 		DS_DialogueArchetype arch = DS_DialogueArchetype.Cast(BaseContainerTools.CreateInstanceFromContainer(holder.GetResource().ToBaseContainer()));
 		arch.Init();
-		SCR_AITalkToCharacterBehavior action = new SCR_AITalkToCharacterBehavior(utility, null, playerController.GetControlledEntity(), false, arch);
+		SCR_AITalkToCharacterBehavior action = new SCR_AITalkToCharacterBehavior(utility, null, playerController.GetControlledEntity(), false, arch, false);
 		utility.AddAction(action);
 
 	}
