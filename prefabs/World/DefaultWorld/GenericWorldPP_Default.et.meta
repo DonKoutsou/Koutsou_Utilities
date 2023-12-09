@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{3AFFB0B0EC055284}Prefabs/World/DefaultWorld/GenericWorldPP_Default.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

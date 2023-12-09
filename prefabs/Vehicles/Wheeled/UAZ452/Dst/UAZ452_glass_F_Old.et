@@ -1,0 +1,15 @@
+GenericEntity : "{F59E2BD244EE6425}Prefabs/Vehicles/Wheeled/UAZ452/Dst/UAZ452_window_base.et" {
+ ID "54ACA4E7EDB33945"
+ components {
+  MeshObject "{54ACA4E7F43678F8}" {
+   Object "{402DE00C930E1EF2}Assets/Vehicles/Wheeled/UAZ452/Dst/UAZ452_glass_F.xob"
+   Materials {
+    MaterialAssignClass "{5ED1290FE4DDFEB5}" {
+     SourceMaterial "uaz452_glass_main"
+     AssignedMaterial "{E46835DFABA258B4}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_glass_old.emat"
+    }
+   }
+  }
+ }
+ coords 0 0 0
+}

@@ -1,0 +1,7 @@
+GenericWorldPPEffect {
+ ID "5F049E63068DE212"
+ coords -2.711 0.228 -8.648
+ Camera -1
+ Priority 5
+ Material "{2519F72D6E6C1DE9}UI/Materials/Editor/FilmGrain.emat"
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{AD0979B353A85F83}Assets/Props/Fabric/Flags/Data/Flag_2_3_CIV.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

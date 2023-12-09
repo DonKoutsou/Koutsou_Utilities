@@ -1,0 +1,20 @@
+GenericEntity : "{434AFBBE90F2B078}Prefabs/Sounds/Environment/AmbientSounds_Everon.et" {
+ ID "5244F08C9618FDDF"
+ components {
+  SCR_AmbientSoundsComponent "{51A2F42C82EA6A82}" {
+   Filenames + {
+    "{288CCDCEF2344AF1}Sounds/Enviroment/Environment_Ambients_SpookyFootsteps.acp"
+   }
+   m_aAmbientSoundsEffect {
+    SCR_RandomPositionalSounds "{5C5A851E0D51CBA7}" {
+     m_aRandomPositionalSoundsDef {
+      SCR_RandomPositionalSoundsDef "{5EFD54DB04036390}" {
+       m_SoundGroupResource "{D14E1235D94CE896}Configs/Sounds/Environment/Environment_SoundGroup_SpookyFootsteps.conf"
+       m_SpawnDefResource "{5563F96FC028EA7E}Configs/Sounds/Environment/Environment_SpawnDefinition_SpookyFootsteps.conf"
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{2519F72D6E6C1DE9}UI/Materials/Editor/FilmGrain.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

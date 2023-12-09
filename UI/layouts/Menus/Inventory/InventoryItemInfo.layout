@@ -1,0 +1,40 @@
+FrameWidgetClass {
+ {
+  FrameWidgetClass "{567A868A7C2AFDFE}" {
+   Prefab "{567A868A7C2AFDFE}"
+   {
+    SizeLayoutWidgetClass "{567A941671F37BCA}" {
+     Prefab "{567A941671F37BCA}"
+     {
+      FrameWidgetClass "{567A7CC1DC5CADBF}" {
+       Prefab "{567A7CC1DC5CADBF}"
+       {
+        OverlayWidgetClass "{567A7CC0657FFE31}" {
+         Prefab "{567A7CC0657FFE31}"
+         {
+          VerticalLayoutWidgetClass "{000000008568C576}" {
+           Prefab "{000000008568C576}"
+           {
+            HorizontalLayoutWidgetClass "{5A8AACE485B8303E}" {
+             Prefab "{5A8AACE485B8303E}"
+             {
+              TextWidgetClass "{0000000042F965D9}" {
+               Prefab "{0000000042F965D9}"
+               FontProperties FontProperties "{5222C61204238C11}" {
+                Font "{DBE887B44077C90E}UI/Fonts/Greek_Final.fnt"
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

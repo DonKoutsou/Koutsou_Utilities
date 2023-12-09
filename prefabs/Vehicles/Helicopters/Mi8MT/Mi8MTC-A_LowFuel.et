@@ -1,0 +1,40 @@
+Vehicle : "{DF5CCB7C0FF049F4}Prefabs/Vehicles/Helicopters/Mi8MT/Mi8MT.et" {
+ ID "5A7CEB06421662F8"
+ components {
+  MeshObject "{51DAA09FEFBFC0E7}" {
+   Materials {
+    MaterialAssignClass "{5EF920B9BC71EFCD}" {
+     SourceMaterial "Exterier_35715EB3956D22B9"
+     AssignedMaterial "{DE7AB227BC955D44}Assets/Vehicles/Helicopters/Mi8/Data/Mi8_Body_Rusted.emat"
+    }
+    MaterialAssignClass "{5EF920B9BC71EF2A}" {
+     SourceMaterial "INT01_9EB330DA3FEC4378"
+     AssignedMaterial "{7659F7B82526D0C2}Assets/Vehicles/Helicopters/Mi8/Data/Mi8_Interier_OLD.emat"
+    }
+    MaterialAssignClass "{5EF920B9BC71EF34}" {
+     SourceMaterial "INT03_9EB330DA3FEC4378"
+     AssignedMaterial "{7659F7B82526D0C2}Assets/Vehicles/Helicopters/Mi8/Data/Mi8_Interier_OLD.emat"
+    }
+   }
+  }
+  SCR_FuelConsumptionComponent "{5CCCEEA12FE59D93}" {
+   m_fFuelConsumption 100
+  }
+  SCR_FuelManagerComponent "{5622A70CD78A9E2C}" {
+   FuelNodes {
+    SCR_FuelNode "{5622A70CD4036C5A}" {
+     m_fInitialFuelTankState 10
+    }
+    SCR_FuelNode "{5A7CE769E7A9C416}" {
+     m_fInitialFuelTankState 10
+    }
+    SCR_FuelNode "{5A7CE769E7A9C414}" {
+     m_fInitialFuelTankState 10
+    }
+   }
+  }
+  SCR_VehicleDamageManagerComponent "{141326E9FD94FE40}" {
+   m_fVehicleDestroyDamage 1429.29
+  }
+ }
+}

@@ -1,0 +1,11 @@
+MatPBRBasicGlass {
+ Color 0.429 0.339 0.186 1
+ AlphaMul 5
+ AllowUserAlphaBias 1
+ RoughnessScale 2.489
+ BCRMap "{5E401178D0CA1DF9}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_glass_main_BCR.edds"
+ OpacityMap "{7E90AB118DFA3885}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_glass_main_A.edds"
+ FresnelPower 0.286
+ FresnelBias 0.021
+ ChromaticIntensity 0.16
+}

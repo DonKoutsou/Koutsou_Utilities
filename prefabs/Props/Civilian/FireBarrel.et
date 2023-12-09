@@ -1,0 +1,47 @@
+GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  BaseSlotComponent "{5876E7F5E53CC9CC}" {
+   AttachType EntitySlotInfo fireplace {
+    Offset 0 0.9789 0
+   }
+  }
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{D73D5FE0EEFBCD9B}Assets/Props/Industrial/BarrelMetal_01/BarrelMetal_01.xob"
+  }
+  SCR_AISmartActionSentinelComponent "{5B1EF59F9C8CE0B9}" {
+   Enabled 1
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ObservationPost"
+   }
+  }
+  SCR_AISmartActionSentinelComponent "{5D68B95625C1144A}" {
+   Enabled 1
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ObservationPost"
+   }
+   m_iCharacterStance STAND
+  }
+  SCR_AISmartActionSentinelComponent "{5E14E6EFA5C5144C}" {
+   Enabled 1
+   AIBehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost.bt"
+   Tags {
+    "ObservationPost"
+   }
+  }
+  SCR_FireplaceComponent "{5876E7F288BF5C8E}" {
+   m_vParticleOffset 0 0.979 0
+  }
+  ActionsManagerComponent "{5876E7F5CCE95371}" {
+   ActionContexts {
+    UserActionContext "{5876E7F2C05CD349}" {
+     Position PointInfo "{5876E7F225A1B9C4}" {
+      Offset 0 1.0478 0
+     }
+    }
+   }
+  }
+ }
+}

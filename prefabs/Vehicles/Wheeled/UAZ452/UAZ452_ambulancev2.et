@@ -1,0 +1,150 @@
+Vehicle : "{1247D68D2A76907D}Prefabs/Vehicles/Wheeled/UAZ452/UAZ452_ambulance_base.et" {
+ ID "BBCBA43A9778AE21"
+ components {
+  SCR_VehicleSoundComponent "{55C2E66AD4EF2CA6}" {
+   m_aSignalDefinition {
+    SCR_SignalDefinition "{5AD4F813E67ECBB2}" {
+     m_aSignalPointDefinition {
+      SCR_SignalPointDefinition "{5AD4F813E67ECBB0}" {
+       m_fValueMin 0.2
+       m_fValueMax 0.2
+      }
+     }
+    }
+   }
+  }
+  BaseVehicleNodeComponent "{20FB66C5B2237133}" {
+   components {
+    SCR_CarControllerComponent_SA "{20FB66C5BC92275B}" {
+     MaxStartupTime 2
+     ThrottleCurve {
+      6000 0.8 7000 0.5 8000 0
+     }
+     ThrottleReactionTime 5
+     ThrottleTurboTime 3
+     ThrottleTurbo 0.05
+     ClutchUncoupleRpm 300
+     ClutchCoupleRpm 300
+     UpShiftRpm 3000
+     DownShiftRpm 900
+    }
+   }
+  }
+  MeshObject "{51DAA09FEFBFC0E7}" {
+   Materials {
+    MaterialAssignClass "{5ED1290A7673AE83}" {
+     SourceMaterial "uaz452_body"
+     AssignedMaterial "{14B167C941CDE996}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_body_Old.emat"
+    }
+    MaterialAssignClass "{5ED1290A7673AEBE}" {
+     SourceMaterial "uaz452_glass_interior"
+     AssignedMaterial "{8753365E6EA6AEF0}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_glass_interior_2.emat"
+    }
+    MaterialAssignClass "{5ED1290A7673AEC3}" {
+     SourceMaterial "uaz452_interior_1"
+     AssignedMaterial "{4C0F37B631C033E9}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_interior_12.emat"
+    }
+    MaterialAssignClass "{5ED1290A7673AED0}" {
+     SourceMaterial "uaz452_interior_2"
+     AssignedMaterial "{617EAED04A550EEB}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_interior_22.emat"
+    }
+   }
+  }
+  SCR_EditableVehicleComponent "{50DEB7C26B5EB312}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{5298E609432D192D}" {
+    m_aAuthoredLabels {
+     3 24 200 36
+    }
+   }
+  }
+  SCR_HealSupportStationComponent "{5E1CF921BF2BA164}" : "{76E859B22B372797}Prefabs/Components/SupportStations/Heal/HealSupportStation_Vehicle.ct" {
+   m_fRange 7
+   m_vOffset 0 0 0
+  }
+  SCR_LoadCasualtySupportStationComponent "{5ED12906222CD1D3}" {
+   m_bIsVehicle 1
+   m_bSendNotificationOnUse 0
+   m_eSupportStationPriority MEDIUM
+   m_fRange 7
+   m_bUseSupplies 0
+   m_vOffset 0 0 0
+   m_eFactionUsageCheck 3
+   m_sOverrideUserActionName "#AR-UserAction_LoadCasualtyInAmbulance"
+  }
+  SCR_MotorExhaustEffectGeneralComponent "{55A093A30AC3B39B}" {
+   MaxRPM 3000
+  }
+  SCR_UniversalInventoryStorageComponent "{5D7E924E84B181BC}" {
+   MultiSlots {
+    MultiSlotConfiguration "{5D7EA3CA68FB9515}" {
+     NumSlots 0
+    }
+   }
+  }
+  SCR_VehicleFactionAffiliationComponent "{5882CBD9AC741CEC}" {
+   "faction affiliation" "USSR"
+  }
+  SlotManagerComponent "{55BCE45E438E4CFF}" {
+   Slots {
+    RegisteringComponentSlotInfo window_front {
+     Prefab "{D944901AF74C71B0}prefabs/Vehicles/Wheeled/UAZ452/Dst/UAZ452_glass_F_Old.et"
+    }
+    RegisteringComponentSlotInfo Arsenal {
+     PivotID "v_body"
+     Prefab "{65F17676960CBF58}Prefabs/Vehicles/Core/VirtualSlots/Ambulance_VirtualArsenalSlot.et"
+     DisablePhysicsInteraction 1
+    }
+   }
+  }
+  SCR_ResourceComponent "{5D83561B5E01449A}" {
+   Enabled 1
+   m_aContainers {
+    SCR_ResourceContainer "{5D83561B5DCF4DE6}" {
+     m_fResourceValueCurrent 0
+     m_fResourceValueMax 0
+    }
+   }
+   m_aEncapsulators {
+    SCR_ResourceEncapsulator "{5DAD42B3CC9612DF}" {
+     m_aActions {
+      SCR_ResourceEncapsulatorActionChangeResourceValue "{5DDCCC77DBBCDA33}" {
+       m_fResourceValueCurrent 40
+      }
+     }
+    }
+   }
+   m_aConsumers {
+    SCR_ResourceConsumer "{5E4CE423033621D0}" : "{2AAF7114BB83B5E8}Configs/Resources/Supplies/Consumers/Generic/Consumer_Vehicle.conf" {
+    }
+   }
+  }
+ }
+ coords 1171.914 51 1355.88
+ {
+  GenericEntity {
+   ID "5ED12906222CD1C2"
+   components {
+    SCR_EditableEntityVehicleCompartmentVisibilityChildComponent "{5ED12906222CD133}" {
+     m_State 96
+    }
+    SCR_EditableEntityVisibilityChildComponent "{5ED12906222CE499}" {
+     Enabled 0
+     m_State 96
+    }
+    SCR_SupportStationAreaMeshComponent "{5ED12906222CE49B}" {
+     m_vResolution 48
+     m_bStretchMaterial 1
+     m_Material "{0A8FAD171DB3DC49}Assets/Editor/VirtualArea/VirtualArea_01_Focused.emat"
+     m_bHideInWorkbench 1
+     m_eSearchForType HEAL
+     m_fRadius 7
+    }
+    RplComponent "{5ED12906222CE49A}" {
+    }
+    Hierarchy "{5ED12906222CE49C}" {
+    }
+   }
+   angleY -90
+  }
+ }
+}

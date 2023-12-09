@@ -1,0 +1,4 @@
+FilmGrainEffect {
+ Intensity 0.02
+ GrainSize 1.027
+}

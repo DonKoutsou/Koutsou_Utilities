@@ -1,0 +1,6 @@
+FilmGrainEffect : "{BDA53BA7A7769B6D}UI/Materials/Editor/WorldWarI/FilmGrainWorldWarI.emat" {
+ Intensity 0.268
+ Sharpness 0.709
+ GrainSize 2.323
+ Frequency 1
+}

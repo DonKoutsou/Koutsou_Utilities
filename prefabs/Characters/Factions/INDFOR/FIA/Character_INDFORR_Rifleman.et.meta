@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{3C4CA7770289B2A4}Prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Rifleman.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

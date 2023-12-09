@@ -1,0 +1,12 @@
+SCR_ChimeraCharacter : "{FF81009E58504416}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_base.et" {
+ ID "520EC961A090B1EE"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5E870DC3BC1F3ADE}" {
+     TargetStorage "prefabs/Items/Equipment/Backpacks/Backpack_RPG_Gunner.et"
+    }
+   }
+  }
+ }
+}

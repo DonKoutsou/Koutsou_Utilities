@@ -4,8 +4,7 @@ modded class SCR_Faction
 	[Attribute("-1")]
 	int m_iStartingPlayerGoodwill;
 
-	[Attribute(defvalue:"{A3EEC94B793273B8}prefabs/Items/EntryPapers/EntryPapers_Base.et")]
-	ResourceName m_FactionPapersPrefab;
+	
 	//Relations map
 	protected ref map<Faction, int> m_FriendlyMap;
 	//Playergoodwill

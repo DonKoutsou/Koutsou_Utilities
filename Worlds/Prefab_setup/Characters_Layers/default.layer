@@ -24,6 +24,18 @@ $grp GenericEntity {
  {
   coords 136.924 1 249.208
  }
+ {
+  coords 56.878 1 191.332
+ }
+ {
+  coords 57.198 1 191.223
+ }
+ {
+  coords 56.998 1 191.819
+ }
+ {
+  coords 57.3 1 191.773
+ }
 }
 GenericEntity : "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et" {
  coords 123.827 1.167 246.79
@@ -46,9 +58,6 @@ GenericEntity : "{0CF54B9A85D8E0D4}Prefabs/Items/Equipment/Binoculars/Binoculars
 SCR_ChimeraCharacter : "{0F6689B491641155}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Sniper.et" {
  coords 160.635 1.001 253.393
  angleY -180
-}
-GenericEntity : "{0F7F768D6A8CCE4D}prefabs/Items/EntryPapers/EntryPapers_USSR.et" {
- coords 56.878 1 191.332
 }
 $grp FoodEntity : "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et" {
  {
@@ -104,11 +113,11 @@ SCR_ChimeraCharacter : "{1CA3D30464EE4674}prefabs/Characters/Factions/BLUFOR/US_
 GenericEntity : "{1F816D1D2CF505B8}prefabs/Characters/Vests/Vest_6B2/Vest_6B2_base.et" {
  coords 126.011 1 245.359
 }
+GenericEntity : "{21A39238663B7390}prefabs/Items/EntryPapers/Entry_Papers_USSR.et" {
+ coords 57.373 1 190.301
+}
 GameEntity : "{22963D69CA50EB9E}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_net.et" {
  coords 114.415 1 245.316
-}
-GenericEntity : "{23041BDCC9F498A4}prefabs/Items/EntryPapers/EntryPapers_Base.et" {
- coords 57.198 1 191.223
 }
 GenericEntity : "{2366EF898F87916B}prefabs/Items/Misc/IntelligenceFolder_E_01/Letter.et" {
  coords 125.534 1.001 245.723
@@ -366,6 +375,9 @@ SCR_ChimeraCharacter : "{5436629450D8387A}prefabs/Characters/Factions/OPFOR/USSR
 GameEntity : "{553B71F713C10ACF}prefabs/Characters/Uniforms/Hat_M88_Winter_Ushanka.et" {
  coords 144.515 1.001 253.236
 }
+GenericEntity : "{562EDFDEAF37FA4F}prefabs/Items/EntryPapers/Entry_Papers_US.et" {
+ coords 57.127 1 190.422
+}
 GenericEntity : "{573038AEF0FFA53D}prefabs/Structures/Military/Flags/FlagPole_02/FlagPole_02_SPEIRA.et" {
  coords 90.457 1.001 244.289
 }
@@ -516,6 +528,9 @@ $grp GenericEntity : "{92897DAEE45937D9}prefabs/Items/Equipment/Kits/MedicalKit_
 GenericEntity : "{9713FE6DDCC9510D}prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et" {
  coords 126.972 1 245.243
 }
+GenericEntity : "{98DD1D36C5B67A1C}prefabs/Items/EntryPapers/Entry_Papers_Base.et" {
+ coords 57.445 1 190.619
+}
 Vehicle Mi8MTC_A_LowFuel1 : "{99F19672B763CF11}prefabs/Vehicles/Helicopters/Mi8MT/Mi8MTC-A_LowFuel.et" {
  coords 76.541 1 235.135
 }
@@ -524,9 +539,6 @@ GenericEntity : "{9F0C54A3740F7FC9}Prefabs/Props/Military/SupplyBox/SupplyPortab
 }
 GameEntity : "{9F546CCA2582D16F}prefabs/Characters/Uniforms/Jacket_M88.et" {
  coords 115.709 1 244.636
-}
-GenericEntity : "{A3EEC94B793273B9}prefabs/Items/EntryPapers/EntryPapers_US.et" {
- coords 56.998 1 191.819
 }
 GameEntity : "{A7E6D7ECD5F684D7}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et" {
  coords 115.709 1 244.033
@@ -551,9 +563,6 @@ GameEntity : "{B02281435AED8274}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_0
 }
 GameEntity : "{B137B7CE988557D2}prefabs/Characters/Uniforms/Suit_Pilot_US_01/Suit_Pilot_US_01.et" {
  coords 114.173 1 242.333
-}
-GenericEntity : "{B1D08D33801185F0}prefabs/Items/EntryPapers/EntryPapers_FIA.et" {
- coords 57.3 1 191.773
 }
 GameEntity : "{B54B78383E64268F}prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_01_v2.et" {
  coords 115.399 1 244.119
@@ -697,6 +706,9 @@ $grp GenericEntity : "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et" {
 }
 SCR_ChimeraCharacter : "{FB56F4745760A036}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MG_.et" {
  coords 137.083 1 251.495
+}
+GenericEntity : "{FCBDF19E044C736F}prefabs/Items/EntryPapers/Entry_Papers_FIA.et" {
+ coords 56.977 1 190.783
 }
 GameEntity : "{FE5C49069C2499D9}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover.et" {
  coords 113.95 1 244.27

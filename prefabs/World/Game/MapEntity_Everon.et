@@ -1,0 +1,5 @@
+SCR_MapEntity : "{731564B66F91B107}Prefabs/World/Game/MapEntity.et" {
+ ID "5255036BAB847859"
+ "Map Geometry Data" ""
+ "Satellite background image" "{90F027BE7A2616C0}Assets/Items/Everon_real.edds"
+}

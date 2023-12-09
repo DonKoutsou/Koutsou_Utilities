@@ -1,0 +1,34 @@
+GenericEntity : "{FBEF0DDE64A1B1A0}Prefabs/Compositions/Slotted/SubComposition.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  SCR_DestructionMultiPhaseComponent "{5D9B05DCAB2C9D93}" {
+   Enabled 0
+   "Additional hit zones" {
+    HitZone Default {
+     HZDefault 1
+    }
+   }
+   m_eMaterialSoundType BREAK_TENT
+  }
+  Hierarchy "{5EBF35320C5DA60D}" {
+  }
+ }
+ coords 0 0 0
+ {
+  GenericEntity : "{57B4984773FCAFB1}Prefabs/Props/Military/Compositions/FIA/BuildingService_FIA.et" {
+   ID "5EBF35320C5DD9D1"
+   components {
+    Hierarchy "{5EBF35320C5DA61B}" {
+     Enabled 1
+    }
+   }
+   coords 0.822 0.174 2.178
+   angleY 0.081
+  }
+  GenericEntity : "{EFA7233213E77C2E}Prefabs/Systems/SpawnPoints/SpawnPosition.et" {
+   ID "5EBF35320C5DD9FA"
+   coords 6.754 0.189 3.484
+   angleY 14.235
+  }
+ }
+}

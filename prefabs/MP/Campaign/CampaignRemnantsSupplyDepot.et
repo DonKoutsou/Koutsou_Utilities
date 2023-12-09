@@ -1,0 +1,8 @@
+GenericEntity {
+ ID "59F288D5E598C42B"
+ components {
+  SCR_MapDescriptorComponent "{59F288D5B5D9C274}" {
+   VisibleOnMap 0
+  }
+ }
+}

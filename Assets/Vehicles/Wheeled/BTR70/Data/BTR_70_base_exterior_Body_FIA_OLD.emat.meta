@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{847FFD8529708E97}Assets/Vehicles/Wheeled/BTR70/Data/BTR_70_base_exterior_Body_FIA_OLD.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

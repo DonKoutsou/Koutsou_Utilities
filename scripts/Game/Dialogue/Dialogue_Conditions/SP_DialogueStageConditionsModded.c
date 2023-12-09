@@ -64,7 +64,7 @@ class DS_DialogueStageFactionPapersItemCheckActionCondition : DS_BaseDialogueSta
 			return false;
 		
 		FactionAffiliationComponent FactAff = FactionAffiliationComponent.Cast(Character.FindComponent(FactionAffiliationComponent));
-		SCR_Faction fact = SCR_Faction.Cast(FactAff.GetAffiliatedFaction());
+		SCR_CampaignFaction fact = SCR_CampaignFaction.Cast(FactAff.GetAffiliatedFaction());
 		ResourceName WantedItem = fact.m_FactionPapersPrefab;
 		
 		DS_PrefabResource_Predicate pred = new DS_PrefabResource_Predicate(WantedItem);

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{25F610FE77DE1AD6}Prefabs/AI/Groups/INDFORReimagined_AT_Team.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{0AF4DF41BF14B65D}prefabs/Compositions/Misc/SubCompositions/Tents/Tent_CommandPost_SS_FIA_01.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

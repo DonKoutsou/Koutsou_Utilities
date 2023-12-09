@@ -1,0 +1,197 @@
+FrameWidgetClass {
+ Name "LoadingScreen"
+ Slot FrameWidgetSlot "{5866A9C3B09405BE}" {
+  Anchor 0 0 1 1
+  PositionX 0
+  OffsetLeft 0
+  PositionY 0
+  OffsetTop 0
+  SizeX -1820
+  OffsetRight 0
+  SizeY -1050
+  OffsetBottom 0
+ }
+ "Z Order" 100000
+ Clipping True
+ {
+  ImageWidgetClass "{5EF6AA111BD9524D}" {
+   Name "BlackBackground"
+   Slot FrameWidgetSlot "{5846E423C2DC1131}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    PositionY 0
+    OffsetTop 0
+    SizeX -1820
+    OffsetRight 0
+    SizeY -1050
+    OffsetBottom 0
+   }
+   Color 0 0 0 1
+  }
+  FrameWidgetClass "{5EF6AA111BD9524C}" {
+   Name "Root"
+   Slot FrameWidgetSlot "{5874BDFB3137CACF}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 1920
+    OffsetRight -1920
+    SizeY 1080
+    OffsetBottom -1080
+    Alignment 0.5 0.5
+   }
+   Clipping True
+   "Inherit Color" 1
+   {
+    ImageWidgetClass "{5EF6AA111BD95252}" {
+     Name "Map"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 3840
+      OffsetRight -3840
+      SizeY 2160
+      OffsetBottom -2160
+      Alignment 0.5 0.5
+     }
+     Texture "{B98FB2CD75200E57}UI/Textures/MainMenu/MenuBackgroundBlank_UI.edds"
+     Image ""
+     Size 3840 2160
+    }
+    ImageWidgetClass "{5EF6AA111BD95251}" {
+     Name "BILogo"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 480
+      OffsetRight -480
+      SizeY 188
+      OffsetBottom -188
+      Alignment 0.5 0.5
+     }
+     "Is Visible" 0
+     Texture "{574F05441F5E50D6}UI/Textures/Logos/BohemiaLogoSmall_UI.edds"
+     Image ""
+     Size 480 188
+    }
+    ImageWidgetClass "{5EF6AA111BD95250}" {
+     Name "GameLogo"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 448
+      OffsetRight -448
+      SizeY 172
+      OffsetBottom -172
+      Alignment 0.5 0.5
+      SizeToContent 1
+     }
+     "Is Visible" 0
+     Texture "{7EB5D78D3C2827F4}UI/Textures/Logos/ARMA_source_reforger_white_small.edds"
+     Image ""
+     Size 510 150
+    }
+    ImageWidgetClass "{5EF6AA111BD95257}" {
+     Name "Dust1"
+     Slot FrameWidgetSlot "{5866A9ED5D51A617}" {
+      Anchor 1 0.5 1 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 10000
+      OffsetRight -10000
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 1 0.5
+     }
+     Texture "{D2094E180030DF4A}UI/Textures/SplashScreen/LogoReveal/MainMenuTextureDust2x_UI.edds"
+     Image ""
+     Size 1920 1080
+     Tiling Wrap
+     "Flip Horizontally" 1
+     "Flip Vertically" 1
+    }
+    ImageWidgetClass "{5EF6AA111BD95256}" {
+     Name "Dust2"
+     Slot FrameWidgetSlot "{5866A9ED5D51A595}" {
+      Anchor 1 0.5 1 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 10000
+      OffsetRight -10000
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 1 0.5
+     }
+     Texture "{D2094E180030DF4A}UI/Textures/SplashScreen/LogoReveal/MainMenuTextureDust2x_UI.edds"
+     Image ""
+     Size 1920 1080
+     Tiling Wrap
+    }
+    ImageWidgetClass "{5EF6AA111BD95255}" {
+     Name "Overlay"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 1920
+      OffsetRight -1920
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 0.5 0.5
+     }
+     Color 0 0 0 1
+     Texture "{A133D928E08FC206}UI/Textures/SplashScreen/LogoReveal/GradientOverlay_UI.edds"
+     Image ""
+     Size 1920 1080
+    }
+    ImageWidgetClass "{5EF6AA111BD95254}" {
+     Name "Overlay0"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 1920
+      OffsetRight -1920
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 0.5 0.5
+     }
+     Color 0 0 0 0.98
+     Image ""
+     Size 3840 2160
+     Mask "{4825491ACD202C43}UI/Textures/ScreenEffects/Suppression/suppressionVignette_alphaMask200.edds"
+     "Transition width" 1
+     Progress 0.55
+    }
+    ImageWidgetClass "{5EF6AA111BD9525B}" {
+     Name "FadeImage"
+     Slot FrameWidgetSlot "{5846E423C2DC1131}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -1820
+      OffsetRight 0
+      SizeY -1050
+      OffsetBottom 0
+     }
+     Opacity 0.35
+     Color 0 0 0 1
+    }
+   }
+  }
+ }
+}

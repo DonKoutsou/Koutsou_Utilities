@@ -1,0 +1,11 @@
+GenericEntity {
+ ID "5ED30435F023FF97"
+ components {
+  MeshObject "{5ED30435F023FF9E}" {
+   Object "{3B40FDE5F54C7D52}Assets/Props/Civilian/Fireplace_01/Fireplace_EMdecal_01.xob"
+  }
+  Hierarchy "{5ED30435F023FFE8}" {
+  }
+ }
+ coords 3119.789 15.569 2724.353
+}

@@ -1,0 +1,8 @@
+MatPBRBasic {
+ AlphaMul 0.329
+ BlendMode AlphaBlend
+ AOScale 1.027
+ BCRMap "{C9D37BE3909B148A}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_lights_BCR.edds"
+ OpacityMap "{ADF4E395E8D37051}Assets/Vehicles/Ambulance_CrossOut.edds"
+ NMOMap "{F10BC07149EC4614}Assets/Vehicles/Wheeled/UAZ452/Data/uaz452_lights_NMO.edds"
+}

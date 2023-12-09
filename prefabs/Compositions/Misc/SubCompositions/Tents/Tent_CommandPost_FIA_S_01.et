@@ -1,0 +1,111 @@
+GenericEntity : "{FBEF0DDE64A1B1A0}Prefabs/Compositions/Slotted/SubComposition.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  SCR_DestructionMultiPhaseComponent "{5D9B05DCAB2C9D93}" {
+   Enabled 0
+   "Additional hit zones" {
+    HitZone Default {
+     HZDefault 1
+    }
+   }
+   m_eMaterialSoundType BREAK_TENT
+  }
+  Hierarchy "{5EBF353FB7D45434}" {
+  }
+ }
+ coords 0 0 0
+ {
+  $grp StaticModelEntity : "{172DD50ACF177B9E}Prefabs/Props/Military/Furniture/ChairMilitary_USSR_01.et" {
+   {
+    ID "5EBF353FB7D455E0"
+    components {
+     Hierarchy "{5EBF353FB7D45421}" {
+      Enabled 1
+     }
+    }
+    coords -2.032 0.174 -2.02
+    angleY 44.267
+   }
+   {
+    ID "5EBF353FB7D4C900"
+    components {
+     Hierarchy "{5EBF353FB7D4542C}" {
+      Enabled 1
+     }
+    }
+    coords -0.111 0.18 0.664
+    angleY -174.159
+   }
+   {
+    ID "5EBF353FB7D4C901"
+    components {
+     Hierarchy "{5EBF353FB7D45422}" {
+      Enabled 1
+     }
+    }
+    coords -2.748 0.368 -1.62
+    angleX -89.972
+    angleY 59.53
+   }
+  }
+  StaticModelEntity : "{1ED8F6D056701E7E}Prefabs/Compositions/Misc/SubCompositions/Furniture/Table_RadioStation_FIA_01.et" {
+   ID "5EBF353FB7D4541F"
+   components {
+    Hierarchy "{5EBF353FB7D45420}" {
+    }
+   }
+   coords -0.343 0.177 -2.372
+   angleY -2.493
+  }
+  StaticModelEntity : "{3FBCCB3371A2F77B}Prefabs/Compositions/Misc/SubCompositions/Furniture/Table_Typewriter_USSR_01.et" {
+   ID "5EBF353FB7D45413"
+   coords -0.122 0.18 0.458
+   angleY -3.554
+  }
+  GenericEntity : "{57B4984773FCAFB1}Prefabs/Props/Military/Compositions/FIA/BuildingService_FIA.et" {
+   ID "5EBF353FB7D45410"
+   components {
+    Hierarchy "{5EBF353FB7D4545B}" {
+     Enabled 1
+    }
+   }
+   coords 2.014 0.174 -2.078
+   angleY -25.517
+  }
+  StaticModelEntity : "{5AC8AEF1B8F230AD}Prefabs/Compositions/Misc/SubCompositions/Furniture/Table_Food_USSR_02.et" {
+   ID "5EBF353FB7D45415"
+   coords -2.115 0.174 -2.304
+   angleY 13.597
+  }
+  StaticModelEntity : "{7C3EFFFA50FEA60C}Prefabs/Compositions/Misc/SubCompositions/Furniture/Cabinet_Stack_USSR_01.et" {
+   ID "5EBF353FB7D4540A"
+   coords 0.819 0.168 -2.491
+   angleY -2.493
+  }
+  StaticModelEntity : "{830C68F808E00B67}Prefabs/Compositions/Misc/SubCompositions/Furniture/Table_Desk_USSR_04.et" {
+   ID "5EBF353FB7D45408"
+   coords 2.31 0.187 2.008
+   angleY -105.427
+  }
+  GenericEntity : "{9641BF196556466E}Prefabs/Compositions/Misc/SubCompositions/Decorations/CardboardBox_Ashtray_01.et" {
+   ID "5EBF353FB7D45403"
+   coords 2.429 0.161 1.644
+   angleY -94.79
+  }
+  GenericEntity : "{C76C3AF337109066}Prefabs/Props/Crates/CardboardBoxStack_01.et" {
+   ID "5EBF353FB7D45406"
+   components {
+    Hierarchy "{5EBF353FB7D45458}" {
+     Enabled 1
+    }
+   }
+   coords -2.402 0.161 2.436
+   angleY 26.516
+  }
+  GenericEntity : "{EFA7233213E77C2E}Prefabs/Systems/SpawnPoints/SpawnPosition.et" {
+   ID "5EBF353FB7D4543A"
+   coords -1.977 0.189 -0.652
+   angleY 14.235
+  }
+ }
+}

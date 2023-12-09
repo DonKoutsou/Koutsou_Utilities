@@ -1,0 +1,7 @@
+TimeAndWeatherManagerEntity {
+ ID "5244F08C9618CADD"
+ "Month of the Year" 3
+ "Day of the Month" 3
+ m_fDayTemp 12
+ m_fNightTemp 6
+}

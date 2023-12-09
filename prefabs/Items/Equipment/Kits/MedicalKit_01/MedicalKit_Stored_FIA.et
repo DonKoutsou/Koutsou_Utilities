@@ -1,0 +1,95 @@
+GenericEntity : "{9132672C4D9B2102}prefabs/Items/Equipment/Kits/MedicalKit_01/MedicalKit_01_FIA.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  MeshObject "{5CCCD4F57413F626}" {
+   Materials {
+    MaterialAssignClass "{5CDC36415A0FC9F5}" {
+     SourceMaterial "MedicalKit_01"
+     AssignedMaterial "{E81F01ED56043780}Assets/Items/Equipment/Kits/MedicalKit_01/Data/MedicalKit_01_FIA.emat"
+    }
+   }
+  }
+  SCR_FactionAffiliationComponent "{5E3CBEE8057882D8}" {
+   "faction affiliation" "FIA"
+  }
+  SCR_UniversalInventoryStorageComponent "{5E4E8A7876A50FDC}" {
+   Attributes SCR_ItemAttributeCollection "{5E4E8A78F11700F6}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
+     m_aItemHints {
+      SCR_SupplyAvailableItemHintUIInfo "{5E729C2B67959895}" {
+      }
+     }
+    }
+    m_SlotType SLOT_ANY
+   }
+  }
+  SCR_ResourceComponent "{5E4A957708B43723}" {
+   m_aContainers {
+    SCR_ResourceContainer "{5ED8F16A29B8A8BC}" {
+     m_sDebugName "Gadget - Container"
+     m_eResourceRights SELF
+     m_eStorageType STORED
+     m_fResourceValueCurrent 15
+     m_fResourceValueMax 15
+    }
+   }
+   m_aConsumers {
+    SCR_ResourceConsumer "{5E4EDEA541710E5E}" {
+     m_eResourceRights SELF
+     m_eGeneratorIdentifier DEFAULT_STORAGE
+     m_fResourceRange 7
+     m_ContainerQueue SCR_ResourceConsumerContainerQueue "{5E5CC2454761EE66}" {
+      m_StoragePolicies {
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171BC14515}" {
+        m_eStorageType STORED
+       }
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171D409C1B}" {
+        m_eStorageType STORED
+       }
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171DE70A78}" {
+        m_eStorageType STORED
+       }
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171E1DD317}" {
+        m_eStorageType STORED
+       }
+      }
+     }
+    }
+    SCR_ResourceConsumer "{5F0744947428DB69}" {
+     m_eResourceRights SELF
+     m_eGeneratorIdentifier DEFAULT
+     m_fResourceRange 7
+     m_ContainerQueue SCR_ResourceConsumerContainerQueue "{5F07449479E03DFB}" {
+      m_StoragePolicies {
+       SCR_ResourceConsumerStoragePolicy "{5F07449478AD4D8C}" {
+        m_StorageQueue SCR_ResourceConsumerContainerStorageQueueExtended "{5F0744947A230B9A}" {
+        }
+        m_eStorageType STORED
+       }
+      }
+     }
+    }
+   }
+   m_aGenerators {
+    SCR_ResourceGenerator "{5EFB0337F1347494}" {
+     m_eResourceRights ALL
+     m_eIdentifier DEFAULT_STORAGE
+     m_ContainerQueue SCR_ResourceGeneratorContainerQueue "{5EFB0337F5207C7E}" {
+      m_StoragePolicies {
+       SCR_ResourceGeneratorStoragePolicy "{5EFB0337F7676E8C}" {
+        m_StorageQueue SCR_ResourceGeneratorContainerStorageQueueExtended "{5EFB0337F6C8C95F}" {
+        }
+        m_eStorageType STORED
+       }
+      }
+     }
+     m_aActions {
+      SCR_ResourceGeneratorActionStore "{5EFB0337E8489B91}" {
+      }
+     }
+    }
+   }
+  }
+ }
+ coords 2738.328 11.267 3990.744
+}

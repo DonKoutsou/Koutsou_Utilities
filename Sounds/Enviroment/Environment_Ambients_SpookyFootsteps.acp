@@ -1,0 +1,209 @@
+AudioClass {
+ sounds {
+  SoundClass {
+   id 4105
+   name "SOUND_SPOOKY_FOOTSTEPS"
+   version 0
+   tl 594.545 409.091
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 5138
+       port 65
+      }
+     }
+    }
+   }
+   outState 6155
+   outStatePort 282631
+   static 1
+  }
+ }
+ mixers {
+  MixerClass {
+   id 6155
+   name "OutputState 6"
+   version 4
+   tl 819.091 405.455
+   res "{B764D803219C775E}Sounds/FinalMix.afm"
+   ins {
+    ConnectionsClass connections {
+     id 282631
+     links {
+      ConnectionClass connection {
+       id 4105
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    268435456
+   }
+   path "{B764D803219C775E}Sounds/FinalMix.afm"
+   inputs {
+    "ANM_Footsteps" "ANM_Voice" "WPN_Handling" "WPN_Shots" "WPN_Explosions" "WNP_BulletHits" "CHAR" "ENV_AMB_2D" "VEH_Animations" "Impacts" "Dialogue" "Music" "ENV_Doors" "VEH_Engine" "VEH_Tires" "VON" "SFX" "SFX_Reverb" "VON_Reverb" "Dialogue_Reverb" "Impacts_EXT" "ENV_AMB_3D" "WPN_SonicCracks" "CHAR_Gear" "PA" "SFX_Reverb_Exterior" "UI" "ENV_AMB_3D_Reverb_Exterior" "SFX_Direct"
+   }
+  }
+ }
+ shaders {
+  ShaderClass {
+   id 5138
+   name "Shader 5"
+   version 5
+   tl 365.455 410
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 7196
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 1028
+       port 65
+      }
+      ConnectionClass connection {
+       id 2052
+       port 65
+      }
+      ConnectionClass connection {
+       id 8196
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 1028
+   name "Sprint_Asphalt"
+   version 0
+   tl 129 392.598
+   Volume -5
+   "Volume variance" 1
+   Pitch 0.5
+   "Pitch variance" 0.5
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{C1EFE78041540049}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_08.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{C9A7E973EADFCF0C}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_01.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{50B950EAF738FE9C}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_02.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{27B33862039A11EC}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_03.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{2074C233651CAB2F}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_04.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{577EAABB91BE445F}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_05.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{CE6013228C5975CF}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_06.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{B96A7BAA78FB9ABF}Sounds/Character/Footsteps/Samples/Sprint/Asphalt/Footstep_Sprint_Asphalt_07.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 2052
+   name "Sprint_Dirt"
+   version 0
+   tl 124 463.402
+   Volume -10
+   "Volume variance" 1
+   "Pitch variance" 0.5
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{CBA7477D1B926B2C}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_08.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{C3EF498EB019A469}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_01.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{5AF1F017ADFE95F9}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_02.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{2DFB989F595C7A89}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_03.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{2A3C62CE3FDAC04A}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_04.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{5D360A46CB782F3A}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_05.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{C428B3DFD69F1EAA}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_06.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{B322DB57223DF1DA}Sounds/Character/Footsteps/Samples/Sprint/Dirt/Footstep_Sprint_Dirt_07.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 8196
+   name "Sprint_Asphalt"
+   version 0
+   tl 130 535
+   Volume -5
+   "Volume variance" 1
+   Pitch 0.5
+   "Pitch variance" 0.5
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{8715ED5ED8FAAABC}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_08.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{8F5DE3AD737165F9}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_01.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{16435A346E965469}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_02.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{614932BC9A34BB19}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_03.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{668EC8EDFCB201DA}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_04.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{1184A0650810EEAA}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_05.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{889A19FC15F7DF3A}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_06.wav"
+    }
+    AudioBankSampleClass Sample {
+     Filename "{FF907174E155304A}Sounds/Character/Footsteps/Samples/Sprint/Grass/Footstep_Sprint_Grass_01_07.wav"
+    }
+   }
+  }
+ }
+ spatialities {
+  SpatialityClass {
+   id 7196
+   name "Spatiality 7"
+   version 5
+   tl 363.636 330.909
+   spatialFactor 0.219
+  }
+ }
+ version 1
+}

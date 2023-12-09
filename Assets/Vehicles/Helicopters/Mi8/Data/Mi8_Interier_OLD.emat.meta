@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7659F7B82526D0C2}Assets/Vehicles/Helicopters/Mi8/Data/Mi8_Interier_OLD.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,842 @@
+FrameWidgetClass {
+ Name "LoadingScreen"
+ Slot FrameWidgetSlot "{5866A9C3B09405BE}" {
+  Anchor 0 0 1 1
+  PositionX 0
+  OffsetLeft 0
+  PositionY 0
+  OffsetTop 0
+  SizeX -1820
+  OffsetRight 0
+  SizeY -1050
+  OffsetBottom 0
+ }
+ "Z Order" 100000
+ Clipping True
+ {
+  ImageWidgetClass "{5EF69AA3AF40BD47}" {
+   Name "BlackBackground"
+   Slot FrameWidgetSlot "{5846E423C2DC1131}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    PositionY 0
+    OffsetTop 0
+    SizeX -1820
+    OffsetRight 0
+    SizeY -1050
+    OffsetBottom 0
+   }
+   Color 0 0 0 1
+  }
+  FrameWidgetClass "{5EF69AA3AF40BD44}" {
+   Name "Root"
+   Slot FrameWidgetSlot "{5874BDFB3137CACF}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 1920
+    OffsetRight -1920
+    SizeY 1080
+    OffsetBottom -1080
+    Alignment 0.5 0.5
+   }
+   Clipping True
+   "Inherit Color" 1
+   {
+    ImageWidgetClass "{5EF69AA3AF40BD4B}" {
+     Name "Map"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 3840
+      OffsetRight -3840
+      SizeY 2160
+      OffsetBottom -2160
+      Alignment 0.5 0.5
+     }
+     Texture "{B98FB2CD75200E57}UI/Textures/MainMenu/MenuBackgroundBlank_UI.edds"
+     Image ""
+     Size 3840 2160
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD4A}" {
+     Name "BILogo"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 480
+      OffsetRight -480
+      SizeY 188
+      OffsetBottom -188
+      Alignment 0.5 0.5
+     }
+     "Is Visible" 0
+     Texture "{574F05441F5E50D6}UI/Textures/Logos/BohemiaLogoSmall_UI.edds"
+     Image ""
+     Size 480 188
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD49}" {
+     Name "GameLogo"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 448
+      OffsetRight -448
+      SizeY 172
+      OffsetBottom -172
+      Alignment 0.5 0.5
+      SizeToContent 1
+     }
+     "Is Visible" 0
+     Texture "{7EB5D78D3C2827F4}UI/Textures/Logos/ARMA_source_reforger_white_small.edds"
+     Image ""
+     Size 510 150
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD48}" {
+     Name "Dust1"
+     Slot FrameWidgetSlot "{5866A9ED5D51A617}" {
+      Anchor 1 0.5 1 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 10000
+      OffsetRight -10000
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 1 0.5
+     }
+     Texture "{D2094E180030DF4A}UI/Textures/SplashScreen/LogoReveal/MainMenuTextureDust2x_UI.edds"
+     Image ""
+     Size 1920 1080
+     Tiling Wrap
+     "Flip Horizontally" 1
+     "Flip Vertically" 1
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD4F}" {
+     Name "Dust2"
+     Slot FrameWidgetSlot "{5866A9ED5D51A595}" {
+      Anchor 1 0.5 1 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 10000
+      OffsetRight -10000
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 1 0.5
+     }
+     Texture "{D2094E180030DF4A}UI/Textures/SplashScreen/LogoReveal/MainMenuTextureDust2x_UI.edds"
+     Image ""
+     Size 1920 1080
+     Tiling Wrap
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD4E}" {
+     Name "Overlay"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 1920
+      OffsetRight -1920
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 0.5 0.5
+     }
+     Color 0 0 0 1
+     Texture "{A133D928E08FC206}UI/Textures/SplashScreen/LogoReveal/GradientOverlay_UI.edds"
+     Image ""
+     Size 1920 1080
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD4D}" {
+     Name "Overlay0"
+     Slot FrameWidgetSlot "{5846E4237EACF530}" {
+      Anchor 0.5 0.5 0.5 0.5
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 1920
+      OffsetRight -1920
+      SizeY 1080
+      OffsetBottom -1080
+      Alignment 0.5 0.5
+     }
+     Color 0 0 0 0.98
+     Image ""
+     Size 3840 2160
+     Mask "{4825491ACD202C43}UI/Textures/ScreenEffects/Suppression/suppressionVignette_alphaMask200.edds"
+     "Transition width" 1
+     Progress 0.55
+    }
+    ImageWidgetClass "{5EF69AA3AF40BD4C}" {
+     Name "FadeImage"
+     Slot FrameWidgetSlot "{5846E423C2DC1131}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -1820
+      OffsetRight 0
+      SizeY -1050
+      OffsetBottom 0
+     }
+     Opacity 0.35
+     Color 0 0 0 1
+    }
+    FrameWidgetClass "{5EF69AA35F9497A8}" {
+     Name "Frame0"
+     Slot FrameWidgetSlot "{5EF69AA35F949781}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 60
+      PositionY 0
+      OffsetTop 60
+      SizeX -1820
+      OffsetRight 60
+      SizeY -1050
+      OffsetBottom 60
+     }
+     Clipping False
+     {
+      FrameWidgetClass "{5EF69AA32A4F721F}" {
+       Name "Frame0"
+       Slot FrameWidgetSlot "{5EF69AA32A4F7278}" {
+        Anchor 0 0.5 0 0.5
+        PositionX 20
+        OffsetLeft 20
+        OffsetTop 0
+        SizeX 600
+        OffsetRight -620
+        SizeY 920
+        OffsetBottom -920
+        Alignment 0 0.5
+       }
+       {
+        TextWidgetClass "{5EF69AA2F9E4A7C7}" {
+         Name "Text0"
+         Slot FrameWidgetSlot "{5EF69AA2F9E4A7DA}" {
+          Anchor 0 0 1 1
+          PositionX 0
+          OffsetLeft 50
+          PositionY 0
+          OffsetTop 50
+          SizeX -500
+          OffsetRight 50
+          SizeY -890
+          OffsetBottom 50
+         }
+        }
+        PanelWidgetClass "{5EF69AA2CD8F1092}" {
+         Name "Panel0"
+         Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+          Anchor 0 0 1 1
+          PositionX 940
+          PositionY 520
+          SizeX -1880
+          OffsetRight 0
+          SizeY -1040
+          OffsetBottom 0
+          SizeToContent 1
+         }
+         Color 1 0.775 0.412 1
+         style outline_4px
+        }
+       }
+      }
+      PanelWidgetClass "{5EF69AA371819902}" {
+       Name "Panel0"
+       Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+        Anchor 0 0 1 1
+        PositionX 940
+        PositionY 520
+        SizeX -1880
+        OffsetRight 0
+        SizeY -1040
+        OffsetBottom 0
+        SizeToContent 1
+       }
+       Color 1 0.775 0.412 1
+       style outline_4px
+      }
+      FrameWidgetClass "{5EF6C5E0B162D507}" {
+       Name "Frame3"
+       Slot FrameWidgetSlot "{5EF69AA32A4F7278}" {
+        Anchor 0 0.5 0 0.5
+        PositionX 650
+        OffsetLeft 650
+        OffsetTop 0
+        SizeX 600
+        OffsetRight -1250
+        SizeY 920
+        OffsetBottom -920
+        Alignment 0 0.5
+       }
+       {
+        FrameWidgetClass "{5EF6C5E05D074A67}" {
+         Name "Frame0"
+         Slot FrameWidgetSlot "{5EF6C5E05D074A7E}" {
+          PositionX 50
+          OffsetLeft 50
+          PositionY 50
+          OffsetTop 50
+          SizeX 500
+          OffsetRight -550
+          SizeY 850
+          OffsetBottom -900
+         }
+         {
+          PanelWidgetClass "{5EF6C5E046675A14}" {
+           Name "Panel0"
+           Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+            Anchor 0 0 1 1
+            PositionX 0
+            OffsetLeft 0
+            PositionY 0
+            OffsetTop 0
+            SizeX 0
+            OffsetRight 0
+            SizeY 0
+            OffsetBottom 0
+            SizeToContent 1
+           }
+           Color 1 0.775 0.412 1
+           style outline_4px
+          }
+          FrameWidgetClass "{5EF6C5E009D511BA}" {
+           Name "Frame0"
+           Slot FrameWidgetSlot "{5EF6C5E009D51192}" {
+            PositionX 60
+            OffsetLeft 60
+            PositionY 50
+            OffsetTop 50
+            OffsetRight -160
+            OffsetBottom -80
+            SizeToContent 1
+           }
+           {
+            OverlayWidgetClass "{5EF6C5E1F820DABA}" {
+             Name "Overlay0"
+             Slot FrameWidgetSlot "{5EF6C5E1F820DA90}" {
+              SizeToContent 1
+             }
+             {
+              PanelWidgetClass "{5EF6C5E00A7DC6BE}" {
+               Name "Panel0"
+               Slot OverlayWidgetSlot "{5EF6C5E8DA0F3B01}" {
+                HorizontalAlign 3
+                VerticalAlign 3
+                Padding -20 -20 -20 -20
+               }
+               Color 1 0.775 0.412 1
+               style outline_4px
+              }
+              CheckBoxWidgetClass "{5EF6C5E0E09F01BF}" {
+               Name "Hardcore_CheckBox"
+               Slot OverlayWidgetSlot "{5EF6C5E8DA0F3B76}" {
+                HorizontalAlign 0
+                VerticalAlign 3
+               }
+               components {
+                SCR_CheckboxComponent "{5EF6C5E113B796B1}" {
+                }
+               }
+               text "Hardcore Mode"
+              }
+             }
+            }
+           }
+          }
+          TextWidgetClass "{5EF6C5E1B5EB3A24}" {
+           Name "Text0"
+           Slot FrameWidgetSlot "{5EF6C5E1B5EB3A06}" {
+            PositionX 80
+            OffsetLeft 80
+            PositionY 100
+            OffsetTop 100
+            SizeX 300
+            OffsetRight -380
+            SizeY 80
+            OffsetBottom -180
+           }
+           Text "Permadeath mode. Game is ment to be played like this. Dissable to make game more friendly. Respawn on last place slept, no story progression will be lost."
+           Wrap 1
+          }
+          FrameWidgetClass "{5EF6C5E18C433C61}" {
+           Name "Frame1"
+           Slot FrameWidgetSlot "{5EF6C5E009D51192}" {
+            PositionX 60
+            OffsetLeft 60
+            PositionY 280
+            OffsetTop 280
+            OffsetRight -160
+            OffsetBottom -310
+            SizeToContent 1
+           }
+           {
+            OverlayWidgetClass "{5EF6C5E18C433C60}" {
+             Name "Overlay0"
+             Slot FrameWidgetSlot "{5EF6C5E1F820DA90}" {
+              SizeToContent 1
+             }
+             {
+              PanelWidgetClass "{5EF6C5E18C433C67}" {
+               Name "Panel0"
+               Slot OverlayWidgetSlot "{5EF6C5E18C433CEA}" {
+                HorizontalAlign 3
+                VerticalAlign 3
+                Padding -20 -20 -20 -20
+               }
+               Color 1 0.775 0.412 1
+               style outline_4px
+              }
+              CheckBoxWidgetClass "{5EF6C5E18C433C66}" {
+               Name "Survival_CheckBox"
+               Slot OverlayWidgetSlot "{5EF6C5E18C433C32}" {
+                HorizontalAlign 0
+                VerticalAlign 3
+               }
+               components {
+                SCR_CheckboxComponent "{5EF6C5E16C3079E1}" {
+                 m_fSizeWithLabel 60
+                 m_fElementSpacing 8
+                }
+               }
+               text "Survival"
+              }
+             }
+            }
+           }
+          }
+          TextWidgetClass "{5EF6C5E1A7EE3699}" {
+           Name "Text1"
+           Slot FrameWidgetSlot "{5EF6C5E1B5EB3A06}" {
+            PositionX 80
+            OffsetLeft 80
+            PositionY 330
+            OffsetTop 330
+            SizeX 300
+            OffsetRight -380
+            OffsetBottom -360
+           }
+           Text "Survival mode . 4 stats to track in order to stay operational. Food and hunger is replenished by eating and drinking. Temprature changes based on time of day. Get proper clothing to stay alive. Energy is replenished when sleeping. The more you move around the moe energy you will consume. Make sure you other needs are met bofore going to sleep."
+           Wrap 1
+          }
+          FrameWidgetClass "{5F10D5DEC804F45A}" {
+           Name "Frame2"
+           Slot FrameWidgetSlot "{5EF6C5E009D51192}" {
+            PositionX 60
+            OffsetLeft 60
+            PositionY 660
+            OffsetTop 660
+            OffsetRight -160
+            OffsetBottom -690
+            SizeToContent 1
+           }
+           {
+            OverlayWidgetClass "{5F10D5DEC804F458}" {
+             Name "Overlay0"
+             Slot FrameWidgetSlot "{5EF6C5E1F820DA90}" {
+              SizeToContent 1
+             }
+             {
+              PanelWidgetClass "{5F10D5DEC804F45F}" {
+               Name "Panel0"
+               Slot OverlayWidgetSlot "{5EF6C5E18C433CEA}" {
+                HorizontalAlign 3
+                VerticalAlign 3
+                Padding -20 -20 -20 -20
+               }
+               Color 1 0.775 0.412 1
+               style outline_4px
+              }
+              CheckBoxWidgetClass "{5F10D5DEC804F45D}" {
+               Name "PP_CheckBox"
+               Slot OverlayWidgetSlot "{5EF6C5E18C433C32}" {
+                HorizontalAlign 0
+                VerticalAlign 3
+               }
+               components {
+                SCR_CheckboxComponent "{5EF6C5E16C3079E1}" {
+                 m_fSizeWithLabel 60
+                 m_fElementSpacing 8
+                }
+               }
+               text "PostProcess Effects"
+               checked 1
+              }
+             }
+            }
+           }
+          }
+          TextWidgetClass "{5F10D5DE934F2AD5}" {
+           Name "Text2"
+           Slot FrameWidgetSlot "{5EF6C5E1B5EB3A06}" {
+            PositionX 80
+            OffsetLeft 80
+            PositionY 710
+            OffsetTop 710
+            SizeX 300
+            OffsetRight -380
+            OffsetBottom -740
+           }
+           Text "Scenario has enabled smol postprocess effects cause i feel like it. If you want them dissabled go ahead."
+           Wrap 1
+          }
+         }
+        }
+        TextWidgetClass "{5EF6C5E0B162D505}" {
+         Name "Text0"
+         Slot FrameWidgetSlot "{5EF69AA2F9E4A7DA}" {
+          PositionX 50
+          OffsetLeft 50
+          PositionY 20
+          OffsetTop 20
+          SizeX 500
+          OffsetRight -550
+          SizeY 820
+          OffsetBottom -840
+          SizeToContent 1
+         }
+         Text "Scenario Settings"
+        }
+        PanelWidgetClass "{5EF6C5E0B162D504}" {
+         Name "Panel0"
+         Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+          Anchor 0 0 1 1
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
+          SizeToContent 1
+         }
+         Color 1 0.775 0.412 1
+         style outline_4px
+        }
+       }
+      }
+      FrameWidgetClass "{5EF69AA20D7BD3F6}" {
+       Name "Frame1"
+       Slot FrameWidgetSlot "{5ED68208D034D15B}" {
+        Anchor 1 0 1 0
+        OffsetLeft 0
+        OffsetTop 0
+        SizeX 50
+        OffsetRight -50
+        SizeY 50
+        OffsetBottom -50
+        Alignment 0 1
+       }
+       {
+        ButtonWidgetClass "{5EF69AA20D7BD3F4}" {
+         Name "Close"
+         Slot FrameWidgetSlot "{5ED68208CE46FA63}" {
+          Anchor 0 0 1 1
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 50
+          OffsetRight 0
+          SizeY -20
+          OffsetBottom 0
+         }
+         Color 0.078 0.107 0.107 1
+         components {
+          ButtonActionComponent "{5ED6821C8EC9079A}" {
+          }
+         }
+         style debugUI
+         {
+          ImageWidgetClass "{5EF69AA20D7BD3FA}" {
+           Name "Image1"
+           Slot ButtonWidgetSlot "{5ED6821CE5760115}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+            Padding -10 -10 -10 -10
+           }
+           Texture "{315B40BD3EF4F92A}UI/Textures/Notifications/Notification_Save_Failed.edds"
+           Size 64 64
+           "Flip Horizontally" 1
+          }
+         }
+        }
+       }
+      }
+      FrameWidgetClass "{5EF920A12AE93245}" {
+       Name "Frame2"
+       Slot FrameWidgetSlot "{5EF69AA32A4F7278}" {
+        Anchor 0 0.5 0 0.5
+        PositionX 1280
+        OffsetLeft 1280
+        OffsetTop 0
+        SizeX 500
+        OffsetRight -1780
+        SizeY 920
+        OffsetBottom -920
+        Alignment 0 0.5
+       }
+       {
+        FrameWidgetClass "{5EF920A12AE93242}" {
+         Name "Frame0"
+         Slot FrameWidgetSlot "{5EF6C5E05D074A7E}" {
+          PositionX 50
+          OffsetLeft 50
+          PositionY 80
+          OffsetTop 80
+          SizeX 420
+          OffsetRight -470
+          SizeY 700
+          OffsetBottom -780
+         }
+         {
+          OverlayWidgetClass "{5EF920A7CB4564F1}" {
+           Name "Overlay0"
+           Slot FrameWidgetSlot "{5EF920A7CB4564DE}" {
+            OffsetLeft 0
+            OffsetTop 0
+            SizeX 100
+            OffsetRight -100
+            SizeY 30
+            OffsetBottom -30
+            SizeToContent 1
+           }
+           {
+            FrameWidgetClass "{5EF920A7D8244175}" {
+             Name "Frame1"
+             Slot OverlayWidgetSlot "{5EF956EADB6C71C1}" {
+              HorizontalAlign 3
+              VerticalAlign 3
+              Padding 10 10 0 0
+             }
+             {
+              VerticalLayoutWidgetClass "{5EF956EBDF0DE73A}" {
+               Name "VerticalLayout0"
+               Slot FrameWidgetSlot "{5EF956EBC1F0A4DA}" {
+                PositionX 0
+                OffsetLeft 0
+                OffsetTop 0
+                SizeX 400
+                OffsetRight -400
+                SizeY 600
+                OffsetBottom -600
+                SizeToContent 1
+               }
+               {
+                OverlayWidgetClass "{5EF956EAED0AA48D}" {
+                 Name "Frame0"
+                 Slot LayoutSlot "{5EF95A36D38A30AB}" {
+                  HorizontalAlign 1
+                  VerticalAlign 1
+                  Padding 10 10 10 10
+                  SizeMode Fill
+                 }
+                 {
+                  PanelWidgetClass "{5EF920A7C1FED540}" {
+                   Name "Panel0"
+                   Slot OverlayWidgetSlot "{5EF95A36D38A30BC}" {
+                    HorizontalAlign 3
+                    VerticalAlign 3
+                   }
+                   Color 1 0.775 0.412 1
+                   style outline_4px
+                  }
+                  HorizontalLayoutWidgetClass "{5EF956EA650CB479}" {
+                   Name "HorizontalLayout0"
+                   Slot OverlayWidgetSlot "{5EF956EA650CB459}" {
+                    HorizontalAlign 3
+                    VerticalAlign 3
+                    Padding 10 10 10 10
+                   }
+                   {
+                    ImageWidgetClass "{5EF920A7E25E3AC8}" {
+                     Name "Image0"
+                     Slot LayoutSlot "{5EF95A36D38A30E0}" {
+                      HorizontalAlign 1
+                      VerticalAlign 1
+                     }
+                     Texture "{0BE876E343737D34}Assets/Vehicles/Wheeled/UAZ469/Data/Coat_of_arms_FIA_BCR.edds"
+                     Size 60 60
+                    }
+                    TextWidgetClass "{5EF956EAF68D2822}" {
+                     Name "Text0"
+                     Slot LayoutSlot "{5EF95A36D38A30F9}" {
+                      VerticalAlign 0
+                      Padding 10 10 10 10
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+                OverlayWidgetClass "{5EF956EBFA0DB968}" {
+                 Name "Frame1"
+                 Slot LayoutSlot "{5EF956EBFA0DBE29}" {
+                  HorizontalAlign 1
+                  VerticalAlign 1
+                  Padding 10 10 10 10
+                  SizeMode Fill
+                 }
+                 {
+                  PanelWidgetClass "{5EF956EBFA0DB969}" {
+                   Name "Panel0"
+                   Slot OverlayWidgetSlot "{5EF956EBFA0DB9E2}" {
+                    HorizontalAlign 3
+                    VerticalAlign 3
+                   }
+                   Color 1 0.775 0.412 1
+                   style outline_4px
+                  }
+                  HorizontalLayoutWidgetClass "{5EF956EBFA0DB96B}" {
+                   Name "HorizontalLayout0"
+                   Slot OverlayWidgetSlot "{5EF956EA650CB459}" {
+                    HorizontalAlign 3
+                    VerticalAlign 3
+                    Padding 10 10 10 10
+                   }
+                   {
+                    ImageWidgetClass "{5EF956EBFA0DB974}" {
+                     Name "Image0"
+                     Slot LayoutSlot "{5EF956EBFA0DB9B7}" {
+                      HorizontalAlign 0
+                      VerticalAlign 0
+                     }
+                     Texture "{40B12B0DF911B856}UI/Textures/Editor/EditableEntities/Factions/EditableEntity_Faction_USSR.edds"
+                     Size 60 60
+                    }
+                    TextWidgetClass "{5EF956EBFA0DB975}" {
+                     Name "Text0"
+                     Slot LayoutSlot "{5EF956EBFA0DB999}" {
+                      VerticalAlign 0
+                      Padding 10 10 10 10
+                      SizeMode Auto
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+                OverlayWidgetClass "{5EF956EBEA403603}" {
+                 Name "Frame2"
+                 Slot LayoutSlot "{5EF956EBFA0DBE29}" {
+                  HorizontalAlign 1
+                  VerticalAlign 1
+                  Padding 10 10 10 10
+                  SizeMode Fill
+                  FillWeight 1
+                 }
+                 {
+                  PanelWidgetClass "{5EF956EBEA40360C}" {
+                   Name "Panel0"
+                   Slot OverlayWidgetSlot "{5EF956EBFA0DB9E2}" {
+                    HorizontalAlign 3
+                    VerticalAlign 3
+                   }
+                   Color 1 0.775 0.412 1
+                   style outline_4px
+                  }
+                  HorizontalLayoutWidgetClass "{5EF956EBEA40360E}" {
+                   Name "HorizontalLayout0"
+                   Slot OverlayWidgetSlot "{5EF956EA650CB459}" {
+                    HorizontalAlign 3
+                    VerticalAlign 3
+                    Padding 10 10 10 10
+                   }
+                   {
+                    ImageWidgetClass "{5EF956EBEA40360F}" {
+                     Name "Image0"
+                     Slot LayoutSlot "{5EF956EBFA0DB9B7}" {
+                      HorizontalAlign 0
+                      VerticalAlign 0
+                     }
+                     Texture "{EB7F65DBC9392557}UI/Textures/Editor/EditableEntities/Factions/EditableEntity_Faction_USA.edds"
+                     Size 60 60
+                    }
+                    TextWidgetClass "{5EF956EBEA40DCE6}" {
+                     Name "Text0"
+                     Slot LayoutSlot "{5EF956EBFA0DB999}" {
+                      VerticalAlign 0
+                      Padding 10 10 10 10
+                      SizeMode Auto
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+          PanelWidgetClass "{5EF920A12AE93243}" {
+           Name "Panel0"
+           Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+            Anchor 0 0 1 1
+            PositionX 0
+            OffsetLeft 0
+            PositionY 0
+            OffsetTop 0
+            SizeX 0
+            OffsetRight 0
+            SizeY 0
+            OffsetBottom 0
+            SizeToContent 1
+           }
+           Color 1 0.775 0.412 1
+           style outline_4px
+          }
+         }
+        }
+        TextWidgetClass "{5EF920A12AE935B7}" {
+         Name "Text0"
+         Slot FrameWidgetSlot "{5EF69AA2F9E4A7DA}" {
+          PositionX 50
+          OffsetLeft 50
+          PositionY 50
+          OffsetTop 50
+          SizeX 500
+          OffsetRight -550
+          SizeY 820
+          OffsetBottom -870
+          SizeToContent 1
+         }
+         Text "Character Selection"
+        }
+        PanelWidgetClass "{5EF920A12AE935B4}" {
+         Name "Panel0"
+         Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+          Anchor 0 0 1 1
+          PositionX 0
+          OffsetLeft 0
+          PositionY 0
+          OffsetTop 0
+          SizeX 0
+          OffsetRight 0
+          SizeY 0
+          OffsetBottom 0
+          SizeToContent 1
+         }
+         Color 1 0.775 0.412 1
+         style outline_4px
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

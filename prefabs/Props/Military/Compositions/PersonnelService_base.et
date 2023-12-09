@@ -1,0 +1,8 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SCR_DefenderSpawnerComponent "{5CB6953C73654220}" {
+   m_sDefaultWaypointPrefab "{A5E108C97EEA63DB}prefabs/AI/Waypoints/AIWaypoint_Defend_Med.et"
+  }
+ }
+}

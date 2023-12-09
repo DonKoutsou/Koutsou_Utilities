@@ -1,0 +1,4 @@
+Vehicle : "{4085446E2B406849}Prefabs/Vehicles/Core/Vehicle_Base.et" {
+ ID "57DA6675519A417B"
+ m_eVehicleType HELICOPTER
+}

@@ -1,0 +1,119 @@
+GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/RepairKit_01_base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {
+     Name "Repair Kit"
+     Description "Carries supplies for vehicle repairs on the field."
+     m_aItemHints {
+      SCR_SupplyAvailableItemHintUIInfo "{5E729C2A8C24FD53}" {
+      }
+      SCR_InventoryItemHintUIInfo "{5E12800BCCD59E9D}" {
+       Name "Can repair vehicles to max health. Carries a set ammount of supplies."
+      }
+      SCR_InventoryItemHintUIInfo "{5E12800BCD1A1BEF}" {
+       Name "Cant repair a vehicle on its own. Need a wrench."
+      }
+     }
+    }
+    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
+     Weight 1
+     ItemDimensions 10 10 10
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5E0282EAD947229C}" {
+      CameraDistanceToItem 0.6
+      ItemRenderRotation 0 25 0
+     }
+    }
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+   }
+  }
+  MeshObject "{5D4681D6FA238324}" {
+   Object "{DBEAA3CD4B3B08DF}Assets/Props/Industrial/ToolBox_01/ToolBox_01.xob"
+   Materials {
+    MaterialAssignClass "{5EFCFDF501A1B61C}" {
+     SourceMaterial "ToolBox_01"
+     AssignedMaterial "{B2A486040580666D}Assets/Props/Industrial/ToolBox_01/Data/Toolbox_01_red.emat"
+    }
+   }
+  }
+  SCR_RepairSupportStationComponent "{5EA07B573EFE8021}" {
+   m_eSupportStationPriority MEDIUM
+   m_fRange 5
+   m_fMaxHealScaled 1
+   m_eMaxHealDone HEAL_MAX_HEALABLE_HEALTH_REACHED_FIELD
+  }
+  SCR_SupportStationGadgetComponent "{5DF4D9A1DBD1B5EF}" {
+   Enabled 0
+  }
+  SCR_ResourceComponent "{5E4A9574582A1D38}" {
+   m_aContainers {
+    SCR_ResourceContainer "{5EFB031677075C85}" {
+     m_sDebugName "Gadget - Container"
+     m_eResourceRights SELF
+     m_eStorageType STORED
+     m_fResourceValueCurrent 40
+     m_fResourceValueMax 40
+    }
+   }
+   m_aConsumers {
+    SCR_ResourceConsumer "{5E4ECC57B4535294}" {
+     m_eResourceRights SELF
+     m_eGeneratorIdentifier DEFAULT_STORAGE
+     m_fResourceRange 9
+     m_ContainerQueue SCR_ResourceConsumerContainerQueue "{5E5CC2454761EE66}" {
+      m_StoragePolicies {
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171BC14515}" {
+        m_eStorageType STORED
+       }
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171D409C1B}" {
+       }
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171DE70A78}" {
+        m_eStorageType STORED
+       }
+       SCR_ResourceConsumerStoragePolicy "{5E5ED1171E1DD317}" {
+        m_eStorageType STORED
+       }
+      }
+     }
+    }
+    SCR_ResourceConsumer "{5F06A14747D8DE56}" {
+     m_eResourceRights SELF
+     m_eGeneratorIdentifier DEFAULT
+     m_fResourceRange 9
+     m_ContainerQueue SCR_ResourceConsumerContainerQueue "{5F06A1474F54263F}" {
+      m_StoragePolicies {
+       SCR_ResourceConsumerStoragePolicy "{5F06A1474E354D64}" {
+        m_StorageQueue SCR_ResourceConsumerContainerStorageQueueExtended "{5F06A14771BF5C93}" {
+        }
+        m_eStorageType STORED
+       }
+      }
+     }
+    }
+   }
+   m_aGenerators {
+    SCR_ResourceGenerator "{5EFB03354A74CA15}" {
+     m_eResourceRights ALL
+     m_fStorageRange 5
+     m_ContainerQueue SCR_ResourceGeneratorContainerQueue "{5EFB0334484557ED}" {
+      m_StoragePolicies {
+       SCR_ResourceGeneratorStoragePolicy "{5EFB03344A652E74}" {
+        m_StorageQueue SCR_ResourceGeneratorContainerStorageQueueExtended "{5EFB03344C579866}" {
+        }
+        m_eStorageType STORED
+       }
+      }
+     }
+     m_aActions {
+      SCR_ResourceGeneratorActionStore "{5EFB03347124C257}" {
+      }
+     }
+    }
+   }
+  }
+ }
+}

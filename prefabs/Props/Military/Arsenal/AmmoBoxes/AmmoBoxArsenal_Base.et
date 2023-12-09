@@ -1,0 +1,21 @@
+GenericEntity : "{42894F191BC9EDE1}Prefabs/Props/Core/AmmoBox_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  UniversalInventoryStorageComponent "{58A17A341AB8F069}" {
+   Attributes SCR_ItemAttributeCollection "{58A17A346E386320}" {
+    m_bVisible 0
+   }
+  }
+  ActionsManagerComponent "{5476B36C403D4CC0}" {
+   additionalActions {
+    SCR_OpenStorageAction "{5476DE57AA50402F}" {
+     ParentContextList {
+     }
+    }
+    SCR_SaveArsenalLoadout "{5B12C7AE552AEDD7}" {
+     m_eFactionUsageCheck SAME_CURRENT_FACTION
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{99F19672B763CF11}Prefabs/Vehicles/Helicopters/Mi8MT/Mi8MTC-A_LowFuel.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

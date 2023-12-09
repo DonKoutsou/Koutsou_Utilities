@@ -1,0 +1,14 @@
+SCR_LoadoutManager : "{AA4E7419A1FF65B0}Prefabs/MP/Managers/Loadouts/LoadoutManager_Base.et" {
+ ID "5690D9DBA5D97663"
+ m_aPlayerLoadouts {
+  SCR_FactionPlayerLoadout "{5E9B4DD597F0065E}" {
+   m_sLoadoutName "DisLoadout"
+   m_sLoadoutResource "{BCFCA10B53CE481F}prefabs/Characters/Factions/Civ/Character_CIV_Player.et"
+  }
+  SCR_FactionPlayerLoadout "{5EBACCECC6CC9715}" {
+   m_sLoadoutName "DisLoadout2"
+   m_sLoadoutResource "{BCFCA10B53CE481F}prefabs/Characters/Factions/Civ/Character_CIV_Player.et"
+   m_sAffiliatedFaction "CIV"
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{624714B94284F1D9}Prefabs/Items/Equipment/Kits/RepairKit_01/RepairKit_01_Kit.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,14 @@
+GenericWorldPPEffect {
+ ID "52D6BA0D52559E2A"
+ {
+  GenericWorldPPEffect : "{3D251DA00FC3043C}prefabs/World/DefaultWorld/Chrom.et" {
+   ID "5F049E6339B83485"
+   coords 0 0 0
+  }
+  GenericWorldPPEffect : "{A55918F8130C1783}prefabs/World/DefaultWorld/fgrain.et" {
+   ID "5F049E6332CD8B71"
+   coords 0 0 0
+   Camera 0
+  }
+ }
+}

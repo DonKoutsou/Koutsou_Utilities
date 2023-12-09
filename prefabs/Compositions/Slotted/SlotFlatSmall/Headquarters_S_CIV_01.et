@@ -1,0 +1,135 @@
+GenericEntity : "{6E9190BC2713551D}Prefabs/Compositions/Slotted/BuildableComposition_Base.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  RigidBody "{5E96A067A67C5029}" {
+   Geometries {
+    PhysicsBoxGeometry UserAction {
+     Extents 12 0.5 12
+    }
+   }
+  }
+  Hierarchy "{5EBF1284718E2E7A}" {
+   Enabled 1
+  }
+ }
+ coords 0 0 0
+ {
+  GenericEntity : "{22DF44CE36A787CF}prefabs/Compositions/Misc/SubCompositions/Tents/Tent_CommandPost_Civ_01.et" {
+   ID "5EBF1284718E11DF"
+   coords -3.522 0 -2.535
+   {
+    GenericEntity {
+     ID "5EBF1284616590C5"
+     coords 3.162 0.542 1.568
+    }
+    GenericEntity {
+     ID "5EBF1284616590D5"
+     coords 0.781 0.189 2.323
+    }
+    GenericEntity {
+     ID "5EBF1284616590F1"
+     coords 4.805 0.129 1.431
+     angleY -1.087
+    }
+    StaticModelEntity {
+     ID "5EBF1284616590CB"
+     coords 3.797 0.168 1.233
+     angleY -92.36
+     {
+      StaticModelEntity {
+       ID "5CB6B2A936834DF0"
+       coords -0.006 0.901 -0.005
+       angleY -2.443
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5EBF1284616590CF"
+     coords 2.147 0.174 0.791
+     angleY -1.78
+    }
+    StaticModelEntity {
+     ID "5EBF1284616590E0"
+     coords 3.839 0.18 2.869
+    }
+    StaticModelEntity {
+     ID "5EBF1284616590E1"
+     coords 1.324 0.368 1.519
+    }
+    StaticModelEntity {
+     ID "5EBF1284616590FF"
+     coords 2.04 0.174 1.119
+    }
+   }
+  }
+  SCR_SpawnPoint : "{38550EF41BBBB77C}PrefabsEditable/SpawnPoints/E_SpawnPoint_FIA_Supplies.et" {
+   ID "5EBF1284718E11D1"
+   components {
+    SCR_FactionAffiliationComponent "{5A5286F8ED58877B}" {
+     "faction affiliation" "CIV"
+    }
+   }
+   coords 1.052 0 0.49
+  }
+  GenericEntity : "{6204943E9EC70EC2}Prefabs/Structures/Military/Camps/Canvas_Covers/US/CanvasCover_Medium_US.et" {
+   ID "5EBF1284718E2E2D"
+   components {
+    Hierarchy "{5EBF1284718E2E4D}" {
+     Enabled 1
+    }
+   }
+   coords 2.06 0 -2.314
+   angleY -90
+  }
+  GenericEntity : "{6F9E338FCED334F8}Prefabs/Props/Military/Compositions/FIA/Antenna_02_FIA.et" {
+   ID "5EBF1284718E2E26"
+   coords -2.488 0 -2.889
+   angleY -176.298
+  }
+  GenericEntity : "{894A1AFDCB71CD0D}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_02.et" {
+   ID "5EBF1284718E2E24"
+   coords -2.619 0 3.155
+   angleY 38.608
+  }
+  GenericEntity : "{A7D631AA57965094}Prefabs/Compositions/Misc/SubCompositions/Storage/Slotted/Storage_Supplies_FIA_04.et" {
+   ID "5EBF1284718E2E03"
+   coords 2.202 0.119 -2.763
+  }
+  GenericEntity : "{B03196B8EA306381}Prefabs/Systems/Compositions/BaseLogic/MilitaryBaseLogic_FIA.et" {
+   ID "5EBF353F1A37E67D"
+   coords 0 0 0
+  }
+  GenericEntity : "{B3D2586956DE1825}Prefabs/Structures/Signs/Military/Supplies/Sign_SupplyStorage_01_ConstructionMat_FIA.et" {
+   ID "5EBF1284718E2E14"
+   components {
+    Hierarchy "{5EBF1284718E2E40}" {
+     Enabled 1
+    }
+   }
+   coords 3.89 0 -0.597
+   angleX 0.22
+   angleY -3.346
+   angleZ 1.04
+  }
+  GenericEntity : "{E105D2F87098E1D8}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_LoiterPoint.et" {
+   ID "5EBF1284718E2E6B"
+   components {
+    Hierarchy "{5EBF1284718E2E59}" {
+     Enabled 1
+    }
+   }
+   coords 2.76 0 -3.6
+   angleY -177.348
+  }
+  GenericEntity : "{F76BD5785C7FE191}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_ObservationPoint.et" {
+   ID "5EBF1284718E2E67"
+   components {
+    Hierarchy "{5EBF1284718E2E55}" {
+     Enabled 1
+    }
+   }
+   coords 4.879 0 1.477
+   angleY -93.486
+  }
+ }
+}

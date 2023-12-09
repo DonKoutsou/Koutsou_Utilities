@@ -1,0 +1,163 @@
+GenericEntity : "{6E9190BC2713551D}Prefabs/Compositions/Slotted/BuildableComposition_Base.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  RigidBody "{5E96A067A67C5029}" {
+   Geometries {
+    PhysicsBoxGeometry UserAction {
+     Extents 12 0.5 12
+    }
+   }
+  }
+  Hierarchy "{5EBF353F873816A4}" {
+   Enabled 1
+  }
+ }
+ coords 0 0 0
+ {
+  SCR_SpawnPoint : "{38550EF41BBBB77C}PrefabsEditable/SpawnPoints/E_SpawnPoint_FIA_Supplies.et" {
+   ID "5EBF353F873805BE"
+   coords -3.5 0 3.5
+  }
+  GenericEntity : "{4C5FCA2571FCE669}prefabs/Compositions/Misc/SubCompositions/Tents/Tent_CommandPost_S_FIA_01.et" {
+   ID "5EBF353F873805AD"
+   coords -1.268 0 -0.84
+  }
+  $grp GenericEntity : "{6204943E9EC70EC2}Prefabs/Structures/Military/Camps/Canvas_Covers/US/CanvasCover_Medium_US.et" {
+   {
+    ID "5EBF353DCD95E195"
+    coords 0.524 0 -0.655
+   }
+   {
+    ID "5EBF353F87380581"
+    components {
+     Hierarchy "{5EBF353F87381696}" {
+      Enabled 1
+     }
+    }
+    coords 4.314 0 -0.619
+    angleY -90
+   }
+  }
+  GenericEntity : "{6CD65604C7945A66}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_03.et" {
+   ID "5EBF353F87380585"
+   coords 2.268 0 0.849
+   angleY 165.258
+  }
+  GenericEntity : "{6F9E338FCED334F8}Prefabs/Props/Military/Compositions/FIA/Antenna_02_FIA.et" {
+   ID "5EBF353F87380588"
+   coords 1.866 0 -4.214
+   angleY -176.298
+  }
+  GenericEntity : "{894A1AFDCB71CD0D}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_02.et" {
+   ID "5EBF353F8738058F"
+   coords -0.365 0 4.85
+   angleY 38.608
+  }
+  GenericEntity : "{A7D631AA57965094}Prefabs/Compositions/Misc/SubCompositions/Storage/Slotted/Storage_Supplies_FIA_04.et" {
+   ID "5EBF353F8738058C"
+   coords 4.456 0.119 -1.068
+  }
+  GenericEntity : "{B03196B8EA306381}Prefabs/Systems/Compositions/BaseLogic/MilitaryBaseLogic_FIA.et" {
+   ID "5EBF353F87380597"
+   components {
+    Hierarchy "{5EBF353F8738168B}" {
+     Enabled 1
+    }
+   }
+   coords -3.524 0.1 3.548
+   {
+    GenericEntity {
+     ID "5D3706BF18501EF2"
+     components {
+      Hierarchy "{5EBF353F8738168E}" {
+       Enabled 1
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{B3D2586956DE1825}Prefabs/Structures/Signs/Military/Supplies/Sign_SupplyStorage_01_ConstructionMat_FIA.et" {
+   ID "5EBF353F8738059B"
+   components {
+    Hierarchy "{5EBF353F8738168D}" {
+    }
+   }
+   coords 6.144 0 1.098
+   angleX 0.22
+   angleY -3.346
+   angleZ 1.04
+  }
+  $grp GenericEntity : "{B547CF929FCC6BB7}Prefabs/Props/Military/Sandbags/Sandbag_01_end_high_burlap.et" {
+   {
+    ID "5EBF353F87380598"
+    components {
+     Hierarchy "{5EBF353F87381683}" {
+      Enabled 1
+     }
+    }
+    coords 3.414 0 2.413
+    angleY -0.683
+   }
+   {
+    ID "5EBF353F873816C1"
+    components {
+     Hierarchy "{5EBF353F87381680}" {
+      Enabled 1
+     }
+    }
+    coords 2.072 0 2.397
+    angleY 179.317
+   }
+  }
+  GenericEntity : "{CC5453CCC311603B}Prefabs/Props/Military/Sandbags/Sandbag_01_end_burlap.et" {
+   ID "5EBF353F873816B9"
+   components {
+    Hierarchy "{5EBF353F87381681}" {
+     Enabled 1
+    }
+   }
+   coords 1.049 0 2.375
+   angleY 177.353
+  }
+  GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+   ID "5EBF353F873816BC"
+   components {
+    Hierarchy "{5EBF353F87381687}" {
+     Enabled 1
+    }
+   }
+   coords 3.552 0 0.812
+   angleY 83.276
+  }
+  GenericEntity : "{E105D2F87098E1D8}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_LoiterPoint.et" {
+   ID "5EBF353F873816B2"
+   components {
+    Hierarchy "{5EBF353F87381684}" {
+     Enabled 1
+    }
+   }
+   coords 3.116 0 0.751
+   angleY -6.519
+  }
+  GenericEntity : "{EFA7233213E77C2E}Prefabs/Systems/SpawnPoints/SpawnPosition.et" {
+   ID "5EBF353F873816B1"
+   components {
+    Hierarchy "{5EBF353F8738167A}" {
+     Enabled 1
+    }
+   }
+   coords -2.711 0.01 -1.135
+   angleY -60.014
+  }
+  GenericEntity : "{F76BD5785C7FE191}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_ObservationPoint.et" {
+   ID "5EBF353F873816B7"
+   components {
+    Hierarchy "{5EBF353F87381678}" {
+     Enabled 1
+    }
+   }
+   coords -1.443 0 3.843
+   angleY -93.486
+  }
+ }
+}

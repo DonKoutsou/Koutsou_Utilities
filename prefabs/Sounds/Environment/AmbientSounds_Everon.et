@@ -1,0 +1,11 @@
+GenericEntity {
+ ID "51A29B4ADBAAA1B1"
+ components {
+  SCR_AmbientSoundsComponent "{51A2F42C82EA6A82}" {
+   m_aAmbientSoundsEffect {
+    SCR_RandomPositionalSounds "{5C5A851E0D51CBA7}" {
+    }
+   }
+  }
+ }
+}

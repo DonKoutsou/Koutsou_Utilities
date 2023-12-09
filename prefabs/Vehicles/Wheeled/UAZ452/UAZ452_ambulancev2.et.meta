@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{9C0767AB63FAF6BD}Prefabs/Vehicles/Wheeled/UAZ452/UAZ452_ambulancev2.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

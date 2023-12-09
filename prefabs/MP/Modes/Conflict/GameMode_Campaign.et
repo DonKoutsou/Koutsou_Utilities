@@ -1,39 +1,42 @@
 SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
  ID "56B2B479C6B96951"
  components {
-  SCR_EntityCatalogManagerComponent "{5C9AD18D91F9E87E}" {
-   m_aEntityCatalogs {
-    SCR_EntityCatalog "{5E9E9AA7B75AA5EB}" : "{C8568AE52B2C8E1F}Configs/Dilaogue_Configs/Requests/Requests.conf" {
+  DS_DialogueComponent "{5EF2BA4E993D1BCA}" {
+   m_CharacterArchetypeList {
+    DS_DialogueArchetype "{5EF4C713CEFEC397}" : "{CE024CD48C0EADA6}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Private.conf" {
+    }
+    DS_DialogueArchetype "{5EFD2B519BBD6DF9}" : "{4DCCE09DAB23AAEF}Configs/Dilaogue_Configs/Civ_Units/DialogueConf_Civ.conf" {
     }
    }
+  }
+  SCR_InitWeatherComponent "{5ED3043D01F86B46}" {
+   m_sInitialStartingWeatherId "Storm"
+   m_iSetWeatherConstant 1
+  }
+  SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
+   m_SpawnLogic SCR_AutoSpawnLogic "{5EAD18A248901B32}" {
+    m_sForcedFaction "CIV"
+    m_sForcedLoadout "DisLoadout2"
+    m_sLoadingLayout "{3D65782641910A33}UI/layouts/Menus/MainMenu/SplashScreenNoRot.layout"
+   }
+  }
+  SCR_TimeAndWeatherHandlerComponent "{5CC49B5A1313B84E}" {
+   m_iStartingHours 4
+   m_iStartingMinutes 30
+   m_bRandomStartingDaytime 0
+   m_fNightTimeAcceleration 4
+   m_bRandomStartingWeather 0
+   m_bRandomWeatherChanges 0
+   m_bAllowHeaderSettings 0
+   m_iStartingDay 3
+   m_iStartingMonth 3
   }
   SP_RequestManagerComponent "{5E9E986CBDBDB7EA}" {
-   m_aTasksToSpawn {
-    SP_DeliverTask "{5E9E986CBE853C80}" {
-    }
-    SP_DestroyTask "{5E9E986CA0917CFA}" {
-     m_bEnabled 0
-     m_bAssignable 0
-    }
-    SP_KillTask "{5E9E986CA38DAC16}" {
-     m_bEnabled 0
-     m_bAssignable 0
-    }
-    SP_NavigateTask "{5E9E986CA289A392}" {
-    }
-    SP_RescueTask "{5E9E986CA5DC0793}" {
-     m_bEnabled 0
-     m_bAssignable 0
-    }
-    SP_RetrieveTask "{5E9E986CA7699A38}" {
-     m_bAssignable 0
-    }
-    SP_TalkTask "{5E9E986CA633F705}" {
-     m_bEnabled 0
-     m_bAssignable 0
-    }
-   }
-   m_bShowDebug 1
+   m_bShowDebug 0
   }
  }
+ m_bRandomizeSupplies 0
+ m_iBasePatrolInfluance 250
+ m_bOverrideGameOverType 1
+ m_eOverriddenGameOverType DEATH
 }

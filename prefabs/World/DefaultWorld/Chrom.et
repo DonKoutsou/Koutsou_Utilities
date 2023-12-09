@@ -1,0 +1,7 @@
+GenericWorldPPEffect {
+ ID "5F049E6305555BA7"
+ coords -4.97 0.224 -11.625
+ Camera -1
+ Priority 5
+ Material "{C5C20C70909CD69F}UI/Materials/Editor/ChromAber.emat"
+}

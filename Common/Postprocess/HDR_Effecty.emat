@@ -1,0 +1,30 @@
+HDREffect {
+ TargetBrightness 0.409
+ SpeedDarkToBright 19.703
+ SpeedBrightToDark 20
+ ImageWeightMap "{B2EDA455AB6F015A}Common/Postprocess/Data/HDR_MeasureArea_Circle_02_MASK.edds"
+ BrightnessComputation Perceptual
+ FilmicShoulderStrength 0
+ FilmicLinearStrength 2
+ FilmicToeStrength 0.33
+ FilmicToeNumerator 0.252
+ FilmicToeDenumerator 4.523
+ FilmicExposureBias 2.223
+ FilmicWhitePoint 1.2
+ ColorTableBase "{099611BCFCFFD0D6}Common/Postprocess/LUT/LUT_saturated_lut.edds"
+ ToneMapBlend 0.5
+ BloomIntensity 2
+ OverlayFactor 0.011
+ OverlayColor 1 0.959 0.89 0
+ Saturation 0.708
+ DesaturationWeights 0.299 0.587 0.114 0
+ Vignette 0.802
+ VignetteSharpness 0
+ ReticleMap "{AD28B51D74D8347A}Assets/Weapons/Attachments/Optics/PSO1/Data/reticle_PSO1_ca.edds"
+ ReticleColor 1 1 1 1
+ ReticleMove 0.318
+ ReticleScale 0.885
+ LensDistort 0.208
+ MaxChromAbberation 0.661
+ LensFlaresEnabled 1
+}

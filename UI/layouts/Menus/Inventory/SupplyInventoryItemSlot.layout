@@ -1,0 +1,53 @@
+SizeLayoutWidgetClass {
+ {
+  ButtonWidgetClass "{5DF870997DE45A3B}" {
+   Prefab "{5DF870997DE45A3B}"
+   {
+    OverlayWidgetClass "{5DF870997DE459C6}" {
+     Prefab "{5DF870997DE459C6}"
+     {
+      HorizontalLayoutWidgetClass "{5E968400891CC9AA}" {
+       Prefab "{5E968400891CC9AA}"
+       {
+        FrameWidgetClass "{5E968400A05440FD}" {
+         Prefab "{5E968400A05440FD}"
+         {
+          SizeLayoutWidgetClass "{5DEAD56EB801D0A2}" {
+           Prefab "{5DEAD56EB801D0A2}"
+           {
+            OverlayWidgetClass "{5DEAD56E9CA7247E}" {
+             Prefab "{5DEAD56E9CA7247E}"
+             {
+              HorizontalLayoutWidgetClass "{5DEAD56110AD29DF}" {
+               Prefab "{5DEAD56110AD29DF}"
+               {
+                ImageWidgetClass "{5DEAD56110AD29D2}" {
+                 Prefab "{5DEAD56110AD29D2}"
+                 "Is Visible" 0
+                }
+                ImageWidgetClass "{5EFB033D8E11D24A}" {
+                 Name "SuppliesIcon2"
+                 Slot LayoutSlot {
+                  HorizontalAlign 1
+                  VerticalAlign 1
+                  Padding 4 0 0 0
+                 }
+                 Texture "{CA8B528037B6831A}UI/Textures/InventoryIcons/Supplies_icon_UI.edds"
+                 Size 14 14
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

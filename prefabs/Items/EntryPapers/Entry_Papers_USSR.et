@@ -1,0 +1,14 @@
+GenericEntity : "{98DD1D36C5B67A1C}prefabs/Items/EntryPapers/Entry_Papers_Base.et" {
+ ID "5ED6820191BD8F8F"
+ components {
+  MeshObject "{5ED6820191BD8F94}" {
+   Materials {
+    MaterialAssignClass "{5F049E6EC99E4913}" {
+     SourceMaterial "Notebook_01"
+     AssignedMaterial "{E66EF8E8FBE826DC}Assets/Props/Civilian/Notebook_01/Data/Notebook_01_MarbleBlack.emat"
+    }
+   }
+  }
+ }
+ coords 57.445 1 190.619
+}

@@ -1,0 +1,8 @@
+GenericEntity : "{6E9190BC2713551D}Prefabs/Compositions/Slotted/BuildableComposition_Base.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  FactionAffiliationComponent "{5E76BC3016C63E54}" {
+   "faction affiliation" "FIA"
+  }
+ }
+}
