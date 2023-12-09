@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CC6207A544405D2C}Assets/Props/Civilian/Notebook_01/Data/Notebook_01_FIA.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

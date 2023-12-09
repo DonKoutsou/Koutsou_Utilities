@@ -1,0 +1,4 @@
+MatPBRBasic {
+ MetalnessScale 0
+ BCRMap "{BBB0ABAAF5F82387}Assets/Props/Civilian/Notebook_01/Data/Notebook_01_MLOD_BCR.edds" clampu clampv nofilter noresize 
+}

@@ -1,0 +1,5 @@
+MatPBRBasic {
+ RoughnessScale 1.5
+ MetalnessScale 0
+ BCRMap "{434F0D0A434509A2}Assets/Props/Civilian/FIA_Notebook.edds"
+}

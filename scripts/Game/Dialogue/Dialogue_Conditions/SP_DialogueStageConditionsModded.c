@@ -48,6 +48,45 @@ class SP_DialogueStageBaseTaskActionCondition : DS_BaseDialogueStageActionCondit
 	};
 }
 [BaseContainerProps(configRoot:true)]
+class DS_DialogueStageFactionPapersItemCheckActionCondition : DS_BaseDialogueStageActionCondition
+{
+	[Attribute(defvalue: "1", desc : "if set to false character will be checked instead of player")]
+	bool m_bCheckPlayer
+	
+	override bool CanBePerformed(IEntity Character, IEntity Player)
+	{
+		IEntity CharToCheck;
+		if (m_bCheckPlayer){CharToCheck = Player;}
+		else CharToCheck = Character;
+		
+		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(CharToCheck.FindComponent(InventoryStorageManagerComponent));
+		if (!inv)
+			return false;
+		
+		FactionAffiliationComponent FactAff = FactionAffiliationComponent.Cast(Character.FindComponent(FactionAffiliationComponent));
+		SCR_Faction fact = SCR_Faction.Cast(FactAff.GetAffiliatedFaction());
+		ResourceName WantedItem = fact.m_FactionPapersPrefab;
+		
+		DS_PrefabResource_Predicate pred = new DS_PrefabResource_Predicate(WantedItem);
+		array<IEntity> entitiesToDrop = new array<IEntity>;
+		inv.FindItems(entitiesToDrop, pred);
+		
+		if (entitiesToDrop.IsEmpty())
+		{
+			if (m_bCheckPlayer)
+				m_sCantBePerformedReason = string.Format("  [Missing X%1] ", FilePath.StripPath( WantedItem ));
+			else
+			{
+				string Name = DS_DialogueComponent.GetCharacterName(Character);
+				m_sCantBePerformedReason = string.Format("  [%1 is missing X%2 ] ", Name , WantedItem);
+			}
+				
+			return false;
+		}		
+		return true;
+	}
+}
+[BaseContainerProps(configRoot:true)]
 class SP_DialogueStageAvailableTaskActionCondition : SP_DialogueStageBaseTaskActionCondition
 {
 	[Attribute()]

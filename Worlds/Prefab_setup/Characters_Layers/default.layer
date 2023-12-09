@@ -47,6 +47,9 @@ SCR_ChimeraCharacter : "{0F6689B491641155}prefabs/Characters/Factions/BLUFOR/US_
  coords 160.635 1.001 253.393
  angleY -180
 }
+GenericEntity : "{0F7F768D6A8CCE4D}prefabs/Items/EntryPapers/EntryPapers_USSR.et" {
+ coords 56.878 1 191.332
+}
 $grp FoodEntity : "{128A19AA9F731095}prefabs/Items/Food/MeatLeg_01.et" {
  {
   coords 132.886 1.001 236.017
@@ -103,6 +106,9 @@ GenericEntity : "{1F816D1D2CF505B8}prefabs/Characters/Vests/Vest_6B2/Vest_6B2_ba
 }
 GameEntity : "{22963D69CA50EB9E}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_net.et" {
  coords 114.415 1 245.316
+}
+GenericEntity : "{23041BDCC9F498A4}prefabs/Items/EntryPapers/EntryPapers_Base.et" {
+ coords 57.198 1 191.223
 }
 GenericEntity : "{2366EF898F87916B}prefabs/Items/Misc/IntelligenceFolder_E_01/Letter.et" {
  coords 125.534 1.001 245.723
@@ -334,6 +340,9 @@ $grp GenericEntity : "{4C2FBD539384CBD4}prefabs/Items/NoteBook.et" {
   }
   coords 130.774 1 241.071
  }
+ {
+  coords 57.67 1 191.022
+ }
 }
 $grp FoodEntity : "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" {
  {
@@ -516,6 +525,9 @@ GenericEntity : "{9F0C54A3740F7FC9}Prefabs/Props/Military/SupplyBox/SupplyPortab
 GameEntity : "{9F546CCA2582D16F}prefabs/Characters/Uniforms/Jacket_M88.et" {
  coords 115.709 1 244.636
 }
+GenericEntity : "{A3EEC94B793273B9}prefabs/Items/EntryPapers/EntryPapers_US.et" {
+ coords 56.998 1 191.819
+}
 GameEntity : "{A7E6D7ECD5F684D7}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et" {
  coords 115.709 1 244.033
 }
@@ -539,6 +551,9 @@ GameEntity : "{B02281435AED8274}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_0
 }
 GameEntity : "{B137B7CE988557D2}prefabs/Characters/Uniforms/Suit_Pilot_US_01/Suit_Pilot_US_01.et" {
  coords 114.173 1 242.333
+}
+GenericEntity : "{B1D08D33801185F0}prefabs/Items/EntryPapers/EntryPapers_FIA.et" {
+ coords 57.3 1 191.773
 }
 GameEntity : "{B54B78383E64268F}prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_01_v2.et" {
  coords 115.399 1 244.119

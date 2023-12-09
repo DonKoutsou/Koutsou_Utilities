@@ -174,6 +174,25 @@ class SP_DialogueStageStopTalkAction : DS_BaseDialogueStageAction
 
 	};
 };
+[BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
+class SP_DialogueStageLowerWeaponAction : DS_BaseDialogueStageAction
+{
+	[Attribute()]
+	bool m_bRaiseWeapon;
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		ChimeraCharacter char = ChimeraCharacter.Cast(Character);
+		SCR_CharacterControllerComponent cont = SCR_CharacterControllerComponent.Cast(char.GetCharacterController());
+		SCR_ChimeraAIAgent chimeraAgent = SCR_ChimeraAIAgent.Cast(cont.GetAIControlComponent().GetAIAgent());
+
+		SCR_AIInfoComponent m_AIInfo = chimeraAgent.m_InfoComponent;
+		
+		m_AIInfo.SetWeaponRaised(m_bRaiseWeapon);
+		cont.SetWeaponRaised(m_bRaiseWeapon);
+
+	};
+};
+
 class SCR_AISetConverseFalse : SCR_AIActionTask
 {
 
