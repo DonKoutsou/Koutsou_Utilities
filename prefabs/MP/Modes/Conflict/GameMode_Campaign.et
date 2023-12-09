@@ -9,6 +9,12 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     }
    }
   }
+  SCR_EntityCatalogManagerComponent "{5C9AD18D91F9E87E}" {
+   m_aEntityCatalogs {
+    SCR_EntityCatalog "{5F13145D5060B7F0}" : "{C8568AE52B2C8E1F}Configs/Dilaogue_Configs/Requests/Requests.conf" {
+    }
+   }
+  }
   SCR_InitWeatherComponent "{5ED3043D01F86B46}" {
    m_sInitialStartingWeatherId "Storm"
    m_iSetWeatherConstant 1
@@ -32,6 +38,26 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
    m_iStartingMonth 3
   }
   SP_RequestManagerComponent "{5E9E986CBDBDB7EA}" {
+   m_aTasksToSpawn {
+    SP_DeliverTask "{5F13145D9F448CF1}" {
+    }
+    SP_DestroyTask "{5F13145D81CB4244}" {
+    }
+    SP_KillTask "{5F13145D803B8574}" {
+    }
+    SP_NavigateTask "{5F13145D82535E34}" {
+    }
+    SP_RescueTask "{5F13145D852335BD}" {
+    }
+    SP_RetrieveTask "{5F13145D87D05421}" {
+    }
+    SP_TalkTask "{5F13145D86C08596}" {
+    }
+   }
+   m_aQuestlines {
+    SP_ChainedTask "{5F13145D8D12687E}" : "{F5EA37544DFD9394}Configs/QuestLines/Everon_Campaign/Everon_Campaign_Questline.conf" {
+    }
+   }
    m_bShowDebug 0
   }
  }

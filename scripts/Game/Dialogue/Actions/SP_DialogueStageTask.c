@@ -192,6 +192,21 @@ class SP_DialogueStageLowerWeaponAction : DS_BaseDialogueStageAction
 
 	};
 };
+[BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
+class SP_DialogueStageMakeBaseVisitedAction : DS_BaseDialogueStageAction
+{
+	[Attribute()]
+	bool m_bRaiseWeapon;
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
+		SCR_CampaignMilitaryBaseComponent nearest = BaseMan.GetClosestBase(Character.GetOrigin());
+		if (!nearest)
+			return;
+		nearest.m_bVisited = true;	
+
+	};
+};
 
 class SCR_AISetConverseFalse : SCR_AIActionTask
 {
