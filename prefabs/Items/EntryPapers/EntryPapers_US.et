@@ -1,0 +1,13 @@
+GenericEntity : "{A3EEC94B793273B8}prefabs/Items/EntryPapers/EntryPapers_Base.et" {
+ ID "5ED6820191BD8F8F"
+ components {
+  MeshObject "{5ED6820191BD8F94}" {
+   Materials {
+    MaterialAssignClass "{5F049E6EC99E4913}" {
+     SourceMaterial "Notebook_01"
+     AssignedMaterial "{9A3F905A6B69BAF4}Assets/Props/Civilian/Notebook_01/Data/Notebook_01_Blue.emat"
+    }
+   }
+  }
+ }
+}
