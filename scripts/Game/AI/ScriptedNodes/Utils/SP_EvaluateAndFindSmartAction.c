@@ -291,10 +291,12 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 		vector Origin;
 		float Radious;
 
-
+		m_Owner = owner.GetControlledEntity();
 		
 		//Gt origin of search
 		GetVariableIn( POISSITION_PORT , Origin );
+		if (!Origin)
+			Origin = m_Owner.GetOrigin();
 		
 		//Gt radius of search
 		GetVariableIn( RADIUS_PORT , Radious );
@@ -330,7 +332,7 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 					//set up first distance
 					if ( ! dist )
 					{
-						dist = vector.Distance( Smart.m_Owner.GetOrigin() , Origin );
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() ,Origin );
 						OutSmartAction = Smart;
 					}
 					// if any of the next smart actions has smaller distance and set it as the one to use
