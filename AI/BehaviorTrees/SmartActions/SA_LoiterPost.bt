@@ -7,7 +7,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
    Nodes {
     Parallel Parallel {
      Name "Parallel"
-     EditorPos 118.299 -264.043
+     EditorPos 114.299 -262.043
      Nodes {
       Selector Selector {
        Name "Selector"
@@ -24,7 +24,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
             AITaskGetCurrentSmartAction "Get Current Smart Action" {
              Name "Get Current Smart Action"
              EditorPos -5426.667 1421.667
-             OutSmartAction 20
+             OutSmartAction 17
             }
             SCR_AIGetMyWaypointRadius "SCR_AI Get My Waypoint Radius" {
              Name "SCR_AI Get My Waypoint Radius"
@@ -37,31 +37,39 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
              }
              OutPorts {
               SingleOutputPortContainer SingleOutputPortContainer {
-               Port 32
+               Port 26
                PortName "RadiusOut"
               }
              }
             }
+            AITaskGetSmartActionParams "Get Smart Action Params" {
+             Name "Get Smart Action Params"
+             EditorPos -4578.438 1431.636
+             InSmartAction -1
+             OutBehavior -1
+             OutPos -1
+             OutSmartActionEntity 19
+            }
             SCR_AIGetSmartActionSentinelParams "SCR_AI Get Smart Action Guard Params" {
              Name "SCR_AI Get Smart Action Guard Params"
-             EditorPos -4483.045 1421.395
+             EditorPos -4131.378 1429.728
              InPorts {
               SingleInputPortContainer SingleInputPortContainer {
-               Port 20
+               Port 17
                PortName "SmartActionGuard"
               }
              }
              OutPorts {
               SingleOutputPortContainer SingleOutputPortContainer {
-               Port 26
+               Port 23
                PortName "OutPos"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
-               Port 18
+               Port 15
                PortName "LookPosition"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
-               Port 14
+               Port 12
                PortName "LookDirectionRange"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
@@ -69,7 +77,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                PortName "Stance"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
-               Port 8
+               Port 6
                PortName "UseBinoculars"
               }
               SingleOutputPortContainer SingleOutputPortContainer {
@@ -83,23 +91,27 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
          }
          NegativeCondition 1
          AbortType AbortChildrenBranch
-         InVariable 25
+         InVariable 22
         }
         Sequence Sequence {
          Name "Sequence"
          EditorPos -2504.169 1049.592
          Nodes {
-          SCR_AIEvaluateAndFindSmartActionV2 "SCR_AI Evaluate And Find Smart Action V2" {
-           Name "SCR_AI Evaluate And Find Smart Action V2"
-           EditorPos -3048.168 1365.009
+          SCR_AIFindClosestSmartAction "SCR_AI Find Closest Smart Action" {
+           Name "SCR_AI Find Closest Smart Action"
+           EditorPos -2990.357 1390.119
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
-             Port 27
+             Port 24
              PortName "Possition"
             }
             SingleInputPortContainer SingleInputPortContainer {
-             Port 33
-             PortName "Radius"
+             Port 27
+             PortName "InRadius"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "InTags"
             }
            }
            OutPorts {
@@ -108,14 +120,13 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
              PortName "OutSmartAction"
             }
             SingleOutputPortContainer SingleOutputPortContainer {
-             Port 23
+             Port 20
              PortName "OutTag"
             }
            }
            m_aTags {
             "LightFire" "SwitchLight" "DeadBody"
            }
-           m_fRadius 100
           }
           DecoTestVariable "Test Variable" {
            Name "Test Variable"
@@ -127,22 +138,22 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
              Nodes {
               AITaskGetSmartActionParams "Get Smart Action Params" {
                Name "Get Smart Action Params"
-               EditorPos -2338.273 1978.886
-               InSmartAction 17
-               OutBehavior 6
-               OutPos 28
-               OutSmartActionEntity 11
+               EditorPos -2924.94 1932.219
+               InSmartAction 14
+               OutBehavior -1
+               OutPos 25
+               OutSmartActionEntity 9
               }
               Sequence Sequence {
                Name "Sequence"
-               EditorPos -1463.702 2368.838
+               EditorPos -720.369 1898.838
                Nodes {
                 SCR_AISetActionOccupied "SCR_AI Set Action Occupied" {
                  Name "SCR_AI Set Action Occupied"
-                 EditorPos -2584.25 2544.386
+                 EditorPos -2584.25 2114.386
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
-                   Port 17
+                   Port 14
                    PortName "TargetAction"
                   }
                  }
@@ -150,7 +161,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
                  Name "SCR_AI Send Order_ Stance"
-                 EditorPos -2346.444 2561.635
+                 EditorPos -2346.444 2131.635
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
                    Port -1
@@ -165,7 +176,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
                  Name "SCR_AI Send Order_ Movement Type"
-                 EditorPos -2058.92 2565.35
+                 EditorPos -2058.92 2135.35
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
                    Port -1
@@ -180,7 +191,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
                  Name "SCR_AI Set Weapon Raised"
-                 EditorPos -1734.635 2564.207
+                 EditorPos -1734.635 2134.207
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
                    Port -1
@@ -191,14 +202,14 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 AITaskMove Move {
                  Name "Move"
-                 EditorPos -1503.92 2571.35
+                 EditorPos -1503.92 2141.35
                  InTargetLocation 2
                  PrecisionXZ 3
                  PrecisionY 3
                 }
                 SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
                  Name "SCR_AI Send Order_ Stance"
-                 EditorPos -1197.099 2584.336
+                 EditorPos -1197.099 2154.336
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
                    Port -1
@@ -213,10 +224,10 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 SCR_AILookAtPosition "SCR_AI Look At Position" {
                  Name "SCR_AI Look At Position"
-                 EditorPos -937.229 2595.08
+                 EditorPos -937.229 2165.08
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
-                   Port 9
+                   Port 7
                    PortName "PositionIn"
                   }
                   SingleInputPortContainer SingleInputPortContainer {
@@ -235,33 +246,33 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 AITaskIdle Idle {
                  Name "Idle"
-                 EditorPos -656.419 2606.259
+                 EditorPos -656.419 2176.259
                  Period 1
                  PeriodRandom 0.5
                 }
                 SCR_AIPerformLightAction "SCR_AI Perform Light Action" {
                  Name "SCR_AI Perform Light Action"
-                 EditorPos -426.958 2597.434
+                 EditorPos -426.958 2167.434
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
-                   Port 19
+                   Port 16
                    PortName "TargetEntity"
                   }
                   SingleInputPortContainer SingleInputPortContainer {
-                   Port 13
+                   Port 11
                    PortName "Tags"
                   }
                  }
                 }
                 AITaskIdle Idle {
                  Name "Idle"
-                 EditorPos -161.659 2597.969
+                 EditorPos -161.659 2167.969
                  Period 1
                  PeriodRandom 0.5
                 }
                 SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
                  Name "SCR_AI Send Order_ Stance"
-                 EditorPos -9.437 2582.992
+                 EditorPos -9.437 2152.992
                  InPorts {
                   SingleInputPortContainer SingleInputPortContainer {
                    Port -1
@@ -273,70 +284,15 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                   }
                  }
                 }
-               }
-              }
-              Sequence Sequence {
-               Name "Sequence"
-               EditorPos -362.942 1934.122
-               Nodes {
-                DecoTestVariable "Test Variable" {
-                 Name "Test Variable"
-                 EditorPos -831.836 2101.259
-                 Nodes {
-                  SCR_AISetActionUnOccupied "SCR_AI Set Action Un Occupied" {
-                   Name "SCR_AI Set Action Un Occupied"
-                   EditorPos -860.522 2269.591
-                   InPorts {
-                    SingleInputPortContainer SingleInputPortContainer {
-                     Port 24
-                     PortName "TargetAction"
-                    }
-                   }
+                SCR_AISetActionUnOccupied "SCR_AI Set Action Un Occupied" {
+                 Name "SCR_AI Set Action Un Occupied"
+                 EditorPos 308.333 2146.667
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 28
+                   PortName "TargetAction"
                   }
                  }
-                 ForceNodeResult Success
-                 InVariable 15
-                 TestType EqualsValue
-                 TestValue "true"
-                }
-                AITaskSetVariable "Set Variable" {
-                 Name "Set Variable"
-                 EditorPos -586.235 2103.154
-                 ClearVariable 1
-                 OutVariable 24
-                }
-                AITaskSetVariable "Set Variable" {
-                 Name "Set Variable"
-                 EditorPos -365.646 2097.128
-                 ClearVariable 1
-                 OutVariable 16
-                 InVariable -1
-                }
-                AITaskSetVariable "Set Variable" {
-                 Name "Set Variable"
-                 EditorPos -143.575 2100.178
-                 SetValue "true"
-                 ClearVariable 1
-                 OutVariable 5
-                 InVariable -1
-                }
-                AITaskSetVariable "Set Variable" {
-                 Name "Set Variable"
-                 EditorPos 69.831 2101.259
-                 ClearVariable 1
-                 OutVariable -1
-                }
-                AITaskSetVariable "Set Variable" {
-                 Name "Set Variable"
-                 EditorPos 274.831 2101.259
-                 ClearVariable 1
-                 OutVariable 4
-                }
-                AITaskSetVariable "Set Variable" {
-                 Name "Set Variable"
-                 EditorPos 508.164 2106.259
-                 ClearVariable 1
-                 OutVariable 29
                 }
                }
               }
@@ -345,6 +301,39 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
            }
            AbortType AbortChildrenBranch
            InVariable 0
+          }
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos -1368 1350
+           Nodes {
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos -1629.479 1506.128
+             ClearVariable 1
+             OutVariable 13
+             InVariable -1
+            }
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos -1365.408 1503.178
+             SetValue "true"
+             ClearVariable 1
+             OutVariable 5
+             InVariable -1
+            }
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos -1102.002 1505.926
+             ClearVariable 1
+             OutVariable 4
+            }
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos -806.402 1506.154
+             ClearVariable 1
+             OutVariable 21
+            }
+           }
           }
          }
         }
@@ -363,132 +352,47 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
          Name "Test Variable"
          EditorPos 2081.836 875.943
          Nodes {
-          Selector Selector {
-           Name "Selector"
-           EditorPos 3180.498 1683.425
+          Sequence Sequence {
+           Name "Sequence"
+           EditorPos 2148.539 1265.064
            Nodes {
-            DecoTestVariable "Test Variable" {
-             Name "Test Variable"
-             EditorPos 2911.164 1773.426
-             Nodes {
-              Parallel Parallel {
-               Name "Parallel"
-               EditorPos 2934.539 1999.397
-               Nodes {
-                Sequence Sequence {
-                 Name "Sequence"
-                 EditorPos 2618.539 2208.397
-                 Nodes {
-                  AITaskGetSmartActionParams "Get Smart Action Params" {
-                   Name "Get Smart Action Params"
-                   EditorPos 1334.896 2549.969
-                   InSmartAction 31
-                   OutBehavior -1
-                   OutPos -1
-                   OutSmartActionEntity 22
-                  }
-                  SCR_AIGetSmartActionSentinelParams "SCR_AI Get Smart Action Guard Params" {
-                   Name "SCR_AI Get Smart Action Guard Params"
-                   EditorPos 1718.039 2522.509
-                   InPorts {
-                    SingleInputPortContainer SingleInputPortContainer {
-                     Port 31
-                     PortName "SmartActionGuard"
-                    }
-                   }
-                   OutPorts {
-                    SingleOutputPortContainer SingleOutputPortContainer {
-                     Port 7
-                     PortName "OutPos"
-                    }
-                    SingleOutputPortContainer SingleOutputPortContainer {
-                     Port -1
-                     PortName "LookPosition"
-                    }
-                    SingleOutputPortContainer SingleOutputPortContainer {
-                     Port -1
-                     PortName "LookDirectionRange"
-                    }
-                    SingleOutputPortContainer SingleOutputPortContainer {
-                     Port -1
-                     PortName "Stance"
-                    }
-                    SingleOutputPortContainer SingleOutputPortContainer {
-                     Port -1
-                     PortName "UseBinoculars"
-                    }
-                    SingleOutputPortContainer SingleOutputPortContainer {
-                     Port -1
-                     PortName "LeaningType"
-                    }
-                   }
-                  }
-                  AITaskMove Move {
-                   Name "Move"
-                   EditorPos 2161.76 2511.064
-                   InTargetLocation 7
-                   PrecisionXZ 2
-                   PrecisionY 2
-                   OrientationType ToPoint
-                  }
-                  AITaskSetVariable "Set Variable" {
-                   Name "Set Variable"
-                   EditorPos 2539.879 2507.325
-                   SetValue "SCR_LoiterUserAction"
-                   OutVariable 10
-                  }
-                  SCR_AIPerformSmartUserAction "SCR_AI Perform Smart User Action" {
-                   Name "SCR_AI Perform Smart User Action"
-                   EditorPos 2958.425 2506.448
-                   InPorts {
-                    SingleInputPortContainer SingleInputPortContainer {
-                     Port 10
-                     PortName "UserAction"
-                    }
-                    SingleInputPortContainer SingleInputPortContainer {
-                     Port 12
-                     PortName "TargetEntity"
-                    }
-                   }
-                  }
-                  AITaskReturnState "Return  State" {
-                   Name "Return  State"
-                   EditorPos 3310.206 2505.564
-                   Result RUNNING
-                  }
-                 }
-                }
-                SCR_AIPerformSmartUserAction "SCR_AI Perform Smart User Action" {
-                 Name "SCR_AI Perform Smart User Action"
-                 EditorPos 3054.039 2197.842
-                 InPorts {
-                  SingleInputPortContainer SingleInputPortContainer {
-                   Port 10
-                   PortName "UserAction"
-                  }
-                  SingleInputPortContainer SingleInputPortContainer {
-                   Port 12
-                   PortName "TargetEntity"
-                  }
-                 }
-                 m_bPerformOnAbort 1
-                }
-               }
+            AITaskMove Move {
+             Name "Move"
+             EditorPos 1691.76 1567.731
+             InTargetLocation 29
+             PrecisionXZ 2
+             PrecisionY 2
+             OrientationType ToPoint
+            }
+            AITaskSetVariable "Set Variable" {
+             Name "Set Variable"
+             EditorPos 2069.879 1563.992
+             SetValue "SCR_LoiterUserAction"
+             OutVariable 8
+            }
+            SCR_AIPerformSmartUserAction "SCR_AI Perform Smart User Action" {
+             Name "SCR_AI Perform Smart User Action"
+             EditorPos 2488.425 1563.115
+             InPorts {
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 8
+               PortName "UserAction"
+              }
+              SingleInputPortContainer SingleInputPortContainer {
+               Port 10
+               PortName "TargetEntity"
               }
              }
-             AbortType AbortChildrenBranch
-             InVariable 30
             }
-            AITaskIdle Idle {
-             Name "Idle"
-             EditorPos 3369.831 1866.592
-             Period 5
+            SCR_AIStopLoiterOnAbort "SCR_AI Stop Loiter On Abort" {
+             Name "SCR_AI Stop Loiter On Abort"
+             EditorPos 2820 1578.667
             }
            }
           }
          }
          AbortType AbortChildrenBranch
-         InVariable 21
+         InVariable 18
         }
        }
        NegativeCondition 1
@@ -516,7 +420,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
          Nodes {
           SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
            Name "SCR_AI Toggle Flashlights On Simulate"
-           EditorPos 4222.335 883.386
+           EditorPos 4222.335 881.386
           }
          }
          NegativeCondition 1
@@ -541,9 +445,9 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
    VariableExposedInput 0
    VariableExposedOutput 0
   }
-  Variable Ocupy_bool {
-   VariableName "Ocupy_bool"
-   VariableTypeName "bool"
+  Variable wantedLookPosition {
+   VariableName "wantedLookPosition"
+   VariableTypeName "vector"
    VariableExposedInput 0
    VariableExposedOutput 0
   }
@@ -595,27 +499,15 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
    VariableExposedInput 0
    VariableExposedOutput 0
   }
-  Variable Behavior {
-   VariableName "Behavior"
-   VariableTypeName "string"
+  Variable Radius {
+   VariableName "Radius"
+   VariableTypeName "float"
    VariableExposedInput 0
    VariableExposedOutput 0
   }
   Variable useBinoculars {
    VariableName "useBinoculars"
    VariableTypeName "bool"
-   VariableExposedInput 0
-   VariableExposedOutput 0
-  }
-  Variable wantedLookPosition {
-   VariableName "wantedLookPosition"
-   VariableTypeName "vector"
-   VariableExposedInput 0
-   VariableExposedOutput 0
-  }
-  Variable Radius {
-   VariableName "Radius"
-   VariableTypeName "float"
    VariableExposedInput 0
    VariableExposedOutput 0
   }
@@ -627,11 +519,11 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference desiredStance {
    VariableType 7
-   EditorPos -4035.963 1743.08
+   EditorPos -3684.296 1751.413
   }
   VariableReference SAPos {
    VariableType 3
-   EditorPos -1658.635 2740.064
+   EditorPos -1658.635 2310.064
   }
   VariableReference FoundEntity {
    VariableType 8
@@ -639,67 +531,55 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference tagstoact {
    VariableType 9
-   EditorPos 496.498 2219.592
+   EditorPos -841.335 1666.592
   }
   VariableReference FoundEntity {
    VariableType 8
-   EditorPos 52.01 2230.764
-  }
-  VariableReference Behavior {
-   VariableType 11
-   EditorPos -2234.502 2218.592
-  }
-  VariableReference SAPos {
-   VariableType 3
-   EditorPos 2044.927 2736.98
+   EditorPos -1111.823 1655.764
   }
   VariableReference useBinoculars {
    VariableType 12
-   EditorPos -4045.963 1836.08
+   EditorPos -3694.296 1844.413
   }
   VariableReference SAPos {
    VariableType 3
-   EditorPos -1151.301 2773.402
+   EditorPos -1151.301 2343.402
   }
   VariableReference UserAction {
    VariableType 1
-   EditorPos 2688.413 2671.779
+   EditorPos 2218.413 1728.446
   }
   VariableReference FoundEntity {
    VariableType 8
-   EditorPos -2239.94 2375.803
+   EditorPos -2826.607 2329.136
   }
   VariableReference actionEntity {
    VariableType 0
-   EditorPos 2699.816 2751.064
+   EditorPos 2229.816 1807.731
   }
   VariableReference tagstoact {
    VariableType 9
-   EditorPos -992.348 2864.543
+   EditorPos -992.348 2434.543
   }
   VariableReference lookDirectionRange {
    VariableType 4
-   EditorPos -4038.963 1649.08
-  }
-  VariableReference Ocupy_bool {
-   VariableType 2
-   EditorPos -1200.169 2307.926
+   EditorPos -3687.296 1657.413
   }
   VariableReference SAPos {
    VariableType 3
-   EditorPos -181.988 2242.001
+   EditorPos -1393.821 1663.001
   }
   VariableReference FoundComponent {
    VariableType 6
-   EditorPos -2930.917 2396.052
+   EditorPos -3517.584 2349.385
   }
   VariableReference wantedLookPosition {
-   VariableType 13
-   EditorPos -4024.295 1557.413
+   VariableType 2
+   EditorPos -3672.628 1565.746
   }
   VariableReference FoundEntity {
    VariableType 8
-   EditorPos -973.447 2790.889
+   EditorPos -973.447 2360.889
   }
   VariableReference guardComponent {
    VariableType 5
@@ -711,7 +591,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference actionEntity {
    VariableType 0
-   EditorPos 1684.26 2779.954
+   EditorPos -4214.073 1644.954
   }
   VariableReference tagstoact {
    VariableType 9
@@ -719,7 +599,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference FoundComponent {
    VariableType 6
-   EditorPos -822.538 2414.435
+   EditorPos -559.871 1665.435
   }
   VariableReference guardComponent {
    VariableType 5
@@ -727,7 +607,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference CurrentSmartActionPos {
    VariableType 10
-   EditorPos -4028.061 1469.553
+   EditorPos -3676.394 1477.886
   }
   VariableReference CurrentSmartActionPos {
    VariableType 10
@@ -735,27 +615,23 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference SAPos {
    VariableType 3
-   EditorPos -2220.894 2291.994
-  }
-  VariableReference Behavior {
-   VariableType 11
-   EditorPos 764.831 2211.259
-  }
-  VariableReference guardComponent {
-   VariableType 5
-   EditorPos 2024.667 2017.333
-  }
-  VariableReference guardComponent {
-   VariableType 5
-   EditorPos 618 2834
+   EditorPos -2807.561 2245.327
   }
   VariableReference Radius {
-   VariableType 14
+   VariableType 11
    EditorPos -4692.5 1562.5
   }
   VariableReference Radius {
-   VariableType 14
+   VariableType 11
    EditorPos -3200 1582.5
+  }
+  VariableReference FoundComponent {
+   VariableType 6
+   EditorPos -175 2335
+  }
+  VariableReference CurrentSmartActionPos {
+   VariableType 10
+   EditorPos 1381.667 1751.667
   }
  }
 }

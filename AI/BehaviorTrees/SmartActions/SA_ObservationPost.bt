@@ -99,9 +99,9 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
          Name "Sequence"
          EditorPos -4764 -55
          Nodes {
-          SCR_AIEvaluateAndFindSmartActionV2 "SCR_AI Evaluate And Find Smart Action V2" {
-           Name "SCR_AI Evaluate And Find Smart Action V2"
-           EditorPos -5311.666 261.667
+          SCR_AIFindClosestSmartAction "SCR_AI Find Closest Smart Action" {
+           Name "SCR_AI Find Closest Smart Action"
+           EditorPos -5232.917 231.468
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
              Port 21
@@ -109,7 +109,11 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
             }
             SingleInputPortContainer SingleInputPortContainer {
              Port 43
-             PortName "Radius"
+             PortName "InRadius"
+            }
+            SingleInputPortContainer SingleInputPortContainer {
+             Port -1
+             PortName "InTags"
             }
            }
            OutPorts {
@@ -125,7 +129,6 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
            m_aTags {
             "LightFire" "SwitchLight" "DeadBody"
            }
-           m_fRadius 100
           }
           DecoTestVariable "Test Variable" {
            Name "Test Variable"
@@ -559,7 +562,8 @@ BehaviorTree "{BC53D77D23308CD6}AI/BehaviorTrees/SmartActions/SA_ObservationPost
                                Name "SCR_AI Take Gadget In Left Hand"
                                EditorPos 1029.715 2315.697
                                OutPorts {
-                                SingleOutputPortContainer SingleOutputPortContainerClass {
+                                SingleOutputPortContainer SingleOutputPortContainer {
+                                 Port -1
                                  PortName "ItemOut"
                                 }
                                }

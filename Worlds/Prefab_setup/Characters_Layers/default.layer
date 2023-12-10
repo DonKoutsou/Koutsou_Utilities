@@ -9,6 +9,12 @@ SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/Gam
 SCR_CampaignFactionManager CampaignFactionManager1 : "{F1AC26310BAE3788}prefabs/MP/Campaign/CampaignFactionManager.et" {
  coords 160.579 1.001 249.195
 }
+DecalEntity {
+ coords 50.972 3.109 204.709
+ angleY -90
+ angleZ 90
+ TerrainOnly 0
+}
 $grp GenericEntity {
  {
   coords 124.984 1 232.459
@@ -112,6 +118,9 @@ SCR_ChimeraCharacter : "{1CA3D30464EE4674}prefabs/Characters/Factions/BLUFOR/US_
 }
 GenericEntity : "{1F816D1D2CF505B8}prefabs/Characters/Vests/Vest_6B2/Vest_6B2_base.et" {
  coords 126.011 1 245.359
+}
+Vehicle Mi8MTT_A1 : "{20CC28A84709D23E}Prefabs/Vehicles/Helicopters/Mi8MT/Mi8MTT-A.et" {
+ coords 49.754 1 202.664
 }
 GenericEntity : "{21A39238663B7390}prefabs/Items/EntryPapers/Entry_Papers_USSR.et" {
  coords 57.373 1 190.301

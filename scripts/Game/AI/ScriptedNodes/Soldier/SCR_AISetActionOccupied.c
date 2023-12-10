@@ -68,3 +68,26 @@ class SCR_AISetActionUnOccupied : AITaskScripted
 		return true;
 	}
 };
+class SCR_AIStopLoiterOnAbort : AITaskScripted
+{
+	//------------------------------------------------------------------------------------------------
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		return ENodeResult.RUNNING;		
+	}
+	override void OnAbort(AIAgent owner, Node nodeCausingAbort)
+	{
+		if (!owner)
+			return;
+		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(owner.GetControlledEntity());
+		if (!char)
+			return;
+		SCR_CharacterCommandHandlerComponent scrCmdHandler = SCR_CharacterCommandHandlerComponent.Cast(char.GetAnimationComponent().GetCommandHandler());	
+		scrCmdHandler.StopLoitering(false);	
+	}
+	//------------------------------------------------------------------------------------------------
+	protected override bool VisibleInPalette()
+	{
+		return true;
+	}
+};

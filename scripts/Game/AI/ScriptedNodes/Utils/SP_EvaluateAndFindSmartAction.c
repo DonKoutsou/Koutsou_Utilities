@@ -264,6 +264,7 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 	protected static const string RADIUS_PORT = "InRadius";
 	protected static const string INTAGS_PORT = "InTags";
 	protected static const string SMARTACTION_PORT = "OutSmartAction";
+	protected static const string OUT_TAG_PORT = "OutTag";
 	
 	SCR_AISmartActionComponent OutSmartAction;
 
@@ -271,6 +272,7 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 	ref array <string> tags = {};
 	ref array <Managed> a_CorrectSmartActs = {};
 	ref array <string> outtags = {};
+
 	override bool VisibleInPalette() { return true; }
 	
 	override string GetOnHoverDescription()
@@ -324,7 +326,6 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 			{
 				foreach (Managed SmartA : a_CorrectSmartActs)
 				{
-					dist = 0;
 					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
 					//set up first distance
 					if ( ! dist )
@@ -333,9 +334,9 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 						OutSmartAction = Smart;
 					}
 					// if any of the next smart actions has smaller distance and set it as the one to use
-					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , m_Owner.GetOrigin() ) )
+					else if ( dist > vector.Distance( Smart.m_Owner.GetOrigin() , Origin ) )
 					{
-						dist = vector.Distance( Smart.m_Owner.GetOrigin() , m_Owner.GetOrigin() );
+						dist = vector.Distance( Smart.m_Owner.GetOrigin() , Origin );
 						OutSmartAction = Smart;
 					}
 				}
@@ -350,6 +351,9 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 			//if char should crouch when using action
 			//smart action
 			SetVariableOut( SMARTACTION_PORT , OutSmartAction );
+			OutSmartAction.GetTags(outtags);
+			//smart action tags
+			SetVariableOut(OUT_TAG_PORT, outtags);
 			return ENodeResult.SUCCESS;
 		}
 		return ENodeResult.FAIL;
@@ -401,7 +405,7 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 	protected static ref TStringArray s_aVarsIn = {POISSITION_PORT, RADIUS_PORT, INTAGS_PORT};
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT};
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted

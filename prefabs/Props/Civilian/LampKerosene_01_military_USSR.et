@@ -1,8 +1,8 @@
 GameEntity : "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01_base.et" {
  ID "F0DBA538AC2A0552"
  components {
-  SCR_AISmartActionSentinelComponent "{5D68E80064AA4C7B}" {
-   Enabled 0
+  SCR_AISmartActionComponent "{5D68E80198B93487}" {
+   AIBehaviorTree ""
   }
  }
 }
