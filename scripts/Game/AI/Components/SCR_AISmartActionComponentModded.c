@@ -6,14 +6,16 @@ modded class SCR_AISmartActionComponent : AISmartActionComponent
 	SCR_CharacterDamageManagerComponent m_pDamageManager;
 	bool NeedsTest()
 	{
-		if (ActionTest)
+		if ( ActionTest )
 			return true;
 		return false;
-	}
-	bool RunTest(IEntity User)
+	};
+	
+	bool RunTest( IEntity User )
 	{
-		return ActionTest.TestAction(GetOwner(), User);
-	}
+		return ActionTest.TestAction( GetOwner(), User );
+	};
+	
 };
 class DecoratorScripted_TestSmartAction : DecoratorScripted
 {
@@ -21,13 +23,13 @@ class DecoratorScripted_TestSmartAction : DecoratorScripted
 	protected override bool TestFunction(AIAgent owner)
 	{
 		SCR_AISmartActionComponent SmartAct;
-		GetVariableIn("SmartAction", SCR_AISmartActionComponent);
+		GetVariableIn( "SmartAction", SCR_AISmartActionComponent );
 		if (SmartAct.NeedsTest())
 		{
-			return SmartAct.RunTest(owner.GetControlledEntity());
+			return SmartAct.RunTest( owner.GetControlledEntity() );
 		}
 		return true;
-	}
+	};
 	
 	protected override bool VisibleInPalette()
 	{
@@ -37,8 +39,9 @@ class DecoratorScripted_TestSmartAction : DecoratorScripted
 	protected static ref TStringArray s_aVarsIn = {
 		"SmartAction"
 	};
+	
 	protected override TStringArray GetVariablesIn()
 	{
 		return s_aVarsIn;
-	}
+	};
 };

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{8DFE8DFA02B8A3FF}Configs/Ranks/Mechanic.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

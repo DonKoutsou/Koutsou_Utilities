@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{2087D83CCC0E114A}Sounds/Enviroment/Environment_Ambients_2D.acp"
+ Configurations {
+  AudioProjectResourceClass PC {
+  }
+  AudioProjectResourceClass XBOX_ONE : PC {
+  }
+  AudioProjectResourceClass PS4 : PC {
+  }
+  AudioProjectResourceClass HEADLESS : PC {
+  }
+  AudioProjectResourceClass XBOX_SERIES : PC {
+  }
+ }
+}

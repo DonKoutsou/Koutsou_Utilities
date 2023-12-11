@@ -29,11 +29,11 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 	
 	bool CloseSpawn;
 	IEntity m_Owner;
-	ref array <string> tags = {};
-	ref array <Managed> a_CorrectSmartActs = {};
-	ref array <Managed> a_GateSmartActions = {};
-	ref array <Managed> a_IdleSmartActions = {};
-	ref array <string> outtags = {};
+	ref array < string > tags = {};
+	ref array < Managed > a_CorrectSmartActs = {};
+	ref array < Managed > a_GateSmartActions = {};
+	ref array < Managed > a_IdleSmartActions = {};
+	ref array < string > outtags = {};
 	override bool VisibleInPalette() { return true; }
 	
 	override string GetOnHoverDescription()
@@ -41,7 +41,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		return "Smart Action in radius, evaluate either character has any needs if yes look for traders if not look for tags forom Attribute.";
 	}
 	
-	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	override ENodeResult EOnTaskSimulate( AIAgent owner, float dt )
 	{
 		//make sure arrays are empty for new cycle
 		a_CorrectSmartActs.Clear();
@@ -57,11 +57,11 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		{
 			AIAgent Agent;
 			GetVariableIn( CHARACTER_PORT , Agent );
-			char = SCR_ChimeraCharacter.Cast(Agent.GetControlledEntity());
+			char = SCR_ChimeraCharacter.Cast( Agent.GetControlledEntity() );
 		}
 		
 		//Gather needs
-		array <ERequestRewardItemDesctiptor> Needs = {};
+		array < ERequestRewardItemDesctiptor > Needs = {};
 		ERequestRewardItemDesctiptor desc;
 		char.GetAllNeeds(Needs);
 		
@@ -70,7 +70,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		
 		//Gt radius of search
 		GetVariableIn( RADIUS_PORT , Radious );
-		if (!Radious)
+		if ( ! Radious )
 			Radious = m_fStoreSearchRadius;
 		
 		
@@ -79,7 +79,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		m_Owner = char;
 		
 		//if no owner fail
-		if (!m_Owner)
+		if ( ! m_Owner )
 			return ENodeResult.FAIL;
 		
 		//If no input for origin get origin from owner
@@ -98,28 +98,28 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 			tags.Insert(m_sStoreTag);
 			
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+			GetGame().GetWorld().QueryEntitiesBySphere( Origin, Radious, QueryEntitiesForSmartAction );
 			//Clear tags so that next seach doesent look for store again
 			tags.Clear();
 		}
 		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
-		if (a_CorrectSmartActs.IsEmpty())
+		if ( a_CorrectSmartActs.IsEmpty() )
 		{
 			//apply radius for seatch
 			GetVariableIn( INTAGS_PORT , tags );
-			if (tags.IsEmpty())
+			if ( tags.IsEmpty() )
 			{
 				//Get tags from Attribute
-				tags.Copy(m_aTags);
+				tags.Copy( m_aTags );
 			}
 			
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+			GetGame().GetWorld().QueryEntitiesBySphere( Origin, Radious, QueryEntitiesForSmartAction );
 			float dist;
 			//find out the closest one out of found smart action
-			if (!a_CorrectSmartActs.IsEmpty())
+			if ( ! a_CorrectSmartActs.IsEmpty() )
 			{
-				foreach (Managed SmartA : a_CorrectSmartActs)
+				foreach ( Managed SmartA : a_CorrectSmartActs )
 				{
 					dist = 0;
 					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
@@ -157,10 +157,10 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 					}
 				}
 			}
-			else if (!a_IdleSmartActions.IsEmpty())
+			else if ( ! a_IdleSmartActions.IsEmpty() )
 			{
 				dist = 0;
-				foreach (Managed SmartA : a_IdleSmartActions)
+				foreach ( Managed SmartA : a_IdleSmartActions )
 				{
 					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
 					if (!Smart)
@@ -181,7 +181,7 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 			}
 		}
 		//if we have one get its variables out
-		if (OutSmartAction)
+		if ( OutSmartAction )
 		{
 			//SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(OutSmartAction);
 			//if (storeaction)
@@ -194,68 +194,68 @@ class SCR_AIEvaluateAndFindSmartAction : AITaskScripted
 		return ENodeResult.FAIL;
 	}
 	//special querry looks for smart action, doese the test on them to determine if "can be performed"
-	private bool QueryEntitiesForSmartAction(IEntity e)
+	private bool QueryEntitiesForSmartAction( IEntity e )
 	{
-		array<Managed> smartacts = new array<Managed>();
+		array < Managed > smartacts = new array < Managed > ();
 		
 		//find smart action component
-		e.FindComponents(SCR_AISmartActionComponent, smartacts);
+		e.FindComponents( SCR_AISmartActionComponent, smartacts );
 		
 		//if none go to next entity
-		if (smartacts.IsEmpty())
+		if ( smartacts.IsEmpty() )
 			return true;
 		
 		else
 		{
-			foreach (Managed Smart : smartacts)
+			foreach ( Managed Smart : smartacts )
 			{
 				//Check if action is accessible
-				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);
-				if (!smatcomp.IsActionAccessible())
+				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast( Smart );
+				if ( ! smatcomp.IsActionAccessible() )
 					continue;
 				
 				//Get tags of smart action
-				array <string> demtags2 = {};
+				array < string > demtags2 = {};
 				smatcomp.GetTags( demtags2 );
 				
 				
-				foreach (string tg : demtags2)
+				foreach ( string tg : demtags2 )
 				{
 					//check if tags of action are what we are looking for
-					if (tags.Contains(tg))
+					if ( tags.Contains( tg ) )
 					{
 						//if action needs test run it and if it succeds add it to array if not add it straight to the array
-						if (smatcomp.NeedsTest())
+						if ( smatcomp.NeedsTest() )
 						{
-							if (smatcomp.RunTest(m_Owner))
-								a_CorrectSmartActs.Insert(Smart);
+							if ( smatcomp.RunTest( m_Owner ) )
+								a_CorrectSmartActs.Insert( Smart );
 						}
 						else
-							a_CorrectSmartActs.Insert(Smart);
+							a_CorrectSmartActs.Insert( Smart );
 					}
-					else if (tg == m_sGateTag)
+					else if ( tg == m_sGateTag )
 					{
-						a_GateSmartActions.Insert(Smart);
+						a_GateSmartActions.Insert( Smart );
 					}
-					else if (tg == m_sIdleActionTag)
+					else if ( tg == m_sIdleActionTag )
 					{
-						a_IdleSmartActions.Insert(Smart);
+						a_IdleSmartActions.Insert( Smart );
 					}
 				}
 			}
 		}
 		return true;
 	}
-	protected static ref TStringArray s_aVarsIn = {CHARACTER_PORT, POISSITION_PORT, RADIUS_PORT, INTAGS_PORT};
+	protected static ref TStringArray s_aVarsIn = { CHARACTER_PORT, POISSITION_PORT, RADIUS_PORT, INTAGS_PORT };
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT };
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 class SCR_AIFindClosestSmartAction : AITaskScripted
 {
 	[Attribute()]
-	protected ref array <string> m_aTags;
+	protected ref array < string > m_aTags;
 
 	[Attribute()]
 	float m_fRadius;
@@ -269,9 +269,9 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 	SCR_AISmartActionComponent OutSmartAction;
 
 	IEntity m_Owner;
-	ref array <string> tags = {};
-	ref array <Managed> a_CorrectSmartActs = {};
-	ref array <string> outtags = {};
+	ref array < string > tags = {};
+	ref array < Managed > a_CorrectSmartActs = {};
+	ref array < string > outtags = {};
 
 	override bool VisibleInPalette() { return true; }
 	
@@ -310,23 +310,23 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 			return ENodeResult.FAIL;
 		}
 		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
-		if (a_CorrectSmartActs.IsEmpty())
+		if ( a_CorrectSmartActs.IsEmpty() )
 		{
 			//apply radius for seatch
 			GetVariableIn( INTAGS_PORT , tags );
-			if (tags.IsEmpty())
+			if ( tags.IsEmpty() )
 			{
 				//Get tags from Attribute
-				tags.Copy(m_aTags);
+				tags.Copy( m_aTags );
 			}
 			
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+			GetGame().GetWorld().QueryEntitiesBySphere( Origin, Radious, QueryEntitiesForSmartAction );
 			float dist;
 			//find out the closest one out of found smart action
-			if (!a_CorrectSmartActs.IsEmpty())
+			if ( ! a_CorrectSmartActs.IsEmpty() )
 			{
-				foreach (Managed SmartA : a_CorrectSmartActs)
+				foreach ( Managed SmartA : a_CorrectSmartActs )
 				{
 					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
 					//set up first distance
@@ -353,20 +353,20 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 			//if char should crouch when using action
 			//smart action
 			SetVariableOut( SMARTACTION_PORT , OutSmartAction );
-			OutSmartAction.GetTags(outtags);
+			OutSmartAction.GetTags( outtags );
 			//smart action tags
-			SetVariableOut(OUT_TAG_PORT, outtags);
+			SetVariableOut( OUT_TAG_PORT, outtags );
 			return ENodeResult.SUCCESS;
 		}
 		return ENodeResult.FAIL;
 	}
 	//special querry looks for smart action, doese the test on them to determine if "can be performed"
-	private bool QueryEntitiesForSmartAction(IEntity e)
+	private bool QueryEntitiesForSmartAction( IEntity e )
 	{
-		array<Managed> smartacts = new array<Managed>();
+		array<Managed> smartacts = new array < Managed > ();
 		
 		//find smart action component
-		e.FindComponents(SCR_AISmartActionComponent, smartacts);
+		e.FindComponents( SCR_AISmartActionComponent, smartacts );
 		
 		//if none go to next entity
 		if (smartacts.IsEmpty())
@@ -374,40 +374,40 @@ class SCR_AIFindClosestSmartAction : AITaskScripted
 		
 		else
 		{
-			foreach (Managed Smart : smartacts)
+			foreach ( Managed Smart : smartacts )
 			{
 				//Check if action is accessible
-				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);
-				if (!smatcomp.IsActionAccessible())
+				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast( Smart );
+				if ( ! smatcomp.IsActionAccessible() )
 					continue;
 				
 				//Get tags of smart action
 				array <string> demtags2 = {};
 				smatcomp.GetTags( demtags2 );
 
-				foreach (string tg : demtags2)
+				foreach ( string tg : demtags2 )
 				{
 					//check if tags of action are what we are looking for
-					if (tags.Contains(tg))
+					if ( tags.Contains( tg ))
 					{
 						//if action needs test run it and if it succeds add it to array if not add it straight to the array
-						if (smatcomp.NeedsTest())
+						if ( smatcomp.NeedsTest() )
 						{
-							if (smatcomp.RunTest(m_Owner))
-								a_CorrectSmartActs.Insert(Smart);
+							if (smatcomp.RunTest( m_Owner ))
+								a_CorrectSmartActs.Insert( Smart );
 						}
 						else
-							a_CorrectSmartActs.Insert(Smart);
+							a_CorrectSmartActs.Insert( Smart );
 					}
 				}
 			}
 		}
 		return true;
 	}
-	protected static ref TStringArray s_aVarsIn = {POISSITION_PORT, RADIUS_PORT, INTAGS_PORT};
+	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT, RADIUS_PORT, INTAGS_PORT };
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT };
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
@@ -415,13 +415,13 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 	[Attribute()]
 	protected ref array <string> m_aTags;
 	
-	[Attribute("StorePost")]
+	[Attribute( "StorePost" )]
 	protected string m_sStoreTag;
 	
 	[Attribute()]
 	float m_fRadius;
 	
-	[Attribute("300")]
+	[Attribute( "300" )]
 	float m_fStoreSearchRadius;
 	
 
@@ -435,9 +435,9 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 	
 	bool CloseSpawn;
 	IEntity m_Owner;
-	ref array <string> tags = {};
-	ref array <Managed> a_CorrectSmartActs = {};
-	ref array <string> outtags = {};
+	ref array < string > tags = {};
+	ref array < Managed > a_CorrectSmartActs = {};
+	ref array < string > outtags = {};
 	override bool VisibleInPalette() { return true; }
 	
 	override string GetOnHoverDescription()
@@ -445,7 +445,7 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 		return "Smart Action in radius, evaluate either character has any needs if yes look for traders if not look for tags forom Attribute.";
 	}
 	
-	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	override ENodeResult EOnTaskSimulate( AIAgent owner, float dt )
 	{
 		//make sure arrays are empty for new cycle
 		a_CorrectSmartActs.Clear();
@@ -457,17 +457,17 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 		float Radious;
 		//Get chimera
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast( owner.GetControlledEntity() );
-		if (!char)
+		if ( ! char )
 		{
 			AIAgent Agent;
 			GetVariableIn( CHARACTER_PORT , Agent );
-			char = SCR_ChimeraCharacter.Cast(Agent.GetControlledEntity());
+			char = SCR_ChimeraCharacter.Cast( Agent.GetControlledEntity() );
 		}
 		
 		//Gather needs
-		array <ERequestRewardItemDesctiptor> Needs = {};
+		array < ERequestRewardItemDesctiptor > Needs = {};
 		ERequestRewardItemDesctiptor desc;
-		char.GetAllNeeds(Needs);
+		char.GetAllNeeds( Needs );
 		
 		//Gt origin of search
 		GetVariableIn( POISSITION_PORT , Origin );
@@ -477,13 +477,11 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 		if (!Radious)
 			Radious = m_fRadius;
 		
-		
-		
 		//Get Owner Entity
 		m_Owner = char;
 		
 		//if no owner fail
-		if (!m_Owner)
+		if ( ! m_Owner )
 			return ENodeResult.FAIL;
 		
 		//If no input for origin get origin from owner
@@ -496,34 +494,34 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 			return ENodeResult.FAIL;
 		}
 		//if there are needs
-		if (!Needs.IsEmpty())
+		if ( ! Needs.IsEmpty() )
 		{
 			//add store tag in tags to search
-			tags.Insert(m_sStoreTag);
+			tags.Insert( m_sStoreTag );
 			
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+			GetGame().GetWorld().QueryEntitiesBySphere( Origin, Radious, QueryEntitiesForSmartAction );
 			//Clear tags so that next seach doesent look for store again
 			tags.Clear();
 		}
 		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
-		if (a_CorrectSmartActs.IsEmpty())
+		if ( a_CorrectSmartActs.IsEmpty() )
 		{
 			//apply radius for seatch
 			GetVariableIn( INTAGS_PORT , tags );
 			if (tags.IsEmpty())
 			{
 				//Get tags from Attribute
-				tags.Copy(m_aTags);
+				tags.Copy( m_aTags );
 			}
 			
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+			GetGame().GetWorld().QueryEntitiesBySphere( Origin, Radious, QueryEntitiesForSmartAction );
 			float dist;
 			//find out the closest one out of found smart action
-			if (!a_CorrectSmartActs.IsEmpty())
+			if ( ! a_CorrectSmartActs.IsEmpty() )
 			{
-				OutSmartAction = SCR_AISmartActionComponent.Cast(a_CorrectSmartActs.GetRandomElement());
+				OutSmartAction = SCR_AISmartActionComponent.Cast( a_CorrectSmartActs.GetRandomElement() );
 				/*foreach (Managed SmartA : a_CorrectSmartActs)
 				{
 					dist = 0;
@@ -544,7 +542,7 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 			}
 		}
 		//if we have one get its variables out
-		if (OutSmartAction)
+		if ( OutSmartAction )
 		{
 			//SP_StoreAISmartActionComponent storeaction = SP_StoreAISmartActionComponent.Cast(OutSmartAction);
 			//if (storeaction)
@@ -557,54 +555,53 @@ class SCR_AIEvaluateAndFindSmartActionJob : AITaskScripted
 		return ENodeResult.FAIL;
 	}
 	//special querry looks for smart action, doese the test on them to determine if "can be performed"
-	private bool QueryEntitiesForSmartAction(IEntity e)
+	private bool QueryEntitiesForSmartAction( IEntity e )
 	{
-		array<Managed> smartacts = new array<Managed>();
+		array<Managed> smartacts = new array < Managed > ();
 		
 		//find smart action component
-		e.FindComponents(SCR_AISmartActionComponent, smartacts);
+		e.FindComponents( SCR_AISmartActionComponent, smartacts );
 		
 		//if none go to next entity
-		if (smartacts.IsEmpty())
+		if ( smartacts.IsEmpty() )
 			return true;
 		
 		else
 		{
-			foreach (Managed Smart : smartacts)
+			foreach ( Managed Smart : smartacts )
 			{
 				//Check if action is accessible
-				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);
-				if (!smatcomp.IsActionAccessible())
+				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast( Smart );
+				if ( ! smatcomp.IsActionAccessible() )
 					continue;
 				
 				//Get tags of smart action
-				array <string> demtags2 = {};
+				array < string > demtags2 = {};
 				smatcomp.GetTags( demtags2 );
 				
-				
-				foreach (string tg : demtags2)
+				foreach ( string tg : demtags2 )
 				{
 					//check if tags of action are what we are looking for
-					if (tags.Contains(tg))
+					if ( tags.Contains( tg ) )
 					{
 						//if action needs test run it and if it succeds add it to array if not add it straight to the array
-						if (smatcomp.NeedsTest())
+						if ( smatcomp.NeedsTest() )
 						{
-							if (smatcomp.RunTest(m_Owner))
-								a_CorrectSmartActs.Insert(Smart);
+							if ( smatcomp.RunTest( m_Owner ) )
+								a_CorrectSmartActs.Insert( Smart );
 						}
 						else
-							a_CorrectSmartActs.Insert(Smart);
+							a_CorrectSmartActs.Insert( Smart );
 					}
 				}
 			}
 		}
 		return true;
 	}
-	protected static ref TStringArray s_aVarsIn = {CHARACTER_PORT, POISSITION_PORT, RADIUS_PORT, INTAGS_PORT};
+	protected static ref TStringArray s_aVarsIn = { CHARACTER_PORT, POISSITION_PORT, RADIUS_PORT, INTAGS_PORT };
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT };
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 //Checks if owner has any kid of needs to fulfill and looks for traders around
@@ -633,9 +630,9 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 	float Radious;
 	bool CloseSpawn;
 	IEntity m_Owner;
-	ref array <string> tags = {};
-	ref array <Managed> a_CorrectSmartActs = {};
-	ref array <string> outtags = {};
+	ref array < string > tags = {};
+	ref array < Managed > a_CorrectSmartActs = {};
+	ref array < string > outtags = {};
 	override bool VisibleInPalette() { return true; }
 	
 	override string GetOnHoverDescription()
@@ -643,7 +640,7 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 		return "Smart Action in radius, evaluate either character has any needs if yes look for traders if not look for tags forom Attribute.";
 	}
 	
-	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	override ENodeResult EOnTaskSimulate( AIAgent owner, float dt )
 	{
 		//make sure arrays are empty for new cycle
 		a_CorrectSmartActs.Clear();
@@ -658,7 +655,7 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 		//Gather needs
 		array <ERequestRewardItemDesctiptor> Needs = {};
 		ERequestRewardItemDesctiptor desc;
-		char.GetAllNeeds(Needs);
+		char.GetAllNeeds( Needs );
 		
 		//Gt origin of search
 		GetVariableIn( POISSITION_PORT , Origin );
@@ -692,7 +689,7 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 		//	tags.Clear();
 		//}
 		//if a_CorrectSmartActs it means that char either has no needs or cant find store for needs so look for the normal tags
-		if (a_CorrectSmartActs.IsEmpty())
+		if ( a_CorrectSmartActs.IsEmpty() )
 		{
 			if (!GetVariableIn( RADIUS_PORT , Radious ))
 			{
@@ -701,14 +698,14 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 			}
 			
 			//Get tags from Attribute
-			tags.Copy(m_aTags);
+			tags.Copy( m_aTags );
 			//Do the query
-			GetGame().GetWorld().QueryEntitiesBySphere(Origin, Radious, QueryEntitiesForSmartAction);
+			GetGame().GetWorld().QueryEntitiesBySphere( Origin, Radious, QueryEntitiesForSmartAction );
 			float dist;
 			//find out the closest one out of found smart action
 			if (!a_CorrectSmartActs.IsEmpty())
 			{
-				foreach (Managed SmartA : a_CorrectSmartActs)
+				foreach ( Managed SmartA : a_CorrectSmartActs )
 				{
 					dist = 0;
 					SCR_AISmartActionComponent Smart = SCR_AISmartActionComponent.Cast( SmartA );
@@ -735,23 +732,23 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 				//OutSmartAction = SCR_AISmartActionComponent.Cast(a_CorrectSmartActs.GetRandomElement());
 			//smart action
 			SetVariableOut( SMARTACTION_PORT , OutSmartAction );
-			OutSmartAction.GetTags(outtags);
+			OutSmartAction.GetTags( outtags );
 			//smart action tags
-			SetVariableOut(OUT_TAG_PORT, outtags);
+			SetVariableOut( OUT_TAG_PORT, outtags );
 			return ENodeResult.SUCCESS;
 		}
 		return ENodeResult.FAIL;
 	}
 	//special querry looks for smart action, doese the test on them to determine if "can be performed"
-	private bool QueryEntitiesForSmartAction(IEntity e)
+	private bool QueryEntitiesForSmartAction( IEntity e )
 	{
-		array<Managed> smartacts = new array<Managed>();
+		array<Managed> smartacts = new array < Managed > ();
 		
 		//find smart action component
-		e.FindComponents(SCR_AISmartActionComponent, smartacts);
+		e.FindComponents( SCR_AISmartActionComponent, smartacts );
 		
 		//if none go to next entity
-		if (smartacts.IsEmpty())
+		if ( smartacts.IsEmpty() )
 			return true;
 		
 		else
@@ -759,38 +756,38 @@ class SCR_AIEvaluateAndFindSmartActionV2 : AITaskScripted
 			foreach (Managed Smart : smartacts)
 			{
 				//Check if action is accessible
-				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast(Smart);
-				if (!smatcomp.IsActionAccessible())
+				SCR_AISmartActionComponent smatcomp = SCR_AISmartActionComponent.Cast( Smart );
+				if ( ! smatcomp.IsActionAccessible() )
 					continue;
 				
 				//Get tags of smart action
-				array <string> demtags2 = {};
+				array < string > demtags2 = {};
 				smatcomp.GetTags( demtags2 );
 				
 				
-				foreach (string tg : demtags2)
+				foreach ( string tg : demtags2 )
 				{
 					//check if tags of action are what we are looking for
-					if (tags.Contains(tg))
+					if ( tags.Contains( tg ) )
 					{
 						//if action needs test run it and if it succeds add it to array if not add it straight to the array
-						if (smatcomp.NeedsTest())
+						if ( smatcomp.NeedsTest() )
 						{
-							if (smatcomp.RunTest(m_Owner))
-								a_CorrectSmartActs.Insert(Smart);
+							if ( smatcomp.RunTest( m_Owner ) )
+								a_CorrectSmartActs.Insert( Smart );
 						}
 						else
-							a_CorrectSmartActs.Insert(Smart);
+							a_CorrectSmartActs.Insert( Smart );
 					}
 				}
 			}
 		}
 		return true;
 	}
-	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT, RADIUS_PORT};
+	protected static ref TStringArray s_aVarsIn = { POISSITION_PORT, RADIUS_PORT };
 	override TStringArray GetVariablesIn() { return s_aVarsIn; }
 	
-	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT};
+	protected static ref TStringArray s_aVarsOut = { SMARTACTION_PORT, OUT_TAG_PORT };
 	override TStringArray GetVariablesOut() { return s_aVarsOut; }
 }
 	
