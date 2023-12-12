@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{3E888CAFC2BDEB7C}Sounds/UI/Water_refil.wav"
+ Name "{B43C91EF6662A29D}Sounds/Items/_SharedData/PickUp/Drink_Sound.wav"
  Configurations {
   WAVResourceClass PC : "{F72B05D02F3F135E}Configs/System/ResourceTypes/PC/Sound.conf" {
   }

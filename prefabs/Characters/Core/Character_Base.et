@@ -3,7 +3,7 @@ SCR_ChimeraCharacter {
  components {
   CharacterSoundComponent "{520EA1D2F659CF84}" {
    Filenames + {
-    "{CB0646CF33012DDD}Sounds/UI/UI_Gadgets.acp" "{E47C6623D894BA57}Sounds/Voice.acp"
+    "{CB0646CF33012DDD}Sounds/UI/UI_Gadgets.acp" "{E47C6623D894BA57}Sounds/Voice.acp" "{93ACAEB6CD0A10D5}Sounds/Items/_SharedData/PickUp/Food.acp"
    }
   }
   AIControlComponent "{520EA1D2DB109F34}" {

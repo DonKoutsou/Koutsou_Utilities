@@ -1,0 +1,33 @@
+FoodEntity : "{61C577C0E2A178A6}prefabs/Items/Food/Food_Base.et" {
+ ID "5F1944C8CE777A38"
+ components {
+  InventoryItemComponent "{5F1944C9AF5B83B2}" {
+   Attributes SCR_ItemAttributeCollection "{5F1944C91D94C0BD}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5F1944C91F78ABFF}" {
+     Name "Army crackers"
+    }
+   }
+  }
+  MeshObject "{5F1944C9539B28BC}" {
+   Object "{A47ED22E6647430A}Assets/Items/Food/ArmyCrackers_Soviet_01.xob"
+  }
+  SCR_ConsumableItemComponent "{5F1944C941FA3395}" {
+   m_eAnimVariable ADRIANOV
+   m_fInitContainerCapacity 10
+   m_fUseAmount 10
+  }
+  ActionsManagerComponent "{5F1944C96F92D9E0}" {
+   additionalActions {
+    SP_EatAction "{5F1944C8E28EA64C}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5F1944C8E7DBD2CD}" {
+      Name "Eat"
+     }
+    }
+   }
+  }
+ }
+ coords 124.141 1 247.448
+}

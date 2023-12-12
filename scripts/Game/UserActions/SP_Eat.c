@@ -5,7 +5,7 @@ class SP_EatAction : ScriptedUserAction
 		PlayerController playerController = GetGame().GetPlayerController();
 		SP_CharacterStatsComponent statComponent = SP_CharacterStatsComponent.Cast(playerController.FindComponent(SP_CharacterStatsComponent));
 		if (statComponent)
-			statComponent.Eat(playerController);
+			statComponent.Eat(pOwnerEntity);
 	}
 		
 }

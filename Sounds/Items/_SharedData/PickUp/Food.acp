@@ -1,0 +1,143 @@
+AudioClass {
+ sounds {
+  SoundClass {
+   id 48137
+   name "SOUND_CONSUME_FOOD"
+   version 0
+   tl 211.25 373.75
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 46098
+       port 65
+      }
+     }
+    }
+   }
+   volume_dB -15
+   static 1
+  }
+  SoundClass {
+   id 49161
+   name "SOUND_CONSUME_WATER"
+   version 0
+   tl 214.833 580.167
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 51218
+       port 65
+      }
+     }
+    }
+   }
+   static 1
+  }
+ }
+ shaders {
+  ShaderClass {
+   id 46098
+   name "Shader 5"
+   version 5
+   tl -18.856 367.035
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 42012
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 47108
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+  ShaderClass {
+   id 51218
+   name "Shader 5"
+   version 5
+   tl -15.273 573.451
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 42012
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 50180
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 47108
+   name "Consume"
+   version 0
+   tl -250.144 367.966
+   Volume -30
+   "Volume variance" 1
+   Pitch 0.5
+   "Pitch variance" 0.5
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{C8EC9D4A0B05CCA6}Sounds/Items/_SharedData/PickUp/Eat_Sound.wav"
+    }
+   }
+  }
+  BankLocalClass {
+   id 50180
+   name "Consume"
+   version 0
+   tl -247.561 582.382
+   "Volume variance" 1
+   Pitch 0.5
+   "Pitch variance" 0.5
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{B43C91EF6662A29D}Sounds/Items/_SharedData/PickUp/Drink_Sound.wav"
+    }
+   }
+  }
+ }
+ spatialities {
+  SpatialityClass {
+   id 42012
+   name "Spatiality 7"
+   version 5
+   tl -17.754 135.13
+   spatialFactor 0.219
+  }
+ }
+ version 1
+ sourcesLimit 1
+}

@@ -1,0 +1,67 @@
+FoodEntity {
+ ID "5F1944C8CE777A38"
+ components {
+  SoundComponent "{5F1944C9A1F4A3BC}" {
+   Filenames {
+    "{93ACAEB6CD0A10D5}Sounds/Items/_SharedData/PickUp/Food.acp"
+   }
+   SoundPoints {
+    SoundPointInfo Soundpoint {
+    }
+   }
+  }
+  InventoryItemComponent "{5F1944C9AF5B83B2}" {
+   Attributes SCR_ItemAttributeCollection "{5F1944C91D94C0BD}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5F1944C91F78ABFF}" {
+     m_aItemHints {
+      SCR_InventoryItemHintUIInfo "{5F1944C90B152956}" : "{49FF59DB2CA8EA11}Configs/Item_Hints/FoodSource.conf" {
+      }
+      SCR_InventoryItemHintUIInfo "{5F1944C93380ADA6}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
+      }
+     }
+    }
+   }
+  }
+  MeshObject "{5F1944C9539B28BC}" {
+  }
+  RigidBody "{5F1944C9548A10DC}" {
+   ModelGeometry 1
+  }
+  SCR_ConsumableItemComponent "{5F1944C941FA3395}" {
+   m_ConsumableEffect SP_ConsumableEffectEat "{5F1944C93B4C3486}" {
+   }
+   m_bIsEatable 1
+  }
+  SCR_SoundDataComponent "{5F1944C9466BCB21}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5F1944C9787C079A}" {
+     m_sSoundProject "{12A94705DF2BFD25}Sounds/Items/_SharedData/PickUp/Items_PickUp_Generic.acp"
+     m_sSoundEventName "SOUND_PICK_UP"
+    }
+    SCR_AudioSourceConfiguration "{5F1944C966893D98}" {
+     m_sSoundProject "{CC0E5A1324E761C1}Sounds/Items/_SharedData/Drop/Items_Drop_Generic.acp"
+     m_sSoundEventName "SOUND_DROP"
+    }
+   }
+  }
+  ActionsManagerComponent "{5F1944C96F92D9E0}" {
+   ActionContexts {
+    UserActionContext "{5F1944C8C14CC3AA}" {
+     ContextName "default"
+     Position PointInfo "{5F1944C8C39BC857}" {
+     }
+    }
+   }
+   additionalActions {
+    SCR_PickUpItemAction "{5F1944C8DEEAF983}" : "{F39A4E9B190C1846}Prefabs/Characters/Core/Actions/PickUpItemAction.conf" {
+    }
+   }
+  }
+  RplComponent "{5F1944C9BB1A50CB}" {
+   "Rpl State Override" Runtime
+  }
+  Hierarchy "{5F1944C9B9BFE590}" {
+  }
+ }
+ coords 124.964 1 247.632
+}

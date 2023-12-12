@@ -53,16 +53,15 @@ AudioClass {
  banks_local {
   BankLocalClass {
    id 45060
-   name "Sprint_Asphalt"
+   name "Refil"
    version 0
    tl -248.223 215.152
-   Volume -10.825
    "Volume variance" 1
    Pitch 0.5
    "Pitch variance" 0.5
    Samples {
     AudioBankSampleClass Sample {
-     Filename "{3E888CAFC2BDEB7C}Sounds/UI/Water_refil.wav"
+     Filename "{3E888CAFC2BDEB7C}Sounds/Items/_SharedData/PickUp/Water_refil.wav"
     }
    }
   }
