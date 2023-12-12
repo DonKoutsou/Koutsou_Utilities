@@ -49,6 +49,11 @@ modded class SCR_ConsumableItemComponent
 	void Refill()
 	{
 		CurrentCapacity = m_fInitContainerCapacity;
+		SoundComponent sound = SoundComponent.Cast(GetOwner().FindComponent(SoundComponent));
+		if (sound)
+		{
+			sound.SoundEvent("SOUND_REFIL");
+		}
 	}
 	override event protected void EOnInit(IEntity owner)
 	{

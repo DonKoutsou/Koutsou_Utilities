@@ -1,4 +1,4 @@
-Vehicle : "{CBD8C2393BE87581}Prefabs/Vehicles/Core/Helicopter_Base.et" {
+Vehicle : "{CBD8C2393BE87581}prefabs/Vehicles/Core/Helicopter_Base.et" {
  ID "57DA6675519A417B"
  components {
   SCR_FuelConsumptionComponent "{5CCCEEA12FE59D93}" {

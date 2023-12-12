@@ -1,5 +1,6 @@
 TimeAndWeatherManagerEntity {
  ID "5244F08C9618CADD"
+ "Day Duration" 7200
  "Month of the Year" 3
  "Day of the Month" 3
  m_fDayTemp 12

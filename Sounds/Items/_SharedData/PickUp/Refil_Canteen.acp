@@ -1,0 +1,81 @@
+AudioClass {
+ sounds {
+  SoundClass {
+   id 43017
+   name "SOUND_REFIL"
+   version 0
+   tl 213.155 213.312
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 44050
+       port 65
+      }
+     }
+    }
+   }
+   static 1
+  }
+ }
+ shaders {
+  ShaderClass {
+   id 44050
+   name "Shader 5"
+   version 5
+   tl -15.935 214.221
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 42012
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 45060
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    3
+   }
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 45060
+   name "Sprint_Asphalt"
+   version 0
+   tl -248.223 215.152
+   Volume -10.825
+   "Volume variance" 1
+   Pitch 0.5
+   "Pitch variance" 0.5
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{3E888CAFC2BDEB7C}Sounds/UI/Water_refil.wav"
+    }
+   }
+  }
+ }
+ spatialities {
+  SpatialityClass {
+   id 42012
+   name "Spatiality 7"
+   version 5
+   tl -17.754 135.13
+   spatialFactor 0.219
+  }
+ }
+ version 1
+ sourcesLimit 1
+}

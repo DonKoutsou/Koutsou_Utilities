@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+ Configurations {
+  AudioProjectResourceClass PC {
+  }
+  AudioProjectResourceClass XBOX_ONE : PC {
+  }
+  AudioProjectResourceClass XBOX_SERIES : PC {
+  }
+  AudioProjectResourceClass PS4 : PC {
+  }
+  AudioProjectResourceClass HEADLESS : PC {
+  }
+ }
+}

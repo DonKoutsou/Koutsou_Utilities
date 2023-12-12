@@ -12,6 +12,8 @@ GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen_Sovi
       }
       SCR_InventoryItemHintUIInfo "{5EBADCC698882EDF}" : "{54F8B9CAFB904A75}Configs/Item_Hints/HydrationIntructions.conf" {
       }
+      SCR_CanteenInventoryItemHintUIInfo "{5F18C698FF538770}" : "{BABBFA99D346156F}Configs/Item_Hints/CanteenCapacity.conf" {
+      }
      }
     }
     ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
@@ -43,8 +45,6 @@ GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen_Sovi
   }
   RigidBody "{2829E7297110F493}" {
    SimState Simulation
-  }
-  SP_UnretrievableComponent "{5D7F4BDEB122E8AC}" {
   }
  }
  coords 118.887 0.839 134.607

@@ -1,6 +1,17 @@
 GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  ID "508AB2013EEE1E00"
  components {
+  SignalsManagerComponent "{5F18D875A3AA8D51}" {
+  }
+  SoundComponent "{5F18D28577238C36}" {
+   Filenames {
+    "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+   }
+   SoundPoints {
+    SoundPointInfo Refil {
+    }
+   }
+  }
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
     ItemDisplayName SCR_InventoryUIInfo "{5222EB4D07D865FA}" {

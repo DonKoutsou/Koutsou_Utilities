@@ -1,6 +1,17 @@
 GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  ID "2829E729E4D72360"
  components {
+  SignalsManagerComponent "{5F18D875BDEA43DF}" {
+  }
+  SoundComponent "{5F18D2855769458F}" {
+   Filenames {
+    "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+   }
+   SoundPoints {
+    SoundPointInfo Refil {
+    }
+   }
+  }
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
     ItemDisplayName SCR_InventoryUIInfo "{5E1836CE84C3E238}" {
@@ -53,6 +64,16 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
    m_bIsDrinkable 1
    m_fInitContainerCapacity 30
    m_fUseAmount 10
+  }
+  SCR_SoundDataComponent "{5B18D20ED0099A17}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5F18D04D8939063F}" {
+     m_sSoundProject "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+     m_sSoundEventName "SOUND_REFIL"
+    }
+   }
+  }
+  SP_UnretrievableComponent "{5F18D285658547DA}" {
   }
   BaseLoadoutClothComponent "{54E6E41D1C6CC4E8}" {
    Enabled 0

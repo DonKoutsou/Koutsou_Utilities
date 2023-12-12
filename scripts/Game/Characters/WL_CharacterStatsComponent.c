@@ -184,6 +184,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 	protected float p_Drain;
 	protected RplComponent m_pRplComponent;
 	protected EventHandlerManagerComponent m_pEventHandlerManager;
+	bool m_bDissabled;
+	
 	bool MissingSomething(out int reasonindex)
 	{
 		if (GetCurrentTemp() < m_fHealthyTemperature - 5)
@@ -234,11 +236,13 @@ class SP_CharacterStatsComponent : ScriptComponent
 		}
 		if (m_fTemperature <= m_fDeathTemperature)
 		{
-			m_pDamage.Kill(Instigator.CreateInstigator(m_pChar));
+			HitZone HZ = m_pDamage.GetDefaultHitZone();
+			HZ.SetHealth(HZ.GetHealth() - 1);
 		}
 		if (m_fTemperature >= m_fMaxTemperature)
 		{
-			m_pDamage.Kill(Instigator.CreateInstigator(m_pChar));
+			HitZone HZ = m_pDamage.GetDefaultHitZone();
+			HZ.SetHealth(HZ.GetHealth() - 1);
 		}
 	}
 	void CheckEnergy()
@@ -385,6 +389,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 	//! Only on authoritative machine
 	void Eat(IEntity item)
 	{
+		if (m_bDissabled)
+			return;
 		SCR_ConsumableItemComponent consumable = SCR_ConsumableItemComponent.Cast(item.FindComponent(SCR_ConsumableItemComponent));
 		if(consumable.HasUses() == false)
 		{
@@ -478,6 +484,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 	//! Only on authoritative machine
 	void Drink(IEntity item)
 	{
+		if (m_bDissabled)
+			return;
 		SCR_ConsumableItemComponent consumable = SCR_ConsumableItemComponent.Cast(item.FindComponent(SCR_ConsumableItemComponent));
 		if(consumable.HasUses() == false)
 		{
@@ -519,6 +527,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 	}
 	void Sleep(IEntity itemm, int amount)
 	{
+		if (m_bDissabled)
+			return;
 		SetNewEnergy(m_fEnergy + amount);
 	}
 	
@@ -652,7 +662,8 @@ class SP_CharacterStatsComponent : ScriptComponent
 			{
 				if (m_pDamage && !m_pDamage.IsDestroyed())
 				{
-					m_pDamage.Kill(Instigator.CreateInstigator(m_pChar));
+					HitZone HZ = m_pDamage.GetDefaultHitZone();
+					HZ.SetHealth(HZ.GetHealth() - 1);
 				}
 			}
 		}
@@ -705,10 +716,12 @@ class SP_CharacterStatsComponent : ScriptComponent
 	void Stop()
 	{
 		ClearEventMask(GetOwner(), EntityEvent.FRAME);
+		m_bDissabled = true;
 	}
 	void Start()
 	{
 		SetEventMask(GetOwner(), EntityEvent.FRAME);
+		m_bDissabled = false;
 	}
 	void SetStaminDrain(float Drain)
 	{
