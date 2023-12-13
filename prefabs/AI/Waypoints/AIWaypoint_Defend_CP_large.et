@@ -1,6 +1,7 @@
 SCR_DefendWaypoint : "{2A81753527971941}Prefabs/AI/Waypoints/AIWaypoint_Defend_CP.et" {
  ID "5A5E8832CED378BA"
  CompletionRadius 50
+ m_bFastInit 0
  m_DefendPresets {
   SCR_DefendWaypointPreset "{5A5E8832CED378A7}" {
    m_aTagsForSearch {

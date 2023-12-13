@@ -146,7 +146,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 	protected float m_fTemperature;
 
 	
-		float clothesFactor = 0;
+	float clothesFactor = 0;
 	// update temperature based on clothes, weather and possibly other factors
 	
 	[Attribute("42.0")]
@@ -563,13 +563,6 @@ class SP_CharacterStatsComponent : ScriptComponent
 		if (state == EDamageState.DESTROYED)
 			DisconnectFromStatSystem();
 	}
-	
-	//------------------------------------------------------------------------------------------------
-	override void EOnFrame(IEntity owner, float timeSlice)
-	{
-		
-	}
-
 	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
