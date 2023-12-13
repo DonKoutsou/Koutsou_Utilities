@@ -19912,7 +19912,9 @@ $animation "" {
   }
  }
  $events {
-  #event 35 "Sound" "SOUND_CONSUME_FOOD" -1 0 "" 0
+  #event 30 "Sound" "SOUND_CONSUME_FOOD" -1 0 "" 0
+  #event 95 "Sound" "SOUND_CONSUME_FOOD" -1 0 "" 0
+  #event 125 "Sound" "SOUND_CONSUME_FOOD" -1 0 "" 0
  }
  $custProps {
   #custProp "sourceFile" "Canteen.blend"

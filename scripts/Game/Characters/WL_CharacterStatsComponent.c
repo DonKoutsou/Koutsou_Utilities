@@ -561,11 +561,101 @@ class SP_CharacterStatsComponent : ScriptComponent
 			return;
 		
 		if (state == EDamageState.DESTROYED)
-			ClearEventMask(GetOwner(), EntityEvent.FRAME);
+			DisconnectFromStatSystem();
 	}
 	
 	//------------------------------------------------------------------------------------------------
 	override void EOnFrame(IEntity owner, float timeSlice)
+	{
+		
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void EOnInit(IEntity owner)
+	{
+		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
+		if (!cont)
+			return;
+		cont.m_OnControlledEntityChanged.Insert(Init);
+		SCR_RespawnSystemComponent respawn = SCR_RespawnSystemComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_RespawnSystemComponent));
+		if (respawn)
+		{
+			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetDiss.Insert(Stop);
+			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetEna.Insert(Start);
+		}
+		
+	}
+	void Init(IEntity from, IEntity to)
+	{
+		IEntity owner = to;
+		if (!owner)
+			return;
+		m_pRplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
+		if (!m_pRplComponent || !m_pRplComponent.IsProxy())
+		{
+			ConnectToStatSystem();
+			
+			ScriptedDamageManagerComponent damageManagerComponent = ScriptedDamageManagerComponent.Cast(owner.FindComponent(ScriptedDamageManagerComponent));
+			if (damageManagerComponent)
+				damageManagerComponent.GetOnDamageStateChanged().Insert(OnDamageStateChanged);
+		}
+		
+		m_pEventHandlerManager = EventHandlerManagerComponent.Cast(owner.FindComponent(EventHandlerManagerComponent));
+		SCR_CharacterStaminaComponent Stam = SCR_CharacterStaminaComponent.Cast(owner.FindComponent(SCR_CharacterStaminaComponent));
+		Stam.GetOnStaminaDrain().Insert(SetStaminDrain);
+		ChimeraWorld world = GetGame().GetWorld();
+		m_pWeather = world.GetTimeAndWeatherManager();
+		m_pChar = ChimeraCharacter.Cast(owner);
+		m_pDamage = m_pChar.GetDamageManager();
+		//m_pLoadout = BaseLoadoutManagerComponent.Cast(m_pChar.FindComponent(BaseLoadoutManagerComponent));
+		m_pLoadout = EquipedLoadoutStorageComponent.Cast(m_pChar.FindComponent(EquipedLoadoutStorageComponent));
+		m_fHunger = Math.RandomInt(70, 100);
+		m_fThirst = Math.RandomInt(70, 100);
+		m_fEnergy = Math.RandomInt(70, 100);
+		m_fTemperature = 36.6;
+	}
+	void Stop()
+	{
+		DisconnectFromStatSystem();
+		m_bDissabled = true;
+	}
+	void Start()
+	{
+		ConnectToStatSystem();
+		m_bDissabled = false;
+	}
+	void SetStaminDrain(float Drain)
+	{
+		p_Drain = p_Drain + -Drain;
+	}
+	//------------------------------------------------------------------------------------------------
+	override void OnPostInit(IEntity owner)
+	{
+		m_fTemperature = m_fHealthyTemperature;
+		SetEventMask(owner, EntityEvent.INIT);
+		ConnectToStatSystem();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void OnDelete(IEntity owner)
+	{
+		if (!m_pRplComponent || !m_pRplComponent.IsProxy())
+		{
+			ScriptedDamageManagerComponent damageManagerComponent = ScriptedDamageManagerComponent.Cast(owner.FindComponent(ScriptedDamageManagerComponent));
+			if (damageManagerComponent)
+				damageManagerComponent.GetOnDamageStateChanged().Remove(OnDamageStateChanged);
+		}
+	}
+	override bool RplSave(ScriptBitWriter writer)
+	{
+		return true;
+	}	
+	//------------------------------------------------------------------------------------------------
+	override bool RplLoad(ScriptBitReader reader)
+	{
+		return true;
+	}
+	void Update(float timeSlice)
 	{
 		m_fTime += timeSlice;
 		
@@ -604,14 +694,12 @@ class SP_CharacterStatsComponent : ScriptComponent
 			}
 			if (m_pDamage.IsDestroyed())
 			return;	
-		
-			
-			
+
 			
 			vector origin = m_pChar.GetOrigin();
 			// consider fireplaces
 			m_FireplacesHeat = 0;
-			owner.GetWorld().QueryEntitiesBySphere(origin, FIREPLACE_RANGE, FindFireplace);
+			GetGame().GetWorld().QueryEntitiesBySphere(origin, FIREPLACE_RANGE, FindFireplace);
 			float outsideTemperature = m_pWeather.CalculateFeelsLikeTemperature(m_pChar);
 			outsideTemperature = outsideTemperature + m_FireplacesHeat;
 			
@@ -670,90 +758,54 @@ class SP_CharacterStatsComponent : ScriptComponent
 			}
 		}
 	}
+	protected void ConnectToStatSystem()
+	{
+		World world = GetOwner().GetWorld();
+		SP_StatSystem updateSystem = SP_StatSystem.Cast(world.FindSystem(SP_StatSystem));
+		if (!updateSystem)
+			return;
 
-	//------------------------------------------------------------------------------------------------
-	override void EOnInit(IEntity owner)
-	{
-		SCR_PlayerController cont = SCR_PlayerController.Cast(owner);
-		if (!cont)
-			return;
-		cont.m_OnControlledEntityChanged.Insert(Init);
-		SCR_RespawnSystemComponent respawn = SCR_RespawnSystemComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_RespawnSystemComponent));
-		if (respawn)
-		{
-			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetDiss.Insert(Stop);
-			SCR_AutoSpawnLogic.Cast(respawn.GetSpawnLogic()).m_OnMetEna.Insert(Start);
-		}
-		
-	}
-	void Init(IEntity from, IEntity to)
-	{
-		IEntity owner = to;
-		if (!owner)
-			return;
-		m_pRplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
-		if (!m_pRplComponent || !m_pRplComponent.IsProxy())
-		{
-			SetEventMask(owner, EntityEvent.FRAME);
-			
-			ScriptedDamageManagerComponent damageManagerComponent = ScriptedDamageManagerComponent.Cast(owner.FindComponent(ScriptedDamageManagerComponent));
-			if (damageManagerComponent)
-				damageManagerComponent.GetOnDamageStateChanged().Insert(OnDamageStateChanged);
-		}
-		
-		m_pEventHandlerManager = EventHandlerManagerComponent.Cast(owner.FindComponent(EventHandlerManagerComponent));
-		SCR_CharacterStaminaComponent Stam = SCR_CharacterStaminaComponent.Cast(owner.FindComponent(SCR_CharacterStaminaComponent));
-		Stam.GetOnStaminaDrain().Insert(SetStaminDrain);
-		ChimeraWorld world = GetGame().GetWorld();
-		m_pWeather = world.GetTimeAndWeatherManager();
-		m_pChar = ChimeraCharacter.Cast(owner);
-		m_pDamage = m_pChar.GetDamageManager();
-		//m_pLoadout = BaseLoadoutManagerComponent.Cast(m_pChar.FindComponent(BaseLoadoutManagerComponent));
-		m_pLoadout = EquipedLoadoutStorageComponent.Cast(m_pChar.FindComponent(EquipedLoadoutStorageComponent));
-		m_fHunger = Math.RandomInt(70, 100);
-		m_fThirst = Math.RandomInt(70, 100);
-		m_fEnergy = Math.RandomInt(70, 100);
-		m_fTemperature = 36.6;
-	}
-	void Stop()
-	{
-		ClearEventMask(GetOwner(), EntityEvent.FRAME);
-		m_bDissabled = true;
-	}
-	void Start()
-	{
-		SetEventMask(GetOwner(), EntityEvent.FRAME);
-		m_bDissabled = false;
-	}
-	void SetStaminDrain(float Drain)
-	{
-		p_Drain = p_Drain + -Drain;
-	}
-	//------------------------------------------------------------------------------------------------
-	override void OnPostInit(IEntity owner)
-	{
-		m_fTemperature = m_fHealthyTemperature;
-		SetEventMask(owner, EntityEvent.INIT);
-		SetEventMask(owner, EntityEvent.FRAME);
+		updateSystem.Register(this);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	override void OnDelete(IEntity owner)
+	protected void DisconnectFromStatSystem()
 	{
-		if (!m_pRplComponent || !m_pRplComponent.IsProxy())
-		{
-			ScriptedDamageManagerComponent damageManagerComponent = ScriptedDamageManagerComponent.Cast(owner.FindComponent(ScriptedDamageManagerComponent));
-			if (damageManagerComponent)
-				damageManagerComponent.GetOnDamageStateChanged().Remove(OnDamageStateChanged);
-		}
+		World world = GetOwner().GetWorld();
+		SP_StatSystem updateSystem = SP_StatSystem.Cast(world.FindSystem(SP_StatSystem));
+		if (!updateSystem)
+			return;
+
+		updateSystem.Unregister(this);
 	}
-	override bool RplSave(ScriptBitWriter writer)
-	{
-		return true;
-	}	
-	//------------------------------------------------------------------------------------------------
-	override bool RplLoad(ScriptBitReader reader)
-	{
-		return true;
-	}	
 };
+class SP_StatSystem : GameSystem
+{
+	protected ref array<SP_CharacterStatsComponent> m_aComponents = {};
+
+	override protected ESystemPoint GetSystemPoint()
+	{
+		return ESystemPoint.Frame;
+	}
+	
+	override protected void OnUpdate(ESystemPoint point)
+	{
+		float timeSlice = GetWorld().GetTimeSlice();
+
+		foreach (SP_CharacterStatsComponent comp : m_aComponents)
+		{
+			comp.Update(timeSlice);
+		}
+	}
+	
+	void Register(SP_CharacterStatsComponent component)
+
+	{
+		if (!m_aComponents.Contains(component))
+			m_aComponents.Insert(component);
+	}
+
+	void Unregister(SP_CharacterStatsComponent component)
+	{
+		m_aComponents.RemoveItem(component);
+	}
+}
