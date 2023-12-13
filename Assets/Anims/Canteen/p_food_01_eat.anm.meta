@@ -2,6 +2,8 @@ MetaFileClass {
  Name "{C4F7D75044A190AE}Assets/Anims/Canteen/p_food_01_eat.anm"
  Configurations {
   TXAResourceClass PC {
+   SourcePath "Canteen.blend"
+   SourceProfile "252_UpperbodyADD_ArmsABS"
   }
   TXAResourceClass XBOX_ONE : PC {
   }

@@ -144,8 +144,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 	float FIREPLACE_RANGE = 3;
 	
 	protected float m_fTemperature;
-	
-	CharacterSoundComponent charsound;
+
 	
 		float clothesFactor = 0;
 	// update temperature based on clothes, weather and possibly other factors
@@ -398,10 +397,6 @@ class SP_CharacterStatsComponent : ScriptComponent
 		{
 			return;
 		}
-		if (charsound)
-		{
-			charsound.SoundEvent("SOUND_CONSUME_FOOD");
-		}
 		if (m_pRplComponent && m_pRplComponent.IsProxy())
 		{
 			InventoryItemComponent itemComponent = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
@@ -497,10 +492,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 		{
 			return;
 		}
-		if (charsound)
-		{
-			charsound.SoundEvent("SOUND_CONSUME_WATER");
-		}
+
 		if (m_pRplComponent && m_pRplComponent.IsProxy())
 		{
 			InventoryItemComponent itemComponent = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
@@ -708,7 +700,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 			if (damageManagerComponent)
 				damageManagerComponent.GetOnDamageStateChanged().Insert(OnDamageStateChanged);
 		}
-		charsound = CharacterSoundComponent.Cast(owner.FindComponent(CharacterSoundComponent));
+		
 		m_pEventHandlerManager = EventHandlerManagerComponent.Cast(owner.FindComponent(EventHandlerManagerComponent));
 		SCR_CharacterStaminaComponent Stam = SCR_CharacterStaminaComponent.Cast(owner.FindComponent(SCR_CharacterStaminaComponent));
 		Stam.GetOnStaminaDrain().Insert(SetStaminDrain);

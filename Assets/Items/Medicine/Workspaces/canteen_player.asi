@@ -1,4 +1,4 @@
-AnimSetInstanceSource {
+AnimSetInstanceSource "{5F1AB71DB7F773D2}" {
  Template "{3747AB664EEAB407}Assets/Items/Medicine/Workspaces/MorphineInjection_01.ast"
  IkPose "{9AD19AA91B7FA538}Assets/Anims/Canteen/p_Cntn_01_Idle.anm"
  Lines {
