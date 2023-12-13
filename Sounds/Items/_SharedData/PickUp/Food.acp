@@ -17,6 +17,7 @@ AudioClass {
     }
    }
    volume_dB -15
+   speedOfSoundSimulation 1
    static 1
   }
   SoundClass {
@@ -35,6 +36,8 @@ AudioClass {
      }
     }
    }
+   volume_dB -5
+   speedOfSoundSimulation 1
    static 1
   }
  }
@@ -104,7 +107,7 @@ AudioClass {
    name "Consume"
    version 0
    tl -250.144 367.966
-   Volume -30
+   Volume -10
    "Volume variance" 1
    Pitch 0.5
    "Pitch variance" 0.5
@@ -119,6 +122,7 @@ AudioClass {
    name "Consume"
    version 0
    tl -247.561 582.382
+   Volume -10
    "Volume variance" 1
    Pitch 0.5
    "Pitch variance" 0.5
