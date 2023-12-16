@@ -739,6 +739,7 @@ class SP_Task
 			}
 			//invokers
 			AddAssigneeInvokers();
+			SCR_PopUpNotification.GetInstance().PopupMsg("Assigned", text2: m_sTaskTitle);
 			//Spawn task marker for player
 			//SpawnTaskMarker( Character );
 			
@@ -755,7 +756,7 @@ class SP_Task
 			}
 			//invokers
 			AddAssigneeInvokers();
-			
+			SCR_PopUpNotification.GetInstance().PopupMsg("Assigned", text2: m_sTaskTitle);
 			return true;
 		}
 		return false;

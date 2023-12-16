@@ -1,0 +1,80 @@
+SCR_ChimeraCharacter : "{99F600AD4C6BA6A4}prefabs/Characters/Factions/Civ/Character_CIV_base.et" {
+ ID "520EC961A090B1EE"
+ components {
+  SCR_CharacterInventoryStorageComponent "{520EA1D2DB118DAC}" {
+   components {
+    SCR_EquipmentStorageComponent "{56B49DA9722B635D}" {
+     InitialStorageSlots {
+      SCR_EquipmentStorageSlot WristwatchSlot {
+       Prefab "{6FD6C96121905202}prefabs/Items/Equipment/Watches/Watch_Vostok.et"
+      }
+     }
+    }
+   }
+  }
+  FactionAffiliationComponent "{5EBA70823E16B801}" {
+   "faction affiliation" "FIA"
+  }
+  MeshObject "{520EA1D2F659C81F}" {
+   Object "{5FB3D5671BED9A17}Assets/Characters/Stranger/Stranger.xob"
+   Materials {
+    MaterialAssignClass "{5F21163462E12857}" {
+     SourceMaterial "Basebody_01_Male_Arms"
+     AssignedMaterial "{8FBC3A6E946F056E}Common/Materials/Default_Transparent.emat"
+    }
+    MaterialAssignClass "{5F21163462E129AB}" {
+     SourceMaterial "Basebody_01_Male_Arms_wound"
+     AssignedMaterial "{8FBC3A6E946F056E}Common/Materials/Default_Transparent.emat"
+    }
+    MaterialAssignClass "{5F21163462E129AF}" {
+     SourceMaterial "Basebody_01_Male_Body"
+     AssignedMaterial "{8FBC3A6E946F056E}Common/Materials/Default_Transparent.emat"
+    }
+    MaterialAssignClass "{5F21163462E129AC}" {
+     SourceMaterial "Basebody_01_Male_Body_wound"
+     AssignedMaterial "{8FBC3A6E946F056E}Common/Materials/Default_Transparent.emat"
+    }
+   }
+  }
+  SCR_CharacterIdentityComponent "{5584CBC63E092DBC}" {
+   Identity Identity "{5584CBC6363C648B}" {
+    VisualIdentity VisualIdentity "{56E6D9456009D1C4}" {
+    }
+   }
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Hat {
+    }
+    LoadoutSlotInfo Jacket {
+     Prefab ""
+    }
+    LoadoutSlotInfo ArmoredVest {
+     Prefab "{600CF3ED80539E22}Assets/Characters/Stranger/Stranger_Outfit.et"
+    }
+    LoadoutSlotInfo Pants {
+    }
+    LoadoutSlotInfo Boots {
+    }
+    LoadoutSlotInfo Back {
+    }
+    LoadoutSlotInfo Vest {
+    }
+   }
+  }
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5F210AC5E78851E0}" {
+     TargetStorage "Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     TargetPurpose 64
+    }
+    ItemsInitConfigurationItem "{5F210AC5E78851EA}" {
+     TargetStorage "Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet.et"
+    }
+    ItemsInitConfigurationItem "{5F210AC5E78851E8}" {
+     TargetStorage "prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et"
+    }
+   }
+  }
+ }
+}

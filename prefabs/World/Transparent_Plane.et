@@ -1,0 +1,17 @@
+GenericEntity {
+ ID "5F20BBDCE79DCB84"
+ components {
+  MeshObject "{5F20AB2456EFA0E9}" {
+   Object "{0E59BB50E1EDE665}Assets/Characters/Stranger/Floor.xob"
+   Materials {
+    MaterialAssignClass "{5F2118839DB511AF}" {
+     SourceMaterial "lambert1"
+     AssignedMaterial "{8FBC3A6E946F056E}Common/Materials/Default_Transparent.emat"
+    }
+   }
+  }
+  RigidBody "{5F20AB2470BAD06B}" {
+   ModelGeometry 1
+  }
+ }
+}

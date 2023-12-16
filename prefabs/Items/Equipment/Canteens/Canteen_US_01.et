@@ -5,7 +5,7 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
   }
   SoundComponent "{5F18D28577238C36}" {
    Filenames {
-    "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+    "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Canteen.acp"
    }
    SoundPoints {
     SoundPointInfo Refil {

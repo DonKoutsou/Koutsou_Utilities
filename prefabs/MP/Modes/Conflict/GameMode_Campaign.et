@@ -30,7 +30,7 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
    m_iStartingHours 4
    m_iStartingMinutes 30
    m_bRandomStartingDaytime 0
-   m_fNightTimeAcceleration 4
+   m_fDayTimeAcceleration 12
    m_bRandomStartingWeather 0
    m_bRandomWeatherChanges 0
    m_bAllowHeaderSettings 0

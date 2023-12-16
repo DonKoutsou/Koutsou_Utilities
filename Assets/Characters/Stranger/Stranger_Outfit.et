@@ -1,0 +1,120 @@
+GenericEntity {
+ ID "5F210AC3A7582F2C"
+ components {
+  InventoryItemComponent "{5F2107680393B68E}" {
+   Attributes SCR_ItemAttributeCollection "{5F2107680393B683}" {
+    ItemDisplayName SCR_InventoryUIInfo "{5F2107680393B56E}" {
+     Name "#AR-Vest_M69_Name"
+     Description "#AR-Vest_M69_Description"
+     m_aItemHints {
+      SCR_ClothItemHintUIInfo "{5F2107680393B512}" {
+       Icon "{2DCA69EEB8628C06}UI/Textures/Editor/Attributes/Arsenal/Attribute_Arsenal_Vests.edds"
+      }
+     }
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F2107680393B57A}" {
+     Weight 3.6
+     SizeSetupStrategy Manual
+     ItemDimensions 20 20 20
+     ItemVolume 5000
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F2107680393B546}" {
+      CameraDistanceToItem 3.7
+      FOV 10
+      PreviewModel "{F2ACE3F0B9A1E919}Assets/Characters/Vests/Vest_M69/Vest_M69.xob"
+     }
+     SCR_ArmoredClothItemData "{5F2107680393B555}" {
+      m_aProtectedHitZones {
+       "Chest"
+      }
+      m_aProtectedDamageTypes {
+       3 4 5 2
+      }
+      m_eProtection TYPE_I
+      m_MaterialResourceName "{1AE2448C41E561B6}Common/Materials/Game/Core/soft_aramid_base.gamemat"
+     }
+     SP_ClothAttributes "{5F2107680393B559}" {
+      m_TemperatureIsolation 0.1
+     }
+    }
+    m_Size SLOT_2x2
+   }
+  }
+  MeshObject "{5F2107680393B630}" {
+   Object "{5FB3D5671BED9A17}Assets/Characters/Stranger/Stranger.xob"
+   LODFactors {
+   }
+  }
+  RigidBody "{5F2107680393B61E}" {
+   SimState None
+   ModelGeometry 1
+   Static 1
+  }
+  SCR_SoundDataComponent "{5F2107680393B674}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5F2107680393B66F}" {
+     m_sSoundProject "{A4549939684B6820}Sounds/Items/_SharedData/PickUp/Items_PickUp_Vest.acp"
+     m_sSoundEventName "SOUND_PICK_UP"
+    }
+    SCR_AudioSourceConfiguration "{5F2107680393B673}" {
+     m_sSoundProject "{A4549939684B6820}Sounds/Items/_SharedData/PickUp/Items_PickUp_Vest.acp"
+     m_sSoundEventName "SOUND_EQUIP"
+     m_eFlags 0
+    }
+    SCR_AudioSourceConfiguration "{5F2107680393B676}" {
+     m_sSoundProject "{087200FA6DF8D1D2}Sounds/Items/_SharedData/Drop/Items_Drop_Vest.acp"
+     m_sSoundEventName "SOUND_DROP"
+    }
+   }
+  }
+  BaseLoadoutClothComponent "{5F2107680393B7C8}" {
+   AreaType LoadoutArmoredVestSlotArea "{5F2107680393B655}" {
+   }
+   WornModel "{5FB3D5671BED9A17}Assets/Characters/Stranger/Stranger.xob"
+   ItemModel "{5FB3D5671BED9A17}Assets/Characters/Stranger/Stranger.xob"
+   PhysicsOnWearEnabled 1
+   SoundInt 400
+   OverrideMeshesToHide {
+    "Arm_L" "Arm_R" "Torso" "ArmUpper_L" "ArmUpper_R" "Calf_L" "Calf_R" "Foot_L" "Foot_R" "Hand_L" "Hand_R" "CalfLower_R" "CalfLower_L" "Groin" "Leg_L" "Leg_L_wound" "Leg_R" "Leg_R_wound"
+   }
+   DepthFront 0.03
+   DepthLeft 0.05
+   DepthRight 0.05
+  }
+  ActionsManagerComponent "{5F2107680393B753}" {
+   ActionContexts {
+    UserActionContext "{5F2107680393B720}" {
+     ContextName "default"
+     Position PointInfo "{5F2107680393B721}" {
+     }
+     Radius 0.5
+    }
+   }
+   additionalActions {
+    SCR_EquipClothAction "{5F2107680393B760}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5F2107680393B736}" {
+      Name "#AR-Inventory_Equip"
+     }
+    }
+    SCR_PickUpItemAction "{5F2107680393B749}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5F2107680393B772}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  RplComponent "{5F2107680393B755}" {
+   "Rpl State Override" Runtime
+  }
+  Hierarchy "{5F2107680393B759}" {
+  }
+ }
+ coords 126.455 1 244.586
+}

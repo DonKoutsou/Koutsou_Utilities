@@ -5,7 +5,7 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
   }
   SoundComponent "{5F18D2855769458F}" {
    Filenames {
-    "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+    "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Canteen.acp"
    }
    SoundPoints {
     SoundPointInfo Refil {
@@ -68,7 +68,7 @@ GenericEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
   SCR_SoundDataComponent "{5B18D20ED0099A17}" {
    m_aAudioSourceConfiguration {
     SCR_AudioSourceConfiguration "{5F18D04D8939063F}" {
-     m_sSoundProject "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Refil_Canteen.acp"
+     m_sSoundProject "{7D9527CE4961339F}Sounds/Items/_SharedData/PickUp/Canteen.acp"
      m_sSoundEventName "SOUND_REFIL"
     }
    }

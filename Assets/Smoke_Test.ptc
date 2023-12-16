@@ -1,0 +1,46 @@
+EffectDef {
+ Version 1
+ Emitters {
+  EmitterDef fast_1 {
+   ShapeType Box
+   ShapeSize 0 25 25
+   ConeAngle 360 0 45
+   ConeAngleMinDist 80
+   MaxNum 2000
+   BirthRate 100
+   BirthRateVel 0.7
+   Offset 0 0 0
+   Angles 0 0 90
+   Material "{5B12DBBF9148EF32}Particles/_Materials/Gas/Smoke_Base_Exhaust_01.emat"
+   SizeMultiplier 5
+   SizeRND 4
+   RotMultiplier 60
+   RandomRotDir 1
+   RandomAngle 1
+   RandomUFlip 1
+   Velocity 0
+   VelocityRND 0.05
+   VelAffect 0.5
+   AirResistance 0.3
+   AirResistanceRND 0
+   AnimOnce 1
+   AnimFPS 25
+   RandomFrame 0
+   Lifetime 20
+   LifetimeRND 1
+   Color {
+    0 0.173 0.173 0.173 1 1 1 1
+   }
+   Alpha {
+    0 0 0.052 0.962 1 1
+   }
+   RotationSpeed {
+    0 0.025 1 1
+   }
+   Size {
+    0.001 0.434 1 1
+   }
+   EmittingTime 100
+  }
+ }
+}

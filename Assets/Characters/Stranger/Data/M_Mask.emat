@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{5CA951907C6890F8}Assets/Characters/Stranger/Data/M_Mask_BCR.edds"
+ NMOMap "{6471EA02A51FC266}Assets/Characters/Stranger/Data/M_Mask_NMO.edds"
+}

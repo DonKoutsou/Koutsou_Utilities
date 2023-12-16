@@ -1,0 +1,59 @@
+MetaFileClass {
+ Name "{5FB3D5671BED9A17}Assets/Characters/Stranger/Stranger.xob"
+ Configurations {
+  FBXResourceClass PC {
+   ExportSkinning 1
+   Rotate 0 180 0
+   MaterialAssigns {
+    MaterialAssignClass "{5F210AC21BF7CF1B}" {
+     SourceMaterial "M_Drachma"
+     AssignedMaterial "{417EE4A17F01F77A}Assets/Items/Misc/Drachma/Data/M_Drachma.emat"
+    }
+    MaterialAssignClass "{5F210AC21BF7CF59}" {
+     SourceMaterial "M_Mask"
+     AssignedMaterial "{94E1DE90482EA75E}Assets/Characters/Stranger/Data/M_Mask.emat"
+    }
+    MaterialAssignClass "{5F210AC21BF7CF5D}" {
+     SourceMaterial "M_Mantle"
+     AssignedMaterial "{13324B1830EBCD46}Assets/Characters/Stranger/Data/M_Mantle.emat"
+    }
+   }
+   MeshParams {
+    MeshParam Drachma {
+    }
+    MeshParam Helmet {
+    }
+    MeshParam Mantle {
+    }
+   }
+   GeometryParams {
+    GeometryParam UBX_Mantle {
+     LayerPreset "PropFireView"
+     SurfaceProperties {
+      "{321BC2613BD5E7D1}Common/Materials/Game/PersonalProtection/titanium_6.5mm.gamemat"
+     }
+     Mass 0
+     Margin 0
+    }
+   }
+   Common TXOCommonClass "{5F210769C61835B1}" : "{0877E7C4BB2B2C9A}Configs/System/ResourceTypes/PC/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_ONE : PC {
+   Common TXOCommonClass "{5F210769C618FC06}" : "{9D5B6207F7628CE2}Configs/System/ResourceTypes/XBOX_ONE/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_SERIES : PC {
+   Common TXOCommonClass "{5F210769C618FDE8}" : "{DD9F02115C764647}Configs/System/ResourceTypes/XBOX_SERIES/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass PS4 : PC {
+   Common TXOCommonClass "{5F210769C618FD38}" : "{53EC476BC921D99A}Configs/System/ResourceTypes/PS4/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass HEADLESS : PC {
+   Common TXOCommonClass "{5F210769C618FD7D}" : "{3A5B3356978039E8}Configs/System/ResourceTypes/HEADLESS/MeshObjectCommon.conf" {
+   }
+  }
+ }
+}

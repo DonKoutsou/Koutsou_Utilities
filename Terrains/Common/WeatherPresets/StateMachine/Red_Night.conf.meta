@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B3708913240676B5}Terrains/Common/WeatherPresets/StateMachine/Red_Night.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

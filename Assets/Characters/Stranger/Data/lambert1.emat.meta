@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{31AF4609E5078552}Assets/Characters/Stranger/Data/lambert1.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}
