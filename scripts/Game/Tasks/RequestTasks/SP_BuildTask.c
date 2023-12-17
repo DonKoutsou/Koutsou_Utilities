@@ -80,6 +80,7 @@ class SP_BuildLightPathTask: SP_Task
 	{
 		if (!m_bPartOfChain)
 			InheritFromSample();
+		
 		//-------------------------------------------------//
 		//first look for owner cause targer is usually derived from owner faction/location etc...
 		if (!m_eTaskOwner)
@@ -101,6 +102,28 @@ class SP_BuildLightPathTask: SP_Task
 			return false;
 		}
 		//-------------------------------------------------//
+		if (!m_aBasesToConnect)
+		{
+			SCR_CampaignMilitaryBaseManager man = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
+			SCR_CampaignMilitaryBaseComponent base = man.GetClosestBase(m_eTaskOwner.GetOrigin());	
+			m_aBasesToConnect.Insert(base.GetBaseName());
+			array<SCR_CampaignMilitaryBaseComponent> basesInRange = {};
+			base.GetBasesInRange(SCR_ECampaignBaseType.BASE, basesInRange);
+			if (!basesInRange.IsEmpty())
+			{
+				foreach (SCR_CampaignMilitaryBaseComponent disbase : basesInRange)
+				{
+					array <string> bases = {};
+					bases.Insert(disbase.GetBaseName());
+					bases.Insert(base.GetBaseName());
+					if (!SP_LightPostManager.AreBasesConnected(bases))
+					{
+						m_aBasesToConnect.Insert(disbase.GetBaseName());
+					}
+				}
+			}
+				
+		}
 		CreateDescritions();
 		AddOwnerInvokers();
 		e_State = ETaskState.UNASSIGNED;

@@ -20,6 +20,8 @@ class SP_Task
 	bool m_bUseBaseCharacterForOwner;
 	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
 	SP_BaseEn m_TaskBaseName;
+	[Attribute("0")]
+	bool m_bUseOwnerBase;
 	//-------------------------------------------------//
 	[Attribute("20",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SCR_ECharacterRank) ,params:  "20 23 1")]
 	SCR_ECharacterRank m_BaseTaskOwnerOverride;

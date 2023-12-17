@@ -330,13 +330,17 @@ class SP_RequestManagerComponent : ScriptComponent
 		
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	bool CreateCustomTask(SP_Task Task)
+	bool CreateCustomTask(SP_Task Task, IEntity CustomOwner = null)
 	{
 		if(!Task)
 		{
 			return false;
 		}
 		Task.m_bPartOfChain = true;
+		if (CustomOwner)
+		{
+			Task.m_eTaskOwner = CustomOwner;
+		}
 		if(Task.Init())
 		{
 			m_aTaskMap.Insert(Task);

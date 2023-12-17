@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{748B9676E4542FAC}Configs/Dilaogue_Configs/FIA_Units/DialogueConf_FIA_Enq_Commander.conf"
+ Name "{F1DFFC4E4A5664A4}Configs/Dilaogue_Configs/FIA_Units/test.conf"
  Configurations {
   CONFResourceClass PC {
   }

@@ -120,10 +120,16 @@ class SP_DialogueStageCreateTaskAction : DS_BaseDialogueStageAction
 {
 	[Attribute()]
 	ref SP_Task m_Task;
+	
+	[Attribute()]
+	bool m_bSetCharAsOwner;
 	override void Perform(IEntity Character, IEntity Player)
 	{
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
-		ReqMan.CreateCustomTask(m_Task);
+		if (m_bSetCharAsOwner)
+			ReqMan.CreateCustomTask(m_Task, Character);
+		else
+			ReqMan.CreateCustomTask(m_Task);
 	};
 };
 [BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
@@ -210,17 +216,29 @@ class SP_DialogueStageMakeBaseVisitedAction : DS_BaseDialogueStageAction
 [BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
 class SP_DialogueStageReplaceArchetypeAction : DS_BaseDialogueStageAction
 {
-	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
-	protected ref DS_DialogueArchetype m_DialogueArchetype;
+	[Attribute()]
+	ResourceName m_Archetype;
+	
+	protected ref DS_DialogueArchetype DialogueArchetype;
 	
 	override void Perform(IEntity Character, IEntity Player)
 	{
+		DS_DialogueComponent diag = DS_DialogueComponent.GetInstance();
+		DS_DialogueArchetype DiagArchNew = diag.CopyArchetype(DialogueArchetype);
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Character.FindComponent(SCR_CharacterIdentityComponent));
 		
-		id.SetCarArch(m_DialogueArchetype);
-		
-		DS_DialogueComponent.GetInstance().UnregisterArchtype(Character);
+		id.SetCarArch(DialogueArchetype);
+		diag.UnregisterArchtype(Character, DialogueArchetype);
 	};
+	
+	override void PostInit()
+	{
+		DS_DialogueComponent diag = DS_DialogueComponent.GetInstance();
+		Resource arch = Resource.Load(m_Archetype);
+		BaseResourceObject archobj = arch.GetResource();
+		BaseContainer archcont = archobj.ToBaseContainer();
+		DialogueArchetype = DS_DialogueArchetype.Cast(BaseContainerTools.CreateInstanceFromContainer(archcont));
+	}
 };
 
 class SCR_AISetConverseFalse : SCR_AIActionTask
