@@ -97,6 +97,7 @@ class SP_Task
 	bool m_bOwnerAssigned;
 	bool m_bPartOfChain;
 	bool m_bHasReward;
+	
 	//-------------------------------------------------//
 	//Character that completed this task. Filled after task is complete
 	IEntity m_eCopletionist;
@@ -928,7 +929,7 @@ class SP_Task
 		
 		return true;
 	};
-
+	
 	
 };
 class TaskAttribute : BaseContainerCustomTitle

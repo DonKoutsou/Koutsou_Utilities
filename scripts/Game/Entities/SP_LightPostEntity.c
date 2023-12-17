@@ -4,6 +4,48 @@ class LightPost: GameEntity
 	[Attribute()]
 	ref array <string> m_aConnectingBases;
 	
+	private ref ScriptInvoker OnLightPostBuilt;
+	
+	SP_BaseTask m_TaskMarker;
+	
+	
+	void SpawnTaskMarkers(IEntity Assignee)
+	{
+		//Get task resource
+		Resource Marker = Resource.Load( "{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et" );
+		//setup spawn params
+		EntitySpawnParams PrefabspawnParams = EntitySpawnParams();
+		//Getaffiliation of Assignee to add to marker
+		FactionAffiliationComponent Aff = FactionAffiliationComponent.Cast( Assignee.FindComponent( FactionAffiliationComponent ) );
+		//get spawn location from target
+		GetWorldTransform(PrefabspawnParams.Transform);
+		//spawn marker
+		m_TaskMarker = SP_BaseTask.Cast(GetGame().SpawnEntityPrefab(Marker, GetGame().GetWorld(), PrefabspawnParams));
+			
+		//set info
+		m_TaskMarker.SetTitle( "Build" );
+		m_TaskMarker.SetDescription( "Buld lightpost." );
+		m_TaskMarker.SetTarget( this );
+		m_TaskMarker.SetTargetFaction( Aff.GetAffiliatedFaction() );
+			
+		//assign to player
+		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(Assignee);
+		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
+		m_TaskMarker.AddAssigneecustom(assignee, 0);
+	}
+	ref ScriptInvoker GetOnBuilt()
+	{
+		if (!OnLightPostBuilt)
+			OnLightPostBuilt = new ScriptInvoker();
+		return OnLightPostBuilt;
+	}
+	
+	protected void OnBuilt()
+	{
+		if (OnLightPostBuilt)
+			OnLightPostBuilt.Invoke(this);
+	}
+	
 	bool m_bBuilt;
 	
 	bool IsBuilt()
@@ -13,6 +55,9 @@ class LightPost: GameEntity
 	void SetBuilt(bool built)
 	{
 		m_bBuilt = built;
+		if (m_TaskMarker)
+			m_TaskMarker.Finish(true);
+		OnBuilt();
 	}
 	bool ConnectBases(array <string> bases)
 	{
@@ -39,6 +84,7 @@ class LightPost: GameEntity
 	{
 		SP_LightPostManager.UnRegisterPost(this);
 	};
+	
 }
 class SP_LightPostManagerClass : ScriptComponentClass
 {
@@ -49,6 +95,8 @@ class SP_LightPostManager : ScriptComponent
 {
 
 	static ref array <LightPost> m_aLightposts = {};
+	
+	
 	
 	static void RegisterPost(LightPost Post)
 	{

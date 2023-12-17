@@ -4,6 +4,8 @@ class SP_BuildLightPathTask: SP_Task
 {
 	[Attribute()]
 	ref array <string> m_aBasesToConnect;
+	
+	ref array <LightPost> a_posts = {};
 	//------------------------------------------------------------------------------------------------------------//
 	override void CreateDescritions()
 	{
@@ -69,11 +71,16 @@ class SP_BuildLightPathTask: SP_Task
 		if (super.AssignCharacter(Character))
 		{
 			SP_LightPostManager.EnableBuildingPreviews(m_aBasesToConnect);
+			if (!a_posts.IsEmpty())
+			{
+				foreach (LightPost post : a_posts)
+				{
+					post.SpawnTaskMarkers(Character);
+				}
+			}
 			return true;
 			
 		}
-			return true;
-		
 		return false;
 	}
 	override bool Init()
@@ -124,6 +131,8 @@ class SP_BuildLightPathTask: SP_Task
 			}
 				
 		}
+		SP_LightPostManager.GetLightPolesForBases(m_aBasesToConnect, a_posts);
+		
 		CreateDescritions();
 		AddOwnerInvokers();
 		e_State = ETaskState.UNASSIGNED;
@@ -133,6 +142,7 @@ class SP_BuildLightPathTask: SP_Task
 	{
 		return ETaskType.BUILD;
 	}
+	
 	//------------------------------------------------------------------------------------------------------------//
 };
 //------------------------------------------------------------------------------------------------------------//
