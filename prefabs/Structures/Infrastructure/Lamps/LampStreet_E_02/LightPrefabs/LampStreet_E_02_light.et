@@ -1,0 +1,7 @@
+LightEntity : "{C274EE54AB618B04}Prefabs/Structures/Core/Lamp_LightEntity_base.et" {
+ ID "553869DAB190363F"
+ Flags 2
+ LV 0
+ Enabled 0
+ LensFlareScale 0
+}

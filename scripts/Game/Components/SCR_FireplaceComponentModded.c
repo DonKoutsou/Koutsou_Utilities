@@ -57,7 +57,7 @@ modded class SCR_FireplaceComponent
 	override void EOnVisible(IEntity owner, int frameNumber)
 	{
 		super.EOnVisible(owner, frameNumber);
-
+		
 		float timeSlice = GetOwner().GetWorld().GetTimeSlice();
 		
 		alivetime -= timeSlice;
@@ -97,7 +97,14 @@ modded class SCR_FireplaceComponent
 					}
 				}
 			}
-			
+		}
+		TimeAndWeatherManagerEntity TnWman = ChimeraWorld.CastFrom(GetGame().GetWorld()).GetTimeAndWeatherManager();
+		ref LocalWeatherSituation Weather = new LocalWeatherSituation();
+		TnWman.TryGetCompleteLocalWeather(Weather, 0, owner.GetOrigin());
+		float rainint = Weather.GetRainIntensity();
+		if (rainint > 0.05)
+		{
+			alivetime = alivetime -100;
 		}
 		if(alivetime <= 0)
 		{

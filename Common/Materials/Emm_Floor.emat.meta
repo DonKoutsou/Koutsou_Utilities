@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{6BA1AFBFBE9A89A6}Common/Materials/Emm_Floor.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -21,5 +21,8 @@ GameEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
   SCR_LampComponent "{5D2ABC12E93AB331}" {
    m_eInitialLightState OFF
   }
+  Hierarchy "{5F2277459F5875BC}" {
+  }
  }
+ Flags 3
 }

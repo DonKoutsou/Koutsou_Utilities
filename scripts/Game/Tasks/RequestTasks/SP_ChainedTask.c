@@ -76,7 +76,16 @@ class SP_ChainedTask : SP_Task
 			{
 				stage += 1;
 				while (!InitCurrentStage())
+				{
+					if (stage > m_aTasks.Count())
+					{
+						FailTask();
+						return;
+					}
+						
 					SkipStage(task);
+				}
+					
 				GetCurrentTask().AssignCharacter(m_aTaskAssigned);
 			}
 		}

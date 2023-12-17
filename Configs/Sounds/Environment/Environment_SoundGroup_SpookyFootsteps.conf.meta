@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{D14E1235D94CE896}Configs/Sounds/Environment/Environment_SoundGroup_SpookyFootsteps.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

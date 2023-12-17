@@ -1,0 +1,54 @@
+LightPost {
+ ID "5F227744C4A0B15E"
+ components {
+  MeshObject "{5F227744C4A0B2A0}" {
+   Object "{6078AD7887690272}Assets/Props/Civilian/Birdhouse_01/Birdhouse_01_pole.xob"
+   Materials {
+    MaterialAssignClass "{5F2277449E469A76}" {
+     SourceMaterial "Birdhouse_01_pole_mat"
+     AssignedMaterial "{58F07022C12D0CF5}Assets/Editor/PlacingPreview/Preview.emat"
+    }
+   }
+  }
+  RigidBody "{5F227744C4A0B2AE}" {
+   ModelGeometry 1
+  }
+  SlotManagerComponent "{5F227744C4A0B2B2}" {
+   Slots {
+    EntitySlotInfo Lantern {
+     Offset 0 1.5742 0.1842
+     Angles 16.2052 0 0
+     Prefab "{CF639718BBA80F1E}prefabs/Props/Military/Camps/LanternMilitary_US_01_Preview.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{5F227744C4A0B2B4}" {
+   ActionContexts {
+    UserActionContext "{5F227744C4A0B2BB}" {
+     ContextName "default"
+     Position PointInfo "{5F227744C4A0B2B9}" {
+      Offset 0 0.2917 0
+     }
+    }
+   }
+   additionalActions {
+    SCR_LightPostBuildingBuildUserAction "{5F227744C4A0B2BE}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5F227744C4A0B2BC}" {
+      Name "Build"
+     }
+     PerformPerFrame 1
+    }
+   }
+  }
+  RplComponent "{5F227744C4A0B282}" {
+   "Rpl State Override" Runtime
+  }
+  Hierarchy "{5F227744C4A0B280}" {
+  }
+ }
+ coords 123.203 1 251.682
+ Flags 2
+}

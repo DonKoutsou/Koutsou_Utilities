@@ -15,7 +15,8 @@ enum ETaskType
 	NAVIGATE,
 	RESCUE,
 	BOUNTY,
-	RETRIEVE
+	RETRIEVE,
+	BUILD
 }
 //------------------------------------------------------------------------------------------------------------//
 enum ETaskState

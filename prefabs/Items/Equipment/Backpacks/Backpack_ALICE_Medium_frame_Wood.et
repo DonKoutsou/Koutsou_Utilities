@@ -1,0 +1,56 @@
+GenericEntity : "{09D6A1C9543E4A95}Prefabs/Items/Core/Backpack_Base.et" {
+ ID "511E9C6ADE70F798"
+ components {
+  ClothNodeStorageComponent "{5F22E834E5538B5A}" {
+   Attributes SCR_ItemAttributeCollection "{5F22E834E55384AF}" {
+    ItemDisplayName UIInfo "{5F22E834E55384AD}" {
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F22E834E55384B1}" {
+     Weight 1.5
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F22E834E55384B6}" {
+      CameraPreset Back
+      CameraOrbitAngles -25 25 0
+      CameraDistanceToItem 1
+      FOV 20
+      PreviewModel "{1F2390C7C31666DE}Assets/Items/Equipment/Backpacks/Backpack_ALICE_Medium/Backpack_ALICE_Medium_frame.xob"
+     }
+    }
+    m_Size SLOT_2x2
+    m_SlotType SLOT_BACKPACK
+   }
+  }
+  InventoryItemComponent "{5F22E834E55384BB}" {
+   Attributes ItemAttributeCollection "{5F22E834E55384BA}" {
+    ItemDisplayName UIInfo "{5F22E834E55384B9}" {
+     Name "#AR-Backpack_ALICE_Medium_Frame_Name"
+     Description "#AR-Backpack_ALICE_Medium_Frame_Description"
+    }
+   }
+  }
+  MeshObject "{511E9C6ADE70F7BD}" {
+   Object "{1F2390C7C31666DE}Assets/Items/Equipment/Backpacks/Backpack_ALICE_Medium/Backpack_ALICE_Medium_frame.xob"
+  }
+  SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
+   Enabled 0
+   Attributes SCR_ItemAttributeCollection "{5222CB039E9715D1}" {
+   }
+  }
+  BaseLoadoutClothComponent "{511E9C6ADE70F7BB}" {
+   WornModel "{E804DE080218F46F}prefabs/Items/Equipment/Backpacks/Backpack_wood.et"
+   ItemModel "{9AC0BBEED8F6417C}Assets/Items/Equipment/Backpacks/Backpack_ALICE_Medium/Backpack_ALICE_Medium_frame_item.xob"
+   SoundInt 815
+  }
+  ActionsManagerComponent "{511E9C6ADE70F786}" {
+   ActionContexts {
+    UserActionContext "{511E9C6ADE70F788}" {
+     Position PointInfo "{511E9C6ADE70F78D}" {
+      Offset 0 0.1584 0.0436
+     }
+    }
+   }
+  }
+ }
+ coords 1220.652 38.011 2841.177
+}

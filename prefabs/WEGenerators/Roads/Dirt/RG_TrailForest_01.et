@@ -1,0 +1,9 @@
+RoadGeneratorEntity {
+ ID "56DEE32DF6DCE904"
+ {
+  RoadEntity {
+   ID "56DEE32DF6DCE905"
+   Flags 2097155
+  }
+ }
+}

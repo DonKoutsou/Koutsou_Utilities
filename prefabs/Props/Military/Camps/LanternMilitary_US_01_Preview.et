@@ -1,0 +1,53 @@
+GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  MeshObject "{5872F0EB7FA40561}" {
+   Materials {
+    MaterialAssignClass "{5F22774560759671}" {
+     SourceMaterial "LanternMilitary_US_01"
+     AssignedMaterial "{58F07022C12D0CF5}Assets/Editor/PlacingPreview/Preview.emat"
+    }
+    MaterialAssignClass "{5F2277456075964F}" {
+     SourceMaterial "LanternMilitary_US_01_Decal"
+     AssignedMaterial "{58F07022C12D0CF5}Assets/Editor/PlacingPreview/Preview.emat"
+    }
+    MaterialAssignClass "{5F22774560759651}" {
+     SourceMaterial "LanternMilitary_US_01_glass"
+     AssignedMaterial "{58F07022C12D0CF5}Assets/Editor/PlacingPreview/Preview.emat"
+    }
+   }
+  }
+  SCR_AISmartActionComponent "{5D68F1E78485E268}" {
+   Enabled 0
+  }
+  SCR_AISmartActionComponent "{5F2277454BAF0D48}" {
+   Enabled 0
+   AIBehaviorTree "{4C972D0E3CA70BE7}AI/BehaviorTrees/SmartActions/LightLight.bt"
+   Tags {
+    "SwitchLight"
+   }
+   ActionTest LanternSmartActionTest "{5F2277454BAF0D54}" {
+   }
+  }
+  SCR_BaseInteractiveLightComponent "{5876E7CF88610C12}" {
+   m_aLightData {
+    SCR_BaseLightData "{58CED048F1F8003F}" {
+     m_fRadius 10
+     m_fIntensityClipEV -10
+    }
+   }
+   m_eInitialLightState OFF
+  }
+  SCR_DestructionMultiPhaseComponent "{5624A88D86EFE8BA}" {
+   Enabled 0
+  }
+  SCR_LampComponent "{5D2ABC12E93AB331}" {
+   Enabled 0
+   m_eInitialLightState OFF
+  }
+  ActionsManagerComponent "{5876E7CFF5785C2B}" {
+   Enabled 0
+  }
+ }
+ Flags 1026
+}

@@ -336,7 +336,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			return false;
 		}
-
+		Task.m_bPartOfChain = true;
 		if(Task.Init())
 		{
 			m_aTaskMap.Insert(Task);

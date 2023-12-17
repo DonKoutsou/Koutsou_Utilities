@@ -1,0 +1,10 @@
+RoadGeneratorEntity {
+ ID "523EAA80CAA6C6BB"
+ {
+  RoadEntity {
+   ID "523EAA80CAA6C6B5"
+   Flags 2097155
+   Material "{5E76A1C8949DA6CA}Assets/Structures/Infrastructure/Roads/Data/Road_Dirt_01_Grass.emat"
+  }
+ }
+}

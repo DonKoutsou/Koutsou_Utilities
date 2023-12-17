@@ -9,6 +9,7 @@ class SP_DialogueStageBaseTaskAction : DS_BaseDialogueStageAction
 	bool m_bGetAssignedTasks;
 	[Attribute(defvalue: "1")]
 	bool m_bGetReadyToDeliver;
+	
 	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskType))]
 	int m_iGetTasksOfType;
 	[Attribute("", UIWidgets.ComboBox, enums: ParamEnumArray.FromEnum(ETaskState))]
@@ -57,6 +58,7 @@ class SP_DialogueStageAssignTaskAction : SP_DialogueStageBaseTaskAction
 					tasklist.Remove(i);
 			}
 		}
+		
 		if (m_iIndex >= tasklist.Count())
 		{
 			return;
@@ -195,8 +197,6 @@ class SP_DialogueStageLowerWeaponAction : DS_BaseDialogueStageAction
 [BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
 class SP_DialogueStageMakeBaseVisitedAction : DS_BaseDialogueStageAction
 {
-	[Attribute()]
-	bool m_bRaiseWeapon;
 	override void Perform(IEntity Character, IEntity Player)
 	{
 		SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
@@ -205,6 +205,21 @@ class SP_DialogueStageMakeBaseVisitedAction : DS_BaseDialogueStageAction
 			return;
 		nearest.m_bVisited = true;	
 
+	};
+};
+[BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]
+class SP_DialogueStageReplaceArchetypeAction : DS_BaseDialogueStageAction
+{
+	[Attribute(desc : "Stored archetype to be used instead of template in dialogue component")]
+	protected ref DS_DialogueArchetype m_DialogueArchetype;
+	
+	override void Perform(IEntity Character, IEntity Player)
+	{
+		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(Character.FindComponent(SCR_CharacterIdentityComponent));
+		
+		id.SetCarArch(m_DialogueArchetype);
+		
+		DS_DialogueComponent.GetInstance().UnregisterArchtype(Character);
 	};
 };
 

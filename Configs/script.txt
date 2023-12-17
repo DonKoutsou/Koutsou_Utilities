@@ -1,0 +1,82 @@
+1/1/89
+Happy new year ey?
+I've decided to start righting down everything for this day on to avoid lossing my mind. Sleep doesent do much anymore and the stuff i am seeing out there really strugle to not scar me lately. 
+Today i've been given a rest day but cant say i cant say i'll make much use of it. Staying still makes the mind fly. I'll ask the troops around the base if there is something i can do to annuse myself.
+The weather is still not getting any much better. I've heard some chatter about it but it doesent seem any of the captains to be worried about it, just annoyed.
+I'll be departing for cavalry hill tomorrow. I've been told that they are keeping a truck they found there for me to make my goings around the island faster. 
+Makes it a bit more scary tho, alot of noise and alot of people out there still looking for a profit even in a conflict of this size.
+
+
+3/1/89
+I woke up feeling like shit from last nights happenings. Sleeping on a semi torn tent in the middle of the storm is not the best to recover. I picked up the strength to get up and with that i made it to Cavalry hill. 
+There i met a strange guy. He said his name is , he was just comming back from the north after delivering some mail on Entr deaux.
+After exchanges some stories i was ready to go but he stopped and asked i've heard anything about the storm since i was just comming from the guerrila HQ. 
+With an unreasonable certainty he threw the words "and they wont find out either", with a weirdly ominus smile on his face. He instantly switches back and waves me goodbye before picking up his stuff and heading for his truck.
+
+4/1/89
+
+
+Spawn in Cavalry hill
+Give intoruction with 1st dialogue
+You are a mailman who's job is to deliver letters to the forces on the front. You are not required to carry weapon but not disscuraged from it.
+First destination is Kermovan, you need to deliver 4 letters
+1st letter is to a man named " ". His is from Everon and his family had to depart because of the emerged conflict. His daughter managed to find
+a job and they are starting to settle in in the mainland. She gives hint about the never ending storm that has been going ever since the conflict started.
+
+2nd letter is from a father to his son. He speaks highly of his son an how proud he feels that his son didnt flee like his friends did and instead stayed to deffend the motherland
+We find the son dead and leave the letter on his body.
+
+3rd letter is from a brother to a brother. 1st brother was originaly here but was carried out of the island because of his injury.
+Brother shares his condition and where he is and at after that goese over the ambush they got caught on, implies of a potential whistleblower.
+
+4rth letter is from a priest. It is a reply from the priest after the man did a confession through mail. He gives him the usual lecture and tells him
+god will let him attune for his sinns. Giving some info that people of this island are still highly religius.
+
+from Kermovan you are asked to head to entre deux. You are told that a mailman from the enemy side was accidenlty shot and killed and as a show of remorse
+the general had contacted the highest ranking office on the recently captured Montignac city so the you the mailman would deliver his belongings along
+with all the unreceived letters.
+Sets player as friendly to US
+After going there you are asked by the commander there if you could deliver those letters until they try to find a replacement. If you decline you are asked to leave.
+after leaving base frieness towards US is lost.
+Letters to US soldiers
+
+1st letter is to a medic in military hospital. it is of a survivor that made it back to mainland and wanted to show his apreciation. 
+Makes it aparent that the storm is as they tought centered over Everon island and that the mainland is clear.
+
+2nd letter is from a wife to a husband. The wife is pregnant expecting soon and is wishing to see her husband soon.
+
+3rd and 4th letter is from a soldier and was ment to be brought back to HQ.
+
+3rd letter is a report calling out supply locations that the soviets have set up on the south side of the island. 
+Player has option to take it back to Friendly HQ instead. Doing so causes 
+
+4th letter is from a son to a father possibly his final words as the father is sick and might not make it to his return. 
+He's father was "ranting" on a previus letter that the storm is an omen and that the fighting needs to stop.
+The son is trying to distract him with the old times and how glad he is to be able to talk even durring these times.
+
+
+Meeting other mailman in cvalry hill, sitting next to a campfire gathering heat and getting ready to move back to Lamentin.
+////Start talk
+Καλησπέρες φίλος, δεν περίμενα να δώ δικό μας. Δεν μείναμε και πολύ. Τί κάνεις εδώ?
+	////I'm delivering a message from someone " ". Do you know him?
+	φυσικά και τον ξέρω, είναι ο μηχανικός εδώ. Ξέρεις που θα τον βρείς.
+	
+	///Who are you?
+	Ταχυδρόμος σαν εσέ. Δεν με κατάλαβες από τα ρούχα? Καινούριος? Τέλος πάντον, φένεται οτι βιάζεσε. Μπορώ να βοηθήσω κάπως αλλιώς? Σε λίγο θα κάνω πίσω πρώς lamentin. Αν θές μπορούμε να γυρίσουμε μαζί.
+	
+	//what are you doing here
+	Γυρνάω από Kermovan. Πολύ χάλι προς τα εκεί, δεν ξέρω πως τα κατάφερα αλλά γυρισα. Η αμερικανοί είναι σε επιφιλακή και προσπαθουν να σπρόξουν τους αντιστάτες εκτός από το kermovan αλλά οι καριόλιδες δεν τα παρατάνε εύκολα. Κατάφερα να φτάσω μέσω βάρκας από την απέναντι όχθη και μέσα στα σκοτάδια. 
+	Πως δε με πήρε το κήμα έξω δε ξέρω. Όχι που θα το έπερνα χαμπάρι κιόλας μέσα στα σκοτάδια. χαχαχα
+	/////////unlock location of boatman//////
+
+
+
+
+
+2/3/89
+
+The fog is still here.... 
+Still no comminication and no way out of here. Captain said that today we will pick the first expedition "party". 
+In reality they are just going to start sending people out until someone returns. What other way is there really? The temprature is falling still. I might have to ask on the guerrilas for one of their jackets, they seem to be holding up pretty good.
+This morning I woke up again with my jaw clenched to my pillow, still no answers as to what is happening, everybody is left to their own devices and we are running out of supplies here. I hope i am wrong but i dont see these guerillas showing me much sympathy after that happens.
+They've already been sharing their food with me but when it comes to it the ones with the guns survive. I still have the makarov stashed upstairs but i dont know how the guerrilas feel about me having a gun on me.

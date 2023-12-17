@@ -31,11 +31,12 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
    m_iStartingMinutes 30
    m_bRandomStartingDaytime 0
    m_fDayTimeAcceleration 12
-   m_bRandomStartingWeather 0
    m_bRandomWeatherChanges 0
    m_bAllowHeaderSettings 0
    m_iStartingDay 3
    m_iStartingMonth 3
+  }
+  SP_LightPostManager "{5F2295B003E5D767}" {
   }
   SP_RequestManagerComponent "{5E9E986CBDBDB7EA}" {
    m_aTasksToSpawn {
@@ -52,10 +53,6 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     SP_RetrieveTask "{5F13145D87D05421}" {
     }
     SP_TalkTask "{5F13145D86C08596}" {
-    }
-   }
-   m_aQuestlines {
-    SP_ChainedTask "{5F13145D8D12687E}" : "{F5EA37544DFD9394}Configs/QuestLines/Everon_Campaign/Everon_Campaign_Questline.conf" {
     }
    }
    m_bShowDebug 0

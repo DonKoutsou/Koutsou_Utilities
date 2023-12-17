@@ -226,6 +226,38 @@ $grp GenericEntity {
   }
   coords 126.455 1 244.586
  }
+ {
+  components {
+   MeshObject "{5F22E835ADC9D4CB}" {
+    Object "{1F2390C7C31666DE}Assets/Items/Equipment/Backpacks/Backpack_ALICE_Medium/Backpack_ALICE_Medium_frame.xob"
+   }
+   RigidBody "{5F22E835ADC9D4D6}" {
+    ModelGeometry 1
+   }
+   RplComponent "{5F22E835ADC9D4DF}" {
+    "Rpl State Override" Runtime
+   }
+   Hierarchy "{5F22E835ADC9D422}" {
+   }
+  }
+  coords 119.801 1 250.022
+  {
+   GenericEntity : "{A13BCC98B8C380C7}Prefabs/Compositions/Misc/SubCompositions/Decorations/Crate_Firewood_01.et" {
+    coords 0.01 0.987 -0.484
+   }
+  }
+ }
+}
+$grp LightPost : "{007D70EA014E31CA}prefabs/Props/Military/Camps/Pole.et" {
+ {
+  coords 123.475 1 252.42
+ }
+ {
+  coords 123.375 1 253.201
+ }
+ {
+  coords 123.187 1 254.121
+ }
 }
 GenericEntity : "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et" {
  coords 123.827 1.167 246.79
@@ -565,6 +597,9 @@ $grp FoodEntity : "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.e
   coords 114.117 1 249.498
  }
 }
+GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+ coords 120.962 1 250.612
+}
 SCR_ChimeraCharacter : "{5346CF7E39A65A6B}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et" {
  coords 146.2 1.001 252.93
  angleY -180
@@ -601,8 +636,13 @@ SCR_ChimeraCharacter : "{5B1996C05B1E51A4}prefabs/Characters/Factions/BLUFOR/US_
  coords 164.451 1.001 253.393
  angleY 180
 }
-GenericEntity : "{5C5C6EE05EE2FF1A}prefabs/Items/Equipment/Backpacks/Backpack_ALICE_Medium_assembled.et" {
- coords 58.069 1 191.696
+$grp GenericEntity : "{5C5C6EE05EE2FF1A}prefabs/Items/Equipment/Backpacks/Backpack_ALICE_Medium_assembled.et" {
+ {
+  coords 58.069 1 191.696
+ }
+ {
+  coords 118.44 1 250.721
+ }
 }
 $grp GenericEntity : "{600CF3ED80539E22}Assets/Characters/Stranger/Stranger_Outfit.et" {
  {
@@ -814,6 +854,9 @@ GameEntity : "{786F028F2DC247D4}prefabs/Characters/Uniforms/M70_Jacket_Lizard/Pa
 GameEntity : "{793EEE2C133176F9}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Hat_Panama_Soviet_01_v1.et" {
  coords 113.555 1 245.394
 }
+SCR_EditablePreviewEntity : "{7B2420C8BC72373A}Prefabs/Characters/Core/Character_Base_Preview.et" {
+ coords 126.622 1 252.183
+}
 GameEntity : "{7F44A37BB64B8842}Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et" {
  coords 131.087 1 242.671
 }
@@ -962,6 +1005,9 @@ GameEntity : "{DDAA76A98D19F597}prefabs/Characters/Uniforms/Pants/jeans_Holes_Bl
 GameEntity : "{E12126CDE731EED5}prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_US_01.et" {
  coords 113.193 1 245.108
 }
+GenericEntity : "{E193A6D3F0B4144E}prefabs/Items/Equipment/Backpacks/Backpack_ALICE_Medium_frame_Wood.et" {
+ coords 118.618 1 249.962
+}
 GameEntity : "{E456D2F5F718AEBE}prefabs/Characters/HeadGear/Helmet_M1_01/Helmet_M1_01_Cover_Wineleaf.et" {
  coords 113.067 1 244.705
 }
@@ -970,6 +1016,9 @@ GameEntity : "{E49D9EE7E2B3016C}prefabs/Characters/HeadGear/Helmet_ZSh5_01/Helme
 }
 GameEntity : "{E685A8D337D36204}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover_w_goggles.et" {
  coords 113.559 1 244.218
+}
+GenericEntity : "{E804DE080218F46F}prefabs/Items/Equipment/Backpacks/Backpack_wood.et" {
+ coords 119.765 1 251.467
 }
 GameEntity : "{E873B54F01D7C6D8}prefabs/Characters/HeadGear/Helmet_M1_01/Helmet_M1_01_Cover_Woodland.et" {
  coords 113.135 1 244.271

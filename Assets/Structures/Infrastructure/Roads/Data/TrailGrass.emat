@@ -1,0 +1,33 @@
+MatPBRRoad {
+ Color 0.791 0.728 0.646 1
+ SurfaceProperties "{7C49B6F04E7320A3}Common/Materials/Game/dirt_road.gamemat"
+ WetnessScale 0.85
+ BlendMode AlphaBlend
+ RoughnessScale 1.5
+ DielectricReflectance 0.03
+ CavityFromAO 1
+ BCRMap "{640A83C1DA73248A}Terrains/Common/Surfaces/Data/GrassLawn_01_BCR.edds"
+ OpacityMap "{019576B98AEEB1C3}Assets/Structures/Infrastructure/Roads/Data/TrailGravel_01_A.edds"
+ NormalPower 1.25
+ NMOMap "{7BDA95C649FA40BB}Assets/Structures/Infrastructure/Roads/Data/TrailGravel_01_NMO.edds"
+ GlobalMapsUVTransform MatUVTransform "{98932823DA0BA6B2}" {
+  TilingV 0.15
+ }
+ DetailNormalPower 1
+ DetailNormalMap "{96EF3CD8C8E643BA}Assets/_SharedData/Dirt/ST_Mud_01_NMO.edds"
+ DetailNormalMapUVTransform MatUVTransform "{56AC8E9121BF7862}" {
+  TilingU 2
+  Rotation 60
+ }
+ HeightMap "{DBFD49981DA42D7D}Assets/Structures/Infrastructure/Roads/Data/TrailGravel_01_H.edds"
+ ParallaxScale 0.015
+ ParallaxMidlePlane 0.5
+ ParallaxShadowScale 0.6
+ FadeOutDistance 0.5
+ PuddleHeightMap "{DBFD49981DA42D7D}Assets/Structures/Infrastructure/Roads/Data/TrailGravel_01_H.edds"
+ NumVersions "3"
+ UseAlphaMulSatmap 1
+ AlphaMulSatmap 1.75
+ RoadEndingsMaterial "{9053424A71AEAD11}Assets/Structures/Infrastructure/Roads/Data/TrailGravel_01_End.emat"
+ DefaultEnd "3rd version"
+}

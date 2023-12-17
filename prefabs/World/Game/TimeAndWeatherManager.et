@@ -3,6 +3,7 @@ TimeAndWeatherManagerEntity {
  "Day Duration" 7200
  "Month of the Year" 3
  "Day of the Month" 3
+ "Sunrise signal Offset" 2000
  m_fDayTemp 12
  m_fNightTemp 6
 }

@@ -149,7 +149,7 @@ modded class SCR_GameModeCampaign
 	{
 		super.EOnFrame(owner, timeSlice);
 		
-		SCR_PlayerController cont = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		/*SCR_PlayerController cont = SCR_PlayerController.Cast(GetGame().GetPlayerController());
 		IEntity char = cont.GetControlledEntity();
 		if (!char)
 			return;
@@ -167,7 +167,7 @@ modded class SCR_GameModeCampaign
 		SCR_Bird scrbird = SCR_Bird.Cast(bird);
 		if (scrbird)
 			scrbird.ActivateAllBirds(true);
-		return;
+		return;*/
 	}
 	vector RandomVector(vector pos, float myrange)
 	{

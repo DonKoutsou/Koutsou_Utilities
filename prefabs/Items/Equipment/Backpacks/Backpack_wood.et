@@ -1,0 +1,23 @@
+GenericEntity {
+ ID "5F22E835AE2B9C34"
+ components {
+  MeshObject "{5F22E835ADC9D4CB}" {
+   Object "{1F2390C7C31666DE}Assets/Items/Equipment/Backpacks/Backpack_ALICE_Medium/Backpack_ALICE_Medium_frame.xob"
+  }
+  RigidBody "{5F22E835ADC9D4D6}" {
+   ModelGeometry 1
+  }
+  RplComponent "{5F22E835ADC9D4DF}" {
+   "Rpl State Override" Runtime
+  }
+  Hierarchy "{5F22E835ADC9D422}" {
+  }
+ }
+ coords 119.801 1 250.022
+ {
+  GenericEntity : "{A13BCC98B8C380C7}Prefabs/Compositions/Misc/SubCompositions/Decorations/Crate_Firewood_01.et" {
+   ID "5F22E835AE2B9C3D"
+   coords 0.01 0.987 -0.484
+  }
+ }
+}
