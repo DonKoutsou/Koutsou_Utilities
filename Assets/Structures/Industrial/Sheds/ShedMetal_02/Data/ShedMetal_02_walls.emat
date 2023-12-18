@@ -1,0 +1,8 @@
+MatPBRMulti : "{FF63B75A1909E92B}Assets/Structures/Industrial/Sheds/ShedMetal_02/Data/ShedMetal_02_walls.emat" {
+ MaskRedScale 5
+ MaskGreenScale 5
+ DirtOpacity 1.378
+ MaskSharpness_3 3.403
+ MaskOffset_3 0.135
+ MaskOffset_2 0.417
+}

@@ -13,12 +13,21 @@ LightPost {
   RigidBody "{5F227744C4A0B2AE}" {
    ModelGeometry 1
   }
+  SCR_PathPointMapDescriptorComponent "{5F2479D084C8F445}" {
+   VisibleOnMap 0
+   MainType Light
+   Scale 0
+  }
   SlotManagerComponent "{5F227744C4A0B2B2}" {
    Slots {
     EntitySlotInfo Lantern {
      Offset 0 1.5742 0.1842
      Angles 16.2052 0 0
      Prefab "{CF639718BBA80F1E}prefabs/Props/Military/Camps/LanternMilitary_US_01_Preview.et"
+    }
+    EntitySlotInfo dirtpile {
+     Offset -0.0003 0.0163 -0.0218
+     Prefab "{82B378151A9AEF2F}Prefabs/Structures/Military/Fortifications/DirtPile_01/DirtPile_01_large.et"
     }
    }
   }

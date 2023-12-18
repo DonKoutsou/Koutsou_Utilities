@@ -1,16 +1,32 @@
 class LightPostClass: GameEntityClass{};
 class LightPost: GameEntity
 {
-	[Attribute()]
-	ref array <string> m_aConnectingBases;
+	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
+	ref array <SP_BaseEn> m_aConnectingBases;
+	
+	[Attribute("2")]
+	int m_iPathDirections;
 	
 	private ref ScriptInvoker OnLightPostBuilt;
 	
 	SP_BaseTask m_TaskMarker;
 	
 	
+	void GetConnectingBases(out array <string> bases)
+	{
+		if (m_aConnectingBases.IsEmpty())
+			return;
+		foreach(SP_BaseEn basename : m_aConnectingBases)
+		{
+			bases.Insert(SP_BaseNames.Get(basename));
+		}
+	}
+	
 	void SpawnTaskMarkers(IEntity Assignee)
 	{
+		SCR_AutoSpawnLogic logic = SCR_AutoSpawnLogic.Cast(SCR_RespawnSystemComponent.GetInstance().GetSpawnLogic());
+		if (!logic.m_bAllowTaskMarkers)
+			return;
 		//Get task resource
 		Resource Marker = Resource.Load( "{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et" );
 		//setup spawn params
@@ -44,6 +60,7 @@ class LightPost: GameEntity
 	{
 		if (OnLightPostBuilt)
 			OnLightPostBuilt.Invoke(this);
+		
 	}
 	
 	bool m_bBuilt;
@@ -58,12 +75,111 @@ class LightPost: GameEntity
 		if (m_TaskMarker)
 			m_TaskMarker.Finish(true);
 		OnBuilt();
+		SetUpLink();
+	}
+	void SetUpLink()
+	{
+		array <string> bases = {};
+		foreach (SP_BaseEn basename : m_aConnectingBases)
+		{
+			bases.Insert(SP_BaseNames.Get(basename));
+		}
+		array <LightPost> Posts = {};
+		SP_LightPostManager.GetLightPolesForBases(bases, Posts);
+
+		array <LightPost> ClosePosts = {};
+		for (int i; i < m_iPathDirections; i++)
+		{
+			float dist;
+			LightPost closestpost
+			foreach (LightPost post : Posts)
+			{
+				if (post == this)
+					continue;
+				if (!dist)
+				{
+					dist = vector.Distance(GetOrigin(), post.GetOrigin());
+					closestpost = post;
+				}
+				else if (dist > vector.Distance(GetOrigin(), post.GetOrigin()))
+				{
+					dist = vector.Distance(GetOrigin(), post.GetOrigin());
+					closestpost = post;
+				}
+			}
+			Posts.RemoveItem(closestpost);
+			ClosePosts.Insert(closestpost);
+		}
+		SCR_PathPointMapDescriptorComponent mapdesc = SCR_PathPointMapDescriptorComponent.Cast(FindComponent(SCR_PathPointMapDescriptorComponent));
+		mapdesc.Item().SetBaseType(EMapDescriptorType.MDT_TREE); 
+		for (int i; i < m_iPathDirections; i++)
+		{
+			if (!ClosePosts[i].IsBuilt())
+				continue;
+			SCR_PathPointMapDescriptorComponent mapdesc2 = SCR_PathPointMapDescriptorComponent.Cast(ClosePosts[i].FindComponent(SCR_PathPointMapDescriptorComponent));
+			mapdesc.Item().LinkTo(mapdesc2.Item());
+		}
+		/*
+		float dist;
+		float dist2;
+		LightPost closestpost, closestpost2;
+		foreach (LightPost post : Posts)
+		{
+			if (post == this)
+				continue;
+			if (!dist)
+			{
+				dist = vector.Distance(GetOrigin(), post.GetOrigin());
+				closestpost = post;
+			}
+			else if (dist > vector.Distance(GetOrigin(), post.GetOrigin()))
+			{
+				dist = vector.Distance(GetOrigin(), post.GetOrigin());
+				closestpost = post;
+			}
+		}
+		Posts.RemoveItem(closestpost);
+		dist = 0;
+		foreach (LightPost post : Posts)
+		{
+			if (post == this)
+				continue;
+			if (!dist)
+			{
+				dist = vector.Distance(GetOrigin(), post.GetOrigin());
+				closestpost2 = post;
+			}
+			else if (dist > vector.Distance(GetOrigin(), post.GetOrigin()))
+			{
+				dist = vector.Distance(GetOrigin(), post.GetOrigin());
+				closestpost2 = post;
+			}
+		}
+		SCR_ServicePointMapDescriptorComponent mapdesc = SCR_ServicePointMapDescriptorComponent.Cast(FindComponent(SCR_ServicePointMapDescriptorComponent));
+		SCR_ServicePointMapDescriptorComponent mapdesc2 = SCR_ServicePointMapDescriptorComponent.Cast(closestpost.FindComponent(SCR_ServicePointMapDescriptorComponent));
+		SCR_ServicePointMapDescriptorComponent mapdesc3 = SCR_ServicePointMapDescriptorComponent.Cast(closestpost2.FindComponent(SCR_ServicePointMapDescriptorComponent));
+		if (closestpost.IsBuilt())
+		{
+			mapdesc.Item().LinkTo(mapdesc2.Item());
+		}
+		if (closestpost2.IsBuilt())
+		{
+			mapdesc.Item().LinkTo(mapdesc3.Item());
+		}*/
+		
+		
+	}
+	void UpdateLinks()
+	{
+		
 	}
 	bool ConnectBases(array <string> bases)
 	{
-		foreach (string Basename : bases)
+		if (m_aConnectingBases.IsEmpty())
+			return false;
+		foreach (SP_BaseEn Basename : m_aConnectingBases)
 		{
-			if (!m_aConnectingBases.Contains( Basename ) )
+			if (!bases.Contains( SP_BaseNames.Get( Basename )) )
 				return false;
 		}
 		return true;
@@ -76,14 +192,14 @@ class LightPost: GameEntity
 	}
 	void LightPost(IEntitySource src, IEntity parent)
 	{
-		SP_LightPostManager.RegisterPost(this);
+		SP_LightPostManager.GetInstane().RegisterPost(this);
 		//GetGame().GetCallqueue().CallLater(SetVisible, 2000, false);
 	};
 	//Destructor
-	void ~LightPost()
+	/*void ~LightPost()
 	{
-		SP_LightPostManager.UnRegisterPost(this);
-	};
+		SP_LightPostManager.GetInstane().UnRegisterPost(this);
+	};*/
 	
 }
 class SP_LightPostManagerClass : ScriptComponentClass
@@ -93,17 +209,38 @@ class SP_LightPostManagerClass : ScriptComponentClass
 [BaseContainerProps(configRoot: true)]
 class SP_LightPostManager : ScriptComponent
 {
-
-	static ref array <LightPost> m_aLightposts = {};
+	static SP_LightPostManager m_instance;
+	static ref array <LightPost> m_aLightposts;
+	static ref array <string> m_aConnectedBases;
 	
+	static SP_LightPostManager GetInstane()
+	{
+		return m_instance;
+	}
+	void OnBasesConnected(array <string> ConnectedBases)
+	{
+		foreach(string base : ConnectedBases)
+		{
+			m_aConnectedBases.Insert(base);
+		}
+	}
+	void OnPostBuilt(LightPost post)
+	{
+		array <string> bases = {};
+		post.GetConnectingBases(bases);
+		if (AreBasesConnected(bases))
+		{
+			OnBasesConnected(bases);
+		}
+	}
 	
-	
-	static void RegisterPost(LightPost Post)
+	void RegisterPost(LightPost Post)
 	{
 		if (!m_aLightposts.Contains(Post))
 			m_aLightposts.Insert(Post);
+		Post.GetOnBuilt().Insert(OnPostBuilt);
 	}
-	static void UnRegisterPost(LightPost Post)
+	void UnRegisterPost(LightPost Post)
 	{
 		if (m_aLightposts.Contains(Post))
 			m_aLightposts.RemoveItem(Post);
@@ -140,8 +277,20 @@ class SP_LightPostManager : ScriptComponent
 		for (int i; i < Posts.Count(); i++)
 		{
 			Posts[i].SetVisible();
-
+			SCR_PathPointMapDescriptorComponent mapdesc = SCR_PathPointMapDescriptorComponent.Cast(Posts[i].FindComponent(SCR_PathPointMapDescriptorComponent));
+			mapdesc.Item().SetVisible(true);
 		}
 		return;
+	}
+	void SP_LightPostManager(IEntityComponentSource src, IEntity ent, IEntity parent)
+	{
+		m_aLightposts = {};
+		m_aConnectedBases = {};
+		m_instance = this;
+	}
+	void ~SP_LightPostManager()
+	{
+		m_aLightposts.Clear();
+		m_aConnectedBases.Clear();
 	}
 }

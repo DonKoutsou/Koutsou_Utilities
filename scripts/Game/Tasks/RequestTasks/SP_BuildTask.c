@@ -12,9 +12,9 @@ class SP_BuildLightPathTask: SP_Task
 		string OName;
 		string OLoc;
 		GetInfo(OName, OLoc);
-		m_sTaskDesc = string.Format("Talk to %1.", OName);
-		m_sTaskDiag = string.Format("Make your way to %1's location, he's asked to speak with you. He's on %2.", OName, OLoc);
-		m_sTaskTitle = string.Format("Talk to %1", OName);
+		m_sTaskDesc = "Reopen the paths to neighbouring bases.";
+		m_sTaskDiag = string.Format("Set up light posts on the paths leading out of %1 base.", m_aBasesToConnect[0]);
+		m_sTaskTitle = string.Format("Reopen the paths leading out of %1.", m_aBasesToConnect[0]);
 		m_sTaskCompletiontext = "Thanks for meeting me %1.";
 		m_sacttext = "I'm here to meet you.";
 	};
@@ -109,7 +109,7 @@ class SP_BuildLightPathTask: SP_Task
 			return false;
 		}
 		//-------------------------------------------------//
-		if (!m_aBasesToConnect)
+		if (m_aBasesToConnect.IsEmpty())
 		{
 			SCR_CampaignMilitaryBaseManager man = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
 			SCR_CampaignMilitaryBaseComponent base = man.GetClosestBase(m_eTaskOwner.GetOrigin());	

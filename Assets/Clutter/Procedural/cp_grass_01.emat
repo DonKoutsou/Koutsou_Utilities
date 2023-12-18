@@ -1,0 +1,4 @@
+Grass : "{88FEC87334161DE1}Assets/Clutter/Procedural/cp_grass_01.emat" {
+ Overlap 0.05
+ LayerEdgeHeight 0.999
+}

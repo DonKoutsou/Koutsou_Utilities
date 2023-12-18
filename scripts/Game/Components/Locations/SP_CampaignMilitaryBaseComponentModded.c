@@ -10,7 +10,65 @@ modded class SCR_CampaignMilitaryBaseComponent
 	bool m_bVisited;
 	
 	protected ref map <Faction, SCR_ECampaignHQRadioComms > m_eFactionRadioCoverage;
+	override void OnHasSignalChanged()
+	{
+		if (!IsProxy())
+		{
+			HandleSpawnPointFaction();
+			SupplyIncomeTimer(true);
+		}
+
+		//if (RplSession.Mode() != RplMode.Dedicated)
+			//m_MapDescriptor.HandleMapInfo();
+
+		SCR_GameModeCampaign campaign = SCR_GameModeCampaign.GetInstance();
+
+		if (campaign)
+			campaign.GetBaseManager().GetOnSignalChanged().Invoke(this);
+	}
+	override void OnSpawnPointFactionAssigned(FactionKey faction)
+	{
+		//if (RplSession.Mode() != RplMode.Dedicated)
+			//m_MapDescriptor.HandleMapInfo();
+	}
+	override void OnServiceBuilt_AfterInit(SCR_ServicePointComponent service)
+	{
+		// In case the composition has been deleted in the meantime
+		if (!service)
+			return;
+
+		if (!IsProxy())
+		{
+			ResourceName delegatePrefab = service.GetDelegatePrefab();
 	
+			if (delegatePrefab.IsEmpty())
+				return;
+	
+			Resource delegateResource = Resource.Load(delegatePrefab);
+	
+			if (!delegateResource || !delegateResource.IsValid())
+				return;
+	
+			EntitySpawnParams params = EntitySpawnParams();
+			params.TransformMode = ETransformMode.WORLD;
+			service.GetOwner().GetTransform(params.Transform);
+			IEntity delegateEntity = GetGame().SpawnEntityPrefab(delegateResource, null, params);
+	
+			if (!delegateEntity)
+				return;
+	
+			SCR_ServicePointDelegateComponent delegateComponent = SCR_ServicePointDelegateComponent.Cast(delegateEntity.FindComponent(SCR_ServicePointDelegateComponent));
+	
+			if (!delegateComponent)
+				return;
+	
+			service.SetDelegate(delegateComponent);
+			delegateComponent.SetParentBaseId(Replication.FindId(this));
+		}
+
+		//if (RplSession.Mode() != RplMode.Dedicated)
+			//m_MapDescriptor.HandleMapInfo();
+	}
 	void RegisterCharacter(IEntity Char, SCR_ECharacterRank position)
 	{
 		switch (position)

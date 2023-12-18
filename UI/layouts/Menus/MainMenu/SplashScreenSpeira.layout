@@ -349,6 +349,7 @@ FrameWidgetClass {
                 }
                }
                text "Hardcore Mode"
+               checked 1
               }
              }
             }
@@ -361,12 +362,12 @@ FrameWidgetClass {
             OffsetLeft 80
             PositionY 100
             OffsetTop 100
-            SizeX 300
-            OffsetRight -380
+            SizeX 350
+            OffsetRight -430
             SizeY 80
             OffsetBottom -180
            }
-           Text "Permadeath mode. Game is ment to be played like this. Dissable to make game more friendly. Respawn on last place slept, no story progression will be lost."
+           Text "Permadeath mode. Game is ment to be played like this. Dissable to make game more friendly. Respawn on last place slept, no story progression will be lost. Also dissables task markers."
            Wrap 1
           }
           FrameWidgetClass "{5EF6C5E18C433C61}" {
@@ -410,6 +411,7 @@ FrameWidgetClass {
                 }
                }
                text "Survival"
+               checked 1
               }
              }
             }
@@ -422,8 +424,8 @@ FrameWidgetClass {
             OffsetLeft 80
             PositionY 330
             OffsetTop 330
-            SizeX 300
-            OffsetRight -380
+            SizeX 350
+            OffsetRight -430
             OffsetBottom -360
            }
            Text "Survival mode . 4 stats to track in order to stay operational. Food and hunger is replenished by eating and drinking. Temprature changes based on time of day. Get proper clothing to stay alive. Energy is replenished when sleeping. The more you move around the moe energy you will consume. Make sure you other needs are met bofore going to sleep."
@@ -483,8 +485,8 @@ FrameWidgetClass {
             OffsetLeft 80
             PositionY 710
             OffsetTop 710
-            SizeX 300
-            OffsetRight -380
+            SizeX 350
+            OffsetRight -430
             OffsetBottom -740
            }
            Text "Scenario has enabled smol postprocess effects cause i feel like it. If you want them dissabled go ahead."

@@ -1,0 +1,10 @@
+GenericEntity {
+ ID "5AFC9B0D8792F4E2"
+ components {
+  SCR_CampaignMilitaryBaseMapDescriptorComponent "{5C669672B19BFE5A}" {
+   Enabled 0
+   VisibleOnMap 0
+   MainType Tree
+  }
+ }
+}

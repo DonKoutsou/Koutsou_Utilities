@@ -964,6 +964,7 @@ class SP_BaseNames
 	static const string ANDRES_BEACON = "#AR-MapLocation_AndresBeacon";
 	static const string TOWN_BASE_CHOTAIN = "#AR-MapLocation_Chotain";
 	static const string MIL_BASE_CHOTAIN = "#AR-Campaign_MapLocation_Coastal_Chotain";
+	static const string ENTRE_DEUX_BASE = "#AR-Campaign_MapLocation_EntreDeux";
 	
 	static string Get(SP_BaseEn en)
 	{
@@ -977,6 +978,8 @@ class SP_BaseNames
 			return TOWN_BASE_CHOTAIN;
 		if (en == SP_BaseEn.MIL_BASE_CHOTAIN)
 			return MIL_BASE_CHOTAIN;
+		if (en == SP_BaseEn.ENTRE_DEUX_BASE)
+			return ENTRE_DEUX_BASE;
 		return STRING_EMPTY;
 	}
 }
@@ -987,6 +990,7 @@ enum SP_BaseEn
 	ANDRES_BEACON,
 	TOWN_BASE_CHOTAIN,
 	MIL_BASE_CHOTAIN,
+	ENTRE_DEUX_BASE,
 }
 modded enum EVehicleType
 {

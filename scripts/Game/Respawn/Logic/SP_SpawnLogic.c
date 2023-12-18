@@ -9,7 +9,9 @@ modded class SCR_AutoSpawnLogic
 	
 	[Attribute("{A1CE9D1EC16DA9BE}UI/layouts/Menus/MainMenu/SplashScreen.layout", desc: "Layout shown before deploy menu opens on client")]
 	protected ResourceName m_sLoadingLayout;
-
+	
+	
+	bool m_bAllowTaskMarkers;
 	protected Widget m_wLoadingPlaceholder;
 	protected ButtonWidget m_wCloseButton;
 	bool m_bDissableMetabolism;
@@ -27,6 +29,10 @@ modded class SCR_AutoSpawnLogic
 	void SetLives(int amount)
 	{
 		m_iLives = amount;
+	}
+	void SetTaskMarkers(bool toset)
+	{
+		m_bAllowTaskMarkers = toset;
 	}
 	void EnablePost()
 	{

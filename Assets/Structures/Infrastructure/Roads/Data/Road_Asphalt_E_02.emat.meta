@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{4B94AEDC2E5F9ABB}Assets/Structures/Infrastructure/Roads/Data/Road_Asphalt_E_02.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

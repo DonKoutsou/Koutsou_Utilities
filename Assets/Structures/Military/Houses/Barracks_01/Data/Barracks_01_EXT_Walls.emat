@@ -1,0 +1,8 @@
+MatPBRMulti : "{B3AB6D220BD2EE55}Assets/Structures/Military/Houses/Barracks_01/Data/Barracks_01_EXT_Walls.emat" {
+ MaskRedScale 0.469
+ DirtOpacity 1.927
+ DirtLayerSharpness 0.729
+ MaskSharpness_4 3.299
+ MaskOffset_4 0.517
+ MaskUVScale_4 1
+}

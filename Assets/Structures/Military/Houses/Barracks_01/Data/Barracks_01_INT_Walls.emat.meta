@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A021BD27B29B1211}Assets/Structures/Military/Houses/Barracks_01/Data/Barracks_01_INT_Walls.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

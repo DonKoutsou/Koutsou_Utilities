@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B3AB6D220BD2EE55}Assets/Structures/Military/Houses/Barracks_01/Data/Barracks_01_EXT_Walls.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

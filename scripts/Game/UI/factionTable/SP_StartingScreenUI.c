@@ -35,6 +35,7 @@ class SP_StartingScreenUI : ChimeraMenuBase
 			if (!m_wHardcorCheckbox.IsChecked())
 			{
 				logic.SetLives(-1);
+				logic.SetTaskMarkers(!m_wHardcorCheckbox.IsChecked())
 			}
 			else
 			{
