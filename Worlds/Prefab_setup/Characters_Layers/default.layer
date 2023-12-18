@@ -413,6 +413,17 @@ SCR_ChimeraCharacter : "{37578B1666981FCE}prefabs/Characters/Core/Character_Base
 WalletEntity : "{378FFB5CAAEEB75B}prefabs/Currency/Wallet_US_5_Watches.et" {
  coords 166.564 1 249.201
 }
+GameEntity : "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et" {
+ coords 111.067 1 247.081
+ {
+  LightEntity {
+   ID "5D0CC0E56B2DFA78"
+   coords -0.001 0.219 0.001
+   Color 1 0.784 0.325 1
+   Type Point
+  }
+ }
+}
 GameEntity : "{3CCA7A9BB4FD3197}prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et" {
  coords 116.375 1 243.271
 }
@@ -597,8 +608,13 @@ $grp FoodEntity : "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.e
   coords 114.117 1 249.498
  }
 }
-GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
- coords 120.962 1 250.612
+$grp GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
+ {
+  coords 120.962 1 250.612
+ }
+ {
+  coords 110.785 1 247.113
+ }
 }
 SCR_ChimeraCharacter : "{5346CF7E39A65A6B}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et" {
  coords 146.2 1.001 252.93
@@ -619,6 +635,15 @@ GenericEntity : "{562EDFDEAF37FA4F}prefabs/Items/EntryPapers/Entry_Papers_US.et"
 }
 GenericEntity : "{573038AEF0FFA53D}prefabs/Structures/Military/Flags/FlagPole_02/FlagPole_02_SPEIRA.et" {
  coords 90.457 1.001 244.289
+}
+GameEntity : "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et" {
+ coords 110.966 1 247.608
+ {
+  LightEntity {
+   ID "5D0CC0E516682BC8"
+   coords 0.001 0.094 -0.001
+  }
+ }
 }
 SCR_ChimeraCharacter : "{58E47E5A4D599432}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_MG.et" {
  coords 135.586 1.001 253.84
@@ -863,6 +888,15 @@ GameEntity : "{7F44A37BB64B8842}Prefabs/Characters/Uniforms/Tops/Long_sleeve_whi
 GameEntity : "{83DFA8F68CA40B10}prefabs/Characters/Uniforms/Pants_Pilot_USSR_01/Pants_Pilot_USSR_01.et" {
  coords 114.664 1 243.505
 }
+GameEntity : "{893CBCFF0A6D64F4}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991_Lantern.et" {
+ coords 111.387 1 247.35
+ {
+  LightEntity {
+   ID "5D0CC0E56B2DFA78"
+   coords -0.001 0.197 0
+  }
+ }
+}
 SCR_ChimeraCharacter : "{8975B1600F25A80E}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Marksman.et" {
  coords 136.658 1 251.052
  angleY 165
@@ -916,6 +950,9 @@ $grp SCR_ChimeraCharacter : "{AF343EDC3C5C7A1B}prefabs/Characters/Factions/INDFO
 }
 GameEntity : "{B02281435AED8274}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01.et" {
  coords 113.442 1 243.273
+}
+GameEntity : "{B0D3652291550C1B}PrefabsEditable/Auto/Props/Civilian/LampKerosene_01/E_LampKerosene_01_blue.et" {
+ coords 110.179 1 247.281
 }
 GameEntity : "{B137B7CE988557D2}prefabs/Characters/Uniforms/Suit_Pilot_US_01/Suit_Pilot_US_01.et" {
  coords 114.173 1 242.333
@@ -978,6 +1015,9 @@ GameEntity : "{D4028ED16DEE99EE}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helm
 }
 GameEntity : "{D8D9EE7F3966589E}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_red.et" {
  coords 112.552 1 244.776
+}
+GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
+ coords 113.251 1 241.637
 }
 SCR_ChimeraCharacter : "{DBCE4C3387A56519}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Radioman.et" {
  coords 133.034 1 250.427

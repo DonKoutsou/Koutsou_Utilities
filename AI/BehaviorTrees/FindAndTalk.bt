@@ -108,7 +108,7 @@ BehaviorTree {
          Nodes {
           SCR_AILookAtPosition "SCR_AI Look At Position" {
            Name "SCR_AI Look At Position"
-           EditorPos 373.009 708.366
+           EditorPos 474.676 708.366
            InPorts {
             SingleInputPortContainer SingleInputPortContainer {
              Port 4
@@ -140,7 +140,7 @@ BehaviorTree {
              Nodes {
               SCR_AISendOrder_MovementType "SCR_AI Send Order_ Movement Type" {
                Name "SCR_AI Send Order_ Movement Type"
-               EditorPos 289 1062.786
+               EditorPos 19 1087.786
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port -1
@@ -155,7 +155,7 @@ BehaviorTree {
               }
               SCR_AISetWeaponRaised "SCR_AI Set Weapon Raised" {
                Name "SCR_AI Set Weapon Raised"
-               EditorPos 631.552 1063.929
+               EditorPos 361.552 1088.929
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port -1
@@ -163,9 +163,13 @@ BehaviorTree {
                 }
                }
               }
+              SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
+               Name "SCR_AI Toggle Flashlights On Simulate"
+               EditorPos 590.334 1081.25
+              }
               SP_AITalk "SP_AI Talk" {
                Name "SP_AI Talk"
-               EditorPos 868.572 1067.143
+               EditorPos 936.905 1077.143
                InPorts {
                 SingleInputPortContainer SingleInputPortContainer {
                  Port -1
@@ -271,7 +275,7 @@ BehaviorTree {
   }
   VariableReference posToLook {
    VariableType 2
-   EditorPos 241.031 841.699
+   EditorPos 277.698 848.366
   }
   VariableReference CharToTalk {
    VariableType 0

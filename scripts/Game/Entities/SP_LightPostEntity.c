@@ -192,7 +192,10 @@ class LightPost: GameEntity
 	}
 	void LightPost(IEntitySource src, IEntity parent)
 	{
-		SP_LightPostManager.GetInstane().RegisterPost(this);
+		SP_LightPostManager man = SP_LightPostManager.GetInstane();
+		if (!man)
+			return;
+		man.RegisterPost(this);
 		//GetGame().GetCallqueue().CallLater(SetVisible, 2000, false);
 	};
 	//Destructor

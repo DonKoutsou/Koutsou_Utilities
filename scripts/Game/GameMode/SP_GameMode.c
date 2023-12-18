@@ -19,6 +19,9 @@ modded class SCR_GameModeCampaign
 	protected DS_DialogueComponent m_DialogueComponent;
 	protected SP_RequestManagerComponent m_RequestManagerComponent;
 	protected SCR_FactionManager m_factionManager;
+	
+	CharacterPerceivableComponent perc;
+	
 	//------------------------------------------------------------------//
 	DS_DialogueComponent GetDialogueComponent()
 	{
@@ -41,11 +44,14 @@ modded class SCR_GameModeCampaign
 		m_DialogueComponent = DS_DialogueComponent.Cast(owner.FindComponent(DS_DialogueComponent));
 		m_RequestManagerComponent = SP_RequestManagerComponent.Cast(owner.FindComponent(SP_RequestManagerComponent));
 		m_factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+		
+		
 	}
 	//------------------------------------------------------------------//
 	protected override void OnPlayerSpawnFinalize_S(SCR_SpawnRequestComponent requestComponent, SCR_SpawnHandlerComponent handlerComponent, SCR_SpawnData data, IEntity entity)
 	{
 		super.OnPlayerSpawnFinalize_S(requestComponent, handlerComponent, data, entity);
+		
 		//set initial rep
 		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(entity.FindComponent(SCR_CharacterIdentityComponent));
 		id.SetCharacterRep(m_iPlayerInitialRep);
@@ -69,6 +75,7 @@ modded class SCR_GameModeCampaign
 			logic.DestroyLoadingPlaceholder();
 			logic.OpenStartingScreenUI();
 		}
+		perc = CharacterPerceivableComponent.Cast(entity.FindComponent(CharacterPerceivableComponent));
 	}
 	//------------------------------------------------------------------------------------------------
 	override protected void OnRankChanged(SCR_ECharacterRank oldRank, SCR_ECharacterRank newRank, notnull IEntity owner, bool silent)
@@ -148,7 +155,10 @@ modded class SCR_GameModeCampaign
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		super.EOnFrame(owner, timeSlice);
-		
+		if (perc)
+		{
+			Print(perc.GetIlluminationFactor());
+		}
 		/*SCR_PlayerController cont = SCR_PlayerController.Cast(GetGame().GetPlayerController());
 		IEntity char = cont.GetControlledEntity();
 		if (!char)

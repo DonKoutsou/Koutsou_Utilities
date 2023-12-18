@@ -1,6 +1,6 @@
 modded class SCR_FireplaceComponent
 {
-	[Attribute()]
+	[Attribute(defvalue : "2000.000")]
 	protected float m_fShouldBeAliveFor;
 	
 	

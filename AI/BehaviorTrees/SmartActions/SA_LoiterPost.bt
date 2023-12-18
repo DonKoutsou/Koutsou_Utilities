@@ -393,34 +393,6 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
        AbortType AbortChildrenBranch
        InVariable 28
       }
-      Selector Selector {
-       Name "Selector"
-       EditorPos 3009.001 521.886
-       Nodes {
-        SCR_AIDayNightTest "SCR_AI Day Night Test" {
-         Name "SCR_AI Day Night Test"
-         EditorPos 2824.334 739.553
-         Nodes {
-          SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
-           Name "SCR_AI Toggle Flashlights On Simulate"
-           EditorPos 2701.668 958.303
-           m_bEnable 0
-          }
-         }
-        }
-        SCR_AIDayNightTest "SCR_AI Day Night Test" {
-         Name "SCR_AI Day Night Test"
-         EditorPos 3189.584 741.386
-         Nodes {
-          SCR_AIToggleFlashlightsOnSimulate "SCR_AI Toggle Flashlights On Simulate" {
-           Name "SCR_AI Toggle Flashlights On Simulate"
-           EditorPos 3142.335 971.386
-          }
-         }
-         NegativeCondition 1
-        }
-       }
-      }
      }
     }
    }

@@ -34,7 +34,7 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
    m_bRandomWeatherChanges 0
    m_bAllowHeaderSettings 0
    m_iStartingDay 3
-   m_iStartingMonth 3
+   m_iStartingMonth 2
   }
   SP_LightPostManager "{5F2295B003E5D767}" {
   }
