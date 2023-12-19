@@ -78,6 +78,12 @@ class SP_BuildLightPathTask: SP_Task
 					post.SpawnTaskMarkers(Character);
 				}
 			}
+			SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
+			foreach (string basename : m_aBasesToConnect)
+			{
+				BaseMan.SetBaseVisible(BaseMan.GetNamedBase(basename));
+			}
+			
 			return true;
 			
 		}

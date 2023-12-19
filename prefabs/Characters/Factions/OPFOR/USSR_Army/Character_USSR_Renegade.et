@@ -7,14 +7,17 @@ SCR_ChimeraCharacter : "{DCB41B3746FDD1BE}prefabs/Characters/Factions/OPFOR/USSR
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Jacket {
-     Prefab "{BF2B7ED6C6BF0422}Prefabs/Characters/Uniforms/Tops/flannel_dark_red.et"
+     Prefab "{B86AD95C78663117}Prefabs/Characters/Uniforms/Tops/PoloshirtRed.et"
     }
    }
   }
   SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5D7CC173E6675BF7}" {
-     TargetStorage "Prefabs/Characters/Uniforms/Tops/flannel_dark_red.et"
+     TargetStorage ""
+    }
+    ItemsInitConfigurationItem "{5A24CC173897B74F}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Tops/PoloshirtRed.et"
     }
    }
   }

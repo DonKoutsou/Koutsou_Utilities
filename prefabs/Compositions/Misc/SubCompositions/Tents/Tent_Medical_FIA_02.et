@@ -1,0 +1,10 @@
+GenericEntity : "{FBEF0DDE64A1B1A0}Prefabs/Compositions/Slotted/SubComposition.et" {
+ ID "5282DCB5DFC8538F"
+ {
+  GenericEntity : "{A4E14002C47285EE}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_LoiterPoint_LeanLeft.et" {
+   ID "5F260E8E508171E0"
+   coords 0.358 0 -0.086
+   angleY 180
+  }
+ }
+}

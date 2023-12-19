@@ -13,6 +13,20 @@ LightPost {
   RigidBody "{5F227744C4A0B2AE}" {
    ModelGeometry 1
   }
+  SCR_AISmartActionComponent "{5F272AE07135C26B}" {
+   Tags {
+    "LightPost"
+   }
+   ActionOffset 0 0.409 0.438
+   ActionTest LightpostSmartActionTest "{5F2739C83E7EE4DF}" {
+   }
+  }
+  SCR_AISmartActionSentinelComponent "{5F272AE054AC7B16}" {
+   AIBehaviorTree "{BF6F604B73D4D3C5}AI/BehaviorTrees/SmartActions/SA_BuildPost.bt"
+   Tags {
+    "BuildPost"
+   }
+  }
   SCR_PathPointMapDescriptorComponent "{5F2479D084C8F445}" {
    VisibleOnMap 0
    MainType Light

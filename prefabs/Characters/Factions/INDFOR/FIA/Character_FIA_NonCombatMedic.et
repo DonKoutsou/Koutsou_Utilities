@@ -13,10 +13,13 @@ SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA
      Prefab "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et"
     }
     LoadoutSlotInfo Jacket {
-     Prefab "{7F44A37BB64B8842}Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"
+     Prefab "{B80234423A9F710F}Prefabs/Characters/Uniforms/Tops/TshirtDarkGreyPP.et"
     }
     LoadoutSlotInfo ArmoredVest {
      Prefab "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et"
+    }
+    LoadoutSlotInfo Pants {
+     Prefab "{820FE927294AA39F}prefabs/Characters/Uniforms/Pants_M70_v2.et"
     }
     LoadoutSlotInfo Vest {
      Prefab ""
@@ -29,7 +32,7 @@ SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA
      TargetStorage "prefabs/Characters/Uniforms/Pants_M70.et"
     }
     ItemsInitConfigurationItem "{5D7CC173FAA7C00C}" {
-     TargetStorage "Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"
+     TargetStorage "Prefabs/Characters/Uniforms/Tops/TshirtDarkGreyPP.et"
     }
     ItemsInitConfigurationItem "{5A24CC1119A46C9F}" {
      TargetStorage "Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et"

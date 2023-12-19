@@ -1,0 +1,112 @@
+BehaviorTree {
+ Name "AI/BehaviorTrees/SP_AIBuildPath.bt"
+ Nodes {
+  RootNode Root {
+   Name "Root"
+   EditorPos -35.714 -73.571
+   Nodes {
+    Sequence Sequence {
+     Name "Sequence"
+     EditorPos -55.5 67.858
+     Nodes {
+      RunOnce "Run Once" {
+       Name "Run Once"
+       EditorPos -841.667 393.81
+       Nodes {
+        SCR_AIGetPathParameters "SCR_AI Get Path Parameters" {
+         Name "SCR_AI Get Path Parameters"
+         EditorPos -908.095 518.81
+         OutPorts {
+          SingleOutputPortContainer SingleOutputPortContainer {
+           Port 0
+           PortName "Path"
+          }
+         }
+        }
+       }
+      }
+      SCR_AIGetClosestPost "SCR_AI Get Closest Post" {
+       Name "SCR_AI Get Closest Post"
+       EditorPos -242.857 404.286
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 0
+         PortName "Path"
+        }
+       }
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port 1
+         PortName "LightPost"
+        }
+       }
+      }
+      AITaskMoveToEntity "Move To Entity" {
+       Name "Move To Entity"
+       EditorPos 253.333 402.778
+       PrecisionXZ 2
+       PrecisionY 2
+       InEntity 1
+      }
+      SCR_AITakeGadgetInLeftHand "SCR_AI Take Gadget In Left Hand" {
+       Name "SCR_AI Take Gadget In Left Hand"
+       EditorPos 613.333 408.889
+       OutPorts {
+        SingleOutputPortContainer SingleOutputPortContainer {
+         Port -1
+         PortName "ItemOut"
+        }
+       }
+       m_eGadgetType BUILDING_TOOL
+      }
+      SCR_AIPerformSmartUserAction "SCR_AI Perform Smart User Action" {
+       Name "SCR_AI Perform Smart User Action"
+       EditorPos 991.786 410.714
+       InPorts {
+        SingleInputPortContainer SingleInputPortContainer {
+         Port -1
+         PortName "UserAction"
+        }
+        SingleInputPortContainer SingleInputPortContainer {
+         Port 1
+         PortName "TargetEntity"
+        }
+       }
+       m_sUserAction "SCR_LightPostBuildingBuildUserAction"
+      }
+     }
+    }
+   }
+  }
+ }
+ Variables {
+  Variable Paths {
+   VariableName "Paths"
+   VariableTypeName "array<LightPost>"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable Post {
+   VariableName "Post"
+   VariableTypeName "LightPost"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+  Variable PostPos {
+   VariableName "PostPos"
+   VariableTypeName "vector"
+   VariableExposedInput 0
+   VariableExposedOutput 0
+  }
+ }
+ VariablesRefs {
+  VariableReference Paths {
+   VariableType 0
+   EditorPos -526.429 593.333
+  }
+  VariableReference Post {
+   VariableType 1
+   EditorPos 3.393 640.536
+  }
+ }
+}

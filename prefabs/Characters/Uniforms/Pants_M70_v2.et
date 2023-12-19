@@ -1,4 +1,4 @@
-GameEntity : "{6099177EBF8A16FC}Prefabs/Characters/Uniforms/Pants_M70_base.et" {
+GameEntity : "{06BC3F18B47799AE}prefabs/Characters/Uniforms/Pants_M70.et" {
  ID "5104869D194C6243"
  components {
   MeshObject "{5104869D194C6262}" {
@@ -6,21 +6,6 @@ GameEntity : "{6099177EBF8A16FC}Prefabs/Characters/Uniforms/Pants_M70_base.et" {
     MaterialAssignClass "{5B1B039EC61CBA28}" {
      SourceMaterial "Pants_M70_01_Item"
      AssignedMaterial "{8A04399674AA9DCD}Assets/Characters/Uniforms/Jacket_M70/Data/Jacket_M70_02_item.emat"
-    }
-   }
-  }
-  SCR_UniversalInventoryStorageComponent "{5222CB01D5B9A306}" {
-   Attributes SCR_ItemAttributeCollection "{5222CB01245CDF32}" {
-    ItemDisplayName UIInfo "{5222CB0109A04AB2}" {
-    }
-    ItemPhysAttributes ItemPhysicalAttributes PhysicalAttributes {
-     Weight 1.6
-    }
-    CustomAttributes {
-     PreviewRenderAttributes "{555292467DA11B7C}" {
-      PreviewWornModel 1
-      PreviewModel "{065DC5366BA23024}Assets/Characters/Uniforms/Pants_M70/Pants_M70_01.xob"
-     }
     }
    }
   }

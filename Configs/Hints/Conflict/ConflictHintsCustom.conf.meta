@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{12A7851D373CFF14}Configs/Hints/Conflict/ConflictHintsCustom.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

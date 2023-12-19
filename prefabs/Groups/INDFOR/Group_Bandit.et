@@ -1,0 +1,8 @@
+SCR_AIGroup : "{5BEA04939D148B1D}Prefabs/Groups/INDFOR/Group_FIA_FireTeam.et" {
+ ID "0000000000000001"
+ m_faction "BANDITS"
+ m_aUnitPrefabSlots {
+  "{3A7BC765FC53D8E5}prefabs/Characters/Factions/INDFOR/FIA/Character_Bandit_BaseLoadout.et" "{3A7BC765FC53D8E5}prefabs/Characters/Factions/INDFOR/FIA/Character_Bandit_BaseLoadout.et"
+ }
+ m_iMaxMembers 2
+}

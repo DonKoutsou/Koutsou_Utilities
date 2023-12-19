@@ -1,0 +1,13 @@
+GenericEntity : "{BD23051E88B63139}Prefabs/Structures/Infrastructure/Lamps/LampStreet_E_01/LampStreet_E_01_base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  StreetLampComponent "{55DAC22E2661BE9A}" {
+   Enabled 0
+   EmissiveGlassSlots {
+    EmissiveGlassSlot test {
+     Prefab ""
+    }
+   }
+  }
+ }
+}

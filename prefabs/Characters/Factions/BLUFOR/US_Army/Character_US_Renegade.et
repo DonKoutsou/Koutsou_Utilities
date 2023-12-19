@@ -7,7 +7,7 @@ SCR_ChimeraCharacter : "{26A9756790131354}prefabs/Characters/Factions/BLUFOR/US_
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Jacket {
-     Prefab "{5F310D795D4ED30C}Prefabs/Characters/Uniforms/Tops/flannel_blue.et"
+     Prefab "{86B7F309A93160DE}Prefabs/Characters/Uniforms/Tops/SweatShirtCB.et"
     }
     LoadoutSlotInfo ArmoredVest {
      Prefab "{F9ACDDE62D906D61}Prefabs/Characters/Vests/Vest_M69/Vest_M69_olive.et"
@@ -18,6 +18,9 @@ SCR_ChimeraCharacter : "{26A9756790131354}prefabs/Characters/Factions/BLUFOR/US_
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5D7CAAFB9235E902}" {
      TargetStorage "prefabs/Characters/Uniforms/Pants_US_BDU.et"
+    }
+    ItemsInitConfigurationItem "{5D7CAAFB9235E903}" {
+     TargetStorage "prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_suspenders_2.et"
     }
    }
   }

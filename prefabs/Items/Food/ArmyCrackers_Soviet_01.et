@@ -1,6 +1,8 @@
 FoodEntity : "{C95E11C60810F432}Prefabs/Items/Core/Item_Base.et" {
  ID "2829E729DF7DE6D1"
  components {
+  SignalsManagerComponent "{5F2701B0B77586C0}" {
+  }
   SoundComponent "{5F1944C996AD6669}" {
    Filenames {
     "{93ACAEB6CD0A10D5}Sounds/Items/_SharedData/PickUp/Food.acp"

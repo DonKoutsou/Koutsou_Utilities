@@ -21,6 +21,11 @@ class SP_RequestManagerComponent : ScriptComponent
 	//Garbage Manager
 	[Attribute(defvalue: "60", desc: "Task garbage manager kinda. Completed task are added to their own list, failed tasks are deleted")]
 	float m_fTaskClearTime;
+	
+	
+	[Attribute(defvalue: "60")]
+	float m_fTaskGenTime;
+	
 	//------------------------------------------------------------------------------------------------------------//
 	[Attribute(defvalue:"0")]
 	bool m_bShowDebug;
@@ -703,15 +708,32 @@ class SP_RequestManagerComponent : ScriptComponent
 	{
 		super.OnPostInit(owner);
 		SetEventMask(owner, EntityEvent.INIT);
-		SetEventMask(owner, EntityEvent.FRAME);
+		ConnectToRequestSystem();
 		owner.SetFlags(EntityFlags.ACTIVE, true);
 	}
-	//------------------------------------------------------------------------------------------------------------//
-	override void EOnFrame(IEntity owner, float timeSlice)
+	protected void ConnectToRequestSystem()
 	{
-		/*
-		//if (!m_bQuestInited)
-			//return;
+		World world = GetOwner().GetWorld();
+		SP_RequestSystem updateSystem = SP_RequestSystem.Cast(world.FindSystem(SP_RequestSystem));
+		if (!updateSystem)
+			return;
+
+		updateSystem.Register(this);
+	}
+
+	protected void DisconnectFromRequestSystem()
+	{
+		World world = GetOwner().GetWorld();
+		SP_RequestSystem updateSystem = SP_RequestSystem.Cast(world.FindSystem(SP_RequestSystem));
+		if (!updateSystem)
+			return;
+
+		updateSystem.Unregister(this);
+	}
+	//------------------------------------------------------------------------------------------------------------//
+	void Update(float timeSlice)
+	{
+		return;
 		m_fTaskClearTimer += timeSlice;
 		if(m_fTaskClearTimer > m_fTaskClearTime)
 		{
@@ -722,38 +744,27 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			CreateDebug();
 		}
-		
-		m_iMinTaskAmount = m_CharacterHolder.GetAliveCount() * m_fTaskPerCharacter;
-		if (m_CharacterHolder.GetAliveCount() < m_iMinTaskAmount/m_fTaskPerCharacter)
-			return;
-		if (GetInProgressTaskCount() < m_iMinTaskAmount)
+
+		m_fTaskRespawnTimer += timeSlice;
+		if(m_fTaskRespawnTimer > m_fTaskGenTime)
 		{
-			typename Task = m_aTaskSamples.GetRandomElement().GetClassName();
-			CreateTask(Task);
-		}
-		else
-		{
-			m_fTaskRespawnTimer += timeSlice;
-			if(m_fTaskRespawnTimer > m_fTaskGenTime)
+			typename Task;
+			array <SP_Task> activetasks = GetActiveSamples();
+			if (!activetasks || activetasks.IsEmpty())
 			{
-				typename Task;
-				array <SP_Task> activetasks = GetActiveSamples();
-				if (!activetasks || activetasks.IsEmpty())
-				{
-					Print("None of the tasks samples have been marked as enabled");
-					return;
-				}
-				Task = activetasks.GetRandomElement().GetClassName();
-				if(CreateTask(Task))
-				{
-					m_fTaskRespawnTimer = 0;
-				}
-				else
-				{
-					m_fTaskRespawnTimer -= 1;
-				}
+				Print("None of the tasks samples have been marked as enabled");
+				return;
 			}
-		}*/
+			Task = activetasks.GetRandomElement().GetClassName();
+			if(CreateTask(Task))
+			{
+				m_fTaskRespawnTimer = 0;
+			}
+			else
+			{
+				m_fTaskRespawnTimer -= 1;
+			}
+		}
 	};
 	//------------------------------------------------------------------------------------------------------------//
 	override void EOnInit(IEntity owner)
@@ -1004,6 +1015,37 @@ class SP_RequestManagerComponent : ScriptComponent
 		}		
 	}
 };
+class SP_RequestSystem : GameSystem
+{
+	protected ref array<SP_RequestManagerComponent> m_aComponents = {};
+
+	override protected ESystemPoint GetSystemPoint()
+	{
+		return ESystemPoint.FixedFrame;
+	}
+	
+	override protected void OnUpdate(ESystemPoint point)
+	{
+		float timeSlice = GetWorld().GetTimeSlice();
+
+		foreach (SP_RequestManagerComponent comp : m_aComponents)
+		{
+			comp.Update(timeSlice);
+		}
+	}
+	
+	void Register(SP_RequestManagerComponent component)
+
+	{
+		if (!m_aComponents.Contains(component))
+			m_aComponents.Insert(component);
+	}
+
+	void Unregister(SP_RequestManagerComponent component)
+	{
+		m_aComponents.RemoveItem(component);
+	}
+}
 //------------------------------------------------------------------------------------------------------------//
 modded enum SCR_EArsenalItemType
 {

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{54ECB01C5CA33129}Assets/Structures/Infrastructure/Lamps/LampStreetE_02/Data/LampStreetE_02_Glass.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

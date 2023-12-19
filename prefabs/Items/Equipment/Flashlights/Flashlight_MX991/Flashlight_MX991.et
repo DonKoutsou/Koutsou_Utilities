@@ -1,0 +1,46 @@
+GameEntity : "{61E466904E8D18D5}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991_base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{56A4B11C0BE428C5}" {
+   Attributes SCR_ItemAttributeCollection "{56A4B11C0BE428F0}" {
+    ItemAnimationAttributes ItemAnimationAttributes "{5D0CC0E56B2DFA52}" {
+     HandAdditiveTranslation 0 -0.3 0
+    }
+   }
+  }
+  MeshObject "{5D0CB95BC1CDFBAE}" {
+   Object "{866AB21E4FEE8FB8}Assets/Props/Military/Camps/LanternMilitary_US_01/LanternMilitary_US_01.xob"
+  }
+  SCR_FlashlightComponent "{5D0CB95BC1CDFBA9}" {
+   Enabled 0
+   m_eAnimVariable ADRIANOV
+  }
+  SCR_LanternGadgetComponent "{5F254615188EE48D}" {
+   m_eAnimVariable ADRIANOV
+   m_LenseArray {
+    SCR_LenseColor "{5F2546151DBE9494}" {
+     m_sDescription "None"
+     m_vLenseColor 1 0.933 0.733
+     m_fLightValue 2
+    }
+   }
+  }
+  SCR_SoundDataComponent "{5D0CB95BC1CDFBBE}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5D0CB95BC1CDFBB8}" {
+    }
+    SCR_AudioSourceConfiguration "{5D0CB95BC1CDFBB9}" {
+    }
+   }
+  }
+ }
+ {
+  LightEntity {
+   ID "5D0CC0E56B2DFA78"
+   coords -0.001 0.217 -0.002
+   Color 1 0.683 0.322 1
+   LV 2
+   Type Point
+  }
+ }
+}

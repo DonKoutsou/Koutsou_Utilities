@@ -1,6 +1,9 @@
 SCR_PlayerController : "{A1AE127F16DD352E}prefabs/Characters/Core/DefaultPlayerControllerMP_Factions.et" {
  ID "1A9BA6BEFA06E3B1"
  components {
+  SCR_CampaignFeedbackComponent "{5C94C7EBDD06BF47}" {
+   m_sHintsConfig "{12A7851D373CFF14}Configs/Hints/Conflict/ConflictHintsCustom.conf"
+  }
   SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
    InfoDisplays {
     SCR_CampaignInfoDisplay "{5C94C7EB23D96024}" {

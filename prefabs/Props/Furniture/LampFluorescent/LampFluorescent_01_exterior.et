@@ -1,0 +1,8 @@
+GenericEntity : "{4CC2C69DE1AEF103}Prefabs/Props/Core/Destructible_Props_Base.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  StreetLampComponent "{58D67C8D679081DF}" {
+   Enabled 0
+  }
+ }
+}

@@ -276,6 +276,7 @@ GenericEntity : "{AA3AB43596E39683}prefabs/Compositions/Slotted/SlotFlatSmall/He
     }
     StaticModelEntity {
      ID "5EBF1284616590FC"
+     coords 1.979 0.177 -0.847
      Flags 1048576
      {
       GameEntity {
@@ -376,6 +377,7 @@ GenericEntity : "{AA3AB43596E39683}prefabs/Compositions/Slotted/SlotFlatSmall/He
   }
   GenericEntity {
    ID "5EBF1284718E2E26"
+   coords -3.52 0 1.272
    Flags 1048576
   }
   GenericEntity {
@@ -404,9 +406,37 @@ GenericEntity : "{AA3AB43596E39683}prefabs/Compositions/Slotted/SlotFlatSmall/He
    ID "5EBF1284718E2E6B"
    Flags 1048576
   }
+  GenericEntity {
+   ID "5EBF353F1A37E67D"
+   {
+    GenericEntity {
+     ID "5D3706BF18501EF2"
+     {
+      GenericEntity {
+       ID "5CB66A1082F1A62E"
+       components {
+        SCR_FlagComponent "{5E3C95A1E1EE9681}" {
+         m_sDefaultMaterial "{4D8DFD60F023C54E}Assets/Props/Fabric/Flags/Data/Flag_1_2_BANDITS.emat"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
   SCR_SpawnPoint {
    ID "5EBF1284718E11D1"
    Flags 1048576
+  }
+  GenericEntity : "{6204943E9EC70EC2}Prefabs/Structures/Military/Camps/Canvas_Covers/US/CanvasCover_Medium_US.et" {
+   ID "5F26D0C9B6B9A31E"
+   components {
+    Hierarchy "{5EBF1284718E2E4D}" {
+     Enabled 1
+    }
+   }
+   coords -2.243 0 -2.31
+   angleY 90
   }
  }
 }

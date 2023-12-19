@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{BF6F604B73D4D3C5}AI/BehaviorTrees/SmartActions/SA_BuildPost.bt"
+ Configurations {
+  BehaviorTreeResourceClass PC {
+  }
+  BehaviorTreeResourceClass XBOX_ONE : PC {
+  }
+  BehaviorTreeResourceClass XBOX_SERIES : PC {
+  }
+  BehaviorTreeResourceClass PS4 : PC {
+  }
+  BehaviorTreeResourceClass HEADLESS : PC {
+  }
+ }
+}

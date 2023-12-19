@@ -7,7 +7,7 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Jacket {
-     Prefab "{494706283AF39DFA}Prefabs/Characters/Uniforms/Tops/flannel_brown.et"
+     Prefab "{B80234423A9F710F}Prefabs/Characters/Uniforms/Tops/TshirtDarkGreyPP.et"
     }
    }
   }
@@ -15,6 +15,9 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5D7CC173FAA7C00E}" {
      TargetStorage "prefabs/Characters/Uniforms/Pants_M70.et"
+    }
+    ItemsInitConfigurationItem "{5D7CC173FAA7C00C}" {
+     TargetStorage "prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
     }
    }
   }

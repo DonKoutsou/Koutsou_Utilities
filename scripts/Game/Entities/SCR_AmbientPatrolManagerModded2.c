@@ -30,16 +30,18 @@ modded class SCR_AmbientPatrolManager
 				dist = dist2;
 				affcomp.SetAffiliatedFactionByKey( base.GetFaction().GetFactionKey() );
 			}
-			if (dist < m_iBasePatrolInfluance)
+			if (dist < base.m_iBasePatrolInfluance)
 			{
 				factionupdated = true;
 			}
 		}
 		if (!factionupdated)
 		{
-			if (Math.RandomInt(0,1) == 1 && dist < m_iBasePatrolInfluance * 0.5)
-				return;
-			affcomp.SetAffiliatedFactionByKey( Camp.GetFactionByEnum(SCR_ECampaignFaction.RENEGADE).GetFactionKey() );
+			 int rand = Math.RandomInt(0,2);
+			if (!rand)
+				affcomp.SetAffiliatedFactionByKey( Camp.GetFactionByEnum(SCR_ECampaignFaction.BANDITS).GetFactionKey() );
+			else
+				affcomp.SetAffiliatedFactionByKey( Camp.GetFactionByEnum(SCR_ECampaignFaction.RENEGADE).GetFactionKey() );
 		}
 	}
 }

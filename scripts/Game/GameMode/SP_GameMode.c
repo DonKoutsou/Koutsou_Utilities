@@ -8,8 +8,8 @@ modded class SCR_GameModeCampaign
 	[Attribute("1", UIWidgets.ComboBox, "Game Over Type", "", ParamEnumArray.FromEnum(EGameOverTypes))];
 	protected EGameOverTypes			m_eOverriddenGameOverType;
 	//------------------------------------------------------------------//
-	[Attribute("INDFORReimagined", category: "Campaign")]
-	protected FactionKey m_sINDFOR2FactionKey;
+	[Attribute("BANDITS", category: "Campaign")]
+	protected FactionKey m_sBANDITSFactionKey;
 	
 	
 	vector m_flastpos;
@@ -75,7 +75,6 @@ modded class SCR_GameModeCampaign
 			logic.DestroyLoadingPlaceholder();
 			logic.OpenStartingScreenUI();
 		}
-		perc = CharacterPerceivableComponent.Cast(entity.FindComponent(CharacterPerceivableComponent));
 	}
 	//------------------------------------------------------------------------------------------------
 	override protected void OnRankChanged(SCR_ECharacterRank oldRank, SCR_ECharacterRank newRank, notnull IEntity owner, bool silent)
@@ -140,13 +139,17 @@ modded class SCR_GameModeCampaign
 			{
 				return m_sOPFORFactionKey;
 			};
-			case SCR_ECampaignFaction.INDFOR2:
+			case SCR_ECampaignFaction.BANDITS:
 			{
-				return m_sINDFOR2FactionKey;
+				return m_sBANDITSFactionKey;
 			};
 			case SCR_ECampaignFaction.RENEGADE:
 			{
 				return "RENEGADE";
+			};
+			case SCR_ECampaignFaction.CIV:
+			{
+				return "CIV";
 			};
 		}
 
@@ -155,10 +158,6 @@ modded class SCR_GameModeCampaign
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		super.EOnFrame(owner, timeSlice);
-		if (perc)
-		{
-			Print(perc.GetIlluminationFactor());
-		}
 		/*SCR_PlayerController cont = SCR_PlayerController.Cast(GetGame().GetPlayerController());
 		IEntity char = cont.GetControlledEntity();
 		if (!char)
@@ -209,8 +208,9 @@ modded enum EGameOverTypes
 }
 modded enum SCR_ECampaignFaction
 {
-	INDFOR2,
+	BANDITS,
 	RENEGADE,
+	CIV
 }
 /*modded class SCR_ArsenalComponent
 {

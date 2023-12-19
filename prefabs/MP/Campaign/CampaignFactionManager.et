@@ -1,10 +1,12 @@
 SCR_CampaignFactionManager : "{A242612865F2A48E}Prefabs/MP/Managers/Factions/FactionManager_Base.et" {
  ID "50A6CDA4F7C1474A"
  Factions {
-  SCR_CampaignFaction "{5EAF21CFB40F5283}" : "{A3492B9D2C6CAC44}Configs/Factions/INDFORReimaginedCampaign.conf" {
-  }
   SCR_CampaignFaction "{5ED3042220C15B00}" : "{E8AFEB71D701CCE9}Configs/Factions/RENEGADES.conf" {
    m_bIsPlayable 0
+  }
+  SCR_CampaignFaction "{5F269A59CDD2D44D}" : "{6A5850E7ABB926F9}Configs/Factions/BANDITS_Campaign.conf" {
+  }
+  SCR_CampaignFaction "{5F26AE4B30E1CC9A}" : "{79B5E834AAC67D6E}Configs/Factions/CIV_Campaign.conf" {
   }
  }
 }

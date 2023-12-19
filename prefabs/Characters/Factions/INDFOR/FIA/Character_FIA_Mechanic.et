@@ -12,6 +12,9 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
     }
    }
   }
+  CharacterGrenadeSlotComponent "{520EA1D2F659CE6E}" {
+   WeaponTemplate ""
+  }
   CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
    WeaponTemplate ""
   }
@@ -20,8 +23,14 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
   }
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
+    LoadoutSlotInfo Hat {
+     Prefab "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et"
+    }
     LoadoutSlotInfo Jacket {
-     Prefab "{983A71A4BAE74507}Prefabs/Characters/Uniforms/Tops/tank_top_white.et"
+     Prefab "{CEA8913C049DE4E1}Prefabs/Characters/Uniforms/Tops/TshirtDarkBrown.et"
+    }
+    LoadoutSlotInfo Pants {
+     Prefab "{820FE927294AA39F}prefabs/Characters/Uniforms/Pants_M70_v2.et"
     }
     LoadoutSlotInfo Vest {
      Prefab ""
@@ -34,7 +43,7 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
      TargetStorage "prefabs/Characters/Uniforms/Pants_M70.et"
     }
     ItemsInitConfigurationItem "{5D7CC173FAA7C00C}" {
-     TargetStorage "Prefabs/Characters/Uniforms/Tops/tank_top_white.et"
+     TargetStorage "Prefabs/Characters/Uniforms/Tops/TshirtDarkBrown.et"
     }
     ItemsInitConfigurationItem "{557090118458BF2F}" {
      PrefabsToSpawn {

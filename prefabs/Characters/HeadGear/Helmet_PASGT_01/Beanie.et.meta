@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{241C8C9F9917037C}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Beanie.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

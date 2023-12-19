@@ -1,6 +1,8 @@
 FoodEntity : "{61C577C0E2A178A6}prefabs/Items/Food/Food_Base.et" {
  ID "5F1944C8CE777A38"
  components {
+  SignalsManagerComponent "{5F2701B049B998C3}" {
+  }
   InventoryItemComponent "{5F1944C9AF5B83B2}" {
    Attributes SCR_ItemAttributeCollection "{5F1944C91D94C0BD}" {
     ItemDisplayName SCR_InventoryUIInfo "{5F1944C91F78ABFF}" {

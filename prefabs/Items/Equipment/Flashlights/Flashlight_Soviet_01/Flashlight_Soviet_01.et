@@ -1,0 +1,51 @@
+GameEntity : "{33EA038E98843FAE}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01_base.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{56A4B11C0BE428C5}" {
+   Attributes SCR_ItemAttributeCollection "{56A4B11C0BE428F0}" {
+    ItemAnimationAttributes ItemAnimationAttributes "{5D0CC0E516682BD5}" {
+     AnimationAttachments {
+      AnimationAttachmentInfo "{5D0CC0E516682BD0}" {
+       AnimGraph "{82906ACD75DF8523}Assets/Items/Equipment/workspaces/Flashlight_MX991.agr"
+       AnimInstance "{903E4A0B96B34B8F}Assets/Items/Equipment/workspaces/MX991_player.asi"
+      }
+     }
+     HandAdditiveTranslation 0 -0.3 0
+    }
+   }
+  }
+  MeshObject "{5D0CB95BC1CDFBAE}" {
+   Object "{7298541AEA061B58}Assets/Props/Civilian/LampKerosene_01/LampKerosene_01.xob"
+  }
+  SCR_FlashlightComponent "{5D0CB95BC1CDFBA9}" {
+   Enabled 0
+   m_eAnimVariable ADRIANOV
+  }
+  SCR_LanternGadgetComponent "{5F2546153A104CCD}" {
+   m_eAnimVariable ADRIANOV
+   m_LenseArray {
+    SCR_LenseColor "{5F2546153F787DF2}" {
+     m_sDescription "None"
+     m_vLenseColor 1 0.878 0.624
+     m_fLightValue 2
+    }
+   }
+  }
+  SCR_SoundDataComponent "{5D0CB95BC1CDFBBE}" {
+   m_aAudioSourceConfiguration {
+    SCR_AudioSourceConfiguration "{5D0CB95BC1CDFBB8}" {
+    }
+    SCR_AudioSourceConfiguration "{5D0CB95BC1CDFBB9}" {
+    }
+   }
+  }
+ }
+ {
+  LightEntity {
+   ID "5D0CC0E516682BC8"
+   Color 1 0.735 0.427 1
+   LV 2
+   Type Point
+  }
+ }
+}

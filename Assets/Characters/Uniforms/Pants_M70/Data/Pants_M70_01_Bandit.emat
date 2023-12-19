@@ -1,0 +1,17 @@
+MatPBRMulti : "{28D10C03C20F4CF3}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_01.emat" {
+ MaskRedScale 1
+ MaskGreenScale 1
+ MaskBlueScale 1
+ MudOpacity 3
+ MudRoughness 0.792
+ MudMetalness 0
+ MudAO 5
+ MudDetNormal 0
+ MudBCRMap "{2D03A75005B567C3}Common/Textures/Camouflage/T_CamoNet_LCSS_01_BC.edds"
+ MudMaskMap "{EA856582D475C1A8}Assets/Editor/CompositionSlot/Data/whiteTexture_01.edds"
+ MudUVTransform MatUVTransform "{5F269A524E035C35}" {
+  TilingU 2
+  TilingV 2
+ }
+ Enabled_4 1
+}

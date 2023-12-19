@@ -1,0 +1,58 @@
+SCR_ChimeraCharacter : "{5627086E6263EEA8}prefabs/Characters/Factions/INDFOR/FIA/Character_Bandit_base.et" {
+ ID "520EC961A090B1EE"
+ components {
+  FactionAffiliationComponent "{5F269A53DABC6A37}" {
+   "faction affiliation" "BANDITS"
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
+   WeaponTemplate "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et"
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFDC}" {
+   WeaponTemplate "{C0F7DD85A86B2900}Prefabs/Weapons/Handguns/PM/Handgun_PM.et"
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Hat {
+     Prefab "{6E339EBD72AC6D7E}Prefabs/Characters/HeadGear/Helmet_PASGT_01/HalfmaskBlack.et"
+    }
+    LoadoutSlotInfo Jacket {
+     Prefab "{A308628F15399F51}Prefabs/Characters/Uniforms/Tops/TshirtDarkGreenPP.et"
+    }
+    LoadoutSlotInfo Pants {
+     Prefab "{7DAA49D6860E1D28}prefabs/Characters/Uniforms/Pants_M70_Bandit.et"
+    }
+    LoadoutSlotInfo Boots {
+     Prefab "{DAAFD15478BDE1C3}prefabs/Characters/Footwear/CombatBoots_US_01.et"
+    }
+    LoadoutSlotInfo Back {
+    }
+    LoadoutSlotInfo Vest {
+     Prefab "{ED5574EA7F63B457}Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+    }
+   }
+  }
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5F269A5763C3A62B}" {
+     TargetStorage "prefabs/Characters/Uniforms/Pants_M70_Bandit.et"
+     PrefabsToSpawn {
+      "{E477A369758A2B06}prefabs/Currency/Wallet_10_Watches.et" "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen_Soviet_01.et" "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et" "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et" "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et" "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et"
+     }
+    }
+    ItemsInitConfigurationItem "{5F269A5707E5573B}" {
+     TargetStorage "Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     TargetPurpose 64
+     PrefabsToSpawn {
+      "{3A421547BC29F679}prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et"
+     }
+    }
+    ItemsInitConfigurationItem "{5F269A58F5E17355}" {
+     TargetStorage "Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     PrefabsToSpawn {
+      "{E5912E45754CD421}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Tracer.et" "{E5912E45754CD421}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Tracer.et" "{8B853CDD11BA916E}Prefabs/Weapons/Magazines/Magazine_9x18_PM_8rnd_Ball.et" "{8B853CDD11BA916E}Prefabs/Weapons/Magazines/Magazine_9x18_PM_8rnd_Ball.et"
+     }
+    }
+   }
+  }
+ }
+}

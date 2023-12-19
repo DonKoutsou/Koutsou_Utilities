@@ -12,8 +12,10 @@ class SCR_LightPostBuildingBuildUserAction : SCR_ScriptedUserAction
 	//------------------------------------------------------------------------------------------------
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		SCR_Global.SetMaterial(pOwnerEntity, "{5DFBCBD72FD4CEED}Assets/Props/Civilian/Birdhouse_01/Data/Birdhouse_01.emat", false);
 		EntitySlotInfo slot = SlotManagerComponent.Cast(pOwnerEntity.FindComponent(SlotManagerComponent)).GetSlotByName("Lantern");
+		slot.GetAttachedEntity().SetFlags(EntityFlags.VISIBLE);
+		pOwnerEntity.SetFlags(EntityFlags.VISIBLE);
+		SCR_Global.SetMaterial(pOwnerEntity, "{5DFBCBD72FD4CEED}Assets/Props/Civilian/Birdhouse_01/Data/Birdhouse_01.emat", false);
 		slot.GetDetachedEntityInvoker().Insert(RemoveEnt);
 		slot.DetachEntity(false);
 		slot.GetDetachedEntityInvoker().Remove(RemoveEnt);
@@ -118,6 +120,7 @@ class SCR_LightPostBuildingBuildUserAction : SCR_ScriptedUserAction
 	// The user action can be performed, when player has a building tool in hands.
 	override bool CanBePerformedScript(IEntity user)
 	{	
+		m_GadgetManager = SCR_GadgetManagerComponent.GetGadgetManager(user);
 		if (!m_GadgetManager)
 		{
 			m_GadgetManager = SCR_GadgetManagerComponent.GetGadgetManager(user);

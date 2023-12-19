@@ -18,13 +18,13 @@ SCR_ChimeraCharacter : "{99F600AD4C6BA6A4}prefabs/Characters/Factions/Civ/Charac
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Hat {
-     Prefab "{F075FC8DB1FEB159}Prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_INDFORR.et"
+     Prefab "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et"
     }
     LoadoutSlotInfo Jacket {
-     Prefab "{C774B58537027ADA}prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et"
+     Prefab "{6A325E53C928A697}Prefabs/Characters/Uniforms/Tops/TshirtDarkGrey.et"
     }
     LoadoutSlotInfo Pants {
-     Prefab "{90A4C5B46D3E6AEA}prefabs/Characters/Uniforms/Pants_BDU_INDFORR_Olive.et"
+     Prefab "{820FE927294AA39F}prefabs/Characters/Uniforms/Pants_M70_v2.et"
     }
     LoadoutSlotInfo Boots {
      Prefab "{C7923961D7235D70}prefabs/Characters/Footwear/CombatBoots_Soviet_01.et"
@@ -42,20 +42,11 @@ SCR_ChimeraCharacter : "{99F600AD4C6BA6A4}prefabs/Characters/Factions/Civ/Charac
     ItemsInitConfigurationItem "{5EBA708183186F6F}" {
      TargetStorage "Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
      TargetPurpose 64
-     PrefabsToSpawn {
-      "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et"
-     }
     }
     ItemsInitConfigurationItem "{5EBA7081B2AE47A6}" {
      TargetStorage "Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet.et"
      PrefabsToSpawn {
-      "{7768D4DB7323D5C0}prefabs/Currency/Wallet_Player.et" "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et" "{062E2F1D7F6739D6}Prefabs/Items/Equipment/Accessories/ETool_MPL50/ETool_MPL50_FreeRoamBuilding_Gadget.et"
-     }
-    }
-    ItemsInitConfigurationItem "{5F05244A2C891881}" {
-     TargetStorage "prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et"
-     PrefabsToSpawn {
-      "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et"
+      "{7768D4DB7323D5C0}prefabs/Currency/Wallet_Player.et" "{410A0A507D24BFDF}prefabs/Items/Equipment/Canteens/Water_Bottle.et" "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et" "{062E2F1D7F6739D6}Prefabs/Items/Equipment/Accessories/ETool_MPL50/ETool_MPL50_FreeRoamBuilding_Gadget.et" "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et"
      }
     }
    }

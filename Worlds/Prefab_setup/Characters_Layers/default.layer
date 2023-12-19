@@ -1,7 +1,161 @@
 SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/GameMode_Plain.et" {
  components {
+  DS_DialogueComponent "{5EF2BA4E993D1BCA}" {
+   m_CharacterArchetypeList {
+    DS_DialogueArchetype "{5EF336F3586F0DC5}" {
+     ArchetypeIdentifier Faction_Key
+     m_sCharacterFaction "US"
+     m_sCharacterRank PRIVATE
+     m_aArchetypeFactionMatch +{
+     }
+     DialogueBranch {
+      DS_DialogueBranch "{5EF347ED39B0EB50}" {
+       m_BranchStages {
+        DS_DialogueStage "{5EF347ED3B436D3D}" {
+         m_sActionText DS_AttributeText "{5EF347ED3A1E5A8D}" {
+          m_sActionTextOverride "awfwf"
+         }
+         m_sDialogueText DS_AttributeText "{5EF347ED3D23B9E5}" {
+          m_sActionTextOverride "afwaf"
+         }
+        }
+        DS_DialogueStage "{5EF3511C77F8E263}" {
+         m_sActionText DS_AttributeText "{5EF3511C79E53BC8}" {
+          m_sActionTextOverride "Textawuhwaguawghuawhguawhgouqw3hogahoipgahigeagiah jgiawawfafawfawfaweh giahgiaeignpaenginpigaawfwafwaf wawfwafwa fwa waf faw fwa fwa fwa fwa fwawa  afwa afaw fwafwa fwa wa waf f e"
+         }
+         m_sDialogueText DS_AttributeText "{5EF3511C7A41C6FF}" {
+          m_sActionTextOverride "Textawuhwaguawghuawhguawhgouqw3hogahoipgahigeagiah jgiawawfafawfawfaweh giahgiaeignpaenginpigaawfwafwaf wawfwafwa fwa waf faw fwa fwa fwa fwa fwawa  afwa afaw fwafwa fwa wa waf f e"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+   m_aWorldDirections SCR_MapLocationQuadHint "{5EF336F3AF933CB4}" : "{ABA21F381437DFE8}Configs/Map/MapLocatorHints/LocationHintsEveron.conf" {
+   }
+  }
+  SCR_DataCollectorComponent "{5ADE83EE64329989}" {
+   m_aModules {
+    SCR_DataCollectorBasicActionsModule "{5AE097A82ED69A98}" {
+    }
+    SCR_DataCollectorDriverModule "{5AE097BB69284302}" {
+    }
+    SCR_DataCollectorShootingModule "{5AE097BB6217A2F8}" {
+    }
+    SCR_DataCollectorHealingItemsModule "{5CECE314484120F4}" {
+     m_aConsumableTypes {
+      ConsumableTypeStats "{5CECE316446057A9}" {
+       m_eConsumableType BANDAGE
+       m_eDataStatsSelf BANDAGE_SELF
+       m_eDataStatsFriend BANDAGE_FRIENDLIES
+      }
+      ConsumableTypeStats "{5CECE31644CBD9C5}" {
+       m_eConsumableType TOURNIQUET
+       m_eDataStatsSelf TOURNIQUET_SELF
+       m_eDataStatsFriend TOURNIQUET_FRIENDLIES
+      }
+      ConsumableTypeStats "{5CECE316453FD0FC}" {
+       m_eConsumableType SALINE
+       m_eDataStatsSelf SALINE_SELF
+       m_eDataStatsFriend SALINE_FRIENDLIES
+      }
+      ConsumableTypeStats "{5CECE316451EC89B}" {
+       m_eConsumableType MORPHINE
+       m_eDataStatsSelf MORPHINE_SELF
+       m_eDataStatsFriend MORPHINE_FRIENDLIES
+      }
+     }
+    }
+    SCR_DataCollectorCrimesModule "{5D9C706AD14AF695}" {
+     m_aLightBanPunishments +{
+     }
+     m_aHeavyBanPunishments +{
+     }
+    }
+    SCR_DataCollectorAchievementsModule "{5DE86E4CB99B3FFB}" {
+    }
+   }
+  }
+  SCR_EntityCatalogManagerComponent "{5C9AD18D91F9E87E}" {
+   m_aEntityCatalogs {
+    SCR_EntityCatalogMultiList "{5C9AD18D9D38E99E}" : "{EAD206A79A774696}Configs/EntityCatalog/FactionLess/EntityCatalog_Characters.conf" {
+    }
+    SCR_EntityCatalogMultiList "{5C9AD18D9B68853E}" : "{77243A71AF0E5A75}Configs/EntityCatalog/FactionLess/EntityCatalog_Vehicles.conf" {
+    }
+    SCR_EntityCatalogMultiList "{5C9AD18D98F9181C}" : "{BB12292052E2F5B8}Configs/EntityCatalog/FactionLess/EntityCatalog_InventoryItems.conf" {
+    }
+    SCR_EntityCatalog "{5C9EDDD29E61EF44}" : "{B80293331FB7BFCF}Configs/EntityCatalog/FactionLess/EntityCatalog_SupplyContainerItems.conf" {
+    }
+   }
+  }
+  SCR_GameModeHealthSettings "{5A22E11F9ACBB1DF}" {
+   m_bPermitUnconsciousVON 1
+  }
+  SCR_GameOverScreenManagerComponent "{56DEC646298AD219}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{56DEC6462FFDD82D}" : "{651583FFFB7FC765}Configs/GameOverScreen/GameOverScreensConfig.conf" {
+   }
+  }
+  SCR_GroupsManagerComponent "{5706EC99934496F5}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
+  }
+  SCR_NotificationSenderComponent "{56FA84B04BE7D4C0}" {
+   m_aKillfeedTypeNames {
+    SCR_NotificationKillfeedTypeName "{5932B0310455E486}" {
+     m_iKillfeedType DISABLED
+     m_sKillfeedTypeName "#AR-Notification_KillfeedType_DISABLED"
+    }
+    SCR_NotificationKillfeedTypeName "{5932B0310491106B}" {
+     m_iKillfeedType UNKNOWN_KILLER
+     m_sKillfeedTypeName "#AR-Notification_KillfeedType_UNKNOWN_KILLER"
+    }
+    SCR_NotificationKillfeedTypeName "{5932B031048D51BD}" {
+     m_iKillfeedType FULL
+     m_sKillfeedTypeName "#AR-Notification_KillfeedType_FULL"
+    }
+   }
+   m_aKillfeedReceiveTypeNames {
+    SCR_NotificationKillfeedreceiveTypeName "{5932B036B747E765}" {
+     m_iKillfeedreceiveType ALL
+     m_sKillfeedReceiveTypeName "#AR-Notification_KillfeedReceiveType_ALL"
+    }
+    SCR_NotificationKillfeedreceiveTypeName "{5932B036B7003ECC}" {
+     m_iKillfeedreceiveType ALLIES_ONLY
+     m_sKillfeedReceiveTypeName "#AR-Notification_KillfeedReceiveType_ALLIES_ONLY"
+    }
+    SCR_NotificationKillfeedreceiveTypeName "{5932B036B7D2B6CF}" {
+     m_iKillfeedreceiveType SAME_FACTION_ONLY
+     m_sKillfeedReceiveTypeName "#AR-Notification_KillfeedReceiveType_SAME_FACTION_ONLY"
+    }
+    SCR_NotificationKillfeedreceiveTypeName "{5932B036B6AB6528}" {
+     m_iKillfeedreceiveType GROUP_ONLY
+     m_sKillfeedReceiveTypeName "#AR-Notification_KillfeedReceiveType_GROUP_ONLY"
+    }
+    SCR_NotificationKillfeedreceiveTypeName "{5932B036A5A136C4}" {
+     m_iKillfeedreceiveType ENEMIES_ONLY
+     m_sKillfeedReceiveTypeName "#AR-Notification_KillfeedReceiveType_ENEMIES_ONLY"
+    }
+   }
+   m_PlayerKickReasonsConfig SCR_ConfigurableDialogUiPresets "{5AD6C337FC7F76C0}" : "{D3BFEE28E7D5B6A1}Configs/ServerBrowser/KickDialogs.conf" {
+   }
+  }
+  SCR_RadialMenuItemsComponent "{5C92B03271ABD8AA}" {
+   m_MenuController SCR_RadialMenuController "{5C92B0326E1334FB}" {
+    m_RMControls SCR_RadialMenuControllerInputs "{5C92B0326C6BC5B4}" {
+     m_sControllerContext "WeaponSelectionContext"
+     m_sOpenAction "Inventory_WeaponSwitchingRadial"
+     m_bCloseOnPerform 1
+     m_bShowWhileUnconcious 0
+    }
+   }
+  }
   SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
    Enabled 0
+  }
+  RplComponent "{56B2B4793BF2E1B4}" {
+   "Rpl State Override" None
+   Streamable Disabled
   }
  }
  coords 129.762 1 241.399
@@ -80,6 +234,38 @@ FoodEntity {
   }
  }
  coords 124.964 1 247.632
+}
+$grp GameEntity {
+ {
+  coords 131.087 1 242.671
+ }
+ {
+  coords 144.515 1.001 253.236
+ }
+ {
+  coords 116.343 1 246.05
+ }
+ {
+  coords 116.998 1 245.994
+ }
+ {
+  coords 117.089 1 245.152
+ }
+ {
+  coords 134.536 1 245.614
+ }
+ {
+  coords 114.933 1 245.846
+ }
+ {
+  coords 116.321 1 245.254
+ }
+ {
+  coords 115.601 1 245.432
+ }
+ {
+  coords 115.529 1 246.047
+ }
 }
 $grp GenericEntity {
  {
@@ -247,6 +433,20 @@ $grp GenericEntity {
    }
   }
  }
+ {
+  components {
+   MeshObject "{5F269A52407F2BA1}" {
+    Object "{065DC5366BA23024}Assets/Characters/Uniforms/Pants_M70/Pants_M70_01.xob"
+    Materials {
+     MaterialAssignClass "{5F269A52422C6148}" {
+      SourceMaterial "Pants_M70_01"
+      AssignedMaterial "{2A3DD4C6EA2537D2}Assets/Characters/Uniforms/Pants_M70/Data/Pants_M70_01_Bandit.emat"
+     }
+    }
+   }
+  }
+  coords 138.384 1 247.231
+ }
 }
 $grp LightPost : "{007D70EA014E31CA}prefabs/Props/Military/Camps/Pole.et" {
  {
@@ -262,6 +462,14 @@ $grp LightPost : "{007D70EA014E31CA}prefabs/Props/Military/Camps/Pole.et" {
 GenericEntity : "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et" {
  coords 123.827 1.167 246.79
 }
+$grp GenericEntity : "{024ADA8FA4FC92E0}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_medium_item.et" {
+ {
+  coords 147.343 1 247.309
+ }
+ {
+  coords 156.449 1 252.979
+ }
+}
 GameEntity : "{03C1F3DB6BB9796A}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover_w_scrim.et" {
  coords 113.92 1 243.994
 }
@@ -270,6 +478,9 @@ GenericEntity : "{057AEFF961B81816}prefabs/Items/Package.et" {
 }
 GameEntity : "{06BC3F18B47799AE}prefabs/Characters/Uniforms/Pants_M70.et" {
  coords 115.876 1 241.8
+}
+GenericEntity : "{08155E701A949620}Prefabs/Characters/Vests/Vest_SovietHarness/Variants/Vest_SovietHarness_rifleman.et" {
+ coords 141.23 1 253.346
 }
 $grp FoodEntity : "{0A557934273302EA}prefabs/Items/Food/Army_Crackers.et" {
  {
@@ -280,6 +491,9 @@ $grp FoodEntity : "{0A557934273302EA}prefabs/Items/Food/Army_Crackers.et" {
  }
  {
   coords 124.487 1 249.453
+ }
+ {
+  coords 131.587 1 245.394
  }
 }
 GenericEntity : "{0CF54B9A85D8E0D4}Prefabs/Items/Equipment/Binoculars/Binoculars_M22/Binoculars_M22.et" {
@@ -329,8 +543,20 @@ SCR_ChimeraCharacter : "{1623EA3AEFACA0E4}prefabs/Characters/Factions/BLUFOR/US_
 GenericEntity : "{174E332EF84362B2}Prefabs/Props/Industrial/ToolBox_01/ToolBox_01_base.et" {
  coords 118.407 1 168.38
 }
-SCR_ChimeraCharacter : "{18DD298B3DF9050C}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_NonCombatMedic.et" {
- coords 130.101 1 241.053
+SCR_ChimeraCharacter : "{18B5DC5C4088B7BD}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Navigator.et" {
+ coords 138.17 1 247.964
+}
+$grp SCR_ChimeraCharacter : "{18DD298B3DF9050C}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_NonCombatMedic.et" {
+ {
+  coords 130.101 1 241.053
+ }
+ {
+  coords 135.976 1 248.09
+  angleY 150
+ }
+}
+GenericEntity : "{1B8AB4EE175E7719}PrefabsEditable/Auto/Compositions/Slotted/SlotFlatSmall/E_Headquarters_S_CIV_01.et" {
+ coords 142.032 1.058 220.697
 }
 SCR_ChimeraCharacter : "{1C78331E156A3D65}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AT.et" {
  coords 151.377 1.001 253.936
@@ -363,12 +589,18 @@ SCR_ChimeraCharacter : "{23D81C023DBF85AC}prefabs/Characters/Factions/INDFOR/FIA
  coords 131.846 1.001 253.84
  angleY -180
 }
+GameEntity : "{241C8C9F9917037C}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Beanie.et" {
+ coords 146.299 1 246.682
+}
 $grp GameEntity : "{25C2411D1499CC53}prefabs/Characters/Uniforms/Jacket_M70_v2.et" {
  {
   coords 129.75 1 236.357
  }
  {
   coords 127.349 1 247.653
+ }
+ {
+  coords 134.921 1 242.402
  }
 }
 SCR_ChimeraCharacter : "{26A9756790131354}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et" {
@@ -413,7 +645,10 @@ SCR_ChimeraCharacter : "{37578B1666981FCE}prefabs/Characters/Core/Character_Base
 WalletEntity : "{378FFB5CAAEEB75B}prefabs/Currency/Wallet_US_5_Watches.et" {
  coords 166.564 1 249.201
 }
-GameEntity : "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et" {
+SCR_AIGroup : "{37A4C93B4B34DB9F}prefabs/Groups/INDFOR/Group_FIA_RENEGADE.et" {
+ coords 139.105 0.852 245.513
+}
+GameEntity : "{3A421547BC29F679}prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et" {
  coords 111.067 1 247.081
  {
   LightEntity {
@@ -423,6 +658,10 @@ GameEntity : "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_M
    Type Point
   }
  }
+}
+SCR_ChimeraCharacter : "{3A7BC765FC53D8E5}prefabs/Characters/Factions/INDFOR/FIA/Character_Bandit_BaseLoadout.et" {
+ coords 139.758 1 247.014
+ angleY 149.403
 }
 GameEntity : "{3CCA7A9BB4FD3197}prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et" {
  coords 116.375 1 243.271
@@ -523,6 +762,14 @@ SCR_ChimeraCharacter : "{45A02CA25CBA9443}prefabs/Characters/Factions/INDFOR/FIA
  coords 136.627 1.001 253.84
  angleY -180
 }
+$grp GenericEntity : "{477A190AF2A17B8A}prefabs/Characters/Vests/Vest_ALICE/Variants/Vest_ALICE_MG.et" {
+ {
+  coords 159.256 1 252.093
+ }
+ {
+  coords 159.726 1 251.682
+ }
+}
 GameEntity : "{483A80042765275F}prefabs/Characters/HeadGear/Helmet_SPH4_01/Helmet_SPH4_01.et" {
  coords 114.926 1 244.008
 }
@@ -600,12 +847,21 @@ $grp GenericEntity : "{4C2FBD539384CBD4}prefabs/Items/NoteBook.et" {
   coords 57.67 1 191.022
  }
 }
+GenericEntity : "{4E866C1E6F114AB4}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_large_Base.et" {
+ coords 147.785 1 247.265
+}
+SCR_ChimeraCharacter : "{4FAD479741BCB6D3}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Renegade.et" {
+ coords 145.301 1 245.331
+}
 $grp FoodEntity : "{50A68300B537EDFA}prefabs/Items/Food/ArmyCrackers_Soviet_01.et" {
  {
   coords 125.07 1.001 247.145
  }
  {
   coords 114.117 1 249.498
+ }
+ {
+  coords 123.774 1 247.352
  }
 }
 $grp GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitary_US_01.et" {
@@ -627,16 +883,13 @@ SCR_ChimeraCharacter : "{5436629450D8387A}prefabs/Characters/Factions/OPFOR/USSR
  coords 150.2 1.001 253.936
  angleY -180
 }
-GameEntity : "{553B71F713C10ACF}prefabs/Characters/Uniforms/Hat_M88_Winter_Ushanka.et" {
- coords 144.515 1.001 253.236
-}
 GenericEntity : "{562EDFDEAF37FA4F}prefabs/Items/EntryPapers/Entry_Papers_US.et" {
  coords 57.127 1 190.422
 }
 GenericEntity : "{573038AEF0FFA53D}prefabs/Structures/Military/Flags/FlagPole_02/FlagPole_02_SPEIRA.et" {
  coords 90.457 1.001 244.289
 }
-GameEntity : "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et" {
+GameEntity : "{575EA58E67448C2A}prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et" {
  coords 110.966 1 247.608
  {
   LightEntity {
@@ -667,6 +920,9 @@ $grp GenericEntity : "{5C5C6EE05EE2FF1A}prefabs/Items/Equipment/Backpacks/Backpa
  }
  {
   coords 118.44 1 250.721
+ }
+ {
+  coords 148.516 1 247.491
  }
 }
 $grp GenericEntity : "{600CF3ED80539E22}Assets/Characters/Stranger/Stranger_Outfit.et" {
@@ -741,6 +997,9 @@ GameEntity : "{66196D85AB93D2BE}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helm
  }
  coords 113.948 1 245.193
 }
+SCR_AIGroup : "{6730BE1875C36A0A}prefabs/Groups/INDFOR/Group_Bandit.et" {
+ coords 139.099 1 244.009
+}
 SCR_ChimeraCharacter : "{677B515F119222C2}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_SL.et" {
  coords 127.025 1.001 253.84
  angleY -180
@@ -750,6 +1009,9 @@ GameEntity : "{6835DAF42A09E23C}prefabs/Characters/Uniforms/Jacket_Pilot_USSR_01
 }
 GameEntity : "{6852E0D026AA8F79}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Hat_Panama_Soviet_01_v2.et" {
  coords 113.434 1 243.901
+}
+GenericEntity : "{69131FD53AF6C044}Prefabs/Compositions/Slotted/SlotFlatSmall/SupplyStorage_S_US_01.et" {
+ coords 155.227 1 245.292
 }
 $grp SCR_ChimeraCharacter : "{6AAB7B83C2DD5E12}prefabs/Characters/Factions/Civ/Character_Stranger.et" {
  {
@@ -846,9 +1108,6 @@ $grp SCR_ChimeraCharacter : "{6AAB7B83C2DD5E12}prefabs/Characters/Factions/Civ/C
   coords 121.251 1 249.1
  }
 }
-GameEntity : "{6AFA2EEFE43C9AE5}prefabs/Characters/Uniforms/Pants_BDU_INDFORR.et" {
- coords 116.343 1 246.05
-}
 GameEntity : "{6B2256EBB8E267DD}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_blue.et" {
  coords 112.51 1 245.064
 }
@@ -866,15 +1125,11 @@ $grp GenericEntity : "{70BC751317551D9B}prefabs/Items/Equipment/Canteens/Canteen
   coords 113.959 1 249.266
  }
 }
-SCR_ChimeraCharacter : "{7264E0358A002EFA}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_AT.et" {
- coords 133.906 1 251.169
- angleY -180
-}
 WalletEntity : "{753C737CB3CDED15}prefabs/Currency/Wallet_2_Watches.et" {
  coords 136.469 1 249.954
 }
-GameEntity : "{786F028F2DC247D4}prefabs/Characters/Uniforms/M70_Jacket_Lizard/Pants_M70_Lizard.et" {
- coords 116.998 1 245.994
+SCR_ChimeraCharacter : "{7735A4A6FC3041D2}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_RENEGADE.et" {
+ coords 145.235 1 247.266
 }
 GameEntity : "{793EEE2C133176F9}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Hat_Panama_Soviet_01_v1.et" {
  coords 113.555 1 245.394
@@ -882,13 +1137,21 @@ GameEntity : "{793EEE2C133176F9}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Ha
 SCR_EditablePreviewEntity : "{7B2420C8BC72373A}Prefabs/Characters/Core/Character_Base_Preview.et" {
  coords 126.622 1 252.183
 }
-GameEntity : "{7F44A37BB64B8842}Prefabs/Characters/Uniforms/Tops/Long_sleeve_white.et" {
- coords 131.087 1 242.671
+$grp GameEntity : "{7DAA49D6860E1D28}prefabs/Characters/Uniforms/Pants_M70_Bandit.et" {
+ {
+  coords 139.461 1 247.569
+ }
+ {
+  coords 138.012 1 246.513
+ }
+}
+GameEntity : "{820FE927294AA39F}prefabs/Characters/Uniforms/Pants_M70_v2.et" {
+ coords 133.363 1 244.783
 }
 GameEntity : "{83DFA8F68CA40B10}prefabs/Characters/Uniforms/Pants_Pilot_USSR_01/Pants_Pilot_USSR_01.et" {
  coords 114.664 1 243.505
 }
-GameEntity : "{893CBCFF0A6D64F4}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991_Lantern.et" {
+GameEntity : "{893CBCFF0A6D64F4}prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991_Lantern.et" {
  coords 111.387 1 247.35
  {
   LightEntity {
@@ -896,13 +1159,6 @@ GameEntity : "{893CBCFF0A6D64F4}Prefabs/Items/Equipment/Flashlights/Flashlight_M
    coords -0.001 0.197 0
   }
  }
-}
-SCR_ChimeraCharacter : "{8975B1600F25A80E}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Marksman.et" {
- coords 136.658 1 251.052
- angleY 165
-}
-GameEntity : "{90A4C5B46D3E6AEA}prefabs/Characters/Uniforms/Pants_BDU_INDFORR_Olive.et" {
- coords 117.089 1 245.152
 }
 $grp GenericEntity : "{92897DAEE45937D9}prefabs/Items/Equipment/Kits/MedicalKit_01/MedicalKit_Stored_FIA.et" {
  {
@@ -915,8 +1171,21 @@ $grp GenericEntity : "{92897DAEE45937D9}prefabs/Items/Equipment/Kits/MedicalKit_
   coords 59.362 1 191.57
  }
 }
-GenericEntity : "{9713FE6DDCC9510D}prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et" {
- coords 126.972 1 245.243
+$grp SCR_ChimeraCharacter : "{929AAAE8D0F59033}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Renegade.et" {
+ {
+  coords 142.903 1 245.424
+ }
+ {
+  coords 144.082 1 244.968
+ }
+}
+$grp GenericEntity : "{9713FE6DDCC9510D}prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et" {
+ {
+  coords 126.972 1 245.243
+ }
+ {
+  coords 146.791 1 245.858
+ }
 }
 GenericEntity : "{98DD1D36C5B67A1C}prefabs/Items/EntryPapers/Entry_Papers_Base.et" {
  coords 57.445 1 190.619
@@ -933,20 +1202,19 @@ GameEntity : "{9F546CCA2582D16F}prefabs/Characters/Uniforms/Jacket_M88.et" {
 GameEntity : "{A7E6D7ECD5F684D7}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et" {
  coords 115.709 1 244.033
 }
-GenericEntity : "{A8B7AD5DBDCF22C2}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_large_item.et" {
- coords 59.525 1 190.588
+$grp GenericEntity : "{A8B7AD5DBDCF22C2}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_large_item.et" {
+ {
+  coords 59.525 1 190.588
+ }
+ {
+  coords 155.428 1 252.979
+ }
+}
+GenericEntity : "{AB1A97B1BAE8C395}Prefabs/Compositions/Slotted/SlotFlatSmall/SupplyCache_S_FIA_01.et" {
+ coords 146.117 1 240.836
 }
 GenericEntity : "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et" {
  coords 131.974 1 242.254
-}
-$grp SCR_ChimeraCharacter : "{AF343EDC3C5C7A1B}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Sabatour .et" {
- {
-  coords 138.378 1 251.034
-  angleY -165
- }
- {
-  coords 134.274 1 250.295
- }
 }
 GameEntity : "{B02281435AED8274}prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01.et" {
  coords 113.442 1 243.273
@@ -960,18 +1228,22 @@ GameEntity : "{B137B7CE988557D2}prefabs/Characters/Uniforms/Suit_Pilot_US_01/Sui
 GameEntity : "{B54B78383E64268F}prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_01_v2.et" {
  coords 115.399 1 244.119
 }
-SCR_ChimeraCharacter : "{B6F310AC154FB81B}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_ATAssist.et" {
- coords 135.257 1 251.106
- angleY 165
-}
 GameEntity : "{B74A4FF0DD8BB116}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01.et" {
  coords 114.172 1 244.746
+}
+GenericEntity : "{B95BD66EA8F863C8}prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_suspenders_2.et" {
+ coords 158.952 1 251.589
 }
 GameEntity : "{B9687B8829272E14}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_brown.et" {
  coords 112.584 1 244.159
 }
-GameEntity : "{BBA08EC4EC40FA94}prefabs/Characters/Uniforms/Jacket_M70.et" {
- coords 116.503 1 242.6
+$grp GameEntity : "{BBA08EC4EC40FA94}prefabs/Characters/Uniforms/Jacket_M70.et" {
+ {
+  coords 116.503 1 242.6
+ }
+ {
+  coords 133.431 1 253.221
+ }
 }
 GenericEntity : "{BBE7C64037883FD3}prefabs/Items/Callendar.et" {
  coords 131.039 1 240.18
@@ -993,22 +1265,23 @@ $grp FoodEntity : "{C22A2F123CD609FC}prefabs/Items/Food/Meat_01_Dry.et" {
 GenericEntity : "{C74EA351062C4CBB}Prefabs/Compositions/Slotted/SlotFlatSmall/SupplyCache_S_FIA_02.et" {
  coords 84.661 1 243.51
 }
-$grp GameEntity : "{C774B58537027ADA}prefabs/Characters/Uniforms/Jacket_BDU_INDFORR.et" {
- {
-  coords 134.536 1 245.614
- }
- {
-  coords 114.933 1 245.846
- }
-}
 GameEntity : "{C7861F11D5334C0E}prefabs/Characters/Uniforms/Jacket_US_BDU.et" {
  coords 114.071 1 243.298
 }
 GenericEntity : "{C7923961D7235D70}prefabs/Characters/Footwear/CombatBoots_Soviet_01.et" {
  coords 126.655 1 245.762
 }
-GameEntity : "{D262D2102B9931C6}prefabs/Characters/Uniforms/Jacket_M88_rolledup.et" {
- coords 116.976 1 241.113
+SCR_ChimeraCharacter : "{C956B82E13D6F007}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_Mechanic.et" {
+ coords 137.164 1 248.485
+ angleY 146.425
+}
+$grp GameEntity : "{D262D2102B9931C6}prefabs/Characters/Uniforms/Jacket_M88_rolledup.et" {
+ {
+  coords 116.976 1 241.113
+ }
+ {
+  coords 140.422 1 252.938
+ }
 }
 GameEntity : "{D4028ED16DEE99EE}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01_camonet.et" {
  coords 113.845 1 244.635
@@ -1018,10 +1291,6 @@ GameEntity : "{D8D9EE7F3966589E}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_K
 }
 GameEntity : "{D9842C11742C00CF}prefabs/Props/Civilian/Fireplace_01.et" {
  coords 113.251 1 241.637
-}
-SCR_ChimeraCharacter : "{DBCE4C3387A56519}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_Radioman.et" {
- coords 133.034 1 250.427
- angleY 136.032
 }
 GameEntity : "{DCF980831E880F6A}prefabs/Characters/Uniforms/Pants_M88.et" {
  components {
@@ -1038,9 +1307,6 @@ GameEntity : "{DCF980831E880F6A}prefabs/Characters/Uniforms/Pants_M88.et" {
   }
  }
  coords 115.244 1 242.405
-}
-GameEntity : "{DDAA76A98D19F597}prefabs/Characters/Uniforms/Pants/jeans_Holes_Black.et" {
- coords 116.321 1 245.254
 }
 GameEntity : "{E12126CDE731EED5}prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_US_01.et" {
  coords 113.193 1 245.108
@@ -1071,12 +1337,13 @@ $grp FoodEntity : "{EB21D26B8D5A3232}prefabs/Items/Food/MRE.et" {
   coords 114.575 1 249.521
  }
 }
-GameEntity : "{EC92867922927AC2}prefabs/Characters/Uniforms/Jacket__BDU_rolledup_INDFOR_Olive.et" {
- coords 115.601 1 245.432
-}
-SCR_ChimeraCharacter : "{EF76C772871A10D9}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MGAssist.et" {
- coords 140.078 1 250.467
- angleY -158.054
+$grp GenericEntity : "{ED5574EA7F63B457}prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et" {
+ {
+  coords 139.819 1 245.85
+ }
+ {
+  coords 147.759 1 245.412
+ }
 }
 GameEntity : "{F31A715FFDB2BD8E}prefabs/Characters/HeadGear/Helmet_M1_01/Helmet_M1_01_Cover_Frogskin.et" {
  coords 115.334 1 244.615
@@ -1095,8 +1362,8 @@ GameEntity : "{F545C1BE7C99954A}prefabs/Characters/HeadGear/Hat_Patrol_US_01/Hat
  }
  coords 115.015 1 243.492
 }
-GameEntity : "{F5ADD3BAA3D76643}prefabs/Characters/Uniforms/M70_Jacket_Lizard/Jacket_M70_lizard.et" {
- coords 115.529 1 246.047
+GenericEntity : "{F5604E614B23F81E}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_small_item.et" {
+ coords 156.068 1 252.979
 }
 GenericEntity : "{F9ACDDE62D906D61}Prefabs/Characters/Vests/Vest_M69/Vest_M69_olive.et" {
  coords 118.738 1 246.732
@@ -1108,9 +1375,6 @@ $grp GenericEntity : "{FA0CAB3B10ECED12}prefabs/Items/Food/CookingPot.et" {
  {
   coords 114.974 1 249.511
  }
-}
-SCR_ChimeraCharacter : "{FB56F4745760A036}prefabs/Characters/Factions/INDFOR/FIA/Character_INDFORR_MG_.et" {
- coords 137.083 1 251.495
 }
 GenericEntity : "{FCBDF19E044C736F}prefabs/Items/EntryPapers/Entry_Papers_FIA.et" {
  coords 56.977 1 190.783

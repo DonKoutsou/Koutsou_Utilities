@@ -6,17 +6,6 @@ SCR_ChimeraCharacter {
     "{CB0646CF33012DDD}Sounds/UI/UI_Gadgets.acp" "{E47C6623D894BA57}Sounds/Voice.acp" "{93ACAEB6CD0A10D5}Sounds/Items/_SharedData/PickUp/Food.acp"
    }
   }
-  AIControlComponent "{520EA1D2DB109F34}" {
-   components {
-    PerceptionComponent "{54A2CBC75F06064B}" {
-     SensorsList {
-      EyesSensor "{520EA1D2DB109AAD}" {
-       MaxRange 80
-      }
-     }
-    }
-   }
-  }
   SCR_AISmartActionComponent "{5E4325C761C9C6FC}" {
    Tags {
     "SmartTask"

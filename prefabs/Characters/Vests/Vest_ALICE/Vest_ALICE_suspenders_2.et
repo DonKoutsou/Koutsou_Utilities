@@ -1,0 +1,13 @@
+GenericEntity : "{01BD86DA804B1E37}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_suspenders_base.et" {
+ ID "51EE87F62C3DB7ED"
+ components {
+  SCR_EquipmentStorageComponent "{56C48B5965A39F45}" {
+   InitialStorageSlots {
+    SCR_EquipmentStorageSlot FlashlightSlot {
+     Offset 0.2115 -0.0016 0.0773
+     Angles 0 0 -7.5
+    }
+   }
+  }
+ }
+}

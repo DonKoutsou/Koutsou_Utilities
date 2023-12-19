@@ -18,3 +18,15 @@ class FireplaceSmartActionTest : SmartActionTest
 		return false;
 	}
 }
+class LightpostSmartActionTest : SmartActionTest
+{
+	override bool TestAction(IEntity Owner, IEntity User)
+	{
+		LightPost post = LightPost.Cast(Owner);
+		if (!post)
+			return false;
+		if (post.IsBuilt())
+			return false;
+		return true;
+	}
+}

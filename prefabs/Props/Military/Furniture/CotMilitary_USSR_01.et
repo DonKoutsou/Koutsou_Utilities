@@ -1,0 +1,35 @@
+StaticModelEntity : "{5EC6836A5694F691}Prefabs/Props/Military/Furniture/FurnitureMilitary_base.et" {
+ ID "5272E314F01B2DBE"
+ components {
+  ActionsManagerComponent "{5F260E8F3DC1D643}" {
+   ActionContexts {
+    UserActionContext "{5F260E8F3F73EA50}" {
+     ContextName "default"
+     Position PointInfo "{5F260E8F23FAECEF}" {
+      Offset 0 0.5 0
+     }
+    }
+   }
+   additionalActions {
+    SP_SleepAction "{5F260E8F2C26A720}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5F260E8ED2B1C181}" {
+      Name "Sleep"
+     }
+     m_Sleepamount 2
+    }
+    SP_SleepAction "{5F260E8ED917D640}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{5F260E8EDCAF62DC}" {
+      Name "Sleep"
+     }
+     m_Sleepamount 8
+    }
+   }
+  }
+ }
+}

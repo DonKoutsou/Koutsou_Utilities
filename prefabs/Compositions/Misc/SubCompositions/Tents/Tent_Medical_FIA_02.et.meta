@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{ACBF64D9427DDC7A}Prefabs/Compositions/Misc/SubCompositions/Tents/Tent_Medical_FIA_02.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}
