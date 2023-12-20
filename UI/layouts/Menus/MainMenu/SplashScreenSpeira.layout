@@ -590,17 +590,115 @@ FrameWidgetClass {
         Alignment 0 0.5
        }
        {
+        FrameWidgetClass "{5F28CD2110D421BC}" {
+         Name "Frame1"
+         Slot FrameWidgetSlot "{5EF6C5E05D074A7E}" {
+          PositionX 40
+          OffsetLeft 40
+          PositionY 40
+          OffsetTop 40
+          SizeX 420
+          OffsetRight -460
+          SizeY 700
+          OffsetBottom -740
+          SizeToContent 1
+         }
+         {
+          OverlayWidgetClass "{5F28CD2110D42182}" {
+           Name "Overlay0"
+           Slot FrameWidgetSlot "{5EF920A7CB4564DE}" {
+            OffsetLeft 0
+            OffsetTop 0
+            SizeX 100
+            OffsetRight -100
+            SizeY 30
+            OffsetBottom -30
+            SizeToContent 1
+           }
+           {
+            HorizontalLayoutWidgetClass "{5F28CD2E95FFC7A5}" {
+             Name "HorizontalLayout0"
+             Slot OverlayWidgetSlot {
+              HorizontalAlign 3
+              VerticalAlign 3
+              Padding 10 10 10 10
+             }
+             {
+              EditBoxWidgetClass "{5F28CD2E95FFC7AA}" {
+               Prefab "{5538C2058B18F877}"
+               Name "CharNameOverride"
+               text "Custom Name"
+               "Placeholder text" "#AR-Account_TwoFactorAuthentication"
+               "Virtual Keyboard Title" "#AR-Account_TwoFactorAuthentication"
+               "Virtual Keyboard Desc" "#AR-Account_CodeSendToEmail"
+              }
+             }
+            }
+           }
+          }
+          PanelWidgetClass "{5F28CD2110D421E2}" {
+           Name "Panel0"
+           Slot FrameWidgetSlot "{5EF69AA37181991A}" {
+            Anchor 0 0 1 1
+            PositionX 0
+            OffsetLeft 0
+            PositionY 0
+            OffsetTop 0
+            SizeX 0
+            OffsetRight 0
+            SizeY 0
+            OffsetBottom 0
+            SizeToContent 1
+           }
+           Color 1 0.775 0.412 1
+           style outline_4px
+          }
+          OverlayWidgetClass "{5F28CD2E6387288B}" {
+           Name "Overlay1"
+           Slot FrameWidgetSlot "{5EF920A7CB4564DE}" {
+            OffsetLeft 0
+            PositionY 50
+            OffsetTop 50
+            SizeX 100
+            OffsetRight -100
+            SizeY 30
+            OffsetBottom -80
+            SizeToContent 1
+           }
+           {
+            HorizontalLayoutWidgetClass "{5F28CD2E63872889}" {
+             Name "HorizontalLayout0"
+             Slot OverlayWidgetSlot "{5F28CD2E63872F78}" {
+              HorizontalAlign 3
+              VerticalAlign 3
+              Padding 10 10 10 10
+             }
+             {
+              EditBoxWidgetClass "{5F28CD2E6387288F}" {
+               Prefab "{5538C2058B18F877}"
+               Name "CharSurnameOverride"
+               text "Custom Surname"
+               "Placeholder text" "#AR-Account_TwoFactorAuthentication"
+               "Virtual Keyboard Title" "#AR-Account_TwoFactorAuthentication"
+               "Virtual Keyboard Desc" "#AR-Account_CodeSendToEmail"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
         FrameWidgetClass "{5EF920A12AE93242}" {
          Name "Frame0"
          Slot FrameWidgetSlot "{5EF6C5E05D074A7E}" {
-          PositionX 50
-          OffsetLeft 50
-          PositionY 80
-          OffsetTop 80
+          PositionX 40
+          OffsetLeft 40
+          PositionY 190
+          OffsetTop 190
           SizeX 420
-          OffsetRight -470
+          OffsetRight -460
           SizeY 700
-          OffsetBottom -780
+          OffsetBottom -890
          }
          {
           OverlayWidgetClass "{5EF920A7CB4564F1}" {
@@ -805,14 +903,14 @@ FrameWidgetClass {
         TextWidgetClass "{5EF920A12AE935B7}" {
          Name "Text0"
          Slot FrameWidgetSlot "{5EF69AA2F9E4A7DA}" {
-          PositionX 50
-          OffsetLeft 50
-          PositionY 50
-          OffsetTop 50
+          PositionX 40
+          OffsetLeft 40
+          PositionY 160
+          OffsetTop 160
           SizeX 500
-          OffsetRight -550
+          OffsetRight -540
           SizeY 820
-          OffsetBottom -870
+          OffsetBottom -980
           SizeToContent 1
          }
          Text "Character Selection"

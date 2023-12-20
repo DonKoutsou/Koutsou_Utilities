@@ -155,19 +155,19 @@ modded class DS_DialogueComponent
 				//Rummor
 				case 6:
 				{
-					IndtroducionString = ComposeEnemyWarningString(talker, Player)
+					IndtroducionString = ComposeEnemyWarningString(talker, Player);
 				}
 				break;
 				//dead guy news
 				case 7:
 				{
-					IndtroducionString = ComposeDeadFriendlyString(talker, Player)
+					IndtroducionString = ComposeDeadFriendlyString(talker, Player);
 				}
 				break;
 				//Look for tasks of friendlies to share
 				case 8:
 				{
-					IndtroducionString = ComposeFriendlyTaskString(talker, Player)
+					IndtroducionString = ComposeFriendlyTaskString(talker, Player);
 				}
 				break;
 				//look for bounties on friendly units
@@ -179,7 +179,7 @@ modded class DS_DialogueComponent
 				//look for lost groups
 				case 9:
 				{
-					IndtroducionString = LookForLostGroups(talker, Player)
+					IndtroducionString = LookForLostGroups(talker, Player);
 				}
 				break;
 				//Give info about current task being done by ReleaseAI
@@ -577,6 +577,7 @@ modded class DS_DialogueAction
 	{
 		MenuManager menumanager = GetGame().GetMenuManager();
 		ChimeraCharacter Char = ChimeraCharacter.Cast(pOwnerEntity);
+		ChimeraCharacter CharUser = ChimeraCharacter.Cast(pUserEntity);
 		if (Char)
 		{
 			AIControlComponent comp = AIControlComponent.Cast(pOwnerEntity.FindComponent(AIControlComponent));
@@ -648,7 +649,9 @@ modded class DS_DialogueAction
 			}
 			if (!DiagComp.a_PLcontactList.Contains(pOwnerEntity))
 					DiagComp.a_PLcontactList.Insert(pOwnerEntity);
-			utility.AddAction(action);
+			SCR_CharacterCommandHandlerComponent handler = SCR_CharacterCommandHandlerComponent.Cast(CharUser.GetCharacterController().GetAnimationComponent().GetCommandHandler());
+			if (!handler.IsLoitering())
+				utility.AddAction(action);
 			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
 			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);

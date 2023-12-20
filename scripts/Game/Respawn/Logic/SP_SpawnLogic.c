@@ -4,11 +4,14 @@ modded class SCR_AutoSpawnLogic
 	[Attribute("1")]
 	int m_iLives;
 	
-	[Attribute("FIA")]
+	[Attribute("Erquy FIA Outpost")]
 	string m_sFactionBaseToSpawnAt;
 	
 	[Attribute("{A1CE9D1EC16DA9BE}UI/layouts/Menus/MainMenu/SplashScreen.layout", desc: "Layout shown before deploy menu opens on client")]
 	protected ResourceName m_sLoadingLayout;
+	
+	[Attribute("40", UIWidgets.Slider, params: "0 1000 1")]
+	protected int m_iPlayerInitialRep;
 	
 	
 	bool m_bAllowTaskMarkers;
@@ -33,6 +36,18 @@ modded class SCR_AutoSpawnLogic
 	void SetTaskMarkers(bool toset)
 	{
 		m_bAllowTaskMarkers = toset;
+	}
+	void SetName(string name, string surname)
+	{
+		if (!name && !surname)
+			return;
+		
+		CharacterIdentityComponent id = CharacterIdentityComponent.Cast(GetGame().GetPlayerController().GetControlledEntity().FindComponent(CharacterIdentityComponent));
+		
+		if (name)
+			id.GetIdentity().SetName(name);
+		if (surname)
+			id.GetIdentity().SetSurname(surname);
 	}
 	void EnablePost()
 	{
@@ -61,7 +76,13 @@ modded class SCR_AutoSpawnLogic
 		}
 		
 	}
-	
+	override void OnPlayerSpawned_S( int playerId, IEntity entity)
+	{
+		super.OnPlayerSpawned_S(playerId, entity);
+		//set initial rep
+		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(entity.FindComponent(SCR_CharacterIdentityComponent));
+		id.SetCharacterRep(m_iPlayerInitialRep);
+	}
 	override protected void Spawn(int playerId)
 	{
 		// Player is disconnecting (and disappearance of controlled entity started this feedback loop).
@@ -108,8 +129,8 @@ modded class SCR_AutoSpawnLogic
 			OnPlayerSpawnFailed_S(playerId);
 			return;
 		}
-
-		SCR_SpawnPoint point = SCR_SpawnPoint.GetRandomSpawnPointForFaction(m_sFactionBaseToSpawnAt);
+		SCR_CampaignMilitaryBaseManager campman = SCR_CampaignMilitaryBaseManager.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager());
+		SCR_SpawnPoint point = campman.GetNamedBase(m_sFactionBaseToSpawnAt).GetSpawnPoint();
 		if (!point)
 		{
 			OnPlayerSpawnFailed_S(playerId);
@@ -127,9 +148,9 @@ modded class SCR_AutoSpawnLogic
 	//------------------------------------------------------------------------------------------------
 	protected void CreateLoadingPlaceholder()
 	{
-		//m_wLoadingPlaceholder = GetGame().GetWorkspace().CreateWidgets(m_sLoadingLayout);
-		//if (!m_wLoadingPlaceholder)
-			//return;
+		m_wLoadingPlaceholder = GetGame().GetWorkspace().CreateWidgets(m_sLoadingLayout);
+		if (!m_wLoadingPlaceholder)
+			return;
 		
 	}
 	//------------------------------------------------------------------------------------------------

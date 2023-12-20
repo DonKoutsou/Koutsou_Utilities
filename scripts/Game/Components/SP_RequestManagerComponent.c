@@ -281,7 +281,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		{
 			return null;
 		}
-		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		if(Task.Init())
 		{
@@ -363,7 +363,7 @@ class SP_RequestManagerComponent : ScriptComponent
 		}
 		if (!GetTaskSample(TaskType).m_bEnabled)
 			return null;
-		DS_DialogueComponent Diag = DS_DialogueComponent.Cast(m_GameMode.GetDialogueComponent());
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		Task.m_eTaskOwner = Owner;
 		if(Task.Init())
@@ -733,7 +733,6 @@ class SP_RequestManagerComponent : ScriptComponent
 	//------------------------------------------------------------------------------------------------------------//
 	void Update(float timeSlice)
 	{
-		return;
 		m_fTaskClearTimer += timeSlice;
 		if(m_fTaskClearTimer > m_fTaskClearTime)
 		{

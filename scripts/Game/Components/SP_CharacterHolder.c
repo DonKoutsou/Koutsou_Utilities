@@ -25,11 +25,7 @@ class CharacterHolder : ScriptAndConfig
 	static void SetCharImportant(IEntity Char)
 	{
 		SCR_ChimeraCharacter ChimeraChar = SCR_ChimeraCharacter.Cast(Char);
-		if (m_aAliveCharacters.Contains(ChimeraChar))
-		{
-			m_aAliveCharacters.RemoveItem(ChimeraChar);
-			m_aImportantCharacters.Insert(ChimeraChar);
-		}
+		m_aImportantCharacters.Insert(ChimeraChar);
 	}
 	//------------------------------------------------------------------------------------------------------------//
 	//When a new character is spawned check if he is not "special" kekw, and if not inster him in alive array

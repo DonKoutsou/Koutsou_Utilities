@@ -114,6 +114,7 @@ GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/Rep
      }
     }
    }
+   m_bCheckForSteal 0
   }
  }
 }

@@ -89,6 +89,7 @@ GenericEntity : "{9132672C4D9B2102}prefabs/Items/Equipment/Kits/MedicalKit_01/Me
      }
     }
    }
+   m_bCheckForSteal 0
   }
  }
  coords 2738.328 11.267 3990.744

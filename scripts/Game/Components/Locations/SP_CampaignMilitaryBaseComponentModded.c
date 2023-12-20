@@ -10,6 +10,12 @@ modded class SCR_CampaignMilitaryBaseComponent
 	bool m_bVisited;
 	
 	protected ref map <Faction, SCR_ECampaignHQRadioComms > m_eFactionRadioCoverage;
+	bool IsInhabited()
+	{
+		if (m_eBaseCommander || m_eBaseMedic || m_eBaseMechanic || m_eBaseNavigator || !a_BaseGuards.IsEmpty())
+			return true;
+		return false;
+	}
 	override void OnCapturingFactionChanged()
 	{
 

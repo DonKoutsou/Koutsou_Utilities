@@ -2,65 +2,21 @@
 modded class SCR_GameModeCampaign
 {
 	//------------------------------------------------------------------//
-	[Attribute(UIWidgets.CheckBox, desc: "If true, it will override any previously set game over type with selected one down bellow")];
-	protected bool		m_bOverrideGameOverType;
-	//------------------------------------------------------------------//
-	[Attribute("1", UIWidgets.ComboBox, "Game Over Type", "", ParamEnumArray.FromEnum(EGameOverTypes))];
-	protected EGameOverTypes			m_eOverriddenGameOverType;
-	//------------------------------------------------------------------//
 	[Attribute("BANDITS", category: "Campaign")]
 	protected FactionKey m_sBANDITSFactionKey;
-	
-	
-	vector m_flastpos;
-	//------------------------------------------------------------------//
-	[Attribute(defvalue : "40")]
-	protected int m_iPlayerInitialRep;
-	protected DS_DialogueComponent m_DialogueComponent;
-	protected SP_RequestManagerComponent m_RequestManagerComponent;
-	protected SCR_FactionManager m_factionManager;
-	
-	CharacterPerceivableComponent perc;
-	
-	//------------------------------------------------------------------//
-	DS_DialogueComponent GetDialogueComponent()
-	{
-		return m_DialogueComponent;
-	}
-	//------------------------------------------------------------------//
-	SP_RequestManagerComponent GetRequestManagerComponent()
-	{
-		return m_RequestManagerComponent;
-	}
-	//------------------------------------------------------------------//
-	SCR_FactionManager GetFactionManager()
-	{
-		return m_factionManager;
-	}
-	//------------------------------------------------------------------//
-	override void EOnInit(IEntity owner)
-	{
-		super.EOnInit(owner);
-		m_DialogueComponent = DS_DialogueComponent.Cast(owner.FindComponent(DS_DialogueComponent));
-		m_RequestManagerComponent = SP_RequestManagerComponent.Cast(owner.FindComponent(SP_RequestManagerComponent));
-		m_factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
-		
-		
-	}
+
 	//------------------------------------------------------------------//
 	protected override void OnPlayerSpawnFinalize_S(SCR_SpawnRequestComponent requestComponent, SCR_SpawnHandlerComponent handlerComponent, SCR_SpawnData data, IEntity entity)
 	{
 		super.OnPlayerSpawnFinalize_S(requestComponent, handlerComponent, data, entity);
 		
-		//set initial rep
-		SCR_CharacterIdentityComponent id = SCR_CharacterIdentityComponent.Cast(entity.FindComponent(SCR_CharacterIdentityComponent));
-		id.SetCharacterRep(m_iPlayerInitialRep);
+		
 		//Assign questlines
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		if (ReqMan)
 			ReqMan.AssignInitTasks(entity);
 		//set up initial goodwill
-		m_factionManager.SetUpPlayerGoodwill(entity);
+		SCR_FactionManager.Cast(GetGame().GetFactionManager()).SetUpPlayerGoodwill(entity);
 		
 		array <ref SP_Task> tasks = {};
 		SP_RequestManagerComponent.GetCharTasks(entity, tasks);

@@ -8,6 +8,7 @@ GenericEntity : "{4E866C1E6F114AB4}Prefabs/Props/Military/SupplyBox/SupplyPortab
      m_fResourceValueMax 50
     }
    }
+   m_bCheckForSteal 0
   }
  }
 }

@@ -74,4 +74,20 @@ LightPost {
  }
  coords 123.203 1 251.682
  Flags 2
+ {
+  GenericEntity {
+   ID "5F291132956378BC"
+   components {
+    SCR_EditablePathCommentComponent "{5F29113298077E8E}" {
+     m_UIInfo SCR_EditableCommentUIInfo "{5F2911329E89FC85}" {
+      Name "Path"
+     }
+    }
+    Hierarchy "{5F2930E9FC4A3051}" {
+    }
+   }
+   coords 0 2.263 0
+   Flags 1048579
+  }
+ }
 }

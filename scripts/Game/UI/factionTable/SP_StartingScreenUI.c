@@ -8,6 +8,11 @@ class SP_StartingScreenUI : ChimeraMenuBase
 	protected CheckBoxWidget		m_wSurvivalCheckbox;
 	protected CheckBoxWidget		m_wHardcorCheckbox;
 	protected CheckBoxWidget		m_wPPCheckbox;
+	protected EditBoxWidget			m_wCharNameOverride;
+	protected EditBoxWidget			m_wCharSurnameOverride;
+	
+	string name;
+	string surname;
 	void Init()
 	{
 		ChimeraWorld world = GetGame().GetWorld();
@@ -19,6 +24,8 @@ class SP_StartingScreenUI : ChimeraMenuBase
 		m_wSurvivalCheckbox = CheckBoxWidget.Cast(m_wRoot.FindAnyWidget("Survival_CheckBox"));
 		m_wHardcorCheckbox = CheckBoxWidget.Cast(m_wRoot.FindAnyWidget("Hardcore_CheckBox"));
 		m_wPPCheckbox = CheckBoxWidget.Cast(m_wRoot.FindAnyWidget("PP_CheckBox"));
+		m_wCharNameOverride = EditBoxWidget.Cast(m_wRoot.FindAnyWidget("CharNameOverride"));
+		m_wCharSurnameOverride = EditBoxWidget.Cast(m_wRoot.FindAnyWidget("CharSurnameOverride"));
 		ScriptInvoker onPressedClose = ButtonActionComponent.GetOnAction(m_wCloseButton);
 		if (onPressedClose)
 			onPressedClose.Insert(CloseStartingScreen);
@@ -53,6 +60,16 @@ class SP_StartingScreenUI : ChimeraMenuBase
 			{
 				logic.EnablePost();
 			}
+			
+			if (m_wCharNameOverride.GetText() != "Custom Name" || m_wCharNameOverride.GetText() != "STRING_EMPTY")
+			{
+				name = m_wCharNameOverride.GetText();
+			}
+			if (m_wCharSurnameOverride.GetText() != "Custom Surname" || m_wCharSurnameOverride.GetText() != "STRING_EMPTY")
+			{
+				surname = m_wCharSurnameOverride.GetText();
+			}
+			logic.SetName(name, surname);
 		}
 		
 		Close();

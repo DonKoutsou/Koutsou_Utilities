@@ -10,6 +10,8 @@ modded class SCR_ChimeraCharacter
 	
 	IEntity m_eCallendar;
 	
+	SCR_CampaignMilitaryBaseManager milman;
+	
 	//needs that can be fulfilled
 	ref array <int> a_needs;
 	//needs that are too expensive to be fullfilled
@@ -23,6 +25,8 @@ modded class SCR_ChimeraCharacter
 			a_needs = {};
 		if (!a_Unaffordableneeds)
 			a_Unaffordableneeds = {};
+		
+		
 	}
 	//get wallet of character. 
 	WalletEntity GetWallet()
@@ -86,7 +90,7 @@ modded class SCR_ChimeraCharacter
 			if (worth * ammount < money)
 			{
 				//if character has money for it he should set up a task for other AI to fulfill or the player
-				if (!HasTask(this))
+				if (!HasTaskForNeed(this, need))
 					CreateTask(this, need, ammount, Mag);
 				//fill apropriate arrays with need
 				if (!a_needs.Contains(need))
@@ -282,8 +286,7 @@ modded class SCR_ChimeraCharacter
 		// if no tasks then return false
 		if (tasks.IsEmpty())
 			return false;
-		else
-			return true;
+
 		//itterate through tasks and if any of the retrieve tasks has the need return true
 		foreach (SP_Task task : tasks)
 		{
@@ -315,6 +318,53 @@ modded class SCR_ChimeraCharacter
 	{
 		SP_RequestManagerComponent Requestman = SP_RequestManagerComponent.GetInstance();
 		return Requestman.CreateCustomRetrieveTask(char, Need, ammount, Mag);
+	}
+	bool CheckIfCanBeFullfilled(ERequestRewardItemDesctiptor need, out SCR_ServicePointComponent service)
+	{
+		
+		if (!milman)
+		{
+			milman = SCR_CampaignMilitaryBaseManager.Cast(SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager());
+		}
+		if (!milman)
+		{
+			return false;
+		}
+
+		SCR_CampaignMilitaryBaseComponent base = milman.GetClosestBase(GetOrigin());
+		
+		if (!base)
+			return false;
+		
+		service = base.GetServiceByType(GetServiceForNeed(need));
+		
+		if (service)
+			return true;
+		
+		array <SCR_CampaignMilitaryBaseComponent> bases = {};
+		base.GetBasesInRange(SCR_ECampaignBaseType.BASE ,bases);
+		
+		if (bases.IsEmpty())
+			return false;
+		
+		foreach (SCR_CampaignMilitaryBaseComponent MilBase : bases)
+		{
+			if (MilBase.GetSupplies() < 100)
+				continue;
+			service = base.GetServiceByType(GetServiceForNeed(need));
+		
+			if (service)
+				return true;
+		}
+
+		return false;
+	}
+	SCR_EServicePointType GetServiceForNeed(ERequestRewardItemDesctiptor need)
+	{
+		if (ERequestRewardItemDesctiptor.BANDAGE)
+			return SCR_EServicePointType.FIELD_HOSPITAL;
+		else
+			return SCR_EServicePointType.ARMORY;
 	}
 	//checks a specific need. If its still valid it will return true. Also used to retrieve ammount needed and Magazine if need is ammo
 	bool Checkneed(ERequestRewardItemDesctiptor need, out int ammount, out BaseMagazineComponent Mag = null)

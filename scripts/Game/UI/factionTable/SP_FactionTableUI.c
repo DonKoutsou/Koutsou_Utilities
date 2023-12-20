@@ -49,7 +49,7 @@ class FactionTableUI : ChimeraMenuBase
 	}
 	void SetUpRow(int Row)
 	{
-		SCR_Faction SCRFact = SCR_Faction.Cast(m_aFactions[Row]);
+		SCR_CampaignFaction SCRFact = SCR_CampaignFaction.Cast(m_aFactions[Row]);
 		for (int i = 0; i < m_aFactions.Count() + 1; i++)
 		{
 			string widgetname = string.Format("UG_%1_%2", Row, i);

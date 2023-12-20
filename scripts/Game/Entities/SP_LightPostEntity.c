@@ -4,6 +4,10 @@ class LightPost: GameEntity
 	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
 	ref array <SP_BaseEn> m_aConnectingBases;
 	
+	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_EColor))]
+	ref array <int> m_aColors;
+
+	
 	[Attribute("2")]
 	int m_iPathDirections;
 	
@@ -11,6 +15,26 @@ class LightPost: GameEntity
 	
 	SP_BaseTask m_TaskMarker;
 	
+	Color GetColor()
+	{
+		Color final = Color.White;
+		if (m_aColors.IsEmpty())
+			return final;
+		foreach(int col : m_aColors)
+		{
+			final.Lerp(SP_ColorNames.Get(col), 0.5);
+		}		
+		return final;
+	}
+	array <Color> GetColors()
+	{
+		 array <Color> colors = {};
+			foreach(int col : m_aColors)
+			{
+				colors.Insert(SP_ColorNames.Get(col));
+			}		
+			return colors;
+	}
 	
 	void GetConnectingBases(out array <string> bases)
 	{
@@ -296,4 +320,35 @@ class SP_LightPostManager : ScriptComponent
 		m_aLightposts.Clear();
 		m_aConnectedBases.Clear();
 	}
+}
+
+class Path
+{
+	array <LightPost> posts;
+	array <string> bases;
+}
+class SP_ColorNames
+{
+	static Color Get(SP_EColor en)
+	{
+		if (en == SP_EColor.RED)
+			return Color.Red;
+		if (en == SP_EColor.BLUE)
+			return Color.Blue;
+		if (en == SP_EColor.YELLOW)
+			return Color.Yellow;
+		if (en == SP_EColor.GREEN)
+			return Color.Green;
+		if (en == SP_EColor.VIOLET)
+			return Color.Violet;
+		return Color.White;
+	}
+}
+enum SP_EColor
+{
+	RED,
+	BLUE,
+	YELLOW,
+	GREEN,
+	VIOLET,
 }

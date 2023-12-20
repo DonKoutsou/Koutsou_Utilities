@@ -1,0 +1,2256 @@
+GenericEntity : "{0A36F69A7D518F10}Prefabs/Compositions/Locations/Eden/Base_MilitaryHospital_FIA_01.et" {
+ coords 3901.882 15.254 8450.654
+ {
+  GenericEntity {
+   ID "5E6ACA2F09C2D1E6"
+  }
+  GenericEntity {
+   ID "5E6ACA2F09C2D141"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E68EB2C6044E7F4"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2F09C2D183"
+  }
+  SCR_SpawnPoint {
+   ID "5E6ACA2F09C2D12F"
+   Flags 1048579
+  }
+ }
+}
+$grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMilitaryBase.et" {
+ SupplyBaseEntre {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Supply Base Entre Deux"
+    m_sBaseNameUpper "SUPPYL BASE ENTRE DEUX"
+    m_sMapLocationName "LocationSupplyBaseEntreDeux"
+    m_iStartingSupplies 3000
+   }
+  }
+  coords 6454.532 161.982 6499.006
+  angleY 160.772
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 0.594 15
+   }
+  }
+ }
+ SupplyBaseGorey {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Supply Base Gorey"
+    m_sBaseNameUpper "SUPPYL BASE GOREY"
+    m_sMapLocationName "LocationSupplyBaseGorey"
+    m_iStartingSupplies 3000
+   }
+  }
+  coords 4839.545 113.026 8097.166
+  angleY 34.904
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 0.594 15
+   }
+  }
+ }
+ SupplyBaseSawmill {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Supply Base Sawmill"
+    m_sBaseNameUpper "SUPPYL BASE SAWMILL"
+    m_sMapLocationName "LocationSupplySawmill"
+    m_iStartingSupplies 8000
+   }
+  }
+  coords 3082.297 117.636 5185.617
+  angleY -34.051
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 0.594 15
+   }
+  }
+ }
+ Log_Cabin {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 50
+    m_sBaseName "Log Cabin"
+    m_sBaseNameUpper "LOG CABIN"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 2996.318 88.093 4460.119
+  angleY 13.349
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+    coords 0 1.152 12
+    Flags 2097155
+   }
+  }
+ }
+ Shephards_Pond {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Shephards Pond"
+    m_sBaseNameUpper "SHEPHARDS POND"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 3641.746 108.439 4839.156
+  angleY 13.349
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ Tourist_Camp {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Tourist Camp"
+    m_sBaseNameUpper "TOURIST CAMP"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 4267.696 60.055 5850.68
+  angleY 101.885
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ Shed {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Shed"
+    m_sBaseNameUpper "SHED"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 4199.345 95.741 5351.036
+  angleY 23.303
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ Manison {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 60
+    m_sBaseName "Mansion"
+    m_sBaseNameUpper "MANSION"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+    m_sAreaDesc "an eerie mansion."
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "USSR"
+   }
+  }
+  coords 3875.825 101.999 6320.036
+  angleY 51.875
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ MoonstonePond {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 60
+    m_sBaseName "Moonstone Pond"
+    m_sBaseNameUpper "MOONSTONE POND"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 4565.672 52.594 5441.021
+  angleY 17.29
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ CheckPoint {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 40
+    m_sBaseName "Moonstone Pond"
+    m_sBaseNameUpper "MOONSTONE POND"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 3790.615 115.169 4946.265
+  angleY 94.456
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ RiverSide_Cabin {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 40
+    m_sBaseName "Riverside Cabin"
+    m_sBaseNameUpper "MOONSTONE POND"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 4384.27 57.298 4795.013
+  angleY 178.025
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ Ruined_Castle {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 40
+    m_sBaseName "Ruined Castle"
+    m_sBaseNameUpper "RUINED CASTLE"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 8406.497 12.969 795.416
+  angleY -49.301
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ Wolfstone {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 40
+    m_sBaseName "Wolfstone"
+    m_sBaseNameUpper "WOLFSTONE"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 3786.286 158.228 4186.703
+  angleY 44.552
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+   }
+  }
+ }
+ GreenShack {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_iRadius 60
+    m_sBaseName "Green Shack"
+    m_sBaseNameUpper "GREEN SHACK"
+    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
+    m_sAreaDesc "lonely shack just above the coast"
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 2197.307 43.776 4836.103
+  angleY 11.373
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ Northeast_Baracks {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Northeast baracks"
+    m_sBaseNameUpper "NORTHEAST BARACKS"
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "FIA"
+   }
+  }
+  coords 7260.89 46.744 7674.478
+  angleY -0.579
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+    Flags 2097155
+   }
+  }
+ }
+ MilitaryBaseAirfield {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_Airbase"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Airbase-UC"
+    m_sMapLocationName "LocationAirport"
+   }
+  }
+  coords 4887.978 26.491 12029.489
+  angleY 175.982
+ }
+ MilitaryBaseLevie {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_MapLocation_Levie_Base"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Levie_Base-UC"
+    m_sMapLocationName "LocationLevie_MilitaryBase"
+   }
+  }
+  coords 7449.143 164.567 4306.383
+  angleY 104.519
+ }
+ MilitaryBaseVilleneuf {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_CalvaryHill"
+    m_sBaseNameUpper "#AR-MapLocation_CalvaryHill"
+    m_sMapLocationName "LocationMilitaryBase_AA"
+   }
+  }
+  coords 3512.027 181.92 5816.283
+  angleX -4.292
+  angleY -123.664
+  angleZ -1.89
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 13.096 -0.092 13.384
+   }
+  }
+ }
+ MilitaryHospital {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-MapLocation_MilitaryHospital"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MilitaryHospital-UC"
+    m_sMapLocationName "LocationTyrone_MilitaryHospital"
+   }
+  }
+  coords 3938.837 15.816 8455.69
+  angleY -85.707
+ }
+ TownBaseChotain {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Chotain"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Chotain-UC"
+    m_sMapLocationName "LocationChotain"
+   }
+  }
+  coords 6991.047 121.241 6075.384
+  angleY -132.859
+  angleZ -2.328
+ }
+ TownBaseDuras {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Durras"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Durras-UC"
+    m_sMapLocationName "C_LocationDurras"
+   }
+  }
+  coords 8895.646 96.289 2709.187
+  angleY 67.698
+  angleZ -1.722
+ }
+ TownBaseEntre_Deux {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_EntreDeux"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_EntreDeux-UC"
+    m_sMapLocationName "LocationEntreDeux"
+   }
+  }
+  coords 6014.644 216.694 7178.425
+  angleY -135.967
+  angleZ -2.553
+ }
+ TownBaseFigari {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Figari"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Figari-UC"
+    m_sMapLocationName "LocationFigari"
+   }
+  }
+  coords 5125.9 52.671 5495.679
+  angleY 178.943
+ }
+ TownBaseLaruns {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Laruns"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Laruns-UC"
+    m_sMapLocationName "LocationLaruns"
+   }
+  }
+  coords 7403.204 114.356 5281.081
+  angleY 48.506
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 -0.326 15
+   }
+  }
+ }
+ TownBaseLe_Moule {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_LeMoule"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_LeMoule-UC"
+    m_sMapLocationName "LocationLeMoule"
+   }
+  }
+  coords 2439.42 104.164 5438.093
+  angleY 78.452
+  angleZ 3.946
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0.066 -0.963 15
+   }
+  }
+ }
+ TownBaseLevie {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Levie"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Levie-UC"
+    m_sMapLocationName "LocationLevie"
+   }
+  }
+  coords 7459.745 131.289 4816.256
+  angleY 96.266
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 0.594 15
+   }
+  }
+ }
+ TownBaseMeaux {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Meaux"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Meaux-UC"
+    m_sMapLocationName "LocationMeaux"
+   }
+  }
+  coords 4511.356 20.998 9770.467
+  angleZ -1.169
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -0.007 -0.372 15
+   }
+  }
+ }
+ TownBaseMontignac {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Montignac"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Montignac-UC"
+    m_sMapLocationName "LocationMontignac"
+   }
+  }
+  coords 5124.377 175.505 6980.634
+  angleX -1.591
+  angleY -91.148
+  angleZ -0.256
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -0.002 1.307 15.014
+   }
+  }
+ }
+ TownBaseProvins {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Provins"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Provins-UC"
+    m_sMapLocationName "C_LocationProvins"
+   }
+  }
+  coords 5573.921 89.084 5895.076
+  angleY 9.853
+ }
+ TownBaseRegina {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Regina"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Regina-UC"
+    m_sMapLocationName "C_LocationRegina"
+   }
+  }
+  coords 7293.558 139.467 2175.336
+  angleY 0.084
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -0.001 -1.059 15
+   }
+  }
+ }
+ TownBaseTyrone {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Tyrone"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Tyrone-UC"
+    m_sMapLocationName "C_LocationTyrone"
+   }
+  }
+  coords 5007.157 49.298 8921.315
+  angleY 0.098
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0.001 -1.64 15
+   }
+  }
+ }
+ TownBaseVernon {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Vernon"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Vernon-UC"
+    m_sMapLocationName "LocationVernon"
+   }
+  }
+  coords 9128.501 77.325 2292.276
+  angleY 173.643
+  angleZ -1.421
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -0.053 -2.135 15
+   }
+  }
+ }
+ TownBaseVileneuf {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Villeneuf"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Villeneuf-UC"
+    m_sMapLocationName "LocationVilleneuf"
+   }
+  }
+  coords 2909.839 76.068 6493.667
+  angleY -122.855
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 0.308 14.999
+   }
+  }
+ }
+ TownBaseGravette {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Gravette"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Gravette-UC"
+    m_sMapLocationName "LocationGravette"
+   }
+  }
+  coords 4011.679 32.271 7883.363
+  angleY -56.275
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0.001 -0.403 15
+   }
+  }
+ }
+ SmallBaseMine {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_Quarry"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Quarry-UC"
+    m_sMapLocationName "LocationMine"
+   }
+  }
+  coords 8793.436 196.599 3897.425
+  angleY -89.149
+ }
+ SmallBaseBlackLake {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_BlackLake"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_BlackLake-UC"
+   }
+  }
+  coords 9452.511 209.485 2946.156
+  angleX -2
+  angleY 30.644
+  angleZ -0.842
+ }
+ SmallBasePennantsPass {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_PennantsPass"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_PennantsPass-UC"
+   }
+  }
+  coords 8237.654 223.134 2164.28
+  angleY -58.216
+ }
+ SmallBaseSimonsWood {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_SimonsWood"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_SimonsWood-UC"
+   }
+  }
+  coords 6579.476 82.004 5135.614
+  angleY -70.199
+  angleZ -3.464
+ }
+ SmallBaseRichemont {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_Richemont"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Richemont-UC"
+   }
+  }
+  coords 4539.236 64.105 4993.636
+  angleY -89.382
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 -0.433 15
+   }
+  }
+ }
+ SmallBaseShepherds {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_ShepherdsPond"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_ShepherdsPond-UC"
+   }
+  }
+  coords 3294.729 120.152 4471.093
+  angleY 142.86
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0.001 0.727 15
+   }
+  }
+ }
+ SmallBaseLake {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_PinewoodLake"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_PinewoodLake-UC"
+   }
+  }
+  coords 4439.694 58.723 6237.206
+  angleY 175.979
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 2.01 0.222 12.112
+    angleY 35.382
+   }
+   SCR_CampaignSpawnPointGroup {
+    ID "5C6696731466AF36"
+    coords -6.675 0.222 -0.117
+    angleY 35.382
+   }
+  }
+ }
+ SmallBaseTillersFind {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_TillersFind"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_TillersFind-UC"
+   }
+  }
+  coords 3789.598 59.786 6997.692
+  angleY -49.512
+ }
+ TownBaseKermovan {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_Kermovan"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Kermovan-UC"
+   }
+  }
+  coords 6436.9 10.091 9667.346
+  angleY 140.857
+  angleZ -1.378
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -0.018 -0.762 15
+   }
+  }
+ }
+ SmallBaseMaidensBay {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_MaidensBay"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MaidensBay-UC"
+   }
+  }
+  coords 5228.636 34.433 10701.948
+  angleY 142.609
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -9.605 0 17.476
+   }
+  }
+ }
+ SmallBaseHornbeamValley {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_MapLocation_HornbeamValley"
+    m_sBaseNameUpper "#AR-MapLocation_HornbeamValley"
+   }
+  }
+  coords 5376.9 25.474 8334.047
+  angleY -54.336
+ }
+ SmallBaseAndresBeacon {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_AndresBeacon"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_AndresBeacon-UC"
+   }
+  }
+  coords 6852.704 83.072 8200.088
+  angleX 2.869
+  angleY -172.862
+ }
+ SmallBaseGoatbay {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_GoatBay"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_GoatBay"
+   }
+  }
+  coords 6635.2 5.907 3119.363
+  angleY 169.959
+ }
+ MajorBaseChotain {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_MapLocation_Coastal_Chotain"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Coastal_Chotain-UC"
+    m_sMapLocationName "LocationChotain_MilitaryBase"
+   }
+  }
+  coords 7473.957 7.871 6694.604
+  angleY -18.505
+ }
+ MajorBaseLamentin {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_MapLocation_Coastal_Lamentin"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Coastal_Lamentin-UC"
+    m_sMapLocationName "LocationLamentin_Harbour"
+   }
+  }
+  coords 1089.475 2.786 6029.322
+  angleY -93.618
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 8.844 -0.062 18.807
+   }
+  }
+ }
+ MajorBaseMorton {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_MapLocation_Coastal_Morton"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Coastal_Morton-UC"
+    m_sMapLocationName "LocationMorton"
+   }
+  }
+  coords 4979.4 2.192 3841.49
+  angleY 29.698
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -13.152 0.001 21.832
+   }
+  }
+ }
+ MainBaseNorth {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_MapLocation_HQ_North"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_HQ_North-UC"
+    m_sMapLocationName "LocationStPhillipe_Harbour"
+   }
+  }
+  coords 4405.815 1.648 11035.317
+  angleY 30.231
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -21.936 -0.008 37.67
+   }
+  }
+ }
+ MainBaseSouth {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_MapLocation_HQ_South"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_HQ_South-UC"
+    m_sMapLocationName "LocationStPierre_Harbour"
+   }
+  }
+  coords 10172.648 2.633 1539.545
+  angleY -76.653
+ }
+ StartingPos02 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 2945.992 90.627 4839.554
+  angleY -9.064
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos17 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 2481.555 83.403 6091.087
+  angleY 12.361
+  angleZ -1.402
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos18 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 1883.103 71.089 5071.744
+  angleY 9.453
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos19 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 2490.561 10.416 4240.728
+  angleY -106.784
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos20 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 3775.087 122.42 5412.033
+  angleY 1.897
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos21 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 5652.333 40.378 4210.629
+  angleY 157.964
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos23 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 6437.146 106.305 5938.763
+  angleY -107.257
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos24 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 6561.706 3.715 2365.325
+  angleY 129.83
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos25 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 3323.713 8.977 3516.202
+  angleX -1.395
+  angleY 174.562
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+   SCR_CampaignSpawnPointGroup {
+    ID "5C6696731466AF36"
+    coords 0 0 0
+   }
+  }
+ }
+ StartingPos04 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 7841.877 151.581 4675.162
+  angleY -106.76
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos03 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 6068.606 96.811 5390.152
+  angleY -106.714
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos05 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 9900.142 292.843 2573.077
+  angleY -112.769
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 0.084 11.984
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos06 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 5798.173 1.116 9558.551
+  angleY -137.459
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos08 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 5414.647 27.899 9389.266
+  angleY -142.961
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos09 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 7545.36 6.263 6055.173
+  angleY -106.699
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos10 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 7306.153 42.919 7652.467
+  angleY -12.215
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos11 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 5493.155 1.105 8749.047
+  angleY -169.82
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+   SCR_CampaignSpawnPointGroup {
+    ID "5C6696731466AF36"
+    coords 0 0 0
+   }
+  }
+ }
+ StartingPos12 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 5384.545 42.462 11059.594
+  angleY -106.828
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos13 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 4631.499 9.477 11562.387
+  angleY -105.009
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos14 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 4174.94 18.585 9107.213
+  angleY -106.49
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos15 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 3198.332 6.778 7140.33
+  angleY 62.186
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos16 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 2112.221 1.346 6649.805
+  angleY -106.329
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
+ }
+ StartingPos26 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+  }
+  coords 6331.249 75.502 8452.551
+  angleY 143.861
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+   SCR_CampaignSpawnPointGroup {
+    ID "5C6696731466AF36"
+    coords 0 0.001 0
+   }
+  }
+ }
+ Northeast_Baracks2 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "Andres Beacon Military Base"
+    m_sBaseNameUpper "ANDRES BEACON MILITARY BASE"
+    m_BasePossitionOverride 7737.107 13.806 8139.79
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50
+   }
+   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
+    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
+     Name "FIA Main Operations Base"
+    }
+   }
+   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
+    "faction affiliation" "BANDITS"
+   }
+  }
+  coords 7678.812 13.164 8133.74
+  angleY -53.924
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    components {
+     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
+      "faction affiliation" "CIV"
+     }
+    }
+    Flags 2097155
+   }
+  }
+ }
+}
+GenericEntity : "{1A7FB3493A1B029F}Prefabs/Compositions/Locations/Eden/Base_LevieMilitary_FIA_01.et" {
+ coords 7505.494 165.766 4283.156
+ {
+  GenericEntity {
+   ID "5E6ACA2F4A7016D5"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E68EB2C6044E7F4"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2F4A701731"
+   {
+    GenericEntity {
+     ID "5E3A731E4FBE0623"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A731E4FBE0621"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A731E72E52CA8"
+     Flags 1049603
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2F4A701748"
+   {
+    GenericEntity {
+     ID "5E3A731E4FBE0623"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A731E4FBE0621"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A731E72E52CA8"
+     Flags 1049603
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2F4A701784"
+   {
+    GenericEntity {
+     ID "5E3A731E4FBE0623"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A731E4FBE0621"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A731E72E52CA8"
+     Flags 1049603
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2F4A7017C9"
+   {
+    GenericEntity {
+     ID "5E3A731B88FA2A43"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731B1F444C08"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731B1F444C2C"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731B1F444C45"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731B1F444C6C"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2F4A701664"
+   {
+    GenericEntity {
+     ID "5E6ACA2FF8E39CE6"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF8E39F02"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF8E39F15"
+     Flags 1048579
+    }
+    SCR_SpawnPoint {
+     ID "5E6ACA2FF8E39F2B"
+     Flags 1048579
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{1CF4014D7086BE9F}Prefabs/Compositions/Locations/Eden/Base_Airport_FIA_01.et" {
+ coords 4900.962 28.6 11787.416
+ {
+  GenericEntity {
+   ID "5E6ACA2CDC303E03"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E6ACA2CDC303E0D"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2CDC303FD8"
+   {
+    GenericEntity {
+     ID "5E3A7310C995AE11"
+     Flags 1049603
+    }
+    GenericEntity {
+     ID "5E3A7311796AB459"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A7311796AB47F"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A7311796AB5B3"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2CDC303E8F"
+   {
+    GenericEntity {
+     ID "5E6ACA2FF8E39CE6"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF8E39F02"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF8E39F15"
+     Flags 1048579
+    }
+    SCR_SpawnPoint {
+     ID "5E6ACA2FF8E39F2B"
+     Flags 1048579
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{2390B74D062A2D13}Prefabs/Compositions/Locations/Eden/Base_ChotainMilitary_FIA_01.et" {
+ coords 7447.137 7.899 6704.912
+ {
+  GenericEntity {
+   ID "5E6ACA2FA4C6BE5C"
+   {
+    GenericEntity {
+     ID "5E3A731E2F167706"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593012"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593014"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593015"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2FA4C6BEA5"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E68EB2C6044E7F4"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2FA4C6B168"
+   {
+    GenericEntity {
+     ID "5E3A731E4FBE0623"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E4FBE0621"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E72E52CA8"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2FA4C6B1C1"
+   {
+    GenericEntity {
+     ID "5E3A731E4FBE0623"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E4FBE0621"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E72E52CA8"
+     Flags 1048579
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{4FDFB70701D6A97A}Prefabs/Compositions/Locations/Eden/Base_MontfortCastle_FIA_01.et" {
+ coords 9315.093 196.171 1144.537
+ {
+  GenericEntity {
+   ID "5E6ACA2E9D11FB3C"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E6ACA2E9D11FB3F"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+ }
+}
+$grp GenericEntity : "{522DCD528AE27052}prefabs/Systems/MilitaryBase/ConflictRelayRadio.et" {
+ Relay15 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5C727AD73024FB00}" {
+    m_sBaseName "#AR-Campaign_MapLocation_Tower_EntreDeux"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Tower_EntreDeux-UC"
+   }
+  }
+  coords 5858.833 237.4 7259.83
+  angleY 107.764
+ }
+ Relay4 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5C727AD73024FB00}" {
+    m_sBaseName "#AR-Campaign_MapLocation_Tower_Regina"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_Tower_Regina-UC"
+   }
+  }
+  coords 7689.854 342.073 3055.858
+  angleY 165.717
+ }
+ Relay2 {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5C727AD73024FB00}" {
+    m_sBaseName "Tower Wolf Hill"
+    m_sBaseNameUpper "TOWER WOLF HILL"
+   }
+  }
+  coords 3839.02 164.535 4310.169
+  angleY -126.861
+ }
+}
+GenericEntity : "{567515087F8ED05F}Prefabs/Compositions/Locations/Eden/Base_LamentinHarbour_FIA_01.et" {
+ coords 1024.033 2.854 6043.25
+ {
+  GenericEntity {
+   ID "5E6ACA2FCDBBBD92"
+   {
+    GenericEntity {
+     ID "5E3A731E2F167706"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593012"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593014"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593015"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2FCDBBBC5C"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E6ACA2FCDBBBC5F"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{A9F3C4994839F7A4}Prefabs/Compositions/Locations/Eden/Base_StPierreHarbour_FIA_01.et" {
+ coords 9925.104 2.394 1525.327
+ {
+  GenericEntity {
+   ID "5E6ACA2FB3B7B67E"
+   {
+    GenericEntity {
+     ID "5E3A731E2F167706"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593012"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593014"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593015"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2FB3B7A958"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E68EB2C6044E7F4"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2FB3B7B6F8"
+   {
+    GenericEntity {
+     ID "5E6ACA2FF8E39CE6"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF8E39F02"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF8E39F15"
+     Flags 1048579
+    }
+    SCR_SpawnPoint {
+     ID "5E6ACA2FF8E39F2B"
+     Flags 1048579
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{D3BED8377828FFCC}Prefabs/Compositions/Locations/Eden/Base_PowerPlant_FIA_01.et" {
+ coords 5834.395 4.577 9786.427
+ {
+  GenericEntity {
+   ID "5E68E844F3143B06"
+   {
+    GenericEntity {
+     ID "5E68FBDF902BB99C"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5E68EB2C6044E7F4"
+       Flags 1049603
+       {
+        GenericEntity {
+         ID "5D36C61EF5BF6C53"
+         Flags 1049603
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "5E6ACA2FF01AEC79"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF01AEC87"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF01AEC94"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF01AECB2"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E6ACA2FF01AECDF"
+     Flags 1048579
+    }
+    SCR_SpawnPoint {
+     ID "5E6ACA2FF01AEC42"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2D39A925C6"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E68EB2C6044E7F4"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{FB04C4D5947808F1}Prefabs/Compositions/Locations/Eden/Base_MontignacWarehouses_FIA_01.et" {
+ coords 4537.877 155.726 6844.218
+ {
+  GenericEntity {
+   ID "5E6ACA2C51398426"
+   {
+    GenericEntity {
+     ID "5E3A731E2F167706"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593012"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593014"
+     Flags 1048579
+    }
+    GenericEntity {
+     ID "5E3A731E87593015"
+     Flags 1048579
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6ACA2C5139871E"
+   Flags 1049603
+   {
+    GenericEntity {
+     ID "5E6ACA2C5139871B"
+     Flags 1049603
+     {
+      GenericEntity {
+       ID "5D36C61EF5BF6C53"
+       Flags 1049603
+      }
+     }
+    }
+   }
+  }
+  GenericEntity {
+   ID "5E6B01A974EBE924"
+   Flags 1048579
+  }
+  GenericEntity {
+   ID "5E6B01A974EBE937"
+   Flags 1048579
+  }
+  GenericEntity {
+   ID "5E6B01A974EBE94C"
+   Flags 1048579
+  }
+  SCR_SpawnPoint {
+   ID "5E6B01A974EBE91B"
+   Flags 1048579
+  }
+ }
+}

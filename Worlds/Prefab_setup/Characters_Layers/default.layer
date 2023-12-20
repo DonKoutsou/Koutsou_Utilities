@@ -160,6 +160,9 @@ SCR_BaseGameMode GameMode_Plain1 : "{1B76F75A3175E85C}Prefabs/MP/Modes/Plain/Gam
  }
  coords 129.762 1 241.399
 }
+SCR_GameModeCampaign GameMode_Campaign1 : "{3B230AAC5252108F}prefabs/MP/Modes/Conflict/GameMode_Campaign.et" {
+ coords 142.762 1 248.85
+}
 SCR_CampaignFactionManager CampaignFactionManager1 : "{F1AC26310BAE3788}prefabs/MP/Campaign/CampaignFactionManager.et" {
  coords 160.579 1.001 249.195
 }
@@ -451,23 +454,41 @@ $grp GenericEntity {
 $grp LightPost : "{007D70EA014E31CA}prefabs/Props/Military/Camps/Pole.et" {
  {
   coords 123.475 1 252.42
+  m_aColors {
+   2 0 1
+  }
  }
  {
   coords 123.375 1 253.201
+  m_aColors {
+   4
+  }
  }
  {
   coords 123.187 1 254.121
+  m_aColors {
+   3
+  }
+ }
+ {
+  coords 122.115 1 253.059
+  m_aColors {
+   2
+  }
  }
 }
 GenericEntity : "{008D2A32F92F80D6}prefabs/Items/Misc/Photo/LovedOne_Photo.et" {
  coords 123.827 1.167 246.79
 }
-$grp GenericEntity : "{024ADA8FA4FC92E0}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_medium_item.et" {
+$grp GenericEntity : "{024ADA8FA4FC92E0}prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_medium_item.et" {
  {
   coords 147.343 1 247.309
  }
  {
   coords 156.449 1 252.979
+ }
+ {
+  coords 149.493 1 248.396
  }
 }
 GameEntity : "{03C1F3DB6BB9796A}prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover_w_scrim.et" {
@@ -540,6 +561,10 @@ SCR_ChimeraCharacter : "{1623EA3AEFACA0E4}prefabs/Characters/Factions/BLUFOR/US_
  coords 161.507 1.001 253.393
  angleY -180
 }
+Vehicle Ural4320_transport1 : "{16C1F16C9B053801}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_transport.et" {
+ coords 155.861 1 231.755
+ angleY 159.383
+}
 GenericEntity : "{174E332EF84362B2}Prefabs/Props/Industrial/ToolBox_01/ToolBox_01_base.et" {
  coords 118.407 1 168.38
 }
@@ -589,7 +614,7 @@ SCR_ChimeraCharacter : "{23D81C023DBF85AC}prefabs/Characters/Factions/INDFOR/FIA
  coords 131.846 1.001 253.84
  angleY -180
 }
-GameEntity : "{241C8C9F9917037C}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Beanie.et" {
+GameEntity : "{241C8C9F9917037C}prefabs/Characters/HeadGear/Helmet_PASGT_01/Beanie.et" {
  coords 146.299 1 246.682
 }
 $grp GameEntity : "{25C2411D1499CC53}prefabs/Characters/Uniforms/Jacket_M70_v2.et" {
@@ -631,6 +656,12 @@ $grp GenericEntity : "{33B2DFDCD0EBA3DB}Prefabs/Items/Equipment/Kits/RepairKit_0
  {
   coords 58.911 1.036 189.682
  }
+ {
+  coords 225.666 1 55.334
+ }
+ {
+  coords 172.777 1 201.454
+ }
 }
 GameEntity : "{3523CB7D5961246B}prefabs/Characters/HeadGear/Hat_PeakedCap_USSR_01/Hat_PeakedCap_USSR_01.et" {
  coords 114.477 1 244.803
@@ -662,6 +693,271 @@ GameEntity : "{3A421547BC29F679}prefabs/Items/Equipment/Flashlights/Flashlight_M
 SCR_ChimeraCharacter : "{3A7BC765FC53D8E5}prefabs/Characters/Factions/INDFOR/FIA/Character_Bandit_BaseLoadout.et" {
  coords 139.758 1 247.014
  angleY 149.403
+}
+GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ components {
+  Hierarchy "{5DC704E508136864}" {
+   Enabled 1
+  }
+ }
+ coords 146.117 1 240.836
+ {
+  GenericEntity {
+   components {
+    SCR_SlotCompositionComponent "{5F28CD359933958F}" {
+     m_bOrientChildrenToTerrain 0
+    }
+    ActionsManagerComponent "{5F28CD3599339500}" {
+     ActionContexts {
+      UserActionContext "{5F28CD35993395D5}" {
+       ContextName "Disassembly"
+       Position PointInfo "{5F28CD35993395D0}" {
+        Offset 0 0.5 0
+       }
+       Radius 5
+      }
+     }
+     additionalActions {
+      SCR_CampaignBuildingDisassemblyUserAction "{5F28CD3599339538}" {
+       ParentContextList {
+        "Disassembly"
+       }
+       UIInfo UIInfo "{5F28CD359933953A}" {
+        Name "#AR-FreeRoamBuilding_Action_Disassembly-UC"
+       }
+       Duration 20
+      }
+     }
+    }
+    RplComponent "{5F28CD3599339516}" {
+    }
+    SCR_ResourceComponent "{5F28CD3599339790}" {
+     m_aContainers {
+      SCR_ResourceContainerVirtual "{5F28CD3599339692}" {
+       m_sDebugName "Container - Storage Encapsulated"
+       m_eResourceRights ALL
+       m_eStorageType STORED
+       m_fResourceValueCurrent 0
+       m_fResourceValueMax 0
+       m_vBoundingVolumeMins -2.711 0 -1.989
+       m_vBoundingVolumeMaxs 2.585 1.367 2.221
+      }
+     }
+     m_aEncapsulators {
+      SCR_ResourceEncapsulator "{5F28CD3599339625}" {
+       m_sDebugName "SupplyStorage - Encapsulator"
+       m_eResourceRights ALL
+       m_ContainerQueue SCR_ResourceEncapsulatorContainerQueue "{5F28CD35993396F7}" {
+        m_StoragePolicies {
+         SCR_ResourceEncapsulatorStoragePolicy "{5F28CD35993396F0}" {
+          m_StorageQueue SCR_ResourceEncapsulatorContainerStorageQueueExtended "{5F28CD35993396F1}" {
+          }
+          m_eStorageType STORED
+         }
+        }
+       }
+       m_aActions {
+        SCR_ResourceEncapsulatorActionChangeDecay "{5F28CD35993396FF}" {
+        }
+        SCR_ResourceEncapsulatorActionChangeGain "{5F28CD35993396CB}" {
+         m_bEnableResourceGain 1
+         m_fResourceGain 900
+         m_fResourceGainTickrate 3600
+        }
+        SCR_ResourceEncapsulatorActionChangeOnEmptyBehavior "{5F28CD35993396CE}" {
+         m_eOnEmptyBehavior HIDE
+        }
+        SCR_ResourceEncapsulatorActionChangeRights "{5F28CD35993396D2}" {
+         m_eResourceRights ALL
+        }
+        SCR_ResourceEncapsulatorActionDisableInventoryStorage "{5F28CD35993396D7}" {
+        }
+        SCR_ResourceEncapsulatorActionDisableUserActions "{5F28CD35993396D4}" {
+        }
+       }
+      }
+     }
+     m_aConsumers {
+      SCR_ResourceConsumer "{5F28CD359933961B}" {
+       m_eResourceRights SELF
+       m_ContainerQueue SCR_ResourceConsumerContainerQueue "{5F28CD3599339605}" {
+        m_StoragePolicies {
+         SCR_ResourceConsumerStoragePolicyGeneric "{5F28CD3599339606}" {
+          m_StorageQueue SCR_ResourceConsumerContainerStorageQueue "{5F28CD3599339607}" {
+          }
+         }
+        }
+       }
+      }
+     }
+     m_aGenerators {
+      SCR_ResourceGenerator "{5F28CD35993397A2}" {
+       m_eResourceRights ALL
+       m_eIdentifier DEFAULT_STORAGE
+       m_fStorageRange 10
+       m_bIsIgnoringItself 1
+       m_ContainerQueue SCR_ResourceGeneratorContainerQueue "{5F28CD3599339674}" {
+        m_StoragePolicies {
+         SCR_ResourceGeneratorStoragePolicy "{5F28CD3599339675}" {
+          m_StorageQueue SCR_ResourceGeneratorContainerStorageQueueExtended "{5F28CD3599339676}" {
+          }
+          m_eStorageType STORED
+         }
+        }
+       }
+       m_aActions {
+        SCR_ResourceGeneratorActionStore "{5F28CD359933967E}" {
+        }
+       }
+      }
+     }
+     m_eDebugVisualizationFlags 10
+     m_DebugColor 0.761 0.386 0.078 0.206
+    }
+    Hierarchy "{5F28CD359933979B}" {
+    }
+   }
+   coords -0.134 0.295 -4.007
+   Flags 1027
+   {
+    $grp GenericEntity : "{3FD3F403025BBDF5}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_Large_01/SupplyStack_Large_01_storage.et" {
+     {
+      coords 0.673 -0.295 -1.339
+      angleY -2.34
+     }
+     {
+      coords 0.526 -0.295 0.026
+      angleY -7.279
+     }
+     {
+      coords 0.593 -0.295 1.436
+      angleY 1.214
+     }
+    }
+    GenericEntity : "{574B2F4BD1257127}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_01/SupplyStack_01_V5_storage_FIA_covered.et" {
+     coords -2.353 -0.295 0.316
+     angleY -94.315
+    }
+    GenericEntity : "{B1017A36B1F2229E}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_01/SupplyStack_01_V6_storage.et" {
+     coords 1.896 -0.295 -1.256
+     angleY -85.798
+    }
+    GenericEntity : "{DA3AEFBCF6C37F82}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_01/SupplyStack_01_V1_storage_FIA_covered.et" {
+     coords -2.034 -0.295 -1.162
+     angleY -96.496
+    }
+    GenericEntity : "{DA3D4CF729F32F6B}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_01/SupplyStack_01_V5_storage.et" {
+     coords 2.069 -0.295 1.263
+     angleY 90
+    }
+    GenericEntity : "{EF62478046B376DD}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_01/SupplyStack_01_V2_storage_FIA_covered.et" {
+     coords -2.296 -0.295 1.695
+     angleY 90
+    }
+    GenericEntity : "{F39F7C209905A4C7}Prefabs/Props/Military/SupplyBox/SupplyStack/SupplyStack_01/SupplyStack_01_V3_storage.et" {
+     coords 1.855 -0.295 0.026
+     angleY 90
+    }
+   }
+  }
+  GenericEntity : "{1EC801E208CB16C6}Prefabs/Vegetation/Cuttings/Rubus_idaeus_small_01.et" {
+   coords -4.045 0 -1.514
+   angleY -50.257
+  }
+  GenericEntity : "{24F98A215FAA249C}Prefabs/Structures/Signs/Military/Supplies/Sign_SupplyStorage_01_Supplies_FIA.et" {
+   components {
+    Hierarchy "{5E331960ECC46AF5}" {
+     Enabled 1
+    }
+   }
+   coords 0.042 0 -1.432
+   angleX 0.133
+   angleY -2.838
+   angleZ 0.83
+  }
+  GenericEntity : "{49ADEF17D3D91B4F}Prefabs/Structures/Military/Camps/Canvas_Covers/Soviet/CanvasCover_Medium_A_Soviet.et" {
+   components {
+    Hierarchy "{5D64773615F68FE3}" {
+     Enabled 1
+    }
+   }
+   coords 0 0 -3.779
+  }
+  GenericEntity : "{4A09EF1D855AF2C4}Prefabs/Vegetation/Cuttings/Rosa_canina_small_01.et" {
+   coords -3.698 0 -1.402
+  }
+  GenericEntity : "{894A1AFDCB71CD0D}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_02.et" {
+   coords -1.096 0 -4.045
+   angleY 46.846
+  }
+  GenericEntity : "{89EF4CBC37EABDBE}Prefabs/Vegetation/Cuttings/Carpinus_betulus_large_01.et" {
+   coords 3.569 0 -2.244
+   angleX 41.208
+   angleY 89.73
+   angleZ -0.145
+  }
+  GenericEntity : "{A85E67003277D049}Prefabs/Vegetation/Cuttings/Malus_domestica_large_01.et" {
+   coords -3.942 0 -4.466
+   angleY 52.057
+  }
+  GenericEntity : "{C258AD45887AA8CA}Prefabs/Vegetation/Cuttings/Picea_abies_medium_01.et" {
+   coords 3.159 0 -0.868
+   angleY -70.264
+  }
+  $grp GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
+   {
+    components {
+     Hierarchy "{5D64773615E550EC}" {
+      Enabled 1
+     }
+    }
+    coords -0.862 0 -5.41
+    angleY -4.642
+   }
+   {
+    components {
+     Hierarchy "{5D647736141AE9A2}" {
+      Enabled 1
+     }
+    }
+    coords -1.062 0 -1.565
+    angleY 0.794
+   }
+  }
+  GenericEntity : "{D16F58EC1C0027D7}Prefabs/Vegetation/Cuttings/Salix_cinerea_medium_01.et" {
+   coords 0.563 0 -6.103
+   angleY -180
+  }
+  StaticModelEntity : "{DF649B29EC7635F3}Prefabs/Structures/Military/Fortifications/DirtPile_01/DirtPile_01_small.et" {
+   components {
+    Hierarchy "{5D6477361410326D}" {
+     Enabled 1
+    }
+   }
+   coords 0.04 0 -1.446
+  }
+  GenericEntity : "{E8181E2E360A8AF4}Prefabs/Vegetation/Cuttings/Juniperus_communis_medium_01.et" {
+   coords 2.059 0 -6.081
+   angleY 68.893
+  }
+  GenericEntity : "{EFA7233213E77C2E}Prefabs/Systems/SpawnPoints/SpawnPosition.et" {
+   components {
+    Hierarchy "{5E331960ECDD8DD3}" {
+     Enabled 1
+    }
+   }
+   coords 1.017 0.01 -1.213
+   angleY -8.367
+  }
+  GenericEntity : "{F76BD5785C7FE191}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_ObservationPoint.et" {
+   components {
+    Hierarchy "{5E5CB307E510DDF1}" {
+    }
+   }
+   coords -2.695 0 -0.41
+   angleY -82.492
+  }
+ }
 }
 GameEntity : "{3CCA7A9BB4FD3197}prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et" {
  coords 116.375 1 243.271
@@ -872,7 +1168,7 @@ $grp GameEntity : "{50E6A3845C9F20FD}prefabs/Props/Military/Camps/LanternMilitar
   coords 110.785 1 247.113
  }
 }
-SCR_ChimeraCharacter : "{5346CF7E39A65A6B}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et" {
+SCR_ChimeraCharacter : "{5346CF7E39A65A6B}prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et" {
  coords 146.2 1.001 252.93
  angleY -180
 }
@@ -972,6 +1268,9 @@ $grp GenericEntity : "{624714B94284F1D9}prefabs/Items/Equipment/Kits/RepairKit_0
  }
  {
   coords 58.924 1.029 191.094
+ }
+ {
+  coords 223.569 1 55.364
  }
 }
 $grp GenericEntity : "{630FB4AD4A735264}prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {
@@ -1137,6 +1436,9 @@ GameEntity : "{793EEE2C133176F9}prefabs/Characters/HeadGear/Hat_Panama_Soviet/Ha
 SCR_EditablePreviewEntity : "{7B2420C8BC72373A}Prefabs/Characters/Core/Character_Base_Preview.et" {
  coords 126.622 1 252.183
 }
+GenericEntity : "{7C20041DA3207191}Prefabs/Compositions/Slotted/SlotFlatSmall/AmmoStorage_S_USSR_01.et" {
+ coords 179.167 1 234.932
+}
 $grp GameEntity : "{7DAA49D6860E1D28}prefabs/Characters/Uniforms/Pants_M70_Bandit.et" {
  {
   coords 139.461 1 247.569
@@ -1170,6 +1472,9 @@ $grp GenericEntity : "{92897DAEE45937D9}prefabs/Items/Equipment/Kits/MedicalKit_
  {
   coords 59.362 1 191.57
  }
+ {
+  coords 151.688 1 249.148
+ }
 }
 $grp SCR_ChimeraCharacter : "{929AAAE8D0F59033}prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Renegade.et" {
  {
@@ -1190,8 +1495,14 @@ $grp GenericEntity : "{9713FE6DDCC9510D}prefabs/Characters/Vests/Vest_Lifchik/Ve
 GenericEntity : "{98DD1D36C5B67A1C}prefabs/Items/EntryPapers/Entry_Papers_Base.et" {
  coords 57.445 1 190.619
 }
-Vehicle Mi8MTC_A_LowFuel1 : "{99F19672B763CF11}prefabs/Vehicles/Helicopters/Mi8MT/Mi8MTC-A_LowFuel.et" {
- coords 76.541 1 235.135
+$grp Vehicle : "{99F19672B763CF11}prefabs/Vehicles/Helicopters/Mi8MT/Mi8MTC-A_LowFuel.et" {
+ Mi8MTC_A_LowFuel1 {
+  coords 76.541 1 235.135
+ }
+ Mi8MTC_A_LowFuel2 {
+  coords 222.659 1 48.138
+  angleY 93.981
+ }
 }
 GenericEntity : "{9F0C54A3740F7FC9}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyContainerGeneric.et" {
  coords 81.955 1 236.485
@@ -1202,16 +1513,16 @@ GameEntity : "{9F546CCA2582D16F}prefabs/Characters/Uniforms/Jacket_M88.et" {
 GameEntity : "{A7E6D7ECD5F684D7}prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et" {
  coords 115.709 1 244.033
 }
-$grp GenericEntity : "{A8B7AD5DBDCF22C2}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_large_item.et" {
+$grp GenericEntity : "{A8B7AD5DBDCF22C2}prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_large_item.et" {
  {
   coords 59.525 1 190.588
  }
  {
   coords 155.428 1 252.979
  }
-}
-GenericEntity : "{AB1A97B1BAE8C395}Prefabs/Compositions/Slotted/SlotFlatSmall/SupplyCache_S_FIA_01.et" {
- coords 146.117 1 240.836
+ {
+  coords 149.943 1 248.155
+ }
 }
 GenericEntity : "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et" {
  coords 131.974 1 242.254
@@ -1362,8 +1673,13 @@ GameEntity : "{F545C1BE7C99954A}prefabs/Characters/HeadGear/Hat_Patrol_US_01/Hat
  }
  coords 115.015 1 243.492
 }
-GenericEntity : "{F5604E614B23F81E}Prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_small_item.et" {
- coords 156.068 1 252.979
+$grp GenericEntity : "{F5604E614B23F81E}prefabs/Props/Military/SupplyBox/SupplyPortableContainers/SupplyPortableContainer_01/SupplyPortableContainers_01_small_item.et" {
+ {
+  coords 156.068 1 252.979
+ }
+ {
+  coords 149.668 1 248.745
+ }
 }
 GenericEntity : "{F9ACDDE62D906D61}Prefabs/Characters/Vests/Vest_M69/Vest_M69_olive.et" {
  coords 118.738 1 246.732

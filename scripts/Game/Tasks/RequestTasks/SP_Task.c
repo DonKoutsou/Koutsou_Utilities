@@ -74,7 +74,7 @@ class SP_Task
 	string m_sAcceptTest;
 	//-------------------------------------------------//
 	//Faction of owner of task
-	SCR_Faction m_OwnerFaction;
+	SCR_CampaignFaction m_OwnerFaction;
 	//-------------------------------------------------//
 	//Reward that is going to be handed to completionist *m_iRewardAmount
 	ref array <IEntity> a_Rewards = {};

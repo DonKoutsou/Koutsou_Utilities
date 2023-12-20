@@ -2,18 +2,11 @@ GenericEntity {
  ID "56F2C6D6F7C6DAFA"
  components {
   SCR_ResupplySupportStationComponent "{5E2CE1BAE058CADC}" {
-   m_eFactionUsageCheck 17
-  }
-  UniversalInventoryStorageComponent "{56F2C6D15FE6C4CE}" {
-   Attributes SCR_ItemAttributeCollection "{56F2C6D6A36680FB}" {
-    m_bVisible 0
-   }
+   m_eFactionUsageCheck 0
   }
   ActionsManagerComponent "{56F2C6D1431ADB12}" {
    additionalActions {
     SCR_OpenStorageAction "{58EE8EA3E900BE40}" {
-     ParentContextList {
-     }
     }
     SCR_SaveArsenalLoadout "{58EE8EA3E73F1F6A}" {
      m_eFactionUsageCheck SAME_CURRENT_FACTION

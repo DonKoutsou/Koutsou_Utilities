@@ -150,15 +150,10 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 		SCR_GameModeCampaign Gamemode = SCR_GameModeCampaign.Cast(owner);
 		if (!Gamemode)
 			return;
-		SCR_CampaignFactionManager FactionMan = SCR_CampaignFactionManager.Cast(Gamemode.GetFactionManager());
-		if (!FactionMan)
-		{
-			GetGame().GetCallqueue().CallLater(EOnInit, 1000, false, owner);
-			return;
-		}
+
 		
 		
-		array<Faction> Factions = {};
+		/*array<Faction> Factions = {};
 		FactionMan.GetFactionsList(Factions);
 		foreach (Faction faction : Factions)
 		{
@@ -167,7 +162,7 @@ class SP_CampaignOffensiveDirector : ScriptComponent
 			{
 				m_aFactions.Insert(CFaction);
 			}
-		}
+		}*/
 		factioncount = m_aFactions.Count();
 		SetEventMask(owner, EntityEvent.FRAME);
 	}

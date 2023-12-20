@@ -120,10 +120,7 @@ class SP_MultiTask: SP_Task
 	};
 	void GetInfo(out string OName, out string OLoc, out array <string> taskDesc)
 	{
-		SCR_GameModeCampaign GM = SCR_GameModeCampaign.Cast(GetGame().GetGameMode());
-		if (!GM)
-			return;
-		DS_DialogueComponent Diag = GM.GetDialogueComponent();
+		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 
 		for (int i = 0, count = m_aTasks.Count(); i  < count; i++)
 		{
