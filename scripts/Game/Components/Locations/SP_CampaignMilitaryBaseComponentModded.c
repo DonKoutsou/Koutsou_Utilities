@@ -5,6 +5,7 @@ modded class SCR_CampaignMilitaryBaseComponent
 	protected IEntity m_eBaseMechanic;
 	protected IEntity m_eBaseNavigator;
 	protected ref array <IEntity> a_BaseGuards = {};
+	protected LightPost m_BaseLightPost;
 	
 	[Attribute()]
 	bool m_bVisited;
@@ -145,6 +146,14 @@ modded class SCR_CampaignMilitaryBaseComponent
 			break;
 		}
 		a_BaseGuards.Insert(Char);
+	}
+	void RegisterPost(LightPost Post)
+	{
+		m_BaseLightPost = Post;
+	}
+	LightPost GetBasePost()
+	{
+		return m_BaseLightPost;
 	}
 	void GetCharacterOfPost(SCR_ECharacterRank position, out IEntity Char)
 	{

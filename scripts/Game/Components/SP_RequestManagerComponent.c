@@ -751,7 +751,6 @@ class SP_RequestManagerComponent : ScriptComponent
 			array <SP_Task> activetasks = GetActiveSamples();
 			if (!activetasks || activetasks.IsEmpty())
 			{
-				Print("None of the tasks samples have been marked as enabled");
 				return;
 			}
 			Task = activetasks.GetRandomElement().GetClassName();

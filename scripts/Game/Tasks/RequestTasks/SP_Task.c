@@ -964,25 +964,38 @@ class SP_BaseNames
 	static const string ANDRES_BEACON = "#AR-MapLocation_AndresBeacon";
 	static const string TOWN_BASE_CHOTAIN = "#AR-MapLocation_Chotain";
 	static const string MIL_BASE_CHOTAIN = "#AR-Campaign_MapLocation_Coastal_Chotain";
-	static const string ENTRE_DEUX_BASE = "#AR-Campaign_MapLocation_EntreDeux";
+	static const string ENTRE_DEUX_BASE = "#AR-MapLocation_EntreDeux";
 	static const string ANDRES_BEACON_MIL_BASE = "Andres Beacon Military Base";
+	static const string TYRONE = "#AR-MapLocation_Tyrone";
+	static const string GRAVETTE = "#AR-MapLocation_Gravette";
+	static const string MONTIGNAC = "#AR-MapLocation_Montignac";
+	static const string HORNBEAM_VALLEY = "#AR-Campaign_MapLocation_HornbeamValley";
+	
 	
 	static string Get(SP_BaseEn en)
 	{
 		if (en == SP_BaseEn.ERQUY_FIA_OUTPOST)
 			return ERQUY_FIA_OUTPOST;
-		if (en == SP_BaseEn.NORTHEAST_BARACKS)
+		else if (en == SP_BaseEn.NORTHEAST_BARACKS)
 			return NORTHEAST_BARACKS;
-		if (en == SP_BaseEn.ANDRES_BEACON)
+		else if (en == SP_BaseEn.ANDRES_BEACON)
 			return ANDRES_BEACON;
-		if (en == SP_BaseEn.TOWN_BASE_CHOTAIN)
+		else if (en == SP_BaseEn.TOWN_BASE_CHOTAIN)
 			return TOWN_BASE_CHOTAIN;
-		if (en == SP_BaseEn.MIL_BASE_CHOTAIN)
+		else if (en == SP_BaseEn.MIL_BASE_CHOTAIN)
 			return MIL_BASE_CHOTAIN;
-		if (en == SP_BaseEn.ENTRE_DEUX_BASE)
+		else if (en == SP_BaseEn.ENTRE_DEUX_BASE)
 			return ENTRE_DEUX_BASE;
-		if (en == SP_BaseEn.ANDRES_BEACON_MIL_BASE)
+		else if (en == SP_BaseEn.ANDRES_BEACON_MIL_BASE)
 			return ANDRES_BEACON_MIL_BASE;
+		else if (en == SP_BaseEn.TYRONE)
+			return TYRONE;
+		else if (en == SP_BaseEn.GRAVETTE)
+			return GRAVETTE;
+		else if (en == SP_BaseEn.MONTIGNAC)
+			return MONTIGNAC;
+		else if (en == SP_BaseEn.HORNBEAM_VALLEY)
+			return HORNBEAM_VALLEY;
 		return STRING_EMPTY;
 	}
 }
@@ -995,6 +1008,10 @@ enum SP_BaseEn
 	MIL_BASE_CHOTAIN,
 	ENTRE_DEUX_BASE,
 	ANDRES_BEACON_MIL_BASE,
+	TYRONE,
+	GRAVETTE,
+	MONTIGNAC,
+	HORNBEAM_VALLEY,
 }
 modded enum EVehicleType
 {

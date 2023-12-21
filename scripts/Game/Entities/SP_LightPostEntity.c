@@ -4,9 +4,11 @@ class LightPost: GameEntity
 	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
 	ref array <SP_BaseEn> m_aConnectingBases;
 	
-	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_EColor))]
-	ref array <int> m_aColors;
-
+	[Attribute("",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_EColor))]
+	ref array <SP_EColor> m_aColors;
+	
+	[Attribute()]
+	bool m_bRegisterInBase;
 	
 	[Attribute("2")]
 	int m_iPathDirections;
@@ -15,11 +17,23 @@ class LightPost: GameEntity
 	
 	SP_BaseTask m_TaskMarker;
 	
+	bool HasSameColors(LightPost post)
+	{
+		if (m_aColors.IsEmpty())
+			return false;
+		foreach (SP_EColor color : m_aColors)
+		{
+			if (post.m_aColors.Contains(color))
+				return true;
+		}
+		return false;
+	}
+	
 	Color GetColor()
 	{
-		Color final = Color.White;
+		Color final = new Color(0, 0, 0, 1.0);
 		if (m_aColors.IsEmpty())
-			return final;
+			return null;
 		foreach(int col : m_aColors)
 		{
 			final.Lerp(SP_ColorNames.Get(col), 0.5);
@@ -203,8 +217,8 @@ class LightPost: GameEntity
 			return false;
 		foreach (SP_BaseEn Basename : m_aConnectingBases)
 		{
-			if (!bases.Contains( SP_BaseNames.Get( Basename )) )
-				return false;
+			if (bases.Contains( SP_BaseNames.Get( Basename )) )
+				return true;
 		}
 		return true;
 	}
@@ -220,135 +234,25 @@ class LightPost: GameEntity
 		if (!man)
 			return;
 		man.RegisterPost(this);
+		
+		
 		//GetGame().GetCallqueue().CallLater(SetVisible, 2000, false);
 	};
-	//Destructor
-	/*void ~LightPost()
+	void RegisterPostToBase()
 	{
-		SP_LightPostManager.GetInstane().UnRegisterPost(this);
-	};*/
-	
-}
-class SP_LightPostManagerClass : ScriptComponentClass
-{
-	
-};
-[BaseContainerProps(configRoot: true)]
-class SP_LightPostManager : ScriptComponent
-{
-	static SP_LightPostManager m_instance;
-	static ref array <LightPost> m_aLightposts;
-	static ref array <string> m_aConnectedBases;
-	
-	static SP_LightPostManager GetInstane()
-	{
-		return m_instance;
-	}
-	void OnBasesConnected(array <string> ConnectedBases)
-	{
-		foreach(string base : ConnectedBases)
-		{
-			m_aConnectedBases.Insert(base);
-		}
-	}
-	void OnPostBuilt(LightPost post)
-	{
-		array <string> bases = {};
-		post.GetConnectingBases(bases);
-		if (AreBasesConnected(bases))
-		{
-			OnBasesConnected(bases);
-		}
-	}
-	
-	void RegisterPost(LightPost Post)
-	{
-		if (!m_aLightposts.Contains(Post))
-			m_aLightposts.Insert(Post);
-		Post.GetOnBuilt().Insert(OnPostBuilt);
-	}
-	void UnRegisterPost(LightPost Post)
-	{
-		if (m_aLightposts.Contains(Post))
-			m_aLightposts.RemoveItem(Post);
-	}
-	static void GetLightPolesForBases( array <string> bases, out array <LightPost> Posts )
-	{
-		for (int i; i < m_aLightposts.Count(); i++)
-		{
-			if (m_aLightposts[i].ConnectBases(bases))
-			{
-				Posts.Insert(m_aLightposts[i]);
-			}
-		}
-	}
-	static bool AreBasesConnected(array <string> bases)
-	{
-		array <LightPost> Posts = {};
-		GetLightPolesForBases(bases, Posts);
-		if (Posts.IsEmpty())
-			return false;
-		for (int i; i < Posts.Count(); i++)
-		{
-			if (!Posts[i].IsBuilt())
-				return false;
-		}
-		return true;
-	}
-	static void EnableBuildingPreviews(array <string> bases)
-	{
-		array <LightPost> Posts = {};
-		GetLightPolesForBases(bases, Posts);
-		if (Posts.IsEmpty())
-			return;
-		for (int i; i < Posts.Count(); i++)
-		{
-			Posts[i].SetVisible();
-			SCR_PathPointMapDescriptorComponent mapdesc = SCR_PathPointMapDescriptorComponent.Cast(Posts[i].FindComponent(SCR_PathPointMapDescriptorComponent));
-			mapdesc.Item().SetVisible(true);
-		}
-		return;
-	}
-	void SP_LightPostManager(IEntityComponentSource src, IEntity ent, IEntity parent)
-	{
-		m_aLightposts = {};
-		m_aConnectedBases = {};
-		m_instance = this;
-	}
-	void ~SP_LightPostManager()
-	{
-		m_aLightposts.Clear();
-		m_aConnectedBases.Clear();
-	}
-}
+		SCR_CampaignMilitaryBaseManager baseman = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
 
-class Path
-{
-	array <LightPost> posts;
-	array <string> bases;
-}
-class SP_ColorNames
-{
-	static Color Get(SP_EColor en)
-	{
-		if (en == SP_EColor.RED)
-			return Color.Red;
-		if (en == SP_EColor.BLUE)
-			return Color.Blue;
-		if (en == SP_EColor.YELLOW)
-			return Color.Yellow;
-		if (en == SP_EColor.GREEN)
-			return Color.Green;
-		if (en == SP_EColor.VIOLET)
-			return Color.Violet;
-		return Color.White;
+		SCR_CampaignMilitaryBaseComponent base = baseman.GetClosestBase(GetOrigin());
+
+		base.RegisterPost(this);
 	}
-}
-enum SP_EColor
-{
-	RED,
-	BLUE,
-	YELLOW,
-	GREEN,
-	VIOLET,
+	//Destructor
+	void ~LightPost()
+	{
+		SP_LightPostManager man = SP_LightPostManager.GetInstane();
+		if (!man)
+			return;
+		man.UnRegisterPost(this);
+	};
+	
 }

@@ -41,18 +41,25 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
   SP_RequestManagerComponent "{5E9E986CBDBDB7EA}" {
    m_aTasksToSpawn {
     SP_DeliverTask "{5F13145D9F448CF1}" {
+     m_bEnabled 0
     }
     SP_DestroyTask "{5F13145D81CB4244}" {
+     m_bEnabled 0
     }
     SP_KillTask "{5F13145D803B8574}" {
+     m_bEnabled 0
     }
     SP_NavigateTask "{5F13145D82535E34}" {
+     m_bEnabled 0
     }
     SP_RescueTask "{5F13145D852335BD}" {
+     m_bEnabled 0
     }
     SP_RetrieveTask "{5F13145D87D05421}" {
+     m_bEnabled 0
     }
     SP_TalkTask "{5F13145D86C08596}" {
+     m_bEnabled 0
     }
    }
    m_bShowDebug 0
@@ -60,6 +67,4 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
  }
  m_bRandomizeSupplies 0
  m_iBasePatrolInfluance 250
- m_bOverrideGameOverType 1
- m_eOverriddenGameOverType DEATH
 }

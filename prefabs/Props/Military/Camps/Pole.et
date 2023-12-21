@@ -82,6 +82,8 @@ LightPost {
      m_UIInfo SCR_EditableCommentUIInfo "{5F2911329E89FC85}" {
       Name "Path"
      }
+     m_vIconPos 0 20 0
+     m_fMaxDrawDistance 3000
     }
     Hierarchy "{5F2930E9FC4A3051}" {
     }

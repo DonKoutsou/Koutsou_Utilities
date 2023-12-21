@@ -163,6 +163,9 @@ SCR_GameModeCampaign GameMode_Campaign : "{3B230AAC5252108F}prefabs/MP/Modes/Con
   SCR_XPHandlerComponent "{5CAAA397E5408ABF}" {
    m_sXPRewardsConfig "{8227B4636C73C5B5}Configs/Campaign/CampaignXPRewards.conf"
   }
+  SP_LightPostManager "{5F2295B003E5D767}" {
+   m_benableDebug 1
+  }
   SP_RequestManagerComponent "{5E9E986CBDBDB7EA}" {
    m_aTasksToSpawn {
     SP_DeliverTask "{5F13145D9F448CF1}" {
@@ -180,7 +183,6 @@ SCR_GameModeCampaign GameMode_Campaign : "{3B230AAC5252108F}prefabs/MP/Modes/Con
     SP_TalkTask "{5F13145D86C08596}" {
     }
    }
-   m_bShowDebug 1
   }
  }
  coords 26.741 0.005 10.965

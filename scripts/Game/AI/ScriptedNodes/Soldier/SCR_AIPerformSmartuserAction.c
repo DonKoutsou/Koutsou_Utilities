@@ -134,6 +134,8 @@ class SCR_AIPerformContSmartUserAction : AITaskScripted
 	
 	ScriptedUserAction action;
 	
+	bool waiting;
+	
 	static const string USER_ACTION_PORT = "UserAction";
 	static const string TARGET_ENTITY_PORT = "TargetEntity";
 	
@@ -194,13 +196,18 @@ class SCR_AIPerformContSmartUserAction : AITaskScripted
 	
 			CharacterCommandHandlerComponent handlerComponent = pAnimationComponent.GetCommandHandler();
 			
-				
+			
+			
 			if (handlerComponent.IsUsingItem())
 			{
+				waiting = false;
 				return ENodeResult.RUNNING;
 			}
-			else
+			if (waiting)
+				return ENodeResult.RUNNING;
+			else 
 			{
+				action = null;
 				return ENodeResult.SUCCESS;
 			}
 		}
@@ -227,7 +234,9 @@ class SCR_AIPerformContSmartUserAction : AITaskScripted
 					else if (!turnActionOn && !actionWithOccupancy.IsOccupied()) //  action is not ON and we wanted to turn it off
 						return ENodeResult.FAIL;
 				};*/
+				waiting = true;
 				action.OnActionStart(controlledEntity);
+				
 				return ENodeResult.RUNNING;
 			}
 		}
@@ -241,6 +250,7 @@ class SCR_AIPerformContSmartUserAction : AITaskScripted
 			PerformAction(owner, false);
 			m_bHasAborted = true;
 		}
+		action = null;
 	}
 	
 	//------------------------------------------------------------------------------------------------
