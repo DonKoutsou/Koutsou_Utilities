@@ -85,7 +85,7 @@ modded class DS_DialogueComponent
 	}
 	//function used to generate into dialogue when talking to someone. Should be able to produce multiple lines
 	//tbi
-	void IntroductionSting(IEntity talker, IEntity Player)
+	void IntroductionString(IEntity talker, IEntity Player)
 	{
 		string IndtroducionString;
 		while (!IndtroducionString)
@@ -196,13 +196,12 @@ modded class DS_DialogueComponent
 		if (!TnWman)
 			return;
 		string Plname = DS_DialogueComponent.GetCharacterSurname(Player);
-		string Plrank = DS_DialogueComponent.GetCharacterRankNameFull(Player);
 		if (TnWman.GetTimeOfTheDay() > 4.0 && TnWman.GetTimeOfTheDay() < 12.0)
 		{
-			IndtroducionString = string.Format("Good morning %1 %2. %3", Plrank, Plname, IndtroducionString);
+			IndtroducionString = string.Format("Good morning %1 %2. %3", Plname, IndtroducionString);
 		}
 		else
-			IndtroducionString = string.Format("Hello %1 %2. %3", Plrank, Plname, IndtroducionString);
+			IndtroducionString = string.Format("Hello %1 %2. %3", Plname, IndtroducionString);
 		RegisterCharInHistory(talker);
 		a_texthistory.Insert(IndtroducionString);
 		array<BaseInfoDisplay> infoDisplays = {};
@@ -655,7 +654,7 @@ modded class DS_DialogueAction
 			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);
 			GetGame().GetInputManager().ActivateContext("DialogueMenuContext");
 			DialogueUIClass DiagUI = DialogueUIClass.Cast(myMenu);
-			DiagComp.IntroductionSting(pOwnerEntity, pUserEntity);
+			DiagComp.IntroductionString(pOwnerEntity, pUserEntity);
 			DiagUI.UpdateEntries(pOwnerEntity, pUserEntity);
 		}
 		else

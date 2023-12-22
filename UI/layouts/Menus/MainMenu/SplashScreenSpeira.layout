@@ -367,7 +367,7 @@ FrameWidgetClass {
             SizeY 80
             OffsetBottom -180
            }
-           Text "Permadeath mode. Game is ment to be played like this. Dissable to make game more friendly. Respawn on last place slept, no story progression will be lost. Also dissables task markers."
+           Text "Permadeath mode. Game is ment to be played like this. Dissable to make game more friendly. Respawn on last place slept, no story progression will be lost. Also dissables task markers and 3PV."
            Wrap 1
           }
           FrameWidgetClass "{5EF6C5E18C433C61}" {
@@ -618,7 +618,7 @@ FrameWidgetClass {
            {
             HorizontalLayoutWidgetClass "{5F28CD2E95FFC7A5}" {
              Name "HorizontalLayout0"
-             Slot OverlayWidgetSlot {
+             Slot OverlayWidgetSlot "{5F2D01467201A791}" {
               HorizontalAlign 3
               VerticalAlign 3
               Padding 10 10 10 10

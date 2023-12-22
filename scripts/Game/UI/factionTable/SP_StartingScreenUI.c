@@ -43,11 +43,11 @@ class SP_StartingScreenUI : ChimeraMenuBase
 			{
 				logic.SetLives(-1);
 				logic.SetTaskMarkers(!m_wHardcorCheckbox.IsChecked());
-				logic.Set3PV(false);
 			}
 			else
 			{
 				logic.SetLives(1);
+				logic.Set3PV(false);
 			}
 			if (!m_wSurvivalCheckbox.IsChecked())
 			{
@@ -62,11 +62,11 @@ class SP_StartingScreenUI : ChimeraMenuBase
 				logic.EnablePost();
 			}
 			
-			if (m_wCharNameOverride.GetText() != "Custom Name" || m_wCharNameOverride.GetText() != "STRING_EMPTY")
+			if (m_wCharNameOverride.GetText() != "Custom Name" && m_wCharNameOverride.GetText() != "STRING_EMPTY")
 			{
 				name = m_wCharNameOverride.GetText();
 			}
-			if (m_wCharSurnameOverride.GetText() != "Custom Surname" || m_wCharSurnameOverride.GetText() != "STRING_EMPTY")
+			if (m_wCharSurnameOverride.GetText() != "Custom Surname" && m_wCharSurnameOverride.GetText() != "STRING_EMPTY")
 			{
 				surname = m_wCharSurnameOverride.GetText();
 			}

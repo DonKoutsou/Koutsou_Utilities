@@ -75,11 +75,6 @@ Vehicle : "{1247D68D2A76907D}Prefabs/Vehicles/Wheeled/UAZ452/UAZ452_ambulance_ba
    MaxRPM 3000
   }
   SCR_UniversalInventoryStorageComponent "{5D7E924E84B181BC}" {
-   MultiSlots {
-    MultiSlotConfiguration "{5D7EA3CA68FB9515}" {
-     NumSlots 0
-    }
-   }
   }
   SCR_VehicleFactionAffiliationComponent "{5882CBD9AC741CEC}" {
    "faction affiliation" "USSR"
@@ -97,7 +92,7 @@ Vehicle : "{1247D68D2A76907D}Prefabs/Vehicles/Wheeled/UAZ452/UAZ452_ambulance_ba
    }
   }
   SCR_ResourceComponent "{5D83561B5E01449A}" {
-   Enabled 1
+   Enabled 0
    m_aContainers {
     SCR_ResourceContainer "{5D83561B5DCF4DE6}" {
      m_fResourceValueCurrent 0

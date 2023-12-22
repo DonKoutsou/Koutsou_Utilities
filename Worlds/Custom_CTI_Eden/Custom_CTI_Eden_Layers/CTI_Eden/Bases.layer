@@ -609,6 +609,7 @@ $grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMil
     m_sBaseName "#AR-MapLocation_EntreDeux"
     m_sBaseNameUpper "#AR-Campaign_MapLocation_EntreDeux-UC"
     m_sMapLocationName "LocationEntreDeux"
+    m_BasePossitionOverride 0 0 0
    }
   }
   coords 6014.644 216.694 7178.425
@@ -996,6 +997,12 @@ $grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMil
   }
   coords 7473.957 7.871 6694.604
   angleY -18.505
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    Flags 2097155
+   }
+  }
  }
  MajorBaseLamentin {
   components {
