@@ -3,9 +3,7 @@ class DS_DialogueStageResupplyKitActionCondition : DS_BaseDialogueStageActionCon
 {
 	[Attribute()]
 	ResourceName m_KitPrefab;
-	
-	[Attribute()]
-	ResourceName m_CurrencyPrefab;
+
 	override bool CanBePerformed(IEntity Character, IEntity Player)
 	{
 		InventoryStorageManagerComponent inv = InventoryStorageManagerComponent.Cast(Player.FindComponent(InventoryStorageManagerComponent));
@@ -34,7 +32,7 @@ class DS_DialogueStageResupplyKitActionCondition : DS_BaseDialogueStageActionCon
 		if (!wallet)
 			return false;
 		int cutam = wallet.GetCurrencyAmmount();
-		if (cutam == 1)
+		if (cutam < ammounttifill)
 			return false;
 		
 		return true;

@@ -355,14 +355,12 @@ class SP_RequestManagerComponent : ScriptComponent
 		return false;
 	}
 	//------------------------------------------------------------------------------------------------------------//
-	SP_Task CreateCustomTask(typename TaskType, IEntity Owner)
+	SP_Task CreateCustomTaskOfType(typename TaskType, IEntity Owner)
 	{
 		if(!TaskType)
 		{
 			return null;
 		}
-		if (!GetTaskSample(TaskType).m_bEnabled)
-			return null;
 		DS_DialogueComponent Diag = DS_DialogueComponent.GetInstance();
 		SP_Task Task = SP_Task.Cast(TaskType.Spawn());
 		Task.m_eTaskOwner = Owner;

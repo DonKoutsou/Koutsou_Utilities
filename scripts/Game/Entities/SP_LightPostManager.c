@@ -19,6 +19,30 @@ class SP_LightPostManager : ScriptComponent
 	{
 		return m_instance;
 	}
+	void GetPath(out array <Path> paths, string BaseFrom, string BaseTo)
+	{
+		if (m_aPaths.IsEmpty())
+			return;
+		foreach (Path path : m_aPaths)
+		{
+			if (path.ConnectsBases(BaseFrom, BaseTo))
+			{
+				paths.Insert(path);
+			}
+		}
+	};
+	void GetPathsForBase(out array <Path> paths, string base)
+	{
+		if (m_aPaths.IsEmpty())
+			return;
+		foreach (Path path : m_aPaths)
+		{
+			if (path.IsForBase(base))
+			{
+				paths.Insert(path);
+			}
+		}
+	};
 	static void GetConnectedPosts(LightPost post, out array <LightPost> ConnectedPost)
 	{
 		array <string> bases = {};
@@ -205,16 +229,17 @@ class SP_LightPostManager : ScriptComponent
 		}
 		return true;
 	}
-	static void EnableBuildingPreviews(array <string> bases)
+	static void EnableBuildingPreviews(Path path)
 	{
-		array <LightPost> Posts = {};
-		GetLightPolesForBases(bases, Posts);
-		if (Posts.IsEmpty())
-			return;
-		for (int i; i < Posts.Count(); i++)
+		for (int i; i < path.Count(); i++)
 		{
-			Posts[i].SetVisible();
-			SCR_PathPointMapDescriptorComponent mapdesc = SCR_PathPointMapDescriptorComponent.Cast(Posts[i].FindComponent(SCR_PathPointMapDescriptorComponent));
+			LightPost PostToEnable = path.Get(i);
+			if (!PostToEnable)
+				continue;
+			if (PostToEnable.IsBuilt())
+				continue;
+			PostToEnable.SetVisible();
+			SCR_PathPointMapDescriptorComponent mapdesc = SCR_PathPointMapDescriptorComponent.Cast(PostToEnable.FindComponent(SCR_PathPointMapDescriptorComponent));
 			mapdesc.Item().SetVisible(true);
 		}
 		return;

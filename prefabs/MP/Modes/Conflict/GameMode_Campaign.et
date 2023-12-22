@@ -61,6 +61,11 @@ SCR_GameModeCampaign : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     SP_TalkTask "{5F13145D86C08596}" {
      m_bEnabled 0
     }
+    SP_BuildLightPathTask "{5F2CC467AC3F5DCF}" {
+     m_bEnabled 0
+     m_bAssignable 0
+     m_bUseOwnerBase 1
+    }
    }
    m_bShowDebug 0
   }

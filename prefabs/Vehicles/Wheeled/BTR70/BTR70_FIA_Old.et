@@ -82,10 +82,10 @@ Vehicle : "{1C5FE7B7FF49BB8D}Prefabs/Vehicles/Wheeled/BTR70/BTR70_Base.et" {
   SCR_FuelManagerComponent "{5622A70CD78A9E2C}" {
    FuelNodes {
     SCR_FuelNode "{5622A70CD4036C5A}" {
-     m_fInitialFuelTankState 10
+     m_fInitialFuelTankState 30
     }
     SCR_FuelNode "{5628CA8E08F1AAF4}" {
-     m_fInitialFuelTankState 10
+     m_fInitialFuelTankState 30
     }
    }
   }

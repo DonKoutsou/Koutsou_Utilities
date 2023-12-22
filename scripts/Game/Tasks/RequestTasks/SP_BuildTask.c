@@ -5,7 +5,7 @@ class SP_BuildLightPathTask: SP_Task
 	[Attribute()]
 	ref array <string> m_aBasesToConnect;
 	
-	ref array <LightPost> a_posts = {};
+	ref Path m_path;
 	//------------------------------------------------------------------------------------------------------------//
 	override void CreateDescritions()
 	{
@@ -13,8 +13,8 @@ class SP_BuildLightPathTask: SP_Task
 		string OLoc;
 		GetInfo(OName, OLoc);
 		m_sTaskDesc = "Reopen the paths to neighbouring bases.";
-		m_sTaskDiag = string.Format("Set up light posts on the paths leading out of %1 base.", m_aBasesToConnect[0]);
-		m_sTaskTitle = string.Format("Reopen the paths leading out of %1.", m_aBasesToConnect[0]);
+		m_sTaskDiag = string.Format("Set up light posts on the paths leading out of %1 base to %2.", m_aBasesToConnect[0], m_aBasesToConnect[1]);
+		m_sTaskTitle = string.Format("Reopen the paths leading out of %1 to %2.", m_aBasesToConnect[0], m_aBasesToConnect[1]);
 		m_sTaskCompletiontext = "Thanks for meeting me %1.";
 		m_sacttext = "I'm here to meet you.";
 	};
@@ -64,19 +64,17 @@ class SP_BuildLightPathTask: SP_Task
 		OLoc = Diag.GetCharacterLocation(m_eTaskOwner);
 	};
 	//------------------------------------------------------------------------------------------------------------//
-	override typename GetClassName(){return SP_TalkTask;};
+	override typename GetClassName(){return SP_BuildLightPathTask;};
 	//------------------------------------------------------------------------------------------------------------//
 	override bool AssignCharacter(IEntity Character)
 	{
 		if (super.AssignCharacter(Character))
 		{
-			SP_LightPostManager.EnableBuildingPreviews(m_aBasesToConnect);
-			if (!a_posts.IsEmpty())
+			
+			if (m_path)
 			{
-				foreach (LightPost post : a_posts)
-				{
-					post.SpawnTaskMarkers(Character);
-				}
+				SP_LightPostManager.EnableBuildingPreviews(m_path);
+				m_path.SpawnTaskMarkers(Character);
 			}
 			SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
 			foreach (string basename : m_aBasesToConnect)
@@ -114,30 +112,35 @@ class SP_BuildLightPathTask: SP_Task
 			DeleteLeftovers();
 			return false;
 		}
+		if (!m_aBasesToConnect)
+			m_aBasesToConnect = {};
 		//-------------------------------------------------//
 		if (m_aBasesToConnect.IsEmpty())
 		{
 			SCR_CampaignMilitaryBaseManager man = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
 			SCR_CampaignMilitaryBaseComponent base = man.GetClosestBase(m_eTaskOwner.GetOrigin());	
-			m_aBasesToConnect.Insert(base.GetBaseName());
-			array<SCR_CampaignMilitaryBaseComponent> basesInRange = {};
-			base.GetBasesInRange(SCR_ECampaignBaseType.BASE, basesInRange);
+			array<string> basesInRange = {};
+			array<Path> Paths = {};
+			SP_LightPostManager.GetInstane().GetPathsForBase(Paths, base.GetBaseName());
+			m_path = Paths.GetRandomElement();
+			m_path.GetBases(basesInRange);
+			
 			if (!basesInRange.IsEmpty())
 			{
-				foreach (SCR_CampaignMilitaryBaseComponent disbase : basesInRange)
+				foreach (string disbase : basesInRange)
 				{
 					array <string> bases = {};
-					bases.Insert(disbase.GetBaseName());
+					SCR_CampaignMilitaryBaseComponent Dbase = man.GetNamedBase(disbase);
+					bases.Insert(Dbase.GetBaseName());
 					bases.Insert(base.GetBaseName());
 					if (!SP_LightPostManager.AreBasesConnected(bases))
 					{
-						m_aBasesToConnect.Insert(disbase.GetBaseName());
+						m_aBasesToConnect.Insert(Dbase.GetBaseName());
 					}
 				}
 			}
 				
 		}
-		SP_LightPostManager.GetLightPolesForBases(m_aBasesToConnect, a_posts);
 		
 		CreateDescritions();
 		AddOwnerInvokers();

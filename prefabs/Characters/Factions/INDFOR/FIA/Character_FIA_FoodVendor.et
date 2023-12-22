@@ -24,16 +24,16 @@ SCR_ChimeraCharacter : "{BF1E43FF39AA526B}prefabs/Characters/Factions/INDFOR/FIA
   BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Hat {
-     Prefab "{BCCB7D5AB38BB3A7}prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_base.et"
+     Prefab "{A96D07EFF829FD6B}Prefabs/Characters/HeadGear/Helmet_PASGT_01/BeanieBlue.et"
     }
     LoadoutSlotInfo Jacket {
-     Prefab "{CEA8913C049DE4E1}Prefabs/Characters/Uniforms/Tops/TshirtDarkBrown.et"
+     Prefab "{87A79AE47D7BA703}Prefabs/Characters/Uniforms/Tops/TshirtGreySydney.et"
     }
     LoadoutSlotInfo Pants {
      Prefab "{820FE927294AA39F}prefabs/Characters/Uniforms/Pants_M70_v2.et"
     }
     LoadoutSlotInfo Vest {
-     Prefab "{477A190AF2A17B8A}prefabs/Characters/Vests/Vest_ALICE/Variants/Vest_ALICE_MG.et"
+     Prefab "{2835A0EA3B79E63E}prefabs/Characters/Vests/Vest_ALICE/Variants/Vest_ALICE_rifleman.et"
     }
    }
   }

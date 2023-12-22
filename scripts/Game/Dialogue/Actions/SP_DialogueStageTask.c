@@ -127,9 +127,9 @@ class SP_DialogueStageCreateTaskAction : DS_BaseDialogueStageAction
 	{
 		SP_RequestManagerComponent ReqMan = SP_RequestManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SP_RequestManagerComponent));
 		if (m_bSetCharAsOwner)
-			ReqMan.CreateCustomTask(m_Task, Character);
+			ReqMan.CreateCustomTaskOfType(m_Task.GetClassName(), Character);
 		else
-			ReqMan.CreateCustomTask(m_Task);
+			ReqMan.CreateTask(m_Task.GetClassName());
 	};
 };
 [BaseContainerProps(configRoot:true), DialogueStageActionTitleAttribute()]

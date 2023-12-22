@@ -91,6 +91,7 @@ class SP_DialogueStageAvailableTaskActionCondition : SP_DialogueStageBaseTaskAct
 {
 	[Attribute()]
 	bool m_bUseIndex;
+	
 	override bool CanBePerformed(IEntity Character, IEntity Player)
 	{
 		IEntity CharToCheck = Character;
@@ -111,6 +112,34 @@ class SP_DialogueStageAvailableTaskActionCondition : SP_DialogueStageBaseTaskAct
 			if (tasklist.IsEmpty())
 				return false;
 		return true;
+	};
+}
+[BaseContainerProps(configRoot:true)]
+class SP_DialogueStageAlreadyHasTaskTaskActionCondition : SP_DialogueStageBaseTaskActionCondition
+{
+	[Attribute()]
+	bool m_bUseIndex;
+	
+	override bool CanBePerformed(IEntity Character, IEntity Player)
+	{
+		IEntity CharToCheck = Character;
+		IEntity CharToAssign = Player;
+		if (m_bUsePlayer)
+		{
+			CharToCheck = Player;
+			CharToAssign = Character;
+		}
+		array <ref SP_Task> tasklist = {};
+		GatherTasks(CharToCheck, CharToAssign, tasklist);
+		if (m_bUseIndex)
+		{
+			if (m_iIndex >= tasklist.Count())
+				return true;
+		}
+		else
+			if (tasklist.IsEmpty())
+				return true;
+		return false;
 	};
 }
 [BaseContainerProps(configRoot:true)]

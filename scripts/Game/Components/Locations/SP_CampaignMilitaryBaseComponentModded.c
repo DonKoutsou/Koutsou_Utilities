@@ -2,6 +2,7 @@ modded class SCR_CampaignMilitaryBaseComponent
 {
 	protected IEntity m_eBaseCommander;
 	protected IEntity m_eBaseMedic;
+	protected IEntity m_eBaseChef;
 	protected IEntity m_eBaseMechanic;
 	protected IEntity m_eBaseNavigator;
 	protected ref array <IEntity> a_BaseGuards = {};
@@ -125,6 +126,12 @@ modded class SCR_CampaignMilitaryBaseComponent
 				return;
 			}
 			break;
+			case SCR_ECharacterRank.FOOD_VENDOR:
+			{
+				m_eBaseChef = Char;
+				return;
+			}
+			break;
 			case SCR_ECharacterRank.MECHANIC:
 			{
 				m_eBaseMechanic = Char;
@@ -162,6 +169,12 @@ modded class SCR_CampaignMilitaryBaseComponent
 			case SCR_ECharacterRank.MEDIC:
 			{
 				Char = m_eBaseMedic;
+				return;
+			}
+			break;
+			case SCR_ECharacterRank.FOOD_VENDOR:
+			{
+				Char = m_eBaseChef;
 				return;
 			}
 			break;

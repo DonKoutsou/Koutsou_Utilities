@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F4841312EDA7ADBE}Configs/Dilaogue_Configs/Generic/Trade_Item_Generic.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

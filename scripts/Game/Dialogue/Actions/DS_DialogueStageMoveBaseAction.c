@@ -86,6 +86,33 @@ class DS_DialogueStageMoveBaseInhabitantsAction : DS_BaseDialogueStageAction
 			group.RemoveWaypoint(wp);
 			group.AddWaypoint(newwp);
 		}
+		IEntity foodvendor;
+		basetomovefrom.GetCharacterOfPost(SCR_ECharacterRank.FOOD_VENDOR, foodvendor);
+		if (foodvendor)
+		{
+			ChimeraCharacter char = ChimeraCharacter.Cast(foodvendor);
+			SCR_EditableEntityComponent editable = SCR_EditableEntityComponent.Cast(foodvendor.FindComponent(SCR_EditableEntityComponent));
+			if (editable)
+			{
+				SCR_CharacterCommandHandlerComponent handler = SCR_CharacterCommandHandlerComponent.Cast(char.GetCharacterController().GetAnimationComponent().GetCommandHandler());
+				if (handler.IsLoitering())
+				{
+					handler.StopLoitering(true);
+				}
+				vector mat[4];
+				mat[3] = basetomoveto.GetServiceByType(SCR_EServicePointType.FIELD_HOSPITAL).GetOwner().GetOrigin();
+				editable.SetTransform(mat);
+				if (m_aInhabitants.Contains(foodvendor))
+					m_aInhabitants.RemoveItem(foodvendor);
+				basetomoveto.RegisterCharacter(commander, SCR_ECharacterRank.FOOD_VENDOR);
+			}
+
+			AIGroup group = char.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup();
+			AIWaypoint wp = char.GetCharacterController().GetAIControlComponent().GetAIAgent().GetParentGroup().GetCurrentWaypoint();
+			AIWaypoint newwp =  CreateWaypointBaseon(wp, basetomoveto.GetServiceByType(SCR_EServicePointType.FIELD_HOSPITAL).GetOwner().GetOrigin());
+			group.RemoveWaypoint(wp);
+			group.AddWaypoint(newwp);
+		}
 		IEntity mechanic;
 		basetomovefrom.GetCharacterOfPost(SCR_ECharacterRank.MECHANIC, mechanic);
 		if (mechanic)

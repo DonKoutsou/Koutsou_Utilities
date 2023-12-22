@@ -649,7 +649,7 @@ modded class DS_DialogueAction
 			}
 			if (!DiagComp.a_PLcontactList.Contains(pOwnerEntity))
 					DiagComp.a_PLcontactList.Insert(pOwnerEntity);
-			SCR_CharacterCommandHandlerComponent handler = SCR_CharacterCommandHandlerComponent.Cast(CharUser.GetCharacterController().GetAnimationComponent().GetCommandHandler());
+			SCR_CharacterCommandHandlerComponent handler = SCR_CharacterCommandHandlerComponent.Cast(Char.GetCharacterController().GetAnimationComponent().GetCommandHandler());
 			if (!handler.IsLoitering())
 				utility.AddAction(action);
 			MenuBase myMenu = menumanager.OpenMenu(ChimeraMenuPreset.DialogueMenu);

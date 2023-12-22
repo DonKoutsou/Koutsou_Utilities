@@ -1,0 +1,14 @@
+GenericEntity : "{68036D94CE3E939F}Prefabs/Systems/Services/ServicePointDelegate_base.et" {
+ ID "5E7487DAF6135DCE"
+ components {
+  SCR_ServicePointDelegateComponent "{5E7487DBD4793F39}" {
+   m_eType KITCHEN
+   m_eBuildingLabel SERVICE_KITCHEN
+  }
+  SCR_ServicePointMapDescriptorComponent "{5E7487DBD96AE1E1}" {
+   m_sMarkerActive "Slot_Kitchen"
+   m_sMarkerInactive "Slot_Kitchen_Inactive"
+   m_sMarkerName "#AR-EditableEntity_FieldHospital_M_US_01_Name"
+  }
+ }
+}

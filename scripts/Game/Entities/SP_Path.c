@@ -16,7 +16,23 @@ class Path
 	{
 		posts.Insert(post);
 	}
-	
+	bool ConnectsBases(string form, string to)
+	{
+		return (bases.Contains(form) && bases.Contains(to));
+	}
+	bool IsForBase(string base)
+	{
+		return bases.Contains(base);
+	}
+	void SpawnTaskMarkers(IEntity Assignee)
+	{
+		if (posts.IsEmpty())
+			return;
+		foreach (LightPost post : posts)
+		{
+			post.(SpawnTaskMarkers(Assignee));
+		}
+	}
 	int Count()
 		return posts.Count();
 	LightPost Get(int index)

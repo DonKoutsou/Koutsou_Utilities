@@ -49,6 +49,12 @@ modded class SCR_AutoSpawnLogic
 		if (surname)
 			id.GetIdentity().SetSurname(surname);
 	}
+	void Set3PV(bool toset)
+	{
+		SCR_CharacterCameraHandlerComponent CamHand = SCR_CharacterCameraHandlerComponent.Cast(GetGame().GetPlayerController().GetControlledEntity().FindComponent(SCR_CharacterCameraHandlerComponent));
+		CamHand.Allow3PV = toset;
+	}
+	
 	void EnablePost()
 	{
 		GetGame().GetWorld().SetCameraPostProcessEffect(0, 15, PostProcessEffectType.HDR, "{9E4227906BE39169}Common/Postprocess/HDR_Effecty.emat");

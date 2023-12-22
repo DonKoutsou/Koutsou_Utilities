@@ -39,7 +39,7 @@ class SCR_AICreateTask : AITaskScripted
 			}
 			break;
 		}
-		if (!RequestComp.CreateCustomTask(taskname, owner.GetControlledEntity()))
+		if (!RequestComp.CreateCustomTaskOfType(taskname, owner.GetControlledEntity()))
 			return ENodeResult.FAIL;
 		return ENodeResult.SUCCESS;
 	}

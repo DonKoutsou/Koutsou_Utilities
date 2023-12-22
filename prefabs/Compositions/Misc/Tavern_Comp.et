@@ -1,9 +1,11 @@
 GenericEntity {
  ID "5C8B3B2DBC48F1C9"
  components {
-  Hierarchy "{5C8B3B2DA17A773A}" {
+  SCR_SlotCompositionComponent "{5F2C97E74007786C}" {
   }
   RplComponent "{5C8B3B2DA7E3BEC7}" {
+  }
+  Hierarchy "{5C8B3B2DA17A773A}" {
   }
  }
  coords 9569.924 10.931 5207.061
@@ -22,7 +24,7 @@ GenericEntity {
    ID "5C8B3B2DBC445B0C"
    coords 2.063 0.043 0.785
   }
-  GameEntity : "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_base.et" {
+  GameEntity : "{1CE762D0A53A395A}prefabs/Props/Civilian/LampKerosene_01_base.et" {
    ID "5C8B3B2DBC445B0E"
    coords 1.015 1.06 1.083
   }
@@ -31,7 +33,7 @@ GenericEntity {
    coords 2.097 3.809 0.26
    angleY -160.952
   }
-  GenericEntity : "{261F10BDC068BB35}prefabs/Props/Furniture/ChairOld_01.et" {
+  GenericEntity : "{261F10BDC068BB35}Prefabs/Props/Furniture/ChairOld_01.et" {
    ID "5C8B3B2DBC445B00"
    coords 3.857 0.023 2.089
    angleY -34.858
@@ -68,7 +70,7 @@ GenericEntity {
   }
   GenericEntity : "{6CD34D6526429EEC}Prefabs/Props/Furniture/BarTable_01.et" {
    ID "5C8B3B2DBC445B0D"
-   coords 1.983 0.04 0.769
+   coords 1.983 0.04 1.147
   }
   GenericEntity : "{7F59A8D992FBF5CA}Prefabs/Props/Military/MilitaryCrates/CrateStack_01/CrateStack_01_base.et" {
    ID "5C8B3B2DBC449AFF"
@@ -103,6 +105,11 @@ GenericEntity {
    coords 2.714 0.087 -3.157
    angleY 3.159
   }
+  GenericEntity : "{A4E14002C47285EE}Prefabs/Systems/Compositions/PatrolPoint/PatrolPoint_LoiterPoint_LeanLeft.et" {
+   ID "5F2C9D4149B5F3E0"
+   coords 2.499 0.108 0.2
+   angleY 180
+  }
   GenericEntity : "{AA3D2C0BB0D2B56B}Prefabs/Props/Crates/Crate_01_green.et" {
    ID "5C8B3B2DBC449AF1"
    coords 3.015 0.647 -2.377
@@ -114,7 +121,7 @@ GenericEntity {
      Hierarchy "{56A6E94EFAF7B101}" {
      }
     }
-    coords 1.056 0.031 -0.512
+    coords 1.091 0.031 -0.209
     angleY -173.456
    }
    {
@@ -126,6 +133,25 @@ GenericEntity {
     coords 0.972 0.031 -2.01
     angleY -161.632
    }
+  }
+  GenericEntity : "{B3A41EC960E33544}PrefabsEditable/SupportStationSystems/E_SupportStationSystem_Heal_Tent_USSR.et" {
+   ID "5F2C97E763359245"
+   components {
+    SCR_HealSupportStationComponent "{5E1CF9211233B176}" {
+     Enabled 0
+    }
+    SCR_KitchenSupportStationComponent "{5F2C97E50B7635D5}" {
+    }
+    SCR_ServicePointComponent "{5C8CAE44023804D5}" {
+     m_eType KITCHEN
+     m_eBuildingLabel SERVICE_KITCHEN
+     m_sDelegatePrefab "{BA3CCA95823FC717}Prefabs/Systems/Services/ServicePointDelegate_KITCHEN.et"
+    }
+    SCR_SupportStationAreaMeshComponent "{5B2AD5B869A9C26D}" {
+     m_fRadius 8
+    }
+   }
+   coords -0.535 0.02 -0.586
   }
   GenericEntity : "{C2C1A49E6EACAA64}Prefabs/Props/Civilian/Ashtray_01_clear.et" {
    ID "5C8B3B2DBC45A003"
@@ -150,70 +176,6 @@ GenericEntity {
     coords -1.15 0.052 0.024
    }
   }
-  $grp GenericEntity : "{CC66836BF4E211F9}Prefabs/Props/Military/Camps/Duckboard_01.et" {
-   {
-    ID "5C8B3B2DBC4330A0"
-    coords -0.41 -0.073 -0.889
-    angleY -85.25
-   }
-   {
-    ID "5C8B3B2DBC43338C"
-    coords -3.288 -0.055 -1.786
-    angleY 14.653
-   }
-   {
-    ID "5C8B3B2DBC43338F"
-    coords -0.577 -0.097 -2.147
-    angleY -85.25
-   }
-   {
-    ID "5C8B3B2DBC445B07"
-    coords 3.661 -0.055 1.893
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC4479CD"
-    coords 2.407 -0.055 2.122
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC449AF5"
-    coords 3.324 -0.063 -1.808
-    angleX -1.879
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC458A9F"
-    coords -3.985 -0.055 2.463
-    angleY 14.6
-   }
-   {
-    ID "5C8B3B2DBC4592A1"
-    coords 2.056 -0.055 -1.926
-    angleX -1.879
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC45C1B5"
-    coords 1.087 -0.092 1.624
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC45DB85"
-    coords -0.17 -0.104 1.73
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC45DB86"
-    coords -1.476 -0.099 1.84
-    angleY 4.861
-   }
-   {
-    ID "5C8B3B2DBC45F731"
-    coords -2.745 -0.055 2.093
-    angleY 11.662
-   }
-  }
   GenericEntity : "{D023942ECEA592ED}Prefabs/Props/Furniture/Stool_02.et" {
    ID "5C8B3B2DBC449AE1"
    coords 1.9 -0.004 -0.498
@@ -223,7 +185,7 @@ GenericEntity {
    coords 1.253 0.836 -0.328
    angleY 0
   }
-  GameEntity : "{EC645B2E2123131F}prefabs/Props/Civilian/LampKerosene_01/LampKerosene_01_blue.et" {
+  GameEntity : "{EC645B2E2123131F}prefabs/Props/Civilian/LampKerosene_01_blue.et" {
    ID "5C8B3B2DBC449AF6"
    coords -3.53 0.948 2.063
   }

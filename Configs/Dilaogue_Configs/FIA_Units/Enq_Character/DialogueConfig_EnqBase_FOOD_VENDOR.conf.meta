@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{AE8BB40E938D49A8}Configs/Dilaogue_Configs/FIA_Units/Enq_Character/DialogueConfig_EnqBase_FOOD_VENDOR.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

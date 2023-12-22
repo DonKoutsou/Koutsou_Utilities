@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F9A1863BCF18D00D}Configs/Dilaogue_Configs/Generic/Buy_Food_Supplies.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

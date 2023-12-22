@@ -27,7 +27,7 @@ SCR_ChimeraCharacter : "{5627086E6263EEA8}prefabs/Characters/Factions/INDFOR/FIA
     LoadoutSlotInfo Back {
     }
     LoadoutSlotInfo Vest {
-     Prefab "{ED5574EA7F63B457}Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     Prefab "{ED5574EA7F63B457}prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
     }
    }
   }
@@ -40,14 +40,14 @@ SCR_ChimeraCharacter : "{5627086E6263EEA8}prefabs/Characters/Factions/INDFOR/FIA
      }
     }
     ItemsInitConfigurationItem "{5F269A5707E5573B}" {
-     TargetStorage "Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     TargetStorage "prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
      TargetPurpose 64
      PrefabsToSpawn {
       "{3A421547BC29F679}prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et"
      }
     }
     ItemsInitConfigurationItem "{5F269A58F5E17355}" {
-     TargetStorage "Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     TargetStorage "prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
      PrefabsToSpawn {
       "{E5912E45754CD421}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Tracer.et" "{E5912E45754CD421}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Tracer.et" "{8B853CDD11BA916E}Prefabs/Weapons/Magazines/Magazine_9x18_PM_8rnd_Ball.et" "{8B853CDD11BA916E}Prefabs/Weapons/Magazines/Magazine_9x18_PM_8rnd_Ball.et"
      }

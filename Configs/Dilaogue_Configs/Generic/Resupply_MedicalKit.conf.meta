@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F92B1BCB4DC5733F}Configs/Dilaogue_Configs/Generic/Resupply_MedicalKit.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

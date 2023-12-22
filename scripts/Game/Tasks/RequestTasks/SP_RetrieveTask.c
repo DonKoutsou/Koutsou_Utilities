@@ -496,7 +496,12 @@ class SP_RequestPredicate : InventorySearchPredicate
 //------------------------------------------------------------------------------------------------------------//
 modded enum EEditableEntityLabel
 {
+	SERVICE_KITCHEN,
 	ITEMTYPE_CURRENCY = 85,
 	ITEMTYPE_STASH = 86,
 	ITEMTYPE_SLEEPINGPILLS = 87,
+}
+modded enum SCR_EServicePointType
+{
+	KITCHEN,
 }

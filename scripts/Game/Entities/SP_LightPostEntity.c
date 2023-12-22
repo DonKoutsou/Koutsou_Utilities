@@ -62,6 +62,8 @@ class LightPost: GameEntity
 	
 	void SpawnTaskMarkers(IEntity Assignee)
 	{
+		if (IsBuilt())
+			return;
 		SCR_AutoSpawnLogic logic = SCR_AutoSpawnLogic.Cast(SCR_RespawnSystemComponent.GetInstance().GetSpawnLogic());
 		if (!logic.m_bAllowTaskMarkers)
 			return;

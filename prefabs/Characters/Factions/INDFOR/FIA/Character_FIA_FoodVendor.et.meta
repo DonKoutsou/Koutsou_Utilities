@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{5D8014A4EC2DC20A}prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_FoodVendor.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

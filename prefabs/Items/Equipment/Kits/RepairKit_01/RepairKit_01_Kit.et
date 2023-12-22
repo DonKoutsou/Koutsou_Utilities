@@ -28,7 +28,6 @@ GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/Rep
      }
     }
     m_Size SLOT_2x2
-    m_SlotType SLOT_ANY
    }
   }
   MeshObject "{5D4681D6FA238324}" {
@@ -44,10 +43,9 @@ GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/Rep
    m_eSupportStationPriority MEDIUM
    m_fRange 5
    m_fMaxHealScaled 1
-   m_eMaxHealDone HEAL_MAX_HEALABLE_HEALTH_REACHED_FIELD
+   m_eMaxHealDone HEAL_MAX_HEALABLE_HEALTH_REACHED
   }
-  SCR_SupportStationGadgetComponent "{5DF4D9A1DBD1B5EF}" {
-   Enabled 0
+  ActionsManagerComponent "{508AB5952B584B2E}" {
   }
   SCR_ResourceComponent "{5E4A9574582A1D38}" {
    m_aContainers {
@@ -98,7 +96,8 @@ GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/Rep
    m_aGenerators {
     SCR_ResourceGenerator "{5EFB03354A74CA15}" {
      m_eResourceRights ALL
-     m_fStorageRange 5
+     m_eIdentifier DEFAULT_STORAGE
+     m_fStorageRange 10
      m_ContainerQueue SCR_ResourceGeneratorContainerQueue "{5EFB0334484557ED}" {
       m_StoragePolicies {
        SCR_ResourceGeneratorStoragePolicy "{5EFB03344A652E74}" {
@@ -117,4 +116,5 @@ GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/Rep
    m_bCheckForSteal 0
   }
  }
+ coords 2.377 2.552 4
 }
