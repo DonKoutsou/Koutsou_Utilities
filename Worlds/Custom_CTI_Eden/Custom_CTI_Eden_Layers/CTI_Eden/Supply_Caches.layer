@@ -220,7 +220,8 @@ GenericEntity : "{458D1E40FD79C36D}Prefabs/Compositions/Locations/Eden/SupplyCac
  coords 4773.462 164.347 7094.568
 }
 GenericEntity : "{58CF761823C96210}Prefabs/Compositions/Locations/Eden/SupplyCache_Tyrone_FIA_01.et" {
- coords 4927.983 36.047 9092.887
+ coords 4936.852 36.047 9095.563
+ angleY 130.497
 }
 GenericEntity : "{59DE9F68F4D2A490}Prefabs/Compositions/Locations/Eden/SupplyCache_Laruns_FIA_01.et" {
  coords 7558.335 82.531 5540.855

@@ -749,7 +749,7 @@ class SP_CharacterStatsComponent : ScriptComponent
 					HZ.SetHealth(HZ.GetHealth() - 1);
 				}
 			}
-			Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5 / Energy : %6 / Hunger : %7 / Thirst : %8", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes, m_fEnergy, m_fHunger, m_fThirst));
+			//Print(string.Format("temp %1 / %2 diff %3 cloth %4 / %5 / Energy : %6 / Hunger : %7 / Thirst : %8", m_fTemperature, outsideTemperature, diffTemp, clothesFactor, needClothes, m_fEnergy, m_fHunger, m_fThirst));
 		}
 	}
 	protected void ConnectToStatSystem()

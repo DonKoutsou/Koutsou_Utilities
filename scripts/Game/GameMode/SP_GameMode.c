@@ -4,6 +4,8 @@ modded class SCR_GameModeCampaign
 	//------------------------------------------------------------------//
 	[Attribute("BANDITS", category: "Campaign")]
 	protected FactionKey m_sBANDITSFactionKey;
+	
+	SP_LightPostManager man;
 
 	//------------------------------------------------------------------//
 	protected override void OnPlayerSpawnFinalize_S(SCR_SpawnRequestComponent requestComponent, SCR_SpawnHandlerComponent handlerComponent, SCR_SpawnData data, IEntity entity)
@@ -31,7 +33,7 @@ modded class SCR_GameModeCampaign
 			logic.DestroyLoadingPlaceholder();
 			logic.OpenStartingScreenUI();
 		}
-		SP_LightPostManager man = SP_LightPostManager.GetInstane();
+		man = SP_LightPostManager.GetInstane();
 		man.GeneratePaths();
 	}
 	//------------------------------------------------------------------------------------------------
@@ -116,6 +118,8 @@ modded class SCR_GameModeCampaign
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
 		super.EOnFrame(owner, timeSlice);
+		if (man)
+			man.PrintPaths(timeSlice);
 		/*SCR_PlayerController cont = SCR_PlayerController.Cast(GetGame().GetPlayerController());
 		IEntity char = cont.GetControlledEntity();
 		if (!char)

@@ -1,11 +1,14 @@
 class LightPostClass: GameEntityClass{};
 class LightPost: GameEntity
 {
-	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
+	[Attribute(defvalue : "0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
 	ref array <SP_BaseEn> m_aConnectingBases;
 	
 	[Attribute("",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_EColor))]
 	ref array <SP_EColor> m_aColors;
+	
+	[Attribute(defvalue : "0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
+	SP_BaseEn m_BaseName;
 	
 	[Attribute()]
 	bool m_bRegisterInBase;
@@ -16,6 +19,9 @@ class LightPost: GameEntity
 	private ref ScriptInvoker OnLightPostBuilt;
 	
 	SP_BaseTask m_TaskMarker;
+	
+	[Attribute()]
+	bool m_bShowDebugBaseNames;
 	
 	bool HasSameColors(LightPost post)
 	{
@@ -54,9 +60,12 @@ class LightPost: GameEntity
 	{
 		if (m_aConnectingBases.IsEmpty())
 			return;
-		foreach(SP_BaseEn basename : m_aConnectingBases)
+		
+		for (int i = 0; i < m_aConnectingBases.Count();i++)
 		{
-			bases.Insert(SP_BaseNames.Get(basename));
+			if (SP_BaseNames.Get(m_aConnectingBases[i]) == STRING_EMPTY)
+				continue;
+			bases.Insert(SP_BaseNames.Get(m_aConnectingBases[i]));
 		}
 	}
 	
@@ -120,10 +129,7 @@ class LightPost: GameEntity
 	void SetUpLink()
 	{
 		array <string> bases = {};
-		foreach (SP_BaseEn basename : m_aConnectingBases)
-		{
-			bases.Insert(SP_BaseNames.Get(basename));
-		}
+		GetConnectingBases(bases);
 		array <LightPost> Posts = {};
 		SP_LightPostManager.GetLightPolesForBases(bases, Posts);
 
@@ -215,11 +221,13 @@ class LightPost: GameEntity
 	}
 	bool ConnectBases(array <string> bases)
 	{
-		if (m_aConnectingBases.IsEmpty())
+		array <string> basestocheck = {};
+		GetConnectingBases(basestocheck);
+		if (basestocheck.IsEmpty())
 			return false;
-		foreach (SP_BaseEn Basename : m_aConnectingBases)
+		for (int i = 0; i < basestocheck.Count();i++)
 		{
-			if (bases.Contains( SP_BaseNames.Get( Basename )) )
+			if (bases.Contains( basestocheck[i] ))
 				return true;
 		}
 		return true;
@@ -237,15 +245,14 @@ class LightPost: GameEntity
 			return;
 		man.RegisterPost(this);
 		
-		
 		//GetGame().GetCallqueue().CallLater(SetVisible, 2000, false);
 	};
 	void RegisterPostToBase()
 	{
 		SCR_CampaignMilitaryBaseManager baseman = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
 
-		SCR_CampaignMilitaryBaseComponent base = baseman.GetClosestBase(GetOrigin());
-
+		SCR_CampaignMilitaryBaseComponent base = baseman.GetNamedBase(SP_BaseNames.Get( m_BaseName ) );
+		
 		base.RegisterPost(this);
 	}
 	//Destructor

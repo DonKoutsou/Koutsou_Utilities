@@ -74,8 +74,6 @@ Vehicle : "{1247D68D2A76907D}Prefabs/Vehicles/Wheeled/UAZ452/UAZ452_ambulance_ba
   SCR_MotorExhaustEffectGeneralComponent "{55A093A30AC3B39B}" {
    MaxRPM 3000
   }
-  SCR_UniversalInventoryStorageComponent "{5D7E924E84B181BC}" {
-  }
   SCR_VehicleFactionAffiliationComponent "{5882CBD9AC741CEC}" {
    "faction affiliation" "USSR"
   }

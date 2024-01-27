@@ -13,8 +13,10 @@ class SP_LightPostManager : ScriptComponent
 	[Attribute()]
 	bool m_benableDebug;
 	
+	
+	
 	int pathnum = 1;
-	float cooldown = 100;
+	float cooldown = 20;
 	static SP_LightPostManager GetInstane()
 	{
 		return m_instance;
@@ -45,20 +47,22 @@ class SP_LightPostManager : ScriptComponent
 	};
 	static void GetConnectedPosts(LightPost post, out array <LightPost> ConnectedPost)
 	{
-		array <string> bases = {};
-		foreach (SP_BaseEn basename : post.m_aConnectingBases)
-		{
-			bases.Insert(SP_BaseNames.Get(basename));
-		}
-		array <LightPost> Posts = {};
-		SP_LightPostManager.GetLightPolesForBases(bases, Posts);
+		//array <string> bases = {};
+		//foreach (SP_BaseEn basename : post.m_aConnectingBases)
+		//{
+		//	bases.Insert(SP_BaseNames.Get(basename));
+		//}
+		//array <LightPost> Posts = {};
+		//SP_LightPostManager.GetLightPolesForBases(bases, Posts);
 
 		for (int i; i < post.m_iPathDirections; i++)
 		{
 			float dist;
 			LightPost closestpost
-			foreach (LightPost dispost : Posts)
+			foreach (LightPost dispost : m_aLightposts)
 			{
+				if (ConnectedPost.Contains(dispost))
+					continue;
 				if (dispost == post)
 					continue;
 				if (!dispost.HasSameColors(post))
@@ -74,7 +78,7 @@ class SP_LightPostManager : ScriptComponent
 					closestpost = dispost;
 				}
 			}
-			Posts.RemoveItem(closestpost);
+			//Posts.RemoveItem(closestpost);
 			ConnectedPost.Insert(closestpost);
 		}
 	}
@@ -130,17 +134,30 @@ class SP_LightPostManager : ScriptComponent
 	void GeneratePaths()
 	{
 		RegisterPostsToBases();
-		for (int i = 1; i < 11; i++)
+		SCR_CampaignMilitaryBaseManager baseman = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
+		
+		
+		for (int i = 1; i < 46; i++)
 		{
 			SP_BaseEn BaseFrom = i;
-			for (int v = 1; v < 11; v++)
+			SCR_CampaignMilitaryBaseComponent basefr = baseman.GetNamedBase(SP_BaseNames.Get( BaseFrom ));
+			if (!basefr)
+			{
+				Print(string.Format("PATH CREATION FAILED: creation of path from %1 was unsuccesfull. Reason : %1 doesent exist", SP_BaseNames.Get( BaseFrom )));
+				continue;
+			}
+			for (int v = 1; v < 46; v++)
 			{
 				if (i == v)
 					continue;
 				SP_BaseEn BaseTo = v;
-				Path path = CreatePath(BaseFrom, BaseTo);
-				if (path)
-					m_aPaths.Insert(path);
+				SCR_CampaignMilitaryBaseComponent baseto = baseman.GetNamedBase(SP_BaseNames.Get( BaseTo ));
+				if (!baseto)
+				{
+					Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %2 doesent exist", SP_BaseNames.Get( BaseFrom ), SP_BaseNames.Get( BaseTo )));
+					continue;
+				}
+				CreatePath(basefr, baseto);
 			}
 		}
 	}
@@ -162,40 +179,52 @@ class SP_LightPostManager : ScriptComponent
 		}
 		if (cooldown <= 0)
 		{
-			cooldown = 5;
+			cooldown = 10;
 			pathnum ++;
+			Path pathtoprint2 = m_aPaths[pathnum];
+			Print(string.Format("Printing path from %1 to %2", SCR_StringHelper.Translate( pathtoprint2.bases[0] ), SCR_StringHelper.Translate( pathtoprint2.bases[1])));
 		}
 		
 	}
-	Path CreatePath(SP_BaseEn BaseFrom, SP_BaseEn BaseTo)
+	void CreatePath(SCR_CampaignMilitaryBaseComponent basefr, SCR_CampaignMilitaryBaseComponent baseto)
 	{
-		SCR_CampaignMilitaryBaseManager baseman = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
-		SCR_CampaignMilitaryBaseComponent basefr = baseman.GetNamedBase(SP_BaseNames.Get( BaseFrom ));
-		SCR_CampaignMilitaryBaseComponent baseto = baseman.GetNamedBase(SP_BaseNames.Get( BaseTo ));
-		
 		LightPost PostFrom = basefr.GetBasePost();
 		LightPost PostTo = baseto.GetBasePost();
 
 		Path path = new Path();
-		path.AddBase(SP_BaseNames.Get( BaseFrom ));
-		path.AddBase(SP_BaseNames.Get( BaseTo ));
-		if (!PostFrom || !PostTo)
-			return path;
+		path.AddBase(basefr.GetBaseName());
+		path.AddBase(baseto.GetBaseName());
+		if (!PostFrom)
+		{
+			Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %1 doesent have a post", basefr.GetBaseName(), baseto.GetBaseName()));
+			return;
+		}
+			
+		if (!PostTo)
+		{
+			Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %2 doesent have a post", basefr.GetBaseName(), baseto.GetBaseName()));
+			return;
+		}
 		path.Insert(PostFrom);
 		
 		
-		
+		array <LightPost> Decisions = {};
+		array <LightPost> DecisionsBlacklist = {};
 		while (!path.Contains(PostTo))
 		{
 			LightPost currentpost = path.Get(path.Count() - 1);
+			
 			LightPost nextpost;
 			array <LightPost> ConnectedPosts = {};
 			GetConnectedPosts(currentpost, ConnectedPosts);
+			bool basesondist;
 			foreach (LightPost post : ConnectedPosts)
 			{
 				if (path.Contains(post))
 					continue;
-				if (post.m_aConnectingBases.Contains(BaseTo) || post.m_iPathDirections > 2)
+				if (DecisionsBlacklist.Contains(post))
+					continue;
+				if (post.m_aConnectingBases.Contains(SP_BaseNames.Convert(baseto)) || post.m_iPathDirections > 2)
 				{
 					if (nextpost)
 					{
@@ -204,16 +233,39 @@ class SP_LightPostManager : ScriptComponent
 						float least = Math.Min(dist1, dist2);
 						if (least == dist2)
 							continue;
+						basesondist = true;
+						
 					}
 					nextpost = post;
 				}
 			}
+			
 			if (nextpost)
+			{
+				if (basesondist)
+					Decisions.Insert(nextpost);
 				path.Insert( nextpost );
+			}
+				
 			else
-				return null;
+			{
+				
+				if (!Decisions.IsEmpty())
+				{
+					DecisionsBlacklist.Insert(Decisions[Decisions.Count() - 1]);
+					Decisions.Clear();
+					path.ClearPaths();
+					path.Insert(PostFrom);
+				}
+				else
+				{
+					Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Path couldnt find its way to destination", basefr.GetBaseName(), baseto.GetBaseName()));
+					return;
+				}
+			}
+				
 		}
-		return path;
+		m_aPaths.Insert(path);
 		
 	}
 	static bool AreBasesConnected(array <string> bases)

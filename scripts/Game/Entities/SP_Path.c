@@ -16,6 +16,10 @@ class Path
 	{
 		posts.Insert(post);
 	}
+	void ClearPaths()
+	{
+		posts.Clear();
+	}
 	bool ConnectsBases(string form, string to)
 	{
 		return (bases.Contains(form) && bases.Contains(to));

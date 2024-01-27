@@ -45,8 +45,6 @@ GenericEntity : "{4AF9664BEE9263A4}Prefabs/Items/Equipment/Kits/RepairKit_01/Rep
    m_fMaxHealScaled 1
    m_eMaxHealDone HEAL_MAX_HEALABLE_HEALTH_REACHED
   }
-  ActionsManagerComponent "{508AB5952B584B2E}" {
-  }
   SCR_ResourceComponent "{5E4A9574582A1D38}" {
    m_aContainers {
     SCR_ResourceContainer "{5EFB031677075C85}" {

@@ -970,8 +970,138 @@ class SP_BaseNames
 	static const string GRAVETTE = "#AR-MapLocation_Gravette";
 	static const string MONTIGNAC = "#AR-MapLocation_Montignac";
 	static const string HORNBEAM_VALLEY = "#AR-Campaign_MapLocation_HornbeamValley";
+	static const string PROVINS = "#AR-MapLocation_Provins";
+	static const string FIGARI = "#AR-MapLocation_Figari";
+	static const string TOURIST_CAMP = "Tourist Camp";
+	static const string PINEWOOD_LAKE = "#AR-MapLocation_PinewoodLake";
+	static const string LARUNS = "#AR-MapLocation_Laruns";
+	static const string LEVIE = "#AR-MapLocation_Levie";
+	static const string MIL_BASE_LEVIE = "#AR-Campaign_MapLocation_Levie_Base";
+	static const string QUARRY = "#AR-Campaign_MapLocation_Quarry";
+	static const string DURRAS = "#AR-MapLocation_Durras";
+	static const string VERNON = "#AR-MapLocation_Vernon";
+	static const string MONFORT_CASTLE = "Monfort Castle";
+	static const string PENANTS_PASS = "#AR-Campaign_MapLocation_PennantsPass";
+	static const string REGINA = "#AR-MapLocation_Regina";
+	static const string CAMURAC = "#AR-MapLocation_GoatBay";
+	static const string MORTON = "#AR-Campaign_MapLocation_Coastal_Morton";
+	static const string RICHEMONT = "#AR-Campaign_MapLocation_Richemont";
+	static const string SHEPHERDS_POND = "#AR-MapLocation_ShepherdsPond";
+	static const string SAWMILL = "Supply Base Sawmill";
+	static const string LEMOULE = "#AR-MapLocation_LeMoule";
+	static const string LAMENTIN = "#AR-Campaign_MapLocation_Coastal_Lamentin";
+	static const string VILLENEUF = "#AR-MapLocation_Villeneuf";
+	static const string CAVALRY_HILL = "#AR-Campaign_MapLocation_CalvaryHill";
+	static const string TILLERS_FIND = "#AR-Campaign_MapLocation_TillersFind";
+	static const string MILLITARY_HOSPITAL = "#AR-MapLocation_MilitaryHospital";
+	static const string MEAUX = "#AR-MapLocation_Meaux";
+	static const string KERMOVAN = "#AR-MapLocation_Kermovan";
+	static const string STPHILLIPE = "#AR-Campaign_MapLocation_HQ_North";
+	static const string POWER_PLANT = "Power_Plant";
+	static const string GOREY = "Supply Base Gorey";
+	static const string SIMONS_WOOD = "#AR-MapLocation_SimonsWood";
+	static const string ST_PIERRE = "#AR-Campaign_MapLocation_HQ_South";
+	static const string MANSION = "Mansion";
+	static const string WOLF_HILL = "Tower Wolf Hill";
+	static const string SHEPHERDS_POND_OUTPOST = "Shephards Pond Outpost";
 	
 	
+	static SP_BaseEn Convert(SCR_CampaignMilitaryBaseComponent en)
+	{
+		if (en.GetBaseName() == ERQUY_FIA_OUTPOST)
+			return SP_BaseEn.ERQUY_FIA_OUTPOST;
+		else if (en.GetBaseName() == NORTHEAST_BARACKS)
+			return SP_BaseEn.NORTHEAST_BARACKS;
+		else if (en.GetBaseName() == ANDRES_BEACON)
+			return SP_BaseEn.ANDRES_BEACON;
+		else if (en.GetBaseName() == TOWN_BASE_CHOTAIN)
+			return SP_BaseEn.TOWN_BASE_CHOTAIN;
+		else if (en.GetBaseName() == MIL_BASE_CHOTAIN)
+			return SP_BaseEn.MIL_BASE_CHOTAIN;
+		else if (en.GetBaseName() == ENTRE_DEUX_BASE)
+			return SP_BaseEn.ENTRE_DEUX_BASE;
+		else if (en.GetBaseName() == ANDRES_BEACON_MIL_BASE)
+			return SP_BaseEn.ANDRES_BEACON_MIL_BASE;
+		else if (en.GetBaseName() == TYRONE)
+			return SP_BaseEn.TYRONE;
+		else if (en.GetBaseName() == GRAVETTE)
+			return SP_BaseEn.GRAVETTE;
+		else if (en.GetBaseName() == MONTIGNAC)
+			return SP_BaseEn.MONTIGNAC;
+		else if (en.GetBaseName() == HORNBEAM_VALLEY)
+			return SP_BaseEn.HORNBEAM_VALLEY;
+		else if (en.GetBaseName() == PROVINS)
+			return SP_BaseEn.PROVINS;
+		else if (en.GetBaseName() == FIGARI)
+			return SP_BaseEn.FIGARI;
+		else if (en.GetBaseName() == TOURIST_CAMP)
+			return SP_BaseEn.TOURIST_CAMP;
+		else if (en.GetBaseName() == PINEWOOD_LAKE)
+			return SP_BaseEn.PINEWOOD_LAKE;
+		else if (en.GetBaseName() == LARUNS)
+			return SP_BaseEn.LARUNS;
+		else if (en.GetBaseName() == LEVIE)
+			return SP_BaseEn.LEVIE;
+		else if (en.GetBaseName() == MIL_BASE_LEVIE)
+			return SP_BaseEn.MIL_BASE_LEVIE;
+		else if (en.GetBaseName() == QUARRY)
+			return SP_BaseEn.QUARRY;
+		else if (en.GetBaseName() == DURRAS)
+			return SP_BaseEn.DURRAS;
+		else if (en.GetBaseName() == VERNON)
+			return SP_BaseEn.VERNON;
+		else if (en.GetBaseName() == MONFORT_CASTLE)
+			return SP_BaseEn.MONFORT_CASTLE;
+		else if (en.GetBaseName() == PENANTS_PASS)
+			return SP_BaseEn.PENANTS_PASS;
+		else if (en.GetBaseName() == REGINA)
+			return SP_BaseEn.REGINA;
+		else if (en.GetBaseName() == CAMURAC)
+			return SP_BaseEn.CAMURAC;
+		else if (en.GetBaseName() == MORTON)
+			return SP_BaseEn.MORTON;
+		else if (en.GetBaseName() == RICHEMONT)
+			return SP_BaseEn.RICHEMONT;
+		else if (en.GetBaseName() == SHEPHERDS_POND)
+			return SP_BaseEn.SHEPHERDS_POND;
+		else if (en.GetBaseName() == SAWMILL)
+			return SP_BaseEn.SAWMILL;
+		else if (en.GetBaseName() == LEMOULE)
+			return SP_BaseEn.LEMOULE;
+		else if (en.GetBaseName() == LAMENTIN)
+			return SP_BaseEn.LAMENTIN;
+		else if (en.GetBaseName() == VILLENEUF)
+			return SP_BaseEn.VILLENEUF;
+		else if (en.GetBaseName() == CAVALRY_HILL)
+			return SP_BaseEn.CAVALRY_HILL;
+		else if (en.GetBaseName() == TILLERS_FIND)
+			return SP_BaseEn.TILLERS_FIND;
+		else if (en.GetBaseName() == MILLITARY_HOSPITAL)
+			return SP_BaseEn.MILLITARY_HOSPITAL;
+		else if (en.GetBaseName() == MEAUX)
+			return SP_BaseEn.MEAUX;
+		else if (en.GetBaseName() == KERMOVAN)
+			return SP_BaseEn.KERMOVAN;
+		else if (en.GetBaseName() == 	STPHILLIPE)
+			return SP_BaseEn.STPHILLIPE;
+		else if (en.GetBaseName() == POWER_PLANT)
+			return SP_BaseEn.POWER_PLANT;
+		else if (en.GetBaseName() == GOREY)
+			return SP_BaseEn.GOREY;
+		else if (en.GetBaseName() == SIMONS_WOOD)
+			return SP_BaseEn.SIMONS_WOOD;
+		else if (en.GetBaseName() == ST_PIERRE)
+			return SP_BaseEn.ST_PIERRE;
+		else if (en.GetBaseName() == MANSION)
+			return SP_BaseEn.MANSION;
+		else if (en.GetBaseName() == WOLF_HILL)
+			return SP_BaseEn.WOLF_HILL;
+		else if (en.GetBaseName() == SHEPHERDS_POND_OUTPOST)
+			return SP_BaseEn.SHEPHERDS_POND_OUTPOST;
+		
+		
+		return STRING_EMPTY;
+	}
 	static string Get(SP_BaseEn en)
 	{
 		if (en == SP_BaseEn.ERQUY_FIA_OUTPOST)
@@ -996,22 +1126,127 @@ class SP_BaseNames
 			return MONTIGNAC;
 		else if (en == SP_BaseEn.HORNBEAM_VALLEY)
 			return HORNBEAM_VALLEY;
+		else if (en == SP_BaseEn.PROVINS)
+			return PROVINS;
+		else if (en == SP_BaseEn.FIGARI)
+			return FIGARI;
+		else if (en == SP_BaseEn.TOURIST_CAMP)
+			return TOURIST_CAMP;
+		else if (en == SP_BaseEn.PINEWOOD_LAKE)
+			return PINEWOOD_LAKE;
+		else if (en == SP_BaseEn.LARUNS)
+			return LARUNS;
+		else if (en == SP_BaseEn.LEVIE)
+			return LEVIE;
+		else if (en == SP_BaseEn.MIL_BASE_LEVIE)
+			return MIL_BASE_LEVIE;
+		else if (en == SP_BaseEn.QUARRY)
+			return QUARRY;
+		else if (en == SP_BaseEn.DURRAS)
+			return DURRAS;
+		else if (en == SP_BaseEn.VERNON)
+			return VERNON;
+		else if (en == SP_BaseEn.MONFORT_CASTLE)
+			return MONFORT_CASTLE;
+		else if (en == SP_BaseEn.PENANTS_PASS)
+			return PENANTS_PASS;
+		else if (en == SP_BaseEn.REGINA)
+			return REGINA;
+		else if (en == SP_BaseEn.CAMURAC)
+			return CAMURAC;
+		else if (en == SP_BaseEn.MORTON)
+			return MORTON;
+		else if (en == SP_BaseEn.RICHEMONT)
+			return RICHEMONT;
+		else if (en == SP_BaseEn.SHEPHERDS_POND)
+			return SHEPHERDS_POND;
+		else if (en == SP_BaseEn.SAWMILL)
+			return SAWMILL;
+		else if (en == SP_BaseEn.LEMOULE)
+			return LEMOULE;
+		else if (en == SP_BaseEn.LAMENTIN)
+			return LAMENTIN;
+		else if (en == SP_BaseEn.VILLENEUF)
+			return VILLENEUF;
+		else if (en == SP_BaseEn.CAVALRY_HILL)
+			return CAVALRY_HILL;
+		else if (en == SP_BaseEn.TILLERS_FIND)
+			return TILLERS_FIND;
+		else if (en == SP_BaseEn.MILLITARY_HOSPITAL)
+			return MILLITARY_HOSPITAL;
+		else if (en == SP_BaseEn.MEAUX)
+			return MEAUX;
+		else if (en == SP_BaseEn.KERMOVAN)
+			return KERMOVAN;
+		else if (en == SP_BaseEn.	STPHILLIPE)
+			return STPHILLIPE;
+		else if (en == SP_BaseEn.POWER_PLANT)
+			return POWER_PLANT;
+		else if (en == SP_BaseEn.GOREY)
+			return GOREY;
+		else if (en == SP_BaseEn.SIMONS_WOOD)
+			return SIMONS_WOOD;
+		else if (en == SP_BaseEn.ST_PIERRE)
+			return ST_PIERRE;
+		else if (en == SP_BaseEn.MANSION)
+			return MANSION;
+		else if (en == SP_BaseEn.WOLF_HILL)
+			return WOLF_HILL;
+		else if (en == SP_BaseEn.SHEPHERDS_POND_OUTPOST)
+			return SHEPHERDS_POND_OUTPOST;
+		
+		
 		return STRING_EMPTY;
 	}
 }
 enum SP_BaseEn
 {
-	ERQUY_FIA_OUTPOST,
-	NORTHEAST_BARACKS,
-	ANDRES_BEACON,
-	TOWN_BASE_CHOTAIN,
-	MIL_BASE_CHOTAIN,
-	ENTRE_DEUX_BASE,
-	ANDRES_BEACON_MIL_BASE,
-	TYRONE,
-	GRAVETTE,
-	MONTIGNAC,
-	HORNBEAM_VALLEY,
+	NONE  = 0,
+	ERQUY_FIA_OUTPOST = 1,
+	NORTHEAST_BARACKS = 2,
+	ANDRES_BEACON = 3,
+	TOWN_BASE_CHOTAIN = 4,
+	MIL_BASE_CHOTAIN = 5,
+	ENTRE_DEUX_BASE = 6,
+	ANDRES_BEACON_MIL_BASE = 7,
+	TYRONE = 8,
+	GRAVETTE = 9,
+	MONTIGNAC = 10,
+	HORNBEAM_VALLEY = 11,
+	PROVINS = 12,
+	FIGARI = 13,
+	TOURIST_CAMP = 14,
+	PINEWOOD_LAKE = 15,
+	LARUNS = 16,
+	LEVIE = 17,
+	MIL_BASE_LEVIE = 18,
+	QUARRY = 19,
+	DURRAS = 20,
+	VERNON = 21,
+	MONFORT_CASTLE = 22,
+	PENANTS_PASS = 23,
+	REGINA = 24,
+	CAMURAC = 25,
+	MORTON = 26,
+	RICHEMONT = 27,
+	SHEPHERDS_POND = 28,
+	SAWMILL = 29,
+	LEMOULE = 30,
+	LAMENTIN = 31,
+	VILLENEUF = 32,
+	CAVALRY_HILL = 33,
+	TILLERS_FIND = 34,
+	MILLITARY_HOSPITAL = 35,
+	MEAUX = 36,
+	KERMOVAN = 37,
+	STPHILLIPE = 38,
+	POWER_PLANT = 39,
+	GOREY = 40,
+	SIMONS_WOOD = 41,
+	ST_PIERRE = 42,
+	MANSION = 43,
+	WOLF_HILL = 44,
+	SHEPHERDS_POND_OUTPOST = 45,
 }
 modded enum EVehicleType
 {

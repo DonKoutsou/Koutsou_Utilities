@@ -159,28 +159,49 @@ class SCR_EditablePathCommentComponent : SCR_EditableEntityComponent
 			underscore++;
 			displayName = displayName.Substring(underscore, displayName.Length() - underscore);
 		}
-		array <int > bases = {};
-		bases.Copy(post.m_aConnectingBases);
-		string basenames;
-		if (!bases.IsEmpty())
-		{
-			foreach(int basename : bases)
-				basenames = basenames + string.Format("\n%1", SCR_StringHelper.Translate(SP_BaseNames.Get(basename)));
-		}
-		displayName = displayName + string.Format("%1%2", (SP_LightPostManager.m_aLightposts.Find(post) + 1), basenames);
+		
 		array <LightPost> ConnectedPost = {};
 		SP_LightPostManager.GetConnectedPosts(post, ConnectedPost);
 		if (!ConnectedPost.IsEmpty())
 		{
+			array <SP_BaseEn> ConnectingBases = {};			
 			foreach(LightPost Dispost : ConnectedPost)
 			{
 				if (!Dispost)
 					continue;
+				//if (!post.m_bRegisterInBase)
+				//{
+				//	foreach(int base: Dispost.m_aConnectingBases)
+				//	{
+				//		if (!ConnectingBases.Contains(base))
+				//			ConnectingBases.Insert(base);
+				//	}
+				//}
 				Shape.CreateArrow(post.GetOrigin(), Dispost.GetOrigin(), 6, color, ShapeFlags.ONCE | ShapeFlags.NOZBUFFER);
 			}
+			// (!post.m_bRegisterInBase)
+			//{
+			//	post.m_aConnectingBases.Clear();
+			//	post.m_aConnectingBases.Copy(ConnectingBases);
+			//}
 		}
-		
-		DebugTextWorldSpace.Create(genericOwner.GetWorld(), displayName, DebugTextFlags.CENTER | DebugTextFlags.FACE_CAMERA | DebugTextFlags.ONCE, pos[0], pos[1], pos[2], testSize, color, colorBackground);
+		if (post.m_bShowDebugBaseNames)
+		{
+			array <SP_BaseEn > bases = {};
+			bases.Copy(post.m_aConnectingBases);
+			string basenames;
+			if (!bases.IsEmpty())
+			{
+				for (int i = 0; i < bases.Count();i++)
+				{
+					basenames = basenames + string.Format("\n%1", SCR_StringHelper.Translate(SP_BaseNames.Get(bases[i])));
+				}
+				foreach(int basename : bases)
+					
+			}
+			displayName = displayName + string.Format("%1%2", (SP_LightPostManager.m_aLightposts.Find(post) + 1), basenames);
+			DebugTextWorldSpace.Create(genericOwner.GetWorld(), displayName, DebugTextFlags.CENTER | DebugTextFlags.FACE_CAMERA | DebugTextFlags.ONCE, pos[0], pos[1], pos[2], testSize, color, colorBackground);
+		}
 	}
 #endif
 }

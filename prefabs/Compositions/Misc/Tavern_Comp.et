@@ -145,7 +145,7 @@ GenericEntity {
     SCR_ServicePointComponent "{5C8CAE44023804D5}" {
      m_eType KITCHEN
      m_eBuildingLabel SERVICE_KITCHEN
-     m_sDelegatePrefab "{BA3CCA95823FC717}Prefabs/Systems/Services/ServicePointDelegate_KITCHEN.et"
+     m_sDelegatePrefab "{BA3CCA95823FC717}prefabs/Systems/Services/ServicePointDelegate_KITCHEN.et"
     }
     SCR_SupportStationAreaMeshComponent "{5B2AD5B869A9C26D}" {
      m_fRadius 8

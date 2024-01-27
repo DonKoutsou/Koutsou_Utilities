@@ -127,8 +127,8 @@ $grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMil
  Shephards_Pond {
   components {
    SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
-    m_sBaseName "Shephards Pond"
-    m_sBaseNameUpper "SHEPHARDS POND"
+    m_sBaseName "Shephards Pond Outpost"
+    m_sBaseNameUpper "SHEPHARDS POND OUTPOST"
     m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
    }
    SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
@@ -408,44 +408,6 @@ $grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMil
   }
   coords 8406.497 12.969 795.416
   angleY -49.301
-  {
-   GenericEntity {
-    ID "5CCED514A5908822"
-    components {
-     SCR_FactionAffiliationComponent "{5CCEC6039525B984}" {
-      "faction affiliation" "CIV"
-     }
-    }
-   }
-  }
- }
- Wolfstone {
-  components {
-   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
-    m_iRadius 40
-    m_sBaseName "Wolfstone"
-    m_sBaseNameUpper "WOLFSTONE"
-    m_OverrideBaseBuildingHQ "{ACFF7345FA29CD9A}prefabs/Compositions/Slotted/SlotFlatSmall/Headquarters_SSs_FIA_01.et"
-   }
-   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
-    Enabled 0
-   }
-   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
-    m_iSupplies 3000
-    m_iSuppliesMax 3000
-    m_fOperationalRadius 50
-   }
-   SCR_EditableSystemComponent "{5B0AB14FBD96A524}" {
-    m_UIInfo SCR_EditableDescriptorUIInfo "{5B0AB14FA66FFA19}" {
-     Name "FIA Main Operations Base"
-    }
-   }
-   SCR_FactionAffiliationComponent "{5AFC974A2595F05D}" {
-    "faction affiliation" "FIA"
-   }
-  }
-  coords 3786.286 158.228 4186.703
-  angleY 44.552
   {
    GenericEntity {
     ID "5CCED514A5908822"
