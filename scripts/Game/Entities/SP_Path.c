@@ -1,48 +1,62 @@
 class Path
 {
-	ref array <LightPost> posts = {};
-	ref array <string> bases = {};
+	ref array <LightPost> m_posts = {};
+	ref array <string> m_bases = {};
 	
 	void AddBase(string base)
 	{
-		bases.Insert(base);
+		m_bases.Insert(base);
 	}
 	void GetBases(array <string> PathBases)
 	{
-		PathBases.Copy(bases);
+		PathBases.Copy(m_bases);
 	}
 	
 	void Insert(LightPost post)
 	{
-		posts.Insert(post);
+		m_posts.Insert(post);
+	}
+	void Remove(int i)
+	{
+		m_posts.Remove(i);
 	}
 	void ClearPaths()
 	{
-		posts.Clear();
+		m_posts.Clear();
 	}
 	bool ConnectsBases(string form, string to)
 	{
-		return (bases.Contains(form) && bases.Contains(to));
+		return (m_bases.Contains(form) && m_bases.Contains(to));
 	}
 	bool IsForBase(string base)
 	{
-		return bases.Contains(base);
+		return m_bases.Contains(base);
 	}
 	void SpawnTaskMarkers(IEntity Assignee)
 	{
-		if (posts.IsEmpty())
+		if (m_posts.IsEmpty())
 			return;
-		foreach (LightPost post : posts)
+		foreach (LightPost post : m_posts)
 		{
 			post.(SpawnTaskMarkers(Assignee));
 		}
 	}
+	LightPost GetPost(int i)
+	{
+		if (i >= m_posts.Count())
+			return null;
+		return m_posts[i];
+	}
+	void GetPosts(out array <LightPost> posts)
+	{
+		posts.Copy(m_posts);
+	}
 	int Count()
-		return posts.Count();
+		return m_posts.Count();
 	LightPost Get(int index)
-		return posts[index];
+		return m_posts[index];
 	bool Contains(LightPost post)
-		return posts.Contains(post);
+		return m_posts.Contains(post);
 	
 	void Path();
 	void ~Path();

@@ -1,8 +1,6 @@
 class LightPostClass: GameEntityClass{};
 class LightPost: GameEntity
 {
-	[Attribute(defvalue : "0", UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
-	ref array <SP_BaseEn> m_aConnectingBases;
 	
 	[Attribute("",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_EColor))]
 	ref array <SP_EColor> m_aColors;
@@ -54,19 +52,6 @@ class LightPost: GameEntity
 				colors.Insert(SP_ColorNames.Get(col));
 			}		
 			return colors;
-	}
-	
-	void GetConnectingBases(out array <string> bases)
-	{
-		if (m_aConnectingBases.IsEmpty())
-			return;
-		
-		for (int i = 0; i < m_aConnectingBases.Count();i++)
-		{
-			if (SP_BaseNames.Get(m_aConnectingBases[i]) == STRING_EMPTY)
-				continue;
-			bases.Insert(SP_BaseNames.Get(m_aConnectingBases[i]));
-		}
 	}
 	
 	void SpawnTaskMarkers(IEntity Assignee)
@@ -124,9 +109,10 @@ class LightPost: GameEntity
 		if (m_TaskMarker)
 			m_TaskMarker.Finish(true);
 		OnBuilt();
-		SetUpLink();
+		SCR_AIWorld.Cast(GetGame().GetAIWorld()).RequestNavmeshRebuildEntity(this);
+		//SetUpLink();
 	}
-	void SetUpLink()
+	/*void SetUpLink()
 	{
 		array <string> bases = {};
 		GetConnectingBases(bases);
@@ -211,15 +197,15 @@ class LightPost: GameEntity
 		if (closestpost2.IsBuilt())
 		{
 			mapdesc.Item().LinkTo(mapdesc3.Item());
-		}*/
+		}
 		
 		
-	}
+	}*/
 	void UpdateLinks()
 	{
 		
 	}
-	bool ConnectBases(array <string> bases)
+	/*bool ConnectBases(array <string> bases)
 	{
 		array <string> basestocheck = {};
 		GetConnectingBases(basestocheck);
@@ -231,7 +217,7 @@ class LightPost: GameEntity
 				return true;
 		}
 		return true;
-	}
+	}*/
 	void SetVisible()
 	{
 		EntitySlotInfo slot = SlotManagerComponent.Cast(FindComponent(SlotManagerComponent)).GetSlotByName("Lantern");

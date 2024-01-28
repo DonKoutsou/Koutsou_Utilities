@@ -25,9 +25,9 @@ BehaviorTree {
         }
        }
       }
-      SCR_AIGetClosestPost "SCR_AI Get Closest Post" {
-       Name "SCR_AI Get Closest Post"
-       EditorPos -242.857 404.286
+      SCR_AIGetNextUnbuiltPost "SCR_AI Get Next Unbuilt Post" {
+       Name "SCR_AI Get Next Unbuilt Post"
+       EditorPos -252.5 391.25
        InPorts {
         SingleInputPortContainer SingleInputPortContainer {
          Port 0
@@ -106,7 +106,7 @@ BehaviorTree {
   }
   VariableReference Post {
    VariableType 1
-   EditorPos 3.393 640.536
+   EditorPos 69.643 630.536
   }
  }
 }

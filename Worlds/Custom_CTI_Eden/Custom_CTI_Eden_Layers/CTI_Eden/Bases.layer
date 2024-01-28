@@ -368,7 +368,7 @@ $grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMil
     "faction affiliation" "FIA"
    }
   }
-  coords 4384.27 57.298 4795.013
+  coords 4386.119 57.298 4780.294
   angleY 178.025
   {
    GenericEntity {

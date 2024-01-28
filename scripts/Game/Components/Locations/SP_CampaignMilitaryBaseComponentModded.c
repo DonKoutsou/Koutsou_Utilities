@@ -235,10 +235,9 @@ modded class SCR_CampaignMilitaryBaseComponent
 			}
 		}
 		
-		array <string> correctbases = {};	
-		correctbases.Insert(GetBaseName());
-		correctbases.Insert(Mybases.GetRandomElement());
-		SP_LightPostManager.GetLightPolesForBases(correctbases, posts);
+		array <Path> paths = {};	
+		SP_LightPostManager.GetPath(paths, GetBaseName(), basesInRange.GetRandomElement().GetBaseName());
+		paths[0].GetPosts(posts);
 		SCR_AIBuildPathBehavior action = new SCR_AIBuildPathBehavior(utility, null, posts);			
 				
 		utility.AddAction(action);

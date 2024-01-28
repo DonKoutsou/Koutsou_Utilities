@@ -115,3 +115,43 @@ class SCR_AIGetClosestPost : AITaskScripted
 	override bool VisibleInPalette() { return true; }
 	
 }
+class SCR_AIGetNextUnbuiltPost : AITaskScripted
+{
+	protected const static string POST = "LightPost";
+	protected const static string PATH = "Path";
+	
+	
+	protected static ref TStringArray s_aVarsIn = {PATH};
+	override TStringArray GetVariablesIn() { return s_aVarsIn; }
+	
+	protected static ref TStringArray s_aVarsOut = {POST};
+	override TStringArray GetVariablesOut() { return s_aVarsOut; }
+	
+	override ENodeResult EOnTaskSimulate(AIAgent owner, float dt)
+	{
+		array <LightPost> posts = {};
+		LightPost ClosestPost;
+		if (!GetVariableIn(PATH, posts))
+			return ENodeResult.FAIL;
+		IEntity ent = owner.GetControlledEntity();
+		if (!ent)
+			return ENodeResult.FAIL;
+
+		for (int i; i < posts.Count(); i++)
+		{
+			if (!posts[i].IsBuilt())
+			{
+				ClosestPost = posts[i];
+				break;
+			}
+		}
+		if (ClosestPost)
+		{
+			SetVariableOut(POST, ClosestPost);
+			return ENodeResult.SUCCESS;
+		}
+		return ENodeResult.FAIL;
+	}
+	override bool VisibleInPalette() { return true; }
+	
+}

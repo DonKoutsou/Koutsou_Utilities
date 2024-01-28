@@ -1004,7 +1004,7 @@ class SP_BaseNames
 	static const string MANSION = "Mansion";
 	static const string WOLF_HILL = "Tower Wolf Hill";
 	static const string SHEPHERDS_POND_OUTPOST = "Shephards Pond Outpost";
-	
+	static const string TOWER_REGINA = "#AR-Campaign_MapLocation_Tower_Regina";
 	
 	static SP_BaseEn Convert(SCR_CampaignMilitaryBaseComponent en)
 	{
@@ -1098,7 +1098,8 @@ class SP_BaseNames
 			return SP_BaseEn.WOLF_HILL;
 		else if (en.GetBaseName() == SHEPHERDS_POND_OUTPOST)
 			return SP_BaseEn.SHEPHERDS_POND_OUTPOST;
-		
+		else if (en.GetBaseName() == TOWER_REGINA)
+			return SP_BaseEn.TOWER_REGINA;
 		
 		return STRING_EMPTY;
 	}
@@ -1194,6 +1195,8 @@ class SP_BaseNames
 			return WOLF_HILL;
 		else if (en == SP_BaseEn.SHEPHERDS_POND_OUTPOST)
 			return SHEPHERDS_POND_OUTPOST;
+		else if (en == SP_BaseEn.TOWER_REGINA)
+			return TOWER_REGINA;
 		
 		
 		return STRING_EMPTY;
@@ -1247,6 +1250,7 @@ enum SP_BaseEn
 	MANSION = 43,
 	WOLF_HILL = 44,
 	SHEPHERDS_POND_OUTPOST = 45,
+	TOWER_REGINA = 46,
 }
 modded enum EVehicleType
 {

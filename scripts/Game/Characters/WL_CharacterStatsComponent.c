@@ -784,10 +784,10 @@ class SP_StatSystem : GameSystem
 	override protected void OnUpdate(ESystemPoint point)
 	{
 		float timeSlice = GetWorld().GetTimeSlice();
-
-		foreach (SP_CharacterStatsComponent comp : m_aComponents)
+		
+		for (int i; i < m_aComponents.Count(); i++)
 		{
-			comp.Update(timeSlice);
+			m_aComponents[i].Update(timeSlice);
 		}
 	}
 	
