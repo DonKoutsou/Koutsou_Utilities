@@ -1005,6 +1005,8 @@ class SP_BaseNames
 	static const string WOLF_HILL = "Tower Wolf Hill";
 	static const string SHEPHERDS_POND_OUTPOST = "Shephards Pond Outpost";
 	static const string TOWER_REGINA = "#AR-Campaign_MapLocation_Tower_Regina";
+	static const string TOWER_ENTRE = "#AR-Campaign_MapLocation_Tower_EntreDeux";
+	
 	
 	static SP_BaseEn Convert(SCR_CampaignMilitaryBaseComponent en)
 	{
@@ -1100,6 +1102,26 @@ class SP_BaseNames
 			return SP_BaseEn.SHEPHERDS_POND_OUTPOST;
 		else if (en.GetBaseName() == TOWER_REGINA)
 			return SP_BaseEn.TOWER_REGINA;
+		else if (en.GetBaseName() == TOWER_ENTRE)
+			return SP_BaseEn.TOWER_ENTRE;
+		else if (en.GetBaseName() == FIAHQ)
+			return SP_BaseEn.FIAHQ;
+		else if (en.GetBaseName() == USHQ)
+			return SP_BaseEn.USHQ;
+		else if (en.GetBaseName() == USSRHQ)
+			return SP_BaseEn.USSRHQ;
+		else if (en.GetBaseName() == ARLEVILLE)
+			return SP_BaseEn.ARLEVILLE;
+		else if (en.GetBaseName() == SIGNAL_HILL)
+			return SP_BaseEn.SIGNAL_HILL;
+		else if (en.GetBaseName() == FARM)
+			return SP_BaseEn.FARM;
+		else if (en.GetBaseName() == MILITARY_BASE)
+			return SP_BaseEn.MILITARY_BASE;
+		else if (en.GetBaseName() == BEUREGARD)
+			return SP_BaseEn.BEUREGARD;
+		else if (en.GetBaseName() == MOSS_HILL)
+			return SP_BaseEn.MOSS_HILL;
 		
 		return STRING_EMPTY;
 	}
@@ -1197,9 +1219,36 @@ class SP_BaseNames
 			return SHEPHERDS_POND_OUTPOST;
 		else if (en == SP_BaseEn.TOWER_REGINA)
 			return TOWER_REGINA;
-		
+		else if (en == SP_BaseEn.TOWER_ENTRE)
+			return TOWER_ENTRE;
+		else if (en == SP_BaseEn.FIAHQ)
+			return FIAHQ;
+		else if (en == SP_BaseEn.USHQ)
+			return USHQ;
+		else if (en == SP_BaseEn.USSRHQ)
+			return USSRHQ;
+		else if (en == SP_BaseEn.ARLEVILLE)
+			return ARLEVILLE;
+		else if (en == SP_BaseEn.SIGNAL_HILL)
+			return SIGNAL_HILL;
+		else if (en == SP_BaseEn.FARM)
+			return FARM;
+		else if (en == SP_BaseEn.MILITARY_BASE)
+			return MILITARY_BASE;
+		else if (en == SP_BaseEn.BEUREGARD)
+			return BEUREGARD;
+		else if (en == SP_BaseEn.MOSS_HILL)
+			return MOSS_HILL;
 		
 		return STRING_EMPTY;
+	}
+	void SP_BaseNames()
+	{
+		
+	}
+	void ~ SP_BaseNames()
+	{
+		
 	}
 }
 enum SP_BaseEn
@@ -1251,6 +1300,17 @@ enum SP_BaseEn
 	WOLF_HILL = 44,
 	SHEPHERDS_POND_OUTPOST = 45,
 	TOWER_REGINA = 46,
+	TOWER_ENTRE = 47,
+	
+	FIAHQ = 80,
+	USHQ = 81,
+	USSRHQ = 82,
+	ARLEVILLE = 83,
+	SIGNAL_HILL = 84,
+	FARM = 85,
+	MILITARY_BASE = 86,
+	BEUREGARD = 87,
+	MOSS_HILL = 88,
 }
 modded enum EVehicleType
 {

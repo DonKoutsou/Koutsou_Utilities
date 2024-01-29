@@ -1,0 +1,136 @@
+$grp GenericEntity : "{1391CE8C0E255636}prefabs/Systems/MilitaryBase/ConflictMilitaryBase.et" {
+ HQEast {
+  components {
+   BaseRadioComponent "{5C669673C2A82A2B}" {
+    Transceivers {
+     RelayTransceiver "{5C669673E8C94083}" {
+      "Transmitting Range" 800
+     }
+    }
+   }
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50.5
+   }
+  }
+  coords 1621.638 4.119 901.13
+ }
+ HQWest {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bCanBeHQ 1
+    m_bDisableWhenUnusedAsHQ 0
+    m_sBaseName "#AR-Campaign_MapLocation_MOB"
+    m_sBaseNameUpper "#AR-Campaign_MapLocation_MOB-UC"
+   }
+   SCR_CampaignSeizingComponent "{5C66967235FBEEA3}" {
+    Enabled 0
+   }
+   SCR_CampaignSuppliesComponent "{5C6696724F524DA2}" {
+    m_iSupplies 3000
+    m_iSuppliesMax 3000
+    m_fOperationalRadius 50.5
+   }
+  }
+  coords 1157.534 1.23 3280.918
+ }
+ Farm {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_Arland_MapLocation_Farm"
+    m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_Farm-UC"
+   }
+  }
+  coords 2208.774 53.887 2907.931
+  angleY -163.589
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords 0 -0.299 12
+   }
+  }
+ }
+ MossHill {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-MapLocation_MossHill"
+    m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_MossHill-UC"
+   }
+  }
+  coords 2292.63 89.281 1222.084
+  angleX 2.712
+  angleY -66.471
+  angleZ -1.745
+ }
+ BeauregardBase {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_Arland_MapLocation_Beauregard"
+    m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_Beauregard-UC"
+   }
+  }
+  coords 3297.336 2.074 2858.643
+  angleY -30.211
+ }
+ ArlevilleBase {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_Arland_MapLocation_Arleville"
+    m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_Arleville-UC"
+   }
+  }
+  coords 2726.942 77.605 1679.177
+  angleY -42.398
+ }
+ AirportNorth {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_sBaseName "#AR-Campaign_Arland_MapLocation_Airport"
+    m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_Airport-UC"
+   }
+  }
+  coords 946.511 38.314 2893.981
+  angleX 0.724
+  angleY -126.038
+  angleZ -0.527
+ }
+ MilitarySouth {
+  components {
+   SCR_CampaignMilitaryBaseComponent "{5AFC974A70234D1C}" {
+    m_bIsControlPoint 1
+    m_bIsSupplyHub 1
+    m_sBaseName "#AR-Campaign_Arland_MapLocation_Military"
+    m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_Military-UC"
+   }
+  }
+  coords 1413.302 11.033 1856.01
+  {
+   GenericEntity {
+    ID "5CCED514A5908822"
+    coords -18.164 -1.334 18.05
+   }
+  }
+ }
+}
+GenericEntity Tower : "{522DCD528AE27052}prefabs/Systems/MilitaryBase/ConflictRelayRadio.et" {
+ components {
+  SCR_CampaignMilitaryBaseComponent "{5C727AD73024FB00}" {
+   m_sBaseName "#AR-Campaign_Arland_MapLocation_SignalHill"
+   m_sBaseNameUpper "#AR-Campaign_Arland_MapLocation_SignalHill-UC"
+  }
+ }
+ coords 2507.823 148.714 2267.079
+ angleY -58.408
+}

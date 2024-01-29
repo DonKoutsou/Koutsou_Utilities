@@ -140,9 +140,20 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                Name "Sequence"
                EditorPos -235.893 1225.41
                Nodes {
+                SCR_AISetActionOccupied "SCR_AI Set Action Occupied" {
+                 Name "SCR_AI Set Action Occupied"
+                 EditorPos -2610.583 1642.053
+                 InPorts {
+                  SingleInputPortContainer SingleInputPortContainer {
+                   Port 13
+                   PortName "TargetAction"
+                  }
+                 }
+                 m_bShouldUnoccupyOnAbort 1
+                }
                 SCR_AITakeGadgetInLeftHandCustom "SCR_AI Take Gadget In Left Hand Custom" {
                  Name "SCR_AI Take Gadget In Left Hand Custom"
-                 EditorPos -2497.679 1609.286
+                 EditorPos -2303.679 1637.286
                  OutPorts {
                   SingleOutputPortContainer SingleOutputPortContainer {
                    Port -1
@@ -153,22 +164,11 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
                 }
                 AITaskGetSmartActionParams "Get Smart Action Params" {
                  Name "Get Smart Action Params"
-                 EditorPos -2057.273 1616.386
+                 EditorPos -1863.273 1644.386
                  InSmartAction 13
                  OutBehavior -1
                  OutPos 23
                  OutSmartActionEntity 8
-                }
-                SCR_AISetActionOccupied "SCR_AI Set Action Occupied" {
-                 Name "SCR_AI Set Action Occupied"
-                 EditorPos -1756.583 1626.053
-                 InPorts {
-                  SingleInputPortContainer SingleInputPortContainer {
-                   Port 13
-                   PortName "TargetAction"
-                  }
-                 }
-                 m_bShouldUnoccupyOnAbort 1
                 }
                 SCR_AISendOrder_Stance "SCR_AI Send Order_ Stance" {
                  Name "SCR_AI Send Order_ Stance"
@@ -529,7 +529,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference FoundEntity {
    VariableType 8
-   EditorPos -1863.94 1953.303
+   EditorPos -1579.94 1965.303
   }
   VariableReference actionEntity {
    VariableType 0
@@ -549,7 +549,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference FoundComponent {
    VariableType 6
-   EditorPos -2477.417 1768.552
+   EditorPos -3199.417 1816.552
   }
   VariableReference wantedLookPosition {
    VariableType 2
@@ -589,7 +589,7 @@ BehaviorTree "{684D91360A81CF19}AI/BehaviorTrees/SmartActions/SA_LoiterPost.bt" 
   }
   VariableReference SAPos {
    VariableType 3
-   EditorPos -1767.394 1859.494
+   EditorPos -1483.394 1871.494
   }
   VariableReference Radius {
    VariableType 11

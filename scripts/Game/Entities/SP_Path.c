@@ -38,7 +38,7 @@ class Path
 			return;
 		foreach (LightPost post : m_posts)
 		{
-			post.(SpawnTaskMarkers(Assignee));
+			post.SpawnTaskMarkers(Assignee);
 		}
 	}
 	LightPost GetPost(int i)

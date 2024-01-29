@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{E9C2A031CBE5B401}Worlds/Custom_CTI_Arland/Custom_CTI_Arland.ent"
+ Configurations {
+  ENTResourceClass PC {
+  }
+  ENTResourceClass XBOX_ONE : PC {
+  }
+  ENTResourceClass XBOX_SERIES : PC {
+  }
+  ENTResourceClass PS4 : PC {
+  }
+  ENTResourceClass HEADLESS : PC {
+  }
+ }
+}

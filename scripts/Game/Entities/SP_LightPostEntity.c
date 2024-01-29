@@ -61,6 +61,7 @@ class LightPost: GameEntity
 		SCR_AutoSpawnLogic logic = SCR_AutoSpawnLogic.Cast(SCR_RespawnSystemComponent.GetInstance().GetSpawnLogic());
 		if (!logic.m_bAllowTaskMarkers)
 			return;
+
 		//Get task resource
 		Resource Marker = Resource.Load( "{304847F9EDB0EA1B}prefabs/Tasks/SP_BaseTask.et" );
 		//setup spawn params
@@ -82,6 +83,8 @@ class LightPost: GameEntity
 		int playerID = GetGame().GetPlayerManager().GetPlayerIdFromControlledEntity(Assignee);
 		SCR_BaseTaskExecutor assignee = SCR_BaseTaskExecutor.GetTaskExecutorByID(playerID);
 		m_TaskMarker.AddAssigneecustom(assignee, 0);
+		
+		
 	}
 	ref ScriptInvoker GetOnBuilt()
 	{
@@ -230,8 +233,6 @@ class LightPost: GameEntity
 		if (!man)
 			return;
 		man.RegisterPost(this);
-		
-		//GetGame().GetCallqueue().CallLater(SetVisible, 2000, false);
 	};
 	void RegisterPostToBase()
 	{
@@ -240,7 +241,9 @@ class LightPost: GameEntity
 		SCR_CampaignMilitaryBaseComponent base = baseman.GetNamedBase(SP_BaseNames.Get( m_BaseName ) );
 		
 		base.RegisterPost(this);
+
 	}
+
 	//Destructor
 	void ~LightPost()
 	{

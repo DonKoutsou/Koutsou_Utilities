@@ -157,7 +157,7 @@ class SP_LightPostManager : ScriptComponent
 		m_basefr = baseman.GetNamedBase(SP_BaseNames.Get( BaseFrom ));
 		if (!m_basefr)
 		{
-			Print(string.Format("PATH CREATION FAILED: creation of path from %1 was unsuccesfull. Reason : %1 doesent exist", SP_BaseNames.Get( BaseFrom )));
+			//Print(string.Format("PATH CREATION FAILED: creation of path from %1 was unsuccesfull. Reason : %1 doesent exist", SP_BaseNames.Get( BaseFrom )));
 			index1 += 1;
 			return;
 		}
@@ -165,7 +165,7 @@ class SP_LightPostManager : ScriptComponent
 		m_baseto = baseman.GetNamedBase(SP_BaseNames.Get( BaseTo ));
 		if (!m_baseto)
 		{
-			Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %2 doesent exist", SP_BaseNames.Get( BaseFrom ), SP_BaseNames.Get( BaseTo )));
+			//Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %2 doesent exist", SP_BaseNames.Get( BaseFrom ), SP_BaseNames.Get( BaseTo )));
 			index2 += 1;
 			return;
 		}
@@ -194,7 +194,7 @@ class SP_LightPostManager : ScriptComponent
 			cooldown = 10;
 			//pathnum ++;
 			Path pathtoprint2 = m_aPaths[pathnum];
-			Print(string.Format("Printing path from %1 to %2", SCR_StringHelper.Translate( pathtoprint2.m_bases[0] ), SCR_StringHelper.Translate( pathtoprint2.m_bases[1])));
+			//Print(string.Format("Printing path from %1 to %2", SCR_StringHelper.Translate( pathtoprint2.m_bases[0] ), SCR_StringHelper.Translate( pathtoprint2.m_bases[1])));
 		}
 	}
 	void TryToFinishPath()
@@ -250,7 +250,7 @@ class SP_LightPostManager : ScriptComponent
 						path.AddBase(SP_BaseNames.Get( nextpost.m_BaseName) );
 						path.m_posts.Copy(curpath.m_posts);
 						m_aPaths.InsertAt(path, m_aPaths.Count() - 1);
-						Print(string.Format("ACCIDENTAL PATH CREATION : A path from %1 to %2 was accidently created, added to list of paths.", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( SP_BaseNames.Get( nextpost.m_BaseName))));
+						//Print(string.Format("ACCIDENTAL PATH CREATION : A path from %1 to %2 was accidently created, added to list of paths.", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( SP_BaseNames.Get( nextpost.m_BaseName))));
 					}
 				}
 				if (basesondist)
@@ -263,7 +263,7 @@ class SP_LightPostManager : ScriptComponent
 				
 				if (!Decisions.IsEmpty())
 				{
-					Print(string.Format("PATH CREATION RESTARTING: creation of path from %1 to %2 was couldnt progress further.", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
+					//Print(string.Format("PATH CREATION RESTARTING: creation of path from %1 to %2 was couldnt progress further.", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
 					DecisionsBlacklist.Insert(Decisions[Decisions.Count() - 1]);
 					while (curpath.GetPost(curpath.Count() - 1) != Decisions[Decisions.Count() - 1])
 					{
@@ -276,14 +276,14 @@ class SP_LightPostManager : ScriptComponent
 				}
 				else
 				{
-					Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Path couldnt find its way to destination", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
+					//Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Path couldnt find its way to destination", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
 					ProgressToNextPath();
 					return;
 				}
 			}
 			if (curpath.Contains(PostTo))
 			{
-				Print(string.Format("PATH CREATION FINISHED: creation of path from %1 to %2 was succesfull.", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
+				//Print(string.Format("PATH CREATION FINISHED: creation of path from %1 to %2 was succesfull.", SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
 				ProgressToNextPath();
 			}
 	}
@@ -306,7 +306,7 @@ class SP_LightPostManager : ScriptComponent
 		{
 			if (m_aPaths[i].m_bases.Contains(basefr.GetBaseName()) && m_aPaths[i].m_bases.Contains(baseto.GetBaseName()))
 			{
-				Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : Path already exists", basefr.GetBaseName(), baseto.GetBaseName()));
+				//Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : Path already exists", basefr.GetBaseName(), baseto.GetBaseName()));
 				return;
 			}
 		}
@@ -318,13 +318,13 @@ class SP_LightPostManager : ScriptComponent
 		path.AddBase(baseto.GetBaseName());
 		if (!PostFrom)
 		{
-			Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %1 doesent have a post", basefr.GetBaseName(), baseto.GetBaseName()));
+			//Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %1 doesent have a post", basefr.GetBaseName(), baseto.GetBaseName()));
 			return;
 		}
 			
 		if (!PostTo)
 		{
-			Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %2 doesent have a post", basefr.GetBaseName(), baseto.GetBaseName()));
+			//Print(string.Format("PATH CREATION FAILED: creation of path from %1 to %2 was unsuccesfull. Reason : %2 doesent have a post", basefr.GetBaseName(), baseto.GetBaseName()));
 			return;
 		}
 		path.Insert(PostFrom);
@@ -332,7 +332,7 @@ class SP_LightPostManager : ScriptComponent
 		
 		m_aPaths.Insert(path);
 		creatingpath = true;
-		Print(string.Format("PATH CREATION STARTING: Starting to create path from %1 to %2",  SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
+		//Print(string.Format("PATH CREATION STARTING: Starting to create path from %1 to %2",  SCR_StringHelper.Translate( m_basefr.GetBaseName() ), SCR_StringHelper.Translate( m_baseto.GetBaseName())));
 	}
 	static bool AreBasesConnected(array <string> bases)
 	{
@@ -359,7 +359,27 @@ class SP_LightPostManager : ScriptComponent
 			if (PostToEnable.IsBuilt())
 				continue;
 			PostToEnable.SetVisible();
+			/*SCR_MapEntity m_MapEntity = SCR_MapEntity.GetMapInstance();
+	    if (!m_MapEntity)
+	        return;
+			
+	    MapItem m_MapItem = m_MapEntity.CreateCustomMapItem();
+	    m_MapItem.SetBaseType(0); //important and making modded enum for location type doesn't work
+	    m_MapItem.SetImageDef("{72862E1822F6AC0C}Assets/Icons/TempIcon.edds");
+	
+	    vector transform[4];
+	    PostToEnable.GetTransform(transform);
+	    m_MapItem.SetPos(transform[3][0], transform[3][2]);
+	
+	    MapDescriptorProps props = m_MapItem.GetProps();
+	    props.SetFrontColor(Color.Red);
+	    props.SetOutlineColor(Color.Black);
+	    props.SetIconSize(1, 1, 1);
+	    props.Activate(true);
+	
+	    m_MapItem.SetProps(props);*/
 			SCR_PathPointMapDescriptorComponent mapdesc = SCR_PathPointMapDescriptorComponent.Cast(PostToEnable.FindComponent(SCR_PathPointMapDescriptorComponent));
+			mapdesc.Item().SetImageDef("{72862E1822F6AC0C}Assets/Icons/TempIcon.edds");
 			mapdesc.Item().SetVisible(true);
 		}
 		return;

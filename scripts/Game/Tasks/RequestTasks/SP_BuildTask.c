@@ -2,8 +2,8 @@
 [BaseContainerProps(configRoot:true), TaskAttribute()]
 class SP_BuildLightPathTask: SP_Task
 {
-	[Attribute()]
-	ref array <string> m_aBasesToConnect;
+	[Attribute("0",UIWidgets.ComboBox, enums : ParamEnumArray.FromEnum(SP_BaseEn))]
+	ref array <SP_BaseEn> m_aBasesToConnect;
 	
 	ref Path m_path;
 	//------------------------------------------------------------------------------------------------------------//
@@ -14,7 +14,7 @@ class SP_BuildLightPathTask: SP_Task
 		GetInfo(OName, OLoc);
 		m_sTaskDesc = "Reopen the paths to neighbouring bases.";
 		m_sTaskDiag = string.Format("Set up light posts on the paths leading out of %1 base to %2.", m_aBasesToConnect[0], m_aBasesToConnect[1]);
-		m_sTaskTitle = string.Format("Reopen the paths leading out of %1 to %2.", m_aBasesToConnect[0], m_aBasesToConnect[1]);
+		m_sTaskTitle = string.Format("Reopen the paths leading out of %1 to %2.", SCR_StringHelper.Translate(SP_BaseNames.Get( m_aBasesToConnect[0] )),SCR_StringHelper.Translate(SP_BaseNames.Get( m_aBasesToConnect[1] )));
 		m_sTaskCompletiontext = "Thanks for meeting me %1.";
 		m_sacttext = "I'm here to meet you.";
 	};
@@ -22,7 +22,10 @@ class SP_BuildLightPathTask: SP_Task
 	//Ready to deliver means package is in assignee's inventory, we are talking to the target and that we are assigned to task
 	override bool ReadyToDeliver(IEntity TalkingChar, IEntity Assignee)
 	{
-		if (!SP_LightPostManager.AreBasesConnected(m_aBasesToConnect))
+		array <string> bases = {};
+		for (int i; i < m_aBasesToConnect.Count(); i++)
+			bases.Insert(SP_BaseNames.Get(m_aBasesToConnect[i]));
+		if (!SP_LightPostManager.AreBasesConnected(bases))
 		{
 			return false;
 		}
@@ -77,9 +80,9 @@ class SP_BuildLightPathTask: SP_Task
 				m_path.SpawnTaskMarkers(Character);
 			}
 			SCR_CampaignMilitaryBaseManager BaseMan = SCR_GameModeCampaign.Cast(GetGame().GetGameMode()).GetBaseManager();
-			foreach (string basename : m_aBasesToConnect)
+			foreach (int basename : m_aBasesToConnect)
 			{
-				BaseMan.SetBaseVisible(BaseMan.GetNamedBase(basename));
+				BaseMan.SetBaseVisible(BaseMan.GetNamedBase(SP_BaseNames.Get( basename )));
 			}
 			
 			return true;
@@ -135,7 +138,7 @@ class SP_BuildLightPathTask: SP_Task
 					bases.Insert(base.GetBaseName());
 					if (!SP_LightPostManager.AreBasesConnected(bases))
 					{
-						m_aBasesToConnect.Insert(Dbase.GetBaseName());
+						m_aBasesToConnect.Insert(SP_BaseNames.Convert( Dbase ));
 					}
 				}
 			}
